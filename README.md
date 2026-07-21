@@ -1,0 +1,1 @@
+# knit-compass-photo-capture
