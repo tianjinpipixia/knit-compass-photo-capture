@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Knit Compass">
   <title>Knit Compass — 独立実用版 v0.4</title>
-  <link rel="manifest" href="./manifest.webmanifest?v=0.4.0">
+  <link rel="manifest" href="./manifest.webmanifest?v=0.4.1">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./icon.svg">
   <style>
@@ -27,8 +27,11 @@
   (async()=>{
     const status=document.getElementById('status');
     try{
+      if('serviceWorker' in navigator){
+        navigator.serviceWorker.register('./sw.js?v=0.4.1').catch(()=>{});
+      }
       if(typeof DecompressionStream==='undefined') throw new Error('このブラウザは起動方式に対応していません。Chromeを最新版にしてください。');
-      const files=['./payload-01.b64?v=0.4.0','./payload-02.b64?v=0.4.0'];
+      const files=['./payload-01.b64?v=0.4.1','./payload-02.b64?v=0.4.1'];
       const parts=await Promise.all(files.map(async url=>{
         const response=await fetch(url,{cache:'no-store'});
         if(!response.ok) throw new Error(`起動データを取得できませんでした（${response.status}）`);
