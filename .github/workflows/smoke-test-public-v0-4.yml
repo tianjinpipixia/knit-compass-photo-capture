@@ -14,11 +14,9 @@ jobs:
   public-smoke:
     runs-on: ubuntu-latest
     steps:
-      - name: Verify deployed HTTPS app and exact master
+      - name: Verify direct deployed HTTPS app and exact master
         shell: python
         run: |
-          import base64
-          import gzip
           import hashlib
           import json
           import time
@@ -34,26 +32,24 @@ jobs:
                       raise RuntimeError(f'{path}: HTTP {response.status}')
                   return response.read()
 
-          last_error = None
           for attempt in range(1, 21):
               try:
                   index = get('').decode('utf-8')
-                  assert 'Knit Compass — 独立実用版 v0.4' in index
-                  assert 'manifest.webmanifest' in index
+                  assert 'app.html?v=0.4.2' in index
+                  assert 'DecompressionStream' not in index
                   manifest = json.loads(get('manifest.webmanifest').decode('utf-8'))
                   assert manifest['short_name'] == 'Knit Compass'
                   assert manifest['display'] == 'standalone'
-                  encoded = (get('payload-01.b64') + get('payload-02.b64')).decode('ascii').strip()
-                  html = gzip.decompress(base64.b64decode(encoded, validate=True))
-                  digest = hashlib.sha256(html).hexdigest()
-                  assert digest == expected, f'public payload SHA mismatch: {digest}'
-                  assert b"kc_independent_practical_v0_4" in html
-                  get('sw.js')
+                  app = get('app.html?v=0.4.2')
+                  digest = hashlib.sha256(app).hexdigest()
+                  assert digest == expected, f'public direct app SHA mismatch: {digest}'
+                  assert b"kc_independent_practical_v0_4" in app
+                  sw = get('sw.js?v=0.4.2').decode('utf-8')
+                  assert "'./app.html'" in sw
                   get('icon.svg')
-                  print(f'PASS: public HTTPS app, {len(html)} bytes, SHA-256 {digest}')
+                  print(f'PASS: direct public HTTPS app, {len(app)} bytes, SHA-256 {digest}')
                   break
               except Exception as error:
-                  last_error = error
                   print(f'Attempt {attempt}/20 failed: {error}')
                   if attempt == 20:
                       raise
