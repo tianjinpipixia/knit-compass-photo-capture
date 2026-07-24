@@ -1,0 +1,43 @@
+name: Build plain Android shortcut page
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/build-daily-shortcut.yml'
+      - 'brand-intelligence/app.html'
+      - 'daily/icon.svg'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Create direct page outside old PWA scope
+        shell: python
+        run: |
+          from pathlib import Path
+          source = Path('brand-intelligence/app.html').read_text(encoding='utf-8')
+          source = source.replace(
+              '<title>Knit Compass — 独立実用版 v0.4</title>',
+              '<title>Knit Compass — 独立実用版 v0.4</title>\n  <meta name="theme-color" content="#163f3c">\n  <link rel="icon" href="./icon.svg" type="image/svg+xml">',
+              1,
+          )
+          Path('daily').mkdir(exist_ok=True)
+          Path('daily/index.html').write_text(source, encoding='utf-8')
+      - name: Commit generated direct page
+        shell: bash
+        run: |
+          if [ -z "$(git status --porcelain -- daily/index.html)" ]; then
+            echo 'daily/index.html is already current.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add daily/index.html
+          git commit -m 'Add plain Android shortcut entry'
+          git push origin HEAD:${{ github.head_ref }}
