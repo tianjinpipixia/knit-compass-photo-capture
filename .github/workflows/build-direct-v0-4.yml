@@ -1,0 +1,52 @@
+name: Build direct independent v0.4 HTML
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/build-direct-v0-4.yml'
+      - 'brand-intelligence/payload-*.b64'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Reconstruct exact HTML master as direct file
+        shell: python
+        run: |
+          import base64
+          import gzip
+          import hashlib
+          from pathlib import Path
+
+          root = Path('brand-intelligence')
+          encoded = ''.join(
+              (root / name).read_text(encoding='utf-8').strip()
+              for name in ('payload-01.b64', 'payload-02.b64')
+          )
+          html = gzip.decompress(base64.b64decode(encoded, validate=True))
+          digest = hashlib.sha256(html).hexdigest()
+          expected = 'd3b8c3353e63bde4189b1e975542be87683bc17361d21e91b1875fbc7358b38f'
+          if digest != expected:
+              raise SystemExit(f'SHA-256 mismatch: {digest}')
+          (root / 'app.html').write_bytes(html)
+          print(f'PASS: wrote {len(html)} bytes, SHA-256 {digest}')
+      - name: Commit direct HTML file
+        shell: bash
+        run: |
+          if git diff --quiet -- brand-intelligence/app.html; then
+            echo 'Direct app.html already current.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add brand-intelligence/app.html
+          git commit -m 'Add direct exact v0.4 HTML master'
+          git push origin HEAD:main
