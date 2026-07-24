@@ -3,7 +3,7 @@ name: Build direct independent v0.4 HTML
 on:
   push:
     branches:
-      - fix/direct-v0-4-launch-20260724
+      - main
     paths:
       - '.github/workflows/build-direct-v0-4.yml'
       - 'brand-intelligence/payload-*.b64'
@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: fix/direct-v0-4-launch-20260724
+          ref: main
       - name: Reconstruct exact HTML master as direct file
         shell: python
         run: |
@@ -49,4 +49,4 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add brand-intelligence/app.html
           git commit -m 'Add direct exact v0.4 HTML master'
-          git push origin HEAD:fix/direct-v0-4-launch-20260724
+          git push origin HEAD:main
