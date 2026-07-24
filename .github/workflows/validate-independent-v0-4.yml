@@ -15,24 +15,56 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Reconstruct and validate received HTML master
+      - name: Reconstruct received HTML master
+        id: validate
+        continue-on-error: true
         shell: python
         run: |
           import base64
           import gzip
           import hashlib
+          import traceback
           from pathlib import Path
 
-          root = Path('brand-intelligence')
-          encoded = ''.join(
-              (root / name).read_text(encoding='utf-8').strip()
-              for name in ('payload-01.b64', 'payload-02.b64')
-          )
-          html = gzip.decompress(base64.b64decode(encoded, validate=True))
-          digest = hashlib.sha256(html).hexdigest()
-          expected = 'd3b8c3353e63bde4189b1e975542be87683bc17361d21e91b1875fbc7358b38f'
-          assert digest == expected, f'SHA-256 mismatch: {digest}'
-          text = html.decode('utf-8')
-          assert '<title>Knit Compass — 独立実用版 v0.4</title>' in text
-          assert "const STORAGE_KEY='kc_independent_practical_v0_4';" in text
-          print(f'PASS: {len(html)} bytes, SHA-256 {digest}')
+          result = Path('validation-result.txt')
+          try:
+              root = Path('brand-intelligence')
+              part1 = (root / 'payload-01.b64').read_text(encoding='utf-8').strip()
+              part2 = (root / 'payload-02.b64').read_text(encoding='utf-8').strip()
+              encoded = part1 + part2
+              raw = base64.b64decode(encoded, validate=True)
+              html = gzip.decompress(raw)
+              digest = hashlib.sha256(html).hexdigest()
+              expected = 'd3b8c3353e63bde4189b1e975542be87683bc17361d21e91b1875fbc7358b38f'
+              status = 'PASS' if digest == expected else 'FAIL'
+              result.write_text(
+                  f'status={status}\npart1_chars={len(part1)}\npart2_chars={len(part2)}\n'
+                  f'encoded_chars={len(encoded)}\ngzip_bytes={len(raw)}\nhtml_bytes={len(html)}\n'
+                  f'actual_sha256={digest}\nexpected_sha256={expected}\n',
+                  encoding='utf-8'
+              )
+              if digest != expected:
+                  raise AssertionError(f'SHA-256 mismatch: {digest}')
+              text = html.decode('utf-8')
+              assert '<title>Knit Compass — 独立実用版 v0.4</title>' in text
+              assert "const STORAGE_KEY='kc_independent_practical_v0_4';" in text
+              print(result.read_text(encoding='utf-8'))
+          except Exception as error:
+              result.write_text(
+                  result.read_text(encoding='utf-8') if result.exists() else '',
+                  encoding='utf-8'
+              )
+              with result.open('a', encoding='utf-8') as handle:
+                  handle.write(f'exception_type={type(error).__name__}\nexception={error}\n')
+                  handle.write(traceback.format_exc())
+              print(result.read_text(encoding='utf-8'))
+              raise
+      - name: Upload validation diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: independent-v0-4-validation
+          path: validation-result.txt
+      - name: Enforce validation result
+        if: steps.validate.outcome != 'success'
+        run: exit 1
