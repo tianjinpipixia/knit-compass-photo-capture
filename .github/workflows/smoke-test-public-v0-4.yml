@@ -1,0 +1,60 @@
+name: Smoke test public independent v0.4
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/smoke-test-public-v0-4.yml'
+      - 'brand-intelligence/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify deployed HTTPS app and exact master
+        shell: python
+        run: |
+          import base64
+          import gzip
+          import hashlib
+          import json
+          import time
+          import urllib.request
+
+          base = 'https://tianjinpipixia.github.io/knit-compass-photo-capture/brand-intelligence/'
+          expected = 'd3b8c3353e63bde4189b1e975542be87683bc17361d21e91b1875fbc7358b38f'
+
+          def get(path):
+              request = urllib.request.Request(base + path, headers={'User-Agent':'Knit-Compass-Smoke-Test/1.0'})
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  if response.status != 200:
+                      raise RuntimeError(f'{path}: HTTP {response.status}')
+                  return response.read()
+
+          last_error = None
+          for attempt in range(1, 21):
+              try:
+                  index = get('').decode('utf-8')
+                  assert 'Knit Compass — 独立実用版 v0.4' in index
+                  assert 'manifest.webmanifest' in index
+                  manifest = json.loads(get('manifest.webmanifest').decode('utf-8'))
+                  assert manifest['short_name'] == 'Knit Compass'
+                  assert manifest['display'] == 'standalone'
+                  encoded = (get('payload-01.b64') + get('payload-02.b64')).decode('ascii').strip()
+                  html = gzip.decompress(base64.b64decode(encoded, validate=True))
+                  digest = hashlib.sha256(html).hexdigest()
+                  assert digest == expected, f'public payload SHA mismatch: {digest}'
+                  assert b"kc_independent_practical_v0_4" in html
+                  get('sw.js')
+                  get('icon.svg')
+                  print(f'PASS: public HTTPS app, {len(html)} bytes, SHA-256 {digest}')
+                  break
+              except Exception as error:
+                  last_error = error
+                  print(f'Attempt {attempt}/20 failed: {error}')
+                  if attempt == 20:
+                      raise
+                  time.sleep(15)
