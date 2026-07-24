@@ -1,0 +1,38 @@
+name: Validate independent v0.4 payload
+
+on:
+  pull_request:
+    paths:
+      - 'brand-intelligence/**'
+      - '.github/workflows/validate-independent-v0-4.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reconstruct and validate received HTML master
+        shell: python
+        run: |
+          import base64
+          import gzip
+          import hashlib
+          from pathlib import Path
+
+          root = Path('brand-intelligence')
+          encoded = ''.join(
+              (root / name).read_text(encoding='utf-8').strip()
+              for name in ('payload-01.b64', 'payload-02.b64')
+          )
+          html = gzip.decompress(base64.b64decode(encoded, validate=True))
+          digest = hashlib.sha256(html).hexdigest()
+          expected = 'd3b8c3353e63bde4189b1e975542be87683bc17361d21e91b1875fbc7358b38f'
+          assert digest == expected, f'SHA-256 mismatch: {digest}'
+          text = html.decode('utf-8')
+          assert '<title>Knit Compass — 独立実用版 v0.4</title>' in text
+          assert "const STORAGE_KEY='kc_independent_practical_v0_4';" in text
+          print(f'PASS: {len(html)} bytes, SHA-256 {digest}')
