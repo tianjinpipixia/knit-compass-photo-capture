@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta http-equiv="Cache-Control" content="no-store">
+  <title>Knit Compass — 独立実用版 v0.4</title>
+  <style>
+    :root{
+      --ink:#172826;--muted:#5d6d69;--paper:#f2f5f3;--card:#fff;--teal:#163f3c;
+      --teal2:#235c56;--mint:#dce9e4;--lime:#b8d1c5;--line:#d6dfdb;--soft:#eef3f1;
+      --amber:#9a6a20;--amber-bg:#fff5df;--red:#8a342e;--red-bg:#fff0ed;--green:#2f6a37;
+      --green-bg:#e9f5e7;--blue:#315d86;--blue-bg:#eaf3fb;--shadow:0 8px 28px rgba(23,40,38,.07);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5;overflow-x:hidden}
+    button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:var(--teal2)}
+    .top-banner{position:sticky;top:0;z-index:80;background:var(--ink);color:#fff;padding:8px 14px;text-align:center;font-size:10px;font-weight:900;letter-spacing:.08em}
+    .shell{width:min(1240px,calc(100% - 30px));margin:0 auto}.topbar{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .wordmark{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit}.logo-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:var(--teal);color:#fff;font-weight:950;box-shadow:var(--shadow)}
+    .wordmark strong{display:block;font-size:17px}.wordmark span{display:block;color:var(--muted);font-size:10px}
+    .nav{display:flex;align-items:center;gap:5px;overflow:auto;max-width:70vw}.nav button{border:0;background:transparent;color:var(--muted);padding:9px 11px;border-radius:999px;font-size:11px;font-weight:900;white-space:nowrap}.nav button.active,.nav button:hover{background:var(--teal);color:#fff}
+    .page{display:none;padding-bottom:32px}.page.active{display:block}.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:22px;align-items:center;background:linear-gradient(135deg,var(--teal),#235750);color:#fff;border-radius:20px;padding:25px 28px;box-shadow:var(--shadow)}
+    .hero h1{margin:5px 0 9px;font-size:clamp(28px,5vw,44px);line-height:1.07;letter-spacing:-.045em}.hero p{margin:0;color:#e1ece8;max-width:790px}.eyebrow{font-size:10px;font-weight:950;letter-spacing:.15em;text-transform:uppercase;color:var(--lime)}
+    .hero-side{display:grid;gap:8px;min-width:220px}.hero-date{border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:13px;background:rgba(255,255,255,.06)}.hero-date strong{display:block;font-size:20px}.hero-date span{font-size:10px;color:#dce9e4}
+    .grid{display:grid;gap:14px}.stats{grid-template-columns:repeat(6,minmax(0,1fr));margin:16px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:17px;box-shadow:none}.stat span{display:block;color:var(--muted);font-size:10px;font-weight:900}.stat strong{display:block;font-size:28px;letter-spacing:-.04em;margin-top:3px}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:22px 0 10px}.section-head h2,.section-head h1{margin:0;font-size:21px;letter-spacing:-.035em}.section-head p{margin:3px 0 0;color:var(--muted);font-size:11px}.section-actions{display:flex;gap:7px;flex-wrap:wrap}
+    .btn{min-height:42px;border-radius:10px;border:1px solid var(--teal);background:var(--teal);color:#fff;padding:9px 14px;font-size:11px;font-weight:900}.btn:hover{filter:brightness(1.04)}.btn.secondary{background:#fff;color:var(--teal);border-color:#aabcb5}.btn.ghost{background:transparent;color:var(--teal);border-color:transparent}.btn.danger{background:#fff;color:var(--red);border-color:#d9b2aa}.btn.amber{background:var(--amber);border-color:var(--amber)}.btn.small{min-height:34px;padding:6px 10px;font-size:10px}.btn.wide{width:100%}
+    .brand-grid{grid-template-columns:repeat(5,minmax(0,1fr))}.brand-card{display:grid;gap:11px;min-height:170px}.brand-card.checked{border-color:#9fc2aa;background:#f8fcf8}.brand-card h3{margin:0;font-size:14px}.brand-meta{display:grid;grid-template-columns:1fr 1fr;gap:7px}.brand-meta div{background:var(--soft);border-radius:10px;padding:8px}.brand-meta span{display:block;color:var(--muted);font-size:9px;font-weight:850}.brand-meta strong{font-size:17px}.brand-check{display:flex;align-items:center;gap:7px;font-size:10px;color:var(--muted)}.dot{width:9px;height:9px;border-radius:50%;background:#c7d1cd}.dot.ok{background:#4d9859}
+    .definition{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}.definition article{border-left:4px solid var(--teal);background:#f8fbfa;border-radius:0 13px 13px 0;padding:13px 15px}.definition article:last-child{border-left-color:var(--amber);background:#fffaf0}.definition strong{display:block;font-size:12px}.definition span{font-size:10px;color:var(--muted)}
+    .product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.product-card{display:grid;grid-template-rows:auto 1fr auto;gap:12px;padding:0;overflow:hidden}.product-image{aspect-ratio:4/3;background:linear-gradient(135deg,#e5ece9,#f7f9f8);display:grid;place-items:center;color:#7a8985;font-size:11px;overflow:hidden}.product-image img{width:100%;height:100%;object-fit:cover}.product-body{padding:0 15px}.product-body h3{margin:4px 0 6px;font-size:15px;line-height:1.35}.product-body p{margin:0;color:var(--muted);font-size:10px}.product-footer{padding:0 15px 15px}.product-tags{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0}.tag,.status{display:inline-flex;align-items:center;border-radius:999px;padding:4px 8px;font-size:9px;font-weight:900}.tag{background:#edf4ef;color:#31594c;border:1px solid #cfddd4}.tag.source-confirmed{background:var(--green-bg);color:var(--green)}.tag.source-candidate{background:var(--amber-bg);color:var(--amber)}
+    .status.NEW_PRODUCT{background:var(--blue-bg);color:var(--blue)}.status.STORE_VISIT_PLANNED{background:#eeeafb;color:#5e4e8c}.status.STORE_CONFIRMED{background:#e9f4fb;color:#236483}.status.PRODUCT_RESEARCH{background:#fff5df;color:#845d19}.status.YARN_SEARCHING{background:#edf3ff;color:#3c5f95}.status.EXISTING_YARN_FOUND{background:var(--green-bg);color:var(--green)}.status.NO_YARN{background:var(--red-bg);color:var(--red)}.status.DEVELOPMENT{background:#f4eaf8;color:#77458b}.status.SAMPLE_REVIEW{background:#f8efe0;color:#815e2c}.status.PROPOSAL_READY{background:#e4f3ed;color:#23664e}.status.PROPOSED{background:#dcebe6;color:#173e35}
+    .release.NEW{background:#e8f4ff;color:#315d86}.release.RESERVATION{background:#f2eaff;color:#675086}.release.ON_SALE{background:#eaf5e7;color:#2f6a37}.release.SOLD_OUT{background:#f4eeee;color:#765454}.release.UNKNOWN{background:#eee;color:#666}
+    .record-list{display:grid;gap:9px}.record{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px}.record h3{margin:0;font-size:14px}.record p{margin:4px 0 0;color:var(--muted);font-size:10px}.record-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+    .flow{display:grid;grid-template-columns:repeat(6,minmax(130px,1fr));gap:9px;overflow:auto;padding-bottom:4px}.flow-step{min-width:130px;background:#fff;border:1px solid var(--line);border-radius:13px;padding:11px}.flow-step span{display:block;color:var(--muted);font-size:9px;font-weight:900}.flow-step strong{display:block;font-size:12px;margin-top:3px}.flow-step.active{background:var(--teal);color:#fff}.flow-step.active span{color:#d8e5e0}
+    .workflow-board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.workflow-column{background:#edf2ef;border:1px solid var(--line);border-radius:15px;padding:11px;min-height:140px}.workflow-column h3{margin:0 0 9px;font-size:12px}.mini-product{background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px;margin-bottom:8px}.mini-product strong{display:block;font-size:12px}.mini-product span{font-size:9px;color:var(--muted)}
+    .toolbar{display:grid;grid-template-columns:minmax(220px,1fr) 180px 180px auto;gap:9px;margin:14px 0}.field{display:grid;gap:6px}.field label{font-size:10px;font-weight:900;color:var(--muted);letter-spacing:.035em}.field input,.field select,.field textarea{width:100%;border:1px solid #c5d1cc;border-radius:10px;background:#fff;padding:10px 11px;color:var(--ink)}.field textarea{min-height:92px;resize:vertical}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.form-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.wide{grid-column:1/-1}.span2{grid-column:span 2}.panel-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:14px}.hint{background:var(--soft);border-radius:12px;padding:13px;font-size:10px;color:var(--muted)}.hint strong{color:var(--teal)}
+    .image-preview{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:center}.image-preview-box{width:120px;aspect-ratio:4/3;border:1px dashed #a8bbb3;border-radius:12px;display:grid;place-items:center;overflow:hidden;background:#f8faf9;color:var(--muted);font-size:9px}.image-preview-box img{width:100%;height:100%;object-fit:cover}.file-input{display:none}
+    .empty{text-align:center;padding:34px 16px;color:var(--muted);border:1px dashed #b9c8c2;border-radius:14px;background:#fff}.message{min-height:22px;font-size:11px;margin-top:9px}.message.ok{color:var(--green)}.message.error{color:var(--red)}
+    .development-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.development-card h3{margin:0}.development-card p{font-size:10px;color:var(--muted)}.progress-bar{height:8px;background:#e5ece9;border-radius:999px;overflow:hidden}.progress-bar span{display:block;height:100%;background:var(--teal)}
+    .data-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.danger-zone{border-color:#e4bdb5;background:#fff8f6}.server-note{border-left:4px solid var(--teal);background:#edf6f1;border-radius:0 12px 12px 0;padding:13px 15px;font-size:11px;color:#31594c}
+    .today-task-list{display:grid;gap:9px}.today-task{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:11px;align-items:center;border:1px solid var(--line);background:#fff;border-radius:13px;padding:11px 13px}.today-task.overdue{border-color:#dbaea6;background:#fff8f6}.today-task.today{border-color:#dfc078;background:#fffaf0}.today-task .task-icon{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:var(--soft);font-weight:950}.today-task h3{margin:0;font-size:12px}.today-task p{margin:2px 0 0;font-size:9px;color:var(--muted)}.priority-pill{display:inline-flex;align-items:center;border-radius:999px;padding:4px 8px;font-size:9px;font-weight:950}.priority-pill.A{background:#fff0ed;color:var(--red)}.priority-pill.B{background:#fff5df;color:var(--amber)}.priority-pill.C{background:var(--soft);color:var(--muted)}
+    .sync-panel{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.8fr);gap:14px}.sync-form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.sync-form .wide{grid-column:1/-1}.sync-status{display:grid;gap:8px}.sync-status .record{padding:10px 12px}.sync-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#b8c4bf;margin-right:6px}.sync-dot.ok{background:#4f9c61}.sync-dot.error{background:#b94b3f}.sync-dot.pending{background:#d19b32}.server-warning{border-left:4px solid var(--amber);background:#fff8e8;border-radius:0 12px 12px 0;padding:11px 13px;font-size:10px;color:#6f531d}.brief-card{border-left:4px solid var(--blue);background:var(--blue-bg)}
+    .modal{position:fixed;inset:0;background:rgba(10,24,22,.58);display:none;place-items:center;padding:16px;z-index:100}.modal.open{display:grid}.modal-card{width:min(880px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:18px;padding:21px;box-shadow:var(--shadow)}.modal-head{display:flex;justify-content:space-between;gap:12px;align-items:start}.modal-head h2{margin:0}.detail-list{display:grid;grid-template-columns:170px minmax(0,1fr);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:14px}.detail-list dt,.detail-list dd{margin:0;padding:9px 11px;border-bottom:1px solid var(--line);font-size:10px;overflow-wrap:anywhere}.detail-list dt{background:var(--soft);font-weight:900}.detail-list dd{background:#fff}.detail-list dt:last-of-type,.detail-list dd:last-of-type{border-bottom:0}.footer{padding:30px 0 44px;color:var(--muted);font-size:9px}
+    @media(max-width:980px){.sync-panel{grid-template-columns:1fr}.sync-form{grid-template-columns:1fr}.today-task{grid-template-columns:auto minmax(0,1fr)}.today-task .record-actions{grid-column:1/-1;justify-content:flex-end}.brand-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.workflow-board{grid-template-columns:repeat(2,minmax(0,1fr))}.data-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:760px){.topbar{display:block;padding:12px 0}.nav{margin-top:10px;max-width:100%}.hero{grid-template-columns:1fr}.hero-side{min-width:0}.definition,.panel-grid,.form-grid.three{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.toolbar .search-wide{grid-column:1/-1}.form-grid .span2{grid-column:auto}}
+    @media(max-width:580px){.shell{width:min(100% - 20px,1240px)}.stats,.brand-grid,.product-grid,.workflow-board,.development-grid,.data-grid,.form-grid,.toolbar{grid-template-columns:1fr}.wide,.toolbar .search-wide{grid-column:auto}.record{grid-template-columns:1fr}.record-actions{justify-content:flex-start}.detail-list{grid-template-columns:1fr}.detail-list dt{border-bottom:0}.hero{padding:20px}.section-head{display:block}.section-actions{margin-top:9px}.nav button,.btn{min-height:44px}.image-preview{grid-template-columns:1fr}.image-preview-box{width:100%;max-width:260px}.top-banner{font-size:9px}}
+
+    .source-link{display:inline-flex;align-items:center;justify-content:center;text-decoration:none}.review-count{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:26px;border-radius:999px;background:var(--amber-bg);color:var(--amber);font-weight:950}.log-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}.sync-ready{display:inline-flex;align-items:center;gap:7px;border:1px solid #a7c1b7;background:#f5fbf8;color:var(--teal);border-radius:999px;padding:7px 10px;font-size:10px;font-weight:900}.sync-ready:before{content:"";width:8px;height:8px;border-radius:50%;background:#4f9c61}.audit-list{max-height:360px;overflow:auto}.audit-list .record{padding:10px 12px}.brand-source-note{font-size:9px;color:var(--muted);overflow-wrap:anywhere}.modal-card.compact{width:min(620px,calc(100% - 20px))}
+  </style>
+</head>
+<body>
+  <div class="top-banner">KNIT COMPASS 独立実用版 v0.4 — ブランド新商品を毎日の入口にする Daily Brand Intelligence Pilot</div>
+  <div class="shell">
+    <header class="topbar">
+      <a class="wordmark" href="#" data-go="brand-home"><span class="logo-mark">KC</span><span><strong>Knit Compass</strong><span>独立実用版 v0.4 / Brand → Store → Yarn → Development</span></span></a>
+      <nav class="nav" aria-label="主要メニュー">
+        <button data-page="brand-home" class="active">ブランド情報</button>
+        <button data-page="workflow">店舗・商品研究</button>
+        <button data-page="yarn-search">糸検索</button>
+        <button data-page="development">開発案件</button>
+        <button data-page="data">データ管理</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page active" id="page-brand-home">
+        <div class="hero">
+          <div><div class="eyebrow">毎日のスタート画面</div><h1>本日のブランド新商品</h1><p>新商品を発見し、店舗で現物を確認し、既存糸を探し、なければ開発する。Knit Compassはこの一連の流れを同じ商品レコードでつなぎます。</p></div>
+          <div class="hero-side"><div class="hero-date"><strong id="todayLabel">—</strong><span>ブランド情報確認日</span></div><button class="btn" id="newProductHero">新商品を登録</button></div>
+        </div>
+
+        <div class="definition">
+          <article><strong>ブランド情報</strong><span>各ブランドのNEW・新着・予約開始など、新商品情報の収集。</span></article>
+          <article><strong>商品研究</strong><span>店舗確認後の編地、糸、風合い、品質表示、使用糸候補の深掘り。ブランド情報とは別工程。</span></article>
+        </div>
+
+        <div class="grid stats">
+          <div class="card stat"><span>今日登録した新商品</span><strong id="statTodayProducts">0</strong></div>
+          <div class="card stat"><span>予約開始</span><strong id="statReservation">0</strong></div>
+          <div class="card stat"><span>店舗確認待ち</span><strong id="statStoreVisit">0</strong></div>
+          <div class="card stat"><span>糸検索待ち</span><strong id="statYarnSearch">0</strong></div>
+          <div class="card stat"><span>開発案件</span><strong id="statDevelopment">0</strong></div>
+          <div class="card stat"><span>公式確認待ち</span><strong id="statSourceReview">0</strong></div>
+        </div>
+
+        <div class="section-head"><div><h2>今日の作業</h2><p>ブランド確認、店舗確認、糸検索、開発案件を期限と優先度で並べます。</p></div><div class="section-actions"><span id="todayTaskCount" class="review-count">0</span></div></div>
+        <div class="today-task-list" id="todayTaskList"></div>
+
+        <div class="section-head"><div><h2>優先ブランドの日次確認</h2><p>公式サイトを確認したら「本日確認済み」を押します。</p></div><div class="section-actions"><span id="dailyProgressText" class="tag">0 / 5 確認</span></div></div>
+        <div class="grid brand-grid" id="priorityBrandGrid"></div>
+
+        <div class="section-head"><div><h2>公式確認待ち</h2><p>候補登録のままになっている商品を、公式ページで確認して確定します。</p></div><div class="section-actions"><span class="review-count" id="sourceReviewCount">0</span></div></div>
+        <div class="record-list" id="sourceReviewList"></div>
+
+        <div class="section-head"><div><h2>本日のブランド確認ログ</h2><p>公式NEW・予約開始を確認した記録です。</p></div></div>
+        <div class="record-list" id="dailyCollectionLog"></div>
+
+        <div class="section-head"><div><h2>本日の新商品</h2><p>今日登録された商品を表示します。商品カードから店舗確認・商品研究へ進めます。</p></div><div class="section-actions"><button class="btn secondary" id="showRecentProducts">最近7日も表示</button><button class="btn" id="newProductButton">新商品を登録</button></div></div>
+        <div class="grid product-grid" id="todayProductGrid"></div>
+
+        <div class="section-head"><div><h2>次に動く案件</h2><p>店舗確認、糸検索、開発の次のアクションを一覧化します。</p></div></div>
+        <div class="record-list" id="nextActionList"></div>
+      </section>
+
+      <section class="page" id="page-workflow">
+        <div class="section-head"><div><h1>店舗確認・商品研究フロー</h1><p>ブランド情報と商品研究を分けながら、同じ商品IDで進捗をつなぎます。</p></div><div class="section-actions"><button class="btn" id="workflowNewProduct">新商品を登録</button></div></div>
+        <div class="flow" id="workflowFlow"></div>
+        <div class="toolbar">
+          <div class="field search-wide"><label for="productSearch">商品検索</label><input id="productSearch" type="search" placeholder="ブランド、商品名、品番、素材混率、メモ"></div>
+          <div class="field"><label for="workflowFilter">進捗</label><select id="workflowFilter"><option value="">すべて</option></select></div>
+          <div class="field"><label for="brandFilter">ブランド</label><select id="brandFilter"><option value="">すべて</option></select></div>
+          <div class="field"><label>&nbsp;</label><button class="btn secondary" id="clearProductSearch">条件クリア</button></div>
+        </div>
+        <div class="grid workflow-board" id="workflowBoard"></div>
+      </section>
+
+      <section class="page" id="page-yarn-search">
+        <div class="section-head"><div><h1>既存糸検索</h1><p>商品研究の条件から、Supplier、糸名、番手、混率、構造、ゲージ、機能を横断検索します。</p></div><div class="section-actions"><button class="btn" id="newYarnButton">糸を登録</button></div></div>
+        <div class="panel-grid">
+          <section class="card">
+            <div class="toolbar" style="grid-template-columns:minmax(220px,1fr) 160px 160px auto">
+              <div class="field search-wide"><label for="yarnQuery">検索語</label><input id="yarnQuery" type="search" placeholder="例：Naia 2/48 14G 接触冷感"></div>
+              <div class="field"><label for="yarnGaugeFilter">Gauge</label><select id="yarnGaugeFilter"><option value="">すべて</option><option>3G</option><option>5G</option><option>7G</option><option>12G</option><option>14G</option><option>16G</option><option>18G</option></select></div>
+              <div class="field"><label for="yarnStatusFilter">状態</label><select id="yarnStatusFilter"><option value="">すべて</option><option>DRAFT</option><option>REVIEW</option><option>PUBLISHED</option></select></div>
+              <div class="field"><label>&nbsp;</label><button class="btn secondary" id="clearYarnSearch">条件クリア</button></div>
+            </div>
+            <div class="record-list" id="yarnResultList"></div>
+          </section>
+          <aside class="card">
+            <h2 style="margin-top:0">商品条件から検索</h2>
+            <div class="field"><label for="searchFromProduct">対象商品</label><select id="searchFromProduct"><option value="">商品を選択</option></select></div>
+            <div class="hint" style="margin-top:10px"><strong>検索語へ自動反映</strong><br>商品研究で入力した混率、ゲージ、編み組織、風合い・機能を検索条件へ引き継ぎます。</div>
+            <div class="btn-row" style="margin-top:12px"><button class="btn wide" id="applyProductToYarnSearch">商品条件を検索へ反映</button></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="page" id="page-development">
+        <div class="section-head"><div><h1>新規素材開発案件</h1><p>既存糸が見つからない商品から、目標仕様を引き継いで開発案件を作成します。</p></div><div class="section-actions"><button class="btn" id="newDevelopmentButton">開発案件を作成</button></div></div>
+        <div class="grid development-grid" id="developmentGrid"></div>
+      </section>
+
+      <section class="page" id="page-data">
+        <div class="section-head"><div><h1>データ管理</h1><p>ローカル保存を基本に、指定HTTPSサーバーとの手動同期を検証します。同期前はJSONバックアップを保管してください。</p></div></div>
+        <div class="server-note"><strong>サーバー同期パイロット</strong><br>v0.4はローカル保存を維持したまま、指定されたHTTPSサーバーへ手動でプッシュ／プルできます。初回は必ずJSONバックアップを作成してください。</div>
+        <section class="sync-panel" style="margin-top:14px">
+          <article class="card">
+            <div class="section-head" style="margin:0 0 10px"><div><h2>接続設定</h2><p>サーバーURL、Workspace ID、Owner tokenをこの端末だけに保存します。</p></div></div>
+            <form id="serverConfigForm" class="sync-form">
+              <div class="field wide"><label for="serverApiBase">API Base URL</label><input id="serverApiBase" type="url" placeholder="https://knitcompass.example.com"></div>
+              <div class="field"><label for="serverWorkspaceId">Workspace ID</label><input id="serverWorkspaceId" value="personal-owner"></div>
+              <div class="field"><label for="serverToken">Owner token</label><input id="serverToken" type="password" autocomplete="off" placeholder="サーバー発行トークン"></div>
+              <div class="wide btn-row"><button class="btn secondary" type="submit">設定を保存</button><button class="btn secondary" type="button" id="testServerConnection">接続テスト</button><button class="btn" type="button" id="pushServerData">サーバーへ送る</button><button class="btn amber" type="button" id="pullServerData">サーバーから取得</button></div>
+            </form>
+            <div class="server-warning" style="margin-top:12px">Owner tokenはJSON・CSV・Geminiレビュー依頼書には出力しません。サーバー同期はPilot用の手動操作です。</div>
+          </article>
+          <aside class="card"><h2 style="margin-top:0">同期状態</h2><div id="syncStatusList" class="sync-status"></div><div id="syncMessage" class="message"></div></aside>
+        </section>
+        <div class="grid data-grid" style="margin-top:14px">
+          <article class="card"><h2>JSONバックアップ</h2><p style="font-size:10px;color:var(--muted)">商品画像を含む全データを書き出します。</p><button class="btn wide" id="exportJson">書き出す</button></article>
+          <article class="card"><h2>JSON復元</h2><p style="font-size:10px;color:var(--muted)">別端末で作成したバックアップを取り込みます。</p><button class="btn secondary wide" id="importJsonButton">読み込む</button><input class="file-input" id="importJsonFile" type="file" accept="application/json,.json"></article>
+          <article class="card"><h2>CSV出力</h2><p style="font-size:10px;color:var(--muted)">商品・糸・開発案件を別々のCSVで出力します。</p><button class="btn secondary wide" id="exportCsv">3種類を書き出す</button></article>
+          <article class="card"><h2>Gemini確認用</h2><p style="font-size:10px;color:var(--muted)">画面確認後に、評価依頼文とチェック項目を作成します。</p><button class="btn secondary wide" id="exportGeminiBrief">レビュー依頼書を出力</button></article>
+          <article class="card"><h2>サーバー移行データ</h2><p style="font-size:10px;color:var(--muted)">移行・監査用に画像を含む正規化JSONを書き出します。</p><button class="btn secondary wide" id="exportServerPayload">移行JSONを出力</button></article>
+          <article class="card"><h2>API引継ぎ仕様</h2><p style="font-size:10px;color:var(--muted)">サーバー担当者へ渡すREST API契約を出力します。</p><button class="btn secondary wide" id="exportApiContract">API仕様書を出力</button></article>
+        </div>
+        <section class="card" style="margin-top:14px"><div class="section-head" style="margin:0 0 10px"><div><h2>保存状況</h2><p>スキーマ4.0はサーバー同期へ移行できるID・更新日時・監査ログを保持します。</p></div><span class="sync-ready">SERVER SYNC PILOT</span></div><div id="storageSummary" class="record-list"></div><div id="dataMessage" class="message"></div></section>
+        <section class="card" style="margin-top:14px"><h2>操作履歴（この端末）</h2><div id="auditLogList" class="record-list audit-list"></div></section>
+        <section class="card danger-zone" style="margin-top:14px"><h2>危険な操作</h2><p style="font-size:10px;color:var(--muted)">バックアップを作成してから実行してください。</p><button class="btn danger" id="clearAllData">この端末のv0.4データを全削除</button></section>
+      </section>
+    </main>
+
+    <footer class="footer">Knit Compass 独立実用版 v0.4 / ローカル優先 / 手動サーバー同期Pilot / スキーマ4.0 / 会社データ・Production未接続</footer>
+  </div>
+
+  <div class="modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="productModalTitle">
+    <div class="modal-card">
+      <div class="modal-head"><div><div class="eyebrow" style="color:var(--teal)">ブランド新商品</div><h2 id="productModalTitle">新商品を登録</h2></div><button class="btn secondary small" data-close="productModal">閉じる</button></div>
+      <form id="productForm">
+        <input type="hidden" id="productId">
+        <input type="hidden" id="productImageData">
+        <input type="hidden" id="labelImageData">
+        <div class="form-grid three" style="margin-top:14px">
+          <div class="field"><label for="productBrand">ブランド *</label><select id="productBrand" required></select></div>
+          <div class="field span2"><label for="productName">商品名 *</label><input id="productName" required></div>
+          <div class="field"><label for="productNumber">品番</label><input id="productNumber"></div>
+          <div class="field"><label for="productCategory">カテゴリー</label><input id="productCategory" placeholder="ニットトップス、カーディガン等"></div>
+          <div class="field"><label for="productPriority">業務優先度</label><select id="productPriority"><option value="A">A｜すぐ確認</option><option value="B" selected>B｜通常</option><option value="C">C｜参考</option></select></div>
+          <div class="field"><label for="nextActionDue">次の期限</label><input id="nextActionDue" type="date"></div>
+          <div class="field"><label for="releaseStatus">発売状況</label><select id="releaseStatus"><option value="NEW">新着</option><option value="RESERVATION">予約開始</option><option value="ON_SALE">販売中</option><option value="SOLD_OUT">完売</option><option value="UNKNOWN">未確認</option></select></div>
+          <div class="field"><label for="regularPrice">通常価格</label><input id="regularPrice" placeholder="5,940円"></div>
+          <div class="field"><label for="salePrice">セール価格</label><input id="salePrice"></div>
+          <div class="field"><label for="productCountry">原産国</label><input id="productCountry"></div>
+          <div class="field wide"><label for="productComposition">素材混率</label><input id="productComposition" placeholder="例：アセテート76％・ナイロン23％・ポリエステル1％"></div>
+          <div class="field"><label for="productColors">カラー</label><input id="productColors" placeholder="カンマ区切り"></div>
+          <div class="field"><label for="productSizes">サイズ</label><input id="productSizes" placeholder="0, 1 / FREE 等"></div>
+          <div class="field"><label for="sourceStatus">公式確認状態</label><select id="sourceStatus"><option value="CANDIDATE">候補・未確認</option><option value="CONFIRMED">公式ページ確認済み</option></select></div>
+          <div class="field"><label for="discoveredAt">発見日</label><input id="discoveredAt" type="date"></div>
+          <div class="field"><label for="confirmedAt">確認日時</label><input id="confirmedAt" type="datetime-local"></div>
+          <div class="field wide"><label for="officialUrl">公式URL</label><input id="officialUrl" type="url" placeholder="https://..."></div>
+          <div class="field wide"><label>商品画像（試用版は端末内保存）</label><div class="image-preview"><div class="image-preview-box" id="productImagePreview">画像なし</div><div><button class="btn secondary" type="button" id="selectProductImage">画像を選ぶ</button><button class="btn ghost" type="button" id="clearProductImage">画像を外す</button><input class="file-input" id="productImageFile" type="file" accept="image/*"><p style="font-size:9px;color:var(--muted)">保存容量を抑えるため自動圧縮します。</p></div></div></div>
+          <div class="field wide"><label for="brandMemo">ブランド情報メモ</label><textarea id="brandMemo" placeholder="NEW掲載、予約開始、価格変更など。商品研究の仮説とは分けて記録。"></textarea></div>
+        </div>
+        <div class="btn-row" style="margin-top:14px"><button class="btn" type="submit">保存</button><button class="btn secondary" type="button" id="saveProductAndResearch">保存して商品研究へ</button><span id="productFormMessage" class="message"></span></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="researchModal" role="dialog" aria-modal="true" aria-labelledby="researchModalTitle">
+    <div class="modal-card">
+      <div class="modal-head"><div><div class="eyebrow" style="color:var(--amber)">商品研究</div><h2 id="researchModalTitle">店舗確認・商品研究</h2></div><button class="btn secondary small" data-close="researchModal">閉じる</button></div>
+      <form id="researchForm">
+        <input type="hidden" id="researchProductId">
+        <div class="form-grid three" style="margin-top:14px">
+          <div class="field"><label for="workflowStatus">進捗</label><select id="workflowStatus"></select></div>
+          <div class="field"><label for="storeName">店舗名</label><input id="storeName"></div>
+          <div class="field"><label for="storeVisitDate">店舗確認日／予定日</label><input id="storeVisitDate" type="date"></div>
+          <div class="field"><label for="researchGauge">推定Gauge</label><input id="researchGauge" placeholder="14G"></div>
+          <div class="field"><label for="researchKnit">編地組織</label><input id="researchKnit" placeholder="天竺、リブ、リンクス等"></div>
+          <div class="field"><label for="touchFeel">触感・風合い</label><input id="touchFeel" placeholder="冷感、ドライ、ぬめり、軽量等"></div>
+          <div class="field"><label for="observedWeight">重量感・厚み</label><input id="observedWeight" placeholder="軽い、薄い、やや肉厚等"></div>
+          <div class="field"><label for="yarnAppearance">糸の外観</label><input id="yarnAppearance" placeholder="光沢、毛羽、扁平、強撚等"></div>
+          <div class="field"><label for="actualPrice">店舗実売価格</label><input id="actualPrice"></div>
+          <div class="field wide"><label>品質表示画像</label><div class="image-preview"><div class="image-preview-box" id="labelImagePreview">画像なし</div><div><button class="btn secondary" type="button" id="selectLabelImage">画像を選ぶ</button><button class="btn ghost" type="button" id="clearLabelImage">画像を外す</button><input class="file-input" id="labelImageFile" type="file" accept="image/*"></div></div></div>
+          <div class="field wide"><label for="physicalNotes">現物確認メモ</label><textarea id="physicalNotes" placeholder="見たこと・触ったことを事実として記録。"></textarea></div>
+          <div class="field wide"><label for="developmentHypothesis">開発仮説</label><textarea id="developmentHypothesis" placeholder="どんな糸・構造・混率と考えるか。事実とは分けて記録。"></textarea></div>
+        </div>
+        <div class="btn-row" style="margin-top:14px"><button class="btn" type="submit">商品研究を保存</button><button class="btn secondary" type="button" id="researchToYarnSearch">保存して糸検索へ</button><span id="researchFormMessage" class="message"></span></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="yarnModal" role="dialog" aria-modal="true" aria-labelledby="yarnModalTitle">
+    <div class="modal-card">
+      <div class="modal-head"><div><div class="eyebrow" style="color:var(--teal)">既存糸データ</div><h2 id="yarnModalTitle">糸を登録</h2></div><button class="btn secondary small" data-close="yarnModal">閉じる</button></div>
+      <form id="yarnForm">
+        <input type="hidden" id="yarnId">
+        <div class="form-grid three" style="margin-top:14px">
+          <div class="field"><label for="yarnSupplier">Supplier *</label><input id="yarnSupplier" required></div>
+          <div class="field span2"><label for="yarnName">糸名 *</label><input id="yarnName" required></div>
+          <div class="field"><label for="yarnCode">品番・管理コード</label><input id="yarnCode"></div>
+          <div class="field"><label for="countSystem">番手体系</label><select id="countSystem"><option>毛番手 Nm</option><option>綿番手 Ne</option><option>デニール D</option><option>dtex</option><option>tex</option><option>未確認</option></select></div>
+          <div class="field"><label for="countValue">数値</label><input id="countValue" inputmode="decimal" placeholder="48"></div>
+          <div class="field"><label for="plyCount">合糸本数</label><select id="plyCount"><option value="">未確認</option><option value="1">1本</option><option value="2">2本</option><option value="3">3本</option><option value="4">4本</option></select></div>
+          <div class="field"><label for="yarnStructure">糸構造</label><select id="yarnStructure"><option>未確認</option><option>単糸</option><option>合撚</option><option>交撚</option><option>コアスパン</option><option>カバリング</option><option>ファンシーヤーン</option><option>フィラメント</option></select></div>
+          <div class="field span2"><label for="yarnComposition">素材混率</label><input id="yarnComposition" placeholder="例：77% Naia Acetate / 23% Nylon"></div>
+          <div class="field"><label for="yarnGauge">対応Gauge</label><input id="yarnGauge" placeholder="12G, 14G"></div>
+          <div class="field"><label for="yarnFunctions">機能・特徴</label><input id="yarnFunctions" placeholder="接触冷感, UV, 軽量"></div>
+          <div class="field"><label for="yarnStatus">状態</label><select id="yarnStatus"><option>DRAFT</option><option>REVIEW</option><option>PUBLISHED</option></select></div>
+          <div class="field"><label for="yarnPrice">価格</label><input id="yarnPrice"></div>
+          <div class="field"><label for="yarnMoq">MOQ</label><input id="yarnMoq"></div>
+          <div class="field"><label for="yarnLeadTime">納期</label><input id="yarnLeadTime"></div>
+          <div class="field wide"><label for="yarnSourceUrl">情報源URL</label><input id="yarnSourceUrl" type="url"></div>
+          <div class="field wide"><label for="yarnNotes">染色・編立・供給上の注意</label><textarea id="yarnNotes"></textarea></div>
+        </div>
+        <div class="btn-row" style="margin-top:14px"><button class="btn" type="submit">保存</button><span id="yarnFormMessage" class="message"></span></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="developmentModal" role="dialog" aria-modal="true" aria-labelledby="developmentModalTitle">
+    <div class="modal-card">
+      <div class="modal-head"><div><div class="eyebrow" style="color:#77458b">新規素材開発</div><h2 id="developmentModalTitle">開発案件を作成</h2></div><button class="btn secondary small" data-close="developmentModal">閉じる</button></div>
+      <form id="developmentForm">
+        <input type="hidden" id="developmentId">
+        <div class="form-grid three" style="margin-top:14px">
+          <div class="field wide"><label for="developmentProduct">起点商品</label><select id="developmentProduct"><option value="">商品を選択しない</option></select></div>
+          <div class="field span2"><label for="developmentTitle">案件名 *</label><input id="developmentTitle" required></div>
+          <div class="field"><label for="developmentStatus">進捗</label><select id="developmentStatus"><option>企画</option><option>Supplier照会</option><option>試作中</option><option>編立確認</option><option>試験中</option><option>提案可能</option><option>完了</option></select></div>
+          <div class="field"><label for="developmentPriority">優先度</label><select id="developmentPriority"><option value="A">A｜最優先</option><option value="B" selected>B｜通常</option><option value="C">C｜低</option></select></div>
+          <div class="field"><label for="developmentDueDate">次回期限</label><input id="developmentDueDate" type="date"></div>
+          <div class="field span2"><label for="developmentNextAction">次にやること</label><input id="developmentNextAction" placeholder="Supplierへ価格・MOQ確認、編立サンプル確認等"></div>
+          <div class="field"><label for="targetCount">目標番手</label><input id="targetCount"></div>
+          <div class="field"><label for="targetGauge">目標Gauge</label><input id="targetGauge"></div>
+          <div class="field wide"><label for="targetComposition">目標混率</label><input id="targetComposition"></div>
+          <div class="field"><label for="targetStructure">目標糸構造</label><input id="targetStructure"></div>
+          <div class="field"><label for="targetFunctions">必要機能</label><input id="targetFunctions" placeholder="カンマ区切り"></div>
+          <div class="field"><label for="targetPrice">目標価格</label><input id="targetPrice"></div>
+          <div class="field wide"><label for="supplierCandidates">開発先候補</label><input id="supplierCandidates" placeholder="Supplier名をカンマ区切り"></div>
+          <div class="field wide"><label for="developmentNotes">開発メモ・試験項目</label><textarea id="developmentNotes"></textarea></div>
+        </div>
+        <div class="btn-row" style="margin-top:14px"><button class="btn" type="submit">保存</button><span id="developmentFormMessage" class="message"></span></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="brandCheckModal" role="dialog" aria-modal="true" aria-labelledby="brandCheckModalTitle">
+    <div class="modal-card compact">
+      <div class="modal-head"><div><div class="eyebrow" style="color:var(--teal)">日次ブランド確認</div><h2 id="brandCheckModalTitle">ブランド確認を記録</h2></div><button class="btn secondary small" data-close="brandCheckModal">閉じる</button></div>
+      <form id="brandCheckForm">
+        <input type="hidden" id="brandCheckName">
+        <div class="form-grid" style="margin-top:14px">
+          <div class="field"><label for="brandCheckedAt">確認日時</label><input id="brandCheckedAt" type="datetime-local" required></div>
+          <div class="field"><label for="brandNewCount">新商品件数</label><input id="brandNewCount" type="number" min="0" inputmode="numeric" value="0"></div>
+          <div class="field"><label for="brandReservationCount">予約開始件数</label><input id="brandReservationCount" type="number" min="0" inputmode="numeric" value="0"></div>
+          <div class="field wide"><label for="brandCheckNote">確認メモ</label><textarea id="brandCheckNote" placeholder="ニット新着、注目商品、再確認事項など"></textarea></div>
+          <div class="field wide"><label>公式確認ページ</label><div id="brandCheckSource" class="brand-source-note"></div></div>
+        </div>
+        <div class="btn-row" style="margin-top:14px"><button class="btn" type="submit">確認記録を保存</button><span id="brandCheckMessage" class="message"></span></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+    <div class="modal-card">
+      <div class="modal-head"><h2 id="detailTitle">詳細</h2><button class="btn secondary small" data-close="detailModal">閉じる</button></div>
+      <div id="detailBody"></div>
+      <div class="btn-row" id="detailActions" style="margin-top:14px"></div>
+    </div>
+  </div>
+
+<script>
+(()=>{
+  'use strict';
+  const STORAGE_KEY='kc_independent_practical_v0_4';
+  const LEGACY_KEY='kc_independent_practical_v0_3';
+  const OLDER_KEY='kc_independent_practical_v0_2';
+  const ANCIENT_KEY='kc_independent_practical_v0_1';
+  const PRIORITY_BRANDS=['Mila Owen','green label relaxing','Te chichi','grove','GLOBAL WORK'];
+  const DEFAULT_BRAND_SOURCES={
+    'Mila Owen':'https://milaowen.com/',
+    'green label relaxing':'https://store.united-arrows.co.jp/brand/glr/',
+    'Te chichi':'https://www.canshop.jp/techichi/',
+    'grove':'https://store.world.co.jp/s/brand/grove/',
+    'GLOBAL WORK':'https://www.dot-st.com/globalwork/disp/itemlist/?mode=1&sort=01'
+  };
+  const WORKFLOW=[
+    ['NEW_PRODUCT','新商品発見'],['STORE_VISIT_PLANNED','店舗確認予定'],['STORE_CONFIRMED','現物確認済み'],
+    ['PRODUCT_RESEARCH','商品研究中'],['YARN_SEARCHING','既存糸検索中'],['EXISTING_YARN_FOUND','既存糸候補あり'],
+    ['NO_YARN','候補なし'],['DEVELOPMENT','新規開発中'],['SAMPLE_REVIEW','サンプル確認'],
+    ['PROPOSAL_READY','提案可能'],['PROPOSED','営業提案済み']
+  ];
+  const FLOW_GROUPS=[
+    ['NEW_PRODUCT','新商品'],['STORE_VISIT_PLANNED','店舗予定'],['STORE_CONFIRMED','現物確認'],['PRODUCT_RESEARCH','商品研究'],
+    ['YARN_SEARCHING','糸検索'],['EXISTING_YARN_FOUND','既存糸あり'],['NO_YARN','候補なし'],['DEVELOPMENT','開発中'],
+    ['SAMPLE_REVIEW','サンプル'],['PROPOSAL_READY','提案可能'],['PROPOSED','提案済み']
+  ];
+  const RELEASE_LABELS={NEW:'新着',RESERVATION:'予約開始',ON_SALE:'販売中',SOLD_OUT:'完売',UNKNOWN:'未確認'};
+  const WORKFLOW_LABELS=Object.fromEntries(WORKFLOW);
+  const $=id=>document.getElementById(id);
+  const $$=sel=>[...document.querySelectorAll(sel)];
+  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+  const nowIso=()=>new Date().toISOString();
+  const localDate=(d=new Date())=>{const x=new Date(d.getTime()-d.getTimezoneOffset()*60000);return x.toISOString().slice(0,10)};
+  const localDateTime=()=>{const d=new Date();const x=new Date(d.getTime()-d.getTimezoneOffset()*60000);return x.toISOString().slice(0,16)};
+  const makeId=prefix=>`${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,7)}`;
+  const splitTags=v=>String(v||'').split(/[,、]/).map(x=>x.trim()).filter(Boolean);
+  const formatDate=v=>{if(!v)return'—';try{return new Intl.DateTimeFormat('ja-JP',{dateStyle:'medium',timeStyle:v.includes('T')?'short':undefined}).format(new Date(v))}catch{return v}};
+  const daysAgo=(value,days)=>{if(!value)return false;const a=new Date(value+'T00:00:00');const b=new Date();b.setHours(0,0,0,0);const diff=(b-a)/86400000;return diff>=0&&diff<days};
+  let state=loadState();
+  let showRecent=false;
+  let pendingAfterProduct='';
+  let activeDetail={type:'',id:''};
+
+  function blankState(){return{schema_version:'4.0',updated_at:nowIso(),brandChecks:{},brandSources:{...DEFAULT_BRAND_SOURCES},brandCheckLogs:[],products:[],yarns:[],developments:[],auditLog:[],server:{workspaceId:'personal-owner',apiBase:(location.protocol==='http:'||location.protocol==='https:')?location.origin:'',token:'',lastSyncAt:'',lastSyncStatus:'LOCAL_ONLY',syncMode:'LOCAL_ONLY',serverRevision:0,localRevision:0}}}
+  function loadState(){
+    try{
+      const raw=localStorage.getItem(STORAGE_KEY);if(raw)return normalizeState(JSON.parse(raw));
+      const migrated=migrateLegacy();if(migrated){localStorage.setItem(STORAGE_KEY,JSON.stringify(migrated));return migrated}
+    }catch(e){console.error(e)}
+    return blankState();
+  }
+  function normalizeState(s){
+    const b=blankState();
+    const products=(Array.isArray(s?.products)?s.products:[]).map(p=>({...p,priority:p.priority||'B',nextActionDue:p.nextActionDue||'',linkedYarnIds:Array.isArray(p.linkedYarnIds)?p.linkedYarnIds:[],research:{storeName:'',storeVisitDate:'',gauge:'',knitStructure:'',touchFeel:'',observedWeight:'',yarnAppearance:'',actualPrice:'',physicalNotes:'',developmentHypothesis:'',labelImageData:'',...(p.research||{})}}));
+    const developments=(Array.isArray(s?.developments)?s.developments:[]).map(d=>({...d,priority:d.priority||'B',dueDate:d.dueDate||'',nextAction:d.nextAction||''}));
+    return {...b,...s,schema_version:'4.0',brandChecks:s?.brandChecks||{},brandSources:{...DEFAULT_BRAND_SOURCES,...(s?.brandSources||{})},brandCheckLogs:Array.isArray(s?.brandCheckLogs)?s.brandCheckLogs:[],products,yarns:Array.isArray(s?.yarns)?s.yarns:[],developments,auditLog:Array.isArray(s?.auditLog)?s.auditLog:[],server:{...b.server,...(s?.server||{})}};
+  }
+  function migrateLegacy(){
+    try{
+      for(const [key,label] of [[LEGACY_KEY,'v0.3'],[OLDER_KEY,'v0.2'],[ANCIENT_KEY,'v0.1']]){
+        const raw=localStorage.getItem(key);if(!raw)continue;const parsed=JSON.parse(raw);const out=normalizeState(parsed.records?blankState():parsed);
+        if(parsed.records){(parsed.records||[]).forEach(r=>{if(r.entity_type==='product')out.products.push({id:r.id||makeId('PRODUCT'),brand:r.brand||'未設定',name:r.name||'名称未設定',productNumber:r.code||'',category:'',priority:'B',nextActionDue:'',regularPrice:r.price||'',salePrice:'',country:'',composition:r.composition||'',colors:[],sizes:[],releaseStatus:'UNKNOWN',sourceStatus:'CANDIDATE',discoveredAt:localDate(new Date(r.created_at||Date.now())),confirmedAt:'',officialUrl:r.source_url||'',productImageData:'',brandMemo:r.notes||'',workflowStatus:'NEW_PRODUCT',research:{gauge:r.gauge||'',knitStructure:r.knit_structure||'',touchFeel:(r.functions||[]).join(', '),storeName:'',storeVisitDate:'',observedWeight:'',yarnAppearance:'',actualPrice:'',physicalNotes:'',developmentHypothesis:'',labelImageData:''},linkedYarnIds:[],created_at:r.created_at||nowIso(),updated_at:r.updated_at||nowIso()});if(r.entity_type==='yarn')out.yarns.push({id:r.id||makeId('YARN'),supplier:r.supplier||'',name:r.name||'名称未設定',code:r.code||'',countSystem:'未確認',countValue:r.count||'',plyCount:'',displayCount:r.count||'',structure:r.structure||'未確認',composition:r.composition||'',gauge:r.gauge||'',functions:r.functions||[],status:r.status||'DRAFT',price:r.price||'',moq:'',leadTime:'',sourceUrl:r.source_url||'',notes:r.notes||'',created_at:r.created_at||nowIso(),updated_at:r.updated_at||nowIso()})})}
+        out.auditLog.unshift({id:makeId('AUDIT'),at:nowIso(),action:'MIGRATE',entityType:'workspace',entityId:label,summary:`${label}からv0.4へ移行`});return out;
+      }
+      return null;
+    }catch(e){console.error(e);return null}
+  }
+  function logAction(action,entityType,entityId,summary){state.auditLog.unshift({id:makeId('AUDIT'),at:nowIso(),action,entityType,entityId,summary});state.auditLog=state.auditLog.slice(0,500)}
+  function persist(bump=true){state.updated_at=nowIso();if(bump)state.server.localRevision=Number(state.server.localRevision||0)+1;try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch(e){alert('端末の保存容量を超えた可能性があります。画像を減らすか、JSONバックアップ後に不要な画像を外してください。');throw e}}
+  function setMessage(el,text,type='ok'){el.textContent=text;el.className=`message ${type}`;setTimeout(()=>{if(el.textContent===text)el.textContent=''},4500)}
+  function openModal(id){$(id).classList.add('open')}
+  function closeModal(id){$(id).classList.remove('open')}
+  $$('[data-close]').forEach(b=>b.addEventListener('click',()=>closeModal(b.dataset.close)));
+  $$('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal(m.id)}));
+
+  function showPage(name){
+    $$('.page').forEach(p=>p.classList.toggle('active',p.id===`page-${name}`));
+    $$('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===name));
+    if(name==='brand-home')renderBrandHome();
+    if(name==='workflow')renderWorkflow();
+    if(name==='yarn-search')renderYarnSearch();
+    if(name==='development')renderDevelopments();
+    if(name==='data')renderData();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  $$('[data-page]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+  $$('[data-go]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();showPage(a.dataset.go)}));
+
+  function openBrandCheck(brand){$('brandCheckForm').reset();$('brandCheckName').value=brand;$('brandCheckModalTitle').textContent=`${brand}｜日次確認`;$('brandCheckedAt').value=localDateTime();$('brandNewCount').value=0;$('brandReservationCount').value=0;$('brandCheckNote').value='';const source=state.brandSources[brand]||'';$('brandCheckSource').innerHTML=source?`<a href="${esc(source)}" target="_blank" rel="noopener">${esc(source)}</a>`:'公式URL未設定';$('brandCheckMessage').textContent='';openModal('brandCheckModal')}
+  $('brandCheckForm').addEventListener('submit',e=>{e.preventDefault();const brand=$('brandCheckName').value,checkedAt=$('brandCheckedAt').value||localDateTime();const log={id:makeId('BRANDCHECK'),brand,checkedAt,newCount:Number($('brandNewCount').value||0),reservationCount:Number($('brandReservationCount').value||0),note:$('brandCheckNote').value.trim(),sourceUrl:state.brandSources[brand]||'',created_at:nowIso()};state.brandChecks[brand]=checkedAt.slice(0,10);state.brandCheckLogs.unshift(log);logAction('CREATE','brand_check',log.id,`${brand}の日次確認を記録`);persist();closeModal('brandCheckModal');renderAll()});
+
+  function workflowStatus(status){return `<span class="status ${esc(status)}">${esc(WORKFLOW_LABELS[status]||status)}</span>`}
+  function releaseTag(status){return `<span class="tag release ${esc(status)}">${esc(RELEASE_LABELS[status]||status)}</span>`}
+  function sourceTag(status){return `<span class="tag ${status==='CONFIRMED'?'source-confirmed':'source-candidate'}">${status==='CONFIRMED'?'公式確認済み':'候補・未確認'}</span>`}
+  function normalizeText(v){return String(v||'').toLowerCase().replace(/[,、／\/%％・()（）\-]+/g,' ').replace(/\s+/g,' ').trim()}
+  function matchesTerms(text,query){const hay=normalizeText(text),terms=normalizeText(query).split(' ').filter(Boolean);return terms.every(t=>hay.includes(t))}
+  function productSearchText(p){return [p.brand,p.name,p.productNumber,p.category,p.regularPrice,p.salePrice,p.country,p.composition,(p.colors||[]).join(' '),(p.sizes||[]).join(' '),p.brandMemo,p.research?.gauge,p.research?.knitStructure,p.research?.touchFeel,p.research?.physicalNotes,p.research?.developmentHypothesis].join(' ')}
+  function yarnSearchText(y){return [y.supplier,y.name,y.code,y.displayCount,y.countSystem,y.countValue,y.plyCount,y.structure,y.composition,y.gauge,(y.functions||[]).join(' '),y.price,y.moq,y.leadTime,y.notes].join(' ')}
+
+  function dateState(value){if(!value)return'';const today=localDate();if(value<today)return'overdue';if(value===today)return'today';return''}
+  function buildTodayTasks(){
+    const tasks=[];const today=localDate();
+    PRIORITY_BRANDS.filter(b=>state.brandChecks[b]!==today).forEach(brand=>tasks.push({kind:'brand',icon:'B',priority:'A',title:`${brand} の新商品確認`,meta:'公式NEW・予約開始を確認',action:'ブランド確認',brand}));
+    state.products.filter(p=>p.sourceStatus!=='CONFIRMED').forEach(p=>tasks.push({kind:'product',icon:'確',priority:p.priority||'B',title:`${p.brand}｜${p.name}`,meta:'公式情報の確認待ち',action:'商品を確認',productId:p.id,due:p.nextActionDue}));
+    state.products.filter(p=>['NEW_PRODUCT','STORE_VISIT_PLANNED'].includes(p.workflowStatus)).forEach(p=>tasks.push({kind:'product',icon:'店',priority:p.priority||'B',title:`${p.brand}｜${p.name}`,meta:`店舗確認 ${p.research?.storeVisitDate||p.nextActionDue||'日程未設定'}`,action:'店舗・研究',productId:p.id,due:p.research?.storeVisitDate||p.nextActionDue}));
+    state.products.filter(p=>['STORE_CONFIRMED','PRODUCT_RESEARCH','YARN_SEARCHING'].includes(p.workflowStatus)).forEach(p=>tasks.push({kind:'product',icon:'糸',priority:p.priority||'B',title:`${p.brand}｜${p.name}`,meta:nextActionText(p),action:'糸検索',productId:p.id,due:p.nextActionDue}));
+    state.developments.filter(d=>!['完了'].includes(d.status)).forEach(d=>tasks.push({kind:'development',icon:'開',priority:d.priority||'B',title:d.title,meta:d.nextAction||`${d.status}を更新`,action:'開発案件',developmentId:d.id,due:d.dueDate}));
+    const weight={A:0,B:1,C:2};return tasks.sort((a,b)=>{const ad=a.due||'9999-99-99',bd=b.due||'9999-99-99';return (weight[a.priority]??1)-(weight[b.priority]??1)||ad.localeCompare(bd)||a.title.localeCompare(b.title)}).slice(0,30);
+  }
+  function renderTodayTasks(){const tasks=buildTodayTasks();$('todayTaskCount').textContent=tasks.length;$('todayTaskList').innerHTML=tasks.length?tasks.map(t=>`<article class="today-task ${dateState(t.due)}"><div class="task-icon">${esc(t.icon)}</div><div><div class="btn-row"><span class="priority-pill ${esc(t.priority)}">優先 ${esc(t.priority)}</span>${t.due?`<span class="tag">期限 ${esc(t.due)}</span>`:''}</div><h3>${esc(t.title)}</h3><p>${esc(t.meta)}</p></div><div class="record-actions">${t.brand?`<button class="btn small" data-task-brand="${esc(t.brand)}">${esc(t.action)}</button>`:''}${t.productId?`<button class="btn small" data-task-product="${esc(t.productId)}">${esc(t.action)}</button>`:''}${t.developmentId?`<button class="btn small" data-task-development="${esc(t.developmentId)}">${esc(t.action)}</button>`:''}</div></article>`).join(''):'<div class="empty">本日の必須作業はありません。優先ブランドの新商品確認を続けてください。</div>';
+    $$('[data-task-brand]').forEach(b=>b.addEventListener('click',()=>openBrandCheck(b.dataset.taskBrand)));
+    $$('[data-task-product]').forEach(b=>b.addEventListener('click',()=>openProductDetail(b.dataset.taskProduct)));
+    $$('[data-task-development]').forEach(b=>b.addEventListener('click',()=>openDevelopmentDetail(b.dataset.taskDevelopment)));
+  }
+
+  function renderBrandHome(){
+    renderTodayTasks();
+    const today=localDate();$('todayLabel').textContent=new Intl.DateTimeFormat('ja-JP',{dateStyle:'full'}).format(new Date());
+    const todayProducts=state.products.filter(p=>p.discoveredAt===today);
+    $('statTodayProducts').textContent=todayProducts.length;
+    $('statReservation').textContent=state.products.filter(p=>p.releaseStatus==='RESERVATION').length;
+    $('statStoreVisit').textContent=state.products.filter(p=>['NEW_PRODUCT','STORE_VISIT_PLANNED'].includes(p.workflowStatus)).length;
+    $('statYarnSearch').textContent=state.products.filter(p=>['PRODUCT_RESEARCH','YARN_SEARCHING'].includes(p.workflowStatus)).length;
+    $('statDevelopment').textContent=state.developments.filter(d=>d.status!=='完了').length;
+    const reviewProducts=state.products.filter(p=>p.sourceStatus!=='CONFIRMED');$('statSourceReview').textContent=reviewProducts.length;$('sourceReviewCount').textContent=reviewProducts.length;
+    const checked=PRIORITY_BRANDS.filter(b=>state.brandChecks[b]===today).length;$('dailyProgressText').textContent=`${checked} / ${PRIORITY_BRANDS.length} 確認`;
+    $('priorityBrandGrid').innerHTML=PRIORITY_BRANDS.map(brand=>{
+      const products=state.products.filter(p=>p.brand===brand);const todays=products.filter(p=>p.discoveredAt===today).length;const open=products.filter(p=>p.workflowStatus!=='PROPOSED').length;const isChecked=state.brandChecks[brand]===today;
+      const source=state.brandSources[brand]||'';const lastLog=state.brandCheckLogs.find(x=>x.brand===brand);return `<article class="card brand-card ${isChecked?'checked':''}"><div><h3>${esc(brand)}</h3><div class="brand-check"><span class="dot ${isChecked?'ok':''}"></span>${isChecked?'本日確認済み':state.brandChecks[brand]?`最終 ${esc(state.brandChecks[brand])}`:'未確認'}</div>${lastLog?`<div class="brand-source-note">前回：新着${Number(lastLog.newCount||0)}件／予約${Number(lastLog.reservationCount||0)}件</div>`:''}</div><div class="brand-meta"><div><span>今日の新商品</span><strong>${todays}</strong></div><div><span>進行中</span><strong>${open}</strong></div></div><div class="btn-row">${source?`<a class="btn secondary small source-link" href="${esc(source)}" target="_blank" rel="noopener">公式NEW</a>`:''}<button class="btn secondary small" data-log-brand="${esc(brand)}">確認記録</button><button class="btn small" data-new-brand="${esc(brand)}">商品追加</button></div></article>`;
+    }).join('');
+    $$('[data-log-brand]').forEach(b=>b.addEventListener('click',()=>openBrandCheck(b.dataset.logBrand)));
+    $$('[data-new-brand]').forEach(b=>b.addEventListener('click',()=>openProductForm('',b.dataset.newBrand)));
+    if(!reviewProducts.length)$('sourceReviewList').innerHTML='<div class="empty">公式確認待ちはありません。</div>';else $('sourceReviewList').innerHTML=reviewProducts.slice(0,12).map(p=>`<article class="record"><div>${sourceTag(p.sourceStatus)}<h3>${esc(p.brand)}｜${esc(p.name)}</h3><p>${esc(p.productNumber||p.officialUrl||'公式URLを追加してください')}</p></div><div class="record-actions">${p.officialUrl?`<a class="btn secondary small source-link" href="${esc(p.officialUrl)}" target="_blank" rel="noopener">公式ページ</a>`:''}<button class="btn small" data-review-product="${esc(p.id)}">確認・編集</button></div></article>`).join('');
+    $$('[data-review-product]').forEach(b=>b.addEventListener('click',()=>openProductForm(b.dataset.reviewProduct)));
+    const todayLogs=state.brandCheckLogs.filter(x=>String(x.checkedAt||'').slice(0,10)===today);$('dailyCollectionLog').innerHTML=todayLogs.length?todayLogs.map(x=>`<article class="record"><div><h3>${esc(x.brand)}</h3><p>${formatDate(x.checkedAt)}／新着${Number(x.newCount||0)}件／予約${Number(x.reservationCount||0)}件</p>${x.note?`<div class="log-meta"><span class="tag">${esc(x.note)}</span></div>`:''}</div><strong>確認済み</strong></article>`).join(''):'<div class="empty">本日の確認ログはまだありません。</div>';
+    const list=(showRecent?state.products.filter(p=>daysAgo(p.discoveredAt,7)):todayProducts).sort((a,b)=>String(b.updated_at).localeCompare(String(a.updated_at)));
+    renderProductCards($('todayProductGrid'),list,showRecent?'最近7日間の新商品登録はありません。':'本日の新商品登録はまだありません。');
+    $('showRecentProducts').textContent=showRecent?'本日のみ表示':'最近7日も表示';
+    const tasks=state.products.filter(p=>p.workflowStatus!=='PROPOSED').sort((a,b)=>workflowIndex(a.workflowStatus)-workflowIndex(b.workflowStatus)).slice(0,10);
+    if(!tasks.length)$('nextActionList').innerHTML='<div class="empty">進行中の商品はありません。</div>';
+    else $('nextActionList').innerHTML=tasks.map(p=>`<article class="record"><div>${workflowStatus(p.workflowStatus)}<h3>${esc(p.brand)}｜${esc(p.name)}</h3><p>${esc(nextActionText(p))}</p></div><div class="record-actions"><button class="btn secondary small" data-product-detail="${esc(p.id)}">詳細</button><button class="btn small" data-product-next="${esc(p.id)}">次の工程へ</button></div></article>`).join('');
+    bindProductActions($('nextActionList'));
+  }
+  function nextActionText(p){const map={NEW_PRODUCT:'店舗確認予定を設定',STORE_VISIT_PLANNED:'店舗で現物・品質表示を確認',STORE_CONFIRMED:'商品研究を入力',PRODUCT_RESEARCH:'既存糸を検索',YARN_SEARCHING:'候補糸を紐付け、なければ開発案件へ',EXISTING_YARN_FOUND:'サンプル・条件を確認',NO_YARN:'新規開発案件を作成',DEVELOPMENT:'開発案件の進捗を更新',SAMPLE_REVIEW:'サンプルと試験結果を確認',PROPOSAL_READY:'営業提案を実施'};return map[p.workflowStatus]||'進捗を確認'}
+  function renderProductCards(container,list,emptyText){
+    if(!list.length){container.innerHTML=`<div class="empty" style="grid-column:1/-1">${esc(emptyText)}</div>`;return}
+    container.innerHTML=list.map(p=>`<article class="card product-card"><div class="product-image">${p.productImageData?`<img src="${p.productImageData}" alt="${esc(p.name)}">`:'商品画像なし'}</div><div class="product-body"><div class="product-tags">${releaseTag(p.releaseStatus)}${sourceTag(p.sourceStatus)}${workflowStatus(p.workflowStatus)}</div><h3>${esc(p.brand)}｜${esc(p.name)}</h3><p>${esc([p.productNumber,p.regularPrice,p.composition].filter(Boolean).join(' ／ ')||'商品情報を追加してください')}</p></div><div class="product-footer"><div class="btn-row"><button class="btn secondary small" data-product-detail="${esc(p.id)}">詳細</button><button class="btn secondary small" data-product-edit="${esc(p.id)}">編集</button><button class="btn small" data-product-next="${esc(p.id)}">次の工程</button></div></div></article>`).join('');
+    bindProductActions(container);
+  }
+  function bindProductActions(container){
+    container.querySelectorAll('[data-product-detail]').forEach(b=>b.addEventListener('click',()=>openProductDetail(b.dataset.productDetail)));
+    container.querySelectorAll('[data-product-edit]').forEach(b=>b.addEventListener('click',()=>openProductForm(b.dataset.productEdit)));
+    container.querySelectorAll('[data-product-next]').forEach(b=>b.addEventListener('click',()=>advanceProduct(b.dataset.productNext)));
+  }
+  function workflowIndex(status){const i=WORKFLOW.findIndex(x=>x[0]===status);return i<0?999:i}
+  function advanceProduct(id){
+    const p=state.products.find(x=>x.id===id);if(!p)return;
+    const status=p.workflowStatus;
+    if(['NEW_PRODUCT','STORE_VISIT_PLANNED','STORE_CONFIRMED','PRODUCT_RESEARCH'].includes(status)){openResearchForm(id);return}
+    if(status==='YARN_SEARCHING'){showPage('yarn-search');$('searchFromProduct').value=id;applyProductSearch();return}
+    if(status==='EXISTING_YARN_FOUND'){p.workflowStatus='SAMPLE_REVIEW';p.updated_at=nowIso();persist();renderAll();return}
+    if(status==='NO_YARN'){openDevelopmentForm('',id);return}
+    if(status==='DEVELOPMENT'){showPage('development');return}
+    if(status==='SAMPLE_REVIEW'){p.workflowStatus='PROPOSAL_READY';p.updated_at=nowIso();persist();renderAll();return}
+    if(status==='PROPOSAL_READY'){if(confirm('営業提案済みに変更しますか？')){p.workflowStatus='PROPOSED';p.updated_at=nowIso();persist();renderAll()}return}
+  }
+
+  function renderWorkflow(){
+    $('workflowFlow').innerHTML=WORKFLOW.slice(0,6).map(([key,label])=>`<div class="flow-step"><span>${esc(key)}</span><strong>${esc(label)}</strong></div>`).join('');
+    const wf=$('workflowFilter');if(wf.options.length===1)WORKFLOW.forEach(([k,l])=>wf.add(new Option(l,k)));
+    const bf=$('brandFilter');const current=bf.value;bf.innerHTML='<option value="">すべて</option>'+[...new Set([...PRIORITY_BRANDS,...state.products.map(p=>p.brand).filter(Boolean)])].sort().map(b=>`<option>${esc(b)}</option>`).join('');bf.value=current;
+    const q=$('productSearch').value.trim(),status=wf.value,brand=bf.value;
+    const products=state.products.filter(p=>(!q||matchesTerms(productSearchText(p),q))&&(!status||p.workflowStatus===status)&&(!brand||p.brand===brand));
+    $('workflowBoard').innerHTML=FLOW_GROUPS.map(([key,label])=>{const items=products.filter(p=>p.workflowStatus===key);return `<section class="workflow-column"><h3>${esc(label)} <span class="tag">${items.length}</span></h3>${items.map(p=>`<article class="mini-product"><strong>${esc(p.brand)}｜${esc(p.name)}</strong><span>${esc(p.productNumber||p.composition||'')}</span><div class="btn-row"><button class="btn secondary small" data-product-detail="${esc(p.id)}">詳細</button><button class="btn small" data-product-next="${esc(p.id)}">次へ</button></div></article>`).join('')||'<div style="font-size:9px;color:var(--muted)">該当なし</div>'}</section>`}).join('');
+    bindProductActions($('workflowBoard'));
+  }
+  ['productSearch','workflowFilter','brandFilter'].forEach(id=>$(id).addEventListener(id==='productSearch'?'input':'change',renderWorkflow));
+  $('clearProductSearch').addEventListener('click',()=>{$('productSearch').value='';$('workflowFilter').value='';$('brandFilter').value='';renderWorkflow()});
+
+  function openProductForm(id='',brand=''){
+    const p=state.products.find(x=>x.id===id);$('productForm').reset();$('productId').value=p?.id||'';$('productModalTitle').textContent=p?'新商品情報を編集':'新商品を登録';
+    fillBrandSelect($('productBrand'),p?.brand||brand||PRIORITY_BRANDS[0]);
+    $('productName').value=p?.name||'';$('productNumber').value=p?.productNumber||'';$('productCategory').value=p?.category||'';$('productPriority').value=p?.priority||'B';$('nextActionDue').value=p?.nextActionDue||'';$('releaseStatus').value=p?.releaseStatus||'NEW';$('regularPrice').value=p?.regularPrice||'';$('salePrice').value=p?.salePrice||'';$('productCountry').value=p?.country||'';$('productComposition').value=p?.composition||'';$('productColors').value=(p?.colors||[]).join(', ');$('productSizes').value=(p?.sizes||[]).join(', ');$('sourceStatus').value=p?.sourceStatus||'CANDIDATE';$('discoveredAt').value=p?.discoveredAt||localDate();$('confirmedAt').value=p?.confirmedAt||'';$('officialUrl').value=p?.officialUrl||'';$('brandMemo').value=p?.brandMemo||'';$('productImageData').value=p?.productImageData||'';$('labelImageData').value=p?.research?.labelImageData||'';renderImagePreview('productImagePreview',$('productImageData').value);$('productFormMessage').textContent='';pendingAfterProduct='';openModal('productModal');
+  }
+  function fillBrandSelect(select,value){const brands=[...new Set([...PRIORITY_BRANDS,...state.products.map(p=>p.brand).filter(Boolean),value].filter(Boolean))];select.innerHTML=brands.map(b=>`<option value="${esc(b)}">${esc(b)}</option>`).join('')+'<option value="__OTHER__">その他（入力後に追加）</option>';select.value=brands.includes(value)?value:PRIORITY_BRANDS[0]}
+  $('productForm').addEventListener('submit',e=>{e.preventDefault();saveProduct(pendingAfterProduct);pendingAfterProduct=''});
+  $('saveProductAndResearch').addEventListener('click',()=>{pendingAfterProduct='research';$('productForm').requestSubmit()});
+  function saveProduct(after){
+    let brand=$('productBrand').value;if(brand==='__OTHER__'){brand=prompt('ブランド名を入力してください。')?.trim();if(!brand){setMessage($('productFormMessage'),'ブランド名が必要です。','error');return}}
+    const id=$('productId').value;const existing=state.products.find(p=>p.id===id);const product={id:id||makeId('PRODUCT'),brand,name:$('productName').value.trim(),productNumber:$('productNumber').value.trim(),category:$('productCategory').value.trim(),priority:$('productPriority').value,nextActionDue:$('nextActionDue').value,releaseStatus:$('releaseStatus').value,regularPrice:$('regularPrice').value.trim(),salePrice:$('salePrice').value.trim(),country:$('productCountry').value.trim(),composition:$('productComposition').value.trim(),colors:splitTags($('productColors').value),sizes:splitTags($('productSizes').value),sourceStatus:$('sourceStatus').value,discoveredAt:$('discoveredAt').value||localDate(),confirmedAt:$('confirmedAt').value,officialUrl:$('officialUrl').value.trim(),productImageData:$('productImageData').value,brandMemo:$('brandMemo').value.trim(),workflowStatus:existing?.workflowStatus||'NEW_PRODUCT',research:existing?.research||{storeName:'',storeVisitDate:'',gauge:'',knitStructure:'',touchFeel:'',observedWeight:'',yarnAppearance:'',actualPrice:'',physicalNotes:'',developmentHypothesis:'',labelImageData:$('labelImageData').value},linkedYarnIds:existing?.linkedYarnIds||[],created_at:existing?.created_at||nowIso(),updated_at:nowIso()};
+    if(!product.name){setMessage($('productFormMessage'),'商品名を入力してください。','error');return}
+    if(existing)Object.assign(existing,product);else state.products.unshift(product);logAction(existing?'UPDATE':'CREATE','product',product.id,`${product.brand}｜${product.name}`);persist();closeModal('productModal');renderAll();if(after==='research')openResearchForm(product.id)
+  }
+
+  async function compressImage(file,maxWidth=1000,quality=.72){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=reject;reader.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{const ratio=Math.min(1,maxWidth/img.width);const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.width*ratio));canvas.height=Math.max(1,Math.round(img.height*ratio));canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);resolve(canvas.toDataURL('image/jpeg',quality))};img.src=reader.result};reader.readAsDataURL(file)})}
+  function renderImagePreview(id,data){$(id).innerHTML=data?`<img src="${data}" alt="プレビュー">`:'画像なし'}
+  $('selectProductImage').addEventListener('click',()=>$('productImageFile').click());$('productImageFile').addEventListener('change',async()=>{const f=$('productImageFile').files[0];if(!f)return;$('productImageData').value=await compressImage(f);renderImagePreview('productImagePreview',$('productImageData').value)});$('clearProductImage').addEventListener('click',()=>{$('productImageData').value='';renderImagePreview('productImagePreview','')});
+  $('selectLabelImage').addEventListener('click',()=>$('labelImageFile').click());$('labelImageFile').addEventListener('change',async()=>{const f=$('labelImageFile').files[0];if(!f)return;$('labelImageData').value=await compressImage(f);renderImagePreview('labelImagePreview',$('labelImageData').value)});$('clearLabelImage').addEventListener('click',()=>{$('labelImageData').value='';renderImagePreview('labelImagePreview','')});
+
+  function openResearchForm(id){const p=state.products.find(x=>x.id===id);if(!p)return;const r=p.research||{};$('researchProductId').value=id;$('researchModalTitle').textContent=`${p.brand}｜${p.name}`;const ws=$('workflowStatus');ws.innerHTML=WORKFLOW.map(([k,l])=>`<option value="${k}">${esc(l)}</option>`).join('');ws.value=p.workflowStatus||'STORE_VISIT_PLANNED';$('storeName').value=r.storeName||'';$('storeVisitDate').value=r.storeVisitDate||'';$('researchGauge').value=r.gauge||'';$('researchKnit').value=r.knitStructure||'';$('touchFeel').value=r.touchFeel||'';$('observedWeight').value=r.observedWeight||'';$('yarnAppearance').value=r.yarnAppearance||'';$('actualPrice').value=r.actualPrice||'';$('physicalNotes').value=r.physicalNotes||'';$('developmentHypothesis').value=r.developmentHypothesis||'';$('labelImageData').value=r.labelImageData||'';renderImagePreview('labelImagePreview',$('labelImageData').value);$('researchFormMessage').textContent='';openModal('researchModal')}
+  $('researchForm').addEventListener('submit',e=>{e.preventDefault();saveResearch('')});$('researchToYarnSearch').addEventListener('click',()=>saveResearch('search'));
+  function saveResearch(after){const p=state.products.find(x=>x.id===$('researchProductId').value);if(!p)return;p.workflowStatus=$('workflowStatus').value;p.research={storeName:$('storeName').value.trim(),storeVisitDate:$('storeVisitDate').value,gauge:$('researchGauge').value.trim(),knitStructure:$('researchKnit').value.trim(),touchFeel:$('touchFeel').value.trim(),observedWeight:$('observedWeight').value.trim(),yarnAppearance:$('yarnAppearance').value.trim(),actualPrice:$('actualPrice').value.trim(),physicalNotes:$('physicalNotes').value.trim(),developmentHypothesis:$('developmentHypothesis').value.trim(),labelImageData:$('labelImageData').value};if(after==='search')p.workflowStatus='YARN_SEARCHING';p.updated_at=nowIso();logAction('UPDATE','product_research',p.id,`${p.brand}｜${p.name}の商品研究を保存`);persist();closeModal('researchModal');renderAll();if(after==='search'){showPage('yarn-search');$('searchFromProduct').value=p.id;applyProductSearch()}}
+
+  function renderYarnSearch(){
+    const select=$('searchFromProduct'),current=select.value;select.innerHTML='<option value="">商品を選択</option>'+state.products.map(p=>`<option value="${esc(p.id)}">${esc(p.brand)}｜${esc(p.name)}</option>`).join('');select.value=current;
+    const q=$('yarnQuery').value.trim(),g=$('yarnGaugeFilter').value,s=$('yarnStatusFilter').value;const list=state.yarns.filter(y=>(!q||matchesTerms(yarnSearchText(y),q))&&(!g||String(y.gauge).includes(g))&&(!s||y.status===s)).sort((a,b)=>String(b.updated_at).localeCompare(String(a.updated_at)));
+    if(!list.length)$('yarnResultList').innerHTML='<div class="empty">一致する既存糸がありません。糸を登録するか、商品から開発案件を作成してください。</div>';
+    else $('yarnResultList').innerHTML=list.map(y=>`<article class="record"><div><span class="tag">${esc(y.status)}</span><h3>${esc(y.supplier)}｜${esc(y.name)}</h3><p>${esc([y.displayCount,y.composition,y.structure,y.gauge].filter(Boolean).join(' ／ '))}</p><div class="product-tags">${(y.functions||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div></div><div class="record-actions"><button class="btn secondary small" data-yarn-detail="${esc(y.id)}">詳細</button><button class="btn secondary small" data-yarn-edit="${esc(y.id)}">編集</button><button class="btn small" data-link-yarn="${esc(y.id)}">商品へ紐付け</button></div></article>`).join('');
+    $$('[data-yarn-detail]').forEach(b=>b.addEventListener('click',()=>openYarnDetail(b.dataset.yarnDetail)));$$('[data-yarn-edit]').forEach(b=>b.addEventListener('click',()=>openYarnForm(b.dataset.yarnEdit)));$$('[data-link-yarn]').forEach(b=>b.addEventListener('click',()=>linkYarnToProduct(b.dataset.linkYarn)));
+  }
+  ['yarnQuery','yarnGaugeFilter','yarnStatusFilter'].forEach(id=>$(id).addEventListener(id==='yarnQuery'?'input':'change',renderYarnSearch));$('clearYarnSearch').addEventListener('click',()=>{$('yarnQuery').value='';$('yarnGaugeFilter').value='';$('yarnStatusFilter').value='';renderYarnSearch()});
+  $('applyProductToYarnSearch').addEventListener('click',applyProductSearch);
+  function applyProductSearch(){const p=state.products.find(x=>x.id===$('searchFromProduct').value);if(!p)return;const terms=[p.composition,p.research?.gauge,p.research?.knitStructure,p.research?.touchFeel,p.research?.yarnAppearance].filter(Boolean);$('yarnQuery').value=terms.join(' ');renderYarnSearch()}
+  function linkYarnToProduct(yarnId){const productId=$('searchFromProduct').value;if(!productId){alert('右側で対象商品を選択してください。');return}const p=state.products.find(x=>x.id===productId);if(!p)return;p.linkedYarnIds=[...new Set([...(p.linkedYarnIds||[]),yarnId])];p.workflowStatus='EXISTING_YARN_FOUND';p.updated_at=nowIso();logAction('LINK','product_yarn',p.id,`商品へ糸候補 ${yarnId} を紐付け`);persist();renderAll();alert('既存糸候補を商品へ紐付けました。')}
+
+  function openYarnForm(id=''){const y=state.yarns.find(x=>x.id===id);$('yarnForm').reset();$('yarnId').value=y?.id||'';$('yarnModalTitle').textContent=y?'糸情報を編集':'糸を登録';$('yarnSupplier').value=y?.supplier||'';$('yarnName').value=y?.name||'';$('yarnCode').value=y?.code||'';$('countSystem').value=y?.countSystem||'毛番手 Nm';$('countValue').value=y?.countValue||'';$('plyCount').value=y?.plyCount||'';$('yarnStructure').value=y?.structure||'未確認';$('yarnComposition').value=y?.composition||'';$('yarnGauge').value=y?.gauge||'';$('yarnFunctions').value=(y?.functions||[]).join(', ');$('yarnStatus').value=y?.status||'DRAFT';$('yarnPrice').value=y?.price||'';$('yarnMoq').value=y?.moq||'';$('yarnLeadTime').value=y?.leadTime||'';$('yarnSourceUrl').value=y?.sourceUrl||'';$('yarnNotes').value=y?.notes||'';$('yarnFormMessage').textContent='';openModal('yarnModal')}
+  function countDisplay(system,value,ply){if(!value)return'';if(system==='毛番手 Nm')return ply?`${ply}/${value} Nm`:`${value} Nm`;if(system==='綿番手 Ne')return ply?`${value}s/${ply}`:`${value}s`;if(system==='デニール D')return`${value}D`;return`${value} ${system}`}
+  $('yarnForm').addEventListener('submit',e=>{e.preventDefault();const id=$('yarnId').value,existing=state.yarns.find(y=>y.id===id);const y={id:id||makeId('YARN'),supplier:$('yarnSupplier').value.trim(),name:$('yarnName').value.trim(),code:$('yarnCode').value.trim(),countSystem:$('countSystem').value,countValue:$('countValue').value.trim(),plyCount:$('plyCount').value,displayCount:countDisplay($('countSystem').value,$('countValue').value.trim(),$('plyCount').value),structure:$('yarnStructure').value,composition:$('yarnComposition').value.trim(),gauge:$('yarnGauge').value.trim(),functions:splitTags($('yarnFunctions').value),status:$('yarnStatus').value,price:$('yarnPrice').value.trim(),moq:$('yarnMoq').value.trim(),leadTime:$('yarnLeadTime').value.trim(),sourceUrl:$('yarnSourceUrl').value.trim(),notes:$('yarnNotes').value.trim(),created_at:existing?.created_at||nowIso(),updated_at:nowIso()};if(!y.supplier||!y.name){setMessage($('yarnFormMessage'),'Supplierと糸名を入力してください。','error');return}if(existing)Object.assign(existing,y);else state.yarns.unshift(y);logAction(existing?'UPDATE':'CREATE','yarn',y.id,`${y.supplier}｜${y.name}`);persist();closeModal('yarnModal');renderAll()});
+
+  function renderDevelopments(){
+    const select=$('developmentProduct'),current=select.value;select.innerHTML='<option value="">商品を選択しない</option>'+state.products.map(p=>`<option value="${esc(p.id)}">${esc(p.brand)}｜${esc(p.name)}</option>`).join('');select.value=current;
+    if(!state.developments.length){$('developmentGrid').innerHTML='<div class="empty" style="grid-column:1/-1">開発案件はありません。既存糸が見つからない商品から作成してください。</div>';return}
+    $('developmentGrid').innerHTML=state.developments.map(d=>{const p=state.products.find(x=>x.id===d.productId);const progress={'企画':10,'Supplier照会':25,'試作中':45,'編立確認':60,'試験中':75,'提案可能':90,'完了':100}[d.status]||10;return `<article class="card development-card"><span class="tag">${esc(d.status)}</span><h3>${esc(d.title)}</h3><p>${p?`${esc(p.brand)}｜${esc(p.name)}`:'商品未紐付け'}</p><p>${esc([d.targetCount,d.targetGauge,d.targetComposition].filter(Boolean).join(' ／ '))}</p><div class="progress-bar"><span style="width:${progress}%"></span></div><div class="btn-row"><button class="btn secondary small" data-development-detail="${esc(d.id)}">詳細</button><button class="btn secondary small" data-development-edit="${esc(d.id)}">編集</button></div></article>`}).join('');
+    $$('[data-development-detail]').forEach(b=>b.addEventListener('click',()=>openDevelopmentDetail(b.dataset.developmentDetail)));$$('[data-development-edit]').forEach(b=>b.addEventListener('click',()=>openDevelopmentForm(b.dataset.developmentEdit)));
+  }
+  function openDevelopmentForm(id='',productId=''){const d=state.developments.find(x=>x.id===id);$('developmentForm').reset();$('developmentId').value=d?.id||'';$('developmentModalTitle').textContent=d?'開発案件を編集':'開発案件を作成';renderDevelopments();$('developmentProduct').value=d?.productId||productId||'';const p=state.products.find(x=>x.id===$('developmentProduct').value);$('developmentTitle').value=d?.title||(p?`${p.brand} ${p.name} 向け素材開発`:'');$('developmentStatus').value=d?.status||'企画';$('developmentPriority').value=d?.priority||'B';$('developmentDueDate').value=d?.dueDate||'';$('developmentNextAction').value=d?.nextAction||'';$('targetCount').value=d?.targetCount||'';$('targetGauge').value=d?.targetGauge||p?.research?.gauge||'';$('targetComposition').value=d?.targetComposition||p?.composition||'';$('targetStructure').value=d?.targetStructure||p?.research?.yarnAppearance||'';$('targetFunctions').value=(d?.targetFunctions||splitTags(p?.research?.touchFeel||'')).join(', ');$('targetPrice').value=d?.targetPrice||p?.research?.actualPrice||'';$('supplierCandidates').value=(d?.supplierCandidates||[]).join(', ');$('developmentNotes').value=d?.notes||p?.research?.developmentHypothesis||'';$('developmentFormMessage').textContent='';openModal('developmentModal')}
+  $('developmentProduct').addEventListener('change',()=>{const p=state.products.find(x=>x.id===$('developmentProduct').value);if(!p)return;if(!$('developmentTitle').value)$('developmentTitle').value=`${p.brand} ${p.name} 向け素材開発`;if(!$('targetGauge').value)$('targetGauge').value=p.research?.gauge||'';if(!$('targetComposition').value)$('targetComposition').value=p.composition||'';if(!$('targetFunctions').value)$('targetFunctions').value=p.research?.touchFeel||''});
+  $('developmentForm').addEventListener('submit',e=>{e.preventDefault();const id=$('developmentId').value,existing=state.developments.find(d=>d.id===id);const d={id:id||makeId('DEV'),productId:$('developmentProduct').value,title:$('developmentTitle').value.trim(),status:$('developmentStatus').value,priority:$('developmentPriority').value,dueDate:$('developmentDueDate').value,nextAction:$('developmentNextAction').value.trim(),targetCount:$('targetCount').value.trim(),targetGauge:$('targetGauge').value.trim(),targetComposition:$('targetComposition').value.trim(),targetStructure:$('targetStructure').value.trim(),targetFunctions:splitTags($('targetFunctions').value),targetPrice:$('targetPrice').value.trim(),supplierCandidates:splitTags($('supplierCandidates').value),notes:$('developmentNotes').value.trim(),created_at:existing?.created_at||nowIso(),updated_at:nowIso()};if(!d.title){setMessage($('developmentFormMessage'),'案件名を入力してください。','error');return}if(existing)Object.assign(existing,d);else state.developments.unshift(d);const p=state.products.find(x=>x.id===d.productId);if(p){p.workflowStatus=d.status==='提案可能'?'PROPOSAL_READY':d.status==='完了'?'PROPOSED':'DEVELOPMENT';p.developmentId=d.id;p.updated_at=nowIso()}logAction(existing?'UPDATE':'CREATE','development',d.id,d.title);persist();closeModal('developmentModal');renderAll()});
+
+  function openProductDetail(id){const p=state.products.find(x=>x.id===id);if(!p)return;activeDetail={type:'product',id};const linked=(p.linkedYarnIds||[]).map(id=>state.yarns.find(y=>y.id===id)).filter(Boolean);$('detailTitle').textContent=`${p.brand}｜${p.name}`;const pairs=[['優先度',p.priority||'B'],['次の期限',p.nextActionDue],['進捗',WORKFLOW_LABELS[p.workflowStatus]],['品番',p.productNumber],['発売状況',RELEASE_LABELS[p.releaseStatus]],['通常価格',p.regularPrice],['セール価格',p.salePrice],['素材混率',p.composition],['原産国',p.country],['カラー',(p.colors||[]).join('、')],['サイズ',(p.sizes||[]).join('、')],['公式確認',p.sourceStatus==='CONFIRMED'?'公式確認済み':'候補・未確認'],['公式URL',p.officialUrl?`<a href="${esc(p.officialUrl)}" target="_blank" rel="noopener">公式ページを開く</a>`:''],['ブランド情報メモ',esc(p.brandMemo)],['店舗',esc(p.research?.storeName)],['店舗確認日',esc(p.research?.storeVisitDate)],['Gauge',esc(p.research?.gauge)],['編地組織',esc(p.research?.knitStructure)],['触感・風合い',esc(p.research?.touchFeel)],['現物確認メモ',esc(p.research?.physicalNotes)],['開発仮説',esc(p.research?.developmentHypothesis)],['既存糸候補',linked.map(y=>`${esc(y.supplier)}｜${esc(y.name)} ${esc(y.displayCount)}`).join('<br>')]];$('detailBody').innerHTML=`${p.productImageData?`<div class="product-image" style="max-width:340px;border-radius:13px"><img src="${p.productImageData}" alt="${esc(p.name)}"></div>`:''}<dl class="detail-list">${pairs.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${v||'—'}</dd>`).join('')}</dl>`;$('detailActions').innerHTML=`<button class="btn secondary" id="detailEditProduct">商品情報を編集</button><button class="btn secondary" id="detailResearchProduct">店舗・商品研究</button><button class="btn" id="detailSearchYarn">糸検索</button><button class="btn amber" id="detailNoYarn">候補なし→開発</button><button class="btn secondary" id="detailExportBrief">開発ブリーフ出力</button><button class="btn danger" id="detailDeleteProduct">削除</button>`;openModal('detailModal');$('detailEditProduct').onclick=()=>{closeModal('detailModal');openProductForm(id)};$('detailResearchProduct').onclick=()=>{closeModal('detailModal');openResearchForm(id)};$('detailSearchYarn').onclick=()=>{p.workflowStatus='YARN_SEARCHING';p.updated_at=nowIso();persist();closeModal('detailModal');showPage('yarn-search');$('searchFromProduct').value=id;applyProductSearch()};$('detailNoYarn').onclick=()=>{p.workflowStatus='NO_YARN';p.updated_at=nowIso();persist();closeModal('detailModal');openDevelopmentForm('',id)};$('detailExportBrief').onclick=()=>exportProductBrief(p);$('detailDeleteProduct').onclick=()=>{if(confirm('この商品と紐付け情報を削除しますか？')){state.products=state.products.filter(x=>x.id!==id);state.developments=state.developments.filter(d=>d.productId!==id);persist();closeModal('detailModal');renderAll()}}}
+  function openYarnDetail(id){const y=state.yarns.find(x=>x.id===id);if(!y)return;activeDetail={type:'yarn',id};$('detailTitle').textContent=`${y.supplier}｜${y.name}`;const pairs=[['状態',y.status],['管理コード',y.code],['表示番手',y.displayCount],['番手体系',y.countSystem],['糸構造',y.structure],['素材混率',y.composition],['対応Gauge',y.gauge],['機能・特徴',(y.functions||[]).join('、')],['価格',y.price],['MOQ',y.moq],['納期',y.leadTime],['情報源',y.sourceUrl?`<a href="${esc(y.sourceUrl)}" target="_blank" rel="noopener">元ページを開く</a>`:''],['注意点',esc(y.notes)]];$('detailBody').innerHTML=`<dl class="detail-list">${pairs.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${v||'—'}</dd>`).join('')}</dl>`;$('detailActions').innerHTML=`<button class="btn secondary" id="detailEditYarn">編集</button><button class="btn danger" id="detailDeleteYarn">削除</button>`;openModal('detailModal');$('detailEditYarn').onclick=()=>{closeModal('detailModal');openYarnForm(id)};$('detailDeleteYarn').onclick=()=>{if(confirm('この糸データを削除しますか？')){state.yarns=state.yarns.filter(x=>x.id!==id);state.products.forEach(p=>p.linkedYarnIds=(p.linkedYarnIds||[]).filter(yid=>yid!==id));persist();closeModal('detailModal');renderAll()}}}
+  function openDevelopmentDetail(id){const d=state.developments.find(x=>x.id===id);if(!d)return;const p=state.products.find(x=>x.id===d.productId);$('detailTitle').textContent=d.title;const pairs=[['起点商品',p?`${esc(p.brand)}｜${esc(p.name)}`:'—'],['優先度',d.priority||'B'],['次回期限',d.dueDate],['次にやること',d.nextAction],['進捗',d.status],['目標番手',d.targetCount],['目標Gauge',d.targetGauge],['目標混率',d.targetComposition],['目標糸構造',d.targetStructure],['必要機能',(d.targetFunctions||[]).join('、')],['目標価格',d.targetPrice],['開発先候補',(d.supplierCandidates||[]).join('、')],['メモ',esc(d.notes)]];$('detailBody').innerHTML=`<dl class="detail-list">${pairs.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${v||'—'}</dd>`).join('')}</dl>`;$('detailActions').innerHTML=`<button class="btn secondary" id="detailEditDevelopment">編集</button><button class="btn danger" id="detailDeleteDevelopment">削除</button>`;openModal('detailModal');$('detailEditDevelopment').onclick=()=>{closeModal('detailModal');openDevelopmentForm(id)};$('detailDeleteDevelopment').onclick=()=>{if(confirm('この開発案件を削除しますか？')){state.developments=state.developments.filter(x=>x.id!==id);if(p){p.developmentId='';p.workflowStatus='NO_YARN'}persist();closeModal('detailModal');renderAll()}}}
+
+  function exportableState(){const copy=JSON.parse(JSON.stringify(state));if(copy.server)copy.server.token='';return copy}
+  function exportProductBrief(p){const linked=(p.linkedYarnIds||[]).map(id=>state.yarns.find(y=>y.id===id)).filter(Boolean);const dev=state.developments.find(d=>d.id===p.developmentId||d.productId===p.id);const text=`# Knit Compass 開発ブリーフ\n\n## 起点商品\n- ブランド：${p.brand}\n- 商品名：${p.name}\n- 品番：${p.productNumber||'未確認'}\n- 価格：${p.salePrice||p.regularPrice||'未確認'}\n- 素材混率：${p.composition||'未確認'}\n- 原産国：${p.country||'未確認'}\n- 公式URL：${p.officialUrl||'未登録'}\n- 優先度：${p.priority||'B'}\n\n## 店舗・商品研究\n- 店舗：${p.research?.storeName||'未設定'}\n- 確認日：${p.research?.storeVisitDate||'未設定'}\n- Gauge：${p.research?.gauge||'未確認'}\n- 編地：${p.research?.knitStructure||'未確認'}\n- 触感・風合い：${p.research?.touchFeel||'未確認'}\n- 糸外観：${p.research?.yarnAppearance||'未確認'}\n- 現物メモ：${p.research?.physicalNotes||'未入力'}\n- 開発仮説：${p.research?.developmentHypothesis||'未入力'}\n\n## 既存糸候補\n${linked.length?linked.map(y=>`- ${y.supplier}｜${y.name}｜${y.displayCount||''}｜${y.composition||''}`).join('\\n'):'- 候補なし／未検索'}\n\n## 新規開発案件\n${dev?`- 案件：${dev.title}\\n- 目標番手：${dev.targetCount||'未設定'}\\n- 目標Gauge：${dev.targetGauge||'未設定'}\\n- 目標混率：${dev.targetComposition||'未設定'}\\n- 必要機能：${(dev.targetFunctions||[]).join('、')||'未設定'}\\n- 次にやること：${dev.nextAction||'未設定'}\\n- 期限：${dev.dueDate||'未設定'}`:'- 未作成'}\n\n## 事実と仮説の区分\n- 公式確認状態：${p.sourceStatus==='CONFIRMED'?'CONFIRMED':'CANDIDATE'}\n- 店舗観察は現物確認メモに記載\n- 開発仮説は実測・Supplier確認前の仮説\n`;download(`kc_development_brief_${p.brand.replace(/[^a-zA-Z0-9一-龠ぁ-んァ-ン_-]+/g,'_')}_${p.productNumber||p.id}_${localDate()}.md`,text,'text/markdown;charset=utf-8')}
+
+  function renderData(){const bytes=new Blob([JSON.stringify(state)]).size;const rows=[['ブランド商品',state.products.length],['既存糸',state.yarns.length],['開発案件',state.developments.length],['ブランド確認ログ',state.brandCheckLogs.length],['操作履歴',state.auditLog.length],['概算保存容量',`${(bytes/1024/1024).toFixed(2)} MB`],['最終更新',formatDate(state.updated_at)]];$('storageSummary').innerHTML=rows.map(([a,b])=>`<article class="record"><div><h3>${esc(a)}</h3></div><strong>${esc(b)}</strong></article>`).join('');$('auditLogList').innerHTML=state.auditLog.length?state.auditLog.slice(0,50).map(a=>`<article class="record"><div><span class="tag">${esc(a.action)}</span><h3>${esc(a.summary||a.entityType)}</h3><p>${formatDate(a.at)}／${esc(a.entityType)}／${esc(a.entityId)}</p></div></article>`).join(''):'<div class="empty">操作履歴はまだありません。</div>';$('serverApiBase').value=state.server.apiBase||'';$('serverWorkspaceId').value=state.server.workspaceId||'personal-owner';$('serverToken').value=state.server.token||'';renderSyncStatus()}
+  function download(name,content,type){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1200)}
+  $('exportJson').addEventListener('click',()=>{download(`knit_compass_v0_4_backup_${localDate()}.json`,JSON.stringify({...exportableState(),exported_at:nowIso()},null,2),'application/json');setMessage($('dataMessage'),'JSONバックアップを書き出しました。')});
+  $('importJsonButton').addEventListener('click',()=>$('importJsonFile').click());$('importJsonFile').addEventListener('change',async()=>{const file=$('importJsonFile').files[0];if(!file)return;try{const parsed=normalizeState(JSON.parse(await file.text()));if(confirm(`商品${parsed.products.length}件・糸${parsed.yarns.length}件・開発${parsed.developments.length}件で、この端末のv0.4データを置き換えますか？`)){state=parsed;persist();renderAll();setMessage($('dataMessage'),'バックアップを復元しました。')}}catch(e){setMessage($('dataMessage'),'JSONを読み込めませんでした。','error')}});
+  function csv(rows,cols){const q=v=>`"${String(Array.isArray(v)?v.join('|'):v??'').replaceAll('"','""')}"`;return '\uFEFF'+[cols.join(','),...rows.map(r=>cols.map(c=>q(c.includes('.')?c.split('.').reduce((o,k)=>o?.[k],r):r[c])).join(','))].join('\r\n')}
+  $('exportCsv').addEventListener('click',()=>{download(`kc_products_${localDate()}.csv`,csv(state.products,['id','brand','name','productNumber','category','priority','nextActionDue','releaseStatus','regularPrice','salePrice','country','composition','colors','sizes','sourceStatus','discoveredAt','confirmedAt','officialUrl','workflowStatus','research.storeName','research.storeVisitDate','research.gauge','research.knitStructure','research.touchFeel','research.physicalNotes','research.developmentHypothesis']),'text/csv;charset=utf-8');download(`kc_yarns_${localDate()}.csv`,csv(state.yarns,['id','supplier','name','code','displayCount','countSystem','countValue','plyCount','structure','composition','gauge','functions','status','price','moq','leadTime','sourceUrl','notes']),'text/csv;charset=utf-8');download(`kc_developments_${localDate()}.csv`,csv(state.developments,['id','productId','title','status','priority','dueDate','nextAction','targetCount','targetGauge','targetComposition','targetStructure','targetFunctions','targetPrice','supplierCandidates','notes']),'text/csv;charset=utf-8');setMessage($('dataMessage'),'CSVを3種類書き出しました。')});
+  $('exportGeminiBrief').addEventListener('click',()=>{const text=`# Knit Compass 独立実用版 v0.4 — Geminiレビュー依頼\n\n## 目的\nブランド新商品を起点に、店舗確認、商品研究、既存糸検索、新規素材開発、営業提案までを一つの業務フローで管理する。\n\n## 前提\n- ブランド情報＝各ブランドの新商品情報\n- 商品研究＝店舗現物確認後の素材・編地・糸分析。ブランド情報とは別工程\n- 優先ブランド：${PRIORITY_BRANDS.join('、')}\n- 現在は端末内保存のDaily Brand Intelligence Pilot\n\n## 確認してほしい点\n1. 毎朝最初に開くブランド新商品画面として分かりやすいか。\n2. 新商品→店舗確認→商品研究→既存糸検索→候補なし→新規開発→提案の導線が自然か。\n3. PCとスマホで操作項目が多すぎないか。\n4. ブランド情報と商品研究が混同されていないか。\n5. 糸登録項目、開発案件項目に不足・重複がないか。\n6. サーバー同期、Owner token、競合検知、今日の作業の優先順位で直すべき点は何か。\n7. 採用必須、改善候補、不要の3区分で回答してほしい。\n\n## 現在のデータ件数\n- 商品：${state.products.length}\n- 糸：${state.yarns.length}\n- 開発案件：${state.developments.length}
+- ブランド確認ログ：${state.brandCheckLogs.length}
+- 操作履歴：${state.auditLog.length}\n`;download(`kc_v0_4_gemini_review_${localDate()}.md`,text,'text/markdown;charset=utf-8');setMessage($('dataMessage'),'Geminiレビュー依頼書を書き出しました。')});
+
+  $('exportServerPayload').addEventListener('click',()=>{const payload={schema_version:'4.0',workspace:{id:state.server.workspaceId,mode:'INDEPENDENT_OWNER'},exported_at:nowIso(),entities:{products:state.products,yarns:state.yarns,developments:state.developments,brand_check_logs:state.brandCheckLogs},audit_log:state.auditLog};download(`kc_server_migration_v0_4_${localDate()}.json`,JSON.stringify(payload,null,2),'application/json');setMessage($('dataMessage'),'サーバー移行JSONを書き出しました。')});
+  $('exportApiContract').addEventListener('click',()=>{const text=`# Knit Compass 独立実用版 v0.4 — Server API Contract
+
+## Workspace
+- workspace_id: personal-owner
+- schema_version: 4.0
+- authentication: Bearer token or OIDC (server decision)
+- all writes require idempotency_key and updated_at
+
+## Required endpoints
+- GET /api/v1/health
+- POST /api/v1/sync/push
+- GET /api/v1/sync/pull?workspace_id=<ID>
+- GET /api/v1/audit?workspace_id=<ID>
+- Next phase: normalized product/yarn/development CRUD and object storage uploads
+
+## Data rules
+1. UUID or current stable client ID may be accepted as external_id.
+2. DRAFT / REVIEW / PUBLISHED must remain separate.
+3. Product sourceStatus=CANDIDATE may not be exposed to Sales.
+4. Images are stored as object URLs; base64 is accepted only during migration.
+5. Deletes are soft-delete with deleted_at.
+6. Server resolves conflicts by version and updated_at, preserving an audit event.
+
+## Initial migration payload
+Use the app button “サーバー移行データ” and import entities in the order: brand_check_logs → products → yarns → developments → audit_log.
+`;download(`kc_server_api_contract_v0_4_${localDate()}.md`,text,'text/markdown;charset=utf-8');setMessage($('dataMessage'),'API引継ぎ仕様を書き出しました。')});
+
+  function cleanApiBase(v){return String(v||'').trim().replace(/\/$/,'')}
+  function renderSyncStatus(){const s=state.server||{};const rows=[['モード',s.syncMode||'LOCAL_ONLY'],['Workspace',s.workspaceId||'personal-owner'],['ローカルRevision',s.localRevision||0],['サーバーRevision',s.serverRevision||0],['最終同期',s.lastSyncAt?formatDate(s.lastSyncAt):'未同期'],['状態',s.lastSyncStatus||'LOCAL_ONLY']];$('syncStatusList').innerHTML=rows.map(([k,v])=>`<article class="record"><div><h3><span class="sync-dot ${String(s.lastSyncStatus||'').includes('OK')?'ok':String(s.lastSyncStatus||'').includes('ERROR')?'error':'pending'}"></span>${esc(k)}</h3></div><strong>${esc(v)}</strong></article>`).join('')}
+  async function serverFetch(path,options={}){const base=cleanApiBase(state.server.apiBase);if(!base)throw new Error('API Base URLを設定してください。');const headers={'Content-Type':'application/json',...(options.headers||{})};if(state.server.token)headers.Authorization=`Bearer ${state.server.token}`;const res=await fetch(base+path,{...options,headers});let body=null;try{body=await res.json()}catch{body={detail:await res.text()}}if(!res.ok){const err=new Error(body?.detail||body?.message||`HTTP ${res.status}`);err.status=res.status;err.body=body;throw err}return body}
+  $('serverConfigForm').addEventListener('submit',e=>{e.preventDefault();state.server.apiBase=cleanApiBase($('serverApiBase').value);state.server.workspaceId=$('serverWorkspaceId').value.trim()||'personal-owner';state.server.token=$('serverToken').value.trim();state.server.syncMode=state.server.apiBase?'SERVER_MANUAL':'LOCAL_ONLY';state.server.lastSyncStatus='CONFIG_SAVED';persist();renderData();setMessage($('syncMessage'),'接続設定をこの端末に保存しました。')});
+  $('testServerConnection').addEventListener('click',async()=>{try{state.server.apiBase=cleanApiBase($('serverApiBase').value);state.server.workspaceId=$('serverWorkspaceId').value.trim()||'personal-owner';state.server.token=$('serverToken').value.trim();const h=await serverFetch('/api/v1/health',{method:'GET',headers:{}});state.server.lastSyncStatus='CONNECTION_OK';persist(false);renderData();setMessage($('syncMessage'),`接続OK：${h.service||'Knit Compass Server'}`)}catch(e){state.server.lastSyncStatus='CONNECTION_ERROR';persist(false);renderData();setMessage($('syncMessage'),`接続できません：${e.message}`,'error')}});
+  $('pushServerData').addEventListener('click',async()=>{if(!confirm('現在の端末データをサーバーへ送信しますか？競合時は上書きせず停止します。'))return;try{state.server.apiBase=cleanApiBase($('serverApiBase').value);state.server.workspaceId=$('serverWorkspaceId').value.trim()||'personal-owner';state.server.token=$('serverToken').value.trim();state.server.lastSyncStatus='PUSHING';renderSyncStatus();const document=exportableState();document.server={...document.server,token:''};const r=await serverFetch('/api/v1/sync/push',{method:'POST',body:JSON.stringify({workspace_id:state.server.workspaceId,client_revision:Number(state.server.serverRevision||0),document})});state.server.serverRevision=r.revision;state.server.lastSyncAt=r.updated_at||nowIso();state.server.lastSyncStatus='PUSH_OK';state.server.syncMode='SERVER_MANUAL';logAction('SYNC_PUSH','workspace',state.server.workspaceId,`サーバーRevision ${r.revision}へ送信`);persist(false);renderAll();setMessage($('syncMessage'),'サーバーへ送信しました。')}catch(e){state.server.lastSyncStatus=e.status===409?'CONFLICT':'PUSH_ERROR';persist(false);renderData();setMessage($('syncMessage'),e.status===409?'競合を検知しました。先にサーバーから取得して内容を確認してください。':`送信失敗：${e.message}`,'error')}});
+  $('pullServerData').addEventListener('click',async()=>{try{state.server.apiBase=cleanApiBase($('serverApiBase').value);state.server.workspaceId=$('serverWorkspaceId').value.trim()||'personal-owner';state.server.token=$('serverToken').value.trim();const r=await serverFetch(`/api/v1/sync/pull?workspace_id=${encodeURIComponent(state.server.workspaceId)}`,{method:'GET',headers:{}});if(!r.document){setMessage($('syncMessage'),'サーバーにデータがありません。先に端末から送信してください。','error');return}if(!confirm(`サーバーRevision ${r.revision}のデータで、この端末を置き換えますか？事前にJSONバックアップを推奨します。`))return;const config={apiBase:state.server.apiBase,workspaceId:state.server.workspaceId,token:state.server.token};state=normalizeState(r.document);state.server={...state.server,...config,serverRevision:r.revision,lastSyncAt:r.updated_at||nowIso(),lastSyncStatus:'PULL_OK',syncMode:'SERVER_MANUAL'};logAction('SYNC_PULL','workspace',state.server.workspaceId,`サーバーRevision ${r.revision}を取得`);persist(false);renderAll();setMessage($('syncMessage'),'サーバーから取得しました。')}catch(e){state.server.lastSyncStatus='PULL_ERROR';persist(false);renderData();setMessage($('syncMessage'),`取得失敗：${e.message}`,'error')}});
+
+  $('clearAllData').addEventListener('click',()=>{if(confirm('本当にv0.4の全データを削除しますか？この操作は元に戻せません。')&&confirm('JSONバックアップは作成済みですか？削除を続けますか？')){state=blankState();persist();renderAll();setMessage($('dataMessage'),'全データを削除しました。')}});
+
+  $('newProductHero').addEventListener('click',()=>openProductForm());$('newProductButton').addEventListener('click',()=>openProductForm());$('workflowNewProduct').addEventListener('click',()=>openProductForm());$('showRecentProducts').addEventListener('click',()=>{showRecent=!showRecent;renderBrandHome()});$('newYarnButton').addEventListener('click',()=>openYarnForm());$('newDevelopmentButton').addEventListener('click',()=>openDevelopmentForm());
+
+  function renderAll(){renderBrandHome();renderWorkflow();renderYarnSearch();renderDevelopments();renderData()}
+  renderAll();
+})();
+</script>
+</body>
+</html>

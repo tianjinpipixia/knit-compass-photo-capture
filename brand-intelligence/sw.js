@@ -1,11 +1,10 @@
-const CACHE_NAME = 'kc-brand-intelligence-v0-4-1';
+const CACHE_NAME = 'kc-brand-intelligence-v0-4-2';
 const APP_SHELL = [
   './',
   './index.html',
+  './app.html',
   './manifest.webmanifest',
-  './icon.svg',
-  './payload-01.b64',
-  './payload-02.b64'
+  './icon.svg'
 ];
 
 self.addEventListener('install', event => {
@@ -29,6 +28,6 @@ self.addEventListener('fetch', event => {
         caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
         return response;
       })
-      .catch(() => caches.match(event.request).then(hit => hit || caches.match('./index.html')))
+      .catch(() => caches.match(event.request).then(hit => hit || caches.match('./app.html')))
   );
 });
