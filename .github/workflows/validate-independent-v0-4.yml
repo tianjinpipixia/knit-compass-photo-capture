@@ -27,6 +27,7 @@ jobs:
           from pathlib import Path
 
           result = Path('validation-result.txt')
+          reconstructed = Path('reconstructed-current.html')
           try:
               root = Path('brand-intelligence')
               part1 = (root / 'payload-01.b64').read_text(encoding='utf-8').strip()
@@ -34,6 +35,7 @@ jobs:
               encoded = part1 + part2
               raw = base64.b64decode(encoded, validate=True)
               html = gzip.decompress(raw)
+              reconstructed.write_bytes(html)
               digest = hashlib.sha256(html).hexdigest()
               expected = 'd3b8c3353e63bde4189b1e975542be87683bc17361d21e91b1875fbc7358b38f'
               status = 'PASS' if digest == expected else 'FAIL'
@@ -64,7 +66,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: independent-v0-4-validation
-          path: validation-result.txt
+          path: |
+            validation-result.txt
+            reconstructed-current.html
       - name: Enforce validation result
         if: steps.validate.outcome != 'success'
         run: exit 1
