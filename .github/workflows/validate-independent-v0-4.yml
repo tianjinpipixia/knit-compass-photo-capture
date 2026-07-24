@@ -43,7 +43,7 @@ jobs:
         if: github.event_name == 'pull_request'
         shell: bash
         run: |
-          if git diff --quiet -- brand-intelligence/app.html; then
+          if [ -z "$(git status --porcelain -- brand-intelligence/app.html)" ]; then
             echo 'Direct app.html already current.'
             exit 0
           fi
