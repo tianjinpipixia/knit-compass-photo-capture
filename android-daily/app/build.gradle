@@ -2,6 +2,20 @@ plugins {
     id 'com.android.application'
 }
 
+def bundledAppHtml = layout.projectDirectory.file('../../brand-intelligence/app.html')
+def generatedAppAssets = layout.buildDirectory.dir('generated/app-assets')
+
+def bundleAppHtml = tasks.register('bundleAppHtml', Sync) {
+    from bundledAppHtml
+    into generatedAppAssets
+
+    doFirst {
+        if (!bundledAppHtml.asFile.isFile()) {
+            throw new GradleException("Missing bundled app source: ${bundledAppHtml.asFile}")
+        }
+    }
+}
+
 android {
     namespace 'com.knitcompass.daily'
     compileSdk 35
@@ -24,4 +38,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
+    sourceSets {
+        main {
+            assets.srcDir generatedAppAssets
+        }
+    }
+}
+
+tasks.named('preBuild').configure {
+    dependsOn bundleAppHtml
 }
