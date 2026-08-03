@@ -6,6 +6,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import os
 import re
 import subprocess
 from pathlib import Path
@@ -101,36 +102,88 @@ def git_command(*args: str) -> subprocess.CompletedProcess[str]:
     )
 
 
+def git_command_bytes(*args: str) -> subprocess.CompletedProcess[bytes]:
+    return subprocess.run(
+        ["git", *args],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=False,
+    )
+
+
 def directory_content_sha256(source: str) -> str:
-    listed = git_command("ls-files", "--stage", "--", source)
+    dirty = git_command_bytes(
+        "status",
+        "--porcelain=v1",
+        "-z",
+        "--untracked-files=all",
+        "--",
+        source,
+    )
+    if dirty.returncode != 0:
+        fail(
+            f"could not inspect working-tree state under {source}: "
+            f"{dirty.stderr.decode(errors='replace').strip() or 'git status failed'}"
+        )
+    if dirty.stdout:
+        changed_paths = []
+        for record in dirty.stdout.split(b"\0"):
+            if not record:
+                continue
+            changed_paths.append(os.fsdecode(record[3:] if len(record) > 3 else record))
+        fail(
+            f"registered directory {source} has staged, unstaged, deleted, mode-changed, "
+            f"or untracked files; commit or restore them before validation: {changed_paths}"
+        )
+
+    listed = git_command_bytes("ls-files", "--stage", "-z", "--", source)
     if listed.returncode != 0:
         fail(
             f"could not list tracked files under {source}: "
-            f"{listed.stderr.strip() or 'git ls-files failed'}"
+            f"{listed.stderr.decode(errors='replace').strip() or 'git ls-files failed'}"
         )
 
-    entries: list[tuple[str, str, str]] = []
-    for line in listed.stdout.splitlines():
-        metadata, separator, path = line.partition("\t")
+    entries: list[tuple[bytes, bytes, bytes]] = []
+    for record in listed.stdout.split(b"\0"):
+        if not record:
+            continue
+        metadata, separator, path_bytes = record.partition(b"\t")
         if not separator:
-            fail(f"unexpected git ls-files output for {source}: {line}")
+            fail(
+                f"unexpected NUL-delimited git ls-files output for {source}: "
+                f"{record!r}"
+            )
         parts = metadata.split()
         if len(parts) != 3:
-            fail(f"unexpected git index metadata for {path}: {metadata}")
+            fail(
+                f"unexpected git index metadata for {os.fsdecode(path_bytes)}: "
+                f"{metadata!r}"
+            )
         mode, blob_sha, stage = parts
-        if stage != "0":
-            fail(f"unmerged git index entry under {source}: {path}")
-        if not HEX_SHA.fullmatch(blob_sha):
-            fail(f"invalid git blob SHA under {source}: {blob_sha}")
-        entries.append((path, mode, blob_sha))
+        if stage != b"0":
+            fail(f"unmerged git index entry under {source}: {os.fsdecode(path_bytes)}")
+        if not HEX_SHA.fullmatch(blob_sha.decode("ascii", errors="strict")):
+            fail(f"invalid git blob SHA under {source}: {blob_sha!r}")
+
+        working_path = ROOT / os.fsdecode(path_bytes)
+        if not working_path.is_file():
+            fail(f"tracked working-tree file is missing under {source}: {working_path}")
+        working_blob_sha = git_blob_sha(working_path).encode("ascii")
+        if working_blob_sha != blob_sha:
+            fail(
+                f"working-tree content differs from the index under {source}: "
+                f"{os.fsdecode(path_bytes)}"
+            )
+        entries.append((path_bytes, mode, working_blob_sha))
 
     if not entries:
         fail(f"directory source has no tracked files: {source}")
 
-    digest_input = "".join(
-        f"{mode} {path}\0{blob_sha}\n"
-        for path, mode, blob_sha in sorted(entries)
-    ).encode("utf-8")
+    digest_input = b"".join(
+        mode + b" " + path_bytes + b"\0" + blob_sha + b"\n"
+        for path_bytes, mode, blob_sha in sorted(entries, key=lambda item: item[0])
+    )
     return hashlib.sha256(digest_input).hexdigest()
 
 
@@ -389,7 +442,7 @@ def main() -> None:
     validate_kpi_template()
     validate_start_scripts()
     print(
-        "PASS: registry fields, squash-safe source revisions, ordered trigger paths, "
+        "PASS: registry fields, clean squash-safe source revisions, ordered trigger paths, "
         "browser storage declarations, status display, KPI schema, and start scripts"
     )
 
