@@ -1,7 +1,7 @@
 # Knit Compass システム接続台帳
 
 更新日: 2026-08-03  
-版: 1.1.0  
+版: 1.1.1  
 状態: **暫定正本（接続先の不明確さを解消するための基準）**
 
 ## 1. この台帳の目的
@@ -20,7 +20,7 @@ Photo Capture、Knit Compass v0.4、Daily、Androidアプリについて、次�
 
 | system_id | 画面・アプリ | 環境 | 表示版 | コード正本・Revision | データ保存先 | 同期・最終同期 | 外部DB | 状態 |
 |---|---|---|---|---|---|---|---|---|
-| `KC-PHOTO-CAPTURE` | Photo Capture | 独立Sandbox | `v1.1.0` | `app.js@main` / `git-blob:c1604c677b2f…` | IndexedDB `kc_independent_photo_capture_v1_0`。ログイン中の識別情報のみsessionStorage `kc_session_v1` | 同期OFF / `not-applicable` | なし | 稼働中 |
+| `KC-PHOTO-CAPTURE` | Photo Capture | 独立Sandbox | `v1.1.0` | `app.js@main` / `git-blob:c1604c677b2f…`。補助: `backup.js@main` / `git-blob:5f7dee4ac1de…` | IndexedDB `kc_independent_photo_capture_v1_0`。ログイン中の識別情報はsessionStorage `kc_session_v1`。最終バックアップ日時だけをlocalStorage `kc_photo_capture_last_backup_v1`へ保存 | 同期OFF / `not-applicable` | なし | 稼働中 |
 | `KC-V04-WEB` | Knit Compass 独立実用版 v0.4 | 独立運用 | `v0.4` | `brand-intelligence/app.html@main` / `git-blob:52f174f307d4…` | ブラウザlocalStorage `kc_independent_practical_v0_4` | 所有者設定時のみ手動 / `runtime-per-device-or-none` | Production / Core / Company DBへの自動接続なし | 稼働中 |
 | `KC-DAILY-WEB` | Dailyショートカット版 | 独立運用 | `v0.4` | `daily/index.html@main` / `git-blob:a7d85f1bd884…` | v0.4と同じlocalStorage | 所有者設定時のみ手動 / `runtime-per-device-or-none` | Production / Core / Company DBへの自動接続なし | 稼働中 |
 | `KC-DAILY-ANDROID` | Androidアプリ | 独立APK | `v0.4.0` | `android-daily@main` / `git-commit:5b8cf9256dd6…` | Android WebViewアプリデータ。バックアップ・端末移行の抽出対象外 | 所有者設定時のみ手動 / `runtime-per-device-or-none` | Production / Core / Company DBへの自動接続なし | 稼働中 |
@@ -62,6 +62,7 @@ Photo Capture、Knit Compass v0.4、Daily、Androidアプリについて、次�
 - [ ] 本番・テスト・独立Sandbox・ローカルを混同していない
 - [ ] 読み取り元と書き込み先を別々に記載した
 - [ ] 表示バージョンとコードRevisionを記載した
+- [ ] 主コードと補助コードのRevisionを実ファイルと照合した
 - [ ] 認証情報をHTML、Git履歴、エクスポートファイルへ直接保存していない
 - [ ] 接続失敗時に別保存先へ黙って切り替わらない
 - [ ] 同期日時と同期結果を画面で確認できる
