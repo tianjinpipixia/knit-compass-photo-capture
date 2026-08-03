@@ -8,6 +8,7 @@ import hashlib
 import json
 import os
 import re
+import stat
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -19,6 +20,7 @@ REGISTRY_PATH = ROOT / "config" / "system-registry.json"
 STATUS_PAGE_PATH = ROOT / "status" / "index.html"
 KPI_TEMPLATE_PATH = ROOT / "data" / "kpi_log_template.csv"
 WORKFLOW_PATH = ROOT / ".github" / "workflows" / "validate-system-registry.yml"
+ATTRIBUTE_TRIGGER_PATTERNS = {".gitattributes", "**/.gitattributes"}
 
 REQUIRED_SYSTEM_FIELDS = {
     "environment",
@@ -187,12 +189,16 @@ def directory_content_sha256(source: str) -> str:
             fail(f"tracked working-tree file is missing under {source}: {working_path}")
 
         if os.name != "nt":
-            working_mode = b"100755" if working_path.stat().st_mode & 0o111 else b"100644"
+            working_mode = (
+                b"100755"
+                if working_path.stat().st_mode & stat.S_IXUSR
+                else b"100644"
+            )
             if working_mode != mode:
                 fail(
-                    f"working-tree executable mode differs from the index under {source}: "
-                    f"{os.fsdecode(path_bytes)} (index {mode.decode()}, worktree "
-                    f"{working_mode.decode()})"
+                    f"working-tree owner-executable mode differs from the index under "
+                    f"{source}: {os.fsdecode(path_bytes)} (index {mode.decode()}, "
+                    f"worktree {working_mode.decode()})"
                 )
 
         working_blob_sha = git_worktree_blob_sha(working_path).encode("ascii")
@@ -399,7 +405,7 @@ def validate_workflow_paths(systems: list[dict[str, Any]]) -> None:
     if not isinstance(workflow, dict):
         fail("workflow root must be a mapping")
 
-    required_patterns = registered_source_patterns(systems)
+    required_patterns = registered_source_patterns(systems) | ATTRIBUTE_TRIGGER_PATTERNS
     for event_name in ("pull_request", "push"):
         paths = event_paths(workflow, event_name)
         negative_patterns = [pattern for pattern in paths if pattern.startswith("!")]
@@ -411,8 +417,8 @@ def validate_workflow_paths(systems: list[dict[str, Any]]) -> None:
         missing = required_patterns - set(paths)
         if missing:
             fail(
-                f"workflow {event_name}.paths missing registered sources: "
-                f"{sorted(missing)}"
+                f"workflow {event_name}.paths missing registered sources or filter "
+                f"dependencies: {sorted(missing)}"
             )
 
 
@@ -468,7 +474,7 @@ def main() -> None:
     validate_kpi_template()
     validate_start_scripts()
     print(
-        "PASS: registry fields, filter-aware squash-safe source revisions, "
+        "PASS: registry fields, attribute-aware squash-safe source revisions, "
         "ordered trigger paths, browser storage declarations, status display, "
         "KPI schema, and start scripts"
     )
