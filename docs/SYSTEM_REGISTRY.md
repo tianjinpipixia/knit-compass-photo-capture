@@ -23,16 +23,16 @@ Photo Capture、Knit Compass v0.4、Daily、Androidアプリについて、次�
 | `KC-PHOTO-CAPTURE` | Photo Capture | 独立Sandbox | `v1.1.0` | `app.js@main` / `git-blob:c1604c677b2f…`。補助: `backup.js@main` / `git-blob:5f7dee4ac1de…` | IndexedDB `kc_independent_photo_capture_v1_0`。ログイン中の識別情報はsessionStorage `kc_session_v1`。最終バックアップ日時だけをlocalStorage `kc_photo_capture_last_backup_v1`へ保存 | 同期OFF / `not-applicable` | なし | 稼働中 |
 | `KC-V04-WEB` | Knit Compass 独立実用版 v0.4 | 独立運用 | `v0.4` | `brand-intelligence/app.html@main` / `git-blob:52f174f307d4…` | ブラウザlocalStorage `kc_independent_practical_v0_4` | 所有者設定時のみ手動 / `runtime-per-device-or-none` | Production / Core / Company DBへの自動接続なし | 稼働中 |
 | `KC-DAILY-WEB` | Dailyショートカット版 | 独立運用 | `v0.4` | `daily/index.html@main` / `git-blob:a7d85f1bd884…` | v0.4と同じlocalStorage | 所有者設定時のみ手動 / `runtime-per-device-or-none` | Production / Core / Company DBへの自動接続なし | 稼働中 |
-| `KC-DAILY-ANDROID` | Androidアプリ | 独立APK | `v0.4.0` | `android-daily@main` / `content-sha256:35cc39827e50…` | Android WebViewアプリデータ。バックアップ・端末移行の抽出対象外 | 所有者設定時のみ手動 / `runtime-per-device-or-none` | Production / Core / Company DBへの自動接続なし | 稼働中 |
+| `KC-DAILY-ANDROID` | Androidアプリ | 独立APK | `v0.4.0` | `android-daily@main` / `content-sha256:21ff2fd0504f…` | Android WebViewアプリデータ。バックアップ・端末移行の抽出対象外 | 所有者設定時のみ手動 / `runtime-per-device-or-none` | Production / Core / Company DBへの自動接続なし | 稼働中 |
 
 `runtime-per-device-or-none` は、最終同期日時が静的台帳ではなく各端末内の実行時データとして保持されることを示します。同期未実施の端末では「なし」です。
 
 ## 3. Revision形式
 
 - 単一ファイル: `git-blob:<40桁SHA>`。ファイルのGit blob SHAと完全一致させます。
-- ディレクトリ: `content-sha256:<64桁SHA>`。対象ディレクトリ配下の追跡ファイルをパス順に並べ、`相対パス + NUL + Git blob SHA + 改行`を連結してSHA-256を計算します。
+- ディレクトリ: `content-sha256:<64桁SHA>`。対象ディレクトリ配下の追跡ファイルをパス順に並べ、`ファイルモード + 半角空白 + 相対パス + NUL + Git blob SHA + 改行`を連結してSHA-256を計算します。
 
-ディレクトリRevisionはcommit SHAに依存しないため、Pull Requestをsquash mergeしても同じ内容なら値が変わりません。配下のファイル追加・削除・変更時は必ず値が変わります。
+ディレクトリRevisionはcommit SHAに依存しないため、Pull Requestをsquash mergeしても同じ内容なら値が変わりません。配下のファイル追加・削除・内容変更・実行属性変更時は必ず値が変わります。
 
 ## 4. 正本の定義
 
