@@ -6,6 +6,8 @@
 
 > **重要:** Knit Compass v0.4 / Daily / Android版は独立運用です。現時点で Production、Core、Company DBへ自動接続しません。v0.4の業務データは基本的にブラウザまたはAndroid WebView内に保存され、所有者が設定した場合のみ手動同期を使用します。
 
+**画面で確認:** [`/status/`](status/index.html)
+
 接続先、保存先、正本、未解決事項は次を確認してください。
 
 - [システム接続台帳](docs/SYSTEM_REGISTRY.md)
