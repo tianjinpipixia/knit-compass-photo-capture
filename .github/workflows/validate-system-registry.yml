@@ -1,0 +1,44 @@
+name: Validate system registry
+
+on:
+  pull_request:
+    paths:
+      - "config/system-registry.json"
+      - "docs/SYSTEM_REGISTRY.md"
+      - "docs/KPI_MEASUREMENT.md"
+      - "data/kpi_log_template.csv"
+      - "status/**"
+      - "index.html"
+      - "start.bat"
+      - "start.sh"
+      - "scripts/validate_system_registry.py"
+      - ".github/workflows/validate-system-registry.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "config/system-registry.json"
+      - "docs/SYSTEM_REGISTRY.md"
+      - "docs/KPI_MEASUREMENT.md"
+      - "data/kpi_log_template.csv"
+      - "status/**"
+      - "index.html"
+      - "start.bat"
+      - "start.sh"
+      - "scripts/validate_system_registry.py"
+      - ".github/workflows/validate-system-registry.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate registry and KPI schema
+        run: python scripts/validate_system_registry.py
