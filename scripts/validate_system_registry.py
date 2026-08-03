@@ -6,16 +6,21 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import os
 import re
+import stat
 import subprocess
 from pathlib import Path
 from typing import Any
+
+import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY_PATH = ROOT / "config" / "system-registry.json"
 STATUS_PAGE_PATH = ROOT / "status" / "index.html"
 KPI_TEMPLATE_PATH = ROOT / "data" / "kpi_log_template.csv"
 WORKFLOW_PATH = ROOT / ".github" / "workflows" / "validate-system-registry.yml"
+ATTRIBUTE_TRIGGER_PATTERNS = {".gitattributes", "**/.gitattributes"}
 
 REQUIRED_SYSTEM_FIELDS = {
     "environment",
@@ -53,6 +58,7 @@ REQUIRED_KPI_COLUMNS = {
     "notes",
 }
 HEX_SHA = re.compile(r"[0-9a-f]{40}")
+HEX_SHA256 = re.compile(r"[0-9a-f]{64}")
 
 
 def fail(message: str) -> None:
@@ -82,12 +88,6 @@ def source_path(code_source: str) -> Path | None:
     return ROOT / source
 
 
-def git_blob_sha(path: Path) -> str:
-    payload = path.read_bytes()
-    header = f"blob {len(payload)}\0".encode("ascii")
-    return hashlib.sha1(header + payload).hexdigest()
-
-
 def git_command(*args: str) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         ["git", *args],
@@ -96,6 +96,127 @@ def git_command(*args: str) -> subprocess.CompletedProcess[str]:
         capture_output=True,
         text=True,
     )
+
+
+def git_command_bytes(*args: str) -> subprocess.CompletedProcess[bytes]:
+    return subprocess.run(
+        ["git", *args],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=False,
+    )
+
+
+def git_worktree_blob_sha(path: Path) -> str:
+    try:
+        relative = path.relative_to(ROOT).as_posix()
+    except ValueError:
+        fail(f"source file is outside repository root: {path}")
+    hashed = git_command("hash-object", f"--path={relative}", "--", relative)
+    if hashed.returncode != 0:
+        fail(
+            f"could not hash working-tree file through Git clean filters: {relative}: "
+            f"{hashed.stderr.strip() or 'git hash-object failed'}"
+        )
+    digest = hashed.stdout.strip()
+    if not HEX_SHA.fullmatch(digest):
+        fail(f"invalid filtered Git blob SHA for {relative}: {digest}")
+    return digest
+
+
+def directory_content_sha256(source: str) -> str:
+    dirty = git_command_bytes(
+        "status",
+        "--porcelain=v1",
+        "-z",
+        "--untracked-files=all",
+        "--",
+        source,
+    )
+    if dirty.returncode != 0:
+        fail(
+            f"could not inspect working-tree state under {source}: "
+            f"{dirty.stderr.decode(errors='replace').strip() or 'git status failed'}"
+        )
+    if dirty.stdout:
+        changed_paths = []
+        for record in dirty.stdout.split(b"\0"):
+            if not record:
+                continue
+            changed_paths.append(os.fsdecode(record[3:] if len(record) > 3 else record))
+        fail(
+            f"registered directory {source} has staged, unstaged, deleted, mode-changed, "
+            f"or untracked files; commit or restore them before validation: {changed_paths}"
+        )
+
+    listed = git_command_bytes("ls-files", "--stage", "-z", "--", source)
+    if listed.returncode != 0:
+        fail(
+            f"could not list tracked files under {source}: "
+            f"{listed.stderr.decode(errors='replace').strip() or 'git ls-files failed'}"
+        )
+
+    entries: list[tuple[bytes, bytes, bytes]] = []
+    for record in listed.stdout.split(b"\0"):
+        if not record:
+            continue
+        metadata, separator, path_bytes = record.partition(b"\t")
+        if not separator:
+            fail(
+                f"unexpected NUL-delimited git ls-files output for {source}: "
+                f"{record!r}"
+            )
+        parts = metadata.split()
+        if len(parts) != 3:
+            fail(
+                f"unexpected git index metadata for {os.fsdecode(path_bytes)}: "
+                f"{metadata!r}"
+            )
+        mode, blob_sha, stage = parts
+        if stage != b"0":
+            fail(f"unmerged git index entry under {source}: {os.fsdecode(path_bytes)}")
+        if mode not in {b"100644", b"100755"}:
+            fail(
+                f"unsupported tracked file mode under {source}: "
+                f"{mode.decode(errors='replace')} {os.fsdecode(path_bytes)}"
+            )
+        if not HEX_SHA.fullmatch(blob_sha.decode("ascii", errors="strict")):
+            fail(f"invalid git blob SHA under {source}: {blob_sha!r}")
+
+        working_path = ROOT / os.fsdecode(path_bytes)
+        if not working_path.is_file():
+            fail(f"tracked working-tree file is missing under {source}: {working_path}")
+
+        if os.name != "nt":
+            working_mode = (
+                b"100755"
+                if working_path.stat().st_mode & stat.S_IXUSR
+                else b"100644"
+            )
+            if working_mode != mode:
+                fail(
+                    f"working-tree owner-executable mode differs from the index under "
+                    f"{source}: {os.fsdecode(path_bytes)} (index {mode.decode()}, "
+                    f"worktree {working_mode.decode()})"
+                )
+
+        working_blob_sha = git_worktree_blob_sha(working_path).encode("ascii")
+        if working_blob_sha != blob_sha:
+            fail(
+                f"working-tree content after Git clean filters differs from the index "
+                f"under {source}: {os.fsdecode(path_bytes)}"
+            )
+        entries.append((path_bytes, mode, working_blob_sha))
+
+    if not entries:
+        fail(f"directory source has no tracked files: {source}")
+
+    digest_input = b"".join(
+        mode + b" " + path_bytes + b"\0" + blob_sha + b"\n"
+        for path_bytes, mode, blob_sha in sorted(entries, key=lambda item: item[0])
+    )
+    return hashlib.sha256(digest_input).hexdigest()
 
 
 def validate_source_revision(system_id: str, code_source: str, revision: str) -> None:
@@ -112,7 +233,7 @@ def validate_source_revision(system_id: str, code_source: str, revision: str) ->
         expected = revision.removeprefix("git-blob:")
         if not HEX_SHA.fullmatch(expected):
             fail(f"{system_id} has invalid git-blob SHA: {expected}")
-        actual = git_blob_sha(candidate)
+        actual = git_worktree_blob_sha(candidate)
         if actual != expected:
             fail(
                 f"{system_id} code_revision mismatch for "
@@ -120,21 +241,25 @@ def validate_source_revision(system_id: str, code_source: str, revision: str) ->
             )
         return
 
-    if revision.startswith("git-commit:"):
-        expected = revision.removeprefix("git-commit:")
-        if not HEX_SHA.fullmatch(expected):
-            fail(f"{system_id} has invalid git-commit SHA: {expected}")
-        if git_command("cat-file", "-e", f"{expected}^{{commit}}").returncode != 0:
-            fail(f"{system_id} git commit is unavailable: {expected}")
-        if git_command("merge-base", "--is-ancestor", expected, "HEAD").returncode != 0:
-            fail(f"{system_id} git commit is not reachable from HEAD: {expected}")
+    if revision.startswith("content-sha256:"):
+        if candidate is None or not candidate.is_dir():
+            fail(f"{system_id} content-sha256 revision requires a directory code_source")
+        expected = revision.removeprefix("content-sha256:")
+        if not HEX_SHA256.fullmatch(expected):
+            fail(f"{system_id} has invalid content SHA-256: {expected}")
         source = source_name(code_source)
-        if source not in {"repository-root", "apk"}:
-            if git_command("cat-file", "-e", f"{expected}:{source}").returncode != 0:
-                fail(f"{system_id} source {source} is absent at commit {expected}")
+        actual = directory_content_sha256(source)
+        if actual != expected:
+            fail(
+                f"{system_id} directory revision mismatch for {source}: "
+                f"expected {expected}, actual {actual}"
+            )
         return
 
-    fail(f"{system_id} uses unsupported code_revision format: {revision}")
+    fail(
+        f"{system_id} uses unsupported code_revision format: {revision}; "
+        "use git-blob for files or content-sha256 for directories"
+    )
 
 
 def validate_registry(registry: dict[str, Any]) -> list[dict[str, Any]]:
@@ -209,6 +334,8 @@ def validate_registry(registry: dict[str, Any]) -> list[dict[str, Any]]:
         fail("KC-DAILY-ANDROID is missing")
     if not android["code_source"].startswith("android-daily"):
         fail("KC-DAILY-ANDROID code_source must point to android-daily")
+    if not android["code_revision"].startswith("content-sha256:"):
+        fail("KC-DAILY-ANDROID must use a squash-safe content-sha256 revision")
 
     return systems
 
@@ -238,26 +365,60 @@ def validate_photo_capture_storage(systems: list[dict[str, Any]]) -> None:
         fail("Photo Capture must register backup.js as an auxiliary source")
 
 
-def validate_workflow_paths(systems: list[dict[str, Any]]) -> None:
-    try:
-        workflow = WORKFLOW_PATH.read_text(encoding="utf-8")
-    except FileNotFoundError:
-        fail(f"missing {WORKFLOW_PATH.relative_to(ROOT)}")
-
+def registered_source_patterns(systems: list[dict[str, Any]]) -> set[str]:
     sources: set[str] = set()
     for system in systems:
         sources.add(source_name(system["code_source"]))
         for auxiliary in system.get("auxiliary_sources", []):
             sources.add(source_name(auxiliary["code_source"]))
 
+    patterns: set[str] = set()
     for source in sources:
         if source in {"repository-root", "apk"}:
             continue
         path = ROOT / source
-        pattern = f"{source}/**" if path.is_dir() else source
-        if workflow.count(f'"{pattern}"') < 2:
+        patterns.add(f"{source}/**" if path.is_dir() else source)
+    return patterns
+
+
+def event_paths(workflow: dict[str, Any], event_name: str) -> list[str]:
+    triggers = workflow.get("on")
+    if not isinstance(triggers, dict):
+        fail('workflow must contain a mapping under quoted key "on"')
+    event = triggers.get(event_name)
+    if not isinstance(event, dict):
+        fail(f"workflow trigger {event_name} must be a mapping")
+    paths = event.get("paths")
+    if not isinstance(paths, list) or not all(isinstance(item, str) for item in paths):
+        fail(f"workflow trigger {event_name}.paths must be a string array")
+    return paths
+
+
+def validate_workflow_paths(systems: list[dict[str, Any]]) -> None:
+    try:
+        workflow = yaml.safe_load(WORKFLOW_PATH.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        fail(f"missing {WORKFLOW_PATH.relative_to(ROOT)}")
+    except yaml.YAMLError as error:
+        fail(f"invalid workflow YAML: {error}")
+
+    if not isinstance(workflow, dict):
+        fail("workflow root must be a mapping")
+
+    required_patterns = registered_source_patterns(systems) | ATTRIBUTE_TRIGGER_PATTERNS
+    for event_name in ("pull_request", "push"):
+        paths = event_paths(workflow, event_name)
+        negative_patterns = [pattern for pattern in paths if pattern.startswith("!")]
+        if negative_patterns:
             fail(
-                f"workflow paths must include {pattern} for both pull_request and push"
+                f"workflow {event_name}.paths may not contain exclusions because they "
+                f"can negate registered sources: {negative_patterns}"
+            )
+        missing = required_patterns - set(paths)
+        if missing:
+            fail(
+                f"workflow {event_name}.paths missing registered sources or filter "
+                f"dependencies: {sorted(missing)}"
             )
 
 
@@ -313,8 +474,9 @@ def main() -> None:
     validate_kpi_template()
     validate_start_scripts()
     print(
-        "PASS: registry fields, exact source revisions, workflow paths, "
-        "browser storage declarations, status display, KPI schema, and start scripts"
+        "PASS: registry fields, attribute-aware squash-safe source revisions, "
+        "ordered trigger paths, browser storage declarations, status display, "
+        "KPI schema, and start scripts"
     )
 
 

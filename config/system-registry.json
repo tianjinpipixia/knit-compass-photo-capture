@@ -1,6 +1,6 @@
 {
-  "schema_version": "1.1.1",
-  "updated_at": "2026-08-03T20:59:00+09:00",
+  "schema_version": "1.1.2",
+  "updated_at": "2026-08-03T21:22:00+09:00",
   "policy": {
     "unknown_connections_are_forbidden": true,
     "connection_change_requires_registry_update": true,
@@ -8,6 +8,10 @@
       "not_applicable": "not-applicable",
       "runtime_per_device": "runtime-per-device-or-none",
       "unknown_until_release": "unknown-until-release-tag"
+    },
+    "revision_formats": {
+      "file": "git-blob:<40-hex>",
+      "directory": "content-sha256:<64-hex>"
     },
     "required_ui_fields": [
       "environment",
@@ -78,7 +82,7 @@
       "display_version": "v0.4.0",
       "entry_path": "apk",
       "code_source": "android-daily@main",
-      "code_revision": "git-commit:5b8cf9256dd6d33e76b92d17e5333285514b4f1d",
+      "code_revision": "content-sha256:21ff2fd0504f7ef73becfb71e348328e50133bf0ad984896945eceeb69b75856",
       "data_store": "android-webview-app-data",
       "storage_detail": "Android WebView app data; Android backup and device-transfer extraction disabled",
       "sync_mode": "manual-only-when-owner-configured",

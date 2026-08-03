@@ -1,7 +1,7 @@
 # Knit Compass システム接続台帳
 
 更新日: 2026-08-03  
-版: 1.1.1  
+版: 1.1.2  
 状態: **暫定正本（接続先の不明確さを解消するための基準）**
 
 ## 1. この台帳の目的
@@ -23,11 +23,18 @@ Photo Capture、Knit Compass v0.4、Daily、Androidアプリについて、次�
 | `KC-PHOTO-CAPTURE` | Photo Capture | 独立Sandbox | `v1.1.0` | `app.js@main` / `git-blob:c1604c677b2f…`。補助: `backup.js@main` / `git-blob:5f7dee4ac1de…` | IndexedDB `kc_independent_photo_capture_v1_0`。ログイン中の識別情報はsessionStorage `kc_session_v1`。最終バックアップ日時だけをlocalStorage `kc_photo_capture_last_backup_v1`へ保存 | 同期OFF / `not-applicable` | なし | 稼働中 |
 | `KC-V04-WEB` | Knit Compass 独立実用版 v0.4 | 独立運用 | `v0.4` | `brand-intelligence/app.html@main` / `git-blob:52f174f307d4…` | ブラウザlocalStorage `kc_independent_practical_v0_4` | 所有者設定時のみ手動 / `runtime-per-device-or-none` | Production / Core / Company DBへの自動接続なし | 稼働中 |
 | `KC-DAILY-WEB` | Dailyショートカット版 | 独立運用 | `v0.4` | `daily/index.html@main` / `git-blob:a7d85f1bd884…` | v0.4と同じlocalStorage | 所有者設定時のみ手動 / `runtime-per-device-or-none` | Production / Core / Company DBへの自動接続なし | 稼働中 |
-| `KC-DAILY-ANDROID` | Androidアプリ | 独立APK | `v0.4.0` | `android-daily@main` / `git-commit:5b8cf9256dd6…` | Android WebViewアプリデータ。バックアップ・端末移行の抽出対象外 | 所有者設定時のみ手動 / `runtime-per-device-or-none` | Production / Core / Company DBへの自動接続なし | 稼働中 |
+| `KC-DAILY-ANDROID` | Androidアプリ | 独立APK | `v0.4.0` | `android-daily@main` / `content-sha256:21ff2fd0504f…` | Android WebViewアプリデータ。バックアップ・端末移行の抽出対象外 | 所有者設定時のみ手動 / `runtime-per-device-or-none` | Production / Core / Company DBへの自動接続なし | 稼働中 |
 
 `runtime-per-device-or-none` は、最終同期日時が静的台帳ではなく各端末内の実行時データとして保持されることを示します。同期未実施の端末では「なし」です。
 
-## 3. 正本の定義
+## 3. Revision形式
+
+- 単一ファイル: `git-blob:<40桁SHA>`。ファイルのGit blob SHAと完全一致させます。
+- ディレクトリ: `content-sha256:<64桁SHA>`。対象ディレクトリ配下の追跡ファイルをパス順に並べ、`ファイルモード + 半角空白 + 相対パス + NUL + Git blob SHA + 改行`を連結してSHA-256を計算します。
+
+ディレクトリRevisionはcommit SHAに依存しないため、Pull Requestをsquash mergeしても同じ内容なら値が変わりません。配下のファイル追加・削除・内容変更・実行属性変更時は必ず値が変わります。
+
+## 4. 正本の定義
 
 | 対象 | 正本 |
 |---|---|
@@ -38,14 +45,14 @@ Photo Capture、Knit Compass v0.4、Daily、Androidアプリについて、次�
 | KPI記録 | `data/kpi_log_template.csv` を基にした月次台帳 |
 | 業務データ | 現時点では一元正本未確定。ブラウザ／WebView内データを正式な一元DBと誤認しない |
 
-## 4. 全画面に表示する接続情報
+## 5. 全画面に表示する接続情報
 
 各画面の「接続先情報」またはフッターに次を表示します。
 
 - 環境
 - システムID
 - 表示バージョン
-- コードRevision（commit SHA、release tag、またはgit blob SHA）
+- コードRevision（Git blob SHA、content SHA-256、またはrelease tag）
 - データ保存先
 - 外部同期方式
 - 最終同期日時
@@ -57,12 +64,13 @@ Photo Capture、Knit Compass v0.4、Daily、Androidアプリについて、次�
 
 端末ごとに値が異なる項目は、静的台帳で架空の日時を記入せず `runtime-per-device-or-none` と表示します。
 
-## 5. 接続変更時の必須確認
+## 6. 接続変更時の必須確認
 
 - [ ] 本番・テスト・独立Sandbox・ローカルを混同していない
 - [ ] 読み取り元と書き込み先を別々に記載した
 - [ ] 表示バージョンとコードRevisionを記載した
 - [ ] 主コードと補助コードのRevisionを実ファイルと照合した
+- [ ] ディレクトリRevisionを現在内容から再計算した
 - [ ] 認証情報をHTML、Git履歴、エクスポートファイルへ直接保存していない
 - [ ] 接続失敗時に別保存先へ黙って切り替わらない
 - [ ] 同期日時と同期結果を画面で確認できる
@@ -70,7 +78,7 @@ Photo Capture、Knit Compass v0.4、Daily、Androidアプリについて、次�
 - [ ] この台帳とJSONを更新した
 - [ ] `python scripts/validate_system_registry.py` が成功した
 
-## 6. 未解決事項
+## 7. 未解決事項
 
 1. Photo Capture、商品、糸、ブランド、会社、写真、調査記録を共通IDで結ぶ
 2. 正式な業務データの一元正本を決定する
