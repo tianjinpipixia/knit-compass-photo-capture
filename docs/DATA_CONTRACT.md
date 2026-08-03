@@ -1,19 +1,20 @@
 # Knit Compass 共通ID・データ項目定義
 
-更新日: 2026-08-03  
-版: 1.0.0
+更新日: 2026-08-04  
+版: 1.1.0
 
 ## 1. 基本原則
 
 - 同じ情報を複数画面で別々に確定しない
-- 各情報には「正本となるマスター」を一つだけ決める
-- Photo Captureは写真と撮影時情報を保持し、商品・糸・会社の確定情報は各マスターから参照する
-- 不明情報を空欄のまま放置せず、確認状態を必ず保持する
-- AIの推定値と確認済み事実を同じ値として扱わない
+- Photo Captureは写真と撮影時情報をDRAFTとして保持する
+- 商品・糸・会社の確定情報はHuman Review承認後に各マスターへ反映する
+- AI推定、Supplier主張、資料確認、試験確認を同じ状態として扱わない
+- 名称やURLが変わっても共通IDは変更しない
+- 不明情報は空欄だけで放置せず確認状態を持たせる
 
 ## 2. 共通ID
 
-| 対象 | キー | 推奨形式 | 例 |
+| 対象 | キー | 形式 | 例 |
 |---|---|---|---|
 | ブランド | `brand_id` | `BR-` + 5桁 | `BR-00058` |
 | 商品 | `product_id` | `PR-` + 8桁 | `PR-00001234` |
@@ -24,50 +25,62 @@
 | 調査記録 | `research_id` | `RS-` + 10桁 | `RS-0000000482` |
 | 根拠資料 | `evidence_id` | `EV-` + 10桁 | `EV-0000000159` |
 
-IDは名称変更、URL変更、会社名の表記揺れがあっても変更しません。
+マスター未作成の場合、Photo Captureは `TMP-<種別>-<UUID>` の一時IDを発行します。Human Review承認時に正式IDへ変換し、`photoCaptureIdMap` に対応関係を保存します。
 
-## 3. 正本となるマスター
+## 3. Photo Capture DRAFT
 
-### 3.1 ブランドマスター
+主キー: `captureId`
 
-主キー: `brand_id`
+必須または主要項目:
 
-主な項目:
+- `dataContractVersion`
+- `captureId`
+- `targetType`
+- `targetId`
+- `commonIds.productId`
+- `commonIds.yarnId`
+- `commonIds.materialId`
+- `commonIds.researchId`
+- `sourceOrganizationName` / `sourceOrganizationId`
+- `manufacturerName` / `manufacturerId`
+- `sellerName` / `sellerId`
+- `brandName`
+- `productName` / `productCode` / `productUrl`
+- `yarnName` / `yarnCode`
+- `countSystem` / `countValue` / `countDisplay`
+- `basicYarnForm` / `yarnStructure`
+- `spinningMethod` / `processingMethod`
+- `compositionRaw` / `compositionTotal` / `compositionStatus`
+- `functionalProperties`
+- `sustainableAttributes`
+- `verificationStatus`
+- `evidenceId`
+- `sourceType` / `sourceUrl`
+- `photoRefs`
+- `notes`
 
-- `brand_name_official`
-- `brand_name_display`
-- `official_site_url`
-- `operating_company_id`
-- `country_code`
-- `active_status`
+Photo CaptureのイベントはAppend Onlyとし、`CREATE` と `UPDATE` の全版を残します。
 
-### 3.2 商品マスター
+## 4. 正本マスター
+
+### 商品マスター
 
 主キー: `product_id`
-
-正本項目:
 
 - `brand_id`
 - `manufacturer_product_code`
 - `product_name`
 - `product_url`
-- `regular_price`
-- `sale_price`
-- `currency`
-- `color`
-- `size`
 - `product_composition_label`
+- `functional_properties`
+- `sustainable_attributes`
 - `country_of_origin`
 - `release_status`
 - `confirmed_at`
 
-`product_url`は原則として商品詳細の公式URLを保存し、ブランド一覧URLや検索結果URLで代用しません。
-
-### 3.3 糸マスター
+### 糸マスター
 
 主キー: `yarn_id`
-
-正本項目:
 
 - `yarn_name`
 - `supplier_product_code`
@@ -87,73 +100,41 @@ IDは名称変更、URL変更、会社名の表記揺れがあっても変更し
 - `manufacturer_organization_id`
 - `seller_organization_id`
 
-番手は、値・体系・表示を分けます。例:
+番手は値・体系・表示を分けます。表示順を変更しても元の値を破壊しません。
 
-```json
-{
-  "yarn_count_value": "30/2",
-  "yarn_count_system": "Nm",
-  "yarn_count_display": "2/30 Nm"
-}
-```
-
-表示順の変更が必要でも、元の値を破壊しません。
-
-### 3.4 会社・組織マスター
+### 会社・組織マスター
 
 主キー: `organization_id`
-
-正本項目:
 
 - `organization_name_official`
 - `organization_name_local`
 - `organization_role`
-- `country_code`
-- `province_or_state`
 - `official_url`
 - `verification_status`
 
-`organization_role`は複数可とし、最低限次を区別します。
+`organization_role` は複数可とし、原料メーカー、糸メーカー、加工会社、販売会社、商社、ブランド運営会社、入手先、未確認を区別します。販売会社が原料メーカーを把握していない場合、メーカーとして確定しません。
 
-- `raw_material_manufacturer`
-- `yarn_manufacturer`
-- `processor`
-- `seller`
-- `trading_company`
-- `brand_operator`
-- `unknown`
-
-販売会社が原料メーカーを把握していない場合、メーカーとして確定せず `seller` として登録します。
-
-### 3.5 写真マスター
+### 写真マスター
 
 主キー: `photo_id`
-
-正本項目:
 
 - `file_reference`
 - `captured_at`
 - `captured_by`
 - `photo_category`
-- `orientation_corrected`
 - `target_type`
 - `target_id`
 - `source_organization_id`
 - `document_type`
 - `season`
 
-`target_type`は `product`、`yarn`、`material`、`organization`、`research` のいずれかとし、`target_id`に対応する共通IDを入れます。
-
-### 3.6 調査記録
+### 調査記録
 
 主キー: `research_id`
-
-正本項目:
 
 - `target_type`
 - `target_id`
 - `research_question`
-- `ai_tool`
 - `candidate_answer`
 - `verified_facts`
 - `inferences`
@@ -162,56 +143,52 @@ IDは名称変更、URL変更、会社名の表記揺れがあっても変更し
 - `reviewed_by`
 - `reviewed_at`
 
-## 4. 商品と糸の関係
+## 5. 商品と糸の関係
 
-商品と糸は直接上書きせず、関係テーブル `product_yarn_link` で結びます。
-
-必須項目:
+商品と糸は直接上書きせず、関係情報で結びます。
 
 - `product_id`
 - `yarn_id`
-- `usage_position`（身頃、衿、プレーティング、芯糸など）
-- `adoption_status`（候補、確認済み、否定）
+- `usage_position`
+- `adoption_status`
 - `evidence_id`
 - `confidence_level`
 - `confirmed_at`
 
-これにより、一商品に複数糸、一糸に複数商品を安全に紐付けできます。
+v0.4では承認済み候補を商品側の `linkedYarnIds` に保持します。
 
-## 5. 機能性・サステナブル項目
+## 6. 機能性
 
-### 機能性
+`functionalProperties` は複数選択とし、各項目に次を持たせます。
 
-`functional_properties`は複数選択とし、各機能に以下を持たせます。
-
-- `function_code`
-- `function_name`
-- `claim_status`
-- `test_method`
-- `test_value`
+- `code`
+- `name`
+- `verification_status` または `claim_status`
+- `detail`
+- `test`
 - `evidence_id`
 
-`claim_status`:
+確認状態:
 
+- `not_confirmed`
 - `supplier_claim`
 - `document_confirmed`
 - `test_confirmed`
-- `not_confirmed`
 
-### サステナブル
+## 7. サステナブル
 
-`sustainable_attributes`も複数選択とし、曖昧な「サステナブル」の一語だけで確定しません。
+`sustainableAttributes` も複数選択とし、曖昧な「サステナブル」の一語だけで確定しません。
 
-- `attribute_code`
-- `attribute_name`
-- `basis`（再生原料、認証、バイオベース、トレーサビリティ等）
-- `certification_or_standard`
+- `code`
+- `name`
+- `detail` または `basis`
+- `certification`
 - `evidence_id`
 - `verification_status`
 
-## 6. 確認状態
+対象例は再生原料、バイオベース、認証セルロース、トレーサビリティ、環境負荷低減です。
 
-全ての重要項目に `verification_status` を持たせます。
+## 8. 共通の確認状態
 
 | 値 | 意味 |
 |---|---|
@@ -222,46 +199,49 @@ IDは名称変更、URL変更、会社名の表記揺れがあっても変更し
 | `conflicting` | 情報源同士が矛盾 |
 | `not_applicable` | 対象外 |
 
-画面では `candidate` と `inferred` を確定値と同じ色・表示にしてはいけません。
+候補・推定を確定値と同じ色や表示にしません。
 
-## 7. 根拠情報
+## 9. v0.4受信箱
 
-重要項目を確定する際は、最低限次を保存します。
+Photo Captureからv0.4へ渡す候補は `KC_V04_INBOX_ITEM` とします。
 
-- `source_url` またはファイル参照
-- `source_type`
-- `source_title`
-- `checked_at`
-- `checked_by`
-- `quoted_or_observed_fact`
-- `evidence_id`
+- `handoff_id`
+- `dedupe_key`
+- `capture_id`
+- `event_id`
+- `event_version`
+- `source_system`
+- `sent_at`
+- `review_status`
+- `payload`
 
-## 8. 最低限の入力チェック
+`review_status` は `PENDING`、`APPROVED`、`REJECTED` のいずれかです。同一版は `dedupe_key` で重複防止します。別端末用の書き出し形式は `KC_V04_INBOX_EXPORT` です。
 
-### 商品
+## 10. Human Review
 
-- `brand_id`必須
-- `product_name`必須
-- `product_url`またはURL未取得理由を必須
-- 公式URLかどうかを記録
+### APPROVED
 
-### 糸
+- 確認者と確認日時を保存
+- 一時IDを正式IDへ変換
+- 商品・糸・会社・素材・調査マスターをIDでupsert
+- 商品と糸を紐付け
+- `photoCaptureImports` と `auditLog` を追加
 
-- `yarn_name`または仮称必須
-- 番手体系と番手値を分離
-- 混率合計が100%でない場合は警告
+### REJECTED
+
+- 却下理由、確認者、確認日時を保存
+- マスターは変更しない
+
+## 11. 最低限の入力チェック
+
+- 混率の数値合計が100%でない場合は警告
 - メーカーと販売会社を別項目で保持
-- 糸構造が未確認の場合は `unconfirmed` を明示
+- 糸構造未確認の場合は `unconfirmed` を明示
+- 写真は `targetType` と `targetId` を持つ
+- 共通ID未作成の場合は一時IDを発行
+- Human Review前の候補をマスターへ確定反映しない
 
-### 写真
-
-- `photo_category`必須
-- `target_type`と`target_id`を両方必須
-- 紐付け先が未作成の場合は一時IDを発行し、未連携一覧へ表示
-
-## 9. 未連携一覧の共通判定
-
-次の条件をダッシュボードで件数表示します。
+## 12. 未連携一覧の共通判定
 
 - 商品URLなし
 - 商品混率未確認
@@ -274,4 +254,4 @@ IDは名称変更、URL変更、会社名の表記揺れがあっても変更し
 - 写真の紐付け先なし
 - Human Review未完了
 
-これらはエラーで削除せず、改善対象として追跡します。
+これらは削除対象ではなく改善対象として追跡します。

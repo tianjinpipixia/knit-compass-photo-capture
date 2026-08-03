@@ -6,11 +6,11 @@
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="theme-color" content="#146b4d">
   <meta http-equiv="Cache-Control" content="no-store">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' blob: data:; img-src 'self' blob: data:; style-src 'self'; script-src 'self'; worker-src 'self'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' blob: data:; img-src 'self' blob: data:; style-src 'self'; script-src 'self'; worker-src 'self'; connect-src 'none'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
   <title>Knit Compass Photo Capture</title>
-  <link rel="manifest" href="manifest.webmanifest?v=1.1.0">
+  <link rel="manifest" href="manifest.webmanifest?v=1.2.0">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="app.css?v=1.1.0">
+  <link rel="stylesheet" href="app.css?v=1.2.0">
   <link rel="stylesheet" href="connection-status.css?v=1.0.0">
 </head>
 <body>
@@ -18,18 +18,18 @@
     <strong>Photo Capture</strong>
     <span class="connection-item">環境: 独立Sandbox</span>
     <span class="connection-item">System ID: KC-PHOTO-CAPTURE</span>
-    <span class="connection-item">版: v1.1.0</span>
-    <span class="connection-item">Revision: c1604c677b2f</span>
+    <span class="connection-item">版: v1.2.0</span>
+    <span class="connection-item">Revision: 4bca5b3bf439</span>
     <span class="connection-item">保存先: IndexedDB</span>
-    <span class="connection-item">補助保存: sessionStorage + バックアップ日時localStorage</span>
-    <span class="connection-item">同期: OFF</span>
-    <span class="connection-item">最終同期: 対象外</span>
+    <span class="connection-item">受信箱: localStorage + 手動JSON</span>
+    <span class="connection-item">同期: v0.4候補受渡しのみ</span>
+    <span class="connection-item">最終受渡し: 端末内実行時値</span>
     <span class="connection-item">外部DB: なし</span>
     <a href="status/">接続先の詳細</a>
   </aside>
   <div id="app" aria-live="polite"></div>
   <noscript>この画面を使用するにはJavaScriptを有効にしてください。</noscript>
-  <script src="app.js?v=1.0.0" defer></script>
+  <script src="app.js?v=1.2.0" defer></script>
   <script src="backup.js?v=1.0.0" defer></script>
 </body>
 </html>

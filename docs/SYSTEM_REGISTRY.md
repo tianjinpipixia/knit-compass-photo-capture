@@ -1,87 +1,85 @@
 # Knit Compass システム接続台帳
 
-更新日: 2026-08-03  
-版: 1.1.2  
-状態: **暫定正本（接続先の不明確さを解消するための基準）**
+更新日: 2026-08-04  
+版: 1.2.0  
+状態: **暫定正本**
 
-## 1. この台帳の目的
+## 1. 接続済みフロー
 
-Photo Capture、Knit Compass v0.4、Daily、Androidアプリについて、次を一か所で確認できるようにします。
+次の3工程を実データで接続しました。
 
-1. どの画面・アプリか
-2. どのコードと版から動いているか
-3. データをどこへ保存するか
-4. 外部同期・外部DB接続があるか
-5. 最終同期日時をどこで確認するか
+1. Photo Captureが混率・機能性・サステナブル・共通ID・根拠・確認状態をAppend Only DRAFTとして保持
+2. Photo CaptureのDRAFTをv0.4の受信箱へ候補送信
+3. Human Review承認後だけ商品・糸・会社・素材・調査マスターへ確定反映
 
-記載のない接続を暗黙に追加してはいけません。接続先を変更する場合は、この台帳と `config/system-registry.json` を同じPull Requestで更新します。
+PENDING候補とREJECTED候補はマスターへ反映しません。外部Production / Core / Company DBへの自動接続も追加していません。
 
 ## 2. 現在の接続状況
 
-| system_id | 画面・アプリ | 環境 | 表示版 | コード正本・Revision | データ保存先 | 同期・最終同期 | 外部DB | 状態 |
+| system_id | 画面・アプリ | 環境 | 表示版 | コード正本・Revision | データ保存先 | 同期・受渡し | 外部DB | 状態 |
 |---|---|---|---|---|---|---|---|---|
-| `KC-PHOTO-CAPTURE` | Photo Capture | 独立Sandbox | `v1.1.0` | `app.js@main` / `git-blob:c1604c677b2f…`。補助: `backup.js@main` / `git-blob:5f7dee4ac1de…` | IndexedDB `kc_independent_photo_capture_v1_0`。ログイン中の識別情報はsessionStorage `kc_session_v1`。最終バックアップ日時だけをlocalStorage `kc_photo_capture_last_backup_v1`へ保存 | 同期OFF / `not-applicable` | なし | 稼働中 |
-| `KC-V04-WEB` | Knit Compass 独立実用版 v0.4 | 独立運用 | `v0.4` | `brand-intelligence/app.html@main` / `git-blob:52f174f307d4…` | ブラウザlocalStorage `kc_independent_practical_v0_4` | 所有者設定時のみ手動 / `runtime-per-device-or-none` | Production / Core / Company DBへの自動接続なし | 稼働中 |
-| `KC-DAILY-WEB` | Dailyショートカット版 | 独立運用 | `v0.4` | `daily/index.html@main` / `git-blob:a7d85f1bd884…` | v0.4と同じlocalStorage | 所有者設定時のみ手動 / `runtime-per-device-or-none` | Production / Core / Company DBへの自動接続なし | 稼働中 |
-| `KC-DAILY-ANDROID` | Androidアプリ | 独立APK | `v0.4.0` | `android-daily@main` / `content-sha256:21ff2fd0504f…` | Android WebViewアプリデータ。バックアップ・端末移行の抽出対象外 | 所有者設定時のみ手動 / `runtime-per-device-or-none` | Production / Core / Company DBへの自動接続なし | 稼働中 |
+| `KC-PHOTO-CAPTURE` | Photo Capture | 独立Sandbox | `v1.2.0` | `app.js@main` / `git-blob:4bca5b3bf439…`。補助: `app.css` / `3fa9acda…`、`index.html` / `a64a5e17…`、`backup.js` / `5f7dee4a…` | IndexedDB `kc_independent_photo_capture_v1_0`、sessionStorage `kc_session_v1`、受信箱localStorage `kc_v04_handoff_queue_v1` | 同一ブラウザ受信箱＋手動JSON / 最終受渡しは端末内実行時値 | なし | 稼働中 |
+| `KC-V04-WEB` | Knit Compass 独立実用版 v0.4 | 独立運用 | `v0.4.3` | 本体 `brand-intelligence/app.html` / `52f174f3…`。Human Review入口 `brand-intelligence/index.html` / `36c48940…`。SW `90332232…` | localStorage `kc_independent_practical_v0_4`、受信箱 `kc_v04_handoff_queue_v1` | 候補受信、JSON取込、Human Review後のローカルマスター反映 | Production / Core / Company DBへの自動接続なし | 稼働中 |
+| `KC-DAILY-WEB` | Dailyショートカット版 | 独立運用 | `v0.4` | `daily/index.html@main` / `a7d85f1b…` | v0.4と同じlocalStorage | 所有者設定時のみ手動 | 自動接続なし | 稼働中 |
+| `KC-DAILY-ANDROID` | Androidアプリ | 独立APK | `v0.4.0` | `android-daily@main` / `content-sha256:21ff2fd0…` | Android WebViewアプリデータ | 所有者設定時のみ手動 | 自動接続なし | 稼働中 |
 
-`runtime-per-device-or-none` は、最終同期日時が静的台帳ではなく各端末内の実行時データとして保持されることを示します。同期未実施の端末では「なし」です。
+## 3. Photo Captureからv0.4への受渡し
 
-## 3. Revision形式
+### 同一ブラウザ・同一オリジン
 
-- 単一ファイル: `git-blob:<40桁SHA>`。ファイルのGit blob SHAと完全一致させます。
-- ディレクトリ: `content-sha256:<64桁SHA>`。対象ディレクトリ配下の追跡ファイルをパス順に並べ、`ファイルモード + 半角空白 + 相対パス + NUL + Git blob SHA + 改行`を連結してSHA-256を計算します。
+Photo CaptureはlocalStorage `kc_v04_handoff_queue_v1` に `KC_V04_INBOX_ITEM` を追加し、v0.4のHuman Review受信箱が同じキーを読み取ります。
 
-ディレクトリRevisionはcommit SHAに依存しないため、Pull Requestをsquash mergeしても同じ内容なら値が変わりません。配下のファイル追加・削除・内容変更・実行属性変更時は必ず値が変わります。
+### 別サイト・別端末
 
-## 4. 正本の定義
+Photo Captureで `KC_V04_INBOX_EXPORT` JSONを書き出し、v0.4の「受信箱JSONを取込」で読み込みます。
+
+写真Blobは受信箱へ複製しません。写真ID、分類、ファイル名、撮影日時だけを候補へ含めます。
+
+## 4. Human Review後の確定処理
+
+承認時は一時IDを正式IDへ変換し、次をIDでupsertします。
+
+- 商品マスター
+- 糸マスター
+- 会社・組織マスター
+- 素材マスター
+- 調査記録
+- 商品と糸の紐付け
+
+一時IDと正式IDの対応は `photoCaptureIdMap` へ保存します。承認記録は `photoCaptureImports` と `auditLog` へ保存します。
+
+却下時は理由、確認者、確認日時だけを受信箱へ記録し、マスターを変更しません。
+
+## 5. Revision形式
+
+- 単一ファイル: `git-blob:<40桁SHA>`
+- ディレクトリ: `content-sha256:<64桁SHA>`
+
+Pull Requestとmainへのpushで、接続台帳、実ファイルRevision、CI対象パス、保存キー、接続表示、KPI列を自動検証します。
+
+## 6. 正本
 
 | 対象 | 正本 |
 |---|---|
-| ソースコード | GitHub `main` ブランチ |
+| ソースコード | GitHub `main` |
 | 接続定義 | `docs/SYSTEM_REGISTRY.md` と `config/system-registry.json` |
-| 共通ID・項目定義 | `docs/DATA_CONTRACT.md` |
-| 調査結果の承認ルール | `docs/RESEARCH_REVIEW_SOP.md` |
-| KPI記録 | `data/kpi_log_template.csv` を基にした月次台帳 |
-| 業務データ | 現時点では一元正本未確定。ブラウザ／WebView内データを正式な一元DBと誤認しない |
+| 共通ID・項目 | `docs/DATA_CONTRACT.md` |
+| Photo Capture受渡し | `docs/PHOTO_CAPTURE_HANDOFF.md` |
+| 調査承認ルール | `docs/RESEARCH_REVIEW_SOP.md` |
+| 現在の業務データ | 各ブラウザ／WebView内。全社一元正本は未決定 |
 
-## 5. 全画面に表示する接続情報
+## 7. 残る次段階
 
-各画面の「接続先情報」またはフッターに次を表示します。
+1. 正式な全社一元DB、権限、監査ログ、バックアップ方針を決定する
+2. Daily Web／Androidへ同じ受信箱・Human Review導線を展開する
+3. 本番公開版へrelease tagを付与する
+4. 定期エクスポートと復元テストを運用記録する
 
-- 環境
-- システムID
-- 表示バージョン
-- コードRevision（Git blob SHA、content SHA-256、またはrelease tag）
-- データ保存先
-- 外部同期方式
-- 最終同期日時
-- 外部DB接続状態
+## 8. 変更時チェック
 
-表示例:
-
-> 独立Sandbox｜KC-PHOTO-CAPTURE｜v1.1.0｜Revision: c1604c677b2f｜データ: IndexedDB｜同期: OFF｜最終同期: 対象外
-
-端末ごとに値が異なる項目は、静的台帳で架空の日時を記入せず `runtime-per-device-or-none` と表示します。
-
-## 6. 接続変更時の必須確認
-
-- [ ] 本番・テスト・独立Sandbox・ローカルを混同していない
-- [ ] 読み取り元と書き込み先を別々に記載した
-- [ ] 表示バージョンとコードRevisionを記載した
-- [ ] 主コードと補助コードのRevisionを実ファイルと照合した
-- [ ] ディレクトリRevisionを現在内容から再計算した
-- [ ] 認証情報をHTML、Git履歴、エクスポートファイルへ直接保存していない
-- [ ] 接続失敗時に別保存先へ黙って切り替わらない
-- [ ] 同期日時と同期結果を画面で確認できる
-- [ ] エクスポートと復元手順を確認した
-- [ ] この台帳とJSONを更新した
+- [ ] 本番・独立Sandbox・ローカルを混同していない
+- [ ] 読み取り元、書き込み先、受信箱を別々に記載した
+- [ ] 候補と承認済みを区別した
+- [ ] 変更した全ソースのRevisionを台帳へ登録した
+- [ ] 接続先を暗黙に外部DBへ変更していない
 - [ ] `python scripts/validate_system_registry.py` が成功した
-
-## 7. 未解決事項
-
-1. Photo Capture、商品、糸、ブランド、会社、写真、調査記録を共通IDで結ぶ
-2. 正式な業務データの一元正本を決定する
-3. 本番公開版にrelease tagを付け、画面のRevisionをrelease tag中心へ切り替える
-4. v0.4 / Daily / Androidの実行画面にも同等の接続表示を追加する
-5. 定期エクスポートと復元テストを運用化する

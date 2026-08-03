@@ -2,117 +2,44 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta http-equiv="Cache-Control" content="no-store">
   <title>Knit Compass 接続先情報</title>
   <style>
-    :root{--ink:#172826;--muted:#5d6d69;--paper:#f2f5f3;--card:#fff;--teal:#163f3c;--line:#d6dfdb;--soft:#eef3f1;--ok:#2f6a37;--warn:#8a5d12;--danger:#8a342e}
-    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}.top{background:var(--ink);color:#fff;padding:10px 16px;text-align:center;font-size:12px;font-weight:800}.shell{width:min(1120px,calc(100% - 28px));margin:0 auto;padding:24px 0 44px}.hero{background:var(--teal);color:#fff;border-radius:20px;padding:24px}.hero h1{margin:0 0 6px;font-size:clamp(25px,5vw,40px)}.hero p{margin:0;color:#deebe6}.meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.pill{display:inline-flex;align-items:center;border-radius:999px;padding:6px 10px;background:rgba(255,255,255,.12);font-size:11px;font-weight:800}.section{margin-top:22px}.section h2{font-size:19px;margin:0 0 10px}.notice{background:#fff8e8;border-left:5px solid #c28624;border-radius:0 12px 12px 0;padding:13px 15px;font-size:13px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:16px}.card h3{margin:0 0 3px;font-size:16px}.id{font-size:10px;color:var(--muted);font-weight:800}.facts{display:grid;grid-template-columns:145px 1fr;margin:14px 0 0;border-top:1px solid var(--line)}.facts dt,.facts dd{margin:0;padding:8px 0;border-bottom:1px solid var(--line);font-size:12px;overflow-wrap:anywhere}.facts dt{color:var(--muted);font-weight:800}.facts code{font-size:10px}.status{display:inline-flex;border-radius:999px;padding:4px 8px;font-size:10px;font-weight:900}.status.ok{background:#e9f5e7;color:var(--ok)}.status.warn{background:#fff5df;color:var(--warn)}.empty{padding:24px;border:1px dashed #aebdb7;border-radius:14px;background:#fff;color:var(--muted)}.links{display:flex;gap:8px;flex-wrap:wrap}.links a{display:inline-flex;padding:9px 12px;border-radius:10px;background:#fff;color:var(--teal);border:1px solid #aabcb5;text-decoration:none;font-size:12px;font-weight:800}.footer{margin-top:28px;color:var(--muted);font-size:11px}.error{color:var(--danger)}@media(max-width:760px){.grid{grid-template-columns:1fr}.facts{grid-template-columns:115px 1fr}.shell{width:min(100% - 18px,1120px);padding-top:10px}.hero{padding:19px}}
+    :root{--ink:#172826;--muted:#5d6d69;--paper:#f2f5f3;--card:#fff;--teal:#163f3c;--line:#d6dfdb;--soft:#eef3f1;--ok:#2f6a37;--warn:#8a5d12}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}.top{background:var(--ink);color:#fff;padding:10px 16px;text-align:center;font-size:12px;font-weight:800}.shell{width:min(1120px,calc(100% - 28px));margin:auto;padding:24px 0 44px}.hero{background:var(--teal);color:#fff;border-radius:20px;padding:24px}.hero h1{margin:0 0 6px;font-size:clamp(25px,5vw,40px)}.hero p{margin:0;color:#deebe6}.meta,.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.pill{border-radius:999px;padding:6px 10px;background:rgba(255,255,255,.12);font-size:11px;font-weight:800}.section{margin-top:22px}.section h2{font-size:19px;margin:0 0 10px}.notice{background:#e9f5e7;border-left:5px solid var(--ok);border-radius:0 12px 12px 0;padding:13px 15px;font-size:13px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:16px}.card h3{margin:0 0 3px;font-size:16px}.id{font-size:10px;color:var(--muted);font-weight:800}.facts{display:grid;grid-template-columns:145px 1fr;margin:14px 0 0;border-top:1px solid var(--line)}.facts dt,.facts dd{margin:0;padding:8px 0;border-bottom:1px solid var(--line);font-size:12px;overflow-wrap:anywhere}.facts dt{color:var(--muted);font-weight:800}.facts code{font-size:10px}.status{display:inline-flex;border-radius:999px;padding:4px 8px;font-size:10px;font-weight:900;background:#e9f5e7;color:var(--ok)}.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.flow div{background:#fff;border:1px solid var(--line);border-radius:13px;padding:14px}.flow strong{display:block;color:var(--teal)}.flow span{font-size:11px;color:var(--muted)}.links a{display:inline-flex;padding:9px 12px;border-radius:10px;background:#fff;color:var(--teal);border:1px solid #aabcb5;text-decoration:none;font-size:12px;font-weight:800}.footer{margin-top:28px;color:var(--muted);font-size:11px}.empty{padding:24px;border:1px dashed #aebdb7;border-radius:14px;background:#fff;color:var(--muted)}@media(max-width:760px){.grid,.flow{grid-template-columns:1fr}.facts{grid-template-columns:115px 1fr}.shell{width:min(100% - 18px,1120px);padding-top:10px}.hero{padding:19px}}
   </style>
 </head>
 <body>
   <div class="top">SYSTEM CONNECTION REGISTRY — 接続先を推測しない</div>
   <main class="shell">
-    <section class="hero">
-      <h1>Knit Compass 接続先情報</h1>
-      <p>環境、表示版、コードRevision、保存先、同期方式、最終同期状態を一か所で確認します。</p>
-      <div class="meta">
-        <span class="pill" id="schema">台帳版: 読み込み中</span>
-        <span class="pill" id="updated">更新日時: 読み込み中</span>
-        <span class="pill">接続定義: config/system-registry.json</span>
-      </div>
-    </section>
+    <section class="hero"><h1>Knit Compass 接続先情報</h1><p>環境、表示バージョン、コードRevision、保存先、同期、最終同期、外部DBを一か所で確認します。</p><div class="meta"><span class="pill" id="schema">台帳版: 読込中</span><span class="pill" id="updated">更新日時: 読込中</span></div></section>
 
-    <section class="section">
-      <div class="notice"><strong>現在の重要事項:</strong> v0.4 / Daily / Android版は、Production・Core・Company DBへ自動接続しません。`runtime-per-device-or-none` は、最終同期日時が端末ごとの実行時データであり、静的台帳に架空の日時を記載していないことを示します。</div>
-    </section>
+    <section class="section"><div class="notice"><strong>重要な3本は接続済みです。</strong> Photo Captureの構造化入力 → v0.4受信箱 → Human Review承認後のマスター反映が動く構成になりました。外部DBへの自動接続は追加していません。</div></section>
 
-    <section class="section">
-      <h2>システム別の接続状況</h2>
-      <div id="systems" class="grid"><div class="empty">接続台帳を読み込んでいます。</div></div>
-    </section>
+    <section class="section"><h2>確定フロー</h2><div class="flow"><div><strong>1. Photo Capture</strong><span>混率・機能性・サステナブル・共通ID・根拠をDRAFT保存</span></div><div><strong>2. v0.4受信箱</strong><span>同一ブラウザはlocalStorage、別端末はJSONで候補受渡し</span></div><div><strong>3. Human Review</strong><span>承認後だけ商品・糸・会社マスターへ確定反映。却下は無反映</span></div></div></section>
 
-    <section class="section">
-      <h2>次段階の未連携</h2>
-      <div class="card">
-        <ol>
-          <li>商品・糸・会社・写真・調査記録を共通IDで実データ連携</li>
-          <li>商品URL、混率、糸構造、機能性、サステナブルの未連携件数を表示</li>
-          <li>v0.4 / Daily / Android画面にも同じ接続情報を常時表示</li>
-          <li>本番公開版へrelease tagを付与</li>
-          <li>月次KPIと復元テストを運用記録</li>
-        </ol>
-      </div>
-    </section>
+    <section class="section"><h2>システム別の接続状況</h2><div id="systems" class="grid"><div class="empty">接続台帳を読み込んでいます。</div></div></section>
 
-    <section class="section">
-      <h2>基準文書</h2>
-      <div class="links">
-        <a href="../docs/SYSTEM_REGISTRY.md">システム接続台帳</a>
-        <a href="../docs/DATA_CONTRACT.md">共通ID・項目定義</a>
-        <a href="../docs/RESEARCH_REVIEW_SOP.md">調査／Human Review SOP</a>
-        <a href="../docs/KPI_MEASUREMENT.md">KPI計測基準</a>
-        <a href="../config/system-registry.json">接続定義JSON</a>
-      </div>
-    </section>
+    <section class="section"><h2>残る次段階</h2><div class="card"><ol><li>正式な全社一元DBと権限設計を決定する</li><li>Daily Web／Androidにも同じ受信箱・Human Review導線を展開する</li><li>本番公開版へrelease tagを付与する</li><li>定期エクスポートと復元テストを運用記録する</li></ol></div></section>
 
-    <p class="footer">接続変更は、コード・SYSTEM_REGISTRY.md・system-registry.jsonを同じPull Requestで更新し、検証スクリプトを成功させてください。</p>
+    <section class="section"><h2>基準文書</h2><div class="links"><a href="../docs/SYSTEM_REGISTRY.md">システム接続台帳</a><a href="../docs/DATA_CONTRACT.md">共通ID・項目定義</a><a href="../docs/PHOTO_CAPTURE_HANDOFF.md">受渡し仕様</a><a href="../docs/RESEARCH_REVIEW_SOP.md">Human Review SOP</a><a href="../config/system-registry.json">接続定義JSON</a></div></section>
+    <p class="footer">接続変更はコード、SYSTEM_REGISTRY.md、system-registry.json、受渡し仕様を同じPull Requestで更新します。</p>
   </main>
   <script>
-    const labels = {
-      'independent-sandbox':'独立Sandbox',
-      'independent':'独立運用',
-      'independent-apk':'独立APK',
-      'browser-indexeddb':'ブラウザIndexedDB',
-      'browser-localstorage':'ブラウザlocalStorage',
-      'android-webview-app-data':'Android WebView内',
-      'manual-only-when-owner-configured':'所有者設定時のみ手動',
-      'disabled':'OFF',
-      'not-applicable':'対象外',
-      'runtime-per-device-or-none':'端末内の実行時値／未同期はなし',
-      'no-automatic-production-core-company-db-connection':'Production / Core / Company DBへの自動接続なし',
-      'none':'なし',
-      'active':'稼働中'
+    const labels={
+      'independent-sandbox':'独立Sandbox','independent':'独立運用','independent-apk':'独立APK',
+      'browser-indexeddb':'ブラウザIndexedDB','browser-localstorage':'ブラウザlocalStorage','android-webview-app-data':'Android WebView内',
+      'local-browser-queue-and-manual-json':'同一ブラウザ受信箱＋手動JSON','manual-only-when-owner-configured':'所有者設定時のみ手動','disabled':'OFF',
+      'not-applicable':'対象外','runtime-per-device-or-none':'端末内の実行時値／未実施はなし',
+      'no-automatic-production-core-company-db-connection':'Production / Core / Company DBへの自動接続なし','none':'なし','active':'稼働中'
     };
-    const label = value => labels[value] || value || '未設定';
-    const esc = value => String(value ?? '').replace(/[&<>"']/g, character => ({
-      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
-    }[character]));
-
-    function renderCard(system){
-      const warning = system.status !== 'active';
-      return `<article class="card">
-        <h3>${esc(system.display_name)}</h3>
-        <div class="id">${esc(system.system_id)}</div>
-        <dl class="facts">
-          <dt>環境</dt><dd>${esc(label(system.environment))}</dd>
-          <dt>表示バージョン</dt><dd>${esc(system.display_version)}</dd>
-          <dt>コードRevision</dt><dd><code>${esc(system.code_revision)}</code></dd>
-          <dt>入口</dt><dd><code>${esc(system.entry_path)}</code></dd>
-          <dt>コード正本</dt><dd>${esc(system.code_source)}</dd>
-          <dt>保存先</dt><dd>${esc(label(system.data_store))}</dd>
-          <dt>保存詳細</dt><dd>${esc(system.storage_detail || '未設定')}</dd>
-          <dt>同期</dt><dd>${esc(label(system.sync_mode))}</dd>
-          <dt>最終同期</dt><dd>${esc(label(system.last_sync_at))}</dd>
-          <dt>外部DB</dt><dd>${esc(label(system.external_database))}</dd>
-          <dt>状態</dt><dd><span class="status ${warning?'warn':'ok'}">${esc(label(system.status))}</span></dd>
-        </dl>
-      </article>`;
-    }
-
-    fetch('../config/system-registry.json', {cache:'no-store'})
-      .then(response => { if(!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); })
-      .then(registry => {
-        document.getElementById('schema').textContent = `台帳版: ${registry.schema_version}`;
-        document.getElementById('updated').textContent = `更新日時: ${registry.updated_at}`;
-        document.getElementById('systems').innerHTML = registry.systems.map(renderCard).join('');
-      })
-      .catch(error => {
-        document.getElementById('systems').innerHTML = `<div class="empty error">接続台帳を読み込めませんでした: ${esc(error.message)}。config/system-registry.jsonを確認してください。</div>`;
-        document.getElementById('schema').textContent = '台帳版: 読み込み失敗';
-        document.getElementById('updated').textContent = '更新日時: 確認できません';
-      });
+    const label=value=>labels[value]||value||'未設定';
+    const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+    function card(system){return`<article class="card"><h3>${esc(system.display_name)}</h3><div class="id">${esc(system.system_id)}</div><dl class="facts"><dt>環境</dt><dd>${esc(label(system.environment))}</dd><dt>表示バージョン</dt><dd>${esc(system.display_version)}</dd><dt>コードRevision</dt><dd><code>${esc(system.code_revision)}</code></dd><dt>入口</dt><dd><code>${esc(system.entry_path)}</code></dd><dt>保存先</dt><dd>${esc(label(system.data_store))}</dd><dt>保存詳細</dt><dd>${esc(system.storage_detail||'未設定')}</dd><dt>同期</dt><dd>${esc(label(system.sync_mode))}</dd><dt>最終同期</dt><dd>${esc(label(system.last_sync_at))}</dd><dt>外部DB</dt><dd>${esc(label(system.external_database))}</dd><dt>状態</dt><dd><span class="status">${esc(label(system.status))}</span></dd></dl></article>`}
+    fetch('../config/system-registry.json',{cache:'no-store'}).then(response=>{if(!response.ok)throw new Error(`HTTP ${response.status}`);return response.json()}).then(registry=>{$('schema').textContent=`台帳版: ${registry.schema_version}`;$('updated').textContent=`更新日時: ${registry.updated_at}`;$('systems').innerHTML=registry.systems.map(card).join('')}).catch(error=>{$('systems').innerHTML=`<div class="empty">接続台帳を読み込めませんでした: ${esc(error.message)}</div>`});
+    function $(id){return document.getElementById(id)}
   </script>
 </body>
 </html>

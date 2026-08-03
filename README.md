@@ -1,73 +1,72 @@
 # knit-compass-photo-capture
 
-アパレル編地の写真撮影・商品／素材情報管理システムです。
+アパレル編地・糸・商品の写真撮影から、Human Review後のマスター確定までをつなぐKnit Compass独立運用リポジトリです。
 
 ## 現在の接続状態
 
-> **重要:** Photo Captureは独立Sandboxで、写真とDRAFTをブラウザIndexedDBへ保存します。Knit Compass v0.4 / Daily / Android版も独立運用で、Production、Core、Company DBへ自動接続しません。所有者が明示設定した場合だけ手動同期を使用します。
+Photo Capture、v0.4、Daily、Androidは引き続き独立運用です。Production、Core、Company DBへの自動接続はありません。
+
+今回、次の3工程を接続しました。
+
+1. Photo Captureが混率・機能性・サステナブル・共通ID・根拠をAppend Only DRAFTとして保存
+2. DRAFTをv0.4の「Photo Capture受信箱」へ候補送信
+3. Human Review承認後だけ商品・糸・会社マスターへ確定反映
+
+同一ブラウザではlocalStorage受信箱を共有します。別サイト・別端末では受信箱JSONを書き出し、v0.4側で取り込みます。PENDINGまたはREJECTEDの候補はマスターへ反映しません。
 
 **画面で確認:** [`/status/`](status/index.html)
 
-接続先、保存先、正本、未解決事項は次を確認してください。
-
-- [システム接続台帳](docs/SYSTEM_REGISTRY.md)
-- [機械可読の接続定義](config/system-registry.json)
-- [共通ID・データ項目定義](docs/DATA_CONTRACT.md)
-- [KIMI・Gemini調査／Human Review SOP](docs/RESEARCH_REVIEW_SOP.md)
-- [KPI計測基準](docs/KPI_MEASUREMENT.md)
-- [KPI入力テンプレート](data/kpi_log_template.csv)
-
 ## 構成
 
-| システム | 入口 | 主な保存先 | 外部DB自動接続 |
+| システム | 入口 | 主な保存先 | 接続 |
 |---|---|---|---|
-| Photo Capture | リポジトリ直下 | ブラウザIndexedDB `kc_independent_photo_capture_v1_0` | なし |
-| Knit Compass v0.4 | `/brand-intelligence/app.html` | ブラウザlocalStorage | なし |
-| Daily Web | `/daily/` | ブラウザlocalStorage | なし |
-| Daily Android | APK / `android-daily/` | Android WebView内 | なし |
+| Photo Capture v1.2 | `/` | IndexedDB `kc_independent_photo_capture_v1_0` | v0.4受信箱へ候補送信 |
+| Knit Compass v0.4.3 | `/brand-intelligence/` | localStorage `kc_independent_practical_v0_4` | Human Review後にマスター反映 |
+| Daily Web | `/daily/` | localStorage | 独立運用 |
+| Daily Android | APK / `android-daily/` | Android WebView内 | 独立運用 |
+
+受信箱は localStorage `kc_v04_handoff_queue_v1` を使用し、写真Blobは複製しません。
+
+## 基準文書
+
+- [システム接続台帳](docs/SYSTEM_REGISTRY.md)
+- [共通ID・データ項目定義](docs/DATA_CONTRACT.md)
+- [Photo Capture受渡し仕様](docs/PHOTO_CAPTURE_HANDOFF.md)
+- [KIMI・Gemini調査／Human Review SOP](docs/RESEARCH_REVIEW_SOP.md)
+- [KPI計測基準](docs/KPI_MEASUREMENT.md)
 
 ## ローカル起動
 
-### Windows
-
-Python 3をインストールしたうえで、リポジトリ直下から実行します。
+Windows:
 
 ```bat
 start.bat
 ```
 
-### macOS / Linux
+macOS / Linux:
 
 ```sh
 sh start.sh
 ```
 
-ブラウザで `http://127.0.0.1:8080/` を開きます。ポートを変更する場合、macOS / Linuxでは `PORT=8081 sh start.sh` を使用できます。
-
-Pythonを直接使用する場合は、全OS共通で次を実行できます。
-
-```sh
-python3 -m http.server 8080 --bind 127.0.0.1
-```
+ブラウザで `http://127.0.0.1:8080/` を開きます。v0.4のHuman Review受信箱は `http://127.0.0.1:8080/brand-intelligence/` です。
 
 ## 検証
-
-接続台帳、実ソースのRevision、イベント別のCI対象、ブラウザ保存キー、KPI列、起動スクリプトを検証します。
 
 ```sh
 python3 -m pip install -r requirements-validation.txt
 python3 scripts/validate_system_registry.py
 ```
 
-Pull Requestと`main`へのpushでは、GitHub Actionsの `Validate system registry` も実行されます。
+検証対象は、接続台帳、全登録ソースのGit blob／content SHA、保存キー、CIトリガー、接続表示、KPI列です。
 
 ## 変更ルール
 
-接続先、保存先、共通ID、確定項目を変更するときは、コードだけでなく以下も同じPull Requestで更新します。
+接続先、保存先、共通ID、確定項目を変更するときは、コードだけでなく次を同じPull Requestで更新します。
 
 1. `docs/SYSTEM_REGISTRY.md`
 2. `config/system-registry.json`
-3. `docs/DATA_CONTRACT.md`（項目・IDを変更する場合）
-4. `data/kpi_log_template.csv` と `docs/KPI_MEASUREMENT.md`（KPIを変更する場合）
+3. `docs/DATA_CONTRACT.md` または `docs/PHOTO_CAPTURE_HANDOFF.md`
+4. 必要に応じてKPI文書とテンプレート
 
-保存先が不明な状態や、AI推定と確認済み情報を区別できない状態を正式運用に入れません。
+AI推定、候補、Human Review承認済みの値を同じ状態として扱いません。
