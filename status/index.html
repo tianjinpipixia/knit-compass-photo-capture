@@ -8,7 +8,7 @@
   <title>Knit Compass 接続先情報</title>
   <style>
     :root{--ink:#172826;--muted:#5d6d69;--paper:#f2f5f3;--card:#fff;--teal:#163f3c;--line:#d6dfdb;--soft:#eef3f1;--ok:#2f6a37;--warn:#8a5d12;--danger:#8a342e}
-    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}.top{background:var(--ink);color:#fff;padding:10px 16px;text-align:center;font-size:12px;font-weight:800}.shell{width:min(1120px,calc(100% - 28px));margin:0 auto;padding:24px 0 44px}.hero{background:var(--teal);color:#fff;border-radius:20px;padding:24px}.hero h1{margin:0 0 6px;font-size:clamp(25px,5vw,40px)}.hero p{margin:0;color:#deebe6}.meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.pill{display:inline-flex;align-items:center;border-radius:999px;padding:6px 10px;background:rgba(255,255,255,.12);font-size:11px;font-weight:800}.section{margin-top:22px}.section h2{font-size:19px;margin:0 0 10px}.notice{background:#fff8e8;border-left:5px solid #c28624;border-radius:0 12px 12px 0;padding:13px 15px;font-size:13px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:16px}.card h3{margin:0 0 3px;font-size:16px}.id{font-size:10px;color:var(--muted);font-weight:800}.facts{display:grid;grid-template-columns:130px 1fr;margin:14px 0 0;border-top:1px solid var(--line)}.facts dt,.facts dd{margin:0;padding:8px 0;border-bottom:1px solid var(--line);font-size:12px}.facts dt{color:var(--muted);font-weight:800}.status{display:inline-flex;border-radius:999px;padding:4px 8px;font-size:10px;font-weight:900}.status.ok{background:#e9f5e7;color:var(--ok)}.status.warn{background:#fff5df;color:var(--warn)}.empty{padding:24px;border:1px dashed #aebdb7;border-radius:14px;background:#fff;color:var(--muted)}.links{display:flex;gap:8px;flex-wrap:wrap}.links a{display:inline-flex;padding:9px 12px;border-radius:10px;background:#fff;color:var(--teal);border:1px solid #aabcb5;text-decoration:none;font-size:12px;font-weight:800}.footer{margin-top:28px;color:var(--muted);font-size:11px}.error{color:var(--danger)}@media(max-width:760px){.grid{grid-template-columns:1fr}.facts{grid-template-columns:110px 1fr}.shell{width:min(100% - 18px,1120px);padding-top:10px}.hero{padding:19px}}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}.top{background:var(--ink);color:#fff;padding:10px 16px;text-align:center;font-size:12px;font-weight:800}.shell{width:min(1120px,calc(100% - 28px));margin:0 auto;padding:24px 0 44px}.hero{background:var(--teal);color:#fff;border-radius:20px;padding:24px}.hero h1{margin:0 0 6px;font-size:clamp(25px,5vw,40px)}.hero p{margin:0;color:#deebe6}.meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.pill{display:inline-flex;align-items:center;border-radius:999px;padding:6px 10px;background:rgba(255,255,255,.12);font-size:11px;font-weight:800}.section{margin-top:22px}.section h2{font-size:19px;margin:0 0 10px}.notice{background:#fff8e8;border-left:5px solid #c28624;border-radius:0 12px 12px 0;padding:13px 15px;font-size:13px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:16px}.card h3{margin:0 0 3px;font-size:16px}.id{font-size:10px;color:var(--muted);font-weight:800}.facts{display:grid;grid-template-columns:145px 1fr;margin:14px 0 0;border-top:1px solid var(--line)}.facts dt,.facts dd{margin:0;padding:8px 0;border-bottom:1px solid var(--line);font-size:12px;overflow-wrap:anywhere}.facts dt{color:var(--muted);font-weight:800}.facts code{font-size:10px}.status{display:inline-flex;border-radius:999px;padding:4px 8px;font-size:10px;font-weight:900}.status.ok{background:#e9f5e7;color:var(--ok)}.status.warn{background:#fff5df;color:var(--warn)}.empty{padding:24px;border:1px dashed #aebdb7;border-radius:14px;background:#fff;color:var(--muted)}.links{display:flex;gap:8px;flex-wrap:wrap}.links a{display:inline-flex;padding:9px 12px;border-radius:10px;background:#fff;color:var(--teal);border:1px solid #aabcb5;text-decoration:none;font-size:12px;font-weight:800}.footer{margin-top:28px;color:var(--muted);font-size:11px}.error{color:var(--danger)}@media(max-width:760px){.grid{grid-template-columns:1fr}.facts{grid-template-columns:115px 1fr}.shell{width:min(100% - 18px,1120px);padding-top:10px}.hero{padding:19px}}
   </style>
 </head>
 <body>
@@ -16,16 +16,16 @@
   <main class="shell">
     <section class="hero">
       <h1>Knit Compass 接続先情報</h1>
-      <p>画面、コード、保存先、外部同期の現在状態を一か所で確認します。</p>
+      <p>環境、表示版、コードRevision、保存先、同期方式、最終同期状態を一か所で確認します。</p>
       <div class="meta">
         <span class="pill" id="schema">台帳版: 読み込み中</span>
         <span class="pill" id="updated">更新日時: 読み込み中</span>
-        <span class="pill">環境: 独立運用</span>
+        <span class="pill">接続定義: config/system-registry.json</span>
       </div>
     </section>
 
     <section class="section">
-      <div class="notice"><strong>現在の重要事項:</strong> v0.4 / Daily / Android版は、Production・Core・Company DBへ自動接続しません。保存先が画面に表示されない場合は、正式データとして確定しないでください。</div>
+      <div class="notice"><strong>現在の重要事項:</strong> v0.4 / Daily / Android版は、Production・Core・Company DBへ自動接続しません。`runtime-per-device-or-none` は、最終同期日時が端末ごとの実行時データであり、静的台帳に架空の日時を記載していないことを示します。</div>
     </section>
 
     <section class="section">
@@ -34,14 +34,14 @@
     </section>
 
     <section class="section">
-      <h2>直ちに解消する未連携</h2>
+      <h2>次段階の未連携</h2>
       <div class="card">
         <ol>
-          <li>Photo Captureの実際の書き込み先を画面内に固定表示</li>
-          <li>商品・糸・会社・写真・調査記録を共通IDで連携</li>
+          <li>商品・糸・会社・写真・調査記録を共通IDで実データ連携</li>
           <li>商品URL、混率、糸構造、機能性、サステナブルの未連携件数を表示</li>
-          <li>本番公開版へrelease tagとcommit SHAを付与</li>
-          <li>月次KPIと復元テストを記録</li>
+          <li>v0.4 / Daily / Android画面にも同じ接続情報を常時表示</li>
+          <li>本番公開版へrelease tagを付与</li>
+          <li>月次KPIと復元テストを運用記録</li>
         </ol>
       </div>
     </section>
@@ -57,34 +57,46 @@
       </div>
     </section>
 
-    <p class="footer">接続変更は、コード・SYSTEM_REGISTRY.md・system-registry.jsonを同じPull Requestで更新してください。</p>
+    <p class="footer">接続変更は、コード・SYSTEM_REGISTRY.md・system-registry.jsonを同じPull Requestで更新し、検証スクリプトを成功させてください。</p>
   </main>
   <script>
-    const label = value => ({
-      'browser-local':'ブラウザ内',
+    const labels = {
+      'independent-sandbox':'独立Sandbox',
+      'independent':'独立運用',
+      'independent-apk':'独立APK',
+      'browser-indexeddb':'ブラウザIndexedDB',
+      'browser-localstorage':'ブラウザlocalStorage',
       'android-webview-app-data':'Android WebView内',
-      'must-be-confirmed-in-ui-and-code':'画面・コードで要確認',
       'manual-only-when-owner-configured':'所有者設定時のみ手動',
-      'same-as-kc-v04-web':'v0.4と同じ',
-      'unknown-connections-forbidden':'未確認接続は禁止',
+      'disabled':'OFF',
+      'not-applicable':'対象外',
+      'runtime-per-device-or-none':'端末内の実行時値／未同期はなし',
       'no-automatic-production-core-company-db-connection':'Production / Core / Company DBへの自動接続なし',
-      'not-declared':'未宣言',
-      'active':'稼働中',
-      'active-connection-display-required':'稼働中・接続表示が必要'
-    }[value] || value || '未設定');
+      'none':'なし',
+      'active':'稼働中'
+    };
+    const label = value => labels[value] || value || '未設定';
+    const esc = value => String(value ?? '').replace(/[&<>"']/g, character => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
+    }[character]));
 
     function renderCard(system){
       const warning = system.status !== 'active';
       return `<article class="card">
-        <h3>${system.display_name}</h3>
-        <div class="id">${system.system_id}</div>
+        <h3>${esc(system.display_name)}</h3>
+        <div class="id">${esc(system.system_id)}</div>
         <dl class="facts">
-          <dt>入口</dt><dd><code>${system.entry_path}</code></dd>
-          <dt>コード正本</dt><dd>${system.code_source}</dd>
-          <dt>保存先</dt><dd>${label(system.data_store)}</dd>
-          <dt>同期</dt><dd>${label(system.sync_mode)}</dd>
-          <dt>外部DB</dt><dd>${label(system.external_database)}</dd>
-          <dt>状態</dt><dd><span class="status ${warning?'warn':'ok'}">${label(system.status)}</span></dd>
+          <dt>環境</dt><dd>${esc(label(system.environment))}</dd>
+          <dt>表示バージョン</dt><dd>${esc(system.display_version)}</dd>
+          <dt>コードRevision</dt><dd><code>${esc(system.code_revision)}</code></dd>
+          <dt>入口</dt><dd><code>${esc(system.entry_path)}</code></dd>
+          <dt>コード正本</dt><dd>${esc(system.code_source)}</dd>
+          <dt>保存先</dt><dd>${esc(label(system.data_store))}</dd>
+          <dt>保存詳細</dt><dd>${esc(system.storage_detail || '未設定')}</dd>
+          <dt>同期</dt><dd>${esc(label(system.sync_mode))}</dd>
+          <dt>最終同期</dt><dd>${esc(label(system.last_sync_at))}</dd>
+          <dt>外部DB</dt><dd>${esc(label(system.external_database))}</dd>
+          <dt>状態</dt><dd><span class="status ${warning?'warn':'ok'}">${esc(label(system.status))}</span></dd>
         </dl>
       </article>`;
     }
@@ -97,7 +109,7 @@
         document.getElementById('systems').innerHTML = registry.systems.map(renderCard).join('');
       })
       .catch(error => {
-        document.getElementById('systems').innerHTML = `<div class="empty error">接続台帳を読み込めませんでした: ${error.message}。config/system-registry.jsonを確認してください。</div>`;
+        document.getElementById('systems').innerHTML = `<div class="empty error">接続台帳を読み込めませんでした: ${esc(error.message)}。config/system-registry.jsonを確認してください。</div>`;
         document.getElementById('schema').textContent = '台帳版: 読み込み失敗';
         document.getElementById('updated').textContent = '更新日時: 確認できません';
       });
