@@ -11,6 +11,8 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+import yaml
+
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY_PATH = ROOT / "config" / "system-registry.json"
 STATUS_PAGE_PATH = ROOT / "status" / "index.html"
@@ -128,10 +130,22 @@ def validate_source_revision(system_id: str, code_source: str, revision: str) ->
             fail(f"{system_id} git commit is unavailable: {expected}")
         if git_command("merge-base", "--is-ancestor", expected, "HEAD").returncode != 0:
             fail(f"{system_id} git commit is not reachable from HEAD: {expected}")
+
         source = source_name(code_source)
         if source not in {"repository-root", "apk"}:
             if git_command("cat-file", "-e", f"{expected}:{source}").returncode != 0:
                 fail(f"{system_id} source {source} is absent at commit {expected}")
+            source_diff = git_command("diff", "--quiet", expected, "HEAD", "--", source)
+            if source_diff.returncode == 1:
+                fail(
+                    f"{system_id} current source {source} differs from recorded "
+                    f"commit {expected}; update code_revision"
+                )
+            if source_diff.returncode not in {0, 1}:
+                fail(
+                    f"{system_id} could not compare {source} with commit {expected}: "
+                    f"{source_diff.stderr.strip() or 'git diff failed'}"
+                )
         return
 
     fail(f"{system_id} uses unsupported code_revision format: {revision}")
@@ -238,26 +252,54 @@ def validate_photo_capture_storage(systems: list[dict[str, Any]]) -> None:
         fail("Photo Capture must register backup.js as an auxiliary source")
 
 
-def validate_workflow_paths(systems: list[dict[str, Any]]) -> None:
-    try:
-        workflow = WORKFLOW_PATH.read_text(encoding="utf-8")
-    except FileNotFoundError:
-        fail(f"missing {WORKFLOW_PATH.relative_to(ROOT)}")
-
+def registered_source_patterns(systems: list[dict[str, Any]]) -> set[str]:
     sources: set[str] = set()
     for system in systems:
         sources.add(source_name(system["code_source"]))
         for auxiliary in system.get("auxiliary_sources", []):
             sources.add(source_name(auxiliary["code_source"]))
 
+    patterns: set[str] = set()
     for source in sources:
         if source in {"repository-root", "apk"}:
             continue
         path = ROOT / source
-        pattern = f"{source}/**" if path.is_dir() else source
-        if workflow.count(f'"{pattern}"') < 2:
+        patterns.add(f"{source}/**" if path.is_dir() else source)
+    return patterns
+
+
+def event_paths(workflow: dict[str, Any], event_name: str) -> set[str]:
+    triggers = workflow.get("on")
+    if not isinstance(triggers, dict):
+        fail('workflow must contain a mapping under quoted key "on"')
+    event = triggers.get(event_name)
+    if not isinstance(event, dict):
+        fail(f"workflow trigger {event_name} must be a mapping")
+    paths = event.get("paths")
+    if not isinstance(paths, list) or not all(isinstance(item, str) for item in paths):
+        fail(f"workflow trigger {event_name}.paths must be a string array")
+    return set(paths)
+
+
+def validate_workflow_paths(systems: list[dict[str, Any]]) -> None:
+    try:
+        workflow = yaml.safe_load(WORKFLOW_PATH.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        fail(f"missing {WORKFLOW_PATH.relative_to(ROOT)}")
+    except yaml.YAMLError as error:
+        fail(f"invalid workflow YAML: {error}")
+
+    if not isinstance(workflow, dict):
+        fail("workflow root must be a mapping")
+
+    required_patterns = registered_source_patterns(systems)
+    for event_name in ("pull_request", "push"):
+        paths = event_paths(workflow, event_name)
+        missing = required_patterns - paths
+        if missing:
             fail(
-                f"workflow paths must include {pattern} for both pull_request and push"
+                f"workflow {event_name}.paths missing registered sources: "
+                f"{sorted(missing)}"
             )
 
 
@@ -313,7 +355,7 @@ def main() -> None:
     validate_kpi_template()
     validate_start_scripts()
     print(
-        "PASS: registry fields, exact source revisions, workflow paths, "
+        "PASS: registry fields, exact source revisions, per-trigger workflow paths, "
         "browser storage declarations, status display, KPI schema, and start scripts"
     )
 
