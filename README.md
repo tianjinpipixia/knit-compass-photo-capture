@@ -4,7 +4,7 @@
 
 ## 現在の接続状態
 
-> **重要:** Knit Compass v0.4 / Daily / Android版は独立運用です。現時点で Production、Core、Company DBへ自動接続しません。v0.4の業務データは基本的にブラウザまたはAndroid WebView内に保存され、所有者が設定した場合のみ手動同期を使用します。
+> **重要:** Photo Captureは独立Sandboxで、写真とDRAFTをブラウザIndexedDBへ保存します。Knit Compass v0.4 / Daily / Android版も独立運用で、Production、Core、Company DBへ自動接続しません。所有者が明示設定した場合だけ手動同期を使用します。
 
 **画面で確認:** [`/status/`](status/index.html)
 
@@ -21,18 +21,44 @@
 
 | システム | 入口 | 主な保存先 | 外部DB自動接続 |
 |---|---|---|---|
-| Photo Capture | リポジトリ直下 | 現行実装。画面内で保存先表示を追加予定 | 未確認接続は禁止 |
-| Knit Compass v0.4 | `/brand-intelligence/app.html` | ブラウザ内 | なし |
-| Daily Web | `/daily/` | ブラウザ内 | なし |
-| Daily Android | APK | Android WebView内 | なし |
+| Photo Capture | リポジトリ直下 | ブラウザIndexedDB `kc_independent_photo_capture_v1_0` | なし |
+| Knit Compass v0.4 | `/brand-intelligence/app.html` | ブラウザlocalStorage | なし |
+| Daily Web | `/daily/` | ブラウザlocalStorage | なし |
+| Daily Android | APK / `android-daily/` | Android WebView内 | なし |
 
 ## ローカル起動
+
+### Windows
+
+Python 3をインストールしたうえで、リポジトリ直下から実行します。
 
 ```bat
 start.bat
 ```
 
-ブラウザで `http://localhost:8080` を開きます。
+### macOS / Linux
+
+```sh
+sh start.sh
+```
+
+ブラウザで `http://127.0.0.1:8080/` を開きます。ポートを変更する場合、macOS / Linuxでは `PORT=8081 sh start.sh` を使用できます。
+
+Pythonを直接使用する場合は、全OS共通で次を実行できます。
+
+```sh
+python3 -m http.server 8080 --bind 127.0.0.1
+```
+
+## 検証
+
+接続台帳、表示項目、KPI列、起動スクリプトを検証します。
+
+```sh
+python3 scripts/validate_system_registry.py
+```
+
+Pull Requestと`main`へのpushでは、GitHub Actionsの `Validate system registry` も実行されます。
 
 ## 変更ルール
 
@@ -41,5 +67,6 @@ start.bat
 1. `docs/SYSTEM_REGISTRY.md`
 2. `config/system-registry.json`
 3. `docs/DATA_CONTRACT.md`（項目・IDを変更する場合）
+4. `data/kpi_log_template.csv` と `docs/KPI_MEASUREMENT.md`（KPIを変更する場合）
 
 保存先が不明な状態や、AI推定と確認済み情報を区別できない状態を正式運用に入れません。
