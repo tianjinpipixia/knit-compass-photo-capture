@@ -55,6 +55,7 @@ REQUIRED_KPI_COLUMNS = {
     "notes",
 }
 HEX_SHA = re.compile(r"[0-9a-f]{40}")
+HEX_SHA256 = re.compile(r"[0-9a-f]{64}")
 
 
 def fail(message: str) -> None:
@@ -100,6 +101,39 @@ def git_command(*args: str) -> subprocess.CompletedProcess[str]:
     )
 
 
+def directory_content_sha256(source: str) -> str:
+    listed = git_command("ls-files", "--stage", "--", source)
+    if listed.returncode != 0:
+        fail(
+            f"could not list tracked files under {source}: "
+            f"{listed.stderr.strip() or 'git ls-files failed'}"
+        )
+
+    entries: list[tuple[str, str, str]] = []
+    for line in listed.stdout.splitlines():
+        metadata, separator, path = line.partition("\t")
+        if not separator:
+            fail(f"unexpected git ls-files output for {source}: {line}")
+        parts = metadata.split()
+        if len(parts) != 3:
+            fail(f"unexpected git index metadata for {path}: {metadata}")
+        mode, blob_sha, stage = parts
+        if stage != "0":
+            fail(f"unmerged git index entry under {source}: {path}")
+        if not HEX_SHA.fullmatch(blob_sha):
+            fail(f"invalid git blob SHA under {source}: {blob_sha}")
+        entries.append((path, mode, blob_sha))
+
+    if not entries:
+        fail(f"directory source has no tracked files: {source}")
+
+    digest_input = "".join(
+        f"{mode} {path}\0{blob_sha}\n"
+        for path, mode, blob_sha in sorted(entries)
+    ).encode("utf-8")
+    return hashlib.sha256(digest_input).hexdigest()
+
+
 def validate_source_revision(system_id: str, code_source: str, revision: str) -> None:
     candidate = source_path(code_source)
     if candidate is not None and not candidate.exists():
@@ -122,33 +156,25 @@ def validate_source_revision(system_id: str, code_source: str, revision: str) ->
             )
         return
 
-    if revision.startswith("git-commit:"):
-        expected = revision.removeprefix("git-commit:")
-        if not HEX_SHA.fullmatch(expected):
-            fail(f"{system_id} has invalid git-commit SHA: {expected}")
-        if git_command("cat-file", "-e", f"{expected}^{{commit}}").returncode != 0:
-            fail(f"{system_id} git commit is unavailable: {expected}")
-        if git_command("merge-base", "--is-ancestor", expected, "HEAD").returncode != 0:
-            fail(f"{system_id} git commit is not reachable from HEAD: {expected}")
-
+    if revision.startswith("content-sha256:"):
+        if candidate is None or not candidate.is_dir():
+            fail(f"{system_id} content-sha256 revision requires a directory code_source")
+        expected = revision.removeprefix("content-sha256:")
+        if not HEX_SHA256.fullmatch(expected):
+            fail(f"{system_id} has invalid content SHA-256: {expected}")
         source = source_name(code_source)
-        if source not in {"repository-root", "apk"}:
-            if git_command("cat-file", "-e", f"{expected}:{source}").returncode != 0:
-                fail(f"{system_id} source {source} is absent at commit {expected}")
-            source_diff = git_command("diff", "--quiet", expected, "HEAD", "--", source)
-            if source_diff.returncode == 1:
-                fail(
-                    f"{system_id} current source {source} differs from recorded "
-                    f"commit {expected}; update code_revision"
-                )
-            if source_diff.returncode not in {0, 1}:
-                fail(
-                    f"{system_id} could not compare {source} with commit {expected}: "
-                    f"{source_diff.stderr.strip() or 'git diff failed'}"
-                )
+        actual = directory_content_sha256(source)
+        if actual != expected:
+            fail(
+                f"{system_id} directory revision mismatch for {source}: "
+                f"expected {expected}, actual {actual}"
+            )
         return
 
-    fail(f"{system_id} uses unsupported code_revision format: {revision}")
+    fail(
+        f"{system_id} uses unsupported code_revision format: {revision}; "
+        "use git-blob for files or content-sha256 for directories"
+    )
 
 
 def validate_registry(registry: dict[str, Any]) -> list[dict[str, Any]]:
@@ -223,6 +249,8 @@ def validate_registry(registry: dict[str, Any]) -> list[dict[str, Any]]:
         fail("KC-DAILY-ANDROID is missing")
     if not android["code_source"].startswith("android-daily"):
         fail("KC-DAILY-ANDROID code_source must point to android-daily")
+    if not android["code_revision"].startswith("content-sha256:"):
+        fail("KC-DAILY-ANDROID must use a squash-safe content-sha256 revision")
 
     return systems
 
@@ -268,7 +296,7 @@ def registered_source_patterns(systems: list[dict[str, Any]]) -> set[str]:
     return patterns
 
 
-def event_paths(workflow: dict[str, Any], event_name: str) -> set[str]:
+def event_paths(workflow: dict[str, Any], event_name: str) -> list[str]:
     triggers = workflow.get("on")
     if not isinstance(triggers, dict):
         fail('workflow must contain a mapping under quoted key "on"')
@@ -278,7 +306,7 @@ def event_paths(workflow: dict[str, Any], event_name: str) -> set[str]:
     paths = event.get("paths")
     if not isinstance(paths, list) or not all(isinstance(item, str) for item in paths):
         fail(f"workflow trigger {event_name}.paths must be a string array")
-    return set(paths)
+    return paths
 
 
 def validate_workflow_paths(systems: list[dict[str, Any]]) -> None:
@@ -295,7 +323,13 @@ def validate_workflow_paths(systems: list[dict[str, Any]]) -> None:
     required_patterns = registered_source_patterns(systems)
     for event_name in ("pull_request", "push"):
         paths = event_paths(workflow, event_name)
-        missing = required_patterns - paths
+        negative_patterns = [pattern for pattern in paths if pattern.startswith("!")]
+        if negative_patterns:
+            fail(
+                f"workflow {event_name}.paths may not contain exclusions because they "
+                f"can negate registered sources: {negative_patterns}"
+            )
+        missing = required_patterns - set(paths)
         if missing:
             fail(
                 f"workflow {event_name}.paths missing registered sources: "
@@ -355,7 +389,7 @@ def main() -> None:
     validate_kpi_template()
     validate_start_scripts()
     print(
-        "PASS: registry fields, exact source revisions, per-trigger workflow paths, "
+        "PASS: registry fields, squash-safe source revisions, ordered trigger paths, "
         "browser storage declarations, status display, KPI schema, and start scripts"
     )
 
