@@ -52,9 +52,10 @@ python3 -m http.server 8080 --bind 127.0.0.1
 
 ## 検証
 
-接続台帳、表示項目、KPI列、起動スクリプトを検証します。
+接続台帳、実ソースのRevision、イベント別のCI対象、ブラウザ保存キー、KPI列、起動スクリプトを検証します。
 
 ```sh
+python3 -m pip install -r requirements-validation.txt
 python3 scripts/validate_system_registry.py
 ```
 
