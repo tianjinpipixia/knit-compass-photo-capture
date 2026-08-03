@@ -1,6 +1,6 @@
 {
-  "schema_version": "1.1.0",
-  "updated_at": "2026-08-03T20:43:00+09:00",
+  "schema_version": "1.1.1",
+  "updated_at": "2026-08-03T20:59:00+09:00",
   "policy": {
     "unknown_connections_are_forbidden": true,
     "connection_change_requires_registry_update": true,
@@ -28,8 +28,14 @@
       "entry_path": "/",
       "code_source": "app.js@main",
       "code_revision": "git-blob:c1604c677b2f6fe565465077b3d5373b84dcf827",
+      "auxiliary_sources": [
+        {
+          "code_source": "backup.js@main",
+          "code_revision": "git-blob:5f7dee4ac1def72551443475b2938bc4d8e6f1fd"
+        }
+      ],
       "data_store": "browser-indexeddb",
-      "storage_detail": "IndexedDB kc_independent_photo_capture_v1_0; sessionStorage kc_session_v1",
+      "storage_detail": "IndexedDB kc_independent_photo_capture_v1_0; sessionStorage kc_session_v1; localStorage kc_photo_capture_last_backup_v1 stores only the last backup timestamp",
       "sync_mode": "disabled",
       "last_sync_at": "not-applicable",
       "external_database": "none",
