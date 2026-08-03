@@ -3,6 +3,8 @@ name: Validate system registry
 "on":
   pull_request:
     paths:
+      - ".gitattributes"
+      - "**/.gitattributes"
       - "app.js"
       - "backup.js"
       - "brand-intelligence/app.html"
@@ -23,6 +25,8 @@ name: Validate system registry
     branches:
       - main
     paths:
+      - ".gitattributes"
+      - "**/.gitattributes"
       - "app.js"
       - "backup.js"
       - "brand-intelligence/app.html"
