@@ -1,6 +1,6 @@
 {
-  "schema_version": "1.1.2",
-  "updated_at": "2026-08-03T21:22:00+09:00",
+  "schema_version": "1.2.0",
+  "updated_at": "2026-08-04T07:40:00+09:00",
   "policy": {
     "unknown_connections_are_forbidden": true,
     "connection_change_requires_registry_update": true,
@@ -28,20 +28,28 @@
       "system_id": "KC-PHOTO-CAPTURE",
       "display_name": "Photo Capture",
       "environment": "independent-sandbox",
-      "display_version": "v1.1.0",
+      "display_version": "v1.2.0",
       "entry_path": "/",
       "code_source": "app.js@main",
-      "code_revision": "git-blob:c1604c677b2f6fe565465077b3d5373b84dcf827",
+      "code_revision": "git-blob:4bca5b3bf4398b80da9511d7a984c8dfb807bd97",
       "auxiliary_sources": [
+        {
+          "code_source": "app.css@main",
+          "code_revision": "git-blob:3fa9acda9af41d7bc37036563076db99fac3def1"
+        },
+        {
+          "code_source": "index.html@main",
+          "code_revision": "git-blob:a64a5e171deade254c571a03bdf6b6d5f1269a8b"
+        },
         {
           "code_source": "backup.js@main",
           "code_revision": "git-blob:5f7dee4ac1def72551443475b2938bc4d8e6f1fd"
         }
       ],
       "data_store": "browser-indexeddb",
-      "storage_detail": "IndexedDB kc_independent_photo_capture_v1_0; sessionStorage kc_session_v1; localStorage kc_photo_capture_last_backup_v1 stores only the last backup timestamp",
-      "sync_mode": "disabled",
-      "last_sync_at": "not-applicable",
+      "storage_detail": "IndexedDB kc_independent_photo_capture_v1_0; sessionStorage kc_session_v1; localStorage kc_photo_capture_last_backup_v1 stores only the last backup timestamp; localStorage kc_v04_handoff_queue_v1 stores Human Review candidates without photo blobs",
+      "sync_mode": "local-browser-queue-and-manual-json",
+      "last_sync_at": "runtime-per-device-or-none",
       "external_database": "none",
       "status": "active"
     },
@@ -49,13 +57,23 @@
       "system_id": "KC-V04-WEB",
       "display_name": "Knit Compass 独立実用版 v0.4",
       "environment": "independent",
-      "display_version": "v0.4",
-      "entry_path": "/brand-intelligence/app.html",
+      "display_version": "v0.4.3",
+      "entry_path": "/brand-intelligence/",
       "code_source": "brand-intelligence/app.html@main",
       "code_revision": "git-blob:52f174f307d49a64f9e51ecaaad4488aa729c9ab",
+      "auxiliary_sources": [
+        {
+          "code_source": "brand-intelligence/index.html@main",
+          "code_revision": "git-blob:36c489405f1f8db9fe6f5662059e3c205bf3ea31"
+        },
+        {
+          "code_source": "brand-intelligence/sw.js@main",
+          "code_revision": "git-blob:90332232db083af2651296e97f52e73d36f10803"
+        }
+      ],
       "data_store": "browser-localstorage",
-      "storage_detail": "localStorage kc_independent_practical_v0_4",
-      "sync_mode": "manual-only-when-owner-configured",
+      "storage_detail": "localStorage kc_independent_practical_v0_4; Human Review inbox kc_v04_handoff_queue_v1; reviewer name kc_v04_reviewer_name_v1",
+      "sync_mode": "local-browser-queue-and-manual-json",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "no-automatic-production-core-company-db-connection",
       "status": "active"
