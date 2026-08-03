@@ -3,6 +3,11 @@ name: Validate system registry
 on:
   pull_request:
     paths:
+      - "app.js"
+      - "backup.js"
+      - "brand-intelligence/app.html"
+      - "daily/index.html"
+      - "android-daily/**"
       - "config/system-registry.json"
       - "docs/SYSTEM_REGISTRY.md"
       - "docs/KPI_MEASUREMENT.md"
@@ -17,6 +22,11 @@ on:
     branches:
       - main
     paths:
+      - "app.js"
+      - "backup.js"
+      - "brand-intelligence/app.html"
+      - "daily/index.html"
+      - "android-daily/**"
       - "config/system-registry.json"
       - "docs/SYSTEM_REGISTRY.md"
       - "docs/KPI_MEASUREMENT.md"
@@ -37,8 +47,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Validate registry and KPI schema
+      - name: Validate registry, source revisions, and KPI schema
         run: python scripts/validate_system_registry.py
