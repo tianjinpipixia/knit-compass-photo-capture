@@ -11,8 +11,17 @@
   <link rel="manifest" href="manifest.webmanifest?v=1.1.0">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="app.css?v=1.1.0">
+  <link rel="stylesheet" href="connection-status.css?v=1.0.0">
 </head>
 <body>
+  <aside class="connection-strip" aria-label="システム接続先情報">
+    <strong>Photo Capture</strong>
+    <span class="connection-item">環境: 本番候補</span>
+    <span class="connection-item">System ID: KC-PHOTO-CAPTURE</span>
+    <span class="connection-item connection-warning">保存先: 画面・コード確認中</span>
+    <span class="connection-item">外部DB: 未宣言</span>
+    <a href="status/">接続先の詳細</a>
+  </aside>
   <div id="app" aria-live="polite"></div>
   <noscript>この画面を使用するにはJavaScriptを有効にしてください。</noscript>
   <script src="app.js?v=1.0.0" defer></script>

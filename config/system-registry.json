@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-08-03T19:41:00+09:00",
+  "policy": {
+    "unknown_connections_are_forbidden": true,
+    "connection_change_requires_registry_update": true,
+    "required_ui_fields": [
+      "environment",
+      "system_id",
+      "display_version",
+      "code_revision",
+      "data_store",
+      "sync_mode",
+      "last_sync_at"
+    ]
+  },
+  "systems": [
+    {
+      "system_id": "KC-PHOTO-CAPTURE",
+      "display_name": "Photo Capture",
+      "environment": "production-candidate",
+      "entry_path": "/",
+      "code_source": "repository-root@main",
+      "data_store": "must-be-confirmed-in-ui-and-code",
+      "sync_mode": "unknown-connections-forbidden",
+      "external_database": "not-declared",
+      "status": "active-connection-display-required"
+    },
+    {
+      "system_id": "KC-V04-WEB",
+      "display_name": "Knit Compass 独立実用版 v0.4",
+      "environment": "independent",
+      "entry_path": "/brand-intelligence/app.html",
+      "code_source": "brand-intelligence/app.html@main",
+      "data_store": "browser-local",
+      "sync_mode": "manual-only-when-owner-configured",
+      "external_database": "no-automatic-production-core-company-db-connection",
+      "status": "active"
+    },
+    {
+      "system_id": "KC-DAILY-WEB",
+      "display_name": "Knit Compass Daily Web",
+      "environment": "independent",
+      "entry_path": "/daily/",
+      "code_source": "daily-entry@main",
+      "data_store": "browser-local",
+      "sync_mode": "same-as-kc-v04-web",
+      "external_database": "no-automatic-production-core-company-db-connection",
+      "status": "active"
+    },
+    {
+      "system_id": "KC-DAILY-ANDROID",
+      "display_name": "Knit Compass Daily Android",
+      "environment": "independent-apk",
+      "entry_path": "apk",
+      "code_source": "android@main",
+      "data_store": "android-webview-app-data",
+      "sync_mode": "same-as-kc-v04-web",
+      "external_database": "no-automatic-production-core-company-db-connection",
+      "android_backup": "disabled",
+      "status": "active"
+    }
+  ]
+}
