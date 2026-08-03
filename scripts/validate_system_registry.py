@@ -86,12 +86,6 @@ def source_path(code_source: str) -> Path | None:
     return ROOT / source
 
 
-def git_blob_sha(path: Path) -> str:
-    payload = path.read_bytes()
-    header = f"blob {len(payload)}\0".encode("ascii")
-    return hashlib.sha1(header + payload).hexdigest()
-
-
 def git_command(*args: str) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         ["git", *args],
@@ -110,6 +104,23 @@ def git_command_bytes(*args: str) -> subprocess.CompletedProcess[bytes]:
         capture_output=True,
         text=False,
     )
+
+
+def git_worktree_blob_sha(path: Path) -> str:
+    try:
+        relative = path.relative_to(ROOT).as_posix()
+    except ValueError:
+        fail(f"source file is outside repository root: {path}")
+    hashed = git_command("hash-object", f"--path={relative}", "--", relative)
+    if hashed.returncode != 0:
+        fail(
+            f"could not hash working-tree file through Git clean filters: {relative}: "
+            f"{hashed.stderr.strip() or 'git hash-object failed'}"
+        )
+    digest = hashed.stdout.strip()
+    if not HEX_SHA.fullmatch(digest):
+        fail(f"invalid filtered Git blob SHA for {relative}: {digest}")
+    return digest
 
 
 def directory_content_sha256(source: str) -> str:
@@ -184,11 +195,11 @@ def directory_content_sha256(source: str) -> str:
                     f"{working_mode.decode()})"
                 )
 
-        working_blob_sha = git_blob_sha(working_path).encode("ascii")
+        working_blob_sha = git_worktree_blob_sha(working_path).encode("ascii")
         if working_blob_sha != blob_sha:
             fail(
-                f"working-tree content differs from the index under {source}: "
-                f"{os.fsdecode(path_bytes)}"
+                f"working-tree content after Git clean filters differs from the index "
+                f"under {source}: {os.fsdecode(path_bytes)}"
             )
         entries.append((path_bytes, mode, working_blob_sha))
 
@@ -216,7 +227,7 @@ def validate_source_revision(system_id: str, code_source: str, revision: str) ->
         expected = revision.removeprefix("git-blob:")
         if not HEX_SHA.fullmatch(expected):
             fail(f"{system_id} has invalid git-blob SHA: {expected}")
-        actual = git_blob_sha(candidate)
+        actual = git_worktree_blob_sha(candidate)
         if actual != expected:
             fail(
                 f"{system_id} code_revision mismatch for "
@@ -457,8 +468,9 @@ def main() -> None:
     validate_kpi_template()
     validate_start_scripts()
     print(
-        "PASS: registry fields, clean squash-safe source revisions, ordered trigger paths, "
-        "browser storage declarations, status display, KPI schema, and start scripts"
+        "PASS: registry fields, filter-aware squash-safe source revisions, "
+        "ordered trigger paths, browser storage declarations, status display, "
+        "KPI schema, and start scripts"
     )
 
 
