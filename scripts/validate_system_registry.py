@@ -163,12 +163,27 @@ def directory_content_sha256(source: str) -> str:
         mode, blob_sha, stage = parts
         if stage != b"0":
             fail(f"unmerged git index entry under {source}: {os.fsdecode(path_bytes)}")
+        if mode not in {b"100644", b"100755"}:
+            fail(
+                f"unsupported tracked file mode under {source}: "
+                f"{mode.decode(errors='replace')} {os.fsdecode(path_bytes)}"
+            )
         if not HEX_SHA.fullmatch(blob_sha.decode("ascii", errors="strict")):
             fail(f"invalid git blob SHA under {source}: {blob_sha!r}")
 
         working_path = ROOT / os.fsdecode(path_bytes)
         if not working_path.is_file():
             fail(f"tracked working-tree file is missing under {source}: {working_path}")
+
+        if os.name != "nt":
+            working_mode = b"100755" if working_path.stat().st_mode & 0o111 else b"100644"
+            if working_mode != mode:
+                fail(
+                    f"working-tree executable mode differs from the index under {source}: "
+                    f"{os.fsdecode(path_bytes)} (index {mode.decode()}, worktree "
+                    f"{working_mode.decode()})"
+                )
+
         working_blob_sha = git_blob_sha(working_path).encode("ascii")
         if working_blob_sha != blob_sha:
             fail(
