@@ -1,6 +1,6 @@
 name: Validate system registry
 
-on:
+"on":
   pull_request:
     paths:
       - "app.js"
@@ -16,6 +16,7 @@ on:
       - "index.html"
       - "start.bat"
       - "start.sh"
+      - "requirements-validation.txt"
       - "scripts/validate_system_registry.py"
       - ".github/workflows/validate-system-registry.yml"
   push:
@@ -35,6 +36,7 @@ on:
       - "index.html"
       - "start.bat"
       - "start.sh"
+      - "requirements-validation.txt"
       - "scripts/validate_system_registry.py"
       - ".github/workflows/validate-system-registry.yml"
   workflow_dispatch:
@@ -52,5 +54,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Install validation dependencies
+        run: python -m pip install -r requirements-validation.txt
       - name: Validate registry, source revisions, and KPI schema
         run: python scripts/validate_system_registry.py
