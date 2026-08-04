@@ -1,0 +1,143 @@
+(() => {
+  'use strict';
+
+  const CUSTOMER_ID = 'STYLEM';
+  const CUSTOMER_NAME = 'スタイレム（暫定）';
+  const PORTAL_KEY = 'kc_customer_portal_STYLEM_v1';
+  const REQUESTS_KEY = 'kc_customer_requests_v1';
+  const PORTAL_SCHEMA = '1.0';
+
+  function nowIso() {
+    return new Date().toISOString();
+  }
+
+  function safeParse(raw, fallback) {
+    try {
+      const parsed = JSON.parse(raw || 'null');
+      return parsed === null ? fallback : parsed;
+    } catch {
+      return fallback;
+    }
+  }
+
+  function cleanText(value, maxLength = 1000) {
+    return String(value ?? '').trim().slice(0, maxLength);
+  }
+
+  function cleanList(value, maxItems = 20) {
+    const values = Array.isArray(value) ? value : [];
+    return values.map((item) => cleanText(item, 120)).filter(Boolean).slice(0, maxItems);
+  }
+
+  function isEligible(entityType, record) {
+    if (!record || typeof record !== 'object') return false;
+    if (entityType === 'product') return record.sourceStatus === 'CONFIRMED';
+    if (entityType === 'yarn') return record.status === 'PUBLISHED';
+    return false;
+  }
+
+  function safeProduct(record) {
+    if (!isEligible('product', record)) return null;
+    return {
+      entityType: 'product',
+      id: cleanText(record.id, 120),
+      brand: cleanText(record.brand, 160),
+      name: cleanText(record.name, 240),
+      productNumber: cleanText(record.productNumber, 160),
+      category: cleanText(record.category, 160),
+      composition: cleanText(record.composition, 500),
+      colors: cleanList(record.colors),
+      sizes: cleanList(record.sizes),
+      officialUrl: cleanText(record.officialUrl, 1000),
+      productImageData: cleanText(record.productImageData, 2000000),
+      releaseStatus: cleanText(record.releaseStatus, 40),
+      updatedAt: cleanText(record.updated_at || record.updatedAt, 80)
+    };
+  }
+
+  function safeYarn(record) {
+    if (!isEligible('yarn', record)) return null;
+    return {
+      entityType: 'yarn',
+      id: cleanText(record.id, 120),
+      supplier: cleanText(record.supplier, 240),
+      name: cleanText(record.name, 240),
+      code: cleanText(record.code, 160),
+      displayCount: cleanText(record.displayCount, 160),
+      structure: cleanText(record.structure, 160),
+      composition: cleanText(record.composition, 500),
+      gauge: cleanText(record.gauge, 160),
+      functions: cleanList(record.functions),
+      sourceUrl: cleanText(record.sourceUrl, 1000),
+      updatedAt: cleanText(record.updated_at || record.updatedAt, 80)
+    };
+  }
+
+  function emptyPortal() {
+    return {
+      schema_version: PORTAL_SCHEMA,
+      customer_id: CUSTOMER_ID,
+      customer_name: CUSTOMER_NAME,
+      published_at: '',
+      products: [],
+      yarns: []
+    };
+  }
+
+  function normalizePortal(value) {
+    const source = value && typeof value === 'object' ? value : {};
+    return {
+      ...emptyPortal(),
+      published_at: cleanText(source.published_at, 80),
+      products: Array.isArray(source.products) ? source.products : [],
+      yarns: Array.isArray(source.yarns) ? source.yarns : []
+    };
+  }
+
+  function normalizeRequests(value) {
+    return (Array.isArray(value) ? value : []).map((request) => ({
+      request_id: cleanText(request.request_id, 120),
+      customer_id: CUSTOMER_ID,
+      request_type: cleanText(request.request_type, 80),
+      subject: cleanText(request.subject, 240),
+      details: cleanText(request.details, 2000),
+      status: ['OPEN', 'ANSWERED', 'CLOSED'].includes(request.status) ? request.status : 'OPEN',
+      created_at: cleanText(request.created_at, 80),
+      updated_at: cleanText(request.updated_at, 80),
+      response: cleanText(request.response, 2000)
+    })).filter((request) => request.request_id && request.subject);
+  }
+
+  function newRequest({ requestType, subject, details }) {
+    const cleanSubject = cleanText(subject, 240);
+    if (!cleanSubject) throw new Error('件名を入力してください。');
+    return {
+      request_id: `STYLEM-REQ-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`,
+      customer_id: CUSTOMER_ID,
+      request_type: cleanText(requestType, 80) || 'OTHER',
+      subject: cleanSubject,
+      details: cleanText(details, 2000),
+      status: 'OPEN',
+      created_at: nowIso(),
+      updated_at: nowIso(),
+      response: ''
+    };
+  }
+
+  window.KCCustomerPolicy = Object.freeze({
+    CUSTOMER_ID,
+    CUSTOMER_NAME,
+    PORTAL_KEY,
+    REQUESTS_KEY,
+    PORTAL_SCHEMA,
+    nowIso,
+    safeParse,
+    isEligible,
+    safeProduct,
+    safeYarn,
+    emptyPortal,
+    normalizePortal,
+    normalizeRequests,
+    newRequest
+  });
+})();
