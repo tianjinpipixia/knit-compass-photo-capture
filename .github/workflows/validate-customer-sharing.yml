@@ -1,0 +1,39 @@
+name: Validate customer sharing boundary
+
+"on":
+  pull_request:
+    paths:
+      - "customer-sharing/**"
+      - "stylem/**"
+      - "scripts/validate_customer_sharing.py"
+      - "docs/CUSTOMER_SHARING.md"
+      - "config/system-registry.json"
+      - ".github/workflows/validate-customer-sharing.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "customer-sharing/**"
+      - "stylem/**"
+      - "scripts/validate_customer_sharing.py"
+      - "docs/CUSTOMER_SHARING.md"
+      - "config/system-registry.json"
+      - ".github/workflows/validate-customer-sharing.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate approved snapshot and request return boundary
+        run: python scripts/validate_customer_sharing.py
