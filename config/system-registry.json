@@ -1,6 +1,6 @@
 {
-  "schema_version": "1.3.0",
-  "updated_at": "2026-08-04T20:50:00+09:00",
+  "schema_version": "1.3.1",
+  "updated_at": "2026-08-05T04:10:00+09:00",
   "policy": {
     "unknown_connections_are_forbidden": true,
     "connection_change_requires_registry_update": true,
@@ -86,18 +86,18 @@
       "system_id": "KC-CUSTOMER-SHARING-ADMIN",
       "display_name": "Knit Compass 顧客共有管理",
       "environment": "same-origin-local-pilot-owner",
-      "display_version": "v1.0.0",
+      "display_version": "v1.0.1",
       "entry_path": "/customer-sharing/",
       "code_source": "customer-sharing/index.html@main",
       "code_revision": "git-blob:2bc2bffc9784d761608fcc239589029e9171cf77",
       "auxiliary_sources": [
         {
           "code_source": "customer-sharing/policy.js@main",
-          "code_revision": "git-blob:9202562eefe068fde6d58df97ea32771460394a5"
+          "code_revision": "git-blob:c779b9859a525d6f5597db608930ad33cef9941e"
         }
       ],
       "data_store": "browser-localstorage",
-      "storage_detail": "Reads master localStorage kc_independent_practical_v0_4; stores explicit customer grants in kc_customer_sharing_v1; publishes sanitized STYLEM snapshot to kc_customer_portal_STYLEM_v1; reads and updates customer requests in kc_customer_requests_v1; publication and grant changes roll back together on storage failure",
+      "storage_detail": "Reads master localStorage kc_independent_practical_v0_4; stores explicit customer grants in kc_customer_sharing_v1; publishes sanitized STYLEM snapshot to kc_customer_portal_STYLEM_v1; reads and updates customer requests in kc_customer_requests_v1; publication and grant changes roll back together on storage failure; customer URLs are restricted to http/https; shared image data is restricted to supported image MIME data URIs and size; stored snapshots are re-sanitized and deduplicated when read",
       "sync_mode": "explicit-owner-approved-snapshot-and-request-return",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "no-automatic-production-core-company-db-connection",
@@ -107,18 +107,18 @@
       "system_id": "KC-STYLEM-PORTAL",
       "display_name": "Knit Compass STYLEM Customer Area",
       "environment": "same-origin-local-pilot-customer",
-      "display_version": "v1.0.0",
+      "display_version": "v1.0.1",
       "entry_path": "/stylem/",
       "code_source": "stylem/index.html@main",
       "code_revision": "git-blob:fddeb899c0333cacea3b075385fe8d5fcfd996de",
       "auxiliary_sources": [
         {
           "code_source": "customer-sharing/policy.js@main",
-          "code_revision": "git-blob:9202562eefe068fde6d58df97ea32771460394a5"
+          "code_revision": "git-blob:c779b9859a525d6f5597db608930ad33cef9941e"
         }
       ],
       "data_store": "browser-localstorage",
-      "storage_detail": "Reads only sanitized snapshot kc_customer_portal_STYLEM_v1; never reads master storage or grant storage in application logic; writes customer requests to kc_customer_requests_v1; no direct master mutation",
+      "storage_detail": "Reads only sanitized snapshot kc_customer_portal_STYLEM_v1; never reads master storage or grant storage in application logic; re-sanitizes and deduplicates shared records before rendering; permits only http/https links and supported image data URIs; writes only STYLEM customer requests to kc_customer_requests_v1; no direct master mutation",
       "sync_mode": "approved-snapshot-read-and-customer-request-write",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "no-automatic-production-core-company-db-connection",
