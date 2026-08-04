@@ -6,7 +6,7 @@
 
 Photo Capture、v0.4、Daily、Androidは引き続き独立運用です。Production、Core、Company DBへの自動接続はありません。
 
-今回、次の3工程を接続しました。
+次の3工程を接続しています。
 
 1. Photo Captureが混率・機能性・サステナブル・共通ID・根拠をAppend Only DRAFTとして保存
 2. DRAFTをv0.4の「Photo Capture受信箱」へ候補送信
@@ -14,14 +14,21 @@ Photo Capture、v0.4、Daily、Androidは引き続き独立運用です。Produc
 
 同一ブラウザではlocalStorage受信箱を共有します。別サイト・別端末では受信箱JSONを書き出し、v0.4側で取り込みます。PENDINGまたはREJECTEDの候補はマスターへ反映しません。
 
+### データ保護
+
+- 既存マスターに値があり、Photo Capture側が空欄の場合は既存値を維持します。
+- `TMP-OR-…` の会社一時IDは、最初に承認した正式 `OR-…` IDへ固定して以後のUPDATEでも再利用します。
+- 受信箱が500件を超えてもPENDING候補は削除しません。古いAPPROVED／REJECTED履歴から先に整理します。
+- 保存容量不足時は未承認候補を黙って削除せず、保存失敗として表示します。
+
 **画面で確認:** [`/status/`](status/index.html)
 
 ## 構成
 
 | システム | 入口 | 主な保存先 | 接続 |
 |---|---|---|---|
-| Photo Capture v1.2 | `/` | IndexedDB `kc_independent_photo_capture_v1_0` | v0.4受信箱へ候補送信 |
-| Knit Compass v0.4.3 | `/brand-intelligence/` | localStorage `kc_independent_practical_v0_4` | Human Review後にマスター反映 |
+| Photo Capture v1.2.1 | `/` | IndexedDB `kc_independent_photo_capture_v1_0` | v0.4受信箱へ候補送信 |
+| Knit Compass v0.4.4 | `/brand-intelligence/` | localStorage `kc_independent_practical_v0_4` | Human Review後にマスター反映 |
 | Daily Web | `/daily/` | localStorage | 独立運用 |
 | Daily Android | APK / `android-daily/` | Android WebView内 | 独立運用 |
 
@@ -56,9 +63,10 @@ sh start.sh
 ```sh
 python3 -m pip install -r requirements-validation.txt
 python3 scripts/validate_system_registry.py
+python3 scripts/validate_handoff_safety.py
 ```
 
-検証対象は、接続台帳、全登録ソースのGit blob／content SHA、保存キー、CIトリガー、接続表示、KPI列です。
+検証対象は、接続台帳、全登録ソースのGit blob／content SHA、保存キー、CIトリガー、接続表示、KPI列、JavaScript構文、空欄上書き防止、会社ID固定、PENDING保持です。
 
 ## 変更ルール
 
