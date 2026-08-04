@@ -6,12 +6,14 @@ name: Apply PR16 follow-up fixes
       - fix/pr15-review-data-safety-20260804
     paths:
       - "scripts/apply_pr16_followup_fixes.py"
+      - "scripts/apply_pr16_followup_fixes_v2.py"
       - ".github/workflows/apply-pr16-followup-fixes.yml"
   pull_request:
     branches:
       - main
     paths:
       - "scripts/apply_pr16_followup_fixes.py"
+      - "scripts/apply_pr16_followup_fixes_v2.py"
       - ".github/workflows/apply-pr16-followup-fixes.yml"
   workflow_dispatch:
 
@@ -33,7 +35,7 @@ jobs:
         with:
           node-version: "22"
       - name: Apply targeted follow-up fixes
-        run: python scripts/apply_pr16_followup_fixes.py
+        run: python scripts/apply_pr16_followup_fixes_v2.py
       - name: Validate Human Review safety
         run: python scripts/validate_handoff_safety.py
       - name: Validate system registry
