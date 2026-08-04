@@ -1,0 +1,53 @@
+name: Apply final full-width composition correction
+
+"on":
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "scripts/apply_fullwidth_composition_and_registry_docs.py"
+      - ".github/workflows/apply-fullwidth-composition-fix.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: fullwidth-composition-final-fix
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/final-save-review-safety-20260804
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install validation dependencies
+        run: python -m pip install -r requirements-validation.txt
+      - name: Apply final corrections
+        run: python scripts/apply_fullwidth_composition_and_registry_docs.py
+      - name: Validate Human Review and UI state safety
+        run: |
+          python scripts/validate_handoff_safety.py
+          python scripts/validate_ui_state_guard.py
+      - name: Validate system registry
+        run: python scripts/validate_system_registry.py
+      - name: Commit corrected product files
+        run: |
+          if git diff --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app.js index.html config/system-registry.json README.md docs/PHOTO_CAPTURE_HANDOFF.md docs/SYSTEM_REGISTRY.md scripts/validate_handoff_safety.py
+          git commit -m "Support full-width percentages and correct registry documentation"
+          git push origin HEAD:fix/final-save-review-safety-20260804
