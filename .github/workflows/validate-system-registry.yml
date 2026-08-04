@@ -28,6 +28,7 @@ name: Validate system registry
       - "start.sh"
       - "requirements-validation.txt"
       - "scripts/validate_system_registry.py"
+      - ".github/workflows/validate-handoff-safety.yml"
       - ".github/workflows/validate-system-registry.yml"
   push:
     branches:
@@ -58,6 +59,7 @@ name: Validate system registry
       - "start.sh"
       - "requirements-validation.txt"
       - "scripts/validate_system_registry.py"
+      - ".github/workflows/validate-handoff-safety.yml"
       - ".github/workflows/validate-system-registry.yml"
   workflow_dispatch:
 
