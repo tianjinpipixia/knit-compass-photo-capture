@@ -4,8 +4,9 @@
   const DB_NAME = 'kc_independent_photo_capture_v1_0';
   const SESSION_KEY = 'kc_session_v1';
   const HANDOFF_KEY = 'kc_v04_handoff_queue_v1';
+  const HANDOFF_QUEUE_LIMIT = 500;
   const DATA_CONTRACT_VERSION = '1.1.0';
-  const APP_VERSION = '1.2.0';
+  const APP_VERSION = '1.2.1';
   const app = document.getElementById('app');
 
   const PHOTO_TYPES = [
@@ -169,6 +170,38 @@
     } catch {
       return [];
     }
+  }
+
+  function handoffItemKey(item) {
+    return item?.dedupe_key || item?.handoff_id || '';
+  }
+
+  function compactHandoffQueue(queue) {
+    const ordered = [...queue].sort((a, b) => String(b.sent_at || '').localeCompare(String(a.sent_at || '')));
+    const deduped = [];
+    const seen = new Set();
+    for (const item of ordered) {
+      const key = handoffItemKey(item);
+      if (key && seen.has(key)) continue;
+      if (key) seen.add(key);
+      deduped.push(item);
+    }
+    const pending = deduped.filter((item) => item.review_status === 'PENDING');
+    const reviewed = deduped.filter((item) => item.review_status !== 'PENDING');
+    const reviewedSlots = Math.max(0, HANDOFF_QUEUE_LIMIT - pending.length);
+    return [...pending, ...reviewed.slice(0, reviewedSlots)]
+      .sort((a, b) => String(b.sent_at || '').localeCompare(String(a.sent_at || '')));
+  }
+
+  function saveHandoffQueue(queue) {
+    const compacted = compactHandoffQueue(queue);
+    try {
+      localStorage.setItem(HANDOFF_KEY, JSON.stringify(compacted));
+    } catch (error) {
+      alert('受信箱を保存できませんでした。未承認データは削除していません。受信箱JSONを書き出してから端末容量を確認してください。');
+      throw error;
+    }
+    return { saved: compacted.length, prunedReviewed: Math.max(0, queue.length - compacted.length) };
   }
 
   function handoffCounts() {
@@ -618,7 +651,7 @@
       review_status: 'PENDING',
       payload: sanitizeForHandoff(eventRow.snapshot)
     });
-    localStorage.setItem(HANDOFF_KEY, JSON.stringify(queue.slice(0, 500)));
+    saveHandoffQueue(queue);
   }
 
   async function enqueueExisting(recordId) {
