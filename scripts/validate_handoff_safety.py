@@ -77,6 +77,12 @@ def main() -> None:
     require(inline_script, "payload.targetType==='organization'?payload.targetId:''", "organization target ID mapping")
     require(inline_script, "state.photoCaptureIdMap[payload.targetId]=ids.organizationId", "stable organization ID mapping")
     require(inline_script, "if(hasMeaningfulValue(value))existing[key]=value", "non-empty-only upsert")
+    require(app_text, "handoffForEvent", "event-version-specific handoff status")
+    require(app_text, "saveInProgress", "Photo Capture duplicate-save guard")
+    require(app_text, "matchAll(/(\\d+(?:\\.\\d+)?)\\s*%/g)", "percentage-only composition total")
+    require(inline_script, "normalizeStatus", "normalized weak status protection")
+    require(inline_script, "saveApproval", "atomic approval storage")
+    require(inline_script, "busyHandoffs", "duplicate approval guard")
 
     simulate_compaction()
     print("OK: Human Review safety checks passed")
