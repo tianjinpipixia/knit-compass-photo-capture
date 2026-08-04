@@ -6,6 +6,7 @@ name: Apply final save and review safety fixes
       - main
     paths:
       - "scripts/apply_final_save_review_safety.py"
+      - "scripts/apply_final_save_review_safety_v2.py"
       - ".github/workflows/apply-final-save-review-safety.yml"
   workflow_dispatch:
 
@@ -33,7 +34,7 @@ jobs:
       - name: Install validation dependencies
         run: python -m pip install -r requirements-validation.txt
       - name: Apply targeted fixes
-        run: python scripts/apply_final_save_review_safety.py
+        run: python scripts/apply_final_save_review_safety_v2.py
       - name: Validate Human Review safety
         run: python scripts/validate_handoff_safety.py
       - name: Validate Photo Capture UI state guard
@@ -48,6 +49,6 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add app.js index.html brand-intelligence/index.html brand-intelligence/sw.js config/system-registry.json README.md docs/PHOTO_CAPTURE_HANDOFF.md docs/SYSTEM_REGISTRY.md scripts/validate_handoff_safety.py .github/workflows/validate-system-registry.yml
+          git add app.js index.html brand-intelligence/index.html brand-intelligence/sw.js config/system-registry.json README.md docs/PHOTO_CAPTURE_HANDOFF.md docs/SYSTEM_REGISTRY.md scripts/validate_handoff_safety.py scripts/validate_ui_state_guard.py .github/workflows/validate-system-registry.yml
           git commit -m "Fix remaining save and Human Review safety gaps"
           git push origin HEAD:fix/final-save-review-safety-20260804
