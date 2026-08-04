@@ -7,6 +7,12 @@ name: Apply PR16 follow-up fixes
     paths:
       - "scripts/apply_pr16_followup_fixes.py"
       - ".github/workflows/apply-pr16-followup-fixes.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "scripts/apply_pr16_followup_fixes.py"
+      - ".github/workflows/apply-pr16-followup-fixes.yml"
   workflow_dispatch:
 
 permissions:
