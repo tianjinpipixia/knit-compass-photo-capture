@@ -6,7 +6,7 @@
   const HANDOFF_KEY = 'kc_v04_handoff_queue_v1';
   const HANDOFF_QUEUE_LIMIT = 500;
   const DATA_CONTRACT_VERSION = '1.1.0';
-  const APP_VERSION = '1.2.2';
+  const APP_VERSION = '1.2.3';
   const app = document.getElementById('app');
 
   const PHOTO_TYPES = [
@@ -486,7 +486,7 @@
   }
 
   function parseComposition(text) {
-    const values = [...String(text || '').matchAll(/(\d+(?:\.\d+)?)\s*%/g)].map((match) => Number(match[1]));
+    const values = [...String(text || '').matchAll(/(\d+(?:\.\d+)?)\s*[%％]/g)].map((match) => Number(match[1]));
     const total = values.reduce((sum, value) => sum + value, 0);
     return { values, total };
   }
@@ -499,7 +499,7 @@
     if (!result.values.length) {
       totalElement.textContent = '—';
       totalElement.className = '';
-      messageElement.textContent = /\d/.test(String(text || '')) ? '合計確認する数値には%を付けてください。' : '数値を入力すると合計を確認します。';
+      messageElement.textContent = /\d/.test(String(text || '')) ? '合計確認する数値には%または％を付けてください。' : '数値を入力すると合計を確認します。';
       return;
     }
     totalElement.textContent = `${result.total}%`;

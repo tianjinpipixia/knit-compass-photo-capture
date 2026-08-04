@@ -29,7 +29,7 @@ Photo Capture、v0.4、Daily、Androidは引き続き独立運用です。Produc
 
 | システム | 入口 | 主な保存先 | 接続 |
 |---|---|---|---|
-| Photo Capture v1.2.2 | `/` | IndexedDB `kc_independent_photo_capture_v1_0` | v0.4受信箱へ候補送信 |
+| Photo Capture v1.2.3 | `/` | IndexedDB `kc_independent_photo_capture_v1_0` | v0.4受信箱へ候補送信 |
 | Knit Compass v0.4.5 | `/brand-intelligence/` | localStorage `kc_independent_practical_v0_4` | Human Review後にマスター反映 |
 | Daily Web | `/daily/` | localStorage | 独立運用 |
 | Daily Android | APK / `android-daily/` | Android WebView内 | 独立運用 |
