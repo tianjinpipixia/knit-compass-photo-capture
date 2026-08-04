@@ -1,9 +1,9 @@
 name: Apply final save and review safety fixes
 
 "on":
-  push:
+  pull_request:
     branches:
-      - fix/final-save-review-safety-20260804
+      - main
     paths:
       - "scripts/apply_final_save_review_safety.py"
       - ".github/workflows/apply-final-save-review-safety.yml"
