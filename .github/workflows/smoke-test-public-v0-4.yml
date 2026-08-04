@@ -1,62 +1,120 @@
-name: Smoke test public independent v0.4
+name: Smoke test independent v0.4
 
-on:
+"on":
   pull_request:
     paths:
-      - '.github/workflows/smoke-test-public-v0-4.yml'
-      - 'brand-intelligence/**'
-      - 'daily/**'
+      - ".github/workflows/smoke-test-public-v0-4.yml"
+      - "brand-intelligence/**"
+      - "daily/**"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/smoke-test-public-v0-4.yml"
+      - "brand-intelligence/**"
+      - "daily/**"
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  public-smoke:
+  local-pr-smoke:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
-      - name: Verify direct deployed HTTPS app and plain Android shortcut
+      - uses: actions/checkout@v4
+      - name: Verify branch-local wrapper, app, manifest, and Daily shortcut
         shell: python
         run: |
           import hashlib
           import json
+          import re
+          from pathlib import Path
+
+          index = Path('brand-intelligence/index.html').read_text(encoding='utf-8')
+          app = Path('brand-intelligence/app.html').read_bytes()
+          manifest = json.loads(Path('brand-intelligence/manifest.webmanifest').read_text(encoding='utf-8'))
+          daily = Path('daily/index.html').read_text(encoding='utf-8')
+
+          match = re.search(r'app\.html\?v=[0-9.]+', index)
+          assert match, 'wrapper does not reference versioned app.html'
+          assert 'Photo Capture受信箱' in index
+          assert 'Human Review' in index
+          assert 'DecompressionStream' not in index
+          assert manifest['short_name'] == 'Knit Compass'
+          assert b'kc_independent_practical_v0_4' in app
+
+          assert '<title>Knit Compass — 独立実用版 v0.4</title>' in daily
+          assert 'kc_independent_practical_v0_4' in daily
+          assert 'DecompressionStream' not in daily
+          assert 'serviceWorker' not in daily
+          assert 'manifest.webmanifest' not in daily
+          assert './icon.svg' in daily
+          assert Path('daily/icon.svg').is_file()
+
+          print(f'PASS: local wrapper references {match.group(0)}; app SHA-256 {hashlib.sha256(app).hexdigest()}')
+
+  public-main-smoke:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify deployed HTTPS files match current main
+        shell: python
+        run: |
+          import hashlib
+          import re
           import time
           import urllib.request
+          from pathlib import Path
 
           root = 'https://tianjinpipixia.github.io/knit-compass-photo-capture/'
-          expected = 'd3b8c3353e63bde4189b1e975542be87683bc17361d21e91b1875fbc7358b38f'
+          local_index = Path('brand-intelligence/index.html').read_bytes()
+          local_app = Path('brand-intelligence/app.html').read_bytes()
+          local_manifest = Path('brand-intelligence/manifest.webmanifest').read_bytes()
+          local_daily = Path('daily/index.html').read_bytes()
+          local_daily_icon = Path('daily/icon.svg').read_bytes()
+          index_text = local_index.decode('utf-8')
+          app_ref_match = re.search(r'app\.html\?v=[0-9.]+', index_text)
+          assert app_ref_match, 'local wrapper does not reference versioned app.html'
+          app_ref = app_ref_match.group(0)
+
+          expected = {
+              'index': hashlib.sha256(local_index).hexdigest(),
+              'app': hashlib.sha256(local_app).hexdigest(),
+              'manifest': hashlib.sha256(local_manifest).hexdigest(),
+              'daily': hashlib.sha256(local_daily).hexdigest(),
+              'daily_icon': hashlib.sha256(local_daily_icon).hexdigest(),
+          }
 
           def get(url):
-              request = urllib.request.Request(url, headers={'User-Agent':'Knit-Compass-Smoke-Test/1.0'})
+              request = urllib.request.Request(url, headers={'User-Agent': 'Knit-Compass-Smoke-Test/2.0'})
               with urllib.request.urlopen(request, timeout=30) as response:
                   if response.status != 200:
                       raise RuntimeError(f'{url}: HTTP {response.status}')
                   return response.read()
 
-          for attempt in range(1, 21):
+          for attempt in range(1, 31):
               try:
                   base = root + 'brand-intelligence/'
-                  index = get(base).decode('utf-8')
-                  assert 'app.html?v=0.4.2' in index
-                  assert 'DecompressionStream' not in index
-                  manifest = json.loads(get(base + 'manifest.webmanifest').decode('utf-8'))
-                  assert manifest['short_name'] == 'Knit Compass'
-                  app = get(base + 'app.html?v=0.4.2')
-                  digest = hashlib.sha256(app).hexdigest()
-                  assert digest == expected, f'public direct app SHA mismatch: {digest}'
+                  public_index = get(base)
+                  public_index_text = public_index.decode('utf-8')
+                  assert hashlib.sha256(public_index).hexdigest() == expected['index'], 'public wrapper is not current main'
+                  assert 'Photo Capture受信箱' in public_index_text
+                  assert 'Human Review' in public_index_text
+                  assert 'DecompressionStream' not in public_index_text
 
-                  daily = get(root + 'daily/').decode('utf-8')
-                  assert '<title>Knit Compass — 独立実用版 v0.4</title>' in daily
-                  assert "kc_independent_practical_v0_4" in daily
-                  assert 'DecompressionStream' not in daily
-                  assert 'serviceWorker' not in daily
-                  assert 'manifest.webmanifest' not in daily
-                  assert './icon.svg' in daily
-                  get(root + 'daily/icon.svg')
-                  print(f'PASS: direct app SHA {digest}; plain /daily/ shortcut is public and service-worker free')
+                  public_app = get(base + app_ref)
+                  assert hashlib.sha256(public_app).hexdigest() == expected['app'], 'public app is not current main'
+                  assert hashlib.sha256(get(base + 'manifest.webmanifest')).hexdigest() == expected['manifest'], 'public manifest is not current main'
+                  assert hashlib.sha256(get(root + 'daily/')).hexdigest() == expected['daily'], 'public Daily page is not current main'
+                  assert hashlib.sha256(get(root + 'daily/icon.svg')).hexdigest() == expected['daily_icon'], 'public Daily icon is not current main'
+
+                  print(f'PASS: deployed wrapper and {app_ref} match main; app SHA-256 {expected["app"]}')
                   break
               except Exception as error:
-                  print(f'Attempt {attempt}/20 failed: {error}')
-                  if attempt == 20:
+                  print(f'Attempt {attempt}/30 failed: {error}')
+                  if attempt == 30:
                       raise
                   time.sleep(15)
