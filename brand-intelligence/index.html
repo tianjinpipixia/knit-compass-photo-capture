@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Knit Compass">
   <title>Knit Compass v0.4 — Photo Capture受信箱</title>
-  <link rel="manifest" href="./manifest.webmanifest?v=0.4.3">
+  <link rel="manifest" href="./manifest.webmanifest?v=0.4.4">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./icon.svg">
   <style>
@@ -28,7 +28,7 @@
       <div class="brand"><div class="mark">KC</div><div><strong>Knit Compass v0.4</strong><span>Photo Capture受信箱 → Human Review → マスター確定</span></div></div>
       <button class="inbox-button" id="openInbox">Photo Capture受信箱 <span class="count" id="pendingBadge">0</span></button>
     </header>
-    <main class="frame-wrap"><iframe id="v04Frame" title="Knit Compass 独立実用版 v0.4" src="./app.html?v=0.4.3"></iframe></main>
+    <main class="frame-wrap"><iframe id="v04Frame" title="Knit Compass 独立実用版 v0.4" src="./app.html?v=0.4.4"></iframe></main>
   </div>
 
   <div class="overlay" id="overlay"></div>
@@ -49,21 +49,54 @@
     const HANDOFF_KEY='kc_v04_handoff_queue_v1';
     const V04_KEY='kc_independent_practical_v0_4';
     const REVIEWER_KEY='kc_v04_reviewer_name_v1';
+    const QUEUE_LIMIT=500;
     const TYPE_OPTIONS=[['yarn','糸'],['product','商品'],['material','素材・原料'],['organization','会社・組織'],['research','調査記録']];
     const PREFIX={yarn:['YN',8],product:['PR',8],material:['MT',7],organization:['OR',7],research:['RS',10]};
+    const WEAK_VALUES=new Set(['','unconfirmed','not_confirmed','candidate','inferred','unknown','Unknown','UNKNOWN']);
     const $=id=>document.getElementById(id);
-    const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+    const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[c]));
     const now=()=>new Date().toISOString();
     const uuid=()=>crypto.randomUUID?.()||`${Date.now()}-${Math.random().toString(16).slice(2)}`;
     const makeId=prefix=>`${prefix}-${uuid()}`;
 
     function loadQueue(){try{const value=JSON.parse(localStorage.getItem(HANDOFF_KEY)||'[]');return Array.isArray(value)?value:[]}catch{return[]}}
-    function saveQueue(queue){localStorage.setItem(HANDOFF_KEY,JSON.stringify(queue.slice(0,500)))}
+    function queueKey(item){return item?.dedupe_key||item?.handoff_id||''}
+    function compactQueue(queue){
+      const ordered=[...queue].sort((a,b)=>String(b.sent_at||'').localeCompare(String(a.sent_at||'')));
+      const deduped=[];const seen=new Set();
+      for(const item of ordered){const key=queueKey(item);if(key&&seen.has(key))continue;if(key)seen.add(key);deduped.push(item)}
+      const pending=deduped.filter(item=>item.review_status==='PENDING');
+      const reviewed=deduped.filter(item=>item.review_status!=='PENDING');
+      const reviewedSlots=Math.max(0,QUEUE_LIMIT-pending.length);
+      return [...pending,...reviewed.slice(0,reviewedSlots)].sort((a,b)=>String(b.sent_at||'').localeCompare(String(a.sent_at||'')));
+    }
+    function saveQueue(queue){
+      const compacted=compactQueue(queue);
+      try{localStorage.setItem(HANDOFF_KEY,JSON.stringify(compacted))}
+      catch(error){throw new Error(`受信箱を保存できません。未承認データは削除していません: ${error.message||error}`)}
+      return{saved:compacted.length,prunedReviewed:Math.max(0,queue.length-compacted.length)};
+    }
     function loadState(){try{const value=JSON.parse(localStorage.getItem(V04_KEY)||'null');return value&&typeof value==='object'?value:{}}catch{return{}}}
     function saveState(state){state.updated_at=now();state.server={workspaceId:'personal-owner',apiBase:location.origin,token:'',lastSyncAt:'',lastSyncStatus:'LOCAL_ONLY',syncMode:'LOCAL_ONLY',serverRevision:0,localRevision:0,...(state.server||{})};state.server.localRevision=Number(state.server.localRevision||0)+1;localStorage.setItem(V04_KEY,JSON.stringify(state))}
     function setMessage(text,error=false){$('message').textContent=text;$('message').classList.toggle('error',error)}
     function openDrawer(){render();$('drawer').classList.add('open');$('overlay').classList.add('open')}
     function closeDrawer(){$('drawer').classList.remove('open');$('overlay').classList.remove('open')}
+
+    function hasMeaningfulValue(value){
+      if(value===null||value===undefined)return false;
+      if(typeof value==='string')return value.trim()!=='';
+      if(Array.isArray(value))return value.length>0;
+      if(typeof value==='object')return Object.keys(value).length>0;
+      return true;
+    }
+    function firstMeaningful(...values){return values.find(hasMeaningfulValue)}
+    function preferIncoming(incoming,existing,fallback=''){return firstMeaningful(incoming,existing,fallback)}
+    function preferStatus(incoming,existing,fallback='unconfirmed'){
+      const incomingText=String(incoming??'');const existingText=String(existing??'');
+      if(!hasMeaningfulValue(incoming))return preferIncoming(existing,fallback);
+      if(WEAK_VALUES.has(incomingText)&&hasMeaningfulValue(existing)&&!WEAK_VALUES.has(existingText))return existing;
+      return incoming;
+    }
 
     function ensureState(state){
       state.schema_version=state.schema_version||'4.0';
@@ -75,8 +108,7 @@
     function nextId(type,state){
       const [prefix,width]=PREFIX[type];
       const collections={yarn:state.yarns,product:state.products,material:state.materials,organization:state.organizations,research:state.researchRecords};
-      const regex=new RegExp(`^${prefix}-(\\d{${width}})$`);
-      let max=0;
+      const regex=new RegExp(`^${prefix}-(\\d{${width}})$`);let max=0;
       for(const row of collections[type]||[]){const match=String(row.id||row.commonId||'').match(regex);if(match)max=Math.max(max,Number(match[1]))}
       return `${prefix}-${String(max+1).padStart(width,'0')}`;
     }
@@ -84,8 +116,7 @@
     function finalId(type,candidate,state){
       const value=String(candidate||'').trim();
       if(value&&state.photoCaptureIdMap[value])return state.photoCaptureIdMap[value];
-      const [prefix,width]=PREFIX[type];
-      const valid=new RegExp(`^${prefix}-\\d{${width}}$`);
+      const [prefix,width]=PREFIX[type];const valid=new RegExp(`^${prefix}-\\d{${width}}$`);
       const result=valid.test(value)?value:nextId(type,state);
       if(value&&value!==result)state.photoCaptureIdMap[value]=result;
       return result;
@@ -93,32 +124,33 @@
 
     function resolveEntityId(type,candidate,override,state){
       const result=override?finalId(type,override,state):finalId(type,candidate,state);
-      const source=String(candidate||'').trim();
-      if(source&&source!==result)state.photoCaptureIdMap[source]=result;
+      const source=String(candidate||'').trim();if(source&&source!==result)state.photoCaptureIdMap[source]=result;
       return result;
     }
 
     function upsert(collection,row){
       const existing=collection.find(item=>item.id===row.id||item.commonId===row.id);
-      if(existing){Object.assign(existing,row);return existing}
+      if(existing){for(const [key,value] of Object.entries(row)){if(hasMeaningfulValue(value))existing[key]=value}return existing}
       collection.unshift(row);return row;
     }
 
-    function companyRows(payload,state){
+    function companyRows(payload,state,organizationOverrideId=''){
+      const targetOrganizationId=payload.targetType==='organization'?payload.targetId:'';
       const definitions=[
-        {name:payload.sourceOrganizationName,id:payload.sourceOrganizationId,role:'source'},
+        {name:payload.sourceOrganizationName,id:organizationOverrideId||payload.sourceOrganizationId||targetOrganizationId,role:'source'},
         {name:payload.manufacturerName,id:payload.manufacturerId,role:'yarn_manufacturer'},
         {name:payload.sellerName,id:payload.sellerId,role:'seller'}
       ];
       const result={};
       for(const definition of definitions){
         if(!definition.name&&!definition.id)continue;
-        const id=finalId('organization',definition.id,state);
+        const id=resolveEntityId('organization',definition.id,'',state);
         const existing=state.organizations.find(row=>row.id===id);
         const roles=[...new Set([...(existing?.roles||[]),definition.role])];
-        upsert(state.organizations,{id,commonId:id,name:definition.name||existing?.name||'名称未確認',officialName:definition.name||existing?.officialName||'',roles,verificationStatus:payload.verificationStatus||'candidate',sourceCaptureId:payload.captureId,updated_at:now(),created_at:existing?.created_at||now()});
+        upsert(state.organizations,{id,commonId:id,name:preferIncoming(definition.name,existing?.name,'名称未確認'),officialName:preferIncoming(definition.name,existing?.officialName,''),roles,verificationStatus:preferStatus(payload.verificationStatus,existing?.verificationStatus,'candidate'),sourceCaptureId:payload.captureId,updated_at:now(),created_at:existing?.created_at||now()});
         result[definition.role]=id;
       }
+      if(payload.targetType==='organization'&&payload.targetId&&result.source)state.photoCaptureIdMap[payload.targetId]=result.source;
       return result;
     }
 
@@ -128,14 +160,35 @@
     function promote(item,overrideType,overrideId){
       const payload={...(item.payload||{}),captureId:item.capture_id};
       const state=ensureState(loadState());
-      const companies=companyRows(payload,state);
+      const reviewer=$('reviewer').value.trim()||'Owner Human Review';
+      const companies=companyRows(payload,state,overrideType==='organization'?overrideId:'');
       const ids={};
 
       const yarnCandidate=payload.commonIds?.yarnId||(payload.targetType==='yarn'?payload.targetId:'');
       if(payload.yarnName||yarnCandidate){
         const id=resolveEntityId('yarn',yarnCandidate,overrideType==='yarn'?overrideId:'',state);ids.yarnId=id;
         const existing=state.yarns.find(row=>row.id===id);
-        upsert(state.yarns,{id,commonId:id,sourceTargetId:yarnCandidate||payload.targetId,sourceCaptureId:item.capture_id,supplier:payload.sourceOrganizationName||payload.sellerName||payload.manufacturerName||existing?.supplier||'未確認',supplierOrganizationId:companies.source||companies.seller||'',manufacturerOrganizationId:companies.yarn_manufacturer||'',sellerOrganizationId:companies.seller||'',name:payload.yarnName||existing?.name||'糸名未確認',code:payload.yarnCode||'',countSystem:countSystemLabel(payload.countSystem),countValue:payload.countValue||'',plyCount:'',displayCount:payload.countDisplay||'',structure:payload.yarnStructure||payload.basicYarnForm||'未確認',basicYarnForm:payload.basicYarnForm||'unconfirmed',spinningMethod:payload.spinningMethod||'',processingMethod:payload.processingMethod||'',composition:payload.compositionRaw||'',compositionTotal:payload.compositionTotal,compositionStatus:payload.compositionStatus||'unconfirmed',gauge:payload.gauge||'',functions:names(payload.functionalProperties),functionalProperties:payload.functionalProperties||[],sustainableAttributes:payload.sustainableAttributes||[],status:'CONFIRMED',verificationStatus:'confirmed',sourceUrl:payload.sourceUrl||'',notes:payload.notes||'',evidenceId:payload.evidenceId||'',reviewedAt:now(),reviewedBy:$('reviewer').value.trim()||'Owner Human Review',created_at:existing?.created_at||now(),updated_at:now()});
+        const incomingCountSystem=(payload.countValue||payload.countDisplay)?countSystemLabel(payload.countSystem):'';
+        const incomingStructure=WEAK_VALUES.has(String(payload.basicYarnForm||''))?payload.yarnStructure:firstMeaningful(payload.yarnStructure,payload.basicYarnForm);
+        upsert(state.yarns,{
+          id,commonId:id,
+          sourceTargetId:preferIncoming(yarnCandidate||payload.targetId,existing?.sourceTargetId,''),sourceCaptureId:item.capture_id,
+          supplier:preferIncoming(firstMeaningful(payload.sourceOrganizationName,payload.sellerName,payload.manufacturerName),existing?.supplier,'未確認'),
+          supplierOrganizationId:preferIncoming(firstMeaningful(companies.source,companies.seller),existing?.supplierOrganizationId,''),
+          manufacturerOrganizationId:preferIncoming(companies.yarn_manufacturer,existing?.manufacturerOrganizationId,''),
+          sellerOrganizationId:preferIncoming(companies.seller,existing?.sellerOrganizationId,''),
+          name:preferIncoming(payload.yarnName,existing?.name,'糸名未確認'),code:preferIncoming(payload.yarnCode,existing?.code,''),
+          countSystem:preferIncoming(incomingCountSystem,existing?.countSystem,''),countValue:preferIncoming(payload.countValue,existing?.countValue,''),
+          plyCount:preferIncoming(payload.plyCount,existing?.plyCount,''),displayCount:preferIncoming(payload.countDisplay,existing?.displayCount,''),
+          structure:preferIncoming(incomingStructure,existing?.structure,'未確認'),basicYarnForm:preferStatus(payload.basicYarnForm,existing?.basicYarnForm,'unconfirmed'),
+          spinningMethod:preferStatus(payload.spinningMethod,existing?.spinningMethod,''),processingMethod:preferIncoming(payload.processingMethod,existing?.processingMethod,''),
+          composition:preferIncoming(payload.compositionRaw,existing?.composition,''),compositionTotal:preferIncoming(payload.compositionTotal,existing?.compositionTotal,null),
+          compositionStatus:preferStatus(payload.compositionStatus,existing?.compositionStatus,'unconfirmed'),gauge:preferIncoming(payload.gauge,existing?.gauge,''),
+          functions:preferIncoming(names(payload.functionalProperties),existing?.functions,[]),functionalProperties:preferIncoming(payload.functionalProperties,existing?.functionalProperties,[]),
+          sustainableAttributes:preferIncoming(payload.sustainableAttributes,existing?.sustainableAttributes,[]),status:'CONFIRMED',verificationStatus:'confirmed',
+          sourceUrl:preferIncoming(payload.sourceUrl,existing?.sourceUrl,''),notes:preferIncoming(payload.notes,existing?.notes,''),evidenceId:preferIncoming(payload.evidenceId,existing?.evidenceId,''),
+          reviewedAt:now(),reviewedBy:reviewer,created_at:existing?.created_at||now(),updated_at:now()
+        });
       }
 
       const productCandidate=payload.commonIds?.productId||(payload.targetType==='product'?payload.targetId:'');
@@ -143,23 +196,47 @@
         const id=resolveEntityId('product',productCandidate,overrideType==='product'?overrideId:'',state);ids.productId=id;
         const existing=state.products.find(row=>row.id===id);
         const linked=[...new Set([...(existing?.linkedYarnIds||[]),ids.yarnId].filter(Boolean))];
-        upsert(state.products,{id,commonId:id,sourceTargetId:productCandidate||payload.targetId,sourceCaptureId:item.capture_id,brand:payload.brandName||existing?.brand||'ブランド未確認',name:payload.productName||existing?.name||'商品名未確認',productNumber:payload.productCode||'',officialUrl:payload.productUrl||'',composition:payload.compositionRaw||'',compositionStatus:payload.compositionStatus||'unconfirmed',functionalProperties:payload.functionalProperties||[],sustainableAttributes:payload.sustainableAttributes||[],workflowStatus:existing?.workflowStatus||'NEW_PRODUCT',releaseStatus:existing?.releaseStatus||'UNKNOWN',sourceStatus:payload.verificationStatus==='confirmed'?'CONFIRMED':'CANDIDATE',priority:payload.priority==='URGENT'?'A':payload.priority==='HIGH'?'A':existing?.priority||'B',linkedYarnIds:linked,brandMemo:payload.notes||'',research:existing?.research||{},reviewedAt:now(),reviewedBy:$('reviewer').value.trim()||'Owner Human Review',created_at:existing?.created_at||now(),updated_at:now(),discoveredAt:existing?.discoveredAt||now().slice(0,10)});
+        const sourceStatus=payload.verificationStatus==='confirmed'?'CONFIRMED':'';
+        const incomingPriority=['URGENT','HIGH'].includes(payload.priority)?'A':'';
+        upsert(state.products,{
+          id,commonId:id,sourceTargetId:preferIncoming(productCandidate||payload.targetId,existing?.sourceTargetId,''),sourceCaptureId:item.capture_id,
+          brand:preferIncoming(payload.brandName,existing?.brand,'ブランド未確認'),name:preferIncoming(payload.productName,existing?.name,'商品名未確認'),
+          productNumber:preferIncoming(payload.productCode,existing?.productNumber,''),officialUrl:preferIncoming(payload.productUrl,existing?.officialUrl,''),
+          composition:preferIncoming(payload.compositionRaw,existing?.composition,''),compositionStatus:preferStatus(payload.compositionStatus,existing?.compositionStatus,'unconfirmed'),
+          functionalProperties:preferIncoming(payload.functionalProperties,existing?.functionalProperties,[]),sustainableAttributes:preferIncoming(payload.sustainableAttributes,existing?.sustainableAttributes,[]),
+          workflowStatus:preferIncoming(existing?.workflowStatus,'NEW_PRODUCT'),releaseStatus:preferIncoming(existing?.releaseStatus,'UNKNOWN'),
+          sourceStatus:preferIncoming(sourceStatus,existing?.sourceStatus,'CANDIDATE'),priority:preferIncoming(incomingPriority,existing?.priority,'B'),linkedYarnIds:linked,
+          brandMemo:preferIncoming(payload.notes,existing?.brandMemo,''),research:existing?.research||{},reviewedAt:now(),reviewedBy:reviewer,
+          created_at:existing?.created_at||now(),updated_at:now(),discoveredAt:existing?.discoveredAt||now().slice(0,10)
+        });
       }
 
       const materialCandidate=payload.commonIds?.materialId||(payload.targetType==='material'?payload.targetId:'');
-      if(payload.materialName||materialCandidate){const id=resolveEntityId('material',materialCandidate,overrideType==='material'?overrideId:'',state);ids.materialId=id;const existing=state.materials.find(row=>row.id===id);upsert(state.materials,{id,commonId:id,name:payload.materialName||payload.yarnName||existing?.name||'素材名未確認',composition:payload.compositionRaw||'',functionalProperties:payload.functionalProperties||[],sustainableAttributes:payload.sustainableAttributes||[],sourceCaptureId:item.capture_id,verificationStatus:'confirmed',created_at:existing?.created_at||now(),updated_at:now()})}
+      if(payload.materialName||materialCandidate){
+        const id=resolveEntityId('material',materialCandidate,overrideType==='material'?overrideId:'',state);ids.materialId=id;
+        const existing=state.materials.find(row=>row.id===id);
+        upsert(state.materials,{id,commonId:id,name:preferIncoming(firstMeaningful(payload.materialName,payload.yarnName),existing?.name,'素材名未確認'),composition:preferIncoming(payload.compositionRaw,existing?.composition,''),functionalProperties:preferIncoming(payload.functionalProperties,existing?.functionalProperties,[]),sustainableAttributes:preferIncoming(payload.sustainableAttributes,existing?.sustainableAttributes,[]),sourceCaptureId:item.capture_id,verificationStatus:'confirmed',created_at:existing?.created_at||now(),updated_at:now()});
+      }
 
       const researchCandidate=payload.commonIds?.researchId||(payload.targetType==='research'?payload.targetId:'');
-      if(researchCandidate){const id=resolveEntityId('research',researchCandidate,overrideType==='research'?overrideId:'',state);ids.researchId=id;const existing=state.researchRecords.find(row=>row.id===id);upsert(state.researchRecords,{id,commonId:id,targetType:payload.targetType,targetId:ids.yarnId||ids.productId||ids.materialId||payload.targetId,candidateAnswer:payload.notes||'',verifiedFacts:payload.verificationStatus==='confirmed'?payload.notes:'',reviewStatus:'APPROVED',sourceCaptureId:item.capture_id,reviewedAt:now(),reviewedBy:$('reviewer').value.trim()||'Owner Human Review',created_at:existing?.created_at||now(),updated_at:now()})}
+      if(researchCandidate){
+        const id=resolveEntityId('research',researchCandidate,overrideType==='research'?overrideId:'',state);ids.researchId=id;
+        const existing=state.researchRecords.find(row=>row.id===id);
+        const verifiedFacts=payload.verificationStatus==='confirmed'?payload.notes:'';
+        upsert(state.researchRecords,{id,commonId:id,targetType:preferIncoming(payload.targetType,existing?.targetType,''),targetId:preferIncoming(firstMeaningful(ids.yarnId,ids.productId,ids.materialId,payload.targetId),existing?.targetId,''),candidateAnswer:preferIncoming(payload.notes,existing?.candidateAnswer,''),verifiedFacts:preferIncoming(verifiedFacts,existing?.verifiedFacts,''),reviewStatus:'APPROVED',sourceCaptureId:item.capture_id,reviewedAt:now(),reviewedBy:reviewer,created_at:existing?.created_at||now(),updated_at:now()});
+      }
 
-      if(overrideType==='organization'&&overrideId){ids.organizationId=finalId('organization',overrideId,state)}
+      if(payload.targetType==='organization'){
+        ids.organizationId=firstMeaningful(companies.source,companies.yarn_manufacturer,companies.seller);
+        if(!ids.organizationId)ids.organizationId=resolveEntityId('organization',payload.targetId,overrideType==='organization'?overrideId:'',state);
+        if(payload.targetId)state.photoCaptureIdMap[payload.targetId]=ids.organizationId;
+      }
       ids.organizationIds=companies;
-      state.photoCaptureImports.unshift({handoffId:item.handoff_id,captureId:item.capture_id,eventVersion:item.event_version,masterIds:ids,approvedAt:now(),approvedBy:$('reviewer').value.trim()||'Owner Human Review'});
+      state.photoCaptureImports.unshift({handoffId:item.handoff_id,captureId:item.capture_id,eventVersion:item.event_version,masterIds:ids,approvedAt:now(),approvedBy:reviewer});
       state.photoCaptureImports=state.photoCaptureImports.slice(0,500);
       state.auditLog.unshift({id:makeId('AUDIT'),at:now(),action:'APPROVE_AND_PROMOTE',entityType:'photo_capture_handoff',entityId:item.handoff_id,summary:`Photo Capture ${item.capture_id} を商品・糸・会社マスターへ確定反映`});
       state.auditLog=state.auditLog.slice(0,500);
-      saveState(state);
-      return ids;
+      saveState(state);return ids;
     }
 
     function typeOptions(selected){return TYPE_OPTIONS.map(([value,label])=>`<option value="${value}" ${value===selected?'selected':''}>${label}</option>`).join('')}
@@ -181,15 +258,32 @@
       const type=document.querySelector(`[data-type="${CSS.escape(handoffId)}"]`).value;
       const finalIdValue=document.querySelector(`[data-final-id="${CSS.escape(handoffId)}"]`).value.trim();
       const ok=confirm(`この候補をHuman Review承認し、商品・糸・会社マスターへ確定反映します。\n\n対象: ${TYPE_OPTIONS.find(row=>row[0]===type)?.[1]||type}\n正式ID: ${finalIdValue||'自動採番'}\n\n続行しますか？`);if(!ok)return;
-      try{const ids=promote(item,type,finalIdValue);item.review_status='APPROVED';item.reviewed_at=now();item.reviewed_by=$('reviewer').value.trim()||'Owner Human Review';item.master_ids=ids;saveQueue(queue);localStorage.setItem(REVIEWER_KEY,$('reviewer').value.trim());$('v04Frame').contentWindow.location.reload();setMessage(`承認しました。${Object.entries(ids).filter(([,value])=>typeof value==='string').map(([key,value])=>`${key}: ${value}`).join(' / ')||'マスター更新済み'}`);render()}catch(error){setMessage(`承認処理に失敗しました: ${error.message||error}`,true)}}
-    function reject(handoffId){const queue=loadQueue(),item=queue.find(row=>row.handoff_id===handoffId);if(!item||item.review_status!=='PENDING')return;const reason=prompt('却下理由を入力してください。','根拠不足');if(reason===null)return;item.review_status='REJECTED';item.reviewed_at=now();item.reviewed_by=$('reviewer').value.trim()||'Owner Human Review';item.rejection_reason=reason.trim()||'理由未記入';saveQueue(queue);setMessage('候補を却下しました。マスターは変更していません。');render()}
+      try{
+        const ids=promote(item,type,finalIdValue);item.review_status='APPROVED';item.reviewed_at=now();item.reviewed_by=$('reviewer').value.trim()||'Owner Human Review';item.master_ids=ids;
+        const result=saveQueue(queue);localStorage.setItem(REVIEWER_KEY,$('reviewer').value.trim());$('v04Frame').contentWindow.location.reload();
+        setMessage(`承認しました。${Object.entries(ids).filter(([,value])=>typeof value==='string').map(([key,value])=>`${key}: ${value}`).join(' / ')||'マスター更新済み'}${result.prunedReviewed?`／古い承認済み・却下済み履歴${result.prunedReviewed}件を整理しました。`:''}`);render();
+      }catch(error){setMessage(`承認処理に失敗しました: ${error.message||error}`,true)}
+    }
+    function reject(handoffId){
+      const queue=loadQueue(),item=queue.find(row=>row.handoff_id===handoffId);if(!item||item.review_status!=='PENDING')return;
+      const reason=prompt('却下理由を入力してください。','根拠不足');if(reason===null)return;
+      item.review_status='REJECTED';item.reviewed_at=now();item.reviewed_by=$('reviewer').value.trim()||'Owner Human Review';item.rejection_reason=reason.trim()||'理由未記入';
+      try{const result=saveQueue(queue);setMessage(`候補を却下しました。マスターは変更していません。${result.prunedReviewed?` 古い確認済み履歴${result.prunedReviewed}件を整理しました。`:''}`);render()}catch(error){setMessage(error.message||String(error),true)}
+    }
 
     async function importFile(file){
       if(!file)return;
-      try{const data=JSON.parse(await file.text());let incoming=[];if(data?.format==='KC_V04_INBOX_EXPORT'&&Array.isArray(data.items))incoming=data.items;else if(data?.format==='KC_V04_INBOX_ITEM')incoming=[data];else if(Array.isArray(data))incoming=data;else throw new Error('対応する受信箱JSONではありません');const queue=loadQueue(),keys=new Set(queue.map(item=>item.dedupe_key||item.handoff_id));let added=0;for(const item of incoming){if(item?.format!=='KC_V04_INBOX_ITEM')continue;const key=item.dedupe_key||item.handoff_id;if(keys.has(key))continue;queue.unshift(item);keys.add(key);added++}saveQueue(queue);setMessage(`${added}件を受信箱へ取り込みました。`);render()}catch(error){setMessage(`取込に失敗しました: ${error.message||error}`,true)}finally{$('importFile').value=''}}
+      try{
+        const data=JSON.parse(await file.text());let incoming=[];
+        if(data?.format==='KC_V04_INBOX_EXPORT'&&Array.isArray(data.items))incoming=data.items;else if(data?.format==='KC_V04_INBOX_ITEM')incoming=[data];else if(Array.isArray(data))incoming=data;else throw new Error('対応する受信箱JSONではありません');
+        const queue=loadQueue(),keys=new Set(queue.map(queueKey));let added=0;
+        for(const item of incoming){if(item?.format!=='KC_V04_INBOX_ITEM')continue;const key=queueKey(item);if(key&&keys.has(key))continue;queue.unshift(item);if(key)keys.add(key);added++}
+        const result=saveQueue(queue);setMessage(`${added}件を受信箱へ取り込みました。未承認候補はすべて保持しています。${result.prunedReviewed?` 古い承認済み・却下済み履歴${result.prunedReviewed}件を整理しました。`:''}`);render();
+      }catch(error){setMessage(`取込に失敗しました: ${error.message||error}`,true)}finally{$('importFile').value=''}
+    }
 
     $('openInbox').addEventListener('click',openDrawer);$('closeInbox').addEventListener('click',closeDrawer);$('overlay').addEventListener('click',closeDrawer);$('importButton').addEventListener('click',()=>$('importFile').click());$('importFile').addEventListener('change',()=>importFile($('importFile').files[0]));$('reviewer').value=localStorage.getItem(REVIEWER_KEY)||'Owner Human Review';$('reviewer').addEventListener('change',()=>localStorage.setItem(REVIEWER_KEY,$('reviewer').value.trim()));window.addEventListener('storage',event=>{if(event.key===HANDOFF_KEY)render()});
-    if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js?v=0.4.3').catch(()=>{});
+    if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js?v=0.4.4').catch(()=>{});
     render();
   })();
   </script>
