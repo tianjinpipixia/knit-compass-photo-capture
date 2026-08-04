@@ -16,10 +16,13 @@ name: Validate system registry
       - "brand-intelligence/index.html"
       - "brand-intelligence/sw.js"
       - "brand-intelligence/manifest.webmanifest"
+      - "customer-sharing/**"
+      - "stylem/**"
       - "daily/index.html"
       - "android-daily/**"
       - "config/system-registry.json"
       - "docs/SYSTEM_REGISTRY.md"
+      - "docs/CUSTOMER_SHARING.md"
       - "docs/DATA_CONTRACT.md"
       - "docs/KPI_MEASUREMENT.md"
       - "data/kpi_log_template.csv"
@@ -30,8 +33,10 @@ name: Validate system registry
       - "scripts/validate_system_registry.py"
       - "scripts/validate_handoff_safety.py"
       - "scripts/validate_ui_state_guard.py"
+      - "scripts/validate_customer_sharing.py"
       - ".github/workflows/validate-system-registry.yml"
       - ".github/workflows/validate-handoff-safety.yml"
+      - ".github/workflows/validate-customer-sharing.yml"
   push:
     branches:
       - main
@@ -49,10 +54,13 @@ name: Validate system registry
       - "brand-intelligence/index.html"
       - "brand-intelligence/sw.js"
       - "brand-intelligence/manifest.webmanifest"
+      - "customer-sharing/**"
+      - "stylem/**"
       - "daily/index.html"
       - "android-daily/**"
       - "config/system-registry.json"
       - "docs/SYSTEM_REGISTRY.md"
+      - "docs/CUSTOMER_SHARING.md"
       - "docs/DATA_CONTRACT.md"
       - "docs/KPI_MEASUREMENT.md"
       - "data/kpi_log_template.csv"
@@ -63,8 +71,10 @@ name: Validate system registry
       - "scripts/validate_system_registry.py"
       - "scripts/validate_handoff_safety.py"
       - "scripts/validate_ui_state_guard.py"
+      - "scripts/validate_customer_sharing.py"
       - ".github/workflows/validate-system-registry.yml"
       - ".github/workflows/validate-handoff-safety.yml"
+      - ".github/workflows/validate-customer-sharing.yml"
   workflow_dispatch:
 
 permissions:
