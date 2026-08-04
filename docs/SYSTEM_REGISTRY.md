@@ -1,7 +1,7 @@
 # Knit Compass システム接続台帳
 
 更新日: 2026-08-04  
-版: 1.2.1  
+版: 1.2.2  
 状態: **暫定正本**
 
 ## 1. 接続済みフロー
@@ -18,8 +18,8 @@ PENDING候補とREJECTED候補はマスターへ反映しません。外部Produ
 
 | system_id | 画面・アプリ | 環境 | 表示版 | コード正本・Revision | データ保存先 | 同期・受渡し | 外部DB | 状態 |
 |---|---|---|---|---|---|---|---|---|
-| `KC-PHOTO-CAPTURE` | Photo Capture | 独立Sandbox | `v1.2.1` | `app.js@main` / `git-blob:ac63a0192a37…`。補助: `app.css` / `3fa9acda…`、`index.html` / `4aaeffb1…`、`backup.js` / `5f7dee4a…` | IndexedDB `kc_independent_photo_capture_v1_0`、sessionStorage `kc_session_v1`、受信箱localStorage `kc_v04_handoff_queue_v1` | 同一ブラウザ受信箱＋手動JSON / PENDINGを全件保持し確認済み履歴から整理 | なし | 稼働中 |
-| `KC-V04-WEB` | Knit Compass 独立実用版 v0.4 | 独立運用 | `v0.4.4` | 本体 `brand-intelligence/app.html` / `52f174f3…`。Human Review入口 `brand-intelligence/index.html` / `82dd740c…`。SW `ae9313f8…` | localStorage `kc_independent_practical_v0_4`、受信箱 `kc_v04_handoff_queue_v1` | 候補受信、JSON取込、既存値保護付きHuman Review反映 | Production / Core / Company DBへの自動接続なし | 稼働中 |
+| `KC-PHOTO-CAPTURE` | Photo Capture | 独立Sandbox | `v1.2.2` | `app.js@main` / `git-blob:ac63a0192a37…`。補助: `app.css` / `3fa9acda…`、`index.html` / `4aaeffb1…`、`backup.js` / `5f7dee4a…` | IndexedDB `kc_independent_photo_capture_v1_0`、sessionStorage `kc_session_v1`、受信箱localStorage `kc_v04_handoff_queue_v1` | 同一ブラウザ受信箱＋手動JSON / PENDINGを全件保持し確認済み履歴から整理 | なし | 稼働中 |
+| `KC-V04-WEB` | Knit Compass 独立実用版 v0.4 | 独立運用 | `v0.4.5` | 本体 `brand-intelligence/app.html` / `52f174f3…`。Human Review入口 `brand-intelligence/index.html` / `82dd740c…`。SW `ae9313f8…` | localStorage `kc_independent_practical_v0_4`、受信箱 `kc_v04_handoff_queue_v1` | 候補受信、JSON取込、既存値保護付きHuman Review反映 | Production / Core / Company DBへの自動接続なし | 稼働中 |
 | `KC-DAILY-WEB` | Dailyショートカット版 | 独立運用 | `v0.4` | `daily/index.html@main` / `a7d85f1b…` | v0.4と同じlocalStorage | 所有者設定時のみ手動 | 自動接続なし | 稼働中 |
 | `KC-DAILY-ANDROID` | Androidアプリ | 独立APK | `v0.4.0` | `android-daily@main` / `content-sha256:21ff2fd0…` | Android WebViewアプリデータ | 所有者設定時のみ手動 | 自動接続なし | 稼働中 |
 
@@ -99,3 +99,11 @@ Pull Requestとmainへのpushで、接続台帳、実ファイルRevision、CI�
 - [ ] 接続先を暗黙に外部DBへ変更していない
 - [ ] `python scripts/validate_system_registry.py` が成功した
 - [ ] `python scripts/validate_handoff_safety.py` が成功した
+
+## Photo Capture UI状態ガード
+
+`app-state-guard.js`はPhoto Captureの正式な補助ソースです。保存中の二重操作防止、イベント版単位の送信済み判定、入力途中フォームのsessionStorage復元を担当し、接続台帳とRevision検証の対象に含めます。
+
+## Human Review保存境界
+
+Human Review承認はマスターと受信箱を一体で保存し、片側保存に失敗した場合は両方を保存前へ復元します。Production / Core / Company DBへの自動接続は追加しません。

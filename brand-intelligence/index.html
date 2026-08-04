@@ -10,14 +10,14 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Knit Compass">
   <title>Knit Compass v0.4 — Photo Capture受信箱</title>
-  <link rel="manifest" href="./manifest.webmanifest?v=0.4.4">
+  <link rel="manifest" href="./manifest.webmanifest?v=0.4.5">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./icon.svg">
   <style>
     :root{--ink:#172826;--muted:#5d6d69;--paper:#f2f5f3;--card:#fff;--teal:#163f3c;--teal2:#235c56;--line:#d6dfdb;--soft:#eef3f1;--amber:#9a6a20;--amber-bg:#fff5df;--red:#8a342e;--red-bg:#fff0ed;--green:#2f6a37;--green-bg:#e9f5e7;--shadow:0 12px 36px rgba(23,40,38,.16)}
     *{box-sizing:border-box}html,body{height:100%;margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;overflow:hidden}button,input,select{font:inherit}button{cursor:pointer}
     .shell{height:100%;display:grid;grid-template-rows:auto minmax(0,1fr)}.bar{min-height:58px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 12px calc(8px + env(safe-area-inset-top));z-index:20}.brand{display:flex;align-items:center;gap:10px;min-width:0}.mark{display:grid;place-items:center;width:36px;height:36px;border-radius:11px;background:#fff;color:var(--teal);font-weight:950}.brand strong{display:block;font-size:14px}.brand span{display:block;color:#cbdad5;font-size:9px}.inbox-button{display:inline-flex;align-items:center;gap:8px;min-height:42px;border:1px solid rgba(255,255,255,.34);border-radius:11px;background:#fff;color:var(--teal);padding:8px 12px;font-size:11px;font-weight:900}.count{display:grid;place-items:center;min-width:23px;height:23px;border-radius:999px;background:var(--amber-bg);color:var(--amber);font-size:10px}.frame-wrap{min-height:0}.frame-wrap iframe{display:block;width:100%;height:100%;border:0;background:var(--paper)}
-    .overlay{position:fixed;inset:0;background:rgba(10,24,22,.55);opacity:0;pointer-events:none;transition:.18s;z-index:50}.overlay.open{opacity:1;pointer-events:auto}.drawer{position:fixed;top:0;right:0;z-index:60;width:min(520px,100%);height:100%;background:var(--paper);box-shadow:var(--shadow);transform:translateX(102%);transition:.22s;display:grid;grid-template-rows:auto auto minmax(0,1fr)}.drawer.open{transform:translateX(0)}.drawer-head{background:var(--teal);color:#fff;padding:calc(16px + env(safe-area-inset-top)) 16px 15px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.drawer-head h1{margin:2px 0 4px;font-size:22px}.drawer-head p{margin:0;color:#dbe8e3;font-size:11px}.close{border:1px solid rgba(255,255,255,.35);border-radius:9px;background:transparent;color:#fff;padding:8px 10px;font-weight:900}.controls{padding:12px 14px;background:#fff;border-bottom:1px solid var(--line);display:grid;gap:10px}.control-grid{display:grid;grid-template-columns:1fr auto;gap:8px}.field{display:grid;gap:5px}.field label{color:var(--muted);font-size:10px;font-weight:850}.field input,.field select{width:100%;min-height:40px;border:1px solid #bdcbc5;border-radius:9px;background:#fff;padding:8px 10px}.btn{min-height:40px;border:1px solid var(--teal);border-radius:9px;background:var(--teal);color:#fff;padding:8px 11px;font-size:11px;font-weight:900}.btn.secondary{background:#fff;color:var(--teal);border-color:#aabcb5}.btn.danger{background:#fff;color:var(--red);border-color:#d9b2aa}.file{display:none}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.stat{border:1px solid var(--line);border-radius:10px;background:var(--soft);padding:8px}.stat span{display:block;color:var(--muted);font-size:9px}.stat strong{font-size:18px}.message{min-height:18px;color:var(--muted);font-size:10px}.message.error{color:var(--red)}
+    .overlay{position:fixed;inset:0;background:rgba(10,24,22,.55);opacity:0;pointer-events:none;transition:.18s;z-index:50}.overlay.open{opacity:1;pointer-events:auto}.drawer{position:fixed;top:0;right:0;z-index:60;width:min(520px,100%);height:100%;background:var(--paper);box-shadow:var(--shadow);transform:translateX(102%);transition:.22s;display:grid;grid-template-rows:auto auto minmax(0,1fr)}.drawer.open{transform:translateX(0)}.drawer-head{background:var(--teal);color:#fff;padding:calc(16px + env(safe-area-inset-top)) 16px 15px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.drawer-head h1{margin:2px 0 4px;font-size:22px}.drawer-head p{margin:0;color:#dbe8e3;font-size:11px}.close{border:1px solid rgba(255,255,255,.35);border-radius:9px;background:transparent;color:#fff;padding:8px 10px;font-weight:900}.controls{padding:12px 14px;background:#fff;border-bottom:1px solid var(--line);display:grid;gap:10px}.control-grid{display:grid;grid-template-columns:1fr auto;gap:8px}.field{display:grid;gap:5px}.field label{color:var(--muted);font-size:10px;font-weight:850}.field input,.field select{width:100%;min-height:40px;border:1px solid #bdcbc5;border-radius:9px;background:#fff;padding:8px 10px}.btn{min-height:40px;border:1px solid var(--teal);border-radius:9px;background:var(--teal);color:#fff;padding:8px 11px;font-size:11px;font-weight:900}.btn.secondary{background:#fff;color:var(--teal);border-color:#aabcb5}.btn.danger{background:#fff;color:var(--red);border-color:#d9b2aa}.btn:disabled{cursor:not-allowed;opacity:.55}.file{display:none}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.stat{border:1px solid var(--line);border-radius:10px;background:var(--soft);padding:8px}.stat span{display:block;color:var(--muted);font-size:9px}.stat strong{font-size:18px}.message{min-height:18px;color:var(--muted);font-size:10px}.message.error{color:var(--red)}
     .list{overflow:auto;padding:12px 14px calc(28px + env(safe-area-inset-bottom));display:grid;align-content:start;gap:10px}.empty{border:1px dashed #aebdb7;border-radius:13px;background:#fff;padding:24px;text-align:center;color:var(--muted);font-size:12px}.item{border:1px solid var(--line);border-radius:13px;background:#fff;padding:12px;display:grid;gap:10px}.item.approved{border-color:#a6c7ad;background:#fbfefb}.item.rejected{border-color:#d8b2aa;background:#fffafa}.item-head{display:flex;justify-content:space-between;gap:10px}.item h2{margin:0;font-size:14px}.meta{color:var(--muted);font-size:9px;overflow-wrap:anywhere}.status{display:inline-flex;align-items:center;border-radius:999px;padding:4px 8px;font-size:9px;font-weight:900}.status.PENDING{background:var(--amber-bg);color:var(--amber)}.status.APPROVED{background:var(--green-bg);color:var(--green)}.status.REJECTED{background:var(--red-bg);color:var(--red)}.summary{display:grid;gap:5px;font-size:10px}.summary strong{color:var(--teal)}.review-grid{display:grid;grid-template-columns:140px 1fr;gap:7px}.item-actions{display:flex;gap:7px;flex-wrap:wrap}.details{border-top:1px solid var(--line);padding-top:9px;display:none;color:var(--muted);font-size:10px;white-space:pre-wrap}.details.open{display:block}.tag-row{display:flex;gap:5px;flex-wrap:wrap}.tag{border:1px solid #cfddd4;border-radius:999px;background:#edf4ef;padding:3px 7px;color:#31594c;font-size:9px;font-weight:800}
     @media(max-width:600px){.bar{min-height:66px}.brand span{display:none}.inbox-button{padding:8px}.drawer{width:100%}.review-grid,.control-grid{grid-template-columns:1fr}.item-actions .btn{flex:1}.stats{grid-template-columns:repeat(3,1fr)}}
   </style>
@@ -28,7 +28,7 @@
       <div class="brand"><div class="mark">KC</div><div><strong>Knit Compass v0.4</strong><span>Photo Capture受信箱 → Human Review → マスター確定</span></div></div>
       <button class="inbox-button" id="openInbox">Photo Capture受信箱 <span class="count" id="pendingBadge">0</span></button>
     </header>
-    <main class="frame-wrap"><iframe id="v04Frame" title="Knit Compass 独立実用版 v0.4" src="./app.html?v=0.4.4"></iframe></main>
+    <main class="frame-wrap"><iframe id="v04Frame" title="Knit Compass 独立実用版 v0.4" src="./app.html?v=0.4.5"></iframe></main>
   </div>
 
   <div class="overlay" id="overlay"></div>
@@ -52,12 +52,13 @@
     const QUEUE_LIMIT=500;
     const TYPE_OPTIONS=[['yarn','糸'],['product','商品'],['material','素材・原料'],['organization','会社・組織'],['research','調査記録']];
     const PREFIX={yarn:['YN',8],product:['PR',8],material:['MT',7],organization:['OR',7],research:['RS',10]};
-    const WEAK_VALUES=new Set(['','unconfirmed','not_confirmed','candidate','inferred','unknown','Unknown','UNKNOWN']);
+    const WEAK_VALUES=new Set(['','unconfirmed','not_confirmed','candidate','inferred','unknown','未確認','候補','推定']);
     const $=id=>document.getElementById(id);
-    const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[c]));
+    const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
     const now=()=>new Date().toISOString();
     const uuid=()=>crypto.randomUUID?.()||`${Date.now()}-${Math.random().toString(16).slice(2)}`;
     const makeId=prefix=>`${prefix}-${uuid()}`;
+    const busyHandoffs=new Set();
 
     function loadQueue(){try{const value=JSON.parse(localStorage.getItem(HANDOFF_KEY)||'[]');return Array.isArray(value)?value:[]}catch{return[]}}
     function queueKey(item){return item?.dedupe_key||item?.handoff_id||''}
@@ -78,6 +79,19 @@
     }
     function loadState(){try{const value=JSON.parse(localStorage.getItem(V04_KEY)||'null');return value&&typeof value==='object'?value:{}}catch{return{}}}
     function saveState(state){state.updated_at=now();state.server={workspaceId:'personal-owner',apiBase:location.origin,token:'',lastSyncAt:'',lastSyncStatus:'LOCAL_ONLY',syncMode:'LOCAL_ONLY',serverRevision:0,localRevision:0,...(state.server||{})};state.server.localRevision=Number(state.server.localRevision||0)+1;localStorage.setItem(V04_KEY,JSON.stringify(state))}
+    function restoreStorage(key,raw){if(raw===null)localStorage.removeItem(key);else localStorage.setItem(key,raw)}
+    function saveApproval(state,queue){
+      const previousState=localStorage.getItem(V04_KEY),previousQueue=localStorage.getItem(HANDOFF_KEY);
+      const compacted=compactQueue(queue);
+      try{saveState(state);localStorage.setItem(HANDOFF_KEY,JSON.stringify(compacted))}
+      catch(error){
+        const rollbackErrors=[];
+        try{restoreStorage(V04_KEY,previousState)}catch(rollbackError){rollbackErrors.push(`マスター: ${rollbackError.message||rollbackError}`)}
+        try{restoreStorage(HANDOFF_KEY,previousQueue)}catch(rollbackError){rollbackErrors.push(`受信箱: ${rollbackError.message||rollbackError}`)}
+        throw new Error(`承認結果を保存できなかったため変更を元に戻しました: ${error.message||error}${rollbackErrors.length?`／復元失敗 ${rollbackErrors.join('、')}`:''}`);
+      }
+      return{saved:compacted.length,prunedReviewed:Math.max(0,queue.length-compacted.length)};
+    }
     function setMessage(text,error=false){$('message').textContent=text;$('message').classList.toggle('error',error)}
     function openDrawer(){render();$('drawer').classList.add('open');$('overlay').classList.add('open')}
     function closeDrawer(){$('drawer').classList.remove('open');$('overlay').classList.remove('open')}
@@ -91,10 +105,11 @@
     }
     function firstMeaningful(...values){return values.find(hasMeaningfulValue)}
     function preferIncoming(incoming,existing,fallback=''){return firstMeaningful(incoming,existing,fallback)}
+    function normalizeStatus(value){return String(value??'').trim().toLowerCase()}
+    function isWeakStatus(value){return WEAK_VALUES.has(normalizeStatus(value))}
     function preferStatus(incoming,existing,fallback='unconfirmed'){
-      const incomingText=String(incoming??'');const existingText=String(existing??'');
       if(!hasMeaningfulValue(incoming))return preferIncoming(existing,fallback);
-      if(WEAK_VALUES.has(incomingText)&&hasMeaningfulValue(existing)&&!WEAK_VALUES.has(existingText))return existing;
+      if(isWeakStatus(incoming)&&hasMeaningfulValue(existing)&&!isWeakStatus(existing))return existing;
       return incoming;
     }
 
@@ -169,7 +184,7 @@
         const id=resolveEntityId('yarn',yarnCandidate,overrideType==='yarn'?overrideId:'',state);ids.yarnId=id;
         const existing=state.yarns.find(row=>row.id===id);
         const incomingCountSystem=(payload.countValue||payload.countDisplay)?countSystemLabel(payload.countSystem):'';
-        const incomingStructure=WEAK_VALUES.has(String(payload.basicYarnForm||''))?payload.yarnStructure:firstMeaningful(payload.yarnStructure,payload.basicYarnForm);
+        const incomingStructure=isWeakStatus(payload.basicYarnForm)?payload.yarnStructure:firstMeaningful(payload.yarnStructure,payload.basicYarnForm);
         upsert(state.yarns,{
           id,commonId:id,
           sourceTargetId:preferIncoming(yarnCandidate||payload.targetId,existing?.sourceTargetId,''),sourceCaptureId:item.capture_id,
@@ -236,7 +251,7 @@
       state.photoCaptureImports=state.photoCaptureImports.slice(0,500);
       state.auditLog.unshift({id:makeId('AUDIT'),at:now(),action:'APPROVE_AND_PROMOTE',entityType:'photo_capture_handoff',entityId:item.handoff_id,summary:`Photo Capture ${item.capture_id} を商品・糸・会社マスターへ確定反映`});
       state.auditLog=state.auditLog.slice(0,500);
-      saveState(state);return ids;
+      return{ids,state};
     }
 
     function typeOptions(selected){return TYPE_OPTIONS.map(([value,label])=>`<option value="${value}" ${value===selected?'selected':''}>${label}</option>`).join('')}
@@ -247,22 +262,28 @@
       const queue=loadQueue().sort((a,b)=>String(b.sent_at).localeCompare(String(a.sent_at)));
       const pending=queue.filter(item=>item.review_status==='PENDING').length,approved=queue.filter(item=>item.review_status==='APPROVED').length,rejected=queue.filter(item=>item.review_status==='REJECTED').length;
       $('pendingBadge').textContent=pending;$('pendingCount').textContent=pending;$('approvedCount').textContent=approved;$('rejectedCount').textContent=rejected;
-      $('inboxList').innerHTML=queue.length?queue.map(item=>{const payload=item.payload||{},status=item.review_status||'PENDING';return`<article class="item ${status.toLowerCase()}"><div class="item-head"><div><span class="status ${status}">${status}</span><h2>${esc(itemTitle(payload))}</h2><div class="meta">${esc(item.capture_id)} / v${esc(item.event_version||1)} / ${esc(item.sent_at||'')}</div></div></div><div class="summary"><div><strong>混率</strong> ${esc(payload.compositionRaw||'未入力')}</div><div class="tag-row">${[...names(payload.functionalProperties),...names(payload.sustainableAttributes)].slice(0,8).map(value=>`<span class="tag">${esc(value)}</span>`).join('')}</div></div>${status==='PENDING'?`<div class="review-grid"><div class="field"><label>確定対象</label><select data-type="${esc(item.handoff_id)}">${typeOptions(payload.targetType||'yarn')}</select></div><div class="field"><label>正式ID（空欄は自動採番）</label><input data-final-id="${esc(item.handoff_id)}" placeholder="YN-00000001 等"></div></div><div class="item-actions"><button class="btn" data-approve="${esc(item.handoff_id)}">承認してマスター反映</button><button class="btn danger" data-reject="${esc(item.handoff_id)}">却下</button><button class="btn secondary" data-detail="${esc(item.handoff_id)}">詳細</button></div>`:`<div class="item-actions"><button class="btn secondary" data-detail="${esc(item.handoff_id)}">詳細</button></div><div class="meta">確認者: ${esc(item.reviewed_by||'—')} / ${esc(item.reviewed_at||'—')}${item.rejection_reason?` / 理由: ${esc(item.rejection_reason)}`:''}</div>`}<div class="details" id="detail-${esc(item.handoff_id)}">${esc(detailText(payload))}</div></article>`}).join(''):'<div class="empty">Photo Captureからの承認待ちはありません。</div>';
+      $('inboxList').innerHTML=queue.length?queue.map(item=>{const payload=item.payload||{},status=item.review_status||'PENDING';return`<article class="item ${status.toLowerCase()}"><div class="item-head"><div><span class="status ${status}">${status}</span><h2>${esc(itemTitle(payload))}</h2><div class="meta">${esc(item.capture_id)} / v${esc(item.event_version||1)} / ${esc(item.sent_at||'')}</div></div></div><div class="summary"><div><strong>混率</strong> ${esc(payload.compositionRaw||'未入力')}</div><div class="tag-row">${[...names(payload.functionalProperties),...names(payload.sustainableAttributes)].slice(0,8).map(value=>`<span class="tag">${esc(value)}</span>`).join('')}</div></div>${status==='PENDING'?`<div class="review-grid"><div class="field"><label>確定対象</label><select data-type="${esc(item.handoff_id)}">${typeOptions(payload.targetType||'yarn')}</select></div><div class="field"><label>正式ID（空欄は自動採番）</label><input data-final-id="${esc(item.handoff_id)}" placeholder="YN-00000001 等"></div></div><div class="item-actions"><button class="btn" data-approve="${esc(item.handoff_id)}" ${busyHandoffs.has(item.handoff_id)?'disabled aria-disabled="true"':''}>${busyHandoffs.has(item.handoff_id)?'処理中…':'承認してマスター反映'}</button><button class="btn danger" data-reject="${esc(item.handoff_id)}" ${busyHandoffs.has(item.handoff_id)?'disabled aria-disabled="true"':''}>却下</button><button class="btn secondary" data-detail="${esc(item.handoff_id)}">詳細</button></div>`:`<div class="item-actions"><button class="btn secondary" data-detail="${esc(item.handoff_id)}">詳細</button></div><div class="meta">確認者: ${esc(item.reviewed_by||'—')} / ${esc(item.reviewed_at||'—')}${item.rejection_reason?` / 理由: ${esc(item.rejection_reason)}`:''}</div>`}<div class="details" id="detail-${esc(item.handoff_id)}">${esc(detailText(payload))}</div></article>`}).join(''):'<div class="empty">Photo Captureからの承認待ちはありません。</div>';
       document.querySelectorAll('[data-detail]').forEach(button=>button.addEventListener('click',()=>document.getElementById(`detail-${button.dataset.detail}`).classList.toggle('open')));
       document.querySelectorAll('[data-approve]').forEach(button=>button.addEventListener('click',()=>approve(button.dataset.approve)));
       document.querySelectorAll('[data-reject]').forEach(button=>button.addEventListener('click',()=>reject(button.dataset.reject)));
     }
 
     function approve(handoffId){
+      if(busyHandoffs.has(handoffId))return;
       const queue=loadQueue(),item=queue.find(row=>row.handoff_id===handoffId);if(!item||item.review_status!=='PENDING')return;
       const type=document.querySelector(`[data-type="${CSS.escape(handoffId)}"]`).value;
       const finalIdValue=document.querySelector(`[data-final-id="${CSS.escape(handoffId)}"]`).value.trim();
       const ok=confirm(`この候補をHuman Review承認し、商品・糸・会社マスターへ確定反映します。\n\n対象: ${TYPE_OPTIONS.find(row=>row[0]===type)?.[1]||type}\n正式ID: ${finalIdValue||'自動採番'}\n\n続行しますか？`);if(!ok)return;
+      busyHandoffs.add(handoffId);render();
       try{
-        const ids=promote(item,type,finalIdValue);item.review_status='APPROVED';item.reviewed_at=now();item.reviewed_by=$('reviewer').value.trim()||'Owner Human Review';item.master_ids=ids;
-        const result=saveQueue(queue);localStorage.setItem(REVIEWER_KEY,$('reviewer').value.trim());$('v04Frame').contentWindow.location.reload();
-        setMessage(`承認しました。${Object.entries(ids).filter(([,value])=>typeof value==='string').map(([key,value])=>`${key}: ${value}`).join(' / ')||'マスター更新済み'}${result.prunedReviewed?`／古い承認済み・却下済み履歴${result.prunedReviewed}件を整理しました。`:''}`);render();
+        const promoted=promote(item,type,finalIdValue),ids=promoted.ids;
+        item.review_status='APPROVED';item.reviewed_at=now();item.reviewed_by=$('reviewer').value.trim()||'Owner Human Review';item.master_ids=ids;
+        const result=saveApproval(promoted.state,queue);
+        try{localStorage.setItem(REVIEWER_KEY,$('reviewer').value.trim())}catch{}
+        $('v04Frame').contentWindow.location.reload();
+        setMessage(`承認しました。${Object.entries(ids).filter(([,value])=>typeof value==='string').map(([key,value])=>`${key}: ${value}`).join(' / ')||'マスター更新済み'}${result.prunedReviewed?`／古い承認済み・却下済み履歴${result.prunedReviewed}件を整理しました。`:''}`);
       }catch(error){setMessage(`承認処理に失敗しました: ${error.message||error}`,true)}
+      finally{busyHandoffs.delete(handoffId);render()}
     }
     function reject(handoffId){
       const queue=loadQueue(),item=queue.find(row=>row.handoff_id===handoffId);if(!item||item.review_status!=='PENDING')return;
@@ -283,7 +304,7 @@
     }
 
     $('openInbox').addEventListener('click',openDrawer);$('closeInbox').addEventListener('click',closeDrawer);$('overlay').addEventListener('click',closeDrawer);$('importButton').addEventListener('click',()=>$('importFile').click());$('importFile').addEventListener('change',()=>importFile($('importFile').files[0]));$('reviewer').value=localStorage.getItem(REVIEWER_KEY)||'Owner Human Review';$('reviewer').addEventListener('change',()=>localStorage.setItem(REVIEWER_KEY,$('reviewer').value.trim()));window.addEventListener('storage',event=>{if(event.key===HANDOFF_KEY)render()});
-    if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js?v=0.4.4').catch(()=>{});
+    if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js?v=0.4.5').catch(()=>{});
     render();
   })();
   </script>

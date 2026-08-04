@@ -6,7 +6,7 @@
   const HANDOFF_KEY = 'kc_v04_handoff_queue_v1';
   const HANDOFF_QUEUE_LIMIT = 500;
   const DATA_CONTRACT_VERSION = '1.1.0';
-  const APP_VERSION = '1.2.1';
+  const APP_VERSION = '1.2.2';
   const app = document.getElementById('app');
 
   const PHOTO_TYPES = [
@@ -468,16 +468,22 @@
       editor.classList.add('hidden');
       document.getElementById('inbox').scrollIntoView();
     });
+    document.getElementById('saveDraft').addEventListener('click', () => {
+      submitMode = 'draft';
+    });
     document.getElementById('saveAndSend').addEventListener('click', () => {
       submitMode = 'send';
       form.requestSubmit();
     });
+    form.addEventListener('invalid', () => {
+      submitMode = 'draft';
+    }, true);
     form.addEventListener('submit', saveCapture);
     editor.scrollIntoView({ behavior: 'smooth' });
   }
 
   function parseComposition(text) {
-    const values = [...String(text || '').matchAll(/(\d+(?:\.\d+)?)\s*%?/g)].map((match) => Number(match[1]));
+    const values = [...String(text || '').matchAll(/(\d+(?:\.\d+)?)\s*%/g)].map((match) => Number(match[1]));
     const total = values.reduce((sum, value) => sum + value, 0);
     return { values, total };
   }
@@ -490,7 +496,7 @@
     if (!result.values.length) {
       totalElement.textContent = '—';
       totalElement.className = '';
-      messageElement.textContent = '数値を入力すると合計を確認します。';
+      messageElement.textContent = /\d/.test(String(text || '')) ? '合計確認する数値には%を付けてください。' : '数値を入力すると合計を確認します。';
       return;
     }
     totalElement.textContent = `${result.total}%`;
@@ -620,11 +626,21 @@
     photoRows.forEach((row) => transaction.objectStore('photos').add(row));
     await transactionPromise(transaction);
 
-    if (submitMode === 'send') enqueueHandoff(eventRow);
+    let handoffError = null;
+    if (submitMode === 'send') {
+      try {
+        enqueueHandoff(eventRow);
+      } catch (error) {
+        handoffError = error;
+      }
+    }
     submitMode = 'draft';
     editing = null;
     await renderApp();
     document.getElementById('inbox').scrollIntoView({ behavior: 'smooth' });
+    if (handoffError) {
+      alert(`DRAFTは保存しましたが、v0.4受信箱へ送信できませんでした。一覧から再送してください。\n\n${handoffError.message || handoffError}`);
+    }
   }
 
   function sanitizeForHandoff(snapshot) {

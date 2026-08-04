@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kc-brand-intelligence-v0-4-4';
+const CACHE_NAME = 'kc-brand-intelligence-v0-4-5';
 const APP_SHELL = [
   './',
   './index.html',
