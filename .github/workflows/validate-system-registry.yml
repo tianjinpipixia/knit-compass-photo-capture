@@ -7,6 +7,7 @@ name: Validate system registry
       - "**/.gitattributes"
       - "README.md"
       - "app.js"
+      - "app-state-guard.js"
       - "app.css"
       - "backup.js"
       - "index.html"
@@ -27,7 +28,10 @@ name: Validate system registry
       - "start.sh"
       - "requirements-validation.txt"
       - "scripts/validate_system_registry.py"
+      - "scripts/validate_handoff_safety.py"
+      - "scripts/validate_ui_state_guard.py"
       - ".github/workflows/validate-system-registry.yml"
+      - ".github/workflows/validate-handoff-safety.yml"
   push:
     branches:
       - main
@@ -36,6 +40,7 @@ name: Validate system registry
       - "**/.gitattributes"
       - "README.md"
       - "app.js"
+      - "app-state-guard.js"
       - "app.css"
       - "backup.js"
       - "index.html"
@@ -56,7 +61,10 @@ name: Validate system registry
       - "start.sh"
       - "requirements-validation.txt"
       - "scripts/validate_system_registry.py"
+      - "scripts/validate_handoff_safety.py"
+      - "scripts/validate_ui_state_guard.py"
       - ".github/workflows/validate-system-registry.yml"
+      - ".github/workflows/validate-handoff-safety.yml"
   workflow_dispatch:
 
 permissions:

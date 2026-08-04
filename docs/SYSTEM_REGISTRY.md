@@ -18,8 +18,8 @@ PENDING候補とREJECTED候補はマスターへ反映しません。外部Produ
 
 | system_id | 画面・アプリ | 環境 | 表示版 | コード正本・Revision | データ保存先 | 同期・受渡し | 外部DB | 状態 |
 |---|---|---|---|---|---|---|---|---|
-| `KC-PHOTO-CAPTURE` | Photo Capture | 独立Sandbox | `v1.2.2` | `app.js@main` / `git-blob:ac63a0192a37…`。補助: `app.css` / `3fa9acda…`、`index.html` / `4aaeffb1…`、`backup.js` / `5f7dee4a…` | IndexedDB `kc_independent_photo_capture_v1_0`、sessionStorage `kc_session_v1`、受信箱localStorage `kc_v04_handoff_queue_v1` | 同一ブラウザ受信箱＋手動JSON / PENDINGを全件保持し確認済み履歴から整理 | なし | 稼働中 |
-| `KC-V04-WEB` | Knit Compass 独立実用版 v0.4 | 独立運用 | `v0.4.5` | 本体 `brand-intelligence/app.html` / `52f174f3…`。Human Review入口 `brand-intelligence/index.html` / `82dd740c…`。SW `ae9313f8…` | localStorage `kc_independent_practical_v0_4`、受信箱 `kc_v04_handoff_queue_v1` | 候補受信、JSON取込、既存値保護付きHuman Review反映 | Production / Core / Company DBへの自動接続なし | 稼働中 |
+| `KC-PHOTO-CAPTURE` | Photo Capture | 独立Sandbox | `v1.2.2` | `app.js@main` / `git-blob:eb4be9528af1…`。補助: `app.css` / `3fa9acda…`、`app-state-guard.js` / `8f42d047…`、`index.html` / `d42039b9…`、`backup.js` / `5f7dee4a…` | IndexedDB `kc_independent_photo_capture_v1_0`、sessionStorage `kc_session_v1`・`kc_photo_capture_editor_draft_v1`、受信箱localStorage `kc_v04_handoff_queue_v1` | 同一ブラウザ受信箱＋手動JSON / PENDINGを全件保持し確認済み履歴から整理 / 送信失敗時もDRAFT維持 | なし | 稼働中 |
+| `KC-V04-WEB` | Knit Compass 独立実用版 v0.4 | 独立運用 | `v0.4.5` | 本体 `brand-intelligence/app.html` / `52f174f3…`。Human Review入口 `brand-intelligence/index.html` / `81927bcd…`。SW `7c5dc989…` | localStorage `kc_independent_practical_v0_4`、受信箱 `kc_v04_handoff_queue_v1` | 候補受信、JSON取込、既存値保護付きHuman Review反映、承認結果の一体保存 | Production / Core / Company DBへの自動接続なし | 稼働中 |
 | `KC-DAILY-WEB` | Dailyショートカット版 | 独立運用 | `v0.4` | `daily/index.html@main` / `a7d85f1b…` | v0.4と同じlocalStorage | 所有者設定時のみ手動 | 自動接続なし | 稼働中 |
 | `KC-DAILY-ANDROID` | Androidアプリ | 独立APK | `v0.4.0` | `android-daily@main` / `content-sha256:21ff2fd0…` | Android WebViewアプリデータ | 所有者設定時のみ手動 | 自動接続なし | 稼働中 |
 
@@ -35,11 +35,16 @@ Photo Captureで `KC_V04_INBOX_EXPORT` JSONを書き出し、v0.4の「受信箱
 
 写真Blobは受信箱へ複製しません。写真ID、分類、ファイル名、撮影日時だけを候補へ含めます。
 
+### 入力途中の復元
+
+Photo Captureの入力途中フォームはsessionStorage `kc_photo_capture_editor_draft_v1` に保持します。写真Blobは保存せず、画面を開き直したときは文字・選択項目だけを復元し、写真は再選択を案内します。
+
 ### 受信箱の件数管理
 
 - PENDING候補は500件を超えても全件保持します。
 - 上限調整が必要な場合は、古いAPPROVED／REJECTED履歴から先に整理します。
 - localStorageの容量不足時は、未承認候補を削除せず保存失敗として表示します。
+- 受信箱送信に失敗しても、IndexedDBへ保存済みのDRAFTは維持し、一覧から再送できます。
 
 ## 4. Human Review後の確定処理
 
@@ -71,7 +76,7 @@ Human Review承認ではマスターと受信箱を一組として保存し、�
 - 単一ファイル: `git-blob:<40桁SHA>`
 - ディレクトリ: `content-sha256:<64桁SHA>`
 
-Pull Requestとmainへのpushで、接続台帳、実ファイルRevision、CI対象パス、保存キー、接続表示、KPI列を自動検証します。加えて `scripts/validate_handoff_safety.py` でJavaScript構文、空欄上書き防止、会社ID固定、PENDING保持を検証します。
+Pull Requestとmainへのpushで、接続台帳、実ファイルRevision、CI対象パス、保存キー、接続表示、KPI列を自動検証します。加えて `scripts/validate_handoff_safety.py` でJavaScript構文、混率判定、DRAFT維持、空欄上書き防止、会社ID固定、承認ロールバック、PENDING保持を、`scripts/validate_ui_state_guard.py` で保存連打防止・版単位の送信固定・入力途中復元を検証します。
 
 ## 6. 正本
 
@@ -97,9 +102,11 @@ Pull Requestとmainへのpushで、接続台帳、実ファイルRevision、CI�
 - [ ] 読み取り元、書き込み先、受信箱を別々に記載した
 - [ ] 候補と承認済みを区別した
 - [ ] 変更した全ソースのRevisionを台帳へ登録した
+- [ ] 入力途中データの保存キーと写真非保存境界を記載した
 - [ ] 空欄で既存マスターを消さない
 - [ ] 一時会社IDが同じ正式会社IDへ固定される
 - [ ] PENDING候補を件数上限で削除しない
 - [ ] 接続先を暗黙に外部DBへ変更していない
 - [ ] `python scripts/validate_system_registry.py` が成功した
 - [ ] `python scripts/validate_handoff_safety.py` が成功した
+- [ ] `python scripts/validate_ui_state_guard.py` が成功した

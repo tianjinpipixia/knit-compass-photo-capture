@@ -4,16 +4,22 @@ name: Validate Human Review safety
   pull_request:
     paths:
       - "app.js"
+      - "app-state-guard.js"
+      - "index.html"
       - "brand-intelligence/index.html"
       - "scripts/validate_handoff_safety.py"
+      - "scripts/validate_ui_state_guard.py"
       - ".github/workflows/validate-handoff-safety.yml"
   push:
     branches:
       - main
     paths:
       - "app.js"
+      - "app-state-guard.js"
+      - "index.html"
       - "brand-intelligence/index.html"
       - "scripts/validate_handoff_safety.py"
+      - "scripts/validate_ui_state_guard.py"
       - ".github/workflows/validate-handoff-safety.yml"
   workflow_dispatch:
 
@@ -31,5 +37,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Validate queue retention, partial upserts, organization mapping, and syntax
-        run: python scripts/validate_handoff_safety.py
+      - name: Validate handoff, Human Review, save state, and editor recovery
+        run: |
+          python scripts/validate_handoff_safety.py
+          python scripts/validate_ui_state_guard.py

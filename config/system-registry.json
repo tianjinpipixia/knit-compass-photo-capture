@@ -1,6 +1,6 @@
 {
   "schema_version": "1.2.2",
-  "updated_at": "2026-08-04T20:33:00+09:00",
+  "updated_at": "2026-08-04T20:36:00+09:00",
   "policy": {
     "unknown_connections_are_forbidden": true,
     "connection_change_requires_registry_update": true,
@@ -38,6 +38,10 @@
           "code_revision": "git-blob:3fa9acda9af41d7bc37036563076db99fac3def1"
         },
         {
+          "code_source": "app-state-guard.js@main",
+          "code_revision": "git-blob:8f42d0472647bdeaa897fa9b9a551015fe1fe90f"
+        },
+        {
           "code_source": "index.html@main",
           "code_revision": "git-blob:d42039b972917132e4953fc6e6ef101b393e5597"
         },
@@ -47,7 +51,7 @@
         }
       ],
       "data_store": "browser-indexeddb",
-      "storage_detail": "IndexedDB kc_independent_photo_capture_v1_0; sessionStorage kc_session_v1; localStorage kc_photo_capture_last_backup_v1 stores only the last backup timestamp; localStorage kc_v04_handoff_queue_v1 stores Human Review candidates without photo blobs; queue compaction retains all PENDING candidates; each event version is sent once and save buttons are guarded against duplicate submission",
+      "storage_detail": "IndexedDB kc_independent_photo_capture_v1_0; sessionStorage kc_session_v1; sessionStorage kc_photo_capture_editor_draft_v1 stores recoverable in-progress form values without photo blobs; localStorage kc_photo_capture_last_backup_v1 stores only the last backup timestamp; localStorage kc_v04_handoff_queue_v1 stores Human Review candidates without photo blobs; queue compaction retains all PENDING candidates; each event version is sent once; DRAFT remains saved when handoff storage fails; save buttons are guarded against duplicate submission",
       "sync_mode": "local-browser-queue-and-manual-json",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "none",
