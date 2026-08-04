@@ -51,6 +51,25 @@ def simulate_compaction() -> None:
         fail("queue compaction simulation dropped pending candidates")
 
 
+def simulate_composition_percentages() -> None:
+    program = r"""
+const total = text => [...String(text || '').matchAll(/(\d+(?:\.\d+)?)\s*[%％]/g)]
+  .map(match => Number(match[1]))
+  .reduce((sum, value) => sum + value, 0);
+const cases = [
+  ['TENCEL A100 80% NY 20%', 100],
+  ['粘胶80％ 尼龙20％', 100],
+  ['G100 80％ NY 20%', 100],
+];
+for (const [text, expected] of cases) {
+  if (total(text) !== expected) throw new Error(`${text}: ${total(text)} !== ${expected}`);
+}
+"""
+    result = subprocess.run(["node", "-e", program], capture_output=True, text=True)
+    if result.returncode:
+        fail(f"composition percentage simulation failed: {result.stderr.strip()}")
+
+
 def main() -> None:
     app_text = APP.read_text(encoding="utf-8")
     inbox_html = INBOX.read_text(encoding="utf-8")
@@ -79,7 +98,7 @@ def main() -> None:
     require(inline_script, "if(hasMeaningfulValue(value))existing[key]=value", "non-empty-only upsert")
     require(app_text, "handoffForEvent", "event-version-specific handoff status")
     require(app_text, "saveInProgress", "Photo Capture duplicate-save guard")
-    require(app_text, "matchAll(/(\\d+(?:\\.\\d+)?)\\s*%/g)", "percentage-only composition total")
+    require(app_text, "matchAll(/(\\d+(?:\\.\\d+)?)\\s*[%％]/g)", "half/full-width percentage composition total")
     require(app_text, "let handoffError = null", "DRAFT-preserving handoff failure handling")
     require(app_text, "DRAFTは保存しましたが、v0.4受信箱へ送信できませんでした", "handoff retry guidance")
     require(inline_script, "normalizeStatus", "normalized weak status protection")
@@ -91,6 +110,7 @@ def main() -> None:
     forbid(inline_script, r"saveState\(state\);return ids", "one-sided approval save")
 
     simulate_compaction()
+    simulate_composition_percentages()
     print("OK: Human Review safety checks passed")
 
 

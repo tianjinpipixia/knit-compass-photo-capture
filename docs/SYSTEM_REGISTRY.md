@@ -1,7 +1,7 @@
 # Knit Compass システム接続台帳
 
 更新日: 2026-08-04  
-版: 1.2.2  
+版: 1.2.3  
 状態: **暫定正本**
 
 ## 1. 接続済みフロー
@@ -18,8 +18,8 @@ PENDING候補とREJECTED候補はマスターへ反映しません。外部Produ
 
 | system_id | 画面・アプリ | 環境 | 表示版 | コード正本・Revision | データ保存先 | 同期・受渡し | 外部DB | 状態 |
 |---|---|---|---|---|---|---|---|---|
-| `KC-PHOTO-CAPTURE` | Photo Capture | 独立Sandbox | `v1.2.2` | `app.js@main` / `git-blob:eb4be9528af1…`。補助: `app.css` / `3fa9acda…`、`app-state-guard.js` / `8f42d047…`、`index.html` / `d42039b9…`、`backup.js` / `5f7dee4a…` | IndexedDB `kc_independent_photo_capture_v1_0`、sessionStorage `kc_session_v1`・`kc_photo_capture_editor_draft_v1`、受信箱localStorage `kc_v04_handoff_queue_v1` | 同一ブラウザ受信箱＋手動JSON / PENDINGを全件保持し確認済み履歴から整理 / 送信失敗時もDRAFT維持 | なし | 稼働中 |
-| `KC-V04-WEB` | Knit Compass 独立実用版 v0.4 | 独立運用 | `v0.4.5` | 本体 `brand-intelligence/app.html` / `52f174f3…`。Human Review入口 `brand-intelligence/index.html` / `81927bcd…`。SW `7c5dc989…` | localStorage `kc_independent_practical_v0_4`、受信箱 `kc_v04_handoff_queue_v1` | 候補受信、JSON取込、既存値保護付きHuman Review反映、承認結果の一体保存 | Production / Core / Company DBへの自動接続なし | 稼働中 |
+| `KC-PHOTO-CAPTURE` | Photo Capture | 独立Sandbox | `v1.2.3` | `app.js@main` / `git-blob:5c2efd18e8b6…`。補助: `app-state-guard.js` / `8f42d047…`、`app.css` / `3fa9acda…`、`index.html` / `a679071e…`、`backup.js` / `5f7dee4a…` | IndexedDB `kc_independent_photo_capture_v1_0`、sessionStorage `kc_session_v1`・`kc_photo_capture_editor_draft_v1`、受信箱localStorage `kc_v04_handoff_queue_v1` | 同一ブラウザ受信箱＋手動JSON / PENDINGを全件保持し確認済み履歴から整理 | なし | 稼働中 |
+| `KC-V04-WEB` | Knit Compass 独立実用版 v0.4 | 独立運用 | `v0.4.5` | 本体 `brand-intelligence/app.html` / `52f174f3…`。Human Review入口 `brand-intelligence/index.html` / `81927bcd…`。SW `7c5dc989…` | localStorage `kc_independent_practical_v0_4`、受信箱 `kc_v04_handoff_queue_v1` | 候補受信、JSON取込、既存値保護・失敗時復元付きHuman Review反映 | Production / Core / Company DBへの自動接続なし | 稼働中 |
 | `KC-DAILY-WEB` | Dailyショートカット版 | 独立運用 | `v0.4` | `daily/index.html@main` / `a7d85f1b…` | v0.4と同じlocalStorage | 所有者設定時のみ手動 | 自動接続なし | 稼働中 |
 | `KC-DAILY-ANDROID` | Androidアプリ | 独立APK | `v0.4.0` | `android-daily@main` / `content-sha256:21ff2fd0…` | Android WebViewアプリデータ | 所有者設定時のみ手動 | 自動接続なし | 稼働中 |
 
