@@ -6,7 +6,7 @@
   const HANDOFF_KEY = 'kc_v04_handoff_queue_v1';
   const HANDOFF_QUEUE_LIMIT = 500;
   const DATA_CONTRACT_VERSION = '1.1.0';
-  const APP_VERSION = '1.2.1';
+  const APP_VERSION = '1.2.2';
   const app = document.getElementById('app');
 
   const PHOTO_TYPES = [
@@ -38,6 +38,7 @@
   let editing = null;
   let pendingPhotos = {};
   let submitMode = 'draft';
+  let saveInProgress = false;
 
   const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (character) => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
@@ -237,8 +238,9 @@
     }
   }
 
-  function latestHandoffForCapture(captureId) {
-    return handoffQueue().find((item) => item.capture_id === captureId) || null;
+  function handoffForEvent(eventRow) {
+    const dedupeKey = `${eventRow.recordId}:${eventRow.version}`;
+    return handoffQueue().find((item) => item.dedupe_key === dedupeKey) || null;
   }
 
   async function renderApp() {
@@ -296,14 +298,15 @@
     const rows = records.filter((event) => JSON.stringify(event.snapshot).toLowerCase().includes(query));
     output.innerHTML = rows.length ? `<div class="record-list">${rows.map((event) => {
       const row = event.snapshot;
-      const handoff = latestHandoffForCapture(row.captureId || event.recordId);
+      const handoff = handoffForEvent(event);
       const status = handoff?.review_status || '未送信';
+      const alreadySent = Boolean(handoff);
       return `<article class="record">
         <div class="record-head"><div><span class="target-pill">${escapeHtml(targetLabel(row.targetType))}</span><h3>${escapeHtml(row.yarnName || row.productName || row.sourceOrganizationName || row.materialName || '名称未入力のDRAFT')}</h3><p class="muted">${escapeHtml(row.targetId || '共通ID未発行')} / ${escapeHtml(row.sourceOrganizationName || row.supplier || '入手先未入力')}</p></div><span class="priority">${escapeHtml(row.priority || 'NORMAL')}</span></div>
         <div class="gallery">${photosHtml(row.photoRefs)}</div>
         <div class="mini-tags">${listTags(row)}</div>
         <div class="meta"><span>DRAFT</span><span>${escapeHtml(event.eventType)} v${event.version}</span><span>受信箱: ${escapeHtml(status)}</span><span>${escapeHtml(formatDate(event.updatedAt))}</span></div>
-        <div class="actions"><button class="secondary" data-edit="${escapeHtml(event.recordId)}">編集・再保存</button><button data-send="${escapeHtml(event.recordId)}">v0.4受信箱へ送る</button></div>
+        <div class="actions"><button class="secondary" data-edit="${escapeHtml(event.recordId)}">編集・再保存</button><button data-send="${escapeHtml(event.recordId)}" ${alreadySent ? 'disabled aria-disabled="true"' : ''}>${alreadySent ? 'この版は送信済み' : 'v0.4受信箱へ送る'}</button></div>
       </article>`;
     }).join('')}</div>` : '<div class="empty"><h3>まだキャプチャはありません</h3><p class="muted">新規キャプチャから最初のDRAFTを作成してください。</p></div>';
 
@@ -468,16 +471,22 @@
       editor.classList.add('hidden');
       document.getElementById('inbox').scrollIntoView();
     });
+    document.getElementById('saveDraft').addEventListener('click', () => {
+      submitMode = 'draft';
+    });
     document.getElementById('saveAndSend').addEventListener('click', () => {
       submitMode = 'send';
       form.requestSubmit();
     });
+    form.addEventListener('invalid', () => {
+      submitMode = 'draft';
+    }, true);
     form.addEventListener('submit', saveCapture);
     editor.scrollIntoView({ behavior: 'smooth' });
   }
 
   function parseComposition(text) {
-    const values = [...String(text || '').matchAll(/(\d+(?:\.\d+)?)\s*%?/g)].map((match) => Number(match[1]));
+    const values = [...String(text || '').matchAll(/(\d+(?:\.\d+)?)\s*%/g)].map((match) => Number(match[1]));
     const total = values.reduce((sum, value) => sum + value, 0);
     return { values, total };
   }
@@ -490,7 +499,7 @@
     if (!result.values.length) {
       totalElement.textContent = '—';
       totalElement.className = '';
-      messageElement.textContent = '数値を入力すると合計を確認します。';
+      messageElement.textContent = /\d/.test(String(text || '')) ? '合計確認する数値には%を付けてください。' : '数値を入力すると合計を確認します。';
       return;
     }
     totalElement.textContent = `${result.total}%`;
@@ -523,108 +532,147 @@
 
   async function saveCapture(event) {
     event.preventDefault();
+    if (saveInProgress) return;
+
     const form = event.currentTarget;
-    const targetType = form.targetType.value;
-    const targetId = form.targetId.value.trim() || editing?.snapshot?.targetId || temporaryCommonId(targetType);
-    const recordId = editing?.recordId || internalId('KCI-CAPTURE');
-    const existingPhotoRefs = [...(editing?.snapshot.photoRefs || [])];
-    const newPhotoRefs = [];
-    const photoRows = [];
+    const message = document.getElementById('editMessage');
+    const saveButtons = [...form.querySelectorAll('#saveDraft,#saveAndSend')];
+    saveInProgress = true;
+    saveButtons.forEach((button) => {
+      button.disabled = true;
+      button.setAttribute('aria-disabled', 'true');
+    });
 
-    for (const [type, label] of PHOTO_TYPES) {
-      const file = pendingPhotos[type];
-      if (!file) continue;
-      const photoId = `TMP-PH-${uuid()}`;
-      const capturedAt = nowIso();
-      newPhotoRefs.push({ photoId, type, label, fileName: file.name, capturedAt });
-      photoRows.push({ photoId, recordId, targetId, type, label, fileName: file.name, blob: file, capturedAt });
-    }
-    const replacedTypes = new Set(newPhotoRefs.map((reference) => reference.type));
-    const photoRefs = [...existingPhotoRefs.filter((reference) => !replacedTypes.has(reference.type)), ...newPhotoRefs];
+    try {
+      const targetType = form.targetType.value;
+      const targetId = form.targetId.value.trim() || editing?.snapshot?.targetId || temporaryCommonId(targetType);
+      const recordId = editing?.recordId || internalId('KCI-CAPTURE');
+      const existingPhotoRefs = [...(editing?.snapshot?.photoRefs || [])];
+      const newPhotoRefs = [];
+      const photoRows = [];
 
-    const composition = parseComposition(form.compositionRaw.value);
-    const functionCodes = checkedValues(form, 'functionCodes');
-    const sustainableCodes = checkedValues(form, 'sustainableCodes');
-    const captureId = editing?.snapshot?.captureId || recordId;
-    const snapshot = {
-      dataContractVersion: DATA_CONTRACT_VERSION,
-      captureId,
-      priority: form.priority.value,
-      targetType,
-      targetId,
-      commonIds: normalizeCommonIds(targetType, targetId, form),
-      sourceOrganizationName: form.sourceOrganizationName.value.trim(),
-      sourceOrganizationId: form.sourceOrganizationId.value.trim(),
-      manufacturerName: form.manufacturerName.value.trim(),
-      manufacturerId: form.manufacturerId.value.trim(),
-      sellerName: form.sellerName.value.trim(),
-      sellerId: form.sellerId.value.trim(),
-      brandName: form.brandName.value.trim(),
-      productName: form.productName.value.trim(),
-      productCode: form.productCode.value.trim(),
-      productUrl: form.productUrl.value.trim(),
-      yarnName: form.yarnName.value.trim(),
-      yarnCode: form.yarnCode.value.trim(),
-      countSystem: form.countSystem.value,
-      countValue: form.countValue.value.trim(),
-      countDisplay: form.countDisplay.value.trim(),
-      gauge: form.gauge.value.trim(),
-      basicYarnForm: form.basicYarnForm.value,
-      yarnStructure: form.yarnStructure.value.trim(),
-      spinningMethod: form.spinningMethod.value,
-      processingMethod: form.processingMethod.value.trim(),
-      compositionRaw: form.compositionRaw.value.trim(),
-      compositionTotal: composition.values.length ? composition.total : null,
-      compositionStatus: form.compositionStatus.value,
-      functionalProperties: propertyItems(functionCodes, FUNCTION_OPTIONS, form.functionClaimStatus.value, form.functionDetail.value.trim(), { test: form.functionTest.value.trim() }),
-      functionClaimStatus: form.functionClaimStatus.value,
-      functionDetail: form.functionDetail.value.trim(),
-      functionTest: form.functionTest.value.trim(),
-      sustainableAttributes: propertyItems(sustainableCodes, SUSTAINABLE_OPTIONS, form.sustainableStatus.value, form.sustainableBasis.value.trim(), { certification: form.certification.value.trim() }),
-      sustainableStatus: form.sustainableStatus.value,
-      sustainableBasis: form.sustainableBasis.value.trim(),
-      certification: form.certification.value.trim(),
-      seasons: checkedValues(form, 'season'),
-      documentType: form.documentType.value,
-      sourceType: form.sourceType.value,
-      sourceUrl: form.sourceUrl.value.trim(),
-      verificationStatus: form.verificationStatus.value,
-      evidenceId: form.evidenceId.value.trim(),
-      notes: form.notes.value.trim(),
-      photoRefs
-    };
+      for (const [type, label] of PHOTO_TYPES) {
+        const file = pendingPhotos[type];
+        if (!file) continue;
+        const photoId = `TMP-PH-${uuid()}`;
+        const capturedAt = nowIso();
+        newPhotoRefs.push({ photoId, type, label, fileName: file.name, capturedAt });
+        photoRows.push({ photoId, recordId, targetId, type, label, fileName: file.name, blob: file, capturedAt });
+      }
+      const replacedTypes = new Set(newPhotoRefs.map((reference) => reference.type));
+      const photoRefs = [...existingPhotoRefs.filter((reference) => !replacedTypes.has(reference.type)), ...newPhotoRefs];
 
-    const meaningful = photoRefs.length || snapshot.yarnName || snapshot.productName || snapshot.organizationName
-      || snapshot.sourceOrganizationName || snapshot.compositionRaw || snapshot.notes;
-    if (!meaningful) {
-      document.getElementById('editMessage').textContent = '写真または対象情報を入力してください。';
+      const composition = parseComposition(form.compositionRaw.value);
+      const functionCodes = checkedValues(form, 'functionCodes');
+      const sustainableCodes = checkedValues(form, 'sustainableCodes');
+      const captureId = editing?.snapshot?.captureId || recordId;
+      const snapshot = {
+        dataContractVersion: DATA_CONTRACT_VERSION,
+        captureId,
+        priority: form.priority.value,
+        targetType,
+        targetId,
+        commonIds: normalizeCommonIds(targetType, targetId, form),
+        sourceOrganizationName: form.sourceOrganizationName.value.trim(),
+        sourceOrganizationId: form.sourceOrganizationId.value.trim(),
+        manufacturerName: form.manufacturerName.value.trim(),
+        manufacturerId: form.manufacturerId.value.trim(),
+        sellerName: form.sellerName.value.trim(),
+        sellerId: form.sellerId.value.trim(),
+        brandName: form.brandName.value.trim(),
+        productName: form.productName.value.trim(),
+        productCode: form.productCode.value.trim(),
+        productUrl: form.productUrl.value.trim(),
+        yarnName: form.yarnName.value.trim(),
+        yarnCode: form.yarnCode.value.trim(),
+        countSystem: form.countSystem.value,
+        countValue: form.countValue.value.trim(),
+        countDisplay: form.countDisplay.value.trim(),
+        gauge: form.gauge.value.trim(),
+        basicYarnForm: form.basicYarnForm.value,
+        yarnStructure: form.yarnStructure.value.trim(),
+        spinningMethod: form.spinningMethod.value,
+        processingMethod: form.processingMethod.value.trim(),
+        compositionRaw: form.compositionRaw.value.trim(),
+        compositionTotal: composition.values.length ? composition.total : null,
+        compositionStatus: form.compositionStatus.value,
+        functionalProperties: propertyItems(functionCodes, FUNCTION_OPTIONS, form.functionClaimStatus.value, form.functionDetail.value.trim(), { test: form.functionTest.value.trim() }),
+        functionClaimStatus: form.functionClaimStatus.value,
+        functionDetail: form.functionDetail.value.trim(),
+        functionTest: form.functionTest.value.trim(),
+        sustainableAttributes: propertyItems(sustainableCodes, SUSTAINABLE_OPTIONS, form.sustainableStatus.value, form.sustainableBasis.value.trim(), { certification: form.certification.value.trim() }),
+        sustainableStatus: form.sustainableStatus.value,
+        sustainableBasis: form.sustainableBasis.value.trim(),
+        certification: form.certification.value.trim(),
+        seasons: checkedValues(form, 'season'),
+        documentType: form.documentType.value,
+        sourceType: form.sourceType.value,
+        sourceUrl: form.sourceUrl.value.trim(),
+        verificationStatus: form.verificationStatus.value,
+        evidenceId: form.evidenceId.value.trim(),
+        notes: form.notes.value.trim(),
+        photoRefs
+      };
+
+      const meaningful = photoRefs.length || snapshot.yarnName || snapshot.productName
+        || snapshot.sourceOrganizationName || snapshot.compositionRaw || snapshot.notes;
+      if (!meaningful) {
+        if (message) message.textContent = '写真または対象情報を入力してください。';
+        return;
+      }
+
+      const timestamp = nowIso();
+      const eventRow = {
+        eventId: internalId('KCI-EVENT'),
+        recordId,
+        version: editing ? Number(editing.version) + 1 : 1,
+        eventType: editing ? 'UPDATE' : 'CREATE',
+        dataState: 'DRAFT',
+        createdAt: editing?.createdAt || timestamp,
+        updatedAt: timestamp,
+        actorId: session.accountId,
+        snapshot
+      };
+
+      const transaction = db.transaction(['events', 'photos'], 'readwrite');
+      transaction.objectStore('events').add(eventRow);
+      photoRows.forEach((row) => transaction.objectStore('photos').add(row));
+      await transactionPromise(transaction);
+
+      let handoffError = null;
+      if (submitMode === 'send') {
+        try {
+          enqueueHandoff(eventRow);
+        } catch (error) {
+          handoffError = error;
+        }
+      }
+
+      editing = null;
+      await renderApp();
+      document.getElementById('inbox').scrollIntoView({ behavior: 'smooth' });
+      if (handoffError) {
+        alert(`DRAFTは保存しましたが、v0.4受信箱へ送信できませんでした。一覧から再送してください。
+
+${handoffError.message || handoffError}`);
+      }
+    } catch (error) {
+      if (message) {
+        message.textContent = `保存できませんでした: ${error.message || error}`;
+        message.classList.add('error');
+      } else {
+        alert(`保存できませんでした: ${error.message || error}`);
+      }
+    } finally {
       submitMode = 'draft';
-      return;
+      saveInProgress = false;
+      if (document.body.contains(form)) {
+        saveButtons.forEach((button) => {
+          button.disabled = false;
+          button.removeAttribute('aria-disabled');
+        });
+      }
     }
-
-    const timestamp = nowIso();
-    const eventRow = {
-      eventId: internalId('KCI-EVENT'),
-      recordId,
-      version: editing ? Number(editing.version) + 1 : 1,
-      eventType: editing ? 'UPDATE' : 'CREATE',
-      dataState: 'DRAFT',
-      createdAt: editing?.createdAt || timestamp,
-      updatedAt: timestamp,
-      actorId: session.accountId,
-      snapshot
-    };
-
-    const transaction = db.transaction(['events', 'photos'], 'readwrite');
-    transaction.objectStore('events').add(eventRow);
-    photoRows.forEach((row) => transaction.objectStore('photos').add(row));
-    await transactionPromise(transaction);
-
-    if (submitMode === 'send') enqueueHandoff(eventRow);
-    submitMode = 'draft';
-    editing = null;
-    await renderApp();
-    document.getElementById('inbox').scrollIntoView({ behavior: 'smooth' });
   }
 
   function sanitizeForHandoff(snapshot) {
@@ -637,7 +685,7 @@
   function enqueueHandoff(eventRow) {
     const queue = handoffQueue();
     const dedupeKey = `${eventRow.recordId}:${eventRow.version}`;
-    if (queue.some((item) => item.dedupe_key === dedupeKey)) return;
+    if (queue.some((item) => item.dedupe_key === dedupeKey)) return false;
     queue.unshift({
       format: 'KC_V04_INBOX_ITEM',
       schema_version: '1.0',
@@ -652,6 +700,7 @@
       payload: sanitizeForHandoff(eventRow.snapshot)
     });
     saveHandoffQueue(queue);
+    return true;
   }
 
   async function enqueueExisting(recordId) {

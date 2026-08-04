@@ -20,6 +20,8 @@ Photo Capture、v0.4、Daily、Androidは引き続き独立運用です。Produc
 - `TMP-OR-…` の会社一時IDは、最初に承認した正式 `OR-…` IDへ固定して以後のUPDATEでも再利用します。
 - 受信箱が500件を超えてもPENDING候補は削除しません。古いAPPROVED／REJECTED履歴から先に整理します。
 - 保存容量不足時は未承認候補を黙って削除せず、保存失敗として表示します。
+- 同じイベント版の送信ボタンは送信後に無効化し、保存・承認処理の連打を防止します。
+- Human Review承認時はマスターと受信箱を一組として保存し、片側だけ失敗した場合は元に戻します。
 
 **画面で確認:** [`/status/`](status/index.html)
 
@@ -27,8 +29,8 @@ Photo Capture、v0.4、Daily、Androidは引き続き独立運用です。Produc
 
 | システム | 入口 | 主な保存先 | 接続 |
 |---|---|---|---|
-| Photo Capture v1.2.1 | `/` | IndexedDB `kc_independent_photo_capture_v1_0` | v0.4受信箱へ候補送信 |
-| Knit Compass v0.4.4 | `/brand-intelligence/` | localStorage `kc_independent_practical_v0_4` | Human Review後にマスター反映 |
+| Photo Capture v1.2.2 | `/` | IndexedDB `kc_independent_photo_capture_v1_0` | v0.4受信箱へ候補送信 |
+| Knit Compass v0.4.5 | `/brand-intelligence/` | localStorage `kc_independent_practical_v0_4` | Human Review後にマスター反映 |
 | Daily Web | `/daily/` | localStorage | 独立運用 |
 | Daily Android | APK / `android-daily/` | Android WebView内 | 独立運用 |
 

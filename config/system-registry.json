@@ -1,6 +1,6 @@
 {
-  "schema_version": "1.2.1",
-  "updated_at": "2026-08-04T19:55:00+09:00",
+  "schema_version": "1.2.2",
+  "updated_at": "2026-08-04T20:33:00+09:00",
   "policy": {
     "unknown_connections_are_forbidden": true,
     "connection_change_requires_registry_update": true,
@@ -28,10 +28,10 @@
       "system_id": "KC-PHOTO-CAPTURE",
       "display_name": "Photo Capture",
       "environment": "independent-sandbox",
-      "display_version": "v1.2.1",
+      "display_version": "v1.2.2",
       "entry_path": "/",
       "code_source": "app.js@main",
-      "code_revision": "git-blob:ac63a0192a376e8f4deec071c4933845346ea1d4",
+      "code_revision": "git-blob:eb4be9528af14df5107857f87548d2370e72da2e",
       "auxiliary_sources": [
         {
           "code_source": "app.css@main",
@@ -39,7 +39,7 @@
         },
         {
           "code_source": "index.html@main",
-          "code_revision": "git-blob:4aaeffb1bc9b879de10908113535b7d55cb0029a"
+          "code_revision": "git-blob:d42039b972917132e4953fc6e6ef101b393e5597"
         },
         {
           "code_source": "backup.js@main",
@@ -47,7 +47,7 @@
         }
       ],
       "data_store": "browser-indexeddb",
-      "storage_detail": "IndexedDB kc_independent_photo_capture_v1_0; sessionStorage kc_session_v1; localStorage kc_photo_capture_last_backup_v1 stores only the last backup timestamp; localStorage kc_v04_handoff_queue_v1 stores Human Review candidates without photo blobs; queue compaction always retains all PENDING candidates and prunes reviewed history first",
+      "storage_detail": "IndexedDB kc_independent_photo_capture_v1_0; sessionStorage kc_session_v1; localStorage kc_photo_capture_last_backup_v1 stores only the last backup timestamp; localStorage kc_v04_handoff_queue_v1 stores Human Review candidates without photo blobs; queue compaction retains all PENDING candidates; each event version is sent once and save buttons are guarded against duplicate submission",
       "sync_mode": "local-browser-queue-and-manual-json",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "none",
@@ -57,22 +57,22 @@
       "system_id": "KC-V04-WEB",
       "display_name": "Knit Compass 独立実用版 v0.4",
       "environment": "independent",
-      "display_version": "v0.4.4",
+      "display_version": "v0.4.5",
       "entry_path": "/brand-intelligence/",
       "code_source": "brand-intelligence/app.html@main",
       "code_revision": "git-blob:52f174f307d49a64f9e51ecaaad4488aa729c9ab",
       "auxiliary_sources": [
         {
           "code_source": "brand-intelligence/index.html@main",
-          "code_revision": "git-blob:82dd740cfe0db7c37bd0eab63217066410002fef"
+          "code_revision": "git-blob:81927bcd4c8909cf7bc1587be52b2f8d1fbd2b63"
         },
         {
           "code_source": "brand-intelligence/sw.js@main",
-          "code_revision": "git-blob:ae9313f8143b0b1a1ca35773f5b129de864459b1"
+          "code_revision": "git-blob:7c5dc989d29363c14325ba2b45078a1c7dd2c7cb"
         }
       ],
       "data_store": "browser-localstorage",
-      "storage_detail": "localStorage kc_independent_practical_v0_4; Human Review inbox kc_v04_handoff_queue_v1; reviewer name kc_v04_reviewer_name_v1; partial approvals preserve existing non-empty master fields; temporary organization IDs map to a stable promoted organization ID",
+      "storage_detail": "localStorage kc_independent_practical_v0_4; Human Review inbox kc_v04_handoff_queue_v1; reviewer name kc_v04_reviewer_name_v1; partial approvals preserve existing values; temporary organization IDs stay stable; master and inbox approval results roll back together on storage failure",
       "sync_mode": "local-browser-queue-and-manual-json",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "no-automatic-production-core-company-db-connection",
