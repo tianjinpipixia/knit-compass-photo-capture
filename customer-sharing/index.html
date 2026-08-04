@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta http-equiv="Cache-Control" content="no-store">
+  <title>Knit Compass — 顧客共有管理</title>
+  <style>
+    :root{--ink:#172826;--muted:#5d6d69;--paper:#f2f5f3;--card:#fff;--teal:#163f3c;--line:#d6dfdb;--soft:#eef3f1;--green:#2f6a37;--green-bg:#e9f5e7;--amber:#8b641f;--amber-bg:#fff5df;--red:#8a342e;--red-bg:#fff0ed}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}.banner{background:var(--ink);color:#fff;padding:9px 14px;text-align:center;font-size:10px;font-weight:900;letter-spacing:.08em}.shell{width:min(1180px,calc(100% - 24px));margin:0 auto;padding:18px 0 42px}.head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:14px}.head h1{margin:0;font-size:28px}.head p{margin:5px 0 0;color:var(--muted);font-size:11px}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{min-height:40px;border:1px solid var(--teal);border-radius:10px;background:var(--teal);color:#fff;padding:8px 12px;font-size:11px;font-weight:900;cursor:pointer}.btn.secondary{background:#fff;color:var(--teal);border-color:#aabcb5}.btn.danger{background:#fff;color:var(--red);border-color:#d7aaa2}.btn:disabled{cursor:not-allowed;opacity:.5}.notice{border-left:4px solid var(--amber);background:var(--amber-bg);padding:12px 14px;border-radius:0 12px 12px 0;font-size:11px;color:#6d511e}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}.stat,.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}.stat span{display:block;color:var(--muted);font-size:9px;font-weight:900}.stat strong{display:block;font-size:24px;margin-top:3px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:10px;margin-bottom:10px}.section-head h2{margin:0;font-size:18px}.section-head p{margin:3px 0 0;color:var(--muted);font-size:10px}.list{display:grid;gap:8px}.record{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:11px;padding:10px;background:#fff}.record h3{margin:0;font-size:12px}.record p{margin:3px 0 0;color:var(--muted);font-size:9px;overflow-wrap:anywhere}.tag{display:inline-flex;border-radius:999px;padding:3px 7px;font-size:8px;font-weight:900;margin-right:4px}.tag.ok{background:var(--green-bg);color:var(--green)}.tag.warn{background:var(--amber-bg);color:var(--amber)}.tag.no{background:var(--red-bg);color:var(--red)}.message{min-height:22px;margin:10px 0;font-size:11px}.message.error{color:var(--red)}.empty{border:1px dashed #aebdb7;border-radius:12px;padding:22px;text-align:center;color:var(--muted);font-size:11px}.request{display:grid;gap:8px}.request-response{background:var(--soft);border-radius:9px;padding:8px;font-size:9px}.footer{margin-top:20px;color:var(--muted);font-size:9px}@media(max-width:820px){.grid,.stats{grid-template-columns:1fr 1fr}.head{display:block}.actions{margin-top:10px}}@media(max-width:560px){.grid,.stats{grid-template-columns:1fr}.record{grid-template-columns:1fr}.btn{min-height:44px}}
+  </style>
+</head>
+<body>
+  <div class="banner">KNIT COMPASS MASTER → CUSTOMER APPROVED SHARING</div>
+  <main class="shell">
+    <header class="head">
+      <div><h1>顧客共有管理</h1><p>マスターの確認済み情報から、安全項目だけをスタイレム（暫定）領域へ発行します。</p></div>
+      <div class="actions"><a class="btn secondary" href="../brand-intelligence/">マスターへ戻る</a><a class="btn secondary" href="../stylem/" target="_blank" rel="noopener">STYLEM領域を確認</a><button class="btn" id="republish">共有領域を再発行</button></div>
+    </header>
+
+    <div class="notice"><strong>共有境界</strong><br>商品は「公式確認済み」、糸は「PUBLISHED」だけが共有対象です。候補・DRAFT・REVIEW、商品研究メモ、開発仮説、糸の価格・MOQ・納期・注意事項は顧客領域へ出しません。</div>
+    <div id="message" class="message"></div>
+
+    <section class="stats">
+      <div class="stat"><span>共有中の商品</span><strong id="productShared">0</strong></div>
+      <div class="stat"><span>共有中の糸</span><strong id="yarnShared">0</strong></div>
+      <div class="stat"><span>未回答リクエスト</span><strong id="openRequests">0</strong></div>
+      <div class="stat"><span>最終発行</span><strong id="publishedAt" style="font-size:13px">未発行</strong></div>
+    </section>
+
+    <section class="grid">
+      <article class="card"><div class="section-head"><div><h2>商品</h2><p>公式確認済みの商品だけを個別承認します。</p></div><span id="productCount" class="tag warn">0件</span></div><div id="productList" class="list"></div></article>
+      <article class="card"><div class="section-head"><div><h2>糸</h2><p>PUBLISHEDの糸だけを個別承認します。</p></div><span id="yarnCount" class="tag warn">0件</span></div><div id="yarnList" class="list"></div></article>
+    </section>
+
+    <section class="card" style="margin-top:12px"><div class="section-head"><div><h2>STYLEMからのリクエスト</h2><p>顧客の依頼はマスターを直接変更せず、回答・対応待ちとして受信します。</p></div></div><div id="requestList" class="list"></div></section>
+    <footer class="footer">同一オリジン・同一ブラウザのローカルPilotです。外部顧客への正式認証・権限制御にはサーバー側アクセス制御が必要です。</footer>
+  </main>
+
+  <script src="./policy.js?v=1.0.0"></script>
+  <script>
+  (()=>{
+    'use strict';
+    const MASTER_KEY='kc_independent_practical_v0_4';
+    const SHARING_KEY='kc_customer_sharing_v1';
+    const P=window.KCCustomerPolicy;
+    const $=id=>document.getElementById(id);
+    const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
+
+    function blankSharing(){return{schema_version:'1.0',customer_id:P.CUSTOMER_ID,updated_at:'',grants:[],audit:[]}}
+    function loadMaster(){const value=P.safeParse(localStorage.getItem(MASTER_KEY),{});return{products:Array.isArray(value.products)?value.products:[],yarns:Array.isArray(value.yarns)?value.yarns:[]}}
+    function loadSharing(){const value=P.safeParse(localStorage.getItem(SHARING_KEY),blankSharing());return{...blankSharing(),...value,grants:Array.isArray(value.grants)?value.grants:[],audit:Array.isArray(value.audit)?value.audit:[]}}
+    function loadRequests(){return P.normalizeRequests(P.safeParse(localStorage.getItem(P.REQUESTS_KEY),[]))}
+    function grantKey(type,id){return`${P.CUSTOMER_ID}:${type}:${id}`}
+    function isGranted(sharing,type,id){return sharing.grants.some(grant=>grant.key===grantKey(type,id)&&grant.status==='APPROVED')}
+    function setMessage(text,error=false){$('message').textContent=text;$('message').classList.toggle('error',error)}
+
+    function setGrant(type,id,approved){
+      const master=loadMaster();const records=type==='product'?master.products:master.yarns;const record=records.find(item=>item.id===id);
+      if(approved&&!P.isEligible(type,record))throw new Error('確認状態が共有条件を満たしていません。');
+      const sharing=loadSharing();const key=grantKey(type,id);const existing=sharing.grants.find(grant=>grant.key===key);
+      const row={key,customer_id:P.CUSTOMER_ID,entity_type:type,entity_id:id,status:approved?'APPROVED':'REVOKED',approved_at:approved?P.nowIso():'',revoked_at:approved?'':P.nowIso(),approved_by:'Owner Human Review'};
+      if(existing)Object.assign(existing,row);else sharing.grants.push(row);
+      sharing.audit.unshift({at:P.nowIso(),action:approved?'APPROVE_SHARE':'REVOKE_SHARE',key});sharing.audit=sharing.audit.slice(0,500);
+      publishSnapshot(sharing,master);
+    }
+
+    function publishSnapshot(sharing=loadSharing(),master=loadMaster()){
+      const approved=sharing.grants.filter(grant=>grant.status==='APPROVED');
+      const productIds=new Set(approved.filter(grant=>grant.entity_type==='product').map(grant=>grant.entity_id));
+      const yarnIds=new Set(approved.filter(grant=>grant.entity_type==='yarn').map(grant=>grant.entity_id));
+      const portal={...P.emptyPortal(),published_at:P.nowIso(),products:master.products.filter(record=>productIds.has(record.id)).map(P.safeProduct).filter(Boolean),yarns:master.yarns.filter(record=>yarnIds.has(record.id)).map(P.safeYarn).filter(Boolean)};
+      sharing.updated_at=portal.published_at;
+      const previousSharing=localStorage.getItem(SHARING_KEY),previousPortal=localStorage.getItem(P.PORTAL_KEY);
+      try{localStorage.setItem(SHARING_KEY,JSON.stringify(sharing));localStorage.setItem(P.PORTAL_KEY,JSON.stringify(portal))}
+      catch(error){if(previousSharing===null)localStorage.removeItem(SHARING_KEY);else localStorage.setItem(SHARING_KEY,previousSharing);if(previousPortal===null)localStorage.removeItem(P.PORTAL_KEY);else localStorage.setItem(P.PORTAL_KEY,previousPortal);throw new Error(`共有領域を保存できなかったため元に戻しました: ${error.message||error}`)}
+      render();return portal;
+    }
+
+    function renderRecords(type,records,sharing){
+      const target=$(type==='product'?'productList':'yarnList');
+      if(!records.length){target.innerHTML='<div class="empty">マスターにデータがありません。</div>';return}
+      target.innerHTML=records.map(record=>{const eligible=P.isEligible(type,record),granted=isGranted(sharing,type,record.id);const title=type==='product'?`${record.brand||'—'}｜${record.name||'名称未設定'}`:`${record.supplier||'—'}｜${record.name||'名称未設定'}`;const detail=type==='product'?[record.productNumber,record.composition].filter(Boolean).join(' ／ '):[record.displayCount,record.composition,record.gauge].filter(Boolean).join(' ／ ');return`<article class="record"><div><div><span class="tag ${granted?'ok':eligible?'warn':'no'}">${granted?'共有中':eligible?'共有可能':'共有不可'}</span></div><h3>${esc(title)}</h3><p>${esc(detail||record.id)}</p></div><button class="btn ${granted?'danger':''}" data-share-type="${esc(type)}" data-share-id="${esc(record.id)}" data-share-next="${granted?'0':'1'}" ${!eligible&&!granted?'disabled aria-disabled="true"':''}>${granted?'共有解除':'STYLEMへ共有'}</button></article>`}).join('');
+      target.querySelectorAll('[data-share-id]').forEach(button=>button.addEventListener('click',()=>{try{setGrant(button.dataset.shareType,button.dataset.shareId,button.dataset.shareNext==='1');setMessage(button.dataset.shareNext==='1'?'承認済み情報をSTYLEM領域へ発行しました。':'STYLEM領域から共有を解除しました。')}catch(error){setMessage(error.message||String(error),true)}}));
+    }
+
+    function updateRequest(requestId,status){
+      const requests=loadRequests();const request=requests.find(item=>item.request_id===requestId);if(!request)return;
+      if(status==='ANSWERED'){const response=prompt('STYLEMへの回答を入力してください。',request.response||'');if(response===null)return;request.response=String(response).trim();if(!request.response){setMessage('回答を入力してください。',true);return}}
+      request.status=status;request.updated_at=P.nowIso();localStorage.setItem(P.REQUESTS_KEY,JSON.stringify(requests));render();setMessage(status==='ANSWERED'?'回答を保存しました。':'リクエストを完了にしました。');
+    }
+
+    function renderRequests(requests){$('openRequests').textContent=requests.filter(request=>request.status==='OPEN').length;if(!requests.length){$('requestList').innerHTML='<div class="empty">リクエストはありません。</div>';return}$('requestList').innerHTML=requests.map(request=>`<article class="record request"><div><div><span class="tag ${request.status==='OPEN'?'warn':'ok'}">${esc(request.status)}</span><span class="tag warn">${esc(request.request_type)}</span></div><h3>${esc(request.subject)}</h3><p>${esc(request.details||'詳細なし')}<br>${esc(request.created_at)}</p>${request.response?`<div class="request-response"><strong>回答</strong><br>${esc(request.response)}</div>`:''}</div><div class="actions">${request.status==='OPEN'?`<button class="btn" data-answer="${esc(request.request_id)}">回答</button>`:''}${request.status!=='CLOSED'?`<button class="btn secondary" data-close-request="${esc(request.request_id)}">完了</button>`:''}</div></article>`).join('');document.querySelectorAll('[data-answer]').forEach(button=>button.addEventListener('click',()=>updateRequest(button.dataset.answer,'ANSWERED')));document.querySelectorAll('[data-close-request]').forEach(button=>button.addEventListener('click',()=>updateRequest(button.dataset.closeRequest,'CLOSED')))}
+
+    function render(){const master=loadMaster(),sharing=loadSharing(),portal=P.normalizePortal(P.safeParse(localStorage.getItem(P.PORTAL_KEY),P.emptyPortal())),requests=loadRequests();$('productShared').textContent=portal.products.length;$('yarnShared').textContent=portal.yarns.length;$('publishedAt').textContent=portal.published_at?new Date(portal.published_at).toLocaleString('ja-JP'):'未発行';$('productCount').textContent=`${master.products.length}件`;$('yarnCount').textContent=`${master.yarns.length}件`;renderRecords('product',master.products,sharing);renderRecords('yarn',master.yarns,sharing);renderRequests(requests)}
+
+    $('republish').addEventListener('click',()=>{try{publishSnapshot();setMessage('現在の承認状態からSTYLEM領域を再発行しました。')}catch(error){setMessage(error.message||String(error),true)}});
+    window.addEventListener('storage',render);
+    render();
+  })();
+  </script>
+</body>
+</html>
