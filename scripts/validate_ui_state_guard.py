@@ -2,6 +2,7 @@
 """Regression checks for Photo Capture save, resend, and editor recovery guards."""
 from __future__ import annotations
 
+import re
 import subprocess
 from pathlib import Path
 
@@ -31,7 +32,10 @@ def main() -> None:
         fail(f"JavaScript syntax error: {result.stderr.strip()}")
 
     require(index_text, 'app-state-guard.js?v=1.0.0', "guard script include")
-    if index_text.index("app-state-guard.js") < index_text.index("app.js?v=1.2.1"):
+    app_script = re.search(r'app\.js\?v=[^"\']+', index_text)
+    if not app_script:
+        fail("app.js script include is missing")
+    if index_text.index("app-state-guard.js") < app_script.start():
         fail("guard must load after app.js")
 
     require(guard_text, "const dedupeKey = `${recordId}:${version}`", "version-specific handoff state")
