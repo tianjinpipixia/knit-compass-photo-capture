@@ -1,6 +1,6 @@
 {
-  "schema_version": "1.3.1",
-  "updated_at": "2026-08-05T04:10:00+09:00",
+  "schema_version": "1.3.2",
+  "updated_at": "2026-08-05T14:20:00+09:00",
   "policy": {
     "unknown_connections_are_forbidden": true,
     "connection_change_requires_registry_update": true,
@@ -28,7 +28,7 @@
       "system_id": "KC-PHOTO-CAPTURE",
       "display_name": "Photo Capture",
       "environment": "independent-sandbox",
-      "display_version": "v1.2.3",
+      "display_version": "v1.2.4",
       "entry_path": "/",
       "code_source": "app.js@main",
       "code_revision": "git-blob:5c2efd18e8b691c2d3c0254b646637911fd2051d",
@@ -38,12 +38,16 @@
           "code_revision": "git-blob:3fa9acda9af41d7bc37036563076db99fac3def1"
         },
         {
+          "code_source": "knitting-ends-field.js@main",
+          "code_revision": "git-blob:e114406478003a1d706f7ed5df11be86ed3dda22"
+        },
+        {
           "code_source": "app-state-guard.js@main",
           "code_revision": "git-blob:8f42d0472647bdeaa897fa9b9a551015fe1fe90f"
         },
         {
           "code_source": "index.html@main",
-          "code_revision": "git-blob:a679071e84aa1bdb2d5e7dffeafe6a1a0945019c"
+          "code_revision": "git-blob:d97a100cefcf0794469a8a82c05fd3ab6ef08000"
         },
         {
           "code_source": "backup.js@main",
@@ -51,7 +55,7 @@
         }
       ],
       "data_store": "browser-indexeddb",
-      "storage_detail": "IndexedDB kc_independent_photo_capture_v1_0; sessionStorage kc_session_v1; sessionStorage kc_photo_capture_editor_draft_v1 stores recoverable in-progress form values without photo blobs; localStorage kc_photo_capture_last_backup_v1 stores only the last backup timestamp; localStorage kc_v04_handoff_queue_v1 stores Human Review candidates without photo blobs; queue compaction retains all PENDING candidates; each event version is sent once; DRAFT remains saved when handoff storage fails; save buttons are guarded against duplicate submission; composition parser accepts half-width percent and full-width percent",
+      "storage_detail": "IndexedDB kc_independent_photo_capture_v1_0; sessionStorage kc_session_v1; sessionStorage kc_photo_capture_editor_draft_v1 stores recoverable in-progress form values without photo blobs; localStorage kc_photo_capture_last_backup_v1 stores only the last backup timestamp; localStorage kc_photo_capture_knitting_ends_v1 is a UI restore/index sidecar while IndexedDB event snapshots remain the source of truth; localStorage kc_v04_handoff_queue_v1 stores Human Review candidates without photo blobs; gauge and knittingEnds are stored separately and combined 12G×2 notation is normalized; queue compaction retains all PENDING candidates; each event version is sent once; DRAFT remains saved when handoff storage fails; save buttons are guarded against duplicate submission; composition parser accepts half-width percent and full-width percent",
       "sync_mode": "local-browser-queue-and-manual-json",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "none",

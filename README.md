@@ -23,6 +23,7 @@ Photo Capture、v0.4、Daily、Androidは引き続き独立運用です。Produc
 - 同じイベント版の送信ボタンは送信後に無効化し、保存・承認処理の連打を防止します。
 - Human Review承認時はマスターと受信箱を一組として保存し、片側だけ失敗した場合は元に戻します。
 - 混率合計は半角`%`・全角`％`の両方を認識し、`TENCEL A100`や`G100`など品名中の数字は加算しません。
+- 編地仕様はゲージと本取りを分離し、`12G×2`を`gauge: 12G`、`knittingEnds: 2`としてDRAFTと受信箱payloadに保存します。
 
 **画面で確認:** [`/status/`](status/index.html)
 
@@ -30,7 +31,7 @@ Photo Capture、v0.4、Daily、Androidは引き続き独立運用です。Produc
 
 | システム | 入口 | 主な保存先 | 接続 |
 |---|---|---|---|
-| Photo Capture v1.2.3 | `/` | IndexedDB `kc_independent_photo_capture_v1_0` | v0.4受信箱へ候補送信 |
+| Photo Capture v1.2.4 | `/` | IndexedDB `kc_independent_photo_capture_v1_0` | v0.4受信箱へ候補送信 |
 | Knit Compass v0.4.5 | `/brand-intelligence/` | localStorage `kc_independent_practical_v0_4` | Human Review後にマスター反映 |
 | Daily Web | `/daily/` | localStorage | 独立運用 |
 | Daily Android | APK / `android-daily/` | Android WebView内 | 独立運用 |
@@ -67,9 +68,10 @@ sh start.sh
 python3 -m pip install -r requirements-validation.txt
 python3 scripts/validate_system_registry.py
 python3 scripts/validate_handoff_safety.py
+python3 scripts/validate_ui_state_guard.py
 ```
 
-検証対象は、接続台帳、全登録ソースのGit blob／content SHA、保存キー、CIトリガー、接続表示、KPI列、JavaScript構文、空欄上書き防止、会社ID固定、PENDING保持です。
+検証対象は、接続台帳、全登録ソースのGit blob／content SHA、保存キー、CIトリガー、接続表示、KPI列、JavaScript構文、空欄上書き防止、会社ID固定、PENDING保持、本取りフィールドの読込順と保存契約です。
 
 ## 変更ルール
 

@@ -4,6 +4,7 @@ name: Validate Human Review safety
   pull_request:
     paths:
       - "app.js"
+      - "knitting-ends-field.js"
       - "app-state-guard.js"
       - "index.html"
       - "brand-intelligence/index.html"
@@ -15,6 +16,7 @@ name: Validate Human Review safety
       - main
     paths:
       - "app.js"
+      - "knitting-ends-field.js"
       - "app-state-guard.js"
       - "index.html"
       - "brand-intelligence/index.html"
@@ -37,7 +39,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Validate handoff, Human Review, save state, and editor recovery
+      - name: Validate handoff, Human Review, save state, editor recovery, and knitting ends
         run: |
           python scripts/validate_handoff_safety.py
           python scripts/validate_ui_state_guard.py

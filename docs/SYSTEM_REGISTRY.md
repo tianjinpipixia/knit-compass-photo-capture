@@ -1,7 +1,7 @@
 # Knit Compass システム接続台帳
 
-更新日: 2026-08-04  
-版: 1.3.0  
+更新日: 2026-08-05  
+版: 1.3.2  
 状態: **暫定正本**
 
 ## 1. 接続済みフロー
@@ -20,10 +20,10 @@ PENDING候補とREJECTED候補はマスターへ反映しません。DRAFT／REV
 
 | system_id | 画面・アプリ | 環境 | 表示版 | コード正本・Revision | データ保存先 | 同期・受渡し | 外部DB | 状態 |
 |---|---|---|---|---|---|---|---|---|
-| `KC-PHOTO-CAPTURE` | Photo Capture | 独立Sandbox | `v1.2.3` | `app.js@main` / `git-blob:5c2efd18e8b6…`。補助: `app-state-guard.js` / `8f42d047…`、`app.css` / `3fa9acda…`、`index.html` / `a679071e…`、`backup.js` / `5f7dee4a…` | IndexedDB `kc_independent_photo_capture_v1_0`、sessionStorage `kc_session_v1`・`kc_photo_capture_editor_draft_v1`、受信箱localStorage `kc_v04_handoff_queue_v1` | 同一ブラウザ受信箱＋手動JSON / PENDINGを全件保持し確認済み履歴から整理 / 送信失敗時もDRAFT維持 / 半角`%`・全角`％`対応 | なし | 稼働中 |
+| `KC-PHOTO-CAPTURE` | Photo Capture | 独立Sandbox | `v1.2.4` | `app.js@main` / `git-blob:5c2efd18e8b6…`。補助: `knitting-ends-field.js` / `e1144064…`、`app-state-guard.js` / `8f42d047…`、`app.css` / `3fa9acda…`、`index.html` / `d97a100c…`、`backup.js` / `5f7dee4a…` | IndexedDB `kc_independent_photo_capture_v1_0`、sessionStorage `kc_session_v1`・`kc_photo_capture_editor_draft_v1`、本取りUI補助localStorage `kc_photo_capture_knitting_ends_v1`、受信箱localStorage `kc_v04_handoff_queue_v1` | 同一ブラウザ受信箱＋手動JSON / PENDINGを全件保持し確認済み履歴から整理 / 送信失敗時もDRAFT維持 / 半角`%`・全角`％`対応 / ゲージと本取りを分離 | なし | 稼働中 |
 | `KC-V04-WEB` | Knit Compass 独立実用版 v0.4 | 独立運用 | `v0.4.5` | 本体 `brand-intelligence/app.html` / `52f174f3…`。Human Review入口 `brand-intelligence/index.html` / `81927bcd…`。SW `7c5dc989…` | localStorage `kc_independent_practical_v0_4`、受信箱 `kc_v04_handoff_queue_v1` | 候補受信、JSON取込、既存値保護付きHuman Review反映、承認結果の一体保存 | Production / Core / Company DBへの自動接続なし | 稼働中 |
-| `KC-CUSTOMER-SHARING-ADMIN` | 顧客共有管理 | 同一オリジン・所有者ローカルPilot | `v1.0.0` | `customer-sharing/index.html` / `2bc2bffc…`、共有ポリシー `customer-sharing/policy.js` / `9202562e…` | マスター `kc_independent_practical_v0_4`、共有承認 `kc_customer_sharing_v1`、STYLEM安全スナップショット `kc_customer_portal_STYLEM_v1`、顧客依頼 `kc_customer_requests_v1` | 所有者明示承認 → 安全項目スナップショット発行／共有取消／顧客依頼回答 | 自動接続なし | Pilot |
-| `KC-STYLEM-PORTAL` | STYLEM Customer Area | 同一オリジン・顧客ローカルPilot | `v1.0.0` | `stylem/index.html` / `fddeb899…`、共有ポリシー `customer-sharing/policy.js` / `9202562e…` | STYLEM安全スナップショット `kc_customer_portal_STYLEM_v1`、顧客依頼 `kc_customer_requests_v1` | 承認済みスナップショット閲覧／顧客リクエスト送信。マスター直接更新なし | 自動接続なし | Pilot |
+| `KC-CUSTOMER-SHARING-ADMIN` | 顧客共有管理 | 同一オリジン・所有者ローカルPilot | `v1.0.1` | `customer-sharing/index.html` / `2bc2bffc…`、共有ポリシー `customer-sharing/policy.js` / `c779b985…` | マスター `kc_independent_practical_v0_4`、共有承認 `kc_customer_sharing_v1`、STYLEM安全スナップショット `kc_customer_portal_STYLEM_v1`、顧客依頼 `kc_customer_requests_v1` | 所有者明示承認 → 安全項目スナップショット発行／共有取消／顧客依頼回答 | 自動接続なし | Pilot |
+| `KC-STYLEM-PORTAL` | STYLEM Customer Area | 同一オリジン・顧客ローカルPilot | `v1.0.1` | `stylem/index.html` / `fddeb899…`、共有ポリシー `customer-sharing/policy.js` / `c779b985…` | STYLEM安全スナップショット `kc_customer_portal_STYLEM_v1`、顧客依頼 `kc_customer_requests_v1` | 承認済みスナップショット閲覧／顧客リクエスト送信。マスター直接更新なし | 自動接続なし | Pilot |
 | `KC-DAILY-WEB` | Dailyショートカット版 | 独立運用 | `v0.4` | `daily/index.html@main` / `a7d85f1b…` | v0.4と同じlocalStorage | 所有者設定時のみ手動 | 自動接続なし | 稼働中 |
 | `KC-DAILY-ANDROID` | Androidアプリ | 独立APK | `v0.4.0` | `android-daily@main` / `content-sha256:21ff2fd0…` | Android WebViewアプリデータ | 所有者設定時のみ手動 | 自動接続なし | 稼働中 |
 
@@ -42,6 +42,12 @@ Photo Captureで `KC_V04_INBOX_EXPORT` JSONを書き出し、v0.4の「受信箱
 ### 入力途中の復元
 
 Photo Captureの入力途中フォームはsessionStorage `kc_photo_capture_editor_draft_v1` に保持します。写真Blobは保存せず、画面を開き直したときは文字・選択項目だけを復元し、写真は再選択を案内します。
+
+### 編地のゲージと本取り
+
+Photo Captureは `gauge` と `knittingEnds` を別項目としてIndexedDBのAppend Onlyイベントへ保存し、そのままv0.4受信箱payloadへ渡します。資料の `12G×2`、`12G*2`、`12G＊2` は `gauge: "12G"` と `knittingEnds: 2` に分離します。本取りは糸の合糸数・撚り本数とは別概念です。
+
+localStorage `kc_photo_capture_knitting_ends_v1` は一覧表示と編集値復元のための補助索引であり、正本はIndexedDBイベントです。
 
 ### 混率合計
 
@@ -113,7 +119,7 @@ STYLEM領域からの調査・商品追加・糸調査・修正依頼は `kc_cus
 Pull Requestとmainへのpushで、接続台帳、実ファイルRevision、CI対象パス、保存キー、接続表示、KPI列を自動検証します。
 
 - `scripts/validate_handoff_safety.py`: JavaScript構文、混率判定、DRAFT維持、空欄上書き防止、会社ID固定、承認ロールバック、PENDING保持
-- `scripts/validate_ui_state_guard.py`: 保存連打防止、版単位の送信固定、入力途中復元
+- `scripts/validate_ui_state_guard.py`: 保存連打防止、版単位の送信固定、入力途中復元、本取りフィールドの読込順・保存契約・ゲージ分離
 - `scripts/validate_customer_sharing.py`: CONFIRMED／PUBLISHED条件、安全項目投影、STYLEMからのマスター直接参照禁止、明示grant、顧客リクエスト戻し
 
 ## 7. 正本
@@ -143,6 +149,7 @@ Pull Requestとmainへのpushで、接続台帳、実ファイルRevision、CI�
 - [ ] 候補と承認済みを区別した
 - [ ] 変更した全ソースのRevisionを台帳へ登録した
 - [ ] 入力途中データの保存キーと写真非保存境界を記載した
+- [ ] ゲージと本取りを別項目で保存し、糸のply数と混同していない
 - [ ] 空欄で既存マスターを消さない
 - [ ] 一時会社IDが同じ正式会社IDへ固定される
 - [ ] PENDING候補を件数上限で削除しない
