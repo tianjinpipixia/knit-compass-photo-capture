@@ -1,7 +1,7 @@
 # Knit Compass 共通ID・データ項目定義
 
-更新日: 2026-08-04  
-版: 1.1.0
+更新日: 2026-08-05  
+版: 1.1.1
 
 ## 1. 基本原則
 
@@ -48,6 +48,7 @@
 - `productName` / `productCode` / `productUrl`
 - `yarnName` / `yarnCode`
 - `countSystem` / `countValue` / `countDisplay`
+- `gauge` / `knittingEnds`
 - `basicYarnForm` / `yarnStructure`
 - `spinningMethod` / `processingMethod`
 - `compositionRaw` / `compositionTotal` / `compositionStatus`
@@ -60,6 +61,19 @@
 - `notes`
 
 Photo CaptureのイベントはAppend Onlyとし、`CREATE` と `UPDATE` の全版を残します。
+
+### 編地のゲージと本取り
+
+ゲージと本取りは別項目として保持します。
+
+| 項目 | 型 | 例 | 意味 |
+|---|---|---|---|
+| `gauge` | string | `12G` | 使用した、または推奨される編機ゲージ |
+| `knittingEnds` | positive integer / null | `2` | 編成時に同時給糸する糸の本数 |
+
+資料に `12G×2`、`12G*2`、`12G＊2` と記載されている場合は、`gauge: "12G"` と `knittingEnds: 2` に分離します。`knittingEnds` は糸そのものの撚り本数・合糸数を示す `plyCount` とは別概念です。
+
+Photo Captureは `knittingEnds` をIndexedDBのDRAFTイベントとv0.4受信箱payloadへ保持します。画面の補助用localStorageは復元と一覧表示のためだけに使用し、正本はIndexedDBイベントとします。
 
 ## 4. 正本マスター
 
@@ -237,6 +251,7 @@ Photo Captureからv0.4へ渡す候補は `KC_V04_INBOX_ITEM` とします。
 - 混率の数値合計が100%でない場合は警告
 - メーカーと販売会社を別項目で保持
 - 糸構造未確認の場合は `unconfirmed` を明示
+- 編地の本取りは1以上の整数または未入力とし、ゲージ欄の末尾にある `×本数` 表記は分離する
 - 写真は `targetType` と `targetId` を持つ
 - 共通ID未作成の場合は一時IDを発行
 - Human Review前の候補をマスターへ確定反映しない
