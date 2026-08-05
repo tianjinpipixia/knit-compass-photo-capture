@@ -13,6 +13,7 @@
 
   let pendingRecordId = '';
   let hydrateInProgress = false;
+  let lastHydratedSignature = '';
 
   function normalizeEnds(value) {
     if (value === null || value === undefined || value === '') return null;
@@ -42,16 +43,20 @@
     try {
       localStorage.setItem(SIDECAR_KEY, JSON.stringify(value));
     } catch {
-      // The IndexedDB event remains the source of truth. The sidecar only restores UI values quickly.
+      // IndexedDBイベントが正本。sidecarは入力復元と一覧表示だけに使用する。
     }
   }
 
   function rememberEnds(recordId, ends, version = 0) {
     if (!recordId) return;
+    const normalized = normalizeEnds(ends);
+    const numericVersion = Number(version || 0);
     const sidecar = loadSidecar();
+    const current = sidecar[recordId];
+    if (current?.value === normalized && Number(current?.version || 0) === numericVersion) return;
     sidecar[recordId] = {
-      value: normalizeEnds(ends),
-      version: Number(version || 0),
+      value: normalized,
+      version: numericVersion,
       updatedAt: new Date().toISOString()
     };
     saveSidecar(sidecar);
@@ -87,6 +92,7 @@
           if (gaugeEnds) value.snapshot.gauge = stripEndsFromGauge(gaugeValue);
           value.snapshot.dataContractVersion = DATA_CONTRACT_VERSION;
           rememberEnds(value.recordId, ends, value.version);
+          lastHydratedSignature = '';
         }
       }
       return Reflect.apply(nativeAdd, this, arguments);
@@ -109,7 +115,7 @@
     if (ends && input.dataset.userEdited !== 'true' && !input.value) input.value = String(ends);
   }
 
-  function readLatestSnapshot(recordId) {
+  function readLatestEvent(recordId) {
     return new Promise((resolve) => {
       if (!recordId) {
         resolve(null);
@@ -137,9 +143,9 @@
         rowsRequest.onsuccess = () => {
           const latest = (rowsRequest.result || [])
             .filter((row) => row.recordId === recordId)
-            .sort((a, b) => Number(b.version || 0) - Number(a.version || 0))[0];
+            .sort((a, b) => Number(b.version || 0) - Number(a.version || 0))[0] || null;
           database.close();
-          resolve(latest?.snapshot || null);
+          resolve(latest);
         };
       };
     });
@@ -151,11 +157,11 @@
       setFieldValue(input, remembered);
       return;
     }
-    const snapshot = await readLatestSnapshot(recordId);
+    const latest = await readLatestEvent(recordId);
     if (!input.isConnected || input.dataset.userEdited === 'true') return;
-    const ends = normalizeEnds(snapshot?.[FIELD_NAME]) || parseEndsFromGauge(snapshot?.gauge);
+    const ends = normalizeEnds(latest?.snapshot?.[FIELD_NAME]) || parseEndsFromGauge(latest?.snapshot?.gauge);
     setFieldValue(input, ends);
-    if (ends) rememberEnds(recordId, ends, snapshot?.version);
+    if (ends) rememberEnds(recordId, ends, latest?.version);
   }
 
   function ensureField(form) {
@@ -185,16 +191,28 @@
         existing?.remove();
         return;
       }
+      const label = `本取り ${ends}本`;
       const tag = existing || document.createElement('span');
       tag.className = 'mini-tag';
       tag.dataset.knittingEndsTag = 'true';
-      tag.textContent = `本取り ${ends}本`;
+      if (tag.textContent !== label) tag.textContent = label;
       if (!existing) tags.append(tag);
     });
   }
 
+  function recordSignature() {
+    return [...document.querySelectorAll('[data-edit]')].map((button) => {
+      const card = button.closest('.record');
+      const versionText = [...(card?.querySelectorAll('.meta span') || [])]
+        .map((element) => element.textContent || '')
+        .find((text) => /\bv\d+\b/.test(text)) || '';
+      return `${button.dataset.edit || ''}:${versionText}`;
+    }).join('|');
+  }
+
   async function hydrateSidecarFromEvents() {
-    if (hydrateInProgress || !document.querySelector('[data-edit]')) return;
+    const signature = recordSignature();
+    if (!signature || hydrateInProgress || signature === lastHydratedSignature) return;
     hydrateInProgress = true;
     try {
       const request = indexedDB.open(DB_NAME);
@@ -227,9 +245,10 @@
         const ends = normalizeEnds(row.snapshot?.[FIELD_NAME]) || parseEndsFromGauge(row.snapshot?.gauge);
         if (ends) rememberEnds(recordId, ends, row.version);
       }
+      lastHydratedSignature = signature;
       decorateRecordCards();
     } catch {
-      // The application can still create and save records; hydration is only a display enhancement.
+      // 読込補助に失敗しても、新規入力とIndexedDB保存は継続できる。
     } finally {
       hydrateInProgress = false;
     }
