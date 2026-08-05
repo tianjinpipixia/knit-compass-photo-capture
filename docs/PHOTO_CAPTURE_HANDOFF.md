@@ -1,7 +1,7 @@
 # Photo Capture → v0.4 → Human Review 接続仕様
 
-更新日: 2026-08-04  
-版: 1.0.3
+更新日: 2026-08-05  
+版: 1.0.4
 
 ## 接続済みの3工程
 
@@ -33,6 +33,17 @@
 - `payload`
 
 同じDRAFT版を再送しても `dedupe_key` が同じ場合は重複登録しません。UPDATE版は別候補として履歴を保持します。
+
+## 編地仕様の受渡し
+
+Photo Captureの編地入力では、ゲージと本取りを別項目で保持します。
+
+- `payload.gauge`: 例 `12G`
+- `payload.knittingEnds`: 例 `2`（1以上の整数または `null`）
+
+資料の `12G×2`、`12G*2`、`12G＊2` は保存時に `gauge: "12G"`、`knittingEnds: 2`へ分離します。本取りは糸の合糸数・撚り本数を示す `plyCount` と混同しません。
+
+同じ端末で編集値を早く復元するため、localStorage `kc_photo_capture_knitting_ends_v1` に補助索引を持ちます。この補助索引は一覧表示と入力復元だけに使用し、正本はIndexedDBのAppend Onlyイベントです。受信箱JSONを書き出した場合も `knittingEnds` はpayload内に保持されます。
 
 ## 混率合計の解釈
 
@@ -91,6 +102,7 @@ localStorageの容量不足で保存できない場合は、既存の未承認�
 - 会社一時IDと正式IDの固定
 - 半角`%`、全角`％`、混在入力での混率合計
 - `TENCEL A100`や`G100`の数字を混率へ誤加算しないこと
+- 本取り入力がapp.jsの後に読み込まれ、`knittingEnds`をDRAFTと受信箱payloadへ保持すること
 
 ## 安全条件
 
