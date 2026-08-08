@@ -19,33 +19,45 @@
   - rows: 78
   - brands: GU / MUJI / ROPÉ PICNIC / GLOBAL WORK / DoCLASSE / Te chichi
 
-## 公式確認 Batch 1
+## 公式現行性・位置づけ確認: 64 / 64
 
-2026-08-08に24件を現行公式サイトで確認し、`data/brand-research/2026-08-08-official-verification-batch1.csv` に固定した。
+2026-08-08に64件すべてを現行公式ソースで確認した。
 
-対象: UNIQLO / GU / MUJI / ROPÉ PICNIC / VIS / GLOBAL WORK / LOWRYS FARM / studio CLIP / niko and ... / earth music&ecology / Green Parks / OPAQUE.CLIP / index / SHOO・LA・RUE / grove / ikka / DoCLASSE / any SiS / any FAM / Te chichi / ANY / MATINEE LINE / ROPÉ / ADAM ET ROPÉ。
+- Batch 1: 24件
+  - `data/brand-research/2026-08-08-official-verification-batch1.csv`
+- Batch 2: 40件
+  - `data/brand-research/2026-08-08-official-verification-batch2.csv`
 
-### 同一性レビューの解決
+ここでいう「確認済み」は、ブランドまたは現行ラインの存在・公式な位置づけを確認したという意味。商品単位の糸・混率・機能・価格調査完了を意味しない。
 
-- `BR-00059 ANY`: 現行の独立ブランドとして公式確認。`any FAM` から `ANY` へのリブランド履歴を保持する。
-- `BR-00020 any FAM`: 現行成人ブランドとして追わず `LEGACY_REBRANDED`。履歴行は削除しない。
-- `BR-00061 MATINEE LINE`: GLOBAL WORK公式内の女性向けラインとして確認。`SUBLINE_RESOLVED` とし、独立ブランド集計から分離する。
+### 特殊な位置づけ
 
-64ブランド正本自体は履歴・監査のため上書きせず、今回の進捗表で現行状態を表現する。
+- `BR-00020 any FAM`: 公式ANYページでANYへのリブランドを確認。`LEGACY_REBRANDED` として履歴保持。
+- `BR-00059 ANY`: 現行ANYブランドとして確認。`CURRENT_BRAND_IDENTITY_RESOLVED`。
+- `BR-00061 MATINEE LINE`: GLOBAL WORK公式内の女性向けラインとして確認。`SUBLINE_RESOLVED`。独立ブランドとして一般化しない。
+- `BR-00043 J.Press`: canonical名は維持し、今回の女性調査は公式 `J.PRESS LADIES` を対象にする。
+- `BR-00044 五大陸` / `BR-00048 TAKEO KIKUCHI`: 現行公式ブランドであることは確認済み。ただしメンズ対象外運用により商品調査から除外。
+- `BR-00060 MUJI Labo`: MUJI本体とは別行を維持し、2026現行ラインとして確認。
+
+### 公式現行性は確認したが、女性向け範囲を商品単位で追加確認する8件
+
+JEANASIS / HARE / Heather / PAGEBOY / A part by / mysty woman / Andemiu / ALAND。
+
+これらは現行ブランド一覧・公式ニュースで存在確認済みだが、女性ニットの対象範囲を商品単位で確定する次工程を残すため、Batch 2では `VERIFIED_OFFICIAL_CURRENT_SCOPE_PENDING` とした。
 
 ## 現在の64件分類
 
 | 状態 | 件数 | 意味 |
 |---|---:|---|
-| PRODUCT_EVIDENCE_PRESENT | 6 | 商品stagingが既にある。URL/公式根拠をHuman Reviewする |
-| PRIORITY20_STAGED | 15 | 重点20に基本プロフィールはあるが商品stagingはない |
-| MASTER_ONLY_UNCHECKED | 38 | 64件原本にはあるが今回の重点20・商品78件に未接続 |
-| EXCLUDED_MENS_ONLY | 2 | 五大陸 / TAKEO KIKUCHI。今回の「メンズ対象外」運用により調査対象外 |
-| LEGACY_REBRANDED | 1 | any FAM。ANYへのリブランド履歴として保持 |
-| CURRENT_BRAND_IDENTITY_RESOLVED | 1 | ANY。現行ブランドとして公式確認済み |
+| PRODUCT_EVIDENCE_PRESENT | 6 | 既存商品stagingあり。公式URL・Human Reviewを進める |
+| PRIORITY20_STAGED | 15 | 重点20プロフィールあり。商品単位ニット調査を補完する |
+| OFFICIAL_BRAND_VERIFIED_PRODUCT_PENDING | 38 | 公式現行性確認済み。商品単位ニット調査をこれから進める |
+| EXCLUDED_MENS_ONLY | 2 | 五大陸 / TAKEO KIKUCHI。現行性確認済みだが今回の商品調査対象外 |
+| LEGACY_REBRANDED | 1 | any FAM。ANYへのリブランド履歴 |
+| CURRENT_BRAND_IDENTITY_RESOLVED | 1 | ANY。現行ブランドとして確認済み |
 | SUBLINE_RESOLVED | 1 | MATINEE LINE。GLOBAL WORK内ラインとして確認済み |
 
-合計64件。24件は `official_current_verified=YES`。
+合計64件。
 
 ## 商品78件の内訳
 
@@ -56,14 +68,14 @@
 - GU: 4
 - MUJI: 3
 
-商品レコードが存在することと、公式根拠確認済みは別扱いとする。既存78件には `REVIEW_REQUIRED` が多いため、件数だけで「ブランド調査完了」としない。
+既存78件の多くは `REVIEW_REQUIRED` であり、商品レコードがあるだけでは公式確認完了としない。次工程ではこの78件を先に公式商品URLへ照合し、その後、商品stagingがないブランドへ広げる。
 
-## 次の調査順
+## 次工程
 
-1. `PRODUCT_EVIDENCE_PRESENT` 6ブランドの既存78商品を公式商品URLへ照合
-2. 公式確認済みだが商品stagingのない重点ブランドの女性向けニットを商品単位で補完
-3. `MASTER_ONLY_UNCHECKED` 38件から、女性向けニット対象を企業グループ単位で公式確認
-4. メンズ専業2件は母数には残し、今回の調査実働から除外
+1. 既存78商品を公式商品URLへ照合し、混率・価格・機能・商品状態を商品単位で確定
+2. 女性向け範囲保留8ブランドを商品単位で確定
+3. 重点20のうち商品stagingがない15ブランドへ女性ニット商品を追加
+4. `OFFICIAL_BRAND_VERIFIED_PRODUCT_PENDING` のブランドを企業グループ単位で順次商品調査
 
 ## 安全ルール
 
