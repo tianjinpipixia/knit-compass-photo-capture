@@ -1,0 +1,27 @@
+name: Validate DoCLASSE 14 official
+
+on:
+  pull_request:
+    paths:
+      - 'data/brand-research/2026-08-08-doclasse-14-official.csv'
+      - 'data/brand-research/2026-08-08-product78-next-work.csv'
+      - 'scripts/validate_doclasse_14_official_20260808.py'
+      - '.github/workflows/validate-doclasse-14-official.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/brand-research/2026-08-08-doclasse-14-official.csv'
+      - 'data/brand-research/2026-08-08-product78-next-work.csv'
+      - 'scripts/validate_doclasse_14_official_20260808.py'
+      - '.github/workflows/validate-doclasse-14-official.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate DoCLASSE 14 official matching
+        run: python3 scripts/validate_doclasse_14_official_20260808.py
