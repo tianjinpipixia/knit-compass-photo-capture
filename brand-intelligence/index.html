@@ -41,7 +41,7 @@
   const frame=document.getElementById('contentFrame');
   const tabV04=document.getElementById('tabV04');
   const tabGlossary=document.getElementById('tabGlossary');
-  const ROUTES={v04:'./index-current.html',glossary:'./yarn-glossary.html?v=0.4.6'};
+  const ROUTES={v04:'./index-current.html',glossary:'./yarn-glossary.html'};
   function openRoute(name,replaceHash=false){
     const glossary=name==='glossary';
     frame.src=glossary?ROUTES.glossary:ROUTES.v04;
