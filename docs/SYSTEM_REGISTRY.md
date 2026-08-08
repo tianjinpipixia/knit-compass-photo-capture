@@ -16,6 +16,8 @@
 
 加えて、v0.4には読取専用の中国語糸名辞書 `KC-CN-YARN-001` を接続し、中国市場名から日本語標準名・代表的な糸タイプへ変換しながら、同一ブラウザのV04糸マスター一致候補を表示します。辞書はマスターを自動更新しません。
 
+V04の共通入口には `V04本体 → Photo Capture → 中国糸名辞書 → Daily → 共有管理 → STYLEM → システム状態` の7導線を常設し、主要Web画面へV04から直接遷移できる構成とします。外部画面へ移動する導線はトップ階層で開き、V04内のiframeを入れ子にしません。
+
 PENDING候補とREJECTED候補はマスターへ反映しません。DRAFT／REVIEW、未確認商品、社内研究メモ、開発仮説、糸の価格・MOQ・納期・注意事項はSTYLEM領域へ発行しません。外部Production / Core / Company DBへの自動接続も追加していません。
 
 ## 2. 現在の接続状況
@@ -23,7 +25,7 @@ PENDING候補とREJECTED候補はマスターへ反映しません。DRAFT／REV
 | system_id | 画面・アプリ | 環境 | 表示版 | コード正本・Revision | データ保存先 | 同期・受渡し | 外部DB | 状態 |
 |---|---|---|---|---|---|---|---|---|
 | `KC-PHOTO-CAPTURE` | Photo Capture | 独立Sandbox | `v1.2.4` | `app.js@main` / `git-blob:5c2efd18e8b6…`。補助: `knitting-ends-field.js` / `e1144064…`、`app-state-guard.js` / `8f42d047…`、`app.css` / `3fa9acda…`、`index.html` / `ac117f1f…`、`backup.js` / `5f7dee4a…` | IndexedDB `kc_independent_photo_capture_v1_0`、sessionStorage `kc_session_v1`・`kc_photo_capture_editor_draft_v1`、本取りUI補助localStorage `kc_photo_capture_knitting_ends_v1`、受信箱localStorage `kc_v04_handoff_queue_v1` | 同一ブラウザ受信箱＋手動JSON / PENDINGを全件保持し確認済み履歴から整理 / 送信失敗時もDRAFT維持 / 半角`%`・全角`％`対応 / ゲージと本取りを分離 | なし | 稼働中 |
-| `KC-V04-WEB` | Knit Compass 独立実用版 v0.4 | 独立運用 | `v0.4.6` | 本体 `brand-intelligence/app.html` / `52f174f3…`。V04入口 `brand-intelligence/index.html` / `36564302…`。既存Human Review画面 `brand-intelligence/index-current.html` / `81927bcd…`。中国糸名辞書 `brand-intelligence/yarn-glossary.html` / `53c9a9e7…`、辞書データ `brand-intelligence/data/cn-yarn-glossary.json` / `1ec9168f…`、SW `4bd96c3e…` | localStorage `kc_independent_practical_v0_4`、受信箱 `kc_v04_handoff_queue_v1`。辞書は同じlocalStorageの`yarns`を読取専用参照 | 候補受信、JSON取込、既存値保護付きHuman Review反映、承認結果の一体保存。V04本体／中国糸名辞書を切替表示。辞書からマスター自動更新なし | Production / Core / Company DBへの自動接続なし | 稼働中 |
+| `KC-V04-WEB` | Knit Compass 独立実用版 v0.4 | 独立運用 | `v0.4.6` | 本体 `brand-intelligence/app.html` / `52f174f3…`。V04入口 `brand-intelligence/index.html` / `1fd32124…`。既存Human Review画面 `brand-intelligence/index-current.html` / `81927bcd…`。中国糸名辞書 `brand-intelligence/yarn-glossary.html` / `53c9a9e7…`、辞書データ `brand-intelligence/data/cn-yarn-glossary.json` / `1ec9168f…`、SW `4bd96c3e…` | localStorage `kc_independent_practical_v0_4`、受信箱 `kc_v04_handoff_queue_v1`。辞書は同じlocalStorageの`yarns`を読取専用参照 | 候補受信、JSON取込、既存値保護付きHuman Review反映、承認結果の一体保存。V04本体／中国糸名辞書を切替表示。共通入口からPhoto Capture・Daily・共有管理・STYLEM・システム状態へ直接遷移。辞書からマスター自動更新なし | Production / Core / Company DBへの自動接続なし | 稼働中 |
 | `KC-CUSTOMER-SHARING-ADMIN` | 顧客共有管理 | 同一オリジン・所有者ローカルPilot | `v1.0.1` | `customer-sharing/index.html` / `2bc2bffc…`、共有ポリシー `customer-sharing/policy.js` / `c779b985…` | マスター `kc_independent_practical_v0_4`、共有承認 `kc_customer_sharing_v1`、STYLEM安全スナップショット `kc_customer_portal_STYLEM_v1`、顧客依頼 `kc_customer_requests_v1` | 所有者明示承認 → 安全項目スナップショット発行／共有取消／顧客依頼回答 | 自動接続なし | Pilot |
 | `KC-STYLEM-PORTAL` | STYLEM Customer Area | 同一オリジン・顧客ローカルPilot | `v1.0.1` | `stylem/index.html` / `fddeb899…`、共有ポリシー `customer-sharing/policy.js` / `c779b985…` | STYLEM安全スナップショット `kc_customer_portal_STYLEM_v1`、顧客依頼 `kc_customer_requests_v1` | 承認済みスナップショット閲覧／顧客リクエスト送信。マスター直接更新なし | 自動接続なし | Pilot |
 | `KC-DAILY-WEB` | Dailyショートカット版 | 独立運用 | `v0.4` | `daily/index.html@main` / `a7d85f1b…` | v0.4と同じlocalStorage | 所有者設定時のみ手動 | 自動接続なし | 稼働中 |
@@ -154,7 +156,7 @@ Pull Requestとmainへのpushで、接続台帳、実ファイルRevision、CI�
 - `scripts/validate_handoff_safety.py`: JavaScript構文、混率判定、DRAFT維持、空欄上書き防止、会社ID固定、承認ロールバック、PENDING保持
 - `scripts/validate_ui_state_guard.py`: 保存連打防止、版単位の送信固定、入力途中復元、本取りフィールドの読込順・保存契約・ゲージ分離
 - `scripts/validate_customer_sharing.py`: CONFIRMED／PUBLISHED条件、安全項目投影、STYLEMからのマスター直接参照禁止、明示grant、顧客リクエスト戻し
-- `scripts/validate_yarn_glossary.py`: 初期8分類、辞書ラベル、天然繊維確認ルール、V04入口・保存済みHuman Review画面・オフラインキャッシュの接続を検証
+- `scripts/validate_yarn_glossary.py`: 初期8分類、辞書ラベル、天然繊維確認ルール、V04入口・保存済みHuman Review画面・オフラインキャッシュ、およびV04共通入口7導線を検証
 
 ## 8. 正本
 
@@ -184,6 +186,8 @@ Pull Requestとmainへのpushで、接続台帳、実ファイルRevision、CI�
 - [ ] 読み取り元、書き込み先、受信箱、顧客スナップショットを別々に記載した
 - [ ] 候補と承認済みを区別した
 - [ ] 変更した全ソースのRevisionを台帳へ登録した
+- [ ] V04共通入口から主要6画面＋V04本体へ直接移動できる
+- [ ] 外部画面への遷移でV04 iframeを入れ子にしていない
 - [ ] 入力途中データの保存キーと写真非保存境界を記載した
 - [ ] ゲージと本取りを別項目で保存し、糸のply数と混同していない
 - [ ] 空欄で既存マスターを消さない
