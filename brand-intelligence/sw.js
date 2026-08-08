@@ -2,6 +2,7 @@ const CACHE_NAME = 'kc-brand-intelligence-v0-4-6';
 const APP_SHELL = [
   './',
   './index.html',
+  './index-current.html',
   './app.html',
   './manifest.webmanifest',
   './icon.svg',
