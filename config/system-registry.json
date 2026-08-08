@@ -1,6 +1,6 @@
 {
   "schema_version": "1.3.2",
-  "updated_at": "2026-08-08T08:30:00+09:00",
+  "updated_at": "2026-08-08T15:45:23+09:00",
   "policy": {
     "unknown_connections_are_forbidden": true,
     "connection_change_requires_registry_update": true,
@@ -65,22 +65,34 @@
       "system_id": "KC-V04-WEB",
       "display_name": "Knit Compass 独立実用版 v0.4",
       "environment": "independent",
-      "display_version": "v0.4.5",
+      "display_version": "v0.4.6",
       "entry_path": "/brand-intelligence/",
       "code_source": "brand-intelligence/app.html@main",
       "code_revision": "git-blob:52f174f307d49a64f9e51ecaaad4488aa729c9ab",
       "auxiliary_sources": [
         {
           "code_source": "brand-intelligence/index.html@main",
+          "code_revision": "git-blob:36564302bc67949c139a24d2ab3e0fe20456ac03"
+        },
+        {
+          "code_source": "brand-intelligence/index-current.html@main",
           "code_revision": "git-blob:81927bcd4c8909cf7bc1587be52b2f8d1fbd2b63"
         },
         {
+          "code_source": "brand-intelligence/yarn-glossary.html@main",
+          "code_revision": "git-blob:53c9a9e79a73a5a0ba9407b9aba97266405d20e4"
+        },
+        {
+          "code_source": "brand-intelligence/data/cn-yarn-glossary.json@main",
+          "code_revision": "git-blob:1ec9168ff3125e3584f8e808151e11556bab933e"
+        },
+        {
           "code_source": "brand-intelligence/sw.js@main",
-          "code_revision": "git-blob:7c5dc989d29363c14325ba2b45078a1c7dd2c7cb"
+          "code_revision": "git-blob:4bd96c3edd071159e5d0c826a6d8df8acfabd799"
         }
       ],
       "data_store": "browser-localstorage",
-      "storage_detail": "localStorage kc_independent_practical_v0_4; Human Review inbox kc_v04_handoff_queue_v1; reviewer name kc_v04_reviewer_name_v1; partial approvals preserve existing values; temporary organization IDs stay stable; master and inbox approval results roll back together on storage failure",
+      "storage_detail": "localStorage kc_independent_practical_v0_4; Human Review inbox kc_v04_handoff_queue_v1; reviewer name kc_v04_reviewer_name_v1; partial approvals preserve existing values; temporary organization IDs stay stable; master and inbox approval results roll back together on storage failure; 中国糸名辞書 KC-CN-YARN-001 は同じ localStorage の yarns を読取専用で参照し、中国市場名と日本語標準名・代表的な糸タイプの一致候補だけを表示する",
       "sync_mode": "local-browser-queue-and-manual-json",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "no-automatic-production-core-company-db-connection",

@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 APP = ROOT / "app.js"
-INBOX = ROOT / "brand-intelligence" / "index.html"
+INBOX = ROOT / "brand-intelligence" / "index-current.html"
 
 
 def fail(message: str) -> None:
@@ -25,7 +25,7 @@ def node_check(path: Path) -> None:
 def extract_inline_script(html: str) -> str:
     scripts = re.findall(r"<script(?:\s[^>]*)?>(.*?)</script>", html, flags=re.DOTALL | re.IGNORECASE)
     if not scripts:
-        fail("brand-intelligence/index.html has no inline script")
+        fail("brand-intelligence/index-current.html has no inline Human Review script")
     return scripts[-1]
 
 

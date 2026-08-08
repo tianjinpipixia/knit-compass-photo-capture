@@ -15,6 +15,9 @@ name: Validate system registry
       - "manifest.webmanifest"
       - "brand-intelligence/app.html"
       - "brand-intelligence/index.html"
+      - "brand-intelligence/index-current.html"
+      - "brand-intelligence/yarn-glossary.html"
+      - "brand-intelligence/data/cn-yarn-glossary.json"
       - "brand-intelligence/sw.js"
       - "brand-intelligence/manifest.webmanifest"
       - "customer-sharing/index.html"
@@ -26,6 +29,7 @@ name: Validate system registry
       - "android-daily/**"
       - "config/system-registry.json"
       - "docs/SYSTEM_REGISTRY.md"
+      - "docs/CN_YARN_GLOSSARY.md"
       - "docs/CUSTOMER_SHARING.md"
       - "docs/DATA_CONTRACT.md"
       - "docs/KPI_MEASUREMENT.md"
@@ -35,6 +39,7 @@ name: Validate system registry
       - "start.sh"
       - "requirements-validation.txt"
       - "scripts/validate_system_registry.py"
+      - "scripts/validate_yarn_glossary.py"
       - "scripts/validate_handoff_safety.py"
       - "scripts/validate_ui_state_guard.py"
       - "scripts/validate_customer_sharing.py"
@@ -57,6 +62,9 @@ name: Validate system registry
       - "manifest.webmanifest"
       - "brand-intelligence/app.html"
       - "brand-intelligence/index.html"
+      - "brand-intelligence/index-current.html"
+      - "brand-intelligence/yarn-glossary.html"
+      - "brand-intelligence/data/cn-yarn-glossary.json"
       - "brand-intelligence/sw.js"
       - "brand-intelligence/manifest.webmanifest"
       - "customer-sharing/index.html"
@@ -68,6 +76,7 @@ name: Validate system registry
       - "android-daily/**"
       - "config/system-registry.json"
       - "docs/SYSTEM_REGISTRY.md"
+      - "docs/CN_YARN_GLOSSARY.md"
       - "docs/CUSTOMER_SHARING.md"
       - "docs/DATA_CONTRACT.md"
       - "docs/KPI_MEASUREMENT.md"
@@ -77,6 +86,7 @@ name: Validate system registry
       - "start.sh"
       - "requirements-validation.txt"
       - "scripts/validate_system_registry.py"
+      - "scripts/validate_yarn_glossary.py"
       - "scripts/validate_handoff_safety.py"
       - "scripts/validate_ui_state_guard.py"
       - "scripts/validate_customer_sharing.py"
@@ -102,3 +112,5 @@ jobs:
         run: python -m pip install -r requirements-validation.txt
       - name: Validate registry, source revisions, and KPI schema
         run: python scripts/validate_system_registry.py
+      - name: Validate China yarn glossary contract
+        run: python scripts/validate_yarn_glossary.py
