@@ -1,0 +1,29 @@
+name: Validate product78 triage
+
+on:
+  pull_request:
+    paths:
+      - 'data/brand-research/2026-08-08-product78-triage-summary.csv'
+      - 'data/brand-research/2026-08-08-product78-out-of-scope.csv'
+      - 'data/brand-research/2026-08-08-product-verification-batch1.csv'
+      - 'scripts/validate_product78_triage_20260808.py'
+      - '.github/workflows/validate-product78-triage.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/brand-research/2026-08-08-product78-triage-summary.csv'
+      - 'data/brand-research/2026-08-08-product78-out-of-scope.csv'
+      - 'data/brand-research/2026-08-08-product-verification-batch1.csv'
+      - 'scripts/validate_product78_triage_20260808.py'
+      - '.github/workflows/validate-product78-triage.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate product78 triage
+        run: python3 scripts/validate_product78_triage_20260808.py
