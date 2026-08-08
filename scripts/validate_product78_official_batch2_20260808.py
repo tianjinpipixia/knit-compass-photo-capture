@@ -43,15 +43,16 @@ for row in b2:
     assert parsed.netloc in {'www.doclasse.com','www.canshop.jp'}
     assert row['checked_date'] == '2026-08-08'
 
+# These are invariant totals from the original 78-row triage. The 45 no-URL
+# records are progressively split into DONE/PENDING buckets by later batches,
+# so do not freeze their internal bucket names here.
 work = {r['work_bucket']: int(r['count']) for r in next_work}
-assert work == {
-    'OUT_OF_SCOPE_HISTORY': 13,
-    'EXISTING_OFFICIAL_URL_CURRENT_EVIDENCE': 14,
-    'EXISTING_OFFICIAL_URL_RECHECK_PENDING': 6,
-    'NO_URL_TARGET_PENDING': 45,
-    'TOTAL': 78,
-}
-assert 13 + 14 + 6 + 45 == 78
+assert work['OUT_OF_SCOPE_HISTORY'] == 13
+assert work['EXISTING_OFFICIAL_URL_CURRENT_EVIDENCE'] == 14
+assert work['EXISTING_OFFICIAL_URL_RECHECK_PENDING'] == 6
+assert work['TOTAL'] == 78
+assert sum(v for k, v in work.items() if k != 'TOTAL') == 78
+assert sum(v for k, v in work.items() if k.startswith('NO_URL_')) == 45
 assert 14 + 6 == 20
 
-print('product78 official batch2: OK (all 20 target records with existing URLs processed; next=45 no-URL targets)')
+print('product78 official batch2: OK (20 existing-URL target records remain stable; no-URL 45 may progress across later buckets)')
