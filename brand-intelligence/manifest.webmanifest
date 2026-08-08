@@ -1,7 +1,7 @@
 {
   "name": "Knit Compass 独立実用版 v0.4",
   "short_name": "Knit Compass",
-  "description": "ブランド新商品を毎日の入口にする独立実用版",
+  "description": "ブランド新商品と中国語糸名辞書をつなぐ独立実用版",
   "id": "./",
   "start_url": "./",
   "scope": "./",
@@ -11,5 +11,13 @@
   "theme_color": "#163f3c",
   "icons": [
     {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ],
+  "shortcuts": [
+    {
+      "name": "中国糸名辞書",
+      "short_name": "中国糸名",
+      "description": "中国語の市場糸名を日本語標準名と代表的な糸タイプへ変換",
+      "url": "./yarn-glossary.html"
+    }
   ]
 }
