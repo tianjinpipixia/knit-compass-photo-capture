@@ -55,14 +55,12 @@ assert '近赤外線ケア(遮蔽率80.0%)' in single['GDM16500']['official_func
 with NEXT.open(encoding='utf-8-sig', newline='') as f:
     work_rows = list(csv.DictReader(f))
 work = {r['work_bucket']: int(r['count']) for r in work_rows}
-assert work == {
-    'OUT_OF_SCOPE_HISTORY': 13,
-    'EXISTING_OFFICIAL_URL_CURRENT_EVIDENCE': 14,
-    'EXISTING_OFFICIAL_URL_RECHECK_PENDING': 6,
-    'NO_URL_ROPE_PICNIC_OFFICIAL_MATCHED': 22,
-    'NO_URL_TARGET_PENDING': 23,
-    'TOTAL': 78,
-}
-assert 13 + 14 + 6 + 22 + 23 == 78
+assert work['OUT_OF_SCOPE_HISTORY'] == 13
+assert work['EXISTING_OFFICIAL_URL_CURRENT_EVIDENCE'] == 14
+assert work['EXISTING_OFFICIAL_URL_RECHECK_PENDING'] == 6
+assert work['NO_URL_ROPE_PICNIC_OFFICIAL_MATCHED'] == 22
+assert work['TOTAL'] == 78
+assert sum(v for k, v in work.items() if k.startswith('NO_URL_')) == 45
+assert sum(v for k, v in work.items() if k != 'TOTAL') == 78
 
-print('ROPÉ PICNIC 22 official: OK (22 staging rows -> 21 official products; 1 duplicate pair held; remaining no-URL backlog=23)')
+print('ROPÉ PICNIC 22 official: OK (22 staging rows -> 21 official products; later no-URL batches may reduce pending backlog)')
