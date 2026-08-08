@@ -1,0 +1,25 @@
+name: Validate Weihai intake
+
+on:
+  pull_request:
+    paths:
+      - 'data/manual-intake/2026-08-08-weihai-yaxin-chengyun-batch2.json'
+      - 'scripts/validate_manual_intake_20260808_weihai.py'
+      - '.github/workflows/validate-weihai-intake.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/manual-intake/2026-08-08-weihai-yaxin-chengyun-batch2.json'
+      - 'scripts/validate_manual_intake_20260808_weihai.py'
+      - '.github/workflows/validate-weihai-intake.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Weihai batch 2
+        run: python3 scripts/validate_manual_intake_20260808_weihai.py
