@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.0.0",
+  "dictionary_id": "KC-CN-YARN-001",
+  "title": "中国語糸名 ↔ 日本語標準名",
+  "purpose": "中国の展示会・BOOK・WeChatで使われる市場名から、日本のニット実務で想像しやすい名称と代表的な糸タイプへ橋渡しする。",
+  "policy": {
+    "market_name_is_not_composition": true,
+    "natural_fiber_must_be_verified_from_composition": true,
+    "representative_field_label": "代表的な糸タイプ（例）",
+    "avoid_field_label": "糸例"
+  },
+  "entries": [
+    {
+      "id": "CN-YARN-001",
+      "priority": 1,
+      "market_name": "仿貂毛／仿貂绒",
+      "aliases": ["仿貂", "仿水貂", "仿水貂绒", "水貂绒"],
+      "japanese_name": "ミンク調／ミンク風",
+      "representative_yarn_types": ["フェザーヤーン", "シャギーヤーン", "長毛ファンシーヤーン"],
+      "common_fibers": ["ナイロン", "アクリル", "ポリエステル等（実混率を確認）"],
+      "category": "毛足・起毛系ファンシーヤーン",
+      "natural_target_fiber": "名称だけでは天然ミンク含有を意味しない。必ず混率で確認。",
+      "search_keywords": ["仿貂毛", "仿貂绒", "仿水貂", "水貂绒", "フェザー", "シャギー"],
+      "exhibition_checks": ["毛足の長さ", "芯糸・基糸の構造", "毛抜け", "編立ゲージ", "実混率"]
+    },
+    {
+      "id": "CN-YARN-002",
+      "priority": 2,
+      "market_name": "仿兔毛／仿兔绒",
+      "aliases": ["兔绒", "兔绒包芯纱", "仿兔绒包芯纱"],
+      "japanese_name": "ラビット調／アンゴラ調",
+      "representative_yarn_types": ["コアスパンヤーン", "起毛糸", "ラビット調ファンシーヤーン"],
+      "common_fibers": ["レーヨン（ビスコース）", "ナイロン", "PBT等（例：粘胶・锦纶・PBT系）"],
+      "category": "ラビット調・起毛／高伸縮コアスパン系",
+      "natural_target_fiber": "Rabbit／Angora表記が混率にない場合は天然兔毛を使っているとは扱わない。",
+      "search_keywords": ["仿兔毛", "仿兔绒", "兔绒", "兔绒包芯纱", "アンゴラ調", "ラビット調", "包芯纱"],
+      "exhibition_checks": ["芯糸の種類", "PBT・PU等の伸縮成分", "起毛方法", "毛羽量", "実混率"]
+    },
+    {
+      "id": "CN-YARN-003",
+      "priority": 3,
+      "market_name": "仿羊绒",
+      "aliases": ["仿羊绒纱", "仿羊绒包芯纱"],
+      "japanese_name": "カシミヤ調／カシミヤタッチ",
+      "representative_yarn_types": ["ソフトタッチ紡績糸", "起毛糸", "高伸縮コアスパンヤーン"],
+      "common_fibers": ["アクリル", "レーヨン（ビスコース）", "ナイロン", "PBT・ポリエステル等"],
+      "category": "ソフトタッチ・カシミヤ調",
+      "natural_target_fiber": "名称だけではCashmere含有を意味しない。混率に羊绒／Cashmereがあるか確認。",
+      "search_keywords": ["仿羊绒", "仿羊绒纱", "仿羊绒包芯纱", "カシミヤ調"],
+      "exhibition_checks": ["起毛の有無", "芯糸の有無", "抗ピル性", "番手", "実混率"]
+    },
+    {
+      "id": "CN-YARN-004",
+      "priority": 4,
+      "market_name": "仿马海毛",
+      "aliases": ["仿马海", "仿马海纱", "马海毛风格"],
+      "japanese_name": "モヘヤ調／モヘヤタッチ",
+      "representative_yarn_types": ["起毛ファンシーヤーン", "ブラッシュヤーン", "ループ・毛足系ファンシーヤーン"],
+      "common_fibers": ["ナイロン", "アクリル", "ポリエステル等（天然Mohair混もあるため混率確認）"],
+      "category": "モヘヤ調・毛足系ファンシーヤーン",
+      "natural_target_fiber": "仿马海毛は見た目・風合いの市場名。天然Mohairの有無は混率で判定。",
+      "search_keywords": ["仿马海毛", "仿马海", "马海毛风格", "モヘヤ調", "モヘア調"],
+      "exhibition_checks": ["毛足長", "ループ／芯構造", "ナイロン補強の有無", "抜け毛", "実混率"]
+    },
+    {
+      "id": "CN-YARN-005",
+      "priority": 5,
+      "market_name": "仿狐狸毛",
+      "aliases": ["仿狐毛", "狐狸毛风格", "仿狐绒"],
+      "japanese_name": "フォックス調／フォックスタッチ",
+      "representative_yarn_types": ["長毛フェザーヤーン", "シャギーヤーン", "長毛ファンシーヤーン"],
+      "common_fibers": ["ナイロン", "アクリル", "ポリエステル等"],
+      "category": "長毛・フォックス調ファンシーヤーン",
+      "natural_target_fiber": "名称だけでは天然Fox含有を意味しない。混率で確認。",
+      "search_keywords": ["仿狐狸毛", "仿狐毛", "仿狐绒", "フォックス調", "フェザー"],
+      "exhibition_checks": ["毛足長", "光沢", "芯糸", "毛抜け", "実混率"]
+    },
+    {
+      "id": "CN-YARN-006",
+      "priority": 6,
+      "market_name": "仿羊驼",
+      "aliases": ["仿羊驼毛", "羊驼风格", "仿阿尔巴卡"],
+      "japanese_name": "アルパカ調／アルパカタッチ",
+      "representative_yarn_types": ["起毛紡績糸", "ブラッシュヤーン", "ソフト毛足系ファンシーヤーン"],
+      "common_fibers": ["アクリル", "ナイロン", "ポリエステル", "レーヨン等"],
+      "category": "アルパカ調・起毛系",
+      "natural_target_fiber": "名称だけではAlpaca含有を意味しない。羊驼／Alpacaの混率表記を確認。",
+      "search_keywords": ["仿羊驼", "仿羊驼毛", "羊驼风格", "アルパカ調"],
+      "exhibition_checks": ["毛羽の細さ", "起毛方法", "軽さ", "ピリング", "実混率"]
+    },
+    {
+      "id": "CN-YARN-007",
+      "priority": 7,
+      "market_name": "仿亚麻",
+      "aliases": ["仿麻", "仿亚麻纱", "亚麻感"],
+      "japanese_name": "リネン調／リネンタッチ",
+      "representative_yarn_types": ["強撚レーヨン系", "ドライタッチ紡績糸", "カバリングヤーン"],
+      "common_fibers": ["レーヨン（ビスコース）", "ナイロン", "ポリエステル", "綿等"],
+      "category": "麻見え・ドライタッチ春夏糸",
+      "natural_target_fiber": "仿亚麻は麻見え・麻タッチを示す市場名。Linen／亚麻の実混率は別途確認。",
+      "search_keywords": ["仿亚麻", "仿麻", "亚麻感", "リネン調", "麻見え", "高捻"],
+      "exhibition_checks": ["撚りの強さ", "スラブ感", "カバリング有無", "清涼感", "実混率"]
+    },
+    {
+      "id": "CN-YARN-008",
+      "priority": 8,
+      "market_name": "冰麻／丝麻",
+      "aliases": ["冰丝麻", "冰麻纱", "丝麻纱", "冰麻感"],
+      "japanese_name": "アイスリネン調／シルクリネン調",
+      "representative_yarn_types": ["強撚レーヨン系", "レーヨン／ナイロン系カバリングヤーン", "ドライタッチ春夏糸"],
+      "common_fibers": ["レーヨン（ビスコース）", "ナイロン", "ポリエステル等"],
+      "category": "清涼・麻見え春夏糸",
+      "natural_target_fiber": "冰麻／丝麻という名称だけでLinenやSilk含有とは判断しない。必ず混率を確認。",
+      "search_keywords": ["冰麻", "丝麻", "冰丝麻", "アイスリネン", "シルクリネン", "清涼", "麻見え"],
+      "exhibition_checks": ["接触冷感の根拠", "強撚の有無", "フィラメント／スパン", "カバリング構造", "実混率"]
+    }
+  ]
+}
