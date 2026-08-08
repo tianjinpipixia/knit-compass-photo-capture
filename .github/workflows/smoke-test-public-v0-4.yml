@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify branch-local wrapper, app, manifest, and Daily shortcut
+      - name: Verify branch-local V04 shell, Human Review, glossary, app, manifest, and Daily shortcut
         shell: python
         run: |
           import hashlib
@@ -33,15 +33,25 @@ jobs:
           from pathlib import Path
 
           index = Path('brand-intelligence/index.html').read_text(encoding='utf-8')
+          current = Path('brand-intelligence/index-current.html').read_text(encoding='utf-8')
+          glossary = Path('brand-intelligence/yarn-glossary.html').read_text(encoding='utf-8')
+          glossary_data = json.loads(Path('brand-intelligence/data/cn-yarn-glossary.json').read_text(encoding='utf-8'))
           app = Path('brand-intelligence/app.html').read_bytes()
           manifest = json.loads(Path('brand-intelligence/manifest.webmanifest').read_text(encoding='utf-8'))
           daily = Path('daily/index.html').read_text(encoding='utf-8')
 
-          match = re.search(r'app\.html\?v=[0-9.]+', index)
-          assert match, 'wrapper does not reference versioned app.html'
-          assert 'Photo Capture受信箱' in index
-          assert 'Human Review' in index
-          assert 'DecompressionStream' not in index
+          match = re.search(r'app\.html\?v=[0-9.]+', current)
+          assert match, 'preserved Human Review wrapper does not reference versioned app.html'
+          assert './index-current.html' in index
+          assert './yarn-glossary.html' in index
+          assert '中国糸名辞書' in index
+          assert 'Photo Capture受信箱' in current
+          assert 'Human Review' in current
+          assert 'DecompressionStream' not in current
+          assert '中国語糸名 ↔ 日本語標準名' in glossary
+          assert '代表的な糸タイプ（例）' in glossary
+          assert glossary_data['dictionary_id'] == 'KC-CN-YARN-001'
+          assert len(glossary_data['entries']) >= 8
           assert manifest['short_name'] == 'Knit Compass'
           assert b'kc_independent_practical_v0_4' in app
 
@@ -53,7 +63,7 @@ jobs:
           assert './icon.svg' in daily
           assert Path('daily/icon.svg').is_file()
 
-          print(f'PASS: local wrapper references {match.group(0)}; app SHA-256 {hashlib.sha256(app).hexdigest()}')
+          print(f'PASS: V04 shell -> preserved Human Review -> {match.group(0)} and China yarn glossary; app SHA-256 {hashlib.sha256(app).hexdigest()}')
 
   public-main-smoke:
     if: github.event_name != 'pull_request'
@@ -71,17 +81,23 @@ jobs:
 
           root = 'https://tianjinpipixia.github.io/knit-compass-photo-capture/'
           local_index = Path('brand-intelligence/index.html').read_bytes()
+          local_current = Path('brand-intelligence/index-current.html').read_bytes()
+          local_glossary = Path('brand-intelligence/yarn-glossary.html').read_bytes()
+          local_glossary_data = Path('brand-intelligence/data/cn-yarn-glossary.json').read_bytes()
           local_app = Path('brand-intelligence/app.html').read_bytes()
           local_manifest = Path('brand-intelligence/manifest.webmanifest').read_bytes()
           local_daily = Path('daily/index.html').read_bytes()
           local_daily_icon = Path('daily/icon.svg').read_bytes()
-          index_text = local_index.decode('utf-8')
-          app_ref_match = re.search(r'app\.html\?v=[0-9.]+', index_text)
-          assert app_ref_match, 'local wrapper does not reference versioned app.html'
+          current_text = local_current.decode('utf-8')
+          app_ref_match = re.search(r'app\.html\?v=[0-9.]+', current_text)
+          assert app_ref_match, 'local preserved Human Review wrapper does not reference versioned app.html'
           app_ref = app_ref_match.group(0)
 
           expected = {
               'index': hashlib.sha256(local_index).hexdigest(),
+              'current': hashlib.sha256(local_current).hexdigest(),
+              'glossary': hashlib.sha256(local_glossary).hexdigest(),
+              'glossary_data': hashlib.sha256(local_glossary_data).hexdigest(),
               'app': hashlib.sha256(local_app).hexdigest(),
               'manifest': hashlib.sha256(local_manifest).hexdigest(),
               'daily': hashlib.sha256(local_daily).hexdigest(),
@@ -89,7 +105,7 @@ jobs:
           }
 
           def get(url):
-              request = urllib.request.Request(url, headers={'User-Agent': 'Knit-Compass-Smoke-Test/2.0'})
+              request = urllib.request.Request(url, headers={'User-Agent': 'Knit-Compass-Smoke-Test/3.0'})
               with urllib.request.urlopen(request, timeout=30) as response:
                   if response.status != 200:
                       raise RuntimeError(f'{url}: HTTP {response.status}')
@@ -100,18 +116,26 @@ jobs:
                   base = root + 'brand-intelligence/'
                   public_index = get(base)
                   public_index_text = public_index.decode('utf-8')
-                  assert hashlib.sha256(public_index).hexdigest() == expected['index'], 'public wrapper is not current main'
-                  assert 'Photo Capture受信箱' in public_index_text
-                  assert 'Human Review' in public_index_text
-                  assert 'DecompressionStream' not in public_index_text
+                  assert hashlib.sha256(public_index).hexdigest() == expected['index'], 'public V04 shell is not current main'
+                  assert '中国糸名辞書' in public_index_text
+                  assert './index-current.html' in public_index_text
+
+                  public_current = get(base + 'index-current.html')
+                  public_current_text = public_current.decode('utf-8')
+                  assert hashlib.sha256(public_current).hexdigest() == expected['current'], 'public Human Review wrapper is not current main'
+                  assert 'Photo Capture受信箱' in public_current_text
+                  assert 'Human Review' in public_current_text
+                  assert 'DecompressionStream' not in public_current_text
 
                   public_app = get(base + app_ref)
                   assert hashlib.sha256(public_app).hexdigest() == expected['app'], 'public app is not current main'
+                  assert hashlib.sha256(get(base + 'yarn-glossary.html')).hexdigest() == expected['glossary'], 'public glossary is not current main'
+                  assert hashlib.sha256(get(base + 'data/cn-yarn-glossary.json')).hexdigest() == expected['glossary_data'], 'public glossary data is not current main'
                   assert hashlib.sha256(get(base + 'manifest.webmanifest')).hexdigest() == expected['manifest'], 'public manifest is not current main'
                   assert hashlib.sha256(get(root + 'daily/')).hexdigest() == expected['daily'], 'public Daily page is not current main'
                   assert hashlib.sha256(get(root + 'daily/icon.svg')).hexdigest() == expected['daily_icon'], 'public Daily icon is not current main'
 
-                  print(f'PASS: deployed wrapper and {app_ref} match main; app SHA-256 {expected["app"]}')
+                  print(f'PASS: deployed V04 shell, Human Review, glossary, and {app_ref} match main; app SHA-256 {expected["app"]}')
                   break
               except Exception as error:
                   print(f'Attempt {attempt}/30 failed: {error}')
