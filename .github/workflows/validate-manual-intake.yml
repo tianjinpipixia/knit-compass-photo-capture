@@ -1,0 +1,25 @@
+name: Validate manual intake
+
+on:
+  pull_request:
+    paths:
+      - 'data/manual-intake/**'
+      - 'scripts/validate_manual_intake_*.py'
+      - '.github/workflows/validate-manual-intake.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/manual-intake/**'
+      - 'scripts/validate_manual_intake_*.py'
+      - '.github/workflows/validate-manual-intake.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate 2026-08-08 batch 1
+        run: python3 scripts/validate_manual_intake_20260808.py
