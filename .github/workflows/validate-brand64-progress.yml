@@ -1,0 +1,37 @@
+name: Validate brand64 progress
+
+on:
+  pull_request:
+    paths:
+      - 'data/brand-research/2026-08-08-brand64-progress.csv'
+      - 'data/brand-research/2026-08-08-official-verification-batch1.csv'
+      - 'data/brand-research/2026-08-08-official-verification-batch2.csv'
+      - 'scripts/validate_brand64_progress_20260808.py'
+      - 'scripts/validate_brand64_official_verification_20260808.py'
+      - 'scripts/validate_brand64_official_verification_batch2_20260808.py'
+      - '.github/workflows/validate-brand64-progress.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/brand-research/2026-08-08-brand64-progress.csv'
+      - 'data/brand-research/2026-08-08-official-verification-batch1.csv'
+      - 'data/brand-research/2026-08-08-official-verification-batch2.csv'
+      - 'scripts/validate_brand64_progress_20260808.py'
+      - 'scripts/validate_brand64_official_verification_20260808.py'
+      - 'scripts/validate_brand64_official_verification_batch2_20260808.py'
+      - '.github/workflows/validate-brand64-progress.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate brand64 progress
+        run: python3 scripts/validate_brand64_progress_20260808.py
+      - name: Validate official verification batch1
+        run: python3 scripts/validate_brand64_official_verification_20260808.py
+      - name: Validate official verification batch2
+        run: python3 scripts/validate_brand64_official_verification_batch2_20260808.py
