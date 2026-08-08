@@ -5,6 +5,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 PATH = Path('data/brand-research/2026-08-08-rope-picnic-22-official.csv')
+NEXT = Path('data/brand-research/2026-08-08-product78-next-work.csv')
 with PATH.open(encoding='utf-8-sig', newline='') as f:
     rows = list(csv.DictReader(f))
 
@@ -51,4 +52,17 @@ assert single['GDM16500']['official_composition'] == 'レーヨン65%・ナイ�
 assert '紫外線遮蔽率90%以上' in single['GDM16500']['official_functions']
 assert '近赤外線ケア(遮蔽率80.0%)' in single['GDM16500']['official_functions']
 
-print('ROPÉ PICNIC 22 official: OK (22 staging rows -> 21 official products; 1 duplicate pair held for Human Review)')
+with NEXT.open(encoding='utf-8-sig', newline='') as f:
+    work_rows = list(csv.DictReader(f))
+work = {r['work_bucket']: int(r['count']) for r in work_rows}
+assert work == {
+    'OUT_OF_SCOPE_HISTORY': 13,
+    'EXISTING_OFFICIAL_URL_CURRENT_EVIDENCE': 14,
+    'EXISTING_OFFICIAL_URL_RECHECK_PENDING': 6,
+    'NO_URL_ROPE_PICNIC_OFFICIAL_MATCHED': 22,
+    'NO_URL_TARGET_PENDING': 23,
+    'TOTAL': 78,
+}
+assert 13 + 14 + 6 + 22 + 23 == 78
+
+print('ROPÉ PICNIC 22 official: OK (22 staging rows -> 21 official products; 1 duplicate pair held; remaining no-URL backlog=23)')
