@@ -1,0 +1,27 @@
+name: Validate product78 official batch2
+
+on:
+  pull_request:
+    paths:
+      - 'data/brand-research/2026-08-08-product-verification-batch2.csv'
+      - 'data/brand-research/2026-08-08-product78-next-work.csv'
+      - 'scripts/validate_product78_official_batch2_20260808.py'
+      - '.github/workflows/validate-product78-official-batch2.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/brand-research/2026-08-08-product-verification-batch2.csv'
+      - 'data/brand-research/2026-08-08-product78-next-work.csv'
+      - 'scripts/validate_product78_official_batch2_20260808.py'
+      - '.github/workflows/validate-product78-official-batch2.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate product78 official batch2
+        run: python3 scripts/validate_product78_official_batch2_20260808.py
