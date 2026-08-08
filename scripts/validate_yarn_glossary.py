@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the V04 China yarn market-name glossary contract."""
+"""Validate the V04 China yarn market-name glossary and main navigation contract."""
 from __future__ import annotations
 
 import json
@@ -34,6 +34,15 @@ REQUIRED_FIELDS = {
     "natural_target_fiber",
     "search_keywords",
     "exhibition_checks",
+}
+REQUIRED_MAIN_NAV = {
+    "V04本体": "./index-current.html",
+    "Photo Capture": "../",
+    "中国糸名辞書": "./yarn-glossary.html",
+    "Daily": "../daily/",
+    "共有管理": "../customer-sharing/",
+    "STYLEM": "../stylem/",
+    "システム状態": "../status/",
 }
 
 
@@ -117,6 +126,13 @@ def main() -> None:
     shell = SHELL.read_text(encoding="utf-8")
     if "中国糸名辞書" not in shell or "./index-current.html" not in shell or "./yarn-glossary.html" not in shell:
         fail("V04 shell is not wired to the preserved Human Review UI and glossary")
+    for label, route in REQUIRED_MAIN_NAV.items():
+        if label not in shell:
+            fail(f"V04 main navigation missing label: {label}")
+        if route not in shell:
+            fail(f"V04 main navigation missing route for {label}: {route}")
+    if shell.find("V04本体") > shell.find("Photo Capture") or shell.find("Photo Capture") > shell.find("中国糸名辞書"):
+        fail("V04 main navigation leading order is incorrect")
     if not PRESERVED.exists():
         fail("preserved V04 Human Review shell is missing")
 
@@ -125,7 +141,7 @@ def main() -> None:
         if path not in sw:
             fail(f"service worker cache missing {path}")
 
-    print(f"OK: validated {len(entries)} China yarn market-name entries and V04 glossary wiring")
+    print(f"OK: validated {len(entries)} China yarn entries, glossary wiring, and 7-site V04 navigation")
 
 
 if __name__ == "__main__":
