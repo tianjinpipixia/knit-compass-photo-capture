@@ -38,6 +38,7 @@ name: Validate system registry
       - "start.sh"
       - "requirements-validation.txt"
       - "scripts/validate_system_registry.py"
+      - "scripts/validate_yarn_glossary.py"
       - "scripts/validate_handoff_safety.py"
       - "scripts/validate_ui_state_guard.py"
       - "scripts/validate_customer_sharing.py"
@@ -83,6 +84,7 @@ name: Validate system registry
       - "start.sh"
       - "requirements-validation.txt"
       - "scripts/validate_system_registry.py"
+      - "scripts/validate_yarn_glossary.py"
       - "scripts/validate_handoff_safety.py"
       - "scripts/validate_ui_state_guard.py"
       - "scripts/validate_customer_sharing.py"
@@ -108,3 +110,5 @@ jobs:
         run: python -m pip install -r requirements-validation.txt
       - name: Validate registry, source revisions, and KPI schema
         run: python scripts/validate_system_registry.py
+      - name: Validate China yarn glossary contract
+        run: python scripts/validate_yarn_glossary.py
