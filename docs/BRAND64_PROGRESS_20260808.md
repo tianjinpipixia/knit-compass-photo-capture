@@ -19,17 +19,33 @@
   - rows: 78
   - brands: GU / MUJI / ROPÉ PICNIC / GLOBAL WORK / DoCLASSE / Te chichi
 
+## 公式確認 Batch 1
+
+2026-08-08に24件を現行公式サイトで確認し、`data/brand-research/2026-08-08-official-verification-batch1.csv` に固定した。
+
+対象: UNIQLO / GU / MUJI / ROPÉ PICNIC / VIS / GLOBAL WORK / LOWRYS FARM / studio CLIP / niko and ... / earth music&ecology / Green Parks / OPAQUE.CLIP / index / SHOO・LA・RUE / grove / ikka / DoCLASSE / any SiS / any FAM / Te chichi / ANY / MATINEE LINE / ROPÉ / ADAM ET ROPÉ。
+
+### 同一性レビューの解決
+
+- `BR-00059 ANY`: 現行の独立ブランドとして公式確認。`any FAM` から `ANY` へのリブランド履歴を保持する。
+- `BR-00020 any FAM`: 現行成人ブランドとして追わず `LEGACY_REBRANDED`。履歴行は削除しない。
+- `BR-00061 MATINEE LINE`: GLOBAL WORK公式内の女性向けラインとして確認。`SUBLINE_RESOLVED` とし、独立ブランド集計から分離する。
+
+64ブランド正本自体は履歴・監査のため上書きせず、今回の進捗表で現行状態を表現する。
+
 ## 現在の64件分類
 
 | 状態 | 件数 | 意味 |
 |---|---:|---|
 | PRODUCT_EVIDENCE_PRESENT | 6 | 商品stagingが既にある。URL/公式根拠をHuman Reviewする |
 | PRIORITY20_STAGED | 15 | 重点20に基本プロフィールはあるが商品stagingはない |
-| MASTER_ONLY_UNCHECKED | 39 | 64件原本にはあるが今回の重点20・商品78件に未接続 |
+| MASTER_ONLY_UNCHECKED | 38 | 64件原本にはあるが今回の重点20・商品78件に未接続 |
 | EXCLUDED_MENS_ONLY | 2 | 五大陸 / TAKEO KIKUCHI。今回の「メンズ対象外」運用により調査対象外 |
-| IDENTITY_REVIEW_REQUIRED | 2 | ANY / MATINEE LINE。ブランド同一性・公式範囲を先に確認する |
+| LEGACY_REBRANDED | 1 | any FAM。ANYへのリブランド履歴として保持 |
+| CURRENT_BRAND_IDENTITY_RESOLVED | 1 | ANY。現行ブランドとして公式確認済み |
+| SUBLINE_RESOLVED | 1 | MATINEE LINE。GLOBAL WORK内ラインとして確認済み |
 
-合計64件。
+合計64件。24件は `official_current_verified=YES`。
 
 ## 商品78件の内訳
 
@@ -42,13 +58,12 @@
 
 商品レコードが存在することと、公式根拠確認済みは別扱いとする。既存78件には `REVIEW_REQUIRED` が多いため、件数だけで「ブランド調査完了」としない。
 
-## 調査順
+## 次の調査順
 
-1. `PRODUCT_EVIDENCE_PRESENT` 6ブランドの既存商品URLを公式根拠で再確認
-2. `PRIORITY20_STAGED` 15ブランドの公式ブランドURL・女性向けニット商品URLを補完
-3. `IDENTITY_REVIEW_REQUIRED` 2件を先に解決
-4. `MASTER_ONLY_UNCHECKED` 39件から、女性向けニット対象を順に公式確認
-5. メンズ専業2件は母数には残し、今回の調査実働から除外
+1. `PRODUCT_EVIDENCE_PRESENT` 6ブランドの既存78商品を公式商品URLへ照合
+2. 公式確認済みだが商品stagingのない重点ブランドの女性向けニットを商品単位で補完
+3. `MASTER_ONLY_UNCHECKED` 38件から、女性向けニット対象を企業グループ単位で公式確認
+4. メンズ専業2件は母数には残し、今回の調査実働から除外
 
 ## 安全ルール
 
@@ -56,5 +71,6 @@
 - 公式サイト優先
 - 商品単位の混率・機能をブランド全体へ一般化しない
 - 公式確認できない項目は `NOT AVAILABLE` / `REVIEW REQUIRED`
-- `ANY` を any SiS / any FAM に自動統合しない
+- `ANY` / `any FAM` / `any SiS` は履歴・現行ブランドを区別し、自動統合しない
+- `MATINEE LINE` はGLOBAL WORK内ラインとして扱う
 - `MUJI` と `MUJI Labo` は別行を維持
