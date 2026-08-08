@@ -7,7 +7,8 @@ const APP_SHELL = [
   './manifest.webmanifest',
   './icon.svg',
   './yarn-glossary.html',
-  './data/cn-yarn-glossary.json'
+  './data/cn-yarn-glossary.json',
+  './data/cn-yarn-glossary.json?v=1.0.0'
 ];
 
 self.addEventListener('install', event => {
