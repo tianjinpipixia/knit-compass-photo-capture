@@ -1,0 +1,27 @@
+name: Validate ROPÉ PICNIC 22 official
+
+on:
+  pull_request:
+    paths:
+      - 'data/brand-research/2026-08-08-rope-picnic-22-official.csv'
+      - 'data/brand-research/2026-08-08-product78-next-work.csv'
+      - 'scripts/validate_rope_picnic_22_official_20260808.py'
+      - '.github/workflows/validate-rope-picnic-22-official.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/brand-research/2026-08-08-rope-picnic-22-official.csv'
+      - 'data/brand-research/2026-08-08-product78-next-work.csv'
+      - 'scripts/validate_rope_picnic_22_official_20260808.py'
+      - '.github/workflows/validate-rope-picnic-22-official.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate ROPÉ PICNIC 22 official matching
+        run: python3 scripts/validate_rope_picnic_22_official_20260808.py
