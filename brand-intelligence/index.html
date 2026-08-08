@@ -14,28 +14,35 @@
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./icon.svg">
   <style>
-    :root{--ink:#172826;--paper:#f2f5f3;--teal:#163f3c;--muted:#cbdad5;--line:rgba(255,255,255,.28)}
+    :root{--ink:#172826;--paper:#f2f5f3;--teal:#163f3c;--muted:#cbdad5;--line:rgba(255,255,255,.28);--menu-line:#d6dfdb}
     *{box-sizing:border-box}html,body{height:100%;margin:0;background:var(--paper);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;overflow:hidden}
     button,a{font:inherit}.shell{height:100%;display:grid;grid-template-rows:auto minmax(0,1fr)}
-    .switcher{background:var(--ink);color:#fff;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:12px;padding:7px 10px calc(7px + env(safe-area-inset-top));z-index:100}
+    .switcher{position:relative;background:var(--ink);color:#fff;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:14px;padding:7px 10px calc(7px + env(safe-area-inset-top));z-index:100}
     .brand{display:flex;align-items:center;gap:8px;min-width:max-content}.mark{display:grid;place-items:center;width:31px;height:31px;border-radius:9px;background:#fff;color:var(--teal);font-size:11px;font-weight:950}.brand strong{display:block;font-size:12px}.brand span{display:block;color:var(--muted);font-size:8px}
-    .site-nav{display:flex;align-items:center;gap:6px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;padding-bottom:1px}.nav-item{display:inline-flex;align-items:center;justify-content:center;min-height:36px;border:1px solid var(--line);border-radius:9px;background:transparent;color:#fff;text-decoration:none;padding:7px 10px;font-size:10px;font-weight:900;white-space:nowrap;cursor:pointer}.nav-item.active{background:#fff;color:var(--teal)}.nav-item:hover{background:rgba(255,255,255,.12)}.nav-item.active:hover{background:#fff}
+    .primary-nav{display:flex;align-items:center;justify-content:flex-end;gap:6px;min-width:0}.nav-item{display:inline-flex;align-items:center;justify-content:center;min-height:36px;border:1px solid var(--line);border-radius:9px;background:transparent;color:#fff;text-decoration:none;padding:7px 11px;font-size:10px;font-weight:900;white-space:nowrap;cursor:pointer}.nav-item.active{background:#fff;color:var(--teal)}.nav-item:hover{background:rgba(255,255,255,.12)}.nav-item.active:hover{background:#fff}
+    .manage{position:relative}.manage-button::after{content:"⌄";margin-left:5px;font-size:10px}.manage-button[aria-expanded="true"]{background:rgba(255,255,255,.14)}
+    .manage-menu{position:absolute;top:calc(100% + 8px);right:0;width:240px;display:none;padding:7px;background:#fff;border:1px solid var(--menu-line);border-radius:12px;box-shadow:0 14px 36px rgba(10,24,22,.24);z-index:120}.manage-menu.open{display:grid;gap:4px}.manage-link{display:grid;gap:1px;padding:10px 11px;border-radius:9px;color:var(--ink);text-decoration:none}.manage-link:hover{background:#eef3f1}.manage-link strong{font-size:11px}.manage-link span{font-size:9px;color:#5d6d69}
     .frame-wrap{min-height:0}.frame{display:block;width:100%;height:100%;border:0;background:var(--paper)}
-    @media(max-width:760px){.switcher{grid-template-columns:1fr;gap:6px;padding-left:7px;padding-right:7px}.brand span{display:none}.brand strong{font-size:11px}.site-nav{width:100%}.nav-item{padding:7px 9px;font-size:9px}}
+    @media(max-width:760px){.switcher{grid-template-columns:1fr;gap:6px;padding-left:7px;padding-right:7px}.brand span{display:none}.brand strong{font-size:11px}.primary-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;width:100%}.nav-item{min-width:0;padding:7px 3px;font-size:9px;overflow:hidden;text-overflow:ellipsis}.manage-menu{position:fixed;top:calc(82px + env(safe-area-inset-top));right:7px;width:min(280px,calc(100vw - 14px))}}
   </style>
 </head>
 <body>
   <div class="shell">
     <header class="switcher">
-      <div class="brand"><div class="mark">KC</div><div><strong>Knit Compass v0.4</strong><span>全機能への共通入口</span></div></div>
-      <nav class="site-nav" aria-label="Knit Compass主要サイト">
+      <div class="brand"><div class="mark">KC</div><div><strong>Knit Compass</strong><span>日常操作を優先</span></div></div>
+      <nav class="primary-nav" aria-label="Knit Compass主要操作">
         <button class="nav-item active" id="tabV04" type="button">V04本体</button>
-        <a class="nav-item" href="../" target="_top">Photo Capture</a>
+        <a class="nav-item" href="../" target="_top" title="Photo Captureを開く">Photo Capture</a>
         <button class="nav-item" id="tabGlossary" type="button">中国糸名辞書</button>
         <a class="nav-item" href="../daily/" target="_top">Daily</a>
-        <a class="nav-item" href="../customer-sharing/" target="_top">共有管理</a>
-        <a class="nav-item" href="../stylem/" target="_top">STYLEM</a>
-        <a class="nav-item" href="../status/" target="_top">システム状態</a>
+        <div class="manage" id="manageArea">
+          <button class="nav-item manage-button" id="manageButton" type="button" aria-haspopup="true" aria-expanded="false">管理</button>
+          <div class="manage-menu" id="manageMenu" role="menu" aria-label="管理メニュー">
+            <a class="manage-link" href="../customer-sharing/" target="_top" role="menuitem"><strong>共有管理</strong><span>顧客へ共有する内容を管理</span></a>
+            <a class="manage-link" href="../stylem/" target="_top" role="menuitem"><strong>STYLEM</strong><span>顧客側の表示を確認</span></a>
+            <a class="manage-link" href="../status/" target="_top" role="menuitem"><strong>システム状態</strong><span>接続・保存先・Revisionを確認</span></a>
+          </div>
+        </div>
       </nav>
     </header>
     <main class="frame-wrap"><iframe class="frame" id="contentFrame" title="Knit Compass v0.4" src="./index-current.html"></iframe></main>
@@ -46,12 +53,22 @@
   const frame=document.getElementById('contentFrame');
   const tabV04=document.getElementById('tabV04');
   const tabGlossary=document.getElementById('tabGlossary');
+  const manageArea=document.getElementById('manageArea');
+  const manageButton=document.getElementById('manageButton');
+  const manageMenu=document.getElementById('manageMenu');
   const ROUTES={v04:'./index-current.html',glossary:'./yarn-glossary.html'};
+
+  function setManage(open){manageMenu.classList.toggle('open',open);manageButton.setAttribute('aria-expanded',String(open))}
+  manageButton.addEventListener('click',event=>{event.stopPropagation();setManage(manageButton.getAttribute('aria-expanded')!=='true')});
+  document.addEventListener('click',event=>{if(!manageArea.contains(event.target))setManage(false)});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'){setManage(false);manageButton.focus()}});
+
   function openRoute(name,replaceHash=false){
     const glossary=name==='glossary';
     frame.src=glossary?ROUTES.glossary:ROUTES.v04;
     tabGlossary.classList.toggle('active',glossary);
     tabV04.classList.toggle('active',!glossary);
+    setManage(false);
     const hash=glossary?'#cn-yarn-glossary':'#v04';
     if(location.hash!==hash){if(replaceHash)history.replaceState(null,'',hash);else history.pushState(null,'',hash)}
   }

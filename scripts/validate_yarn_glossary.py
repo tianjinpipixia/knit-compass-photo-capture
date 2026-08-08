@@ -133,6 +133,16 @@ def main() -> None:
             fail(f"V04 main navigation missing route for {label}: {route}")
     if shell.find("V04本体") > shell.find("Photo Capture") or shell.find("Photo Capture") > shell.find("中国糸名辞書"):
         fail("V04 main navigation leading order is incorrect")
+
+    if shell.count('class="nav-item') != 5:
+        fail("V04 top navigation must contain exactly 5 primary controls")
+    for token in ("管理メニュー", "manageButton", "manageMenu", 'aria-expanded="false"'):
+        if token not in shell:
+            fail(f"V04 simplified management menu missing token: {token}")
+    for label in ("共有管理", "STYLEM", "システム状態"):
+        if shell.find(label) < shell.find("manageMenu"):
+            fail(f"{label} must be grouped inside the management menu")
+
     if not PRESERVED.exists():
         fail("preserved V04 Human Review shell is missing")
 
@@ -141,7 +151,7 @@ def main() -> None:
         if path not in sw:
             fail(f"service worker cache missing {path}")
 
-    print(f"OK: validated {len(entries)} China yarn entries, glossary wiring, and 7-site V04 navigation")
+    print(f"OK: validated {len(entries)} China yarn entries, glossary wiring, and simplified V04 navigation")
 
 
 if __name__ == "__main__":
