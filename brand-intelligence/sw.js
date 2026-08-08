@@ -1,10 +1,12 @@
-const CACHE_NAME = 'kc-brand-intelligence-v0-4-5';
+const CACHE_NAME = 'kc-brand-intelligence-v0-4-6';
 const APP_SHELL = [
   './',
   './index.html',
   './app.html',
   './manifest.webmanifest',
-  './icon.svg'
+  './icon.svg',
+  './yarn-glossary.html',
+  './data/cn-yarn-glossary.json'
 ];
 
 self.addEventListener('install', event => {
