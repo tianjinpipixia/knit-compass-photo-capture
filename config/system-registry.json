@@ -1,6 +1,6 @@
 {
   "schema_version": "1.4.0",
-  "updated_at": "2026-08-09T23:30:00+09:00",
+  "updated_at": "2026-08-09T23:55:00+09:00",
   "policy": {
     "unknown_connections_are_forbidden": true,
     "connection_change_requires_registry_update": true,
@@ -28,10 +28,12 @@
       "system_id": "KC-PHOTO-CAPTURE",
       "display_name": "Photo Capture",
       "environment": "independent-sandbox",
-      "display_version": "v1.3.0",
+      "display_version": "v1.3.1",
       "entry_path": "/",
+      "entry_href": "../",
+      "entry_label": "Photo Captureを開く",
       "code_source": "app.js@main",
-      "code_revision": "git-blob:fdb7f0a0c307f60705783e5e7a26ac973e20d151",
+      "code_revision": "git-blob:709c5d522b41ea527ac31d1f57551c25b2378af2",
       "auxiliary_sources": [
         {
           "code_source": "app.css@main",
@@ -39,7 +41,7 @@
         },
         {
           "code_source": "knitting-ends-field.js@main",
-          "code_revision": "git-blob:ea7130e7467019dfd1002ae3b3f27f54bdd8095e"
+          "code_revision": "git-blob:5459c29d77a99a37aa1bab81ca81f918531d4cb5"
         },
         {
           "code_source": "app-state-guard.js@main",
@@ -47,7 +49,23 @@
         },
         {
           "code_source": "index.html@main",
-          "code_revision": "git-blob:86dcbc8c479db238d4d7b6a74d9e9ca2f9cc8be8"
+          "code_revision": "git-blob:4208f53c497e3268e2d91c5e010e6d0ba4256432"
+        },
+        {
+          "code_source": "sw.js@main",
+          "code_revision": "git-blob:6964c0ca0af9ee0869a8c1dc33419c0721f75e98"
+        },
+        {
+          "code_source": "connection-status.css@main",
+          "code_revision": "git-blob:cad76ab49f47b90ee196055c6420571fe3052143"
+        },
+        {
+          "code_source": "photo-capture-card-progress-v1.css@main",
+          "code_revision": "git-blob:7f984b4689826118996ef77e9ccc07472fa62f78"
+        },
+        {
+          "code_source": "photo-capture-card-progress-v1.js@main",
+          "code_revision": "git-blob:1dbb9fad8f7a69eba267c18e4ff919559ed66a04"
         },
         {
           "code_source": "backup.js@main",
@@ -91,6 +109,8 @@
       "environment": "independent",
       "display_version": "v0.4.7",
       "entry_path": "/brand-intelligence/",
+      "entry_href": "../brand-intelligence/",
+      "entry_label": "V04・Human Reviewを開く",
       "code_source": "brand-intelligence/app.html@main",
       "code_revision": "git-blob:de3c6570b5123f3baca85e2e606a4bde8687dc58",
       "auxiliary_sources": [
@@ -128,8 +148,10 @@
       "environment": "same-origin-local-pilot-owner",
       "display_version": "v1.0.2",
       "entry_path": "/customer-sharing/",
+      "entry_href": "../customer-sharing/",
+      "entry_label": "共有管理を開く",
       "code_source": "customer-sharing/index.html@main",
-      "code_revision": "git-blob:6368d6ff1866b3d8471ebda3e3235f03da04d92f",
+      "code_revision": "git-blob:df1c46d06aabcdd38f7a650b0c9c21d0590a1be9",
       "auxiliary_sources": [
         {
           "code_source": "customer-sharing/policy.js@main",
@@ -149,6 +171,8 @@
       "environment": "same-origin-local-pilot-customer",
       "display_version": "v1.0.2",
       "entry_path": "/stylem/",
+      "entry_href": "../stylem/",
+      "entry_label": "顧客ポータルを開く",
       "code_source": "stylem/index.html@main",
       "code_revision": "git-blob:6333a71120f2c6317e15b24a3f0da4037069db42",
       "auxiliary_sources": [
@@ -170,8 +194,10 @@
       "environment": "independent",
       "display_version": "v0.4",
       "entry_path": "/daily/",
+      "entry_href": "../daily/",
+      "entry_label": "Daily Webを開く",
       "code_source": "daily/index.html@main",
-      "code_revision": "git-blob:a7d85f1bd884c79a21d55ded1ed60447365855ef",
+      "code_revision": "git-blob:262b5037ec9acae48421fc603b60b17c35014487",
       "data_store": "browser-localstorage",
       "storage_detail": "localStorage kc_independent_practical_v0_4",
       "sync_mode": "manual-only-when-owner-configured",
@@ -185,6 +211,8 @@
       "environment": "independent-apk",
       "display_version": "v0.4.0",
       "entry_path": "apk",
+      "entry_href": "https://github.com/tianjinpipixia/knit-compass-photo-capture/actions/workflows/build-android-daily-apk.yml",
+      "entry_label": "最新Android APKを取得",
       "code_source": "android-daily@main",
       "code_revision": "content-sha256:21ff2fd0504f7ef73becfb71e348328e50133bf0ad984896945eceeb69b75856",
       "data_store": "android-webview-app-data",

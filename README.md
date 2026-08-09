@@ -15,6 +15,8 @@ Photo Capture、v0.4、Daily、Androidは引き続き独立運用です。Produc
 
 同一ブラウザではlocalStorage受信箱を共有します。別サイト・別端末では受信箱JSONを書き出し、v0.4側で取り込みます。PENDINGまたはREJECTEDの候補はマスターへ反映しません。
 
+Photo Capture v1.3.1では、インストール名とカメラアイコンを統一し、Service WorkerによるPWA起動とオフライン再起動を追加しました。Photo Capture、V04、Daily、共有管理、顧客ポータル、システム状態は各画面の共通導線またはシステム状態の「開く」ボタンから移動できます。
+
 v0.4.7では、V04入口とカタログ導線を整理し、**中国糸名辞書**と**月次掲載・MD**を接続しています。中国市場名は日本語標準名・代表的な糸タイプ（例）として読取専用で照合し、月次観測は販売数量を推定せずMD提案へ引き継ぎます。
 
 ### データ保護
@@ -39,7 +41,7 @@ v0.4.7では、V04入口とカタログ導線を整理し、**中国糸名辞書
 
 | システム | 入口 | 主な保存先 | 接続 |
 |---|---|---|---|
-| Photo Capture v1.3.0 | `/` | IndexedDB `kc_independent_photo_capture_v1_0` | v0.4受信箱へ候補送信 |
+| Photo Capture v1.3.1 | `/` | IndexedDB `kc_independent_photo_capture_v1_0` | v0.4受信箱へ候補送信 |
 | Knit Compass v0.4.7 | `/brand-intelligence/` | localStorage `kc_independent_practical_v0_4` | Human Review後にマスター反映／月次掲載観測から公開保留MD提案 |
 | Daily Web | `/daily/` | localStorage | 独立運用 |
 | Daily Android | APK / `android-daily/` | Android WebView内 | 独立運用 |
@@ -54,6 +56,7 @@ v0.4.7では、V04入口とカタログ導線を整理し、**中国糸名辞書
 - [中国語糸名辞書](docs/CN_YARN_GLOSSARY.md)
 - [KIMI・Gemini調査／Human Review SOP](docs/RESEARCH_REVIEW_SOP.md)
 - [KPI計測基準](docs/KPI_MEASUREMENT.md)
+- [公式商品リンク未登録9件の完了記録](docs/PRODUCT_LINK_COMPLETION_20260809.md)
 
 ## ローカル起動
 
@@ -81,9 +84,11 @@ python3 scripts/validate_handoff_safety.py
 python3 scripts/validate_ui_state_guard.py
 python3 scripts/validate_photo_capture_install.py
 python3 scripts/validate_v04_monthly_md.py
+python3 scripts/validate_navigation_links.py
+python3 scripts/validate_product_link_completion_20260809.py
 ```
 
-検証対象は、接続台帳、全登録ソースのGit blob／content SHA、保存キー、CIトリガー、接続表示、JavaScript構文、Photo Captureのインストール名・カメラアイコン・操作配置、空欄上書き防止、根拠付き項目だけの反映、会社IDとプロフィール、PENDING保持、本取り保存契約、中国糸名辞書、月次観測から公開保留MD提案への接続、販売数量の非推定です。
+検証対象は、接続台帳、全登録ソースのGit blob／content SHA、保存キー、CIトリガー、接続表示、全ローカル画面・素材リンク、JavaScript構文、Photo Captureのインストール名・カメラアイコン・PWA起動・操作配置、空欄上書き防止、根拠付き項目だけの反映、会社IDとプロフィール、PENDING保持、本取り保存契約、中国糸名辞書、月次観測から公開保留MD提案への接続、販売数量の非推定、および公式商品URL未登録9件の解消です。
 
 ## 変更ルール
 

@@ -27,6 +27,7 @@ def main() -> None:
     css = (ROOT / "app.css").read_text(encoding="utf-8")
     icon = (ROOT / "icon.svg").read_text(encoding="utf-8")
     knitting = (ROOT / "knitting-ends-field.js").read_text(encoding="utf-8")
+    service_worker = (ROOT / "sw.js").read_text(encoding="utf-8")
 
     if manifest.get("name") != "Knit Compass Photo Capture":
         fail("installed full name must be Knit Compass Photo Capture")
@@ -56,12 +57,20 @@ def main() -> None:
     for token in ("ONLY YOU", "DRAFT FIRST", "INBOX UPLOAD", "AUTO MASTER OFF", "PUBLISH HOLD"):
         if token not in app:
             fail(f"safety badge missing: {token}")
-    if "const DISPLAY_VERSION = '1.3.0'" not in knitting or "current !== next" not in knitting:
+    if "const DISPLAY_VERSION = '1.3.1'" not in knitting or "current !== next" not in knitting:
         fail("non-recursive Photo Capture version disclosure guard is missing")
-    if "knitting-ends-field.js?v=1.3.0" not in index:
+    if "knitting-ends-field.js?v=1.3.1" not in index:
         fail("Photo Capture helper cache-busting version is missing")
+    if "serviceWorker.register('./sw.js?v=1.3.1')" not in app:
+        fail("Photo Capture install service worker is not registered")
+    for token in ("kc-photo-capture-v1-3-1", "./index.html", "./app.js", "./icon-192.png", "./icon-512.png"):
+        if token not in service_worker:
+            fail(f"Photo Capture install service worker is incomplete: {token}")
+    for destination in ("brand-intelligence/", "daily/", "customer-sharing/", "status/"):
+        if f'href="{destination}"' not in index:
+            fail(f"Photo Capture global navigation is missing: {destination}")
 
-    print("OK: Photo Capture install naming, camera icons, action order, and safety badges")
+    print("OK: Photo Capture install naming, camera icons, service worker, global navigation, action order, and safety badges")
 
 
 if __name__ == "__main__":

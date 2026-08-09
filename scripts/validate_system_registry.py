@@ -11,6 +11,7 @@ import stat
 import subprocess
 from pathlib import Path
 from typing import Any
+from urllib.parse import unquote, urlsplit
 
 import yaml
 
@@ -23,7 +24,7 @@ HEX40 = re.compile(r"[0-9a-f]{40}")
 HEX64 = re.compile(r"[0-9a-f]{64}")
 REQUIRED = {
     "environment", "system_id", "display_name", "display_version", "code_revision",
-    "code_source", "entry_path", "data_store", "sync_mode", "last_sync_at",
+    "code_source", "entry_path", "entry_href", "entry_label", "data_store", "sync_mode", "last_sync_at",
     "external_database", "status",
 }
 KPI_COLUMNS = {
@@ -121,6 +122,26 @@ def validate_revision(system_id: str, source: str, revision: str) -> None:
     fail(f"{system_id} unsupported revision format: {revision}")
 
 
+def validate_entry_link(system: dict[str, Any]) -> None:
+    value = system["entry_href"]
+    parsed = urlsplit(value)
+    if parsed.scheme:
+        if parsed.scheme != "https" or not parsed.netloc:
+            fail(f"{system['system_id']} entry_href must be a valid HTTPS URL")
+        return
+    if parsed.netloc or not parsed.path:
+        fail(f"{system['system_id']} entry_href is invalid")
+    target = (STATUS.parent / unquote(parsed.path)).resolve()
+    try:
+        target.relative_to(ROOT.resolve())
+    except ValueError:
+        fail(f"{system['system_id']} entry_href leaves the repository")
+    if target.is_dir() or parsed.path.endswith("/"):
+        target /= "index.html"
+    if not target.is_file():
+        fail(f"{system['system_id']} entry_href target missing: {target}")
+
+
 def load_registry() -> tuple[dict[str, Any], list[dict[str, Any]]]:
     try:
         registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
@@ -144,6 +165,7 @@ def load_registry() -> tuple[dict[str, Any], list[dict[str, Any]]]:
         if system["system_id"] in seen:
             fail(f"duplicate system_id: {system['system_id']}")
         seen.add(system["system_id"])
+        validate_entry_link(system)
         validate_revision(system["system_id"], system["code_source"], system["code_revision"])
         auxiliaries = system.get("auxiliary_sources", [])
         if not isinstance(auxiliaries, list):
@@ -183,6 +205,8 @@ def validate_photo_storage(systems: list[dict[str, Any]]) -> None:
             fail(f"Photo Capture storage_detail missing {key}")
     if not any(row.get("code_source") == "backup.js@main" for row in photo.get("auxiliary_sources", [])):
         fail("Photo Capture must register backup.js")
+    if not any(row.get("code_source") == "sw.js@main" for row in photo.get("auxiliary_sources", [])):
+        fail("Photo Capture must register its install service worker")
 
 
 def validate_workflow(systems: list[dict[str, Any]]) -> None:
@@ -220,6 +244,9 @@ def validate_status_page(registry: dict[str, Any], systems: list[dict[str, Any]]
     for system in systems:
         if system["system_id"] not in json.dumps(registry, ensure_ascii=False):
             fail(f"registry lost system id: {system['system_id']}")
+    for token in ('system.entry_href', 'system.entry_label', 'class="launch"'):
+        if token not in html:
+            fail(f"status page is not rendering registered entry links: {token}")
 
 
 def validate_kpi() -> None:

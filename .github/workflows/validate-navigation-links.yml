@@ -1,0 +1,33 @@
+name: Validate navigation links
+
+"on":
+  pull_request:
+    paths:
+      - "**/*.html"
+      - "**/*.js"
+      - "**/*.css"
+      - "**/*.json"
+      - "scripts/validate_navigation_links.py"
+      - ".github/workflows/validate-navigation-links.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "**/*.html"
+      - "**/*.js"
+      - "**/*.css"
+      - "**/*.json"
+      - "scripts/validate_navigation_links.py"
+      - ".github/workflows/validate-navigation-links.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate local links and screen entry points
+        run: python3 scripts/validate_navigation_links.py

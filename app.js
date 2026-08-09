@@ -6,7 +6,7 @@
   const HANDOFF_KEY = 'kc_v04_handoff_queue_v1';
   const HANDOFF_QUEUE_LIMIT = 500;
   const DATA_CONTRACT_VERSION = '1.1.0';
-  const APP_VERSION = '1.3.0';
+  const APP_VERSION = '1.3.1';
   const app = document.getElementById('app');
 
   const PHOTO_TYPES = [
@@ -734,6 +734,12 @@ ${handoffError.message || handoffError}`);
     anchor.click();
     anchor.remove();
     setTimeout(() => URL.revokeObjectURL(url), 30000);
+  }
+
+  if ('serviceWorker' in navigator && ['http:', 'https:'].includes(location.protocol)) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js?v=1.3.1').catch((error) => console.warn('Photo Captureのオフライン準備に失敗しました。', error));
+    });
   }
 
   openDatabase().catch((error) => shell(`<section class="card"><h1>Sandboxを開始できません</h1><p class="message error">${escapeHtml(error.message)}</p></section>`));
