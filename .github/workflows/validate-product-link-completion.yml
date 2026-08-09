@@ -1,0 +1,29 @@
+name: Validate product link completion
+
+"on":
+  pull_request:
+    paths:
+      - "data/brand-research/2026-08-09-product-link-completion-batch3.csv"
+      - "data/brand-research/2026-08-08-product78-next-work.csv"
+      - "scripts/validate_product_link_completion_20260809.py"
+      - ".github/workflows/validate-product-link-completion.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "data/brand-research/2026-08-09-product-link-completion-batch3.csv"
+      - "data/brand-research/2026-08-08-product78-next-work.csv"
+      - "scripts/validate_product_link_completion_20260809.py"
+      - ".github/workflows/validate-product-link-completion.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate evidence-backed official product links
+        run: python3 scripts/validate_product_link_completion_20260809.py

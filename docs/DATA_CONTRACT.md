@@ -1,7 +1,7 @@
 # Knit Compass 共通ID・データ項目定義
 
-更新日: 2026-08-05  
-版: 1.1.1
+更新日: 2026-08-09
+版: 1.2.0
 
 ## 1. 基本原則
 
@@ -124,9 +124,16 @@ Photo Captureは `knittingEnds` をIndexedDBのDRAFTイベントとv0.4受信箱
 - `organization_name_local`
 - `organization_role`
 - `official_url`
+- `organization_type`
+- `country`
+- `website`
+- `founded_year`
+- `organizationProfile`
 - `verification_status`
 
 `organization_role` は複数可とし、原料メーカー、糸メーカー、加工会社、販売会社、商社、ブランド運営会社、入手先、未確認を区別します。販売会社が原料メーカーを把握していない場合、メーカーとして確定しません。
+
+`organizationProfile` はHuman Reviewで根拠を確認した会社情報を保持する拡張領域です。連絡先、所在地、事業情報、根拠、関連素材・資料、他組織との関係を含められます。関係先が `relatedOrganizationTempId` で渡された場合、関係する組織が承認された時点で対応する正式IDを `relatedOrganizationId` に追記します。一時IDや資本関係未確認という状態も削除せず保持します。
 
 ### 写真マスター
 
@@ -240,6 +247,9 @@ Photo Captureからv0.4へ渡す候補は `KC_V04_INBOX_ITEM` とします。
 - 商品・糸・会社・素材・調査マスターをIDでupsert
 - 商品と糸を紐付け
 - `photoCaptureImports` と `auditLog` を追加
+- 番手・混率・ゲージ・構造・機能性・サステナブルは、資料確認済み等の根拠状態がある項目だけを確定値として反映
+- `ai_candidate`、`inferred`、`candidate`、`unconfirmed` の項目は既存マスターへ確定値として反映しない
+- 会社対象は `organizationProfile` を保持し、承認済み会社間の一時関係IDを正式組織IDへ解決
 
 ### REJECTED
 
@@ -270,3 +280,40 @@ Photo Captureからv0.4へ渡す候補は `KC_V04_INBOX_ITEM` とします。
 - Human Review未完了
 
 これらは削除対象ではなく改善対象として追跡します。
+
+## 13. 月次掲載観測とMD提案
+
+### 月次掲載観測
+
+主キー: `observation_id`
+
+- `month`
+- `brand`
+- `totalListings`
+- `newListings`
+- `saleListings`
+- `observedAt`
+- `sourceUrl`
+- `salesQuantityStatus`
+- `salesQuantity`
+- `salesQuantityEvidence`
+- `method`
+- `estimationPolicy`
+
+掲載数は公式掲載面を人が数えた観測値として保存し、販売数量とは区別します。販売数量を取得できない場合は `salesQuantityStatus: NOT_AVAILABLE`、`salesQuantity: null` とし、推定値を補いません。販売数量を保存できるのは `EVIDENCE_PROVIDED` かつ数量と根拠参照を同時に入力した場合だけです。
+
+### MD提案
+
+主キー: `proposal_id`
+
+- `sourceObservationId`
+- `observationSnapshot`
+- `status`: `DRAFT` / `REVIEW` / `PUBLISH_HOLD`
+- `publicationStatus`: `HOLD`
+- `mdDecision`
+- `theme`
+- `rationale`
+- `nextAction`
+- `estimationPolicy`: `NO_SALES_ESTIMATION`
+
+MD提案は月次掲載観測へ必ず紐付けます。観測に根拠付き販売数量がない場合、提案側にも数量を生成しません。作成時は必ず公開保留とし、自動公開・自動マスター反映を行いません。

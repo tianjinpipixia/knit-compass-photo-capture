@@ -107,6 +107,13 @@ def main() -> None:
     require(inline_script, "restoreStorage", "approval rollback")
     require(inline_script, "busyHandoffs", "duplicate approval guard")
     require(inline_script, "return{ids,state}", "deferred master save")
+    require(inline_script, "isEvidenceBacked", "evidence-backed yarn field filter")
+    require(inline_script, "evidenceValue(payload.countValue,payload)", "count evidence gate")
+    require(inline_script, "compositionConfirmed?payload.compositionRaw:''", "composition evidence gate")
+    require(inline_script, "organizationProfile:profile", "organization profile persistence")
+    require(inline_script, "resolveOrganizationProfiles", "organization relationship ID resolution")
+    require(inline_script, "relatedOrganizationId", "formal related organization ID persistence")
+    require(inline_script, "state.photoCaptureIdMap[payload.sourceOrganizationId]=ids.organizationId", "source organization temporary ID mapping")
     forbid(inline_script, r"saveState\(state\);return ids", "one-sided approval save")
 
     simulate_compaction()

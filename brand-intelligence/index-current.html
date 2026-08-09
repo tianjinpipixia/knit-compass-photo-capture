@@ -9,8 +9,8 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Knit Compass">
-  <title>Knit Compass v0.4 — Photo Capture受信箱</title>
-  <link rel="manifest" href="./manifest.webmanifest?v=0.4.5">
+  <title>Knit Compass v0.4.7 — Photo Capture受信箱</title>
+  <link rel="manifest" href="./manifest.webmanifest?v=0.4.7">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./icon.svg">
   <style>
@@ -28,7 +28,7 @@
       <div class="brand"><div class="mark">KC</div><div><strong>Knit Compass v0.4</strong><span>Photo Capture受信箱 → Human Review → マスター確定</span></div></div>
       <button class="inbox-button" id="openInbox">Photo Capture受信箱 <span class="count" id="pendingBadge">0</span></button>
     </header>
-    <main class="frame-wrap"><iframe id="v04Frame" title="Knit Compass 独立実用版 v0.4" src="./app.html?v=0.4.5"></iframe></main>
+    <main class="frame-wrap"><iframe id="v04Frame" title="Knit Compass 独立実用版 v0.4.7" src="./app.html?v=0.4.7"></iframe></main>
   </div>
 
   <div class="overlay" id="overlay"></div>
@@ -149,10 +149,45 @@
       collection.unshift(row);return row;
     }
 
+    function isEvidenceBacked(payload,statusKey='verificationStatus'){
+      return normalizeStatus(payload?.[statusKey])==='confirmed'&&normalizeStatus(payload?.sourceType)!=='ai_candidate';
+    }
+
+    function evidenceValue(value,payload,statusKey='verificationStatus'){
+      return isEvidenceBacked(payload,statusKey)?value:'';
+    }
+
+    function evidenceItems(items,allowedStatuses){
+      const allowed=new Set(allowedStatuses.map(normalizeStatus));
+      return(Array.isArray(items)?items:[]).filter(item=>allowed.has(normalizeStatus(item?.verification_status)));
+    }
+
+    function mergeOrganizationProfile(existing,incoming){
+      const base=existing&&typeof existing==='object'?existing:{};
+      const source=incoming&&typeof incoming==='object'?incoming:{};
+      const result={...base};
+      for(const[key,value]of Object.entries(source))if(hasMeaningfulValue(value))result[key]=value;
+      return result;
+    }
+
+    function resolveOrganizationProfiles(state){
+      for(const organization of state.organizations){
+        const profile=organization.organizationProfile;
+        if(!profile||!Array.isArray(profile.relationships))continue;
+        profile.relationships=profile.relationships.map(relationship=>{
+          const tempId=String(relationship.relatedOrganizationTempId||'').trim();
+          const relatedOrganizationId=tempId&&state.photoCaptureIdMap[tempId]
+            ?state.photoCaptureIdMap[tempId]
+            :relationship.relatedOrganizationId||'';
+          return relatedOrganizationId?{...relationship,relatedOrganizationId}:{...relationship};
+        });
+      }
+    }
+
     function companyRows(payload,state,organizationOverrideId=''){
       const targetOrganizationId=payload.targetType==='organization'?payload.targetId:'';
       const definitions=[
-        {name:payload.sourceOrganizationName,id:organizationOverrideId||payload.sourceOrganizationId||targetOrganizationId,role:'source'},
+        {name:payload.sourceOrganizationName,id:organizationOverrideId||payload.sourceOrganizationId||targetOrganizationId,role:'source',profile:payload.targetType==='organization'?payload.organizationProfile:null},
         {name:payload.manufacturerName,id:payload.manufacturerId,role:'yarn_manufacturer'},
         {name:payload.sellerName,id:payload.sellerId,role:'seller'}
       ];
@@ -162,10 +197,12 @@
         const id=resolveEntityId('organization',definition.id,'',state);
         const existing=state.organizations.find(row=>row.id===id);
         const roles=[...new Set([...(existing?.roles||[]),definition.role])];
-        upsert(state.organizations,{id,commonId:id,name:preferIncoming(definition.name,existing?.name,'名称未確認'),officialName:preferIncoming(definition.name,existing?.officialName,''),roles,verificationStatus:preferStatus(payload.verificationStatus,existing?.verificationStatus,'candidate'),sourceCaptureId:payload.captureId,updated_at:now(),created_at:existing?.created_at||now()});
+        const profile=mergeOrganizationProfile(existing?.organizationProfile,definition.profile);
+        upsert(state.organizations,{id,commonId:id,name:preferIncoming(definition.name,existing?.name,'名称未確認'),officialName:preferIncoming(firstMeaningful(profile.legalNameLocal,profile.legalNameEnglish,definition.name),existing?.officialName,''),roles,organizationType:preferIncoming(profile.organizationType,existing?.organizationType,''),countryRegion:preferIncoming(profile.countryRegion,existing?.countryRegion,''),website:preferIncoming(profile.website,existing?.website,''),foundedYear:preferIncoming(profile.foundedYear,existing?.foundedYear,''),organizationProfile:profile,verificationStatus:preferStatus(payload.verificationStatus,existing?.verificationStatus,'candidate'),sourceCaptureId:payload.captureId,updated_at:now(),created_at:existing?.created_at||now()});
         result[definition.role]=id;
       }
       if(payload.targetType==='organization'&&payload.targetId&&result.source)state.photoCaptureIdMap[payload.targetId]=result.source;
+      resolveOrganizationProfiles(state);
       return result;
     }
 
@@ -183,8 +220,12 @@
       if(payload.yarnName||yarnCandidate){
         const id=resolveEntityId('yarn',yarnCandidate,overrideType==='yarn'?overrideId:'',state);ids.yarnId=id;
         const existing=state.yarns.find(row=>row.id===id);
-        const incomingCountSystem=(payload.countValue||payload.countDisplay)?countSystemLabel(payload.countSystem):'';
-        const incomingStructure=isWeakStatus(payload.basicYarnForm)?payload.yarnStructure:firstMeaningful(payload.yarnStructure,payload.basicYarnForm);
+        const specificationsConfirmed=isEvidenceBacked(payload);
+        const compositionConfirmed=isEvidenceBacked(payload,'compositionStatus');
+        const incomingCountSystem=specificationsConfirmed&&(payload.countValue||payload.countDisplay)?countSystemLabel(payload.countSystem):'';
+        const incomingStructure=specificationsConfirmed?(isWeakStatus(payload.basicYarnForm)?payload.yarnStructure:firstMeaningful(payload.yarnStructure,payload.basicYarnForm)):'';
+        const backedFunctions=evidenceItems(payload.functionalProperties,['supplier_claim','document_confirmed','test_confirmed']);
+        const backedSustainable=evidenceItems(payload.sustainableAttributes,['confirmed','document_confirmed','test_confirmed']);
         upsert(state.yarns,{
           id,commonId:id,
           sourceTargetId:preferIncoming(yarnCandidate||payload.targetId,existing?.sourceTargetId,''),sourceCaptureId:item.capture_id,
@@ -193,15 +234,17 @@
           manufacturerOrganizationId:preferIncoming(companies.yarn_manufacturer,existing?.manufacturerOrganizationId,''),
           sellerOrganizationId:preferIncoming(companies.seller,existing?.sellerOrganizationId,''),
           name:preferIncoming(payload.yarnName,existing?.name,'糸名未確認'),code:preferIncoming(payload.yarnCode,existing?.code,''),
-          countSystem:preferIncoming(incomingCountSystem,existing?.countSystem,''),countValue:preferIncoming(payload.countValue,existing?.countValue,''),
-          plyCount:preferIncoming(payload.plyCount,existing?.plyCount,''),displayCount:preferIncoming(payload.countDisplay,existing?.displayCount,''),
-          structure:preferIncoming(incomingStructure,existing?.structure,'未確認'),basicYarnForm:preferStatus(payload.basicYarnForm,existing?.basicYarnForm,'unconfirmed'),
-          spinningMethod:preferStatus(payload.spinningMethod,existing?.spinningMethod,''),processingMethod:preferIncoming(payload.processingMethod,existing?.processingMethod,''),
-          composition:preferIncoming(payload.compositionRaw,existing?.composition,''),compositionTotal:preferIncoming(payload.compositionTotal,existing?.compositionTotal,null),
-          compositionStatus:preferStatus(payload.compositionStatus,existing?.compositionStatus,'unconfirmed'),gauge:preferIncoming(payload.gauge,existing?.gauge,''),
-          functions:preferIncoming(names(payload.functionalProperties),existing?.functions,[]),functionalProperties:preferIncoming(payload.functionalProperties,existing?.functionalProperties,[]),
-          sustainableAttributes:preferIncoming(payload.sustainableAttributes,existing?.sustainableAttributes,[]),status:'CONFIRMED',verificationStatus:'confirmed',
+          countSystem:preferIncoming(incomingCountSystem,existing?.countSystem,''),countValue:preferIncoming(evidenceValue(payload.countValue,payload),existing?.countValue,''),
+          plyCount:preferIncoming(evidenceValue(payload.plyCount,payload),existing?.plyCount,''),displayCount:preferIncoming(evidenceValue(payload.countDisplay,payload),existing?.displayCount,''),
+          structure:preferIncoming(incomingStructure,existing?.structure,'未確認'),basicYarnForm:preferStatus(evidenceValue(payload.basicYarnForm,payload),existing?.basicYarnForm,'unconfirmed'),
+          spinningMethod:preferStatus(evidenceValue(payload.spinningMethod,payload),existing?.spinningMethod,''),processingMethod:preferIncoming(evidenceValue(payload.processingMethod,payload),existing?.processingMethod,''),
+          composition:preferIncoming(compositionConfirmed?payload.compositionRaw:'',existing?.composition,''),compositionTotal:preferIncoming(compositionConfirmed?payload.compositionTotal:null,existing?.compositionTotal,null),
+          compositionStatus:preferStatus(compositionConfirmed?payload.compositionStatus:'',existing?.compositionStatus,'unconfirmed'),
+          gauge:preferIncoming(evidenceValue(payload.gauge,payload),existing?.gauge,''),
+          functions:preferIncoming(names(backedFunctions),existing?.functions,[]),functionalProperties:preferIncoming(backedFunctions,existing?.functionalProperties,[]),
+          sustainableAttributes:preferIncoming(backedSustainable,existing?.sustainableAttributes,[]),status:'CONFIRMED',verificationStatus:'confirmed',
           sourceUrl:preferIncoming(payload.sourceUrl,existing?.sourceUrl,''),notes:preferIncoming(payload.notes,existing?.notes,''),evidenceId:preferIncoming(payload.evidenceId,existing?.evidenceId,''),
+          evidenceSourceType:preferIncoming(payload.sourceType,existing?.evidenceSourceType,''),fieldEvidence:preferIncoming(payload.fieldEvidence,existing?.fieldEvidence,{}),
           reviewedAt:now(),reviewedBy:reviewer,created_at:existing?.created_at||now(),updated_at:now()
         });
       }
@@ -245,6 +288,8 @@
         ids.organizationId=firstMeaningful(companies.source,companies.yarn_manufacturer,companies.seller);
         if(!ids.organizationId)ids.organizationId=resolveEntityId('organization',payload.targetId,overrideType==='organization'?overrideId:'',state);
         if(payload.targetId)state.photoCaptureIdMap[payload.targetId]=ids.organizationId;
+        if(payload.sourceOrganizationId)state.photoCaptureIdMap[payload.sourceOrganizationId]=ids.organizationId;
+        resolveOrganizationProfiles(state);
       }
       ids.organizationIds=companies;
       state.photoCaptureImports.unshift({handoffId:item.handoff_id,captureId:item.capture_id,eventVersion:item.event_version,masterIds:ids,approvedAt:now(),approvedBy:reviewer});
@@ -309,7 +354,7 @@
     }
 
     $('openInbox').addEventListener('click',openDrawer);$('closeInbox').addEventListener('click',closeDrawer);$('overlay').addEventListener('click',closeDrawer);$('importButton').addEventListener('click',()=>$('importFile').click());$('importFile').addEventListener('change',()=>importFile($('importFile').files[0]));$('reviewer').value=localStorage.getItem(REVIEWER_KEY)||'Owner Human Review';$('reviewer').addEventListener('change',()=>localStorage.setItem(REVIEWER_KEY,$('reviewer').value.trim()));window.addEventListener('storage',event=>{if(event.key===HANDOFF_KEY)render()});
-    if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js?v=0.4.5').catch(()=>{});
+    if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js?v=0.4.7').catch(()=>{});
     render();
   })();
   </script>

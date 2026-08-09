@@ -96,6 +96,8 @@ ROPÉ PICNIC 22件の照合により、URLなし対象は45件から23件へ減�
 
 次は最大ブロックのDoCLASSE 14件から公式品番照合を進める。
 
+2026-08-09追補: DoCLASSE 14件と、GLOBAL WORK・GU・MUJIの最終9件の照合を完了した。最終9件は `PRODUCT_LINK_COMPLETION_20260809.md` を参照。
+
 ## 安全ルール
 
 - 同シリーズの別品番へ混率をコピーしない

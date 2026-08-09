@@ -15,7 +15,7 @@
 - 公式URL再確認待ち: 6件
   - Te chichi 6
 
-したがって次の主作業は **URLなし45件** に一本化する。
+当日時点では、次の主作業を **URLなし45件** に一本化した。2026-08-09までにROPÉ PICNIC 22件、DoCLASSE 14件、GLOBAL WORK・GU・MUJI 9件の照合を完了しており、現在地は各後続バッチを正本とする。
 
 ## DoCLASSE Batch 2
 
@@ -78,7 +78,7 @@ DoCLASSE公式はキャンペーン・タイムセールで表示価格が短期
 
 ## 次工程
 
-URLなし45件を公式商品コード・商品名から探索する。
+この節は2026-08-08時点の作業計画。URLなし45件は後続バッチで照合済み。
 
 - ROPÉ PICNIC: 22
 - DoCLASSE: 14
@@ -87,6 +87,8 @@ URLなし45件を公式商品コード・商品名から探索する。
 - MUJI: 3
 
 最大ブロックのROPÉ PICNIC 22件から先に進める。
+
+後続記録: `ROPE_PICNIC_22_OFFICIAL_20260808.md`、DoCLASSE Batch 2データ、`PRODUCT_LINK_COMPLETION_20260809.md`
 
 ## 安全ルール
 

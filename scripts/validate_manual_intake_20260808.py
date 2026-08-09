@@ -15,6 +15,8 @@ assert all(item['review_status'] == 'PENDING' for item in items)
 assert all(item['payload']['targetType'] == 'yarn' for item in items)
 assert all(item['payload']['compositionTotal'] == 100 for item in items)
 assert all(item['payload']['compositionStatus'] == 'confirmed' for item in items)
+assert all(item['payload']['verificationStatus'] == 'confirmed' for item in items)
+assert all(item['payload']['sourceType'] == 'user_photo_supplier_document' for item in items)
 
 weijie = [item for item in items if item['payload']['sourceOrganizationName'] == '苏州维杰纺织有限公司']
 hesheng = [item for item in items if item['payload']['sourceOrganizationName'] == '东莞市合升纺织品有限公司']
@@ -42,5 +44,10 @@ for item in items:
     p = item['payload']
     assert p['photoRefs'] and p['photoRefs'][0]['fileName']
     assert '根拠写真:' in p['notes']
+    assert p['basicYarnForm'] == 'unconfirmed'
+    assert p['yarnStructure'] == ''
+    assert p['spinningMethod'] == ''
+    assert p['processingMethod'] == ''
+    assert 'salesQuantity' not in p
 
 print('manual intake batch1: OK (10 PENDING yarn candidates)')

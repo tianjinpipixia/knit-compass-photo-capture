@@ -59,8 +59,9 @@ work = {r['work_bucket']: int(r['count']) for r in work_rows}
 assert work['NO_URL_ROPE_PICNIC_OFFICIAL_MATCHED'] == 22
 assert work['NO_URL_DOCLASSE_OFFICIAL_MATCHED'] == 13
 assert work['NO_URL_DOCLASSE_CODE_PENDING'] == 1
-assert work['NO_URL_TARGET_PENDING'] == 9
+assert work['NO_URL_TARGET_OFFICIAL_MATCHED'] == 9
+assert 'NO_URL_TARGET_PENDING' not in work
 assert sum(v for k, v in work.items() if k.startswith('NO_URL_')) == 45
 assert sum(v for k, v in work.items() if k != 'TOTAL') == 78
 
-print('DoCLASSE 14 official: OK (13 exact codes + 1 current listing code pending; remaining no-URL backlog=9)')
+print('DoCLASSE 14 official: OK (13 exact codes + 1 current listing code pending; 9 target links resolved in Batch 3)')

@@ -6,7 +6,7 @@
   const HANDOFF_KEY = 'kc_v04_handoff_queue_v1';
   const HANDOFF_QUEUE_LIMIT = 500;
   const DATA_CONTRACT_VERSION = '1.1.0';
-  const APP_VERSION = '1.2.3';
+  const APP_VERSION = '1.3.1';
   const app = document.getElementById('app');
 
   const PHOTO_TYPES = [
@@ -248,7 +248,8 @@
     const counts = handoffCounts();
     shell(`<section class="card top">
       <div><p class="eyebrow">Independent Workspace / Data Contract ${DATA_CONTRACT_VERSION}</p><h1>Knit Compass Photo Capture</h1><p class="lead">混率・機能性・サステナブル・共通IDを同じDRAFTに保持し、Human Review前の候補としてv0.4受信箱へ渡します。</p></div>
-      <div class="badges"><span class="badge">v${APP_VERSION}</span><span class="badge">DRAFT FIRST</span><span class="badge">共通ID</span><span class="badge off">外部DBなし</span></div>
+      <div class="badges"><span class="badge">v${APP_VERSION}</span><span class="badge">ONLY YOU</span><span class="badge">DRAFT FIRST</span><span class="badge">INBOX UPLOAD</span><span class="badge off">AUTO MASTER OFF</span><span class="badge off">PUBLISH HOLD</span></div>
+      <div class="primary-actions"><button id="new">新規キャプチャ</button><button class="secondary" id="exportHandoff">受信箱JSONを書き出す</button></div>
       <div class="identity"><span>${escapeHtml(session.displayName)} / ${escapeHtml(session.accountId)}</span><button class="ghost" id="logout">終了</button></div>
     </section>
 
@@ -256,7 +257,7 @@
       <p class="eyebrow">Capture Inbox</p>
       <h2>Photo Capture</h2>
       <p class="lead">CREATE／UPDATEはAppend Onlyです。受信箱へ送っても、Human Review承認まではマスターへ反映しません。</p>
-      <div class="actions top-actions"><button id="new">新規キャプチャ</button><button class="secondary" id="exportHandoff">受信箱JSONを書き出す</button><a class="button-link secondary" href="brand-intelligence/">v0.4受信箱を開く</a></div>
+      <div class="actions top-actions"><a class="button-link secondary" href="brand-intelligence/">v0.4受信箱を開く</a></div>
       <div class="kpis">
         <div class="kpi"><span>全レコード</span><strong>${records.length}</strong></div>
         <div class="kpi"><span>受信箱待ち</span><strong>${counts.pending}</strong></div>
@@ -733,6 +734,12 @@ ${handoffError.message || handoffError}`);
     anchor.click();
     anchor.remove();
     setTimeout(() => URL.revokeObjectURL(url), 30000);
+  }
+
+  if ('serviceWorker' in navigator && ['http:', 'https:'].includes(location.protocol)) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js?v=1.3.1').catch((error) => console.warn('Photo Captureのオフライン準備に失敗しました。', error));
+    });
   }
 
   openDatabase().catch((error) => shell(`<section class="card"><h1>Sandboxを開始できません</h1><p class="message error">${escapeHtml(error.message)}</p></section>`));

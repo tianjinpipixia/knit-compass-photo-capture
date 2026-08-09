@@ -9,7 +9,7 @@
   const FIELD_NAME = 'knittingEnds';
   const SIDECAR_KEY = 'kc_photo_capture_knitting_ends_v1';
   const DATA_CONTRACT_VERSION = '1.1.1';
-  const DISPLAY_VERSION = '1.2.4';
+  const DISPLAY_VERSION = '1.3.1';
 
   let pendingRecordId = '';
   let hydrateInProgress = false;
@@ -256,10 +256,12 @@
 
   function refreshVersionDisclosure() {
     document.querySelectorAll('.connection-item').forEach((element) => {
-      if ((element.textContent || '').startsWith('版:')) element.textContent = `版: v${DISPLAY_VERSION}`;
+      const current = element.textContent || '';
+      const next = `版: v${DISPLAY_VERSION}`;
+      if (current.startsWith('版:') && current !== next) element.textContent = next;
     });
     document.querySelectorAll('.badge').forEach((element) => {
-      if (/^v1\.2\.3$/.test(element.textContent || '')) element.textContent = `v${DISPLAY_VERSION}`;
+      if (/^v1\.2\.[34]$/.test(element.textContent || '')) element.textContent = `v${DISPLAY_VERSION}`;
     });
     document.querySelectorAll('.eyebrow').forEach((element) => {
       if ((element.textContent || '').includes('Data Contract 1.1.0')) {
