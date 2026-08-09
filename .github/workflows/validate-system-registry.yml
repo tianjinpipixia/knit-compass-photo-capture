@@ -13,6 +13,11 @@ name: Validate system registry
       - "backup.js"
       - "index.html"
       - "manifest.webmanifest"
+      - "icon.svg"
+      - "icon-180.png"
+      - "icon-192.png"
+      - "icon-512.png"
+      - "icon-maskable-512.png"
       - "brand-intelligence/app.html"
       - "brand-intelligence/index.html"
       - "brand-intelligence/index-current.html"
@@ -43,6 +48,8 @@ name: Validate system registry
       - "scripts/validate_handoff_safety.py"
       - "scripts/validate_ui_state_guard.py"
       - "scripts/validate_customer_sharing.py"
+      - "scripts/validate_photo_capture_install.py"
+      - "scripts/validate_v04_monthly_md.py"
       - ".github/workflows/validate-system-registry.yml"
       - ".github/workflows/validate-handoff-safety.yml"
       - ".github/workflows/validate-customer-sharing.yml"
@@ -60,6 +67,11 @@ name: Validate system registry
       - "backup.js"
       - "index.html"
       - "manifest.webmanifest"
+      - "icon.svg"
+      - "icon-180.png"
+      - "icon-192.png"
+      - "icon-512.png"
+      - "icon-maskable-512.png"
       - "brand-intelligence/app.html"
       - "brand-intelligence/index.html"
       - "brand-intelligence/index-current.html"
@@ -90,6 +102,8 @@ name: Validate system registry
       - "scripts/validate_handoff_safety.py"
       - "scripts/validate_ui_state_guard.py"
       - "scripts/validate_customer_sharing.py"
+      - "scripts/validate_photo_capture_install.py"
+      - "scripts/validate_v04_monthly_md.py"
       - ".github/workflows/validate-system-registry.yml"
       - ".github/workflows/validate-handoff-safety.yml"
       - ".github/workflows/validate-customer-sharing.yml"
@@ -114,3 +128,7 @@ jobs:
         run: python scripts/validate_system_registry.py
       - name: Validate China yarn glossary contract
         run: python scripts/validate_yarn_glossary.py
+      - name: Validate Photo Capture install surface
+        run: python scripts/validate_photo_capture_install.py
+      - name: Validate V04 monthly observation and MD contract
+        run: python scripts/validate_v04_monthly_md.py

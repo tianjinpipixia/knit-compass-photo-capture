@@ -1,6 +1,6 @@
 {
-  "schema_version": "1.3.2",
-  "updated_at": "2026-08-08T16:58:00+09:00",
+  "schema_version": "1.4.0",
+  "updated_at": "2026-08-09T23:30:00+09:00",
   "policy": {
     "unknown_connections_are_forbidden": true,
     "connection_change_requires_registry_update": true,
@@ -28,18 +28,18 @@
       "system_id": "KC-PHOTO-CAPTURE",
       "display_name": "Photo Capture",
       "environment": "independent-sandbox",
-      "display_version": "v1.2.4",
+      "display_version": "v1.3.0",
       "entry_path": "/",
       "code_source": "app.js@main",
-      "code_revision": "git-blob:5c2efd18e8b691c2d3c0254b646637911fd2051d",
+      "code_revision": "git-blob:fdb7f0a0c307f60705783e5e7a26ac973e20d151",
       "auxiliary_sources": [
         {
           "code_source": "app.css@main",
-          "code_revision": "git-blob:3fa9acda9af41d7bc37036563076db99fac3def1"
+          "code_revision": "git-blob:d15e6d27783326d2d3203e93c99cb4c724108de3"
         },
         {
           "code_source": "knitting-ends-field.js@main",
-          "code_revision": "git-blob:e114406478003a1d706f7ed5df11be86ed3dda22"
+          "code_revision": "git-blob:ea7130e7467019dfd1002ae3b3f27f54bdd8095e"
         },
         {
           "code_source": "app-state-guard.js@main",
@@ -47,11 +47,35 @@
         },
         {
           "code_source": "index.html@main",
-          "code_revision": "git-blob:ac117f1f28cec5b2b3cfaf39798bf59d86df2946"
+          "code_revision": "git-blob:86dcbc8c479db238d4d7b6a74d9e9ca2f9cc8be8"
         },
         {
           "code_source": "backup.js@main",
           "code_revision": "git-blob:5f7dee4ac1def72551443475b2938bc4d8e6f1fd"
+        },
+        {
+          "code_source": "manifest.webmanifest@main",
+          "code_revision": "git-blob:cb0e8aa149b93dc7eb805a3ab9a1619fd01b1eee"
+        },
+        {
+          "code_source": "icon.svg@main",
+          "code_revision": "git-blob:fa688e1ce7f71b649a9657fb92e8f11e7dcd6ae1"
+        },
+        {
+          "code_source": "icon-180.png@main",
+          "code_revision": "git-blob:7da2ca4129febcdc434656fae83ce0392adc300a"
+        },
+        {
+          "code_source": "icon-192.png@main",
+          "code_revision": "git-blob:3897ffbf86a044f35d323ec8105594202c6c15d3"
+        },
+        {
+          "code_source": "icon-512.png@main",
+          "code_revision": "git-blob:50bbdf66c895703c31fc86a872ae6a8e53bfde3e"
+        },
+        {
+          "code_source": "icon-maskable-512.png@main",
+          "code_revision": "git-blob:50bbdf66c895703c31fc86a872ae6a8e53bfde3e"
         }
       ],
       "data_store": "browser-indexeddb",
@@ -65,18 +89,18 @@
       "system_id": "KC-V04-WEB",
       "display_name": "Knit Compass 独立実用版 v0.4",
       "environment": "independent",
-      "display_version": "v0.4.6",
+      "display_version": "v0.4.7",
       "entry_path": "/brand-intelligence/",
       "code_source": "brand-intelligence/app.html@main",
-      "code_revision": "git-blob:52f174f307d49a64f9e51ecaaad4488aa729c9ab",
+      "code_revision": "git-blob:de3c6570b5123f3baca85e2e606a4bde8687dc58",
       "auxiliary_sources": [
         {
           "code_source": "brand-intelligence/index.html@main",
-          "code_revision": "git-blob:63a9c16eb64773c808fdf6615549d5c472e55690"
+          "code_revision": "git-blob:02b28c52b4180eae927932db743e2913769ee651"
         },
         {
           "code_source": "brand-intelligence/index-current.html@main",
-          "code_revision": "git-blob:81927bcd4c8909cf7bc1587be52b2f8d1fbd2b63"
+          "code_revision": "git-blob:29d7ccb53a8af78fbd0fae1a559f4723a4a0bb23"
         },
         {
           "code_source": "brand-intelligence/yarn-glossary.html@main",
@@ -88,11 +112,11 @@
         },
         {
           "code_source": "brand-intelligence/sw.js@main",
-          "code_revision": "git-blob:4bd96c3edd071159e5d0c826a6d8df8acfabd799"
+          "code_revision": "git-blob:17129a63b9a881390cd8a4a82c1ab7fd86bde022"
         }
       ],
       "data_store": "browser-localstorage",
-      "storage_detail": "localStorage kc_independent_practical_v0_4; Human Review inbox kc_v04_handoff_queue_v1; reviewer name kc_v04_reviewer_name_v1; partial approvals preserve existing values; temporary organization IDs stay stable; master and inbox approval results roll back together on storage failure; 中国糸名辞書 KC-CN-YARN-001 は同じ localStorage の yarns を読取専用で参照し、中国市場名と日本語標準名・代表的な糸タイプの一致候補だけを表示する; V04共通入口は日常操作のV04本体・Photo Capture・中国糸名辞書・Dailyを常時表示し、共有管理・STYLEM・システム状態は管理メニューへ集約する",
+      "storage_detail": "localStorage kc_independent_practical_v0_4; Human Review inbox kc_v04_handoff_queue_v1; reviewer name kc_v04_reviewer_name_v1; partial approvals preserve existing values; only evidence-backed yarn specifications are promoted; organizationProfile persists on formal organization IDs; related organization temporary IDs resolve to formal organization IDs; master and inbox approval results roll back together on storage failure; monthlyObservations link to mdProposals; unavailable sales quantity remains null and is never estimated; MD proposals remain publication HOLD; 中国糸名辞書 KC-CN-YARN-001 は同じ localStorage の yarns を読取専用で参照する; V04共通入口は共有管理・顧客ポータル・システム状態を管理メニューへ集約する",
       "sync_mode": "local-browser-queue-and-manual-json",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "no-automatic-production-core-company-db-connection",
@@ -102,18 +126,18 @@
       "system_id": "KC-CUSTOMER-SHARING-ADMIN",
       "display_name": "Knit Compass 顧客共有管理",
       "environment": "same-origin-local-pilot-owner",
-      "display_version": "v1.0.1",
+      "display_version": "v1.0.2",
       "entry_path": "/customer-sharing/",
       "code_source": "customer-sharing/index.html@main",
-      "code_revision": "git-blob:2bc2bffc9784d761608fcc239589029e9171cf77",
+      "code_revision": "git-blob:6368d6ff1866b3d8471ebda3e3235f03da04d92f",
       "auxiliary_sources": [
         {
           "code_source": "customer-sharing/policy.js@main",
-          "code_revision": "git-blob:c779b9859a525d6f5597db608930ad33cef9941e"
+          "code_revision": "git-blob:9539c0363dc1c8c32e36d5bf73edc96a609b1ab2"
         }
       ],
       "data_store": "browser-localstorage",
-      "storage_detail": "Reads master localStorage kc_independent_practical_v0_4; stores explicit customer grants in kc_customer_sharing_v1; publishes sanitized STYLEM snapshot to kc_customer_portal_STYLEM_v1; reads and updates customer requests in kc_customer_requests_v1; publication and grant changes roll back together on storage failure; customer URLs are restricted to http/https; shared image data is restricted to supported image MIME data URIs and size; stored snapshots are re-sanitized and deduplicated when read",
+      "storage_detail": "Reads master localStorage kc_independent_practical_v0_4; stores explicit customer grants in kc_customer_sharing_v1; publishes a sanitized customer portal snapshot to legacy compatibility key kc_customer_portal_STYLEM_v1; reads and updates customer requests in kc_customer_requests_v1; publication and grant changes roll back together on storage failure; customer URLs and shared image data remain restricted; stored snapshots are re-sanitized and deduplicated when read",
       "sync_mode": "explicit-owner-approved-snapshot-and-request-return",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "no-automatic-production-core-company-db-connection",
@@ -121,20 +145,20 @@
     },
     {
       "system_id": "KC-STYLEM-PORTAL",
-      "display_name": "Knit Compass STYLEM Customer Area",
+      "display_name": "Knit Compass 顧客ポータル",
       "environment": "same-origin-local-pilot-customer",
-      "display_version": "v1.0.1",
+      "display_version": "v1.0.2",
       "entry_path": "/stylem/",
       "code_source": "stylem/index.html@main",
-      "code_revision": "git-blob:fddeb899c0333cacea3b075385fe8d5fcfd996de",
+      "code_revision": "git-blob:6333a71120f2c6317e15b24a3f0da4037069db42",
       "auxiliary_sources": [
         {
           "code_source": "customer-sharing/policy.js@main",
-          "code_revision": "git-blob:c779b9859a525d6f5597db608930ad33cef9941e"
+          "code_revision": "git-blob:9539c0363dc1c8c32e36d5bf73edc96a609b1ab2"
         }
       ],
       "data_store": "browser-localstorage",
-      "storage_detail": "Reads only sanitized snapshot kc_customer_portal_STYLEM_v1; never reads master storage or grant storage in application logic; re-sanitizes and deduplicates shared records before rendering; permits only http/https links and supported image data URIs; writes only STYLEM customer requests to kc_customer_requests_v1; no direct master mutation",
+      "storage_detail": "Reads only sanitized snapshot from legacy compatibility key kc_customer_portal_STYLEM_v1; never reads master storage or grant storage in application logic; re-sanitizes and deduplicates shared records before rendering; permits only http/https links and supported image data URIs; writes only scoped customer requests to kc_customer_requests_v1; no direct master mutation",
       "sync_mode": "approved-snapshot-read-and-customer-request-write",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "no-automatic-production-core-company-db-connection",

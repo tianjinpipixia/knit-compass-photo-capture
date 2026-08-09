@@ -2,7 +2,7 @@
   'use strict';
 
   const CUSTOMER_ID = 'STYLEM';
-  const CUSTOMER_NAME = 'スタイレム（暫定）';
+  const CUSTOMER_NAME = '顧客ポータル';
   const PORTAL_KEY = 'kc_customer_portal_STYLEM_v1';
   const REQUESTS_KEY = 'kc_customer_requests_v1';
   const PORTAL_SCHEMA = '1.1';

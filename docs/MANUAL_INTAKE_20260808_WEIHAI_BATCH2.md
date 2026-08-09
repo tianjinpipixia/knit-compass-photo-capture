@@ -79,12 +79,14 @@ Linked documents:
 
 ## Human Reviewでの保存
 
-各itemは `targetType=organization` に加え `commonIds.researchId` を持つ。現行Human Reviewでは承認時に:
+各itemは `targetType=organization` に加え `commonIds.researchId` と根拠付き `organizationProfile` を持つ。Human Reviewでは承認時に:
 
 - 会社・組織マスターへ正式OR-IDで登録
+- `organizationProfile` の連絡先・所在地・事業情報・根拠・関連資料を会社マスターへ保持
+- 2社が承認済みになった時点で `relatedOrganizationTempId` に対応する正式 `relatedOrganizationId` を追記
 - 同時に調査記録を作成し、`notes` をcandidateAnswer / verifiedFactsとして保持
 
-とする。会社マスター本体の担当者専用フィールドは現行v0.4にないため、担当者・関係・資料詳細は調査記録と元のintake payloadを正本補助として保持する。
+とする。未確認の資本関係は未確認のまま保存し、正式な親子関係へ読み替えない。
 
 ## 安全境界
 

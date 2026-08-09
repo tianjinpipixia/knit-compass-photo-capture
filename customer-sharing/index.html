@@ -15,8 +15,8 @@
   <div class="banner">KNIT COMPASS MASTER → CUSTOMER APPROVED SHARING</div>
   <main class="shell">
     <header class="head">
-      <div><h1>顧客共有管理</h1><p>マスターの確認済み情報から、安全項目だけをスタイレム（暫定）領域へ発行します。</p></div>
-      <div class="actions"><a class="btn secondary" href="../brand-intelligence/">マスターへ戻る</a><a class="btn secondary" href="../stylem/" target="_blank" rel="noopener">STYLEM領域を確認</a><button class="btn" id="republish">共有領域を再発行</button></div>
+      <div><h1>顧客共有管理</h1><p>マスターの確認済み情報から、安全項目だけを顧客ポータルへ発行します。</p></div>
+      <div class="actions"><a class="btn secondary" href="../brand-intelligence/">マスターへ戻る</a><a class="btn secondary" href="../stylem/" target="_blank" rel="noopener">顧客ポータルを確認</a><button class="btn" id="republish">共有領域を再発行</button></div>
     </header>
 
     <div class="notice"><strong>共有境界</strong><br>商品は「公式確認済み」、糸は「PUBLISHED」だけが共有対象です。候補・DRAFT・REVIEW、商品研究メモ、開発仮説、糸の価格・MOQ・納期・注意事項は顧客領域へ出しません。</div>
@@ -34,7 +34,7 @@
       <article class="card"><div class="section-head"><div><h2>糸</h2><p>PUBLISHEDの糸だけを個別承認します。</p></div><span id="yarnCount" class="tag warn">0件</span></div><div id="yarnList" class="list"></div></article>
     </section>
 
-    <section class="card" style="margin-top:12px"><div class="section-head"><div><h2>STYLEMからのリクエスト</h2><p>顧客の依頼はマスターを直接変更せず、回答・対応待ちとして受信します。</p></div></div><div id="requestList" class="list"></div></section>
+    <section class="card" style="margin-top:12px"><div class="section-head"><div><h2>顧客ポータルからのリクエスト</h2><p>顧客の依頼はマスターを直接変更せず、回答・対応待ちとして受信します。</p></div></div><div id="requestList" class="list"></div></section>
     <footer class="footer">同一オリジン・同一ブラウザのローカルPilotです。外部顧客への正式認証・権限制御にはサーバー側アクセス制御が必要です。</footer>
   </main>
 
@@ -81,13 +81,13 @@
     function renderRecords(type,records,sharing){
       const target=$(type==='product'?'productList':'yarnList');
       if(!records.length){target.innerHTML='<div class="empty">マスターにデータがありません。</div>';return}
-      target.innerHTML=records.map(record=>{const eligible=P.isEligible(type,record),granted=isGranted(sharing,type,record.id);const title=type==='product'?`${record.brand||'—'}｜${record.name||'名称未設定'}`:`${record.supplier||'—'}｜${record.name||'名称未設定'}`;const detail=type==='product'?[record.productNumber,record.composition].filter(Boolean).join(' ／ '):[record.displayCount,record.composition,record.gauge].filter(Boolean).join(' ／ ');return`<article class="record"><div><div><span class="tag ${granted?'ok':eligible?'warn':'no'}">${granted?'共有中':eligible?'共有可能':'共有不可'}</span></div><h3>${esc(title)}</h3><p>${esc(detail||record.id)}</p></div><button class="btn ${granted?'danger':''}" data-share-type="${esc(type)}" data-share-id="${esc(record.id)}" data-share-next="${granted?'0':'1'}" ${!eligible&&!granted?'disabled aria-disabled="true"':''}>${granted?'共有解除':'STYLEMへ共有'}</button></article>`}).join('');
-      target.querySelectorAll('[data-share-id]').forEach(button=>button.addEventListener('click',()=>{try{setGrant(button.dataset.shareType,button.dataset.shareId,button.dataset.shareNext==='1');setMessage(button.dataset.shareNext==='1'?'承認済み情報をSTYLEM領域へ発行しました。':'STYLEM領域から共有を解除しました。')}catch(error){setMessage(error.message||String(error),true)}}));
+      target.innerHTML=records.map(record=>{const eligible=P.isEligible(type,record),granted=isGranted(sharing,type,record.id);const title=type==='product'?`${record.brand||'—'}｜${record.name||'名称未設定'}`:`${record.supplier||'—'}｜${record.name||'名称未設定'}`;const detail=type==='product'?[record.productNumber,record.composition].filter(Boolean).join(' ／ '):[record.displayCount,record.composition,record.gauge].filter(Boolean).join(' ／ ');return`<article class="record"><div><div><span class="tag ${granted?'ok':eligible?'warn':'no'}">${granted?'共有中':eligible?'共有可能':'共有不可'}</span></div><h3>${esc(title)}</h3><p>${esc(detail||record.id)}</p></div><button class="btn ${granted?'danger':''}" data-share-type="${esc(type)}" data-share-id="${esc(record.id)}" data-share-next="${granted?'0':'1'}" ${!eligible&&!granted?'disabled aria-disabled="true"':''}>${granted?'共有解除':'顧客ポータルへ共有'}</button></article>`}).join('');
+      target.querySelectorAll('[data-share-id]').forEach(button=>button.addEventListener('click',()=>{try{setGrant(button.dataset.shareType,button.dataset.shareId,button.dataset.shareNext==='1');setMessage(button.dataset.shareNext==='1'?'承認済み情報を顧客ポータルへ発行しました。':'顧客ポータルから共有を解除しました。')}catch(error){setMessage(error.message||String(error),true)}}));
     }
 
     function updateRequest(requestId,status){
       const requests=loadRequests();const request=requests.find(item=>item.request_id===requestId);if(!request)return;
-      if(status==='ANSWERED'){const response=prompt('STYLEMへの回答を入力してください。',request.response||'');if(response===null)return;request.response=String(response).trim();if(!request.response){setMessage('回答を入力してください。',true);return}}
+      if(status==='ANSWERED'){const response=prompt('顧客への回答を入力してください。',request.response||'');if(response===null)return;request.response=String(response).trim();if(!request.response){setMessage('回答を入力してください。',true);return}}
       request.status=status;request.updated_at=P.nowIso();localStorage.setItem(P.REQUESTS_KEY,JSON.stringify(requests));render();setMessage(status==='ANSWERED'?'回答を保存しました。':'リクエストを完了にしました。');
     }
 
@@ -95,7 +95,7 @@
 
     function render(){const master=loadMaster(),sharing=loadSharing(),portal=P.normalizePortal(P.safeParse(localStorage.getItem(P.PORTAL_KEY),P.emptyPortal())),requests=loadRequests();$('productShared').textContent=portal.products.length;$('yarnShared').textContent=portal.yarns.length;$('publishedAt').textContent=portal.published_at?new Date(portal.published_at).toLocaleString('ja-JP'):'未発行';$('productCount').textContent=`${master.products.length}件`;$('yarnCount').textContent=`${master.yarns.length}件`;renderRecords('product',master.products,sharing);renderRecords('yarn',master.yarns,sharing);renderRequests(requests)}
 
-    $('republish').addEventListener('click',()=>{try{publishSnapshot();setMessage('現在の承認状態からSTYLEM領域を再発行しました。')}catch(error){setMessage(error.message||String(error),true)}});
+    $('republish').addEventListener('click',()=>{try{publishSnapshot();setMessage('現在の承認状態から顧客ポータルを再発行しました。')}catch(error){setMessage(error.message||String(error),true)}});
     window.addEventListener('storage',render);
     render();
   })();

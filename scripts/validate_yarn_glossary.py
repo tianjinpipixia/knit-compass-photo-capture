@@ -41,7 +41,7 @@ REQUIRED_MAIN_NAV = {
     "中国糸名辞書": "./yarn-glossary.html",
     "Daily": "../daily/",
     "共有管理": "../customer-sharing/",
-    "STYLEM": "../stylem/",
+    "顧客ポータル": "../stylem/",
     "システム状態": "../status/",
 }
 
@@ -139,7 +139,7 @@ def main() -> None:
     for token in ("管理メニュー", "manageButton", "manageMenu", 'aria-expanded="false"'):
         if token not in shell:
             fail(f"V04 simplified management menu missing token: {token}")
-    for label in ("共有管理", "STYLEM", "システム状態"):
+    for label in ("共有管理", "顧客ポータル", "システム状態"):
         if shell.find(label) < shell.find("manageMenu"):
             fail(f"{label} must be grouped inside the management menu")
 

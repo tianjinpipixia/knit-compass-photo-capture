@@ -51,5 +51,8 @@ for payload in (yaxin, chengyun):
 
 assert yaxin['targetId'] != chengyun['targetId']
 assert yaxin['sourceOrganizationId'] != chengyun['sourceOrganizationId']
+assert yaxin['organizationProfile']['relationships'][0]['relatedOrganizationTempId'] == chengyun['targetId']
+assert chengyun['organizationProfile']['relationships'][0]['relatedOrganizationTempId'] == yaxin['targetId']
+assert all('relatedOrganizationId' not in payload['organizationProfile']['relationships'][0] for payload in (yaxin, chengyun))
 
-print('manual intake Weihai batch2: OK (2 separate organization candidates + research notes)')
+print('manual intake Weihai batch2: OK (2 separate PENDING organizations + reciprocal temp relations ready for formal ID resolution)')
