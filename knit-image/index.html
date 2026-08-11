@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta http-equiv="Cache-Control" content="no-store">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="theme-color" content="#163f3c">
+  <title>糸 → 編み地イメージ | Knit Compass</title>
+  <link rel="stylesheet" href="app.css?v=1.0.0">
+</head>
+<body>
+  <div class="top">KC-YARN-KNIT-IMAGE / LOCAL VISUALIZATION / NO MASTER WRITE</div>
+  <nav class="nav" aria-label="Knit Compass画面メニュー">
+    <a href="../">Photo Capture</a>
+    <a href="../brand-intelligence/">V04・Human Review</a>
+    <a href="../owner-yarns/">糸マスター2,000件</a>
+    <a class="active" href="./" aria-current="page">編み地イメージ</a>
+    <a href="../daily/">Daily</a>
+    <a href="../status/">接続先</a>
+  </nav>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">YARN TO KNIT VISUAL WORKSPACE</p>
+        <h1>糸から、編み地を想像する。</h1>
+        <p>糸マスターまたは検索カタログから糸を選び、ゲージ・編組織・本取りを指定して、検討用の編み地イメージを端末内で生成します。</p>
+      </div>
+      <div class="hero-badges" aria-label="安全境界">
+        <span>ブラウザ内生成</span>
+        <span>マスター書込なし</span>
+        <span>外部AI送信なし</span>
+      </div>
+    </section>
+
+    <section class="boundary" aria-label="利用上の注意">
+      <strong>生成画像は検討用イメージです。</strong>
+      実物の編み上がり、色、風合い、物性を保証する根拠資料ではありません。採用判断は実編み・試験・Supplier確認で行ってください。
+    </section>
+
+    <div class="workspace">
+      <aside class="picker panel" aria-labelledby="pickerTitle">
+        <div class="step-title"><span>1</span><div><p>SELECT YARN</p><h2 id="pickerTitle">糸を選ぶ</h2></div></div>
+        <label class="field">
+          <span>検索対象</span>
+          <select id="sourceFilter">
+            <option value="all">すべて</option>
+            <option value="master">V04糸マスター（端末内）</option>
+            <option value="catalog">2,000件カタログ</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>糸名・Supplier・番手・混率</span>
+          <input id="yarnQuery" type="search" placeholder="例：FOX、2/48NM、Cotton">
+        </label>
+        <div class="picker-meta"><span id="sourceCounts">読込中</span><button class="text-button" id="clearSearch" type="button">条件クリア</button></div>
+        <div id="yarnResults" class="yarn-results" aria-live="polite"><div class="empty">糸データを読み込んでいます。</div></div>
+      </aside>
+
+      <section class="builder panel" aria-labelledby="builderTitle">
+        <div class="step-title"><span>2</span><div><p>SET KNIT CONDITIONS</p><h2 id="builderTitle">編み条件を指定</h2></div></div>
+
+        <article id="selectedYarn" class="selected-yarn empty">左の一覧から糸を選択してください。</article>
+
+        <form id="knitForm" class="condition-grid">
+          <label class="field">
+            <span>ゲージ</span>
+            <select id="gauge" required>
+              <option value="3">3G</option><option value="5">5G</option><option value="7">7G</option>
+              <option value="9">9G</option><option value="12" selected>12G</option><option value="14">14G</option>
+              <option value="16">16G</option><option value="18">18G</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>編組織</span>
+            <select id="knitStructure" required>
+              <option value="jersey">天竺</option>
+              <option value="full-needle">総針</option>
+              <option value="rib">リブ</option>
+              <option value="interlock">スムース</option>
+              <option value="milano">ミラノリブ</option>
+              <option value="garter">ガーター</option>
+              <option value="pique">鹿の子</option>
+              <option value="half-cardigan">片畦</option>
+              <option value="full-cardigan">両畦</option>
+              <option value="jacquard">ジャカード</option>
+              <option value="cable">ケーブル</option>
+              <option value="mesh">透かし・メッシュ</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>本取り（編地）</span>
+            <select id="knittingEnds" required>
+              <option value="1" selected>1本</option><option value="2">2本</option><option value="3">3本</option>
+              <option value="4">4本</option><option value="5">5本</option><option value="6">6本</option>
+            </select>
+            <small>合糸数・撚り本数とは別項目です。</small>
+          </label>
+          <label class="field color-field">
+            <span>編み地カラー</span>
+            <input id="yarnColor" type="color" value="#9b765e">
+          </label>
+          <div class="form-actions">
+            <button class="btn primary" id="generate" type="submit" disabled>編み地イメージを生成</button>
+            <button class="btn secondary" id="resetConditions" type="button">条件を初期値へ</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="preview panel" aria-labelledby="previewTitle">
+        <div class="preview-head">
+          <div class="step-title"><span>3</span><div><p>GENERATED IMAGE</p><h2 id="previewTitle">編み地イメージ</h2></div></div>
+          <button class="btn secondary" id="downloadPng" type="button" disabled>PNGを保存</button>
+        </div>
+        <div class="canvas-wrap" id="canvasWrap">
+          <canvas id="knitCanvas" width="1200" height="800" aria-label="生成された編み地イメージ"></canvas>
+          <div class="canvas-placeholder" id="canvasPlaceholder"><strong>糸と編み条件を選択</strong><span>生成結果がここに表示されます。</span></div>
+        </div>
+        <div id="generationFacts" class="generation-facts"><span>未生成</span></div>
+        <p id="generationStatus" class="status" role="status">糸を選択すると生成できます。</p>
+      </section>
+    </div>
+  </main>
+  <script src="app.js?v=1.0.0" defer></script>
+</body>
+</html>

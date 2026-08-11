@@ -39,6 +39,7 @@ REQUIRED_MAIN_NAV = {
     "V04本体": "./index-current.html",
     "Photo Capture": "../",
     "中国糸名辞書": "./yarn-glossary.html",
+    "編み地イメージ": "../knit-image/",
     "Daily": "../daily/",
     "共有管理": "../customer-sharing/",
     "顧客ポータル": "../stylem/",
@@ -134,8 +135,8 @@ def main() -> None:
     if shell.find("V04本体") > shell.find("Photo Capture") or shell.find("Photo Capture") > shell.find("中国糸名辞書"):
         fail("V04 main navigation leading order is incorrect")
 
-    if shell.count('class="nav-item') != 5:
-        fail("V04 top navigation must contain exactly 5 primary controls")
+    if shell.count('class="nav-item') != 6:
+        fail("V04 top navigation must contain exactly 6 primary controls")
     for token in ("管理メニュー", "manageButton", "manageMenu", 'aria-expanded="false"'):
         if token not in shell:
             fail(f"V04 simplified management menu missing token: {token}")

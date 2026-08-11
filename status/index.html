@@ -9,6 +9,7 @@
   <style>
     :root{--ink:#172826;--muted:#5d6d69;--paper:#f2f5f3;--card:#fff;--teal:#163f3c;--line:#d6dfdb;--soft:#eef3f1;--ok:#2f6a37;--warn:#8a5d12}
     *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}.top{background:var(--ink);color:#fff;padding:10px 16px;text-align:center;font-size:12px;font-weight:800}.system-nav{display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;padding:8px 12px;background:#e5ece9;border-bottom:1px solid var(--line)}.system-nav a{display:inline-flex;align-items:center;min-height:34px;border:1px solid #aabcb5;border-radius:9px;background:#fff;color:var(--teal);padding:6px 10px;text-decoration:none;font-size:10px;font-weight:900}.system-nav a.active{background:var(--teal);color:#fff;border-color:var(--teal)}.shell{width:min(1120px,calc(100% - 28px));margin:auto;padding:24px 0 44px}.hero{background:var(--teal);color:#fff;border-radius:20px;padding:24px}.hero h1{margin:0 0 6px;font-size:clamp(25px,5vw,40px)}.hero p{margin:0;color:#deebe6}.meta,.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.pill{border-radius:999px;padding:6px 10px;background:rgba(255,255,255,.12);font-size:11px;font-weight:800}.section{margin-top:22px}.section h2{font-size:19px;margin:0 0 10px}.notice{background:#e9f5e7;border-left:5px solid var(--ok);border-radius:0 12px 12px 0;padding:13px 15px;font-size:13px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:16px}.card h3{margin:0 0 3px;font-size:16px}.id{font-size:10px;color:var(--muted);font-weight:800}.facts{display:grid;grid-template-columns:145px 1fr;margin:14px 0 0;border-top:1px solid var(--line)}.facts dt,.facts dd{margin:0;padding:8px 0;border-bottom:1px solid var(--line);font-size:12px;overflow-wrap:anywhere}.facts dt{color:var(--muted);font-weight:800}.facts code{font-size:10px}.status{display:inline-flex;border-radius:999px;padding:4px 8px;font-size:10px;font-weight:900;background:#e9f5e7;color:var(--ok)}.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.flow div{background:#fff;border:1px solid var(--line);border-radius:13px;padding:14px}.flow strong{display:block;color:var(--teal)}.flow span{font-size:11px;color:var(--muted)}.links a,.launch{display:inline-flex;padding:9px 12px;border-radius:10px;background:#fff;color:var(--teal);border:1px solid #aabcb5;text-decoration:none;font-size:12px;font-weight:800}.launch{margin-top:12px;background:var(--teal);color:#fff;border-color:var(--teal)}.launch:hover{background:#235c56}.footer{margin-top:28px;color:var(--muted);font-size:11px}.empty{padding:24px;border:1px dashed #aebdb7;border-radius:14px;background:#fff;color:var(--muted)}@media(max-width:900px){.flow{grid-template-columns:1fr 1fr}}@media(max-width:760px){.grid,.flow{grid-template-columns:1fr}.facts{grid-template-columns:115px 1fr}.shell{width:min(100% - 18px,1120px);padding-top:10px}.hero{padding:19px}.system-nav{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap}.system-nav a{min-width:max-content}}
+    @media(min-width:901px){.flow{grid-template-columns:repeat(6,1fr)}}
   </style>
 </head>
 <body>
@@ -17,6 +18,7 @@
     <a href="../">Photo Capture</a>
     <a href="../brand-intelligence/">V04・Human Review</a>
     <a href="../owner-yarns/">糸マスター2,000件</a>
+    <a href="../knit-image/">編み地イメージ</a>
     <a href="../daily/">Daily</a>
     <a href="../customer-sharing/">共有管理</a>
     <a class="active" href="./" aria-current="page">全システム・接続先</a>
@@ -24,9 +26,9 @@
   <main class="shell">
     <section class="hero"><h1>Knit Compass 接続先情報</h1><p>環境、表示バージョン、コードRevision、保存先、同期、最終同期、外部DBを一か所で確認します。</p><div class="meta"><span class="pill" id="schema">台帳版: 読込中</span><span class="pill" id="updated">更新日時: 読込中</span></div></section>
 
-    <section class="section"><div class="notice"><strong>検索母数2,000件と未反映17件の取込導線を追加しました。</strong> Photo Capture → v0.4受信箱 → Human Review → 正式マスターの境界は維持し、会社スプレッドシートへはPENDING受信箱CSVとして追記します。販売数量の推定と自動公開は行いません。</div></section>
+    <section class="section"><div class="notice"><strong>糸から編み地イメージを作る読取専用導線を追加しました。</strong> 糸マスター／2,000件カタログの番手・混率・糸構造を引き継ぎ、端末内Canvasで検討用PNGを生成します。マスター更新・外部送信・自動公開は行いません。</div></section>
 
-    <section class="section"><h2>確定フロー</h2><div class="flow"><div><strong>1. Photo Capture</strong><span>写真・混率・機能性・サステナブル・共通ID・根拠をDRAFT保存</span></div><div><strong>2. 糸カタログ</strong><span>MZ100一覧情報2,000件を検索索引化。正式糸とは分離</span></div><div><strong>3. v0.4受信箱</strong><span>同一ブラウザはlocalStorage、別端末はJSONで候補受渡し</span></div><div><strong>4. Human Review</strong><span>根拠確認済み項目だけ承認後にマスター反映。却下は無反映</span></div><div><strong>5. 会社受信箱</strong><span>CSV追記でPENDING_HUMAN_REVIEWとして保存。直接上書きなし</span></div></div></section>
+    <section class="section"><h2>確定フロー</h2><div class="flow"><div><strong>1. Photo Capture</strong><span>写真・混率・機能性・サステナブル・共通ID・根拠をDRAFT保存</span></div><div><strong>2. 糸カタログ</strong><span>MZ100一覧情報2,000件を検索索引化。正式糸とは分離</span></div><div><strong>3. 編み地イメージ</strong><span>選択糸を読取専用で参照し、検討用PNGを端末内生成</span></div><div><strong>4. v0.4受信箱</strong><span>同一ブラウザはlocalStorage、別端末はJSONで候補受渡し</span></div><div><strong>5. Human Review</strong><span>根拠確認済み項目だけ承認後にマスター反映。却下は無反映</span></div><div><strong>6. 会社受信箱</strong><span>CSV追記でPENDING_HUMAN_REVIEWとして保存。直接上書きなし</span></div></div></section>
 
     <section class="section"><h2>システム別の接続状況</h2><div id="systems" class="grid"><div class="empty">接続台帳を読み込んでいます。</div></div></section>
 
@@ -39,7 +41,7 @@
     const labels={
       'independent-sandbox':'独立Sandbox','independent':'独立運用','independent-apk':'独立APK',
       'browser-indexeddb':'ブラウザIndexedDB','browser-localstorage':'ブラウザlocalStorage','static-json-plus-browser-localstorage':'静的JSON＋ブラウザlocalStorage','android-webview-app-data':'Android WebView内',
-      'local-browser-queue-and-manual-json':'同一ブラウザ受信箱＋手動JSON','catalog-index-plus-local-human-review':'2,000件索引＋端末内Human Review','manual-only-when-owner-configured':'所有者設定時のみ手動','disabled':'OFF',
+      'read-only-catalog-and-browser-master':'読取専用カタログ＋ブラウザマスター','local-browser-queue-and-manual-json':'同一ブラウザ受信箱＋手動JSON','catalog-index-plus-local-human-review':'2,000件索引＋端末内Human Review','read-only-local-canvas-generation':'読取専用・端末内Canvas生成','manual-only-when-owner-configured':'所有者設定時のみ手動','disabled':'OFF',
       'not-applicable':'対象外','runtime-per-device-or-none':'端末内の実行時値／未実施はなし',
       'no-automatic-production-core-company-db-connection':'Production / Core / Company DBへの自動接続なし','csv-receipt-inbox-only-no-master-write':'会社受信箱CSVのみ／マスター直接書込なし','none':'なし','active':'稼働中','pilot':'Pilot'
     };

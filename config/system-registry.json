@@ -1,6 +1,6 @@
 {
-  "schema_version": "1.5.0",
-  "updated_at": "2026-08-12T23:30:00+09:00",
+  "schema_version": "1.6.0",
+  "updated_at": "2026-08-12T23:59:00+09:00",
   "policy": {
     "unknown_connections_are_forbidden": true,
     "connection_change_requires_registry_update": true,
@@ -49,7 +49,7 @@
         },
         {
           "code_source": "index.html@main",
-          "code_revision": "git-blob:cb9e82f35f6fbec3cb5954271371f6e8eae1c32e"
+          "code_revision": "git-blob:8a95ba893609544831031163564d368e8584472f"
         },
         {
           "code_source": "sw.js@main",
@@ -112,11 +112,11 @@
       "entry_href": "../brand-intelligence/",
       "entry_label": "V04・Human Reviewを開く",
       "code_source": "brand-intelligence/app.html@main",
-      "code_revision": "git-blob:de3c6570b5123f3baca85e2e606a4bde8687dc58",
+      "code_revision": "git-blob:2dd6bc9b6f8eb4f54f82e03ca5d640b46f6875dd",
       "auxiliary_sources": [
         {
           "code_source": "brand-intelligence/index.html@main",
-          "code_revision": "git-blob:496140de4ceea0b701ac7397861d17c896dc0e09"
+          "code_revision": "git-blob:f344d1b7c5a791b1643c009c03b73468a0dd1ce5"
         },
         {
           "code_source": "brand-intelligence/index-current.html@main",
@@ -136,7 +136,7 @@
         }
       ],
       "data_store": "browser-localstorage",
-      "storage_detail": "localStorage kc_independent_practical_v0_4; Human Review inbox kc_v04_handoff_queue_v1; reviewer name kc_v04_reviewer_name_v1; partial approvals preserve existing values; only evidence-backed yarn specifications are promoted; organizationProfile persists on formal organization IDs; related organization temporary IDs resolve to formal organization IDs; master and inbox approval results roll back together on storage failure; monthlyObservations link to mdProposals; unavailable sales quantity remains null and is never estimated; MD proposals remain publication HOLD; 中国糸名辞書 KC-CN-YARN-001 は同じ localStorage の yarns を読取専用で参照する; V04共通入口は糸マスター2,000件・未反映17件取込・共有管理・顧客ポータル・システム状態へ接続する",
+      "storage_detail": "localStorage kc_independent_practical_v0_4; Human Review inbox kc_v04_handoff_queue_v1; reviewer name kc_v04_reviewer_name_v1; partial approvals preserve existing values; only evidence-backed yarn specifications are promoted; organizationProfile persists on formal organization IDs; related organization temporary IDs resolve to formal organization IDs; master and inbox approval results roll back together on storage failure; monthlyObservations link to mdProposals; unavailable sales quantity remains null and is never estimated; MD proposals remain publication HOLD; 中国糸名辞書 KC-CN-YARN-001 and 糸→編み地イメージ KC-YARN-KNIT-IMAGE read the same yarns without master writes; V04共通入口は糸マスター2,000件・編み地イメージ・未反映17件取込・共有管理・顧客ポータル・システム状態へ接続する",
       "sync_mode": "local-browser-queue-and-manual-json",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "no-automatic-production-core-company-db-connection",
@@ -151,12 +151,39 @@
       "entry_href": "../owner-yarns/",
       "entry_label": "糸マスター2,000件を開く",
       "code_source": "owner-yarns/index.html@main",
-      "code_revision": "git-blob:564f64a4f1e9f9b206f24ad8d2db1dc370dc4708",
+      "code_revision": "git-blob:e8f725f331ff0398985a74582fd53d67b888c00d",
       "data_store": "static-json-plus-browser-localstorage",
-      "storage_detail": "data/yarn-catalog/mz100-catalog-2000.json provides exactly 2,000 listing-page discovery records with CATALOG_INDEXED / LISTING_PAGE_ONLY / NOT_PROMOTED; localStorage kc_independent_practical_v0_4 remains the confirmed browser master; localStorage kc_v04_handoff_queue_v1 receives five manual-intake batches totaling 17 PENDING candidates with fixed dedupe_key; company handoff is append-only UTF-8 CSV or audit JSON with PENDING_HUMAN_REVIEW and no direct master write",
+      "storage_detail": "data/yarn-catalog/mz100-catalog-2000.json provides exactly 2,000 listing-page discovery records with CATALOG_INDEXED / LISTING_PAGE_ONLY / NOT_PROMOTED and direct read-only links to KC-YARN-KNIT-IMAGE; localStorage kc_independent_practical_v0_4 remains the confirmed browser master; localStorage kc_v04_handoff_queue_v1 receives five manual-intake batches totaling 17 PENDING candidates with fixed dedupe_key; company handoff is append-only UTF-8 CSV or audit JSON with PENDING_HUMAN_REVIEW and no direct master write",
       "sync_mode": "catalog-index-plus-local-human-review",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "csv-receipt-inbox-only-no-master-write",
+      "status": "active"
+    },
+    {
+      "system_id": "KC-YARN-KNIT-IMAGE",
+      "display_name": "糸 → 編み地イメージ",
+      "environment": "independent-sandbox",
+      "display_version": "v1.0.0",
+      "entry_path": "/knit-image/",
+      "entry_href": "../knit-image/",
+      "entry_label": "編み地イメージを開く",
+      "code_source": "knit-image/app.js@main",
+      "code_revision": "git-blob:2d7cac8b8b865fbfd5082b8744524938274c13a0",
+      "auxiliary_sources": [
+        {
+          "code_source": "knit-image/index.html@main",
+          "code_revision": "git-blob:19e412fd5b170edbb6f371fcef4001df3bb06be4"
+        },
+        {
+          "code_source": "knit-image/app.css@main",
+          "code_revision": "git-blob:c915aff7bdf49e92f10f4f097b201c43aee168b6"
+        }
+      ],
+      "data_store": "read-only-catalog-and-browser-master",
+      "storage_detail": "Reads data/yarn-catalog/mz100-catalog-2000.json and localStorage kc_independent_practical_v0_4 without writing either source; gauge, knit structure, and knitting ends remain separate inputs; Canvas output remains in memory until explicit PNG download; no master, inbox, customer snapshot, IndexedDB, or external AI/API write",
+      "sync_mode": "read-only-local-canvas-generation",
+      "last_sync_at": "not-applicable",
+      "external_database": "none",
       "status": "active"
     },
     {

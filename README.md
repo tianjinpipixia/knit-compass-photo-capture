@@ -17,6 +17,8 @@ Photo Capture、v0.4、Daily、Androidは引き続き独立運用です。Produc
 
 Photo Capture v1.3.1では、インストール名とカメラアイコンを統一し、Service WorkerによるPWA起動とオフライン再起動を追加しました。Photo Capture、V04、Daily、共有管理、顧客ポータル、システム状態は各画面の共通導線またはシステム状態の「開く」ボタンから移動できます。
 
+糸マスター／2,000件カタログからは、番手・混率・糸構造・対応ゲージを引き継ぐ「糸 → 編み地イメージ」を開けます。ゲージ・編組織・本取りを指定し、外部AIへ送信せず端末内で検討用PNGを生成します。既存マスターと公開範囲は変更しません。
+
 v0.4.7では、V04入口とカタログ導線を整理し、**中国糸名辞書**と**月次掲載・MD**を接続しています。中国市場名は日本語標準名・代表的な糸タイプ（例）として読取専用で照合し、月次観測は販売数量を推定せずMD提案へ引き継ぎます。
 
 ### データ保護
@@ -34,6 +36,7 @@ v0.4.7では、V04入口とカタログ導線を整理し、**中国糸名辞書
 - 中国糸名辞書の`仿〇〇`、`冰麻`、`丝麻`などは市場名として扱い、天然繊維の含有を名称だけで確定しません。混率・規格書・Supplier確認を優先します。
 - 中国糸名辞書はlocalStorage `kc_independent_practical_v0_4` の糸マスターを読取専用で参照し、自動更新やHuman Review状態変更を行いません。
 - 月次掲載観測に販売数量の根拠がない場合は `NOT_AVAILABLE` / `null` のまま保持し、MD提案を必ず公開保留にします。
+- 編み地イメージは糸データを読取専用で参照し、Canvas／PNG以外の保存、外部送信、自動マスター反映、自動公開を行いません。
 
 **画面で確認:** [`/status/`](status/index.html)
 
@@ -43,6 +46,8 @@ v0.4.7では、V04入口とカタログ導線を整理し、**中国糸名辞書
 |---|---|---|---|
 | Photo Capture v1.3.1 | `/` | IndexedDB `kc_independent_photo_capture_v1_0` | v0.4受信箱へ候補送信 |
 | Knit Compass v0.4.7 | `/brand-intelligence/` | localStorage `kc_independent_practical_v0_4` | Human Review後にマスター反映／月次掲載観測から公開保留MD提案 |
+| 糸マスター2,000件 | `/owner-yarns/` | 静的カタログJSON＋端末内マスター | 選択糸を編み地イメージへ読取専用で引渡し |
+| 糸 → 編み地イメージ v1.0.0 | `/knit-image/` | なし（Canvas、明示PNG保存のみ） | 外部送信・マスター書込なし |
 | Daily Web | `/daily/` | localStorage | 独立運用 |
 | Daily Android | APK / `android-daily/` | Android WebView内 | 独立運用 |
 
@@ -85,6 +90,7 @@ python3 scripts/validate_ui_state_guard.py
 python3 scripts/validate_photo_capture_install.py
 python3 scripts/validate_v04_monthly_md.py
 python3 scripts/validate_navigation_links.py
+python3 scripts/validate_knit_image.py
 python3 scripts/validate_product_link_completion_20260809.py
 ```
 
