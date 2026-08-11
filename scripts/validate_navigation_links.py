@@ -58,11 +58,12 @@ assert not missing, "missing local destinations:\n" + "\n".join(missing)
 assert not invalid_placeholders, "unhandled placeholder links:\n" + "\n".join(invalid_placeholders)
 
 entry_expectations = {
-    "index.html": ("brand-intelligence/", "daily/", "customer-sharing/", "status/"),
-    "brand-intelligence/index.html": ("../", "../daily/", "../customer-sharing/", "../stylem/", "../status/"),
+    "index.html": ("brand-intelligence/", "owner-yarns/", "daily/", "customer-sharing/", "status/"),
+    "brand-intelligence/index.html": ("../", "../owner-yarns/", "../daily/", "../customer-sharing/", "../stylem/", "../status/"),
+    "owner-yarns/index.html": ("../", "../brand-intelligence/", "../daily/", "../status/"),
     "daily/index.html": ("../", "../brand-intelligence/", "../customer-sharing/", "../status/"),
     "customer-sharing/index.html": ("../", "../brand-intelligence/", "../daily/", "../stylem/", "../status/"),
-    "status/index.html": ("../", "../brand-intelligence/", "../daily/", "../customer-sharing/"),
+    "status/index.html": ("../", "../brand-intelligence/", "../owner-yarns/", "../daily/", "../customer-sharing/"),
 }
 for name, destinations in entry_expectations.items():
     text = (ROOT / name).read_text(encoding="utf-8")
@@ -74,5 +75,18 @@ assert "./index-current.html" in wrapper
 assert "./yarn-glossary.html" in wrapper
 inbox = (ROOT / "brand-intelligence/index-current.html").read_text(encoding="utf-8")
 assert 'src="./app.html?v=0.4.7"' in inbox
+
+owner_yarns = (ROOT / "owner-yarns/index.html").read_text(encoding="utf-8")
+assert "../data/yarn-catalog/mz100-catalog-2000.json" in owner_yarns
+assert "kc_v04_handoff_queue_v1" in owner_yarns
+for batch in (
+    "2026-08-08-weijie-hesheng-batch1.json",
+    "2026-08-08-weihai-yaxin-chengyun-batch2.json",
+    "2026-08-10-mz100-yarn-research-batch3.json",
+    "2026-08-12-twin-win-company-factory-batch4.json",
+    "2026-08-12-rope-picnic-gdm56050-batch5.json",
+):
+    assert batch in owner_yarns
+    assert (ROOT / "data/manual-intake" / batch).is_file()
 
 print(f"navigation links: OK ({len(html_files)} HTML files; all local assets and registered entry destinations resolve)")
