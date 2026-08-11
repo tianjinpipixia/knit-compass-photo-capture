@@ -29,8 +29,8 @@ def main() -> None:
     knitting = (ROOT / "knitting-ends-field.js").read_text(encoding="utf-8")
     service_worker = (ROOT / "sw.js").read_text(encoding="utf-8")
 
-    if manifest.get("name") != "Knit Compass Photo Capture":
-        fail("installed full name must be Knit Compass Photo Capture")
+    if manifest.get("name") != "Photo Capture":
+        fail("installed full name must be Photo Capture")
     if manifest.get("short_name") != "Photo Capture":
         fail("installed short name must be Photo Capture")
     if manifest.get("id") != "./" or manifest.get("start_url") != "./":
@@ -44,7 +44,7 @@ def main() -> None:
         fail("invalid Apple touch icon")
     if "camera icon" not in icon or "<circle" not in icon:
         fail("SVG camera icon is missing")
-    for token in ('application-name" content="Photo Capture"', 'apple-mobile-web-app-title" content="Photo Capture"', 'icon-180.png'):
+    for token in ('application-name" content="Photo Capture"', 'apple-mobile-web-app-title" content="Photo Capture"', '<title>Photo Capture</title>', 'icon-180.png'):
         if token not in index:
             fail(f"install metadata missing: {token}")
     primary = '<div class="primary-actions"><button id="new">新規キャプチャ</button><button class="secondary" id="exportHandoff">受信箱JSONを書き出す</button></div>'
@@ -66,7 +66,7 @@ def main() -> None:
     for token in ("kc-photo-capture-v1-3-1", "./index.html", "./app.js", "./icon-192.png", "./icon-512.png"):
         if token not in service_worker:
             fail(f"Photo Capture install service worker is incomplete: {token}")
-    for destination in ("brand-intelligence/", "daily/", "customer-sharing/", "status/"):
+    for destination in ("brand-intelligence/", "owner-yarns/", "daily/", "customer-sharing/", "status/"):
         if f'href="{destination}"' not in index:
             fail(f"Photo Capture global navigation is missing: {destination}")
 
