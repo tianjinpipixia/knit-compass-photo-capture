@@ -64,7 +64,9 @@ Owner Yarn Masterから次を出力できる。
 
 CSVは既存の正式マスターを上書きせず、各行を `PENDING_HUMAN_REVIEW` として追記する。会社・商品・糸マスターへの正式昇格はHuman Review後に限定する。
 
-会社所有Google Apps Scriptの正式WebアプリURLと認証方式が確定するまでは、任意URLへブラウザから自動送信しない。現在の確定接続はCSV／JSONによる受信箱追記である。
+2026-08-12に、現在確認できる会社スプレッドシート `TEST_20260722_Photo Capture 2.1_会社スプレッドシート` へ `V04_Human_Review_Inbox_TEST` シートを新設し、5バッチ・17件を `PENDING_HUMAN_REVIEW` として一度反映した。既存の正式データシートは変更していない。
+
+会社所有Google Apps Scriptの正式WebアプリURLと認証方式が確定するまでは、任意URLへブラウザから自動送信しない。現在の確定接続はCSV／JSONによる受信箱追記であり、本番会社シートへの継続自動同期は未有効である。
 
 ## 個別候補の安全境界
 
