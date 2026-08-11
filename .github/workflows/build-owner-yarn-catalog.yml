@@ -1,0 +1,65 @@
+name: Build owner yarn catalog
+
+"on":
+  push:
+    branches:
+      - main
+      - "agent/**"
+    paths:
+      - "scripts/build_mz100_catalog.py"
+      - "scripts/validate_owner_yarn_implementation.py"
+      - "requirements-catalog.txt"
+      - "owner-yarns/index.html"
+      - "data/manual-intake/**"
+      - "data/yarn-catalog/mz100-catalog-2000.json"
+      - ".github/workflows/build-owner-yarn-catalog.yml"
+  schedule:
+    - cron: "17 21 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: owner-yarn-catalog-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install catalog dependencies
+        run: python -m pip install -r requirements-catalog.txt
+      - name: Build 2,000-record MZ100 catalog
+        run: python scripts/build_mz100_catalog.py --target 2000 --delay 0.20 --max-pages 200
+      - name: Validate catalog and 17-item intake
+        run: python scripts/validate_owner_yarn_implementation.py
+      - name: Validate navigation
+        run: python scripts/validate_navigation_links.py
+      - name: Upload generated catalog evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: owner-yarn-catalog-2000
+          path: data/yarn-catalog/mz100-catalog-2000.json
+          if-no-files-found: error
+          retention-days: 14
+      - name: Commit catalog when changed
+        shell: bash
+        run: |
+          if git diff --quiet -- data/yarn-catalog/mz100-catalog-2000.json; then
+            echo "Catalog is unchanged."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/yarn-catalog/mz100-catalog-2000.json
+          git commit -m "Build 2,000-record owner yarn catalog"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
