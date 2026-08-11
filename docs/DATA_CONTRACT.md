@@ -317,3 +317,14 @@ Photo Captureからv0.4へ渡す候補は `KC_V04_INBOX_ITEM` とします。
 - `estimationPolicy`: `NO_SALES_ESTIMATION`
 
 MD提案は月次掲載観測へ必ず紐付けます。観測に根拠付き販売数量がない場合、提案側にも数量を生成しません。作成時は必ず公開保留とし、自動公開・自動マスター反映を行いません。
+
+## 14. 糸から編み地イメージ
+
+`KC-YARN-KNIT-IMAGE` は次の2データ源を読取専用で参照します。
+
+- V04糸マスター: localStorage `kc_independent_practical_v0_4` の `yarns`
+- 2,000件カタログ: `data/yarn-catalog/mz100-catalog-2000.json`。状態は `CATALOG_INDEXED / LISTING_PAGE_ONLY / NOT_PROMOTED`
+
+選択糸から `id`、`source`、`name`、`supplier`、`code`、`count`、`composition`、`structure`、`gauge`、`status` を表示用に引き継ぎます。編み条件は `gauge`、`knitStructure`、`knittingEnds`、`color` を別々に扱い、`knittingEnds` を糸の合糸数・撚り本数から推定しません。
+
+出力は `GENERATED_REFERENCE` 相当の検討用Canvas／PNGです。実編み、色、風合い、物性、Supplier仕様の根拠には昇格させません。生成処理はマスター、受信箱、IndexedDB、顧客共有スナップショットへ書き込まず、外部AI/APIへ糸情報を送信しません。

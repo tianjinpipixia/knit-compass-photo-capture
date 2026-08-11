@@ -30,6 +30,9 @@ name: Validate system registry
       - "brand-intelligence/sw.js"
       - "brand-intelligence/manifest.webmanifest"
       - "owner-yarns/index.html"
+      - "knit-image/index.html"
+      - "knit-image/app.css"
+      - "knit-image/app.js"
       - "customer-sharing/index.html"
       - "customer-sharing/policy.js"
       - "customer-sharing/**"
@@ -56,6 +59,7 @@ name: Validate system registry
       - "scripts/validate_customer_sharing.py"
       - "scripts/validate_photo_capture_install.py"
       - "scripts/validate_v04_monthly_md.py"
+      - "scripts/validate_knit_image.py"
       - ".github/workflows/validate-system-registry.yml"
       - ".github/workflows/validate-handoff-safety.yml"
       - ".github/workflows/validate-customer-sharing.yml"
@@ -90,6 +94,9 @@ name: Validate system registry
       - "brand-intelligence/sw.js"
       - "brand-intelligence/manifest.webmanifest"
       - "owner-yarns/index.html"
+      - "knit-image/index.html"
+      - "knit-image/app.css"
+      - "knit-image/app.js"
       - "customer-sharing/index.html"
       - "customer-sharing/policy.js"
       - "customer-sharing/**"
@@ -116,6 +123,7 @@ name: Validate system registry
       - "scripts/validate_customer_sharing.py"
       - "scripts/validate_photo_capture_install.py"
       - "scripts/validate_v04_monthly_md.py"
+      - "scripts/validate_knit_image.py"
       - ".github/workflows/validate-system-registry.yml"
       - ".github/workflows/validate-handoff-safety.yml"
       - ".github/workflows/validate-customer-sharing.yml"
@@ -144,3 +152,5 @@ jobs:
         run: python scripts/validate_photo_capture_install.py
       - name: Validate V04 monthly observation and MD contract
         run: python scripts/validate_v04_monthly_md.py
+      - name: Validate yarn to knit image contract
+        run: python scripts/validate_knit_image.py
