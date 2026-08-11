@@ -1,0 +1,40 @@
+name: Validate MZ100 research
+
+"on":
+  pull_request:
+    paths:
+      - "data/yarn-research/2026-08-10-mz100-evidence.json"
+      - "data/manual-intake/2026-08-10-mz100-yarn-research-batch3.json"
+      - "data/manual-intake/README.md"
+      - "docs/MZ100_RESEARCH_20260810.md"
+      - "docs/MANUAL_INTAKE_STATUS.md"
+      - "brand-intelligence/index-current.html"
+      - "scripts/validate_mz100_research_20260810.py"
+      - ".github/workflows/validate-mz100-research.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "data/yarn-research/2026-08-10-mz100-evidence.json"
+      - "data/manual-intake/2026-08-10-mz100-yarn-research-batch3.json"
+      - "data/manual-intake/README.md"
+      - "docs/MZ100_RESEARCH_20260810.md"
+      - "docs/MANUAL_INTAKE_STATUS.md"
+      - "brand-intelligence/index-current.html"
+      - "scripts/validate_mz100_research_20260810.py"
+      - ".github/workflows/validate-mz100-research.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate MZ100 evidence and PENDING boundary
+        run: python scripts/validate_mz100_research_20260810.py

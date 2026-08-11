@@ -1,0 +1,345 @@
+{
+  "format": "KC_RESEARCH_EVIDENCE_BUNDLE",
+  "schema_version": "1.0",
+  "batch_id": "KC-RESEARCH-20260810-MZ100",
+  "executed_at": "2026-08-10T02:06:48Z",
+  "safety_boundary": {
+    "master_promotion_performed": false,
+    "human_review_required": true,
+    "production_connection_added": false,
+    "core_connection_added": false,
+    "company_db_connection_added": false,
+    "estimated_values_promoted": false
+  },
+  "source_assessment": {
+    "source_name": "MZ100 / 毛织100",
+    "source_url": "https://www.mz100.cn/yarn",
+    "source_role": "industry_platform_supplier_listing",
+    "source_rank": "B",
+    "currentness_status": "TARGET_PAGES_VISIBLE_2026-08-10",
+    "currentness_checked_at": "2026-08-10T02:06:48Z",
+    "currentness_method": "Direct rendered-page inspection of the five exact MZ100 yarn URLs",
+    "limitations": [
+      "The pages are supplier listings on an industry platform, not manufacturer technical specifications, test reports, or certification records.",
+      "A company name on a shop page supports the listed seller/source relationship only; it does not prove that the company spun or manufactured the yarn.",
+      "Displayed composition and count text is preserved as a platform claim until Human Review and primary supplier evidence are available.",
+      "MZ100 numeric yarn IDs are namespace-scoped and must not be joined to another website's numeric IDs without separate identity evidence."
+    ]
+  },
+  "source_artifacts": [
+    {
+      "logical_ref": "2026-06-23-gmai/outputs/mz100_supplier_yarns/cache/shop_6_yarn_page_1.html",
+      "captured_file_mtime": "2026-06-24T07:19:54+09:00",
+      "sha256": "e75d8867f1c69c35c47f3067231e9c5b10ff84505a12457b985fd808ed0db127",
+      "supports_evidence_ids": [
+        "TMP-EV-KC-20260810-MZ100-69586",
+        "TMP-EV-KC-20260810-MZ100-69587"
+      ]
+    },
+    {
+      "logical_ref": "2026-06-23-gmai/outputs/mz100_supplier_yarns/cache/shop_24_yarn_page_1.html",
+      "captured_file_mtime": "2026-06-24T07:26:23+09:00",
+      "sha256": "eac05c4a980ebf8d58814974e82c40158af273c4c08b1507b50e0cbe66d4e0bf",
+      "supports_evidence_ids": [
+        "TMP-EV-KC-20260810-MZ100-52482"
+      ]
+    },
+    {
+      "logical_ref": "2026-06-23-gmai/outputs/mz100_supplier_yarns/supplier_yarns.csv",
+      "captured_file_mtime": "2026-06-24T07:37:11+09:00",
+      "sha256": "4d7ce8e35554e0e8f129e6a50bac06cfc6835961ac4bf4caf6c8910b9c1e4ea5",
+      "record_count": 51853,
+      "supports_research_ids": [
+        "TMP-RS-KC-20260810-MZ100-SOURCE",
+        "TMP-RS-KC-20260810-YUETUMAO"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "TMP-EV-KC-20260810-MZ100-69586",
+      "target_type": "yarn",
+      "target_id": "TMP-YN-KC-20260810-MZ100-69586",
+      "source_url": "https://www.mz100.cn/yarn/69586",
+      "page_title": "韩尚亚麻_恒添纺织有限公司_毛织100",
+      "observed_at": "2026-08-10T02:06:48Z",
+      "source_rank": "B",
+      "evidence_status": "candidate",
+      "observed_fields": {
+        "platform_yarn_id": "69586",
+        "listed_company": "恒添纺织有限公司",
+        "yarn_name": "韩尚亚麻",
+        "count_display": "1/40NM",
+        "composition_raw": "10%亚麻 36%莱赛尔 40%腈纶 14%聚酯纤维",
+        "composition_total": 100
+      },
+      "supports": [
+        "The exact MZ100 page currently displays this company, name, count text, and composition text together."
+      ],
+      "does_not_support": [
+        "Manufacturer identity",
+        "Laboratory-confirmed composition",
+        "Yarn structure, spinning method, gauge, performance, certification, price, or stock quantity"
+      ]
+    },
+    {
+      "evidence_id": "TMP-EV-KC-20260810-MZ100-69587",
+      "target_type": "yarn",
+      "target_id": "TMP-YN-KC-20260810-MZ100-69587",
+      "source_url": "https://www.mz100.cn/yarn/69587",
+      "page_title": "韩尚抗菌丝_恒添纺织有限公司_毛织100",
+      "observed_at": "2026-08-10T02:06:48Z",
+      "source_rank": "B",
+      "evidence_status": "candidate",
+      "observed_fields": {
+        "platform_yarn_id": "69587",
+        "listed_company": "恒添纺织有限公司",
+        "yarn_name": "韩尚抗菌丝",
+        "count_display": "60NM/2 80NM/2",
+        "composition_raw": "60%人丝 40%精梳棉/45%人丝 55%精梳棉",
+        "composition_variants_total": [
+          100,
+          100
+        ]
+      },
+      "supports": [
+        "The exact MZ100 page currently displays two count values and two composition alternatives."
+      ],
+      "does_not_support": [
+        "A mapping between each count and each composition alternative",
+        "An antibacterial test result or claim scope",
+        "Manufacturer identity",
+        "Yarn structure, spinning method, gauge, certification, price, or stock quantity"
+      ]
+    },
+    {
+      "evidence_id": "TMP-EV-KC-20260810-MZ100-52482",
+      "target_type": "yarn",
+      "target_id": "TMP-YN-KC-20260810-MZ100-52482",
+      "source_url": "https://www.mz100.cn/yarn/52482",
+      "page_title": "丝爽·云朵亚麻_宏森纺织品有限公司_毛织100",
+      "observed_at": "2026-08-10T02:06:48Z",
+      "source_rank": "B",
+      "evidence_status": "conflicting",
+      "observed_fields": {
+        "platform_yarn_id": "52482",
+        "listed_company": "宏森纺织品有限公司",
+        "yarn_name": "丝爽·云朵亚麻",
+        "count_display": "1/28NM",
+        "composition_raw": "85%天丝 5%亚麻 12%锦纶",
+        "composition_total": 102
+      },
+      "supports": [
+        "The exact MZ100 page currently displays this company, name, count text, and composition text together."
+      ],
+      "does_not_support": [
+        "A corrected 100% composition",
+        "That 天丝 is licensed TENCEL branded fiber",
+        "Manufacturer identity",
+        "Yarn structure, spinning method, gauge, performance, certification, price, or stock quantity"
+      ]
+    },
+    {
+      "evidence_id": "TMP-EV-KC-20260810-MZ100-65002",
+      "target_type": "market_name_example",
+      "target_id": "TMP-RS-KC-20260810-YUETUMAO",
+      "source_url": "https://www.mz100.cn/yarn/65002",
+      "page_title": "月兔毛_东莞市新长亿纺织(天保纺厂)_毛织100",
+      "observed_at": "2026-08-10T02:06:48Z",
+      "source_rank": "B",
+      "evidence_status": "candidate",
+      "observed_fields": {
+        "platform_yarn_id": "65002",
+        "listed_company": "东莞市新长亿纺织(天保纺厂)",
+        "yarn_name": "月兔毛",
+        "count_display": "1/4.5NM",
+        "composition_raw": "8%兔毛 81%尼龙 10%腈纶 1%氨纶",
+        "composition_total": 100
+      },
+      "supports": [
+        "One current MZ100 listing uses 月兔毛 for this specific composition and count."
+      ],
+      "does_not_support": [
+        "A universal composition or count for the market name 月兔毛"
+      ]
+    },
+    {
+      "evidence_id": "TMP-EV-KC-20260810-MZ100-81858",
+      "target_type": "market_name_example",
+      "target_id": "TMP-RS-KC-20260810-YUETUMAO",
+      "source_url": "https://www.mz100.cn/yarn/81858",
+      "page_title": "月兔毛_东莞市镓源纺织有限公司_毛织100",
+      "observed_at": "2026-08-10T02:06:48Z",
+      "source_rank": "B",
+      "evidence_status": "candidate",
+      "observed_fields": {
+        "platform_yarn_id": "81858",
+        "listed_company": "东莞市镓源纺织有限公司",
+        "yarn_name": "月兔毛",
+        "count_display": "1/12NM",
+        "composition_raw": "32%Angora(兔毛)32%Wool(羊毛)33%Nylon(尼龙) 3%Spandex(氨纶)",
+        "composition_total": 100
+      },
+      "supports": [
+        "A second current MZ100 listing uses the same name 月兔毛 for a different composition and count."
+      ],
+      "does_not_support": [
+        "A universal composition or count for the market name 月兔毛"
+      ]
+    }
+  ],
+  "research_records": [
+    {
+      "research_id": "TMP-RS-KC-20260810-MZ100-SOURCE",
+      "target_type": "source",
+      "target_id": "MZ100",
+      "research_question": "How should MZ100 yarn listings be used as evidence without turning platform claims into confirmed master specifications?",
+      "used_ai": [
+        "Codex"
+      ],
+      "executed_at": "2026-08-10T02:06:48Z",
+      "candidate_answer": "Use exact URL-scoped listing text as rank-B candidate evidence, preserve platform namespace, and require primary supplier documents or Human Review before specification confirmation.",
+      "verified_facts": [
+        "The five exact yarn pages in this bundle were rendered and read on 2026-08-10.",
+        "Each page presents a supplier-shop identity together with yarn name, count text, and composition text."
+      ],
+      "inferences": [],
+      "open_questions": [
+        "Who manufactured each yarn?",
+        "Can the supplier provide a current specification sheet, composition certificate, test report, and lot/version?",
+        "How does MZ100 review or validate supplier-entered product data?"
+      ],
+      "evidence_ids": [
+        "TMP-EV-KC-20260810-MZ100-69586",
+        "TMP-EV-KC-20260810-MZ100-69587",
+        "TMP-EV-KC-20260810-MZ100-52482",
+        "TMP-EV-KC-20260810-MZ100-65002",
+        "TMP-EV-KC-20260810-MZ100-81858"
+      ],
+      "source_rank": "B",
+      "confidence": "medium",
+      "review_status": "needs_more_evidence",
+      "reviewed_by": null,
+      "reviewed_at": null
+    },
+    {
+      "research_id": "TMP-RS-KC-20260810-YUETUMAO",
+      "target_type": "market_name",
+      "target_id": "月兔毛",
+      "research_question": "Does 月兔毛 identify one fixed yarn composition or specification?",
+      "used_ai": [
+        "Codex"
+      ],
+      "executed_at": "2026-08-10T02:06:48Z",
+      "candidate_answer": "No fixed composition can be assigned from the name alone; treat 月兔毛 as a non-unique market name and resolve each supplier SKU separately.",
+      "verified_facts": [
+        "MZ100 65002 and 81858 currently use the exact same yarn name 月兔毛.",
+        "65002 displays 1/4.5NM and 8%兔毛 81%尼龙 10%腈纶 1%氨纶.",
+        "81858 displays 1/12NM and 32%Angora(兔毛) 32%Wool(羊毛) 33%Nylon(尼龙) 3%Spandex(氨纶).",
+        "The cached MZ100 supplier dataset contains six records whose names include 月兔毛 across five listed companies."
+      ],
+      "inferences": [],
+      "open_questions": [
+        "Whether suppliers use 月兔毛 as a shared trade description, independently chosen product name, or licensed series name",
+        "Whether any specific 月兔毛 sample supplied to Knit Compass can be tied to one exact supplier SKU and current specification"
+      ],
+      "evidence_ids": [
+        "TMP-EV-KC-20260810-MZ100-65002",
+        "TMP-EV-KC-20260810-MZ100-81858"
+      ],
+      "source_rank": "B",
+      "confidence": "high_for_non_uniqueness_only",
+      "review_status": "needs_more_evidence",
+      "reviewed_by": null,
+      "reviewed_at": null
+    },
+    {
+      "research_id": "TMP-RS-KC-20260810-MZ100-69586",
+      "target_type": "yarn",
+      "target_id": "TMP-YN-KC-20260810-MZ100-69586",
+      "research_question": "What can be recorded for MZ100 69586 without confirming unverified specifications?",
+      "used_ai": [
+        "Codex"
+      ],
+      "executed_at": "2026-08-10T02:06:48Z",
+      "candidate_answer": "Record the exact MZ100-scoped name, listed company, count text, and composition text as candidate fields only.",
+      "verified_facts": [
+        "The exact page currently displays 韩尚亚麻, 恒添纺织有限公司, 1/40NM, and 10%亚麻 36%莱赛尔 40%腈纶 14%聚酯纤维."
+      ],
+      "inferences": [],
+      "open_questions": [
+        "Manufacturer identity",
+        "Primary specification and lot/version",
+        "Composition verification and supported gauge/structure"
+      ],
+      "evidence_ids": [
+        "TMP-EV-KC-20260810-MZ100-69586"
+      ],
+      "source_rank": "B",
+      "confidence": "medium",
+      "review_status": "needs_more_evidence",
+      "reviewed_by": null,
+      "reviewed_at": null
+    },
+    {
+      "research_id": "TMP-RS-KC-20260810-MZ100-69587",
+      "target_type": "yarn",
+      "target_id": "TMP-YN-KC-20260810-MZ100-69587",
+      "research_question": "What can be recorded for MZ100 69587 when its page contains multiple count and composition alternatives?",
+      "used_ai": [
+        "Codex"
+      ],
+      "executed_at": "2026-08-10T02:06:48Z",
+      "candidate_answer": "Preserve both raw alternatives, leave the single count value and ply fields unset, and do not create an antibacterial property without claim scope or test evidence.",
+      "verified_facts": [
+        "The exact page currently displays 韩尚抗菌丝, 恒添纺织有限公司, 60NM/2 80NM/2, and 60%人丝 40%精梳棉/45%人丝 55%精梳棉.",
+        "The page does not visibly map the first or second composition alternative to a specific displayed count."
+      ],
+      "inferences": [],
+      "open_questions": [
+        "Count-to-composition variant mapping",
+        "Meaning and fiber identity of 人丝 in the supplier specification",
+        "Antibacterial agent, target organisms, test method, result, durability, and claim scope",
+        "Manufacturer identity and primary specification"
+      ],
+      "evidence_ids": [
+        "TMP-EV-KC-20260810-MZ100-69587"
+      ],
+      "source_rank": "B",
+      "confidence": "medium",
+      "review_status": "needs_more_evidence",
+      "reviewed_by": null,
+      "reviewed_at": null
+    },
+    {
+      "research_id": "TMP-RS-KC-20260810-MZ100-52482",
+      "target_type": "yarn",
+      "target_id": "TMP-YN-KC-20260810-MZ100-52482",
+      "research_question": "What can be recorded for MZ100 52482 when its displayed composition totals 102%?",
+      "used_ai": [
+        "Codex"
+      ],
+      "executed_at": "2026-08-10T02:06:48Z",
+      "candidate_answer": "Preserve the raw 102% listing as conflicting evidence, do not normalize it to 100%, and require a corrected supplier specification before any composition confirmation.",
+      "verified_facts": [
+        "The exact page currently displays 丝爽·云朵亚麻, 宏森纺织品有限公司, 1/28NM, and 85%天丝 5%亚麻 12%锦纶.",
+        "The three displayed percentages total 102%."
+      ],
+      "inferences": [],
+      "open_questions": [
+        "Corrected composition totaling 100%",
+        "Whether 天丝 is generic lyocell wording or licensed TENCEL branded fiber",
+        "Manufacturer identity, primary specification, lot/version, structure, and gauge",
+        "Whether another site's numeric 52482 refers to an unrelated record; no cross-site identity join is allowed without evidence"
+      ],
+      "evidence_ids": [
+        "TMP-EV-KC-20260810-MZ100-52482"
+      ],
+      "source_rank": "B",
+      "confidence": "medium",
+      "review_status": "conflicting",
+      "reviewed_by": null,
+      "reviewed_at": null
+    }
+  ]
+}
