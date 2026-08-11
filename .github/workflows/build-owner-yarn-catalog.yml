@@ -54,7 +54,7 @@ jobs:
       - name: Commit catalog when changed
         shell: bash
         run: |
-          if git diff --quiet -- data/yarn-catalog/mz100-catalog-2000.json; then
+          if [ -z "$(git status --porcelain -- data/yarn-catalog/mz100-catalog-2000.json)" ]; then
             echo "Catalog is unchanged."
             exit 0
           fi
