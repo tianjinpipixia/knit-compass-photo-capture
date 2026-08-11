@@ -12,7 +12,7 @@ import argparse
 import json
 import re
 import time
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
@@ -182,18 +182,35 @@ def build_catalog(target: int, delay: float, timeout: int, max_pages: int) -> li
     raise RuntimeError(f"Only {len(records)} unique yarn listings were collected; target={target}")
 
 
+def existing_generated_at(output: Path, records: list[dict[str, object]]) -> str:
+    if not output.is_file():
+        return datetime.now(timezone.utc).isoformat()
+    try:
+        previous = json.loads(output.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return datetime.now(timezone.utc).isoformat()
+    if previous.get("records") == records and isinstance(previous.get("generated_at"), str):
+        return previous["generated_at"]
+    return datetime.now(timezone.utc).isoformat()
+
+
 def write_catalog(records: list[YarnListing], output: Path) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
+    serialized_records = [asdict(record) for record in records]
     payload = {
         "schema_version": "1.0",
         "catalog_id": "KC-YARN-CATALOG-MZ100-2000",
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": existing_generated_at(output, serialized_records),
         "source": "https://www.mz100.cn/yarn",
         "record_count": len(records),
         "scope": "listing-page discovery index; Human Review required before master promotion",
-        "records": [asdict(record) for record in records],
+        "records": serialized_records,
     }
-    output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    rendered = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+    if output.is_file() and output.read_text(encoding="utf-8") == rendered:
+        print(f"catalog unchanged: {output}")
+        return
+    output.write_text(rendered, encoding="utf-8")
 
 
 def main() -> None:
