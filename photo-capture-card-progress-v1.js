@@ -289,7 +289,13 @@
   });
 
   function observe() {
-    observer.observe(document.documentElement, { childList: true, subtree: true, characterData: true });
+    const root = document.documentElement;
+    if (!root || root.ownerDocument !== document || !root.isConnected) return;
+    try {
+      observer.observe(root, { childList: true, subtree: true, characterData: true });
+    } catch {
+      // ページ離脱中は表示補助の監視を再開しない。
+    }
   }
 
   async function refresh() {

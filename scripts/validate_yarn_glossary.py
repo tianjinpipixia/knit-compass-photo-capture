@@ -39,7 +39,10 @@ REQUIRED_MAIN_NAV = {
     "V04本体": "./index-current.html",
     "Photo Capture": "../",
     "中国糸名辞書": "./yarn-glossary.html",
+    "糸検索2,000件": "../owner-yarns/",
     "編み地イメージ": "../knit-image/",
+    "生地検査": "../fabric-inspection/",
+    "原料相場": "../market-intelligence/",
     "Daily": "../daily/",
     "共有管理": "../customer-sharing/",
     "顧客ポータル": "../stylem/",
@@ -132,11 +135,12 @@ def main() -> None:
             fail(f"V04 main navigation missing label: {label}")
         if route not in shell:
             fail(f"V04 main navigation missing route for {label}: {route}")
-    if shell.find("V04本体") > shell.find("Photo Capture") or shell.find("Photo Capture") > shell.find("中国糸名辞書"):
+    leading_labels = ("V04本体", "Photo Capture", "中国糸名辞書", "糸検索2,000件", "編み地イメージ", "生地検査", "原料相場", "Daily", "管理")
+    if any(shell.find(left) > shell.find(right) for left, right in zip(leading_labels, leading_labels[1:])):
         fail("V04 main navigation leading order is incorrect")
 
-    if shell.count('class="nav-item') != 6:
-        fail("V04 top navigation must contain exactly 6 primary controls")
+    if shell.count('class="nav-item') != 9:
+        fail("V04 top navigation must contain exactly 9 primary controls")
     for token in ("管理メニュー", "manageButton", "manageMenu", 'aria-expanded="false"'):
         if token not in shell:
             fail(f"V04 simplified management menu missing token: {token}")

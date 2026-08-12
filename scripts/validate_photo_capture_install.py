@@ -25,6 +25,7 @@ def main() -> None:
     index = (ROOT / "index.html").read_text(encoding="utf-8")
     app = (ROOT / "app.js").read_text(encoding="utf-8")
     css = (ROOT / "app.css").read_text(encoding="utf-8")
+    card_progress = (ROOT / "photo-capture-card-progress-v1.js").read_text(encoding="utf-8")
     icon = (ROOT / "icon.svg").read_text(encoding="utf-8")
     knitting = (ROOT / "knitting-ends-field.js").read_text(encoding="utf-8")
     service_worker = (ROOT / "sw.js").read_text(encoding="utf-8")
@@ -63,10 +64,12 @@ def main() -> None:
         fail("Photo Capture helper cache-busting version is missing")
     if "serviceWorker.register('./sw.js?v=1.3.1')" not in app:
         fail("Photo Capture install service worker is not registered")
-    for token in ("kc-photo-capture-v1-3-1", "./index.html", "./app.js", "./icon-192.png", "./icon-512.png"):
+    if "if (!root || root.ownerDocument !== document || !root.isConnected) return;" not in card_progress or "ページ離脱中" not in card_progress:
+        fail("Photo Capture async observer unload guard is missing")
+    for token in ("kc-photo-capture-v1-3-1-navigation-7", "./index.html", "./app.js", "./icon-192.png", "./icon-512.png", "./brand-intelligence/", "./owner-yarns/", "./knit-image/", "./fabric-inspection/", "./market-intelligence/", "./daily/", "./status/"):
         if token not in service_worker:
             fail(f"Photo Capture install service worker is incomplete: {token}")
-    for destination in ("brand-intelligence/", "owner-yarns/", "daily/", "customer-sharing/", "status/"):
+    for destination in ("brand-intelligence/", "brand-intelligence/#cn-yarn-glossary", "owner-yarns/", "knit-image/", "fabric-inspection/", "market-intelligence/", "daily/", "customer-sharing/", "stylem/", "status/"):
         if f'href="{destination}"' not in index:
             fail(f"Photo Capture global navigation is missing: {destination}")
 

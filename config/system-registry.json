@@ -1,6 +1,6 @@
 {
   "schema_version": "1.6.0",
-  "updated_at": "2026-08-12T23:59:00+09:00",
+  "updated_at": "2026-08-12T09:30:00+09:00",
   "policy": {
     "unknown_connections_are_forbidden": true,
     "connection_change_requires_registry_update": true,
@@ -41,19 +41,19 @@
         },
         {
           "code_source": "knitting-ends-field.js@main",
-          "code_revision": "git-blob:5459c29d77a99a37aa1bab81ca81f918531d4cb5"
+          "code_revision": "git-blob:7488b3500d842978ceb4f959a238943a6ef5c03a"
         },
         {
           "code_source": "app-state-guard.js@main",
-          "code_revision": "git-blob:8f42d0472647bdeaa897fa9b9a551015fe1fe90f"
+          "code_revision": "git-blob:abce2d3b6b337c4e8811313749a9d7623d4260b8"
         },
         {
           "code_source": "index.html@main",
-          "code_revision": "git-blob:8a95ba893609544831031163564d368e8584472f"
+          "code_revision": "git-blob:f1aa1e41042654229e68d5bf6d6935140fc79e43"
         },
         {
           "code_source": "sw.js@main",
-          "code_revision": "git-blob:6964c0ca0af9ee0869a8c1dc33419c0721f75e98"
+          "code_revision": "git-blob:10e922e7d31f520ac6c7c6fa116339c587aa5ced"
         },
         {
           "code_source": "connection-status.css@main",
@@ -65,11 +65,11 @@
         },
         {
           "code_source": "photo-capture-card-progress-v1.js@main",
-          "code_revision": "git-blob:1dbb9fad8f7a69eba267c18e4ff919559ed66a04"
+          "code_revision": "git-blob:3fc57e93a203128a181e3bd57a28641883c35ecf"
         },
         {
           "code_source": "backup.js@main",
-          "code_revision": "git-blob:5f7dee4ac1def72551443475b2938bc4d8e6f1fd"
+          "code_revision": "git-blob:0392b1619e96fb708630b4bd8c347cb7bbb6d43f"
         },
         {
           "code_source": "manifest.webmanifest@main",
@@ -116,7 +116,7 @@
       "auxiliary_sources": [
         {
           "code_source": "brand-intelligence/index.html@main",
-          "code_revision": "git-blob:f344d1b7c5a791b1643c009c03b73468a0dd1ce5"
+          "code_revision": "git-blob:939b03a083c41fe4b1c17c7d2bc169ed25bc3391"
         },
         {
           "code_source": "brand-intelligence/index-current.html@main",
@@ -132,11 +132,11 @@
         },
         {
           "code_source": "brand-intelligence/sw.js@main",
-          "code_revision": "git-blob:17129a63b9a881390cd8a4a82c1ab7fd86bde022"
+          "code_revision": "git-blob:93dce86ac40efbb76134ca7b7365921e233b62c7"
         }
       ],
       "data_store": "browser-localstorage",
-      "storage_detail": "localStorage kc_independent_practical_v0_4; Human Review inbox kc_v04_handoff_queue_v1; reviewer name kc_v04_reviewer_name_v1; partial approvals preserve existing values; only evidence-backed yarn specifications are promoted; organizationProfile persists on formal organization IDs; related organization temporary IDs resolve to formal organization IDs; master and inbox approval results roll back together on storage failure; monthlyObservations link to mdProposals; unavailable sales quantity remains null and is never estimated; MD proposals remain publication HOLD; 中国糸名辞書 KC-CN-YARN-001 and 糸→編み地イメージ KC-YARN-KNIT-IMAGE read the same yarns without master writes; V04共通入口は糸マスター2,000件・編み地イメージ・未反映17件取込・共有管理・顧客ポータル・システム状態へ接続する",
+      "storage_detail": "localStorage kc_independent_practical_v0_4; Human Review inbox kc_v04_handoff_queue_v1; reviewer name kc_v04_reviewer_name_v1; partial approvals preserve existing values; only evidence-backed yarn specifications are promoted; organizationProfile persists on formal organization IDs; related organization temporary IDs resolve to formal organization IDs; master and inbox approval results roll back together on storage failure; monthlyObservations link to mdProposals; unavailable sales quantity remains null and is never estimated; MD proposals remain publication HOLD; 中国糸名辞書 KC-CN-YARN-001 と糸→編み地イメージ KC-YARN-KNIT-IMAGE は同じ yarns を読取専用で参照し、マスターへ書き込まない; V04共通入口はPhoto Capture・中国糸名辞書・糸検索2,000件・編み地イメージ・生地検査・原料相場・Daily・未反映17件取込・共有管理・顧客ポータル・システム状態へ接続する",
       "sync_mode": "local-browser-queue-and-manual-json",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "no-automatic-production-core-company-db-connection",
@@ -151,7 +151,7 @@
       "entry_href": "../owner-yarns/",
       "entry_label": "糸マスター2,000件を開く",
       "code_source": "owner-yarns/index.html@main",
-      "code_revision": "git-blob:e8f725f331ff0398985a74582fd53d67b888c00d",
+      "code_revision": "git-blob:1cc6df75b2582ae9bd6967bab9b99c8674b14876",
       "data_store": "static-json-plus-browser-localstorage",
       "storage_detail": "data/yarn-catalog/mz100-catalog-2000.json provides exactly 2,000 listing-page discovery records with CATALOG_INDEXED / LISTING_PAGE_ONLY / NOT_PROMOTED and direct read-only links to KC-YARN-KNIT-IMAGE; localStorage kc_independent_practical_v0_4 remains the confirmed browser master; localStorage kc_v04_handoff_queue_v1 receives five manual-intake batches totaling 17 PENDING candidates with fixed dedupe_key; company handoff is append-only UTF-8 CSV or audit JSON with PENDING_HUMAN_REVIEW and no direct master write",
       "sync_mode": "catalog-index-plus-local-human-review",
@@ -187,6 +187,52 @@
       "status": "active"
     },
     {
+      "system_id": "KC-FABRIC-INSPECTION",
+      "display_name": "Knit Compass 生地検査",
+      "environment": "independent-local",
+      "display_version": "v1.0.0",
+      "entry_path": "/fabric-inspection/",
+      "entry_href": "../fabric-inspection/",
+      "entry_label": "生地検査を開く",
+      "code_source": "fabric-inspection/app.js@main",
+      "code_revision": "git-blob:35f54c3bcd61327f52b7be352fc4edd955a8ebcf",
+      "auxiliary_sources": [
+        {
+          "code_source": "fabric-inspection/index.html@main",
+          "code_revision": "git-blob:11be393bdf082576e933eb7ea8c850fb2f4dc3d5"
+        }
+      ],
+      "data_store": "browser-localstorage",
+      "storage_detail": "localStorage kc_fabric_inspection_records_v1 stores append-only fabric inspection records; correction records reference supersedes_id instead of overwriting prior records; gauge and knitting_ends remain separate; every record is PENDING_HUMAN_REVIEW with publication_status HOLD; audit JSON export only; no V04 master, Photo Capture inbox, or customer-sharing mutation",
+      "sync_mode": "local-append-only-pending-human-review",
+      "last_sync_at": "runtime-per-device-or-none",
+      "external_database": "no-automatic-production-core-company-db-connection",
+      "status": "active"
+    },
+    {
+      "system_id": "KC-MARKET-INTELLIGENCE",
+      "display_name": "Knit Compass 原料相場 / Market Intelligence",
+      "environment": "independent-local",
+      "display_version": "v1.0.0",
+      "entry_path": "/market-intelligence/",
+      "entry_href": "../market-intelligence/",
+      "entry_label": "原料相場を開く",
+      "code_source": "market-intelligence/app.js@main",
+      "code_revision": "git-blob:573ba2ee694f7c187235125cd1a6ecb2f08f2b80",
+      "auxiliary_sources": [
+        {
+          "code_source": "market-intelligence/index.html@main",
+          "code_revision": "git-blob:391bf08747f430c779cbbf14768cb74d6d8cd79f"
+        }
+      ],
+      "data_store": "browser-localstorage",
+      "storage_detail": "localStorage kc_market_intelligence_observations_v1 stores manual append-only raw-material market observations; source currency, unit, market, and evidence status are retained without automatic conversion or forecast; every observation is PENDING_HUMAN_REVIEW with publication_status HOLD; no live price feed, V04 master mutation, Photo Capture inbox mutation, or customer publication",
+      "sync_mode": "local-append-only-pending-human-review",
+      "last_sync_at": "runtime-per-device-or-none",
+      "external_database": "no-automatic-production-core-company-db-connection",
+      "status": "active"
+    },
+    {
       "system_id": "KC-CUSTOMER-SHARING-ADMIN",
       "display_name": "Knit Compass 顧客共有管理",
       "environment": "same-origin-local-pilot-owner",
@@ -195,7 +241,7 @@
       "entry_href": "../customer-sharing/",
       "entry_label": "共有管理を開く",
       "code_source": "customer-sharing/index.html@main",
-      "code_revision": "git-blob:df1c46d06aabcdd38f7a650b0c9c21d0590a1be9",
+      "code_revision": "git-blob:0144f50c1aeb89d2b50cec36df9eef23a3ff630d",
       "auxiliary_sources": [
         {
           "code_source": "customer-sharing/policy.js@main",
@@ -218,7 +264,7 @@
       "entry_href": "../stylem/",
       "entry_label": "顧客ポータルを開く",
       "code_source": "stylem/index.html@main",
-      "code_revision": "git-blob:6333a71120f2c6317e15b24a3f0da4037069db42",
+      "code_revision": "git-blob:6c7405802a668c9970b886b9b1b94c870f6ba1c1",
       "auxiliary_sources": [
         {
           "code_source": "customer-sharing/policy.js@main",
@@ -241,7 +287,7 @@
       "entry_href": "../daily/",
       "entry_label": "Daily Webを開く",
       "code_source": "daily/index.html@main",
-      "code_revision": "git-blob:262b5037ec9acae48421fc603b60b17c35014487",
+      "code_revision": "git-blob:d953ad1faa8f2b74d180945eb6796b41306da790",
       "data_store": "browser-localstorage",
       "storage_detail": "localStorage kc_independent_practical_v0_4",
       "sync_mode": "manual-only-when-owner-configured",
