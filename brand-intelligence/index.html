@@ -11,14 +11,14 @@
   <meta name="apple-mobile-web-app-title" content="Knit Compass">
   <title>Knit Compass v0.4.7</title>
   <link rel="manifest" href="./manifest.webmanifest?v=0.4.7">
-  <link rel="icon" href="./icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="./icon.svg">
+  <link rel="icon" href="../brand/knit-compass-mark.png" type="image/png">
+  <link rel="apple-touch-icon" href="../brand/knit-compass-mark.png">
   <style>
     :root{--ink:#172826;--paper:#f2f5f3;--teal:#163f3c;--muted:#cbdad5;--line:rgba(255,255,255,.28);--menu-line:#d6dfdb}
     *{box-sizing:border-box}html,body{height:100%;margin:0;background:var(--paper);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;overflow:hidden}
     button,a{font:inherit}.shell{height:100%;display:grid;grid-template-rows:auto minmax(0,1fr)}
     .switcher{position:relative;background:var(--ink);color:#fff;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:14px;padding:7px 10px calc(7px + env(safe-area-inset-top));z-index:100}
-    .brand{display:flex;align-items:center;gap:8px;min-width:max-content}.mark{display:grid;place-items:center;width:31px;height:31px;border-radius:9px;background:#fff;color:var(--teal);font-size:11px;font-weight:950}.brand strong{display:block;font-size:12px}.brand span{display:block;color:var(--muted);font-size:8px}
+    .brand{display:flex;align-items:center;gap:8px;min-width:max-content}.mark{display:block;width:31px;height:31px;border-radius:9px;background:#fff;object-fit:contain;padding:1px}.brand strong{display:block;font-size:12px}.brand span{display:block;color:var(--muted);font-size:8px}
     .primary-nav{display:flex;align-items:center;justify-content:flex-end;gap:6px;min-width:0}.nav-item{display:inline-flex;align-items:center;justify-content:center;min-height:36px;border:1px solid var(--line);border-radius:9px;background:transparent;color:#fff;text-decoration:none;padding:7px 11px;font-size:10px;font-weight:900;white-space:nowrap;cursor:pointer}.nav-item.active{background:#fff;color:var(--teal)}.nav-item:hover{background:rgba(255,255,255,.12)}.nav-item.active:hover{background:#fff}
     .manage{position:relative}.manage-button::after{content:"⌄";margin-left:5px;font-size:10px}.manage-button[aria-expanded="true"]{background:rgba(255,255,255,.14)}
     .manage-menu{position:absolute;top:calc(100% + 8px);right:0;width:240px;display:none;padding:7px;background:#fff;border:1px solid var(--menu-line);border-radius:12px;box-shadow:0 14px 36px rgba(10,24,22,.24);z-index:120}.manage-menu.open{display:grid;gap:4px}.manage-link{display:grid;gap:1px;padding:10px 11px;border-radius:9px;color:var(--ink);text-decoration:none}.manage-link:hover{background:#eef3f1}.manage-link strong{font-size:11px}.manage-link span{font-size:9px;color:#5d6d69}
@@ -29,7 +29,7 @@
 <body>
   <div class="shell">
     <header class="switcher">
-      <div class="brand"><div class="mark">KC</div><div><strong>Knit Compass</strong><span>ONLY YOU · INBOX UPLOAD · AUTO MASTER OFF · PUBLISH HOLD</span></div></div>
+      <div class="brand"><img class="mark" src="../brand/knit-compass-mark.png" alt="Knit Compass公式ロゴ"><div><strong>Knit Compass</strong><span>ONLY YOU · INBOX UPLOAD · AUTO MASTER OFF · PUBLISH HOLD</span></div></div>
       <nav class="primary-nav" aria-label="Knit Compass主要操作">
         <button class="nav-item active" id="tabV04" type="button">V04本体</button>
         <a class="nav-item" href="../" target="_top" title="Photo Captureを開く">Photo Capture</a>

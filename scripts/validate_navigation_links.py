@@ -79,6 +79,18 @@ assert "./yarn-glossary.html" in wrapper
 inbox = (ROOT / "brand-intelligence/index-current.html").read_text(encoding="utf-8")
 assert 'src="./app.html?v=0.4.7"' in inbox
 
+official_logo = ROOT / "brand/knit-compass-mark.png"
+assert official_logo.is_file(), "official Knit Compass logo is missing"
+for name in (
+    "brand-intelligence/index.html",
+    "brand-intelligence/index-current.html",
+    "brand-intelligence/app.html",
+    "daily/index.html",
+):
+    text = (ROOT / name).read_text(encoding="utf-8")
+    assert "knit-compass-mark.png" in text, f"{name} must render the official Knit Compass logo"
+    assert '>KC<' not in text, f"{name} must not use the KC text placeholder as its logo"
+
 owner_yarns = (ROOT / "owner-yarns/index.html").read_text(encoding="utf-8")
 assert "../data/yarn-catalog/mz100-catalog-2000.json" in owner_yarns
 assert "kc_v04_handoff_queue_v1" in owner_yarns
