@@ -6,9 +6,9 @@
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta http-equiv="Cache-Control" content="no-store">
   <title>Knit Compass — 独立実用版 v0.4</title>
-  <link rel="icon" href="../icon.svg" type="image/svg+xml">
+  <link rel="icon" href="../brand/knit-compass-mark.png" type="image/png">
   <meta name="theme-color" content="#163f3c">
-  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../brand/knit-compass-mark.png">
   <style>
     :root{
       --ink:#172826;--muted:#5d6d69;--paper:#f2f5f3;--card:#fff;--teal:#163f3c;
@@ -22,7 +22,7 @@
     .top-banner{position:sticky;top:0;z-index:80;background:var(--ink);color:#fff;padding:8px 14px;text-align:center;font-size:10px;font-weight:900;letter-spacing:.08em}
     .system-nav{display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;padding:8px 12px;background:#e5ece9;border-bottom:1px solid var(--line)}.system-nav a{display:inline-flex;align-items:center;min-height:34px;border:1px solid #aabcb5;border-radius:9px;background:#fff;color:var(--teal);padding:6px 10px;text-decoration:none;font-size:10px;font-weight:900}.system-nav a.active{background:var(--teal);color:#fff;border-color:var(--teal)}
     .shell{width:min(1240px,calc(100% - 30px));margin:0 auto}.topbar{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:18px}
-    .wordmark{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit}.logo-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:var(--teal);color:#fff;font-weight:950;box-shadow:var(--shadow)}
+    .wordmark{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit}.logo-mark{display:block;width:42px;height:42px;border-radius:14px;background:#fff;object-fit:contain;padding:1px;box-shadow:var(--shadow)}
     .wordmark strong{display:block;font-size:17px}.wordmark span{display:block;color:var(--muted);font-size:10px}
     .nav{display:flex;align-items:center;gap:5px;overflow:auto;max-width:70vw}.nav button{border:0;background:transparent;color:var(--muted);padding:9px 11px;border-radius:999px;font-size:11px;font-weight:900;white-space:nowrap}.nav button.active,.nav button:hover{background:var(--teal);color:#fff}
     .page{display:none;padding-bottom:32px}.page.active{display:block}.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:22px;align-items:center;background:linear-gradient(135deg,var(--teal),#235750);color:#fff;border-radius:20px;padding:25px 28px;box-shadow:var(--shadow)}
@@ -69,7 +69,7 @@
   </nav>
   <div class="shell">
     <header class="topbar">
-      <a class="wordmark" href="#" data-go="brand-home"><span class="logo-mark">KC</span><span><strong>Knit Compass</strong><span>独立実用版 v0.4 / Brand → Store → Yarn → Development</span></span></a>
+      <a class="wordmark" href="#" data-go="brand-home"><img class="logo-mark" src="../brand/knit-compass-mark.png" alt="Knit Compass公式ロゴ"><span><strong>Knit Compass</strong><span>独立実用版 v0.4 / Brand → Store → Yarn → Development</span></span></a>
       <nav class="nav" aria-label="主要メニュー">
         <button data-page="brand-home" class="active">ブランド情報</button>
         <button data-page="workflow">店舗・商品研究</button>

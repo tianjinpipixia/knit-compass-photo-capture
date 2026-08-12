@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kc-photo-capture-v1-3-1-navigation-7';
+const CACHE_NAME = 'kc-photo-capture-v1-3-1-official-logo-8';
 const APP_SHELL = [
   './',
   './index.html',
@@ -23,7 +23,7 @@ const APP_SHELL = [
   './brand-intelligence/yarn-glossary.html',
   './brand-intelligence/data/cn-yarn-glossary.json',
   './brand-intelligence/manifest.webmanifest',
-  './brand-intelligence/icon.svg',
+  './brand/knit-compass-mark.png',
   './owner-yarns/',
   './owner-yarns/index.html',
   './knit-image/',

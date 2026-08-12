@@ -66,7 +66,7 @@ def main() -> None:
         fail("Photo Capture install service worker is not registered")
     if "if (!root || root.ownerDocument !== document || !root.isConnected) return;" not in card_progress or "ページ離脱中" not in card_progress:
         fail("Photo Capture async observer unload guard is missing")
-    for token in ("kc-photo-capture-v1-3-1-navigation-7", "./index.html", "./app.js", "./icon-192.png", "./icon-512.png", "./brand-intelligence/", "./owner-yarns/", "./knit-image/", "./fabric-inspection/", "./market-intelligence/", "./daily/", "./status/"):
+    for token in ("kc-photo-capture-v1-3-1-official-logo-8", "./index.html", "./app.js", "./icon-192.png", "./icon-512.png", "./brand/knit-compass-mark.png", "./brand-intelligence/", "./owner-yarns/", "./knit-image/", "./fabric-inspection/", "./market-intelligence/", "./daily/", "./status/"):
         if token not in service_worker:
             fail(f"Photo Capture install service worker is incomplete: {token}")
     for destination in ("brand-intelligence/", "brand-intelligence/#cn-yarn-glossary", "owner-yarns/", "knit-image/", "fabric-inspection/", "market-intelligence/", "daily/", "customer-sharing/", "stylem/", "status/"):

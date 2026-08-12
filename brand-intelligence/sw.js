@@ -1,11 +1,11 @@
-const CACHE_NAME = 'kc-brand-intelligence-v0-4-7-navigation-2';
+const CACHE_NAME = 'kc-brand-intelligence-v0-4-7-official-logo-3';
 const APP_SHELL = [
   './',
   './index.html',
   './index-current.html',
   './app.html',
   './manifest.webmanifest',
-  './icon.svg',
+  '../brand/knit-compass-mark.png',
   './yarn-glossary.html',
   './data/cn-yarn-glossary.json',
   './data/cn-yarn-glossary.json?v=1.0.0'
