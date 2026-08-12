@@ -426,6 +426,8 @@
   }
 
   const observer = new MutationObserver(() => queueMicrotask(injectControls));
-  if (root) observer.observe(root, { childList: true, subtree: true });
+  if (root?.isConnected) {
+    try { observer.observe(root, { childList: true, subtree: true }); } catch { /* ページ離脱中 */ }
+  }
   injectControls();
 })();

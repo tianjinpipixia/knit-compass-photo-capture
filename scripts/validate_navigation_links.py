@@ -58,13 +58,15 @@ assert not missing, "missing local destinations:\n" + "\n".join(missing)
 assert not invalid_placeholders, "unhandled placeholder links:\n" + "\n".join(invalid_placeholders)
 
 entry_expectations = {
-    "index.html": ("brand-intelligence/", "owner-yarns/", "knit-image/", "daily/", "customer-sharing/", "status/"),
-    "brand-intelligence/index.html": ("../", "../owner-yarns/", "../knit-image/", "../daily/", "../customer-sharing/", "../stylem/", "../status/"),
-    "owner-yarns/index.html": ("../", "../brand-intelligence/", "../knit-image/", "../daily/", "../status/"),
+    "index.html": ("brand-intelligence/", "brand-intelligence/#cn-yarn-glossary", "owner-yarns/", "knit-image/", "fabric-inspection/", "market-intelligence/", "daily/", "customer-sharing/", "stylem/", "status/"),
+    "brand-intelligence/index.html": ("../", "../owner-yarns/", "../knit-image/", "../fabric-inspection/", "../market-intelligence/", "../daily/", "../customer-sharing/", "../stylem/", "../status/"),
+    "owner-yarns/index.html": ("../", "../brand-intelligence/", "../brand-intelligence/#cn-yarn-glossary", "../knit-image/", "../fabric-inspection/", "../market-intelligence/", "../daily/", "../status/"),
     "knit-image/index.html": ("../", "../brand-intelligence/", "../owner-yarns/", "../daily/", "../status/"),
-    "daily/index.html": ("../", "../brand-intelligence/", "../customer-sharing/", "../status/"),
-    "customer-sharing/index.html": ("../", "../brand-intelligence/", "../daily/", "../stylem/", "../status/"),
-    "status/index.html": ("../", "../brand-intelligence/", "../owner-yarns/", "../knit-image/", "../daily/", "../customer-sharing/"),
+    "fabric-inspection/index.html": ("../", "../brand-intelligence/", "../owner-yarns/", "../market-intelligence/", "../daily/", "../status/"),
+    "market-intelligence/index.html": ("../", "../brand-intelligence/", "../owner-yarns/", "../fabric-inspection/", "../daily/", "../status/"),
+    "daily/index.html": ("../", "../brand-intelligence/", "../owner-yarns/", "../fabric-inspection/", "../market-intelligence/", "../customer-sharing/", "../status/"),
+    "customer-sharing/index.html": ("../", "../brand-intelligence/", "../owner-yarns/", "../fabric-inspection/", "../market-intelligence/", "../daily/", "../stylem/", "../status/"),
+    "status/index.html": ("../", "../brand-intelligence/", "../owner-yarns/", "../knit-image/", "../fabric-inspection/", "../market-intelligence/", "../daily/", "../customer-sharing/"),
 }
 for name, destinations in entry_expectations.items():
     text = (ROOT / name).read_text(encoding="utf-8")

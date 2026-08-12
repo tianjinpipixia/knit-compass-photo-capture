@@ -15,11 +15,13 @@ Photo Capture、v0.4、Daily、Androidは引き続き独立運用です。Produc
 
 同一ブラウザではlocalStorage受信箱を共有します。別サイト・別端末では受信箱JSONを書き出し、v0.4側で取り込みます。PENDINGまたはREJECTEDの候補はマスターへ反映しません。
 
-Photo Capture v1.3.1では、インストール名とカメラアイコンを統一し、Service WorkerによるPWA起動とオフライン再起動を追加しました。Photo Capture、V04、Daily、共有管理、顧客ポータル、システム状態は各画面の共通導線またはシステム状態の「開く」ボタンから移動できます。
+Photo Capture v1.3.1では、インストール名とカメラアイコンを統一し、Service WorkerによるPWA起動とオフライン再起動を追加しました。Photo Capture、V04、中国糸名辞書、糸検索2,000件、生地検査、原料相場、Daily、共有管理、顧客ポータル、システム状態は共通導線またはシステム状態の「開く」ボタンから移動できます。
 
 糸マスター／2,000件カタログからは、番手・混率・糸構造・対応ゲージを引き継ぐ「糸 → 編み地イメージ」を開けます。ゲージ・編組織・本取りを指定し、外部AIへ送信せず端末内で検討用PNGを生成します。既存マスターと公開範囲は変更しません。
 
 v0.4.7では、V04入口とカタログ導線を整理し、**中国糸名辞書**と**月次掲載・MD**を接続しています。中国市場名は日本語標準名・代表的な糸タイプ（例）として読取専用で照合し、月次観測は販売数量を推定せずMD提案へ引き継ぎます。
+
+生地検査と原料相場 / Market Intelligenceは独立した端末内の追記型記録です。どちらも `PENDING_HUMAN_REVIEW`・公開保留で保存し、V04マスター、Photo Capture受信箱、顧客共有を自動更新しません。原料相場はライブ価格取得、通貨・単位の自動換算、将来予測を行いません。
 
 ### データ保護
 
@@ -46,8 +48,10 @@ v0.4.7では、V04入口とカタログ導線を整理し、**中国糸名辞書
 |---|---|---|---|
 | Photo Capture v1.3.1 | `/` | IndexedDB `kc_independent_photo_capture_v1_0` | v0.4受信箱へ候補送信 |
 | Knit Compass v0.4.7 | `/brand-intelligence/` | localStorage `kc_independent_practical_v0_4` | Human Review後にマスター反映／月次掲載観測から公開保留MD提案 |
-| 糸マスター2,000件 | `/owner-yarns/` | 静的カタログJSON＋端末内マスター | 選択糸を編み地イメージへ読取専用で引渡し |
+| 糸検索2,000件 | `/owner-yarns/` | 静的カタログ＋localStorage受信箱 | CATALOG_INDEXEDと正式糸を分離／17件はPENDING取込／選択糸を編み地イメージへ読取専用で引渡し |
 | 糸 → 編み地イメージ v1.0.0 | `/knit-image/` | なし（Canvas、明示PNG保存のみ） | 外部送信・マスター書込なし |
+| 生地検査 | `/fabric-inspection/` | localStorage `kc_fabric_inspection_records_v1` | 追記専用／Human Review待ち／監査JSON |
+| 原料相場 / Market Intelligence | `/market-intelligence/` | localStorage `kc_market_intelligence_observations_v1` | 手動観測／自動換算・推定なし／Human Review待ち |
 | Daily Web | `/daily/` | localStorage | 独立運用 |
 | Daily Android | APK / `android-daily/` | Android WebView内 | 独立運用 |
 
@@ -91,10 +95,11 @@ python3 scripts/validate_photo_capture_install.py
 python3 scripts/validate_v04_monthly_md.py
 python3 scripts/validate_navigation_links.py
 python3 scripts/validate_knit_image.py
+python3 scripts/validate_operational_surfaces.py
 python3 scripts/validate_product_link_completion_20260809.py
 ```
 
-検証対象は、接続台帳、全登録ソースのGit blob／content SHA、保存キー、CIトリガー、接続表示、全ローカル画面・素材リンク、JavaScript構文、Photo Captureのインストール名・カメラアイコン・PWA起動・操作配置、空欄上書き防止、根拠付き項目だけの反映、会社IDとプロフィール、PENDING保持、本取り保存契約、中国糸名辞書、月次観測から公開保留MD提案への接続、販売数量の非推定、および公式商品URL未登録9件の解消です。
+検証対象は、接続台帳、全登録ソースのGit blob／content SHA、保存キー、CIトリガー、接続表示、全ローカル画面・素材リンク、JavaScript構文、Photo Captureのインストール名・カメラアイコン・PWA起動・操作配置、空欄上書き防止、根拠付き項目だけの反映、会社IDとプロフィール、PENDING保持、本取り保存契約、中国糸名辞書、生地検査・原料相場の追記／公開保留境界、月次観測から公開保留MD提案への接続、販売数量の非推定、および公式商品URL未登録9件の解消です。
 
 ## 変更ルール
 

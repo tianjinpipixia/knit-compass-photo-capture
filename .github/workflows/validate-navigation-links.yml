@@ -8,6 +8,7 @@ name: Validate navigation links
       - "**/*.css"
       - "**/*.json"
       - "scripts/validate_navigation_links.py"
+      - "scripts/validate_operational_surfaces.py"
       - ".github/workflows/validate-navigation-links.yml"
   push:
     branches:
@@ -18,6 +19,7 @@ name: Validate navigation links
       - "**/*.css"
       - "**/*.json"
       - "scripts/validate_navigation_links.py"
+      - "scripts/validate_operational_surfaces.py"
       - ".github/workflows/validate-navigation-links.yml"
   workflow_dispatch:
 
@@ -29,5 +31,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
       - name: Validate local links and screen entry points
-        run: python3 scripts/validate_navigation_links.py
+        run: |
+          python3 scripts/validate_navigation_links.py
+          python3 scripts/validate_operational_surfaces.py

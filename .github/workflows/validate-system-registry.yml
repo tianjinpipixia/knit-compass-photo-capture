@@ -33,6 +33,12 @@ name: Validate system registry
       - "knit-image/index.html"
       - "knit-image/app.css"
       - "knit-image/app.js"
+      - "fabric-inspection/**"
+      - "market-intelligence/**"
+      - "fabric-inspection/index.html"
+      - "fabric-inspection/app.js"
+      - "market-intelligence/index.html"
+      - "market-intelligence/app.js"
       - "customer-sharing/index.html"
       - "customer-sharing/policy.js"
       - "customer-sharing/**"
@@ -60,6 +66,7 @@ name: Validate system registry
       - "scripts/validate_photo_capture_install.py"
       - "scripts/validate_v04_monthly_md.py"
       - "scripts/validate_knit_image.py"
+      - "scripts/validate_operational_surfaces.py"
       - ".github/workflows/validate-system-registry.yml"
       - ".github/workflows/validate-handoff-safety.yml"
       - ".github/workflows/validate-customer-sharing.yml"
@@ -97,6 +104,12 @@ name: Validate system registry
       - "knit-image/index.html"
       - "knit-image/app.css"
       - "knit-image/app.js"
+      - "fabric-inspection/**"
+      - "market-intelligence/**"
+      - "fabric-inspection/index.html"
+      - "fabric-inspection/app.js"
+      - "market-intelligence/index.html"
+      - "market-intelligence/app.js"
       - "customer-sharing/index.html"
       - "customer-sharing/policy.js"
       - "customer-sharing/**"
@@ -124,6 +137,7 @@ name: Validate system registry
       - "scripts/validate_photo_capture_install.py"
       - "scripts/validate_v04_monthly_md.py"
       - "scripts/validate_knit_image.py"
+      - "scripts/validate_operational_surfaces.py"
       - ".github/workflows/validate-system-registry.yml"
       - ".github/workflows/validate-handoff-safety.yml"
       - ".github/workflows/validate-customer-sharing.yml"
@@ -154,3 +168,5 @@ jobs:
         run: python scripts/validate_v04_monthly_md.py
       - name: Validate yarn to knit image contract
         run: python scripts/validate_knit_image.py
+      - name: Validate fabric inspection and market intelligence boundaries
+        run: python scripts/validate_operational_surfaces.py

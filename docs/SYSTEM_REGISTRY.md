@@ -19,7 +19,9 @@
 
 糸マスターと2,000件カタログには、読取専用の「糸 → 編み地イメージ」`KC-YARN-KNIT-IMAGE` を接続しています。番手・混率・糸構造・対応ゲージを引き継ぎ、ゲージ・編組織・本取りを別項目として指定し、端末内Canvasで検討用PNGを生成します。マスター、受信箱、顧客共有データ、外部AI/APIへの書き込みはありません。
 
-V04の共通入口には `V04本体 → Photo Capture → 中国糸名辞書 → 編み地イメージ → Daily → 共有管理 → 顧客ポータル → システム状態` の8導線を常設し、V04本体内には `月次掲載・MD` 導線を追加します。Photo Capture、糸マスター、Daily、共有管理にも主要画面への共通導線を置き、システム状態の各登録システムには実際に開ける入口を表示します。外部画面へ移動する導線はトップ階層で開き、V04内のiframeを入れ子にしません。
+業務入口として、生地検査 `KC-FABRIC-INSPECTION` と原料相場 `KC-MARKET-INTELLIGENCE` を追加します。どちらも端末内の追記型記録で、`PENDING_HUMAN_REVIEW`・公開保留のまま保存し、V04マスター、Photo Capture受信箱、顧客共有を自動変更しません。
+
+V04の共通入口には `V04本体 → Photo Capture → 中国糸名辞書 → 糸検索2,000件 → 編み地イメージ → 生地検査 → 原料相場 → Daily → 管理` の導線を常設し、管理メニューから未反映17件取込、共有管理、顧客ポータル、システム状態へ移動できます。Photo Capture、糸検索、Daily、共有管理、システム状態にも主要画面への共通導線を置きます。外部画面へ移動する導線はトップ階層で開き、V04内のiframeを入れ子にしません。顧客ポータルは所有者向け管理導線を表示せず、既存の顧客境界を維持します。
 
 PENDING候補とREJECTED候補はマスターへ反映しません。DRAFT／REVIEW、未確認商品、社内研究メモ、開発仮説、糸の価格・MOQ・納期・注意事項は顧客ポータルへ発行しません。外部Production / Core / Company DBへの自動接続も追加していません。
 
@@ -29,8 +31,10 @@ PENDING候補とREJECTED候補はマスターへ反映しません。DRAFT／REV
 |---|---|---|---|---|---|---|---|---|
 | `KC-PHOTO-CAPTURE` | Photo Capture | 独立Sandbox | `v1.3.1` | `app.js@main` と登録済み補助ソース。カメラアイコン、PWA manifest、iOS用アイコン、root Service Workerを含む | IndexedDB `kc_independent_photo_capture_v1_0`、sessionStorage `kc_session_v1`・`kc_photo_capture_editor_draft_v1`、本取りUI補助localStorage `kc_photo_capture_knitting_ends_v1`、受信箱localStorage `kc_v04_handoff_queue_v1` | 同一ブラウザ受信箱＋手動JSON / PENDINGを全件保持 / 送信失敗時もDRAFT維持 / ゲージと本取りを分離 / PWA再起動 | なし | 稼働中 |
 | `KC-V04-WEB` | Knit Compass 独立実用版 v0.4 | 独立運用 | `v0.4.7` | 本体 `brand-intelligence/app.html` と登録済み補助ソース | localStorage `kc_independent_practical_v0_4`、受信箱 `kc_v04_handoff_queue_v1` | 根拠確認済み項目だけHuman Review反映。会社プロフィールと正式関係IDを保持。月次掲載観測→公開保留MD提案。販売数量は非推定 | Production / Core / Company DBへの自動接続なし | 稼働中 |
-| `KC-OWNER-YARN-MASTER` | 糸マスター2,000件 | 独立運用 | `v1.0.0` | `owner-yarns/index.html@main` | 静的カタログJSON＋端末内マスター／受信箱 | LISTING ONLYを正式マスターと分離し、選択糸を編み地イメージへ読取専用で引渡し | なし | 稼働中 |
+| `KC-OWNER-YARN-MASTER` | 糸検索2,000件・未反映17件取込 | 独立運用 | `v1.0.0` | `owner-yarns/index.html@main` | 静的2,000件カタログ、V04端末内マスター、受信箱 | CATALOG_INDEXEDを正式糸と分離し、取込はPENDINGのみ。選択糸を編み地イメージへ読取専用で引渡し | 会社受信箱CSVのみ／直接書込なし | 稼働中 |
 | `KC-YARN-KNIT-IMAGE` | 糸 → 編み地イメージ | 独立Sandbox | `v1.0.0` | `knit-image/app.js@main` とHTML/CSS | 読取専用カタログ＋端末内V04マスター。生成結果はCanvas／明示PNG保存 | 外部送信なし・マスター書込なし・検討用画像のみ | なし | 稼働中 |
+| `KC-FABRIC-INSPECTION` | 生地検査 | 独立端末内 | `v1.0.0` | `fabric-inspection/app.js@main` と `fabric-inspection/index.html@main` | localStorage `kc_fabric_inspection_records_v1` | 追記専用／PENDING_HUMAN_REVIEW／監査JSON | 自動接続なし | 稼働中 |
+| `KC-MARKET-INTELLIGENCE` | 原料相場 / Market Intelligence | 独立端末内 | `v1.0.0` | `market-intelligence/app.js@main` と `market-intelligence/index.html@main` | localStorage `kc_market_intelligence_observations_v1` | 手動観測追記／自動換算なし／PENDING_HUMAN_REVIEW／監査JSON | ライブ価格・外部DB接続なし | 稼働中 |
 | `KC-CUSTOMER-SHARING-ADMIN` | 顧客共有管理 | 同一オリジン・所有者ローカルPilot | `v1.0.2` | `customer-sharing/index.html` と共有ポリシー `customer-sharing/policy.js` | マスター、共有承認、顧客ポータル用安全スナップショット、顧客依頼 | 所有者明示承認 → 安全項目スナップショット発行／共有取消／顧客依頼回答 | 自動接続なし | Pilot |
 | `KC-STYLEM-PORTAL` | 顧客ポータル | 同一オリジン・顧客ローカルPilot | `v1.0.2` | `stylem/index.html` と共有ポリシー `customer-sharing/policy.js`。system_idと保存キーの`STYLEM`は後方互換用の内部識別子 | 顧客ポータル用安全スナップショット `kc_customer_portal_STYLEM_v1`、顧客依頼 `kc_customer_requests_v1` | 承認済みスナップショット閲覧／顧客リクエスト送信。マスター直接更新なし | 自動接続なし | Pilot |
 | `KC-DAILY-WEB` | Dailyショートカット版 | 独立運用 | `v0.4` | `daily/index.html@main` / `a7d85f1b…` | v0.4と同じlocalStorage | 所有者設定時のみ手動 | 自動接続なし | 稼働中 |
@@ -57,6 +61,12 @@ Photo Captureの入力途中フォームはsessionStorage `kc_photo_capture_edit
 Photo Captureは `gauge` と `knittingEnds` を別項目としてIndexedDBのAppend Onlyイベントへ保存し、そのままv0.4受信箱payloadへ渡します。資料の `12G×2`、`12G*2`、`12G＊2` は `gauge: "12G"` と `knittingEnds: 2` に分離します。本取りは糸の合糸数・撚り本数とは別概念です。
 
 localStorage `kc_photo_capture_knitting_ends_v1` は一覧表示と編集値復元のための補助索引であり、正本はIndexedDBイベントです。
+
+### 生地検査と原料相場の分離
+
+- 生地検査は `kc_fabric_inspection_records_v1` へ追記し、検査判定と根拠状態を別項目で保持します。訂正時は元行を上書きせず、`supersedes_id` を持つ新しい検査記録を作ります。
+- 原料相場は `kc_market_intelligence_observations_v1` へ追記し、観測日、原料、市場、指標、値、通貨、単位、方向感、情報源を保持します。異なる通貨・単位の自動換算と将来予測は行いません。
+- 両画面は `PENDING_HUMAN_REVIEW`、`publication_status: HOLD` のまま保存します。V04マスター・Photo Capture受信箱・顧客共有キーを読み書きしません。
 
 ### 混率合計
 
@@ -175,9 +185,10 @@ Pull Requestとmainへのpushで、接続台帳、実ファイルRevision、CI�
 - `scripts/validate_v04_monthly_md.py`: 月次観測、販売数量の非推定、MD提案の公開保留、JSON／CSV／サーバー出力
 - `scripts/validate_ui_state_guard.py`: 保存連打防止、版単位の送信固定、入力途中復元、本取りフィールドの読込順・保存契約・ゲージ分離
 - `scripts/validate_customer_sharing.py`: CONFIRMED／PUBLISHED条件、安全項目投影、顧客ポータルからのマスター直接参照禁止、明示grant、顧客リクエスト戻し
-- `scripts/validate_yarn_glossary.py`: 初期8分類、辞書ラベル、天然繊維確認ルール、V04入口・保存済みHuman Review画面・オフラインキャッシュ、およびV04共通入口7導線を検証
+- `scripts/validate_yarn_glossary.py`: 初期8分類、辞書ラベル、天然繊維確認ルール、V04入口・保存済みHuman Review画面・オフラインキャッシュ、およびV04 TOPの主要9操作を検証
 - `scripts/validate_navigation_links.py`: 全HTMLのローカル画面・素材リンク、主要画面の相互導線、V04 iframe対象を検証
 - `scripts/validate_knit_image.py`: 糸マスター／カタログ参照、番手・混率引継ぎ、ゲージ・編組織・本取り分離、Canvas PNG生成、外部送信とマスター書込の禁止を検証
+- `scripts/validate_operational_surfaces.py`: 生地検査・原料相場の追記型保存、PENDING／公開保留、V04マスター・受信箱非接続、外部価格フィード非接続を検証
 - `scripts/validate_product_link_completion_20260809.py`: 未登録だった公式商品URL 9件の品番・公式ドメイン・女性ニット対象範囲を検証
 
 ## 9. 正本
@@ -208,7 +219,7 @@ Pull Requestとmainへのpushで、接続台帳、実ファイルRevision、CI�
 - [ ] 読み取り元、書き込み先、受信箱、顧客スナップショットを別々に記載した
 - [ ] 候補と承認済みを区別した
 - [ ] 変更した全ソースのRevisionを台帳へ登録した
-- [ ] V04共通入口から主要6画面＋V04本体へ直接移動できる
+- [ ] V04 TOPからPhoto Capture、中国糸名辞書、糸検索、生地検査、原料相場、Daily、管理へ移動できる
 - [ ] 外部画面への遷移でV04 iframeを入れ子にしていない
 - [ ] 入力途中データの保存キーと写真非保存境界を記載した
 - [ ] ゲージと本取りを別項目で保存し、糸のply数と混同していない
@@ -225,6 +236,8 @@ Pull Requestとmainへのpushで、接続台帳、実ファイルRevision、CI�
 - [ ] 販売数量未取得時は推定せず、MD提案を公開保留にする
 - [ ] 商品はCONFIRMED、糸はPUBLISHEDかつ明示承認だけを共有する
 - [ ] 顧客リクエストからマスターを自動更新しない
+- [ ] 生地検査・原料相場が追記型かつPENDING_HUMAN_REVIEW・公開保留である
+- [ ] 原料相場を自動換算・推定せず、ライブ価格フィードへ接続していない
 - [ ] 接続先を暗黙に外部DBへ変更していない
 - [ ] `python scripts/validate_system_registry.py` が成功した
 - [ ] `python scripts/validate_yarn_glossary.py` が成功した
@@ -235,4 +248,5 @@ Pull Requestとmainへのpushで、接続台帳、実ファイルRevision、CI�
 - [ ] `python scripts/validate_v04_monthly_md.py` が成功した
 - [ ] `python scripts/validate_navigation_links.py` が成功した
 - [ ] `python scripts/validate_knit_image.py` が成功した
+- [ ] `python scripts/validate_operational_surfaces.py` が成功した
 - [ ] `python scripts/validate_product_link_completion_20260809.py` が成功した

@@ -256,6 +256,9 @@
     refreshRecordSendState();
   });
 
-  observer.observe(document.documentElement, { childList: true, subtree: true });
+  const observerRoot = document.documentElement;
+  if (observerRoot?.isConnected) {
+    try { observer.observe(observerRoot, { childList: true, subtree: true }); } catch { /* ページ離脱中 */ }
+  }
   refreshRecordSendState();
 })();
