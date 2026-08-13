@@ -60,7 +60,8 @@ jobs:
           assert 'DecompressionStream' not in daily
           assert 'serviceWorker' not in daily
           assert 'manifest.webmanifest' not in daily
-          assert './icon.svg' in daily
+          assert '../brand/knit-compass-mark.png' in daily
+          assert Path('brand/knit-compass-mark.png').is_file()
           assert Path('daily/icon.svg').is_file()
 
           print(f'PASS: V04 shell -> preserved Human Review -> {match.group(0)} and China yarn glossary; app SHA-256 {hashlib.sha256(app).hexdigest()}')
