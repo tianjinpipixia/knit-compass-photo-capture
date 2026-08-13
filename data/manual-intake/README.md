@@ -9,31 +9,17 @@ Human Reviewへ安全に投入するための手動候補バッチを保存し�
 - 現物・一次資料で確認できた項目だけを格納する
 - 不明項目は推定で埋めない
 - 同じ候補は `dedupe_key` を固定して重複取込を防ぐ
-- V04マスターへの確定反映は既存Human Reviewでのみ行う
+- V04マスターへの確定反映はHuman Reviewでのみ行う
 
-## 2026-08-08
+## 現在のバッチ
 
-- `2026-08-08-weijie-hesheng-batch1.json` — WEIJIE 5件 + 東莞合升5件
-- `2026-08-08-weihai-yaxin-chengyun-batch2.json` — 威海雅信 + 威海诚韵の会社候補2件
-
-## 2026-08-10
-
-- `2026-08-10-mz100-yarn-research-batch3.json` — MZ100 69586・69587・52482の3件。業界プラットフォーム表示は `candidate`、合計102%の52482混率は `conflicting` のままHuman Reviewへ渡す
-- 調査根拠Bundle: `../yarn-research/2026-08-10-mz100-evidence.json`
-- `月兔毛` は同名で異なる番手・混率が存在するため、一般名だけの受信箱候補は作成しない
-
-## 2026-08-12
-
-- `2026-08-12-twin-win-company-factory-batch4.json` — TWIN WIN TEXTILE CO., LTD. / 众瀛纺织品有限公司の会社・工場候補1件。歴史資料値として保持し、現行法人・稼働状況はHuman Reviewで再確認
-- `2026-08-12-rope-picnic-gdm56050-batch5.json` — ROPÉ PICNIC GDM56050の商品候補1件。公式URLと品番のみ確定候補とし、商品名・価格・混率・機能等は再取得まで空欄
-
-## 2026-08-13
-
-- `2026-08-13-american-holic-products-batch6.json` — AMERICAN HOLIC 2商品。現物タグ写真と公式商品掲載を根拠に、商品名・品番・混率を候補化。1点目の30%OFFは撮影時の店頭販促表示として保持し、未確認項目は推定しない
-- 公式・現物照合CSV: `../brand-research/2026-08-13-american-holic-owner-observed.csv`
+- `2026-08-08-weijie-hesheng-batch1.json` — 10件
+- `2026-08-08-weihai-yaxin-chengyun-batch2.json` — 2件
+- `2026-08-10-mz100-yarn-research-batch3.json` — 3件
+- `2026-08-12-twin-win-company-factory-batch4.json` — 1件
+- `2026-08-12-rope-picnic-gdm56050-batch5.json` — 1件
+- `2026-08-13-american-holic-products-batch6.json` — AMERICAN HOLIC 2件
 
 ## 一括取込
 
-`/owner-yarns/` の「未反映17件の取込」は既存5バッチ・合計17件を `kc_v04_handoff_queue_v1` へ重複なく追加できます。取込後も全件 `PENDING` のままで、正式マスターへの自動昇格は行いません。
-
-2026-08-13追加のAMERICAN HOLIC 2件（batch6）はデータ保存済みですが、現時点の一括取込UIは17件固定のためまだボタン対象外です。UIを19件対応へ更新するまでは、Human Review用候補データとしてリポジトリ内に保持します。
+`/owner-yarns/` の「未反映19件の取込」から、上記6バッチ・合計19件を `kc_v04_handoff_queue_v1` へ重複なく追加できます。AMERICAN HOLIC 2件も同じHuman Review導線に含まれます。取込後も全件 `PENDING` のままで、承認前に正式マスターへ自動昇格しません。
