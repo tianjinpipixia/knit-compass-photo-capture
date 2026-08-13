@@ -27,6 +27,13 @@ Human Reviewへ安全に投入するための手動候補バッチを保存し�
 - `2026-08-12-twin-win-company-factory-batch4.json` — TWIN WIN TEXTILE CO., LTD. / 众瀛纺织品有限公司の会社・工場候補1件。歴史資料値として保持し、現行法人・稼働状況はHuman Reviewで再確認
 - `2026-08-12-rope-picnic-gdm56050-batch5.json` — ROPÉ PICNIC GDM56050の商品候補1件。公式URLと品番のみ確定候補とし、商品名・価格・混率・機能等は再取得まで空欄
 
+## 2026-08-13
+
+- `2026-08-13-american-holic-products-batch6.json` — AMERICAN HOLIC 2商品。現物タグ写真と公式商品掲載を根拠に、商品名・品番・混率を候補化。1点目の30%OFFは撮影時の店頭販促表示として保持し、未確認項目は推定しない
+- 公式・現物照合CSV: `../brand-research/2026-08-13-american-holic-owner-observed.csv`
+
 ## 一括取込
 
-`/owner-yarns/` の「未反映17件の取込」から、上記5バッチ・合計17件を `kc_v04_handoff_queue_v1` へ重複なく追加できます。取込後も全件 `PENDING` のままで、正式マスターへの自動昇格は行いません。
+`/owner-yarns/` の「未反映17件の取込」は既存5バッチ・合計17件を `kc_v04_handoff_queue_v1` へ重複なく追加できます。取込後も全件 `PENDING` のままで、正式マスターへの自動昇格は行いません。
+
+2026-08-13追加のAMERICAN HOLIC 2件（batch6）はデータ保存済みですが、現時点の一括取込UIは17件固定のためまだボタン対象外です。UIを19件対応へ更新するまでは、Human Review用候補データとしてリポジトリ内に保持します。
