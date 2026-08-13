@@ -1,4 +1,4 @@
-name: Build owner yarn catalog
+name: Validate / refresh owner yarn catalog
 
 "on":
   push:
@@ -10,6 +10,9 @@ name: Build owner yarn catalog
       - "scripts/validate_owner_yarn_implementation.py"
       - "requirements-catalog.txt"
       - "owner-yarns/index.html"
+      - "brand-intelligence/index.html"
+      - "market-signals.js"
+      - "data/market-trends/**"
       - "data/manual-intake/**"
       - "data/yarn-catalog/mz100-catalog-2000.json"
       - ".github/workflows/build-owner-yarn-catalog.yml"
@@ -25,7 +28,24 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate committed catalog, intake, and market signals
+        run: python scripts/validate_owner_yarn_implementation.py
+      - name: Validate navigation
+        run: python scripts/validate_navigation_links.py
+
+  refresh:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -38,9 +58,9 @@ jobs:
           python-version: "3.12"
       - name: Install catalog dependencies
         run: python -m pip install -r requirements-catalog.txt
-      - name: Build 2,000-record MZ100 catalog
+      - name: Refresh 2,000-record MZ100 catalog
         run: python scripts/build_mz100_catalog.py --target 2000 --delay 0.20 --max-pages 200
-      - name: Validate catalog and 17-item intake
+      - name: Validate refreshed catalog, intake, and market signals
         run: python scripts/validate_owner_yarn_implementation.py
       - name: Validate navigation
         run: python scripts/validate_navigation_links.py
