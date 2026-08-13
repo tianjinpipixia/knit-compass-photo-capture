@@ -116,5 +116,6 @@
 
     tabs();$('confirmedCount').textContent=localMasterCount().toLocaleString('ja-JP');$('applySearch').addEventListener('click',applyFilters);$('query').addEventListener('keydown',event=>{if(event.key==='Enter')applyFilters()});$('resetSearch').addEventListener('click',()=>{$('query').value='';$('supplier').value='all';$('evidence').value='all';applyFilters()});$('loadMore').addEventListener('click',()=>{visible+=48;renderCatalog()});$('importAll').addEventListener('click',importAll);$('exportCompanyCsv').addEventListener('click',exportCompanyCsv);$('exportCompanyJson').addEventListener('click',exportCompanyJson);window.addEventListener('storage',event=>{if(event.key===QUEUE_KEY)renderQueue()});renderQueue();loadCatalog();loadBatches();
   </script>
+  <script src="../market-signals.js?v=1.0.0"></script>
 </body>
 </html>
