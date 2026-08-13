@@ -71,7 +71,6 @@
     if(!frame||!shell||!header||document.getElementById('kcMarketSignal'))return;
     const signal=signals.find(item=>item.id==='analog-revival')||signals[0];
     if(!signal)return;
-    shell.classList.add('kc-market-shell');
     const section=document.createElement('section');
     section.className='kc-market-strip';
     section.id='kcMarketSignal';
@@ -79,9 +78,10 @@
     const tags=(signal.keywords||[]).slice(0,5).map(tag=>`<span>${escapeHtml(tag)}</span>`).join('');
     section.innerHTML=`<div class="kc-market-strip-inner"><div><div class="kc-market-kicker">MARKET SIGNALS / 市場トレンド</div><div class="kc-market-title">${escapeHtml(signal.name_en)} / ${escapeHtml(signal.name_ja)}</div><div class="kc-market-desc">デジタル疲れ・効率化への反動。毛羽・凹凸・杢・麻見えなど「触りたい・持ちたい」質感を素材提案へ。</div><div class="kc-market-tags">${tags}</div></div><div class="kc-market-actions"><a class="kc-market-link primary" href="../owner-yarns/?trend=${encodeURIComponent(signal.id)}" target="_top">関連素材を見る</a><a class="kc-market-link" href="${escapeHtml(signal.source?.url||'https://www.vogue.co.jp/article/genz-analog-revival')}" target="_blank" rel="noopener">VOGUE記事</a></div></div>`;
     header.insertAdjacentElement('afterend',section);
-    const syncVisibility=()=>{section.hidden=location.hash==='#cn-yarn-glossary'};
-    document.getElementById('tabGlossary')?.addEventListener('click',()=>{section.hidden=true});
-    document.getElementById('tabV04')?.addEventListener('click',()=>{section.hidden=false});
+    const setVisibility=hidden=>{section.hidden=hidden;shell.classList.toggle('kc-market-shell',!hidden)};
+    const syncVisibility=()=>setVisibility(location.hash==='#cn-yarn-glossary');
+    document.getElementById('tabGlossary')?.addEventListener('click',()=>setVisibility(true));
+    document.getElementById('tabV04')?.addEventListener('click',()=>setVisibility(false));
     window.addEventListener('popstate',syncVisibility);
     syncVisibility();
   }
