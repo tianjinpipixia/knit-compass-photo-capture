@@ -1,0 +1,67 @@
+{
+  "format": "KC_BRAND64_MD_MONITORING",
+  "schema_version": "1.0",
+  "updated_at": "2026-08-13T23:41:00+09:00",
+  "scope": "64 canonical brands / women's knit focus",
+  "cadence": {
+    "daily": {
+      "mode": "LIGHT_SCAN",
+      "fields": [
+        "new_knit_listing",
+        "reservation_listing",
+        "markdown_or_price_change",
+        "composition_change",
+        "function_claim_change",
+        "color_change",
+        "silhouette_change",
+        "knit_structure_change",
+        "listing_removed"
+      ]
+    },
+    "weekly": {
+      "mode": "BRAND_SIGNAL_SYNTHESIS",
+      "outputs": [
+        "material_change",
+        "function_change",
+        "price_band_change",
+        "reservation_change",
+        "design_change",
+        "top_products",
+        "material_development_implication",
+        "next_checks"
+      ]
+    },
+    "monthly": {
+      "mode": "BRAND_MD_DRAFT",
+      "outputs": [
+        "brand_position",
+        "monthly_knit_theme",
+        "material_mix_change",
+        "function_change",
+        "price_band",
+        "color_silhouette_knit_structure",
+        "new_reservation_markdown_change",
+        "recommended_yarn_types",
+        "existing_yarn_candidates",
+        "new_development_candidates",
+        "sales_proposal_theme",
+        "next_month_hypothesis",
+        "evidence_urls"
+      ]
+    }
+  },
+  "rules": {
+    "official_sources_first": true,
+    "require_source_url_for_fact": true,
+    "separate_fact_and_inference": true,
+    "sales_quantity_without_evidence": "NOT_AVAILABLE",
+    "sales_quantity_estimation": "FORBIDDEN",
+    "dedupe_keys": ["brand", "product_code", "official_url"],
+    "human_review_before_master": true,
+    "customer_publication": "HOLD"
+  },
+  "gemini": {
+    "status": "INSTRUCTION_READY_CONNECTION_REQUIRED",
+    "instruction_document": "docs/BRAND64_DAILY_MD_MONITORING.md"
+  }
+}
