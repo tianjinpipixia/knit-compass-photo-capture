@@ -1,6 +1,6 @@
 {
   "schema_version": "1.6.0",
-  "updated_at": "2026-08-13T23:20:00+09:00",
+  "updated_at": "2026-08-13T23:28:00+09:00",
   "policy": {
     "unknown_connections_are_forbidden": true,
     "connection_change_requires_registry_update": true,
@@ -39,7 +39,7 @@
         {"code_source": "knitting-ends-field.js@main", "code_revision": "git-blob:7488b3500d842978ceb4f959a238943a6ef5c03a"},
         {"code_source": "app-state-guard.js@main", "code_revision": "git-blob:abce2d3b6b337c4e8811313749a9d7623d4260b8"},
         {"code_source": "index.html@main", "code_revision": "git-blob:f1aa1e41042654229e68d5bf6d6935140fc79e43"},
-        {"code_source": "sw.js@main", "code_revision": "git-blob:10e922e7d31f520ac6c7c6fa116339c587aa5ced"},
+        {"code_source": "sw.js@main", "code_revision": "git-blob:895448c969d91e8dc7c236614df73a3a86c896db"},
         {"code_source": "connection-status.css@main", "code_revision": "git-blob:cad76ab49f47b90ee196055c6420571fe3052143"},
         {"code_source": "photo-capture-card-progress-v1.css@main", "code_revision": "git-blob:7f984b4689826118996ef77e9ccc07472fa62f78"},
         {"code_source": "photo-capture-card-progress-v1.js@main", "code_revision": "git-blob:3fc57e93a203128a181e3bd57a28641883c35ecf"},
@@ -67,13 +67,13 @@
       "entry_href": "../brand-intelligence/",
       "entry_label": "V04・Human Reviewを開く",
       "code_source": "brand-intelligence/app.html@main",
-      "code_revision": "git-blob:2dd6bc9b6f8eb4f54f82e03ca5d640b46f6875dd",
+      "code_revision": "git-blob:ac2ab98278006c6f69bcc81965972bfa73747437",
       "auxiliary_sources": [
-        {"code_source": "brand-intelligence/index.html@main", "code_revision": "git-blob:939b03a083c41fe4b1c17c7d2bc169ed25bc3391"},
-        {"code_source": "brand-intelligence/index-current.html@main", "code_revision": "git-blob:29d7ccb53a8af78fbd0fae1a559f4723a4a0bb23"},
+        {"code_source": "brand-intelligence/index.html@main", "code_revision": "git-blob:2c6eadee33bbb8885379024b168a7744739940e1"},
+        {"code_source": "brand-intelligence/index-current.html@main", "code_revision": "git-blob:ca69e5192f4db908903fae8396abaf357856ba9c"},
         {"code_source": "brand-intelligence/yarn-glossary.html@main", "code_revision": "git-blob:53c9a9e79a73a5a0ba9407b9aba97266405d20e4"},
         {"code_source": "brand-intelligence/data/cn-yarn-glossary.json@main", "code_revision": "git-blob:1ec9168ff3125e3584f8e808151e11556bab933e"},
-        {"code_source": "brand-intelligence/sw.js@main", "code_revision": "git-blob:93dce86ac40efbb76134ca7b7365921e233b62c7"}
+        {"code_source": "brand-intelligence/sw.js@main", "code_revision": "git-blob:278a23dad534a9af6c53a2fd36cd4cc0bfbf0fc6"}
       ],
       "data_store": "browser-localstorage",
       "storage_detail": "localStorage kc_independent_practical_v0_4; Human Review inbox kc_v04_handoff_queue_v1; reviewer name kc_v04_reviewer_name_v1; partial approvals preserve existing values; only evidence-backed yarn specifications are promoted; organizationProfile persists on formal organization IDs; related organization temporary IDs resolve to formal organization IDs; master and inbox approval results roll back together on storage failure; monthlyObservations link to mdProposals; unavailable sales quantity remains null and is never estimated; MD proposals remain publication HOLD; 中国糸名辞書 KC-CN-YARN-001 と糸→編み地イメージ KC-YARN-KNIT-IMAGE は同じ yarns を読取専用で参照し、マスターへ書き込まない; V04共通入口はPhoto Capture・中国糸名辞書・糸検索2,000件・編み地イメージ・生地検査・原料相場・Daily・未反映19件取込・共有管理・顧客ポータル・システム状態へ接続する",
@@ -209,7 +209,7 @@
       "entry_href": "../daily/",
       "entry_label": "Daily Webを開く",
       "code_source": "daily/index.html@main",
-      "code_revision": "git-blob:d953ad1faa8f2b74d180945eb6796b41306da790",
+      "code_revision": "git-blob:9a5796f1553f6e628c6f8bcbb656d3f3735f4e64",
       "data_store": "browser-localstorage",
       "storage_detail": "localStorage kc_independent_practical_v0_4",
       "sync_mode": "manual-only-when-owner-configured",
