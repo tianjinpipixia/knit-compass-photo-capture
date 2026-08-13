@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the 2,000-record yarn catalog and remaining-work intake surface."""
+"""Validate the 2,000-record yarn catalog, intake surface, and market-signal overlay."""
 from __future__ import annotations
 
 import json
@@ -9,6 +9,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "data/yarn-catalog/mz100-catalog-2000.json"
 PAGE = ROOT / "owner-yarns/index.html"
+TOP_PAGE = ROOT / "brand-intelligence/index.html"
+MARKET_SIGNALS = ROOT / "data/market-trends/market-signals.json"
+MARKET_JS = ROOT / "market-signals.js"
 BATCHES = [
     ROOT / "data/manual-intake/2026-08-08-weijie-hesheng-batch1.json",
     ROOT / "data/manual-intake/2026-08-08-weihai-yaxin-chengyun-batch2.json",
@@ -47,6 +50,41 @@ assert coverage["count_display"] >= 200
 assert coverage["composition_raw"] >= 200
 assert coverage["listed_supplier"] >= 200
 
+assert MARKET_SIGNALS.is_file(), "market signal registry is missing"
+signal_data = json.loads(MARKET_SIGNALS.read_text(encoding="utf-8"))
+assert signal_data.get("format") == "KC_MARKET_SIGNALS"
+assert signal_data.get("schema_version") == "1.0"
+signals = signal_data.get("signals")
+assert isinstance(signals, list) and signals
+analog = next((signal for signal in signals if signal.get("id") == "analog-revival"), None)
+assert analog, "Analog Revival signal is missing"
+assert analog.get("name_ja") == "アナログ回帰"
+assert analog.get("name_en") == "Analog Revival"
+assert analog.get("status") == "ACTIVE_SIGNAL"
+assert analog.get("source", {}).get("publisher") == "VOGUE JAPAN"
+assert analog.get("source", {}).get("url") == "https://www.vogue.co.jp/article/genz-analog-revival"
+assert analog.get("consumer_insight")
+assert analog.get("recommended_yarn_types")
+assert analog.get("recommended_knits")
+assert analog.get("match_rules")
+
+terms = [
+    str(term).lower()
+    for rule in analog.get("match_rules", [])
+    for term in rule.get("terms", [])
+    if str(term).strip()
+]
+analog_matches = []
+for row in records:
+    hay = " ".join(
+        str(row.get(field) or "")
+        for field in ("name", "count_display", "composition_raw", "listed_supplier", "source_id")
+    ).lower()
+    if any(term in hay for term in terms):
+        analog_matches.append(row)
+assert analog_matches, "Analog Revival rules do not match any catalog yarns"
+print("Analog Revival catalog matches:", len(analog_matches))
+
 all_items = []
 for path in BATCHES:
     assert path.is_file(), f"missing batch: {path.name}"
@@ -74,7 +112,27 @@ for required in (
     "TWIN WIN",
     "Human Review",
     "会社スプレッドシート用CSV",
+    "market-signals.js",
 ):
     assert required in html, f"owner-yarns page missing: {required}"
 
-print("owner yarn implementation: OK (2000 catalog records, 17 PENDING candidates, safety boundary preserved)")
+top_html = TOP_PAGE.read_text(encoding="utf-8")
+assert "market-signals.js" in top_html, "V04 top is not connected to market signals"
+
+market_js = MARKET_JS.read_text(encoding="utf-8")
+for required in (
+    "MARKET SIGNALS / 市場トレンド",
+    "analog-revival",
+    "kcTrendFilter",
+    "market_trend_tags",
+    "関連素材を見る",
+    "VOGUE記事",
+    "元カタログの事実データは変更せず",
+):
+    assert required in market_js, f"market signal UI missing: {required}"
+
+print(
+    "owner yarn implementation: OK "
+    f"(2000 catalog records, {len(analog_matches)} Analog Revival matches, "
+    "17 PENDING candidates, safety boundary preserved)"
+)
