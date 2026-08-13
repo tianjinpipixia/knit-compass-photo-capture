@@ -18,6 +18,7 @@ BATCHES = [
     ROOT / "data/manual-intake/2026-08-10-mz100-yarn-research-batch3.json",
     ROOT / "data/manual-intake/2026-08-12-twin-win-company-factory-batch4.json",
     ROOT / "data/manual-intake/2026-08-12-rope-picnic-gdm56050-batch5.json",
+    ROOT / "data/manual-intake/2026-08-13-american-holic-products-batch6.json",
 ]
 
 assert CATALOG.is_file(), "2,000-record catalog has not been generated"
@@ -94,22 +95,30 @@ for path in BATCHES:
     assert all(item.get("review_status") == "PENDING" for item in batch["items"])
     all_items.extend(batch["items"])
 
-assert len(all_items) == 17
-assert len({item.get("dedupe_key") for item in all_items}) == 17
+assert len(all_items) == 19
+assert len({item.get("dedupe_key") for item in all_items}) == 19
 assert any(item.get("payload", {}).get("sourceOrganizationName", "").startswith("TWIN WIN") for item in all_items)
 gdm = [item for item in all_items if item.get("payload", {}).get("productCode") == "GDM56050"]
 assert len(gdm) == 1
 assert gdm[0]["payload"]["productName"] == ""
 assert gdm[0]["payload"]["compositionRaw"] == ""
 assert gdm[0]["payload"]["verificationStatus"] == "candidate"
+american_holic = [item for item in all_items if item.get("payload", {}).get("brandName") == "AMERICAN HOLIC"]
+assert len(american_holic) == 2
+assert {item["payload"].get("productCode") for item in american_holic} == {"0H001683000", "0H001978600"}
+assert all(item["payload"].get("compositionStatus") == "confirmed" for item in american_holic)
+cool_touch = next(item for item in american_holic if item["payload"].get("productCode") == "0H001683000")
+assert any(prop.get("name") == "接触冷感" for prop in cool_touch["payload"].get("functionalProperties", []))
 
 html = PAGE.read_text(encoding="utf-8")
 for required in (
     "mz100-catalog-2000.json",
     "kc_v04_handoff_queue_v1",
-    "17件",
+    "19件",
     "GDM56050",
     "TWIN WIN",
+    "AMERICAN HOLIC",
+    "2026-08-13-american-holic-products-batch6.json",
     "Human Review",
     "会社スプレッドシート用CSV",
     "market-signals.js",
@@ -134,5 +143,5 @@ for required in (
 print(
     "owner yarn implementation: OK "
     f"(2000 catalog records, {len(analog_matches)} Analog Revival matches, "
-    "17 PENDING candidates, safety boundary preserved)"
+    "19 PENDING candidates, safety boundary preserved)"
 )
