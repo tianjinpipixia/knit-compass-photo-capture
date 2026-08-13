@@ -10,6 +10,9 @@ name: Build owner yarn catalog
       - "scripts/validate_owner_yarn_implementation.py"
       - "requirements-catalog.txt"
       - "owner-yarns/index.html"
+      - "brand-intelligence/index.html"
+      - "market-signals.js"
+      - "data/market-trends/**"
       - "data/manual-intake/**"
       - "data/yarn-catalog/mz100-catalog-2000.json"
       - ".github/workflows/build-owner-yarn-catalog.yml"
@@ -40,7 +43,7 @@ jobs:
         run: python -m pip install -r requirements-catalog.txt
       - name: Build 2,000-record MZ100 catalog
         run: python scripts/build_mz100_catalog.py --target 2000 --delay 0.20 --max-pages 200
-      - name: Validate catalog and 17-item intake
+      - name: Validate catalog, intake, and market signals
         run: python scripts/validate_owner_yarn_implementation.py
       - name: Validate navigation
         run: python scripts/validate_navigation_links.py
