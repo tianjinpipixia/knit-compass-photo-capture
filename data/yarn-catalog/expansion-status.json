@@ -1,0 +1,25 @@
+{
+  "format": "KC_YARN_CATALOG_EXPANSION_STATUS",
+  "schema_version": "1.0",
+  "updated_on": "2026-08-15",
+  "current_searchable_count": 2000,
+  "target_minimum_count": 3000,
+  "target_policy": "SEARCH_BASE_FIRST_DEEP_DIVE_ON_REQUEST_ONLY",
+  "candidate_boundary": {
+    "catalog_status": "CATALOG_INDEXED",
+    "verification_status": "LISTING_PAGE_ONLY",
+    "master_status": "NOT_PROMOTED",
+    "automatic_promotion": "FORBIDDEN"
+  },
+  "build": {
+    "script": "scripts/build_mz100_catalog.py",
+    "seed": "data/yarn-catalog/mz100-catalog-2000.json",
+    "target_output": "data/yarn-catalog/mz100-catalog-3000.json",
+    "workflow": ".github/workflows/build-owner-yarn-catalog.yml",
+    "status": "RETRY_QUEUED",
+    "last_attempt_on": "2026-08-15",
+    "last_attempt_result": "SOURCE_CONNECT_TIMEOUT_BEFORE_PAGE_1",
+    "fallback_catalog": "data/yarn-catalog/mz100-catalog-2000.json"
+  },
+  "publication_status": "HOLD"
+}

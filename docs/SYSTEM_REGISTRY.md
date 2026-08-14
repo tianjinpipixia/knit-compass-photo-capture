@@ -17,11 +17,11 @@
 
 加えて、v0.4には読取専用の中国語糸名辞書 `KC-CN-YARN-001` を接続し、中国市場名から日本語標準名・代表的な糸タイプへ変換しながら、同一ブラウザのV04糸マスター一致候補を表示します。辞書はマスターを自動更新しません。
 
-糸マスターと2,000件カタログには、読取専用の「糸 → 編み地イメージ」`KC-YARN-KNIT-IMAGE` を接続しています。番手・混率・糸構造・対応ゲージを引き継ぎ、ゲージ・編組織・本取りを別項目として指定し、端末内Canvasで検討用PNGを生成します。マスター、受信箱、顧客共有データ、外部AI/APIへの書き込みはありません。
+糸マスターと現行2,000件カタログには、読取専用の「糸 → 編み地イメージ」`KC-YARN-KNIT-IMAGE` を接続しています。次の3,000件以上への拡張は別成果物として開始し、成功時だけ切り替えます。番手・混率・糸構造・対応ゲージを引き継ぎ、ゲージ・編組織・本取りを別項目として指定し、端末内Canvasで検討用PNGを生成します。マスター、受信箱、顧客共有データ、外部AI/APIへの書き込みはありません。
 
-業務入口として、生地検査 `KC-FABRIC-INSPECTION` と原料相場 `KC-MARKET-INTELLIGENCE` を追加します。どちらも端末内の追記型記録で、`PENDING_HUMAN_REVIEW`・公開保留のまま保存し、V04マスター、Photo Capture受信箱、顧客共有を自動変更しません。
+業務入口として、生地検査 `KC-FABRIC-INSPECTION` と原料相場 `KC-MARKET-INTELLIGENCE` を追加します。原料相場は中国の綿・ウール・麻・ナイロン・ポリエステル・再生ポリエステルを確認済み出典URLだけで比較し、64ブランド日次MD観測からNOT_PROMOTED糸候補と素材提案へ接続します。どちらも端末内の追記型記録で、`PENDING_HUMAN_REVIEW`・公開保留のまま保存し、V04マスター、Photo Capture受信箱、顧客共有を自動変更しません。
 
-V04の共通入口には `V04本体 → Photo Capture → 中国糸名辞書 → 糸検索2,000件 → 編み地イメージ → 生地検査 → 原料相場 → Daily → 管理` の導線を常設し、管理メニューから未反映17件取込、共有管理、顧客ポータル、システム状態へ移動できます。Photo Capture、糸検索、Daily、共有管理、システム状態にも主要画面への共通導線を置きます。外部画面へ移動する導線はトップ階層で開き、V04内のiframeを入れ子にしません。顧客ポータルは所有者向け管理導線を表示せず、既存の顧客境界を維持します。
+V04の営業TOPには `商品調査 → 糸検索 → 原料相場 → 編み地イメージ → 生地検査` を先頭に置き、続けてPhoto Capture、中国糸名辞書、Daily、管理へ接続します。管理メニューからHuman Review、未反映19件取込、共有管理、顧客ポータル、システム状態へ移動できます。外部画面への遷移はトップ階層で開き、V04内のiframeを入れ子にしません。
 
 PENDING候補とREJECTED候補はマスターへ反映しません。DRAFT／REVIEW、未確認商品、社内研究メモ、開発仮説、糸の価格・MOQ・納期・注意事項は顧客ポータルへ発行しません。外部Production / Core / Company DBへの自動接続も追加していません。
 
@@ -31,10 +31,10 @@ PENDING候補とREJECTED候補はマスターへ反映しません。DRAFT／REV
 |---|---|---|---|---|---|---|---|---|
 | `KC-PHOTO-CAPTURE` | Photo Capture | 独立Sandbox | `v1.3.1` | `app.js@main` と登録済み補助ソース。カメラアイコン、PWA manifest、iOS用アイコン、root Service Workerを含む | IndexedDB `kc_independent_photo_capture_v1_0`、sessionStorage `kc_session_v1`・`kc_photo_capture_editor_draft_v1`、本取りUI補助localStorage `kc_photo_capture_knitting_ends_v1`、受信箱localStorage `kc_v04_handoff_queue_v1` | 同一ブラウザ受信箱＋手動JSON / PENDINGを全件保持 / 送信失敗時もDRAFT維持 / ゲージと本取りを分離 / PWA再起動 | なし | 稼働中 |
 | `KC-V04-WEB` | Knit Compass 独立実用版 v0.4 | 独立運用 | `v0.4.7` | 本体 `brand-intelligence/app.html` と登録済み補助ソース | localStorage `kc_independent_practical_v0_4`、受信箱 `kc_v04_handoff_queue_v1` | 根拠確認済み項目だけHuman Review反映。会社プロフィールと正式関係IDを保持。月次掲載観測→公開保留MD提案。販売数量は非推定 | Production / Core / Company DBへの自動接続なし | 稼働中 |
-| `KC-OWNER-YARN-MASTER` | 糸検索2,000件・未反映17件取込 | 独立運用 | `v1.0.0` | `owner-yarns/index.html@main` | 静的2,000件カタログ、V04端末内マスター、受信箱 | CATALOG_INDEXEDを正式糸と分離し、取込はPENDINGのみ。選択糸を編み地イメージへ読取専用で引渡し | 会社受信箱CSVのみ／直接書込なし | 稼働中 |
+| `KC-OWNER-YARN-MASTER` | 糸検索（現行2,000件、3,000件以上へ拡張中）・未反映19件 | 独立運用 | `v1.1.0` | `owner-yarns/index.html@main` | 静的候補カタログ、V04端末内マスター、受信箱、判定補助 | 全件NOT_PROMOTED。19件はPENDINGのまま承認可能12・条件付き4・HOLD 3を表示。会社CSVはBACKUP_SHARE_ONLY | 会社シートは正本ではない／自動逆流なし | 稼働中 |
 | `KC-YARN-KNIT-IMAGE` | 糸 → 編み地イメージ | 独立Sandbox | `v1.0.0` | `knit-image/app.js@main` とHTML/CSS | 読取専用カタログ＋端末内V04マスター。生成結果はCanvas／明示PNG保存 | 外部送信なし・マスター書込なし・検討用画像のみ | なし | 稼働中 |
 | `KC-FABRIC-INSPECTION` | 生地検査 | 独立端末内 | `v1.0.0` | `fabric-inspection/app.js@main` と `fabric-inspection/index.html@main` | localStorage `kc_fabric_inspection_records_v1` | 追記専用／PENDING_HUMAN_REVIEW／監査JSON | 自動接続なし | 稼働中 |
-| `KC-MARKET-INTELLIGENCE` | 原料相場 / Market Intelligence | 独立端末内 | `v1.0.0` | `market-intelligence/app.js@main` と `market-intelligence/index.html@main` | localStorage `kc_market_intelligence_observations_v1` | 手動観測追記／自動換算なし／PENDING_HUMAN_REVIEW／監査JSON | ライブ価格・外部DB接続なし | 稼働中 |
+| `KC-MARKET-INTELLIGENCE` | 中国6原料相場 / 64ブランド素材提案 | 独立端末内 | `v1.1.0` | `market-intelligence/app.js@main` と `market-intelligence/index.html@main` | localStorage `kc_market_intelligence_observations_v1`＋静的MD DRAFT | 出典URL必須／自動換算なし／64ブランド→NOT_PROMOTED糸候補→素材提案／PENDING_HUMAN_REVIEW | ライブ価格・外部DB接続なし | 稼働中 |
 | `KC-CUSTOMER-SHARING-ADMIN` | 顧客共有管理 | 同一オリジン・所有者ローカルPilot | `v1.0.2` | `customer-sharing/index.html` と共有ポリシー `customer-sharing/policy.js` | マスター、共有承認、顧客ポータル用安全スナップショット、顧客依頼 | 所有者明示承認 → 安全項目スナップショット発行／共有取消／顧客依頼回答 | 自動接続なし | Pilot |
 | `KC-STYLEM-PORTAL` | 顧客ポータル | 同一オリジン・顧客ローカルPilot | `v1.0.2` | `stylem/index.html` と共有ポリシー `customer-sharing/policy.js`。system_idと保存キーの`STYLEM`は後方互換用の内部識別子 | 顧客ポータル用安全スナップショット `kc_customer_portal_STYLEM_v1`、顧客依頼 `kc_customer_requests_v1` | 承認済みスナップショット閲覧／顧客リクエスト送信。マスター直接更新なし | 自動接続なし | Pilot |
 | `KC-DAILY-WEB` | Dailyショートカット版 | 独立運用 | `v0.4` | `daily/index.html@main` / `a7d85f1b…` | v0.4と同じlocalStorage | 所有者設定時のみ手動 | 自動接続なし | 稼働中 |
@@ -65,7 +65,8 @@ localStorage `kc_photo_capture_knitting_ends_v1` は一覧表示と編集値復�
 ### 生地検査と原料相場の分離
 
 - 生地検査は `kc_fabric_inspection_records_v1` へ追記し、検査判定と根拠状態を別項目で保持します。訂正時は元行を上書きせず、`supersedes_id` を持つ新しい検査記録を作ります。
-- 原料相場は `kc_market_intelligence_observations_v1` へ追記し、観測日、原料、市場、指標、値、通貨、単位、方向感、情報源を保持します。異なる通貨・単位の自動換算と将来予測は行いません。
+- 原料相場は `kc_market_intelligence_observations_v1` へ追記し、中国6原料、観測日、市場、指標、値、通貨、単位、方向感、確認済み情報源URLを保持します。異なる通貨・単位の自動換算、推定値による欠損補完、将来予測は行いません。
+- `data/brand-md-monitoring/latest-material-proposals.json` は64ブランド日次観測から作るMD DRAFTで、販売数量 `NOT_AVAILABLE`、`PUBLISH_HOLD` を維持します。関連糸は検索索引のNOT_PROMOTED候補であり、正式糸マスターへ自動昇格しません。
 - 両画面は `PENDING_HUMAN_REVIEW`、`publication_status: HOLD` のまま保存します。V04マスター・Photo Capture受信箱・顧客共有キーを読み書きしません。
 
 ### 混率合計
@@ -202,7 +203,7 @@ Pull Requestとmainへのpushで、接続台帳、実ファイルRevision、CI�
 | 中国語糸名辞書 | `brand-intelligence/data/cn-yarn-glossary.json` と `docs/CN_YARN_GLOSSARY.md` |
 | 顧客共有 | `docs/CUSTOMER_SHARING.md` |
 | 調査承認ルール | `docs/RESEARCH_REVIEW_SOP.md` |
-| 現在の業務データ | 各ブラウザ／WebView内。全社一元正本は未決定 |
+| 現在の業務データ | Knit Compassを主系統とする。会社スプレッドは必要最小項目のバックアップ・共有のみ。複数利用者向けサーバー正本は未実装 |
 
 ## 10. 残る次段階
 
@@ -219,7 +220,7 @@ Pull Requestとmainへのpushで、接続台帳、実ファイルRevision、CI�
 - [ ] 読み取り元、書き込み先、受信箱、顧客スナップショットを別々に記載した
 - [ ] 候補と承認済みを区別した
 - [ ] 変更した全ソースのRevisionを台帳へ登録した
-- [ ] V04 TOPからPhoto Capture、中国糸名辞書、糸検索、生地検査、原料相場、Daily、管理へ移動できる
+- [ ] V04営業TOPで商品調査、糸検索、原料相場、編み地イメージ、生地検査を先頭から迷わず開ける
 - [ ] 外部画面への遷移でV04 iframeを入れ子にしていない
 - [ ] 入力途中データの保存キーと写真非保存境界を記載した
 - [ ] ゲージと本取りを別項目で保存し、糸のply数と混同していない
@@ -238,6 +239,7 @@ Pull Requestとmainへのpushで、接続台帳、実ファイルRevision、CI�
 - [ ] 顧客リクエストからマスターを自動更新しない
 - [ ] 生地検査・原料相場が追記型かつPENDING_HUMAN_REVIEW・公開保留である
 - [ ] 原料相場を自動換算・推定せず、ライブ価格フィードへ接続していない
+- [ ] 会社スプレッドを正本にせず、BACKUP_SHARE_ONLYと自動逆流禁止を維持している
 - [ ] 接続先を暗黙に外部DBへ変更していない
 - [ ] `python scripts/validate_system_registry.py` が成功した
 - [ ] `python scripts/validate_yarn_glossary.py` が成功した

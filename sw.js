@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kc-photo-capture-v1-3-1-official-logo-8';
+const CACHE_NAME = 'kc-photo-capture-v1-3-1-operations-9';
 const APP_SHELL = [
   './',
   './index.html',
@@ -31,11 +31,20 @@ const APP_SHELL = [
   './knit-image/app.css',
   './knit-image/app.js',
   './data/yarn-catalog/mz100-catalog-2000.json',
+  './data/yarn-catalog/expansion-status.json',
   './data/manual-intake/2026-08-08-weijie-hesheng-batch1.json',
   './data/manual-intake/2026-08-08-weihai-yaxin-chengyun-batch2.json',
   './data/manual-intake/2026-08-10-mz100-yarn-research-batch3.json',
   './data/manual-intake/2026-08-12-twin-win-company-factory-batch4.json',
   './data/manual-intake/2026-08-12-rope-picnic-gdm56050-batch5.json',
+  './data/manual-intake/2026-08-13-american-holic-products-batch6.json',
+  './data/human-review/2026-08-15-intake-19-triage.json',
+  './data/brand-md-monitoring/latest.json',
+  './data/brand-md-monitoring/latest-material-proposals.json',
+  './data/brand-md-monitoring/2026-08-14-brand64-daily-summary.md',
+  './data/brand-md-monitoring/2026-08-14-brand64-daily.jsonl',
+  './data/market-trends/market-signals.json',
+  './market-signals.js',
   './fabric-inspection/',
   './fabric-inspection/index.html',
   './fabric-inspection/app.js',

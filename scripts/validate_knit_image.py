@@ -17,6 +17,7 @@ for token in (
 
 for token in (
     "kc_independent_practical_v0_4",
+    "../data/yarn-catalog/mz100-catalog-3000.json",
     "../data/yarn-catalog/mz100-catalog-2000.json",
     "localStorage.getItem(V04_KEY)",
     "knittingEnds",

@@ -89,7 +89,7 @@
   function initOwner(signals){
     const grid=document.getElementById('catalogGrid');
     const toolbar=grid?.parentElement?.querySelector('.toolbar');
-    if(!grid||!toolbar||document.getElementById('kcTrendFilter'))return;
+    if(!(grid instanceof Element)||!(toolbar instanceof Element)||document.getElementById('kcTrendFilter'))return;
     const signal=signals.find(item=>item.id==='analog-revival')||signals[0];
     if(!signal)return;
 
@@ -170,9 +170,7 @@
     document.getElementById('applySearch')?.addEventListener('click',()=>queueMicrotask(applySelectedTrend));
     document.getElementById('query')?.addEventListener('keydown',event=>{if(event.key==='Enter')queueMicrotask(applySelectedTrend)});
     document.getElementById('resetSearch')?.addEventListener('click',()=>{select.value='all';queueMicrotask(decorateCards)});
-
-    const observer=new MutationObserver(()=>decorateCards());
-    observer.observe(grid,{childList:true});
+    document.getElementById('loadMore')?.addEventListener('click',()=>queueMicrotask(decorateCards));
 
     const requested=new URLSearchParams(location.search).get('trend');
     let initialApplied=false;
@@ -185,8 +183,11 @@
       return true;
     };
     if(!tryInitial()){
-      const readyObserver=new MutationObserver(()=>{if(tryInitial())readyObserver.disconnect()});
-      readyObserver.observe(grid,{childList:true,subtree:false});
+      let attempts=0;
+      const readyTimer=setInterval(()=>{
+        attempts+=1;
+        if(!grid.isConnected||tryInitial()||attempts>=100)clearInterval(readyTimer);
+      },100);
     }
   }
 

@@ -19,10 +19,12 @@ from urllib.parse import urljoin, urlparse
 
 import requests
 from bs4 import BeautifulSoup, Tag
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 BASE_URL = "https://www.mz100.cn/yarn"
-TARGET_DEFAULT = 2000
-OUTPUT_DEFAULT = Path("data/yarn-catalog/mz100-catalog-2000.json")
+TARGET_DEFAULT = 3000
+OUTPUT_DEFAULT = Path("data/yarn-catalog/mz100-catalog-3000.json")
 PRODUCT_PATH = re.compile(r"^/yarn/(\d+)$")
 COUNT_PATTERN = re.compile(
     r"(?:\d+(?:\.\d+)?\s*/\s*\d+(?:\.\d+)?\s*(?:NM|Nm|NE|Ne|S)|"
@@ -152,13 +154,53 @@ def fetch_page(session: requests.Session, page: int, timeout: int) -> tuple[str,
     return response.url, response.text
 
 
-def build_catalog(target: int, delay: float, timeout: int, max_pages: int) -> list[YarnListing]:
+def load_seed(path: Path | None) -> list[YarnListing]:
+    if path is None or not path.is_file():
+        return []
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    rows = payload.get("records")
+    if not isinstance(rows, list):
+        raise RuntimeError(f"Seed catalog has no records: {path}")
+    seed = []
+    for row in rows:
+        seed.append(YarnListing(
+            catalog_id=str(row.get("catalog_id") or ""),
+            source=str(row.get("source") or ""),
+            source_id=str(row.get("source_id") or ""),
+            source_url=str(row.get("source_url") or ""),
+            name=str(row.get("name") or ""),
+            count_display=str(row.get("count_display") or ""),
+            composition_raw=str(row.get("composition_raw") or ""),
+            listed_supplier=str(row.get("listed_supplier") or ""),
+            catalog_status=str(row.get("catalog_status") or ""),
+            verification_status=str(row.get("verification_status") or ""),
+            master_status=str(row.get("master_status") or ""),
+        ))
+    if any(row.master_status != "NOT_PROMOTED" for row in seed):
+        raise RuntimeError("Seed catalog contains a promoted record")
+    return seed
+
+
+def build_catalog(target: int, delay: float, timeout: int, max_pages: int, retries: int, seed: list[YarnListing]) -> list[YarnListing]:
     session = requests.Session()
     session.headers.update({
         "User-Agent": "Mozilla/5.0 (compatible; KnitCompassCatalogIndexer/1.0; evidence-only)",
         "Accept-Language": "zh-CN,zh;q=0.9,ja;q=0.8,en;q=0.7",
     })
-    records: dict[str, YarnListing] = {}
+    retry = Retry(
+        total=retries,
+        connect=retries,
+        read=retries,
+        status=retries,
+        backoff_factor=1.0,
+        status_forcelist=(429, 500, 502, 503, 504),
+        allowed_methods=frozenset({"GET"}),
+        raise_on_status=False,
+    )
+    session.mount("https://", HTTPAdapter(max_retries=retry))
+    records: dict[str, YarnListing] = {row.source_id: row for row in seed if row.source_id}
+    if len(records) >= target:
+        return list(records.values())[:target]
     empty_pages = 0
 
     for page in range(1, max_pages + 1):
@@ -199,7 +241,7 @@ def write_catalog(records: list[YarnListing], output: Path) -> None:
     serialized_records = [asdict(record) for record in records]
     payload = {
         "schema_version": "1.0",
-        "catalog_id": "KC-YARN-CATALOG-MZ100-2000",
+        "catalog_id": f"KC-YARN-CATALOG-MZ100-{len(records)}",
         "generated_at": existing_generated_at(output, serialized_records),
         "source": "https://www.mz100.cn/yarn",
         "record_count": len(records),
@@ -219,11 +261,16 @@ def main() -> None:
     parser.add_argument("--delay", type=float, default=0.35)
     parser.add_argument("--timeout", type=int, default=30)
     parser.add_argument("--max-pages", type=int, default=200)
+    parser.add_argument("--retries", type=int, default=3)
+    parser.add_argument("--seed", type=Path, default=Path("data/yarn-catalog/mz100-catalog-2000.json"))
     parser.add_argument("--output", type=Path, default=OUTPUT_DEFAULT)
     args = parser.parse_args()
     if args.target < 1:
         raise SystemExit("target must be positive")
-    catalog = build_catalog(args.target, args.delay, args.timeout, args.max_pages)
+    if args.retries < 0:
+        raise SystemExit("retries must be zero or positive")
+    seed = load_seed(args.seed)
+    catalog = build_catalog(args.target, args.delay, args.timeout, args.max_pages, args.retries, seed)
     write_catalog(catalog, args.output)
     print(f"wrote {len(catalog)} evidence-scoped yarn listings to {args.output}")
 
