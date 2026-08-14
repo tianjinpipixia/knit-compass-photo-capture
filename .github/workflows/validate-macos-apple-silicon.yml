@@ -1,0 +1,50 @@
+name: Validate Apple Silicon development environment
+
+on:
+  pull_request:
+    paths:
+      - "**/*.html"
+      - "**/*.js"
+      - "**/*.py"
+      - "**/*.sh"
+      - "requirements-*.txt"
+      - ".github/workflows/validate-macos-apple-silicon.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "**/*.html"
+      - "**/*.js"
+      - "**/*.py"
+      - "**/*.sh"
+      - "requirements-*.txt"
+      - ".github/workflows/validate-macos-apple-silicon.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-m1:
+    runs-on: macos-14
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify Apple Silicon runtime
+        run: |
+          test "$(uname -m)" = "arm64"
+          test "$(node -p 'process.arch')" = "arm64"
+      - name: Install validation dependencies
+        run: python -m pip install -r requirements-validation.txt
+      - name: Run all repository validators
+        run: |
+          for validator in scripts/validate_*.py; do
+            echo "RUN ${validator}"
+            python "${validator}"
+          done

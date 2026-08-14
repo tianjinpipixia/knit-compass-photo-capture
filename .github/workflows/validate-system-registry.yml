@@ -182,7 +182,7 @@ jobs:
         run: python scripts/validate_yarn_glossary.py
       - name: Validate Photo Capture install surface
         run: python scripts/validate_photo_capture_install.py
-      - name: Validate V04 monthly observation and MD contract
+      - name: Validate product research monthly observation and MD contract
         run: python scripts/validate_v04_monthly_md.py
       - name: Validate yarn to knit image contract
         run: python scripts/validate_knit_image.py

@@ -37,7 +37,7 @@ jobs:
       - name: Verify exact v0.4 HTML master
         shell: bash
         run: |
-          test "$(sha256sum brand-intelligence/app.html | awk '{print $1}')" = '3756a77b5c5a854d942b733299ac7804906dfb2803faed854966fd6f0f32b102'
+          test "$(sha256sum brand-intelligence/app.html | awk '{print $1}')" = '408b07ff96273fe1118bdc1c74e539d7f711c8540eab46a67814f2c30fbf0e2b'
 
       - name: Build debug APK
         shell: bash
@@ -49,7 +49,7 @@ jobs:
           APK='android-daily/app/build/outputs/apk/debug/app-debug.apk'
           APKSIGNER="$ANDROID_HOME/build-tools/35.0.0/apksigner"
           AAPT2="$ANDROID_HOME/build-tools/35.0.0/aapt2"
-          EXPECTED_HTML_SHA='3756a77b5c5a854d942b733299ac7804906dfb2803faed854966fd6f0f32b102'
+          EXPECTED_HTML_SHA='408b07ff96273fe1118bdc1c74e539d7f711c8540eab46a67814f2c30fbf0e2b'
           test -s "$APK"
           test -x "$APKSIGNER"
           test -x "$AAPT2"

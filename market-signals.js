@@ -96,7 +96,7 @@
     const notice=toolbar.previousElementSibling;
     const prompt=document.createElement('div');
     prompt.className='kc-trend-prompt';
-    prompt.innerHTML=`<div><strong>${escapeHtml(signal.name_en)} / ${escapeHtml(signal.name_ja)}</strong><span>毛羽・凹凸・杢・麻見えを2,000件から横断抽出。元カタログの事実データは変更せず、トレンド解釈だけを重ねます。</span></div><button class="btn secondary" id="kcAnalogTrendButton" type="button">関連素材を見る <span class="kc-trend-count" id="kcTrendMatchCount">—</span></button>`;
+    prompt.innerHTML=`<div><strong>${escapeHtml(signal.name_en)} / ${escapeHtml(signal.name_ja)}</strong><span>検索カタログ全体から毛羽・凹凸・杢・麻見えを横断抽出。元カタログの事実データは変更せず、トレンド解釈だけを重ねます。</span></div><button class="btn secondary" id="kcAnalogTrendButton" type="button">関連素材を見る <span class="kc-trend-count" id="kcTrendMatchCount">—</span></button>`;
     if(notice?.classList.contains('notice'))notice.insertAdjacentElement('afterend',prompt);else toolbar.insertAdjacentElement('beforebegin',prompt);
 
     toolbar.classList.add('kc-trend-toolbar');

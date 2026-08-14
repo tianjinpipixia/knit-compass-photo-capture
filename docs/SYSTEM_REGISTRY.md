@@ -9,19 +9,19 @@
 次の6工程を実データで接続しています。
 
 1. Photo Captureが混率・機能性・サステナブル・共通ID・根拠・確認状態をAppend Only DRAFTとして保持
-2. Photo CaptureのDRAFTをv0.4の受信箱へ候補送信
+2. Photo CaptureのDRAFTをHuman Review受信箱へ候補送信
 3. Human Review承認後だけ商品・糸・会社・素材・調査マスターへ確定反映
 4. 月次掲載観測をMD提案へ紐付け、販売数量未取得時は推定せず公開保留
 5. 顧客共有管理で、確認済み／PUBLISHEDかつ所有者が明示承認した安全項目だけを顧客ポータル用スナップショットへ発行
 6. 顧客ポータルからの調査・商品追加・修正依頼を、マスターを直接変更せず専用リクエストとして戻す
 
-加えて、v0.4には読取専用の中国語糸名辞書 `KC-CN-YARN-001` を接続し、中国市場名から日本語標準名・代表的な糸タイプへ変換しながら、同一ブラウザのV04糸マスター一致候補を表示します。辞書はマスターを自動更新しません。
+加えて、商品調査・Human Reviewには読取専用の中国語糸名辞書 `KC-CN-YARN-001` を接続し、中国市場名から日本語標準名・代表的な糸タイプへ変換しながら、同一ブラウザの正式糸マスター一致候補を表示します。辞書はマスターを自動更新しません。
 
 糸マスターと現行2,000件カタログには、読取専用の「糸 → 編み地イメージ」`KC-YARN-KNIT-IMAGE` を接続しています。次の3,000件以上への拡張は別成果物として開始し、成功時だけ切り替えます。番手・混率・糸構造・対応ゲージを引き継ぎ、ゲージ・編組織・本取りを別項目として指定し、端末内Canvasで検討用PNGを生成します。マスター、受信箱、顧客共有データ、外部AI/APIへの書き込みはありません。
 
-業務入口として、生地検査 `KC-FABRIC-INSPECTION` と原料相場 `KC-MARKET-INTELLIGENCE` を追加します。原料相場は中国の綿・ウール・麻・ナイロン・ポリエステル・再生ポリエステルを確認済み出典URLだけで比較し、64ブランド日次MD観測からNOT_PROMOTED糸候補と素材提案へ接続します。どちらも端末内の追記型記録で、`PENDING_HUMAN_REVIEW`・公開保留のまま保存し、V04マスター、Photo Capture受信箱、顧客共有を自動変更しません。
+業務入口として、生地検査 `KC-FABRIC-INSPECTION` と原料相場 `KC-MARKET-INTELLIGENCE` を追加します。原料相場は中国の綿・ウール・麻・ナイロン・ポリエステル・再生ポリエステルを確認済み出典URLだけで比較し、64ブランド日次MD観測からNOT_PROMOTED糸候補と素材提案へ接続します。どちらも端末内の追記型記録で、`PENDING_HUMAN_REVIEW`・公開保留のまま保存し、正式マスター、Human Review受信箱、顧客共有を自動変更しません。
 
-V04の営業TOPには `商品調査 → 糸検索 → 原料相場 → 編み地イメージ → 生地検査` を先頭に置き、続けてPhoto Capture、中国糸名辞書、Daily、管理へ接続します。管理メニューからHuman Review、未反映19件取込、共有管理、顧客ポータル、システム状態へ移動できます。外部画面への遷移はトップ階層で開き、V04内のiframeを入れ子にしません。
+Knit Compassの営業TOPには `商品調査 → 糸検索 → 原料相場 → 編み地イメージ → 生地検査` を先頭に置き、続けてPhoto Capture、中国糸名辞書、Daily、管理へ接続します。管理メニューからHuman Review、未反映19件取込、共有管理、顧客ポータル、システム状態へ移動できます。外部画面への遷移はトップ階層で開き、商品調査画面内のiframeを入れ子にしません。
 
 PENDING候補とREJECTED候補はマスターへ反映しません。DRAFT／REVIEW、未確認商品、社内研究メモ、開発仮説、糸の価格・MOQ・納期・注意事項は顧客ポータルへ発行しません。外部Production / Core / Company DBへの自動接続も追加していません。
 
@@ -30,25 +30,25 @@ PENDING候補とREJECTED候補はマスターへ反映しません。DRAFT／REV
 | system_id | 画面・アプリ | 環境 | 表示版 | コード正本・Revision | データ保存先 | 同期・受渡し | 外部DB | 状態 |
 |---|---|---|---|---|---|---|---|---|
 | `KC-PHOTO-CAPTURE` | Photo Capture | 独立Sandbox | `v1.3.1` | `app.js@main` と登録済み補助ソース。カメラアイコン、PWA manifest、iOS用アイコン、root Service Workerを含む | IndexedDB `kc_independent_photo_capture_v1_0`、sessionStorage `kc_session_v1`・`kc_photo_capture_editor_draft_v1`、本取りUI補助localStorage `kc_photo_capture_knitting_ends_v1`、受信箱localStorage `kc_v04_handoff_queue_v1` | 同一ブラウザ受信箱＋手動JSON / PENDINGを全件保持 / 送信失敗時もDRAFT維持 / ゲージと本取りを分離 / PWA再起動 | なし | 稼働中 |
-| `KC-V04-WEB` | Knit Compass 独立実用版 v0.4 | 独立運用 | `v0.4.7` | 本体 `brand-intelligence/app.html` と登録済み補助ソース | localStorage `kc_independent_practical_v0_4`、受信箱 `kc_v04_handoff_queue_v1` | 根拠確認済み項目だけHuman Review反映。会社プロフィールと正式関係IDを保持。月次掲載観測→公開保留MD提案。販売数量は非推定 | Production / Core / Company DBへの自動接続なし | 稼働中 |
-| `KC-OWNER-YARN-MASTER` | 糸検索（現行2,000件、3,000件以上へ拡張中）・未反映19件 | 独立運用 | `v1.1.0` | `owner-yarns/index.html@main` | 静的候補カタログ、V04端末内マスター、受信箱、判定補助 | 全件NOT_PROMOTED。19件はPENDINGのまま承認可能12・条件付き4・HOLD 3を表示。会社CSVはBACKUP_SHARE_ONLY | 会社シートは正本ではない／自動逆流なし | 稼働中 |
-| `KC-YARN-KNIT-IMAGE` | 糸 → 編み地イメージ | 独立Sandbox | `v1.0.0` | `knit-image/app.js@main` とHTML/CSS | 読取専用カタログ＋端末内V04マスター。生成結果はCanvas／明示PNG保存 | 外部送信なし・マスター書込なし・検討用画像のみ | なし | 稼働中 |
+| `KC-V04-WEB` | Knit Compass 商品調査・Human Review | 独立運用 | `v0.4.7`（内部互換版） | 本体 `brand-intelligence/app.html` と登録済み補助ソース | localStorage `kc_independent_practical_v0_4`、受信箱 `kc_v04_handoff_queue_v1` | 根拠確認済み項目だけHuman Review反映。会社プロフィールと正式関係IDを保持。月次掲載観測→公開保留MD提案。販売数量は非推定 | Production / Core / Company DBへの自動接続なし | 稼働中 |
+| `KC-OWNER-YARN-MASTER` | 糸検索（現行2,000件、3,000件以上へ拡張中）・未反映19件 | 独立運用 | `v1.1.0` | `owner-yarns/index.html@main` | 静的候補カタログ、端末内正式マスター、受信箱、判定補助 | 全件NOT_PROMOTED。19件はPENDINGのまま承認可能12・条件付き4・HOLD 3を表示。会社CSVはBACKUP_SHARE_ONLY | 会社シートは正本ではない／自動逆流なし | 稼働中 |
+| `KC-YARN-KNIT-IMAGE` | 糸 → 編み地イメージ | 独立Sandbox | `v1.0.0` | `knit-image/app.js@main` とHTML/CSS | 読取専用カタログ＋端末内正式糸マスター。生成結果はCanvas／明示PNG保存 | 外部送信なし・マスター書込なし・検討用画像のみ | なし | 稼働中 |
 | `KC-FABRIC-INSPECTION` | 生地検査 | 独立端末内 | `v1.0.0` | `fabric-inspection/app.js@main` と `fabric-inspection/index.html@main` | localStorage `kc_fabric_inspection_records_v1` | 追記専用／PENDING_HUMAN_REVIEW／監査JSON | 自動接続なし | 稼働中 |
 | `KC-MARKET-INTELLIGENCE` | 中国6原料相場 / 64ブランド素材提案 | 独立端末内 | `v1.1.0` | `market-intelligence/app.js@main` と `market-intelligence/index.html@main` | localStorage `kc_market_intelligence_observations_v1`＋静的MD DRAFT | 出典URL必須／自動換算なし／64ブランド→NOT_PROMOTED糸候補→素材提案／PENDING_HUMAN_REVIEW | ライブ価格・外部DB接続なし | 稼働中 |
 | `KC-CUSTOMER-SHARING-ADMIN` | 顧客共有管理 | 同一オリジン・所有者ローカルPilot | `v1.0.2` | `customer-sharing/index.html` と共有ポリシー `customer-sharing/policy.js` | マスター、共有承認、顧客ポータル用安全スナップショット、顧客依頼 | 所有者明示承認 → 安全項目スナップショット発行／共有取消／顧客依頼回答 | 自動接続なし | Pilot |
 | `KC-STYLEM-PORTAL` | 顧客ポータル | 同一オリジン・顧客ローカルPilot | `v1.0.2` | `stylem/index.html` と共有ポリシー `customer-sharing/policy.js`。system_idと保存キーの`STYLEM`は後方互換用の内部識別子 | 顧客ポータル用安全スナップショット `kc_customer_portal_STYLEM_v1`、顧客依頼 `kc_customer_requests_v1` | 承認済みスナップショット閲覧／顧客リクエスト送信。マスター直接更新なし | 自動接続なし | Pilot |
-| `KC-DAILY-WEB` | Dailyショートカット版 | 独立運用 | `v0.4` | `daily/index.html@main` / `a7d85f1b…` | v0.4と同じlocalStorage | 所有者設定時のみ手動 | 自動接続なし | 稼働中 |
+| `KC-DAILY-WEB` | Dailyショートカット版 | 独立運用 | `v0.4`（内部互換版） | `daily/index.html@main` / `a7d85f1b…` | 商品調査と同じlocalStorage | 所有者設定時のみ手動 | 自動接続なし | 稼働中 |
 | `KC-DAILY-ANDROID` | Androidアプリ | 独立APK | `v0.4.0` | `android-daily@main` / `content-sha256:21ff2fd0…` | Android WebViewアプリデータ | 所有者設定時のみ手動 | 自動接続なし | 稼働中 |
 
-## 3. Photo Captureからv0.4への受渡し
+## 3. Photo CaptureからHuman Reviewへの受渡し
 
 ### 同一ブラウザ・同一オリジン
 
-Photo CaptureはlocalStorage `kc_v04_handoff_queue_v1` に `KC_V04_INBOX_ITEM` を追加し、v0.4のHuman Review受信箱が同じキーを読み取ります。
+Photo CaptureはlocalStorage `kc_v04_handoff_queue_v1` に `KC_V04_INBOX_ITEM` を追加し、Human Review受信箱が同じキーを読み取ります。キー名と形式名のV04は既存データ互換のため維持します。
 
 ### 別サイト・別端末
 
-Photo Captureで `KC_V04_INBOX_EXPORT` JSONを書き出し、v0.4の「受信箱JSONを取込」で読み込みます。
+Photo Captureで `KC_V04_INBOX_EXPORT` JSONを書き出し、Human Reviewの「受信箱JSONを取込」で読み込みます。
 
 写真Blobは受信箱へ複製しません。写真ID、分類、ファイル名、撮影日時だけを候補へ含めます。
 
@@ -58,7 +58,7 @@ Photo Captureの入力途中フォームはsessionStorage `kc_photo_capture_edit
 
 ### 編地のゲージと本取り
 
-Photo Captureは `gauge` と `knittingEnds` を別項目としてIndexedDBのAppend Onlyイベントへ保存し、そのままv0.4受信箱payloadへ渡します。資料の `12G×2`、`12G*2`、`12G＊2` は `gauge: "12G"` と `knittingEnds: 2` に分離します。本取りは糸の合糸数・撚り本数とは別概念です。
+Photo Captureは `gauge` と `knittingEnds` を別項目としてIndexedDBのAppend Onlyイベントへ保存し、そのままHuman Review受信箱payloadへ渡します。内部形式名 `KC_V04_INBOX_ITEM` は既存データ互換のため維持します。資料の `12G×2`、`12G*2`、`12G＊2` は `gauge: "12G"` と `knittingEnds: 2` に分離します。本取りは糸の合糸数・撚り本数とは別概念です。
 
 localStorage `kc_photo_capture_knitting_ends_v1` は一覧表示と編集値復元のための補助索引であり、正本はIndexedDBイベントです。
 
@@ -67,7 +67,7 @@ localStorage `kc_photo_capture_knitting_ends_v1` は一覧表示と編集値復�
 - 生地検査は `kc_fabric_inspection_records_v1` へ追記し、検査判定と根拠状態を別項目で保持します。訂正時は元行を上書きせず、`supersedes_id` を持つ新しい検査記録を作ります。
 - 原料相場は `kc_market_intelligence_observations_v1` へ追記し、中国6原料、観測日、市場、指標、値、通貨、単位、方向感、確認済み情報源URLを保持します。異なる通貨・単位の自動換算、推定値による欠損補完、将来予測は行いません。
 - `data/brand-md-monitoring/latest-material-proposals.json` は64ブランド日次観測から作るMD DRAFTで、販売数量 `NOT_AVAILABLE`、`PUBLISH_HOLD` を維持します。関連糸は検索索引のNOT_PROMOTED候補であり、正式糸マスターへ自動昇格しません。
-- 両画面は `PENDING_HUMAN_REVIEW`、`publication_status: HOLD` のまま保存します。V04マスター・Photo Capture受信箱・顧客共有キーを読み書きしません。
+- 両画面は `PENDING_HUMAN_REVIEW`、`publication_status: HOLD` のまま保存します。正式マスター・Human Review受信箱・顧客共有キーを読み書きしません。
 
 ### 混率合計
 
@@ -115,7 +115,7 @@ Human Review承認ではマスターと受信箱を一組として保存し、�
 
 ### 目的
 
-中国の展示会、糸BOOK、WeChatで使われる市場名を、日本のニット実務で想像しやすい名称と糸タイプへ橋渡しします。画面はV04入口の「中国糸名辞書」から開きます。
+中国の展示会、糸BOOK、WeChatで使われる市場名を、日本のニット実務で想像しやすい名称と糸タイプへ橋渡しします。画面は商品調査入口の「中国糸名辞書」から開きます。
 
 ### 初期登録
 
@@ -136,7 +136,7 @@ Human Review承認ではマスターと受信箱を一組として保存し、�
 
 `仿〇〇`、`冰麻`、`丝麻`は混率そのものではなく、市場での見た目・風合い・毛足・清涼感などを示す名称として扱います。天然ミンク、Rabbit/Angora、Cashmere、Mohair、Fox、Alpaca、Linen、Silk等の含有は、混率表示またはSupplier確認で確定します。
 
-### V04糸マスター照合
+### 正式糸マスター照合
 
 辞書画面はlocalStorage `kc_independent_practical_v0_4` の `yarns` を読取専用で参照し、糸名・品番・Supplier・構造・混率・Gauge・機能・メモと辞書の市場名・別名・日本語名・検索キーワードを照合します。一致は検索補助の候補表示であり、糸マスター、確認状態、Human Review結果を変更しません。
 
@@ -144,7 +144,7 @@ Human Review承認ではマスターと受信箱を一組として保存し、�
 
 ## 6. 月次掲載観測からMD提案
 
-V04の「月次掲載・MD」で、ブランド、対象月、公式掲載数、新規掲載数、セール掲載数、観測日、根拠URLを記録します。販売数量を取得できない場合は `NOT_AVAILABLE` と `null` を保持し、掲載数から販売数量を推定しません。
+商品調査の「月次掲載・MD」で、ブランド、対象月、公式掲載数、新規掲載数、セール掲載数、観測日、根拠URLを記録します。販売数量を取得できない場合は `NOT_AVAILABLE` と `null` を保持し、掲載数から販売数量を推定しません。
 
 MD提案は元の観測IDと観測スナップショットを保持し、状態を `DRAFT` / `REVIEW` / `PUBLISH_HOLD` に限定します。`publicationStatus` は常に `HOLD` で、自動公開と自動マスター反映を行いません。
 
@@ -186,10 +186,10 @@ Pull Requestとmainへのpushで、接続台帳、実ファイルRevision、CI�
 - `scripts/validate_v04_monthly_md.py`: 月次観測、販売数量の非推定、MD提案の公開保留、JSON／CSV／サーバー出力
 - `scripts/validate_ui_state_guard.py`: 保存連打防止、版単位の送信固定、入力途中復元、本取りフィールドの読込順・保存契約・ゲージ分離
 - `scripts/validate_customer_sharing.py`: CONFIRMED／PUBLISHED条件、安全項目投影、顧客ポータルからのマスター直接参照禁止、明示grant、顧客リクエスト戻し
-- `scripts/validate_yarn_glossary.py`: 初期8分類、辞書ラベル、天然繊維確認ルール、V04入口・保存済みHuman Review画面・オフラインキャッシュ、およびV04 TOPの主要9操作を検証
-- `scripts/validate_navigation_links.py`: 全HTMLのローカル画面・素材リンク、主要画面の相互導線、V04 iframe対象を検証
+- `scripts/validate_yarn_glossary.py`: 初期8分類、辞書ラベル、天然繊維確認ルール、商品調査入口・保存済みHuman Review画面・オフラインキャッシュ、および営業TOPの主要操作を検証
+- `scripts/validate_navigation_links.py`: 全HTMLのローカル画面・素材リンク、主要画面の相互導線、商品調査iframe対象を検証
 - `scripts/validate_knit_image.py`: 糸マスター／カタログ参照、番手・混率引継ぎ、ゲージ・編組織・本取り分離、Canvas PNG生成、外部送信とマスター書込の禁止を検証
-- `scripts/validate_operational_surfaces.py`: 生地検査・原料相場の追記型保存、PENDING／公開保留、V04マスター・受信箱非接続、外部価格フィード非接続を検証
+- `scripts/validate_operational_surfaces.py`: 生地検査・原料相場の追記型保存、PENDING／公開保留、正式マスター・受信箱非接続、外部価格フィード非接続を検証
 - `scripts/validate_product_link_completion_20260809.py`: 未登録だった公式商品URL 9件の品番・公式ドメイン・女性ニット対象範囲を検証
 
 ## 9. 正本
@@ -220,8 +220,8 @@ Pull Requestとmainへのpushで、接続台帳、実ファイルRevision、CI�
 - [ ] 読み取り元、書き込み先、受信箱、顧客スナップショットを別々に記載した
 - [ ] 候補と承認済みを区別した
 - [ ] 変更した全ソースのRevisionを台帳へ登録した
-- [ ] V04営業TOPで商品調査、糸検索、原料相場、編み地イメージ、生地検査を先頭から迷わず開ける
-- [ ] 外部画面への遷移でV04 iframeを入れ子にしていない
+- [ ] 営業TOPで商品調査、糸検索、原料相場、編み地イメージ、生地検査を先頭から迷わず開ける
+- [ ] 外部画面への遷移で商品調査iframeを入れ子にしていない
 - [ ] 入力途中データの保存キーと写真非保存境界を記載した
 - [ ] ゲージと本取りを別項目で保存し、糸のply数と混同していない
 - [ ] 編み地イメージがマスター・受信箱・顧客共有データへ書き込まず、検討用であることを表示している

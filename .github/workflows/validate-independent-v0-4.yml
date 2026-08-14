@@ -1,4 +1,4 @@
-name: Validate independent v0.4 payload
+name: Validate product research payload compatibility
 
 on:
   pull_request:
@@ -30,13 +30,13 @@ jobs:
           )
           reconstructed = gzip.decompress(base64.b64decode(encoded, validate=True))
           direct = (root / 'app.html').read_bytes()
-          expected = '3756a77b5c5a854d942b733299ac7804906dfb2803faed854966fd6f0f32b102'
+          expected = '408b07ff96273fe1118bdc1c74e539d7f711c8540eab46a67814f2c30fbf0e2b'
           reconstructed_hash = hashlib.sha256(reconstructed).hexdigest()
           direct_hash = hashlib.sha256(direct).hexdigest()
           assert reconstructed_hash == expected, reconstructed_hash
           assert direct_hash == expected, direct_hash
           assert reconstructed == direct
           text = direct.decode('utf-8')
-          assert '<title>Knit Compass — 独立実用版 v0.4.7</title>' in text
+          assert '<title>Knit Compass — 商品調査・MD</title>' in text
           assert "const STORAGE_KEY='kc_independent_practical_v0_4';" in text
           print(f'PASS: {len(direct)} bytes, SHA-256 {direct_hash}')

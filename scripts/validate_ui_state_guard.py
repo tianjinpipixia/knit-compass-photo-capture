@@ -6,10 +6,13 @@ import re
 import subprocess
 from pathlib import Path
 
+from tooling import require_node
+
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
 GUARD = ROOT / "app-state-guard.js"
 KNITTING_ENDS = ROOT / "knitting-ends-field.js"
+NODE = require_node()
 
 
 def fail(message: str) -> None:
@@ -22,7 +25,7 @@ def require(text: str, needle: str, label: str) -> None:
 
 
 def node_check(path: Path) -> None:
-    result = subprocess.run(["node", "--check", str(path)], capture_output=True, text=True)
+    result = subprocess.run([NODE, "--check", str(path)], capture_output=True, text=True)
     if result.returncode:
         fail(f"JavaScript syntax error in {path.name}: {result.stderr.strip()}")
 

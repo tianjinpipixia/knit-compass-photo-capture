@@ -50,7 +50,7 @@
     return normalize([yarn.id,yarn.name,yarn.supplier,yarn.code,yarn.count,yarn.composition,yarn.structure,yarn.gauge,yarn.status].join(' '));
   }
 
-  function sourceLabel(yarn){return yarn.source==='master'?'V04マスター':`${catalogYarns.length.toLocaleString('ja-JP')}件カタログ`}
+  function sourceLabel(yarn){return yarn.source==='master'?'正式糸マスター':`${catalogYarns.length.toLocaleString('ja-JP')}件検索カタログ`}
 
   function renderYarnResults(){
     const source=$('sourceFilter').value;
@@ -58,7 +58,7 @@
     const all=[...masterYarns,...catalogYarns];
     renderedYarns=all.filter(yarn=>(source==='all'||yarn.source===source)&&terms.every(term=>yarnSearchText(yarn).includes(term))).slice(0,RESULT_LIMIT);
     const total=all.filter(yarn=>(source==='all'||yarn.source===source)&&terms.every(term=>yarnSearchText(yarn).includes(term))).length;
-    $('sourceCounts').textContent=`V04 ${masterYarns.length}件＋カタログ ${catalogYarns.length.toLocaleString('ja-JP')}件／該当 ${total.toLocaleString('ja-JP')}件`;
+    $('sourceCounts').textContent=`正式糸 ${masterYarns.length}件＋検索カタログ ${catalogYarns.length.toLocaleString('ja-JP')}件／該当 ${total.toLocaleString('ja-JP')}件`;
     $('yarnResults').innerHTML=renderedYarns.length?renderedYarns.map(yarn=>`
       <button class="yarn-option ${selectedYarn?.id===yarn.id&&selectedYarn?.source===yarn.source?'selected':''}" type="button" data-yarn-source="${esc(yarn.source)}" data-yarn-id="${esc(yarn.id)}">
         <span class="option-head"><strong>${esc(yarn.name)}</strong><span class="source-tag ${yarn.source}">${esc(sourceLabel(yarn))}</span></span>
@@ -82,7 +82,7 @@
     $('selectedYarn').innerHTML=`
       <div class="selected-head"><div><h3>${esc(selectedYarn.name)}</h3><p>${esc([selectedYarn.supplier,selectedYarn.code].filter(Boolean).join(' ／ ')||sourceLabel(selectedYarn))}</p></div><span class="source-tag ${selectedYarn.source}">${esc(sourceLabel(selectedYarn))}</span></div>
       <div class="selected-facts">${selectedFacts(selectedYarn)}</div>
-      <div class="source-boundary">${catalog?'CATALOG_INDEXED / LISTING_PAGE_ONLY / NOT_PROMOTED：仕様確定前の検索候補です。':`${esc(selectedYarn.status)}：端末内V04糸マスターを読み取り専用で参照しています。`}</div>`;
+      <div class="source-boundary">${catalog?'CATALOG_INDEXED / LISTING_PAGE_ONLY / NOT_PROMOTED：仕様確定前の検索候補です。':`${esc(selectedYarn.status)}：端末内の正式糸マスターを読み取り専用で参照しています。`}</div>`;
     $('generate').disabled=false;
   }
 

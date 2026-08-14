@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kc-brand-intelligence-v0-4-7-sales-nav-4';
+const CACHE_NAME = 'kc-brand-intelligence-v0-4-7-sales-nav-5-mac-primary';
 const APP_SHELL = [
   './',
   './index.html',

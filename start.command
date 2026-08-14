@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+set -eu
+
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+export PATH="/opt/homebrew/bin:/usr/local/bin:${PATH}"
+exec "${ROOT}/start.sh"

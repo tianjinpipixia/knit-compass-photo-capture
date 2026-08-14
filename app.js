@@ -111,7 +111,7 @@
     shell(`<section class="card">
       <p class="eyebrow">Independent Workspace</p>
       <h1>Knit Compass Photo Capture</h1>
-      <p class="lead">写真・撮影時情報・共通IDを独立Sandboxへ保存し、承認前データだけをv0.4受信箱へ渡します。</p>
+      <p class="lead">写真・撮影時情報・共通IDを独立Sandboxへ保存し、承認前データだけをHuman Review受信箱へ渡します。</p>
       <div class="boundary"><span>Independent Account</span><span>IndexedDB保存</span><span>外部DB自動同期なし</span></div>
       <form id="auth" class="stack">
         ${hasAccount ? '' : '<label>表示名<input name="display" required placeholder="例：Knit Compass Owner"></label>'}
@@ -247,7 +247,7 @@
     const events = await loadRecords();
     const counts = handoffCounts();
     shell(`<section class="card top">
-      <div><p class="eyebrow">Independent Workspace / Data Contract ${DATA_CONTRACT_VERSION}</p><h1>Knit Compass Photo Capture</h1><p class="lead">混率・機能性・サステナブル・共通IDを同じDRAFTに保持し、Human Review前の候補としてv0.4受信箱へ渡します。</p></div>
+      <div><p class="eyebrow">Independent Workspace / Data Contract ${DATA_CONTRACT_VERSION}</p><h1>Knit Compass Photo Capture</h1><p class="lead">混率・機能性・サステナブル・共通IDを同じDRAFTに保持し、承認前の候補としてHuman Review受信箱へ渡します。</p></div>
       <div class="badges"><span class="badge">v${APP_VERSION}</span><span class="badge">ONLY YOU</span><span class="badge">DRAFT FIRST</span><span class="badge">INBOX UPLOAD</span><span class="badge off">AUTO MASTER OFF</span><span class="badge off">PUBLISH HOLD</span></div>
       <div class="primary-actions"><button id="new">新規キャプチャ</button><button class="secondary" id="exportHandoff">受信箱JSONを書き出す</button></div>
       <div class="identity"><span>${escapeHtml(session.displayName)} / ${escapeHtml(session.accountId)}</span><button class="ghost" id="logout">終了</button></div>
@@ -257,7 +257,7 @@
       <p class="eyebrow">Capture Inbox</p>
       <h2>Photo Capture</h2>
       <p class="lead">CREATE／UPDATEはAppend Onlyです。受信箱へ送っても、Human Review承認まではマスターへ反映しません。</p>
-      <div class="actions top-actions"><a class="button-link secondary" href="brand-intelligence/">v0.4受信箱を開く</a></div>
+      <div class="actions top-actions"><a class="button-link secondary" href="brand-intelligence/">Human Review受信箱を開く</a></div>
       <div class="kpis">
         <div class="kpi"><span>全レコード</span><strong>${records.length}</strong></div>
         <div class="kpi"><span>受信箱待ち</span><strong>${counts.pending}</strong></div>
@@ -307,7 +307,7 @@
         <div class="gallery">${photosHtml(row.photoRefs)}</div>
         <div class="mini-tags">${listTags(row)}</div>
         <div class="meta"><span>DRAFT</span><span>${escapeHtml(event.eventType)} v${event.version}</span><span>受信箱: ${escapeHtml(status)}</span><span>${escapeHtml(formatDate(event.updatedAt))}</span></div>
-        <div class="actions"><button class="secondary" data-edit="${escapeHtml(event.recordId)}">編集・再保存</button><button data-send="${escapeHtml(event.recordId)}" ${alreadySent ? 'disabled aria-disabled="true"' : ''}>${alreadySent ? 'この版は送信済み' : 'v0.4受信箱へ送る'}</button></div>
+        <div class="actions"><button class="secondary" data-edit="${escapeHtml(event.recordId)}">編集・再保存</button><button data-send="${escapeHtml(event.recordId)}" ${alreadySent ? 'disabled aria-disabled="true"' : ''}>${alreadySent ? 'この版は送信済み' : 'Human Review受信箱へ送る'}</button></div>
       </article>`;
     }).join('')}</div>` : '<div class="empty"><h3>まだキャプチャはありません</h3><p class="muted">新規キャプチャから最初のDRAFTを作成してください。</p></div>';
 
@@ -436,8 +436,8 @@
           </div>
         </section>
 
-        <p id="editMessage" class="message">DRAFT保存、または保存してv0.4受信箱へ送信してください。</p>
-        <div class="sticky"><button type="button" class="secondary" id="back">一覧へ戻る</button><button type="submit" class="secondary" id="saveDraft">${editing ? 'UPDATEをDRAFT保存' : 'DRAFT保存'}</button><button type="button" id="saveAndSend">保存してv0.4受信箱へ送る</button></div>
+        <p id="editMessage" class="message">DRAFT保存、または保存してHuman Review受信箱へ送信してください。</p>
+        <div class="sticky"><button type="button" class="secondary" id="back">一覧へ戻る</button><button type="submit" class="secondary" id="saveDraft">${editing ? 'UPDATEをDRAFT保存' : 'DRAFT保存'}</button><button type="button" id="saveAndSend">保存してHuman Review受信箱へ送る</button></div>
       </form>
     </div>`;
 
@@ -653,7 +653,7 @@
       await renderApp();
       document.getElementById('inbox').scrollIntoView({ behavior: 'smooth' });
       if (handoffError) {
-        alert(`DRAFTは保存しましたが、v0.4受信箱へ送信できませんでした。一覧から再送してください。
+        alert(`DRAFTは保存しましたが、Human Review受信箱へ送信できませんでした。一覧から再送してください。
 
 ${handoffError.message || handoffError}`);
       }

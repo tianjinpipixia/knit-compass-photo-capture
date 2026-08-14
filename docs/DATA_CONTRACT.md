@@ -73,7 +73,7 @@ Photo CaptureのイベントはAppend Onlyとし、`CREATE` と `UPDATE` の全�
 
 資料に `12G×2`、`12G*2`、`12G＊2` と記載されている場合は、`gauge: "12G"` と `knittingEnds: 2` に分離します。`knittingEnds` は糸そのものの撚り本数・合糸数を示す `plyCount` とは別概念です。
 
-Photo Captureは `knittingEnds` をIndexedDBのDRAFTイベントとv0.4受信箱payloadへ保持します。画面の補助用localStorageは復元と一覧表示のためだけに使用し、正本はIndexedDBイベントとします。
+Photo Captureは `knittingEnds` をIndexedDBのDRAFTイベントとHuman Review受信箱payloadへ保持します。画面の補助用localStorageは復元と一覧表示のためだけに使用し、正本はIndexedDBイベントとします。
 
 ## 4. 正本マスター
 
@@ -176,7 +176,7 @@ Photo Captureは `knittingEnds` をIndexedDBのDRAFTイベントとv0.4受信箱
 - `confidence_level`
 - `confirmed_at`
 
-v0.4では承認済み候補を商品側の `linkedYarnIds` に保持します。
+商品調査・Human Reviewでは承認済み候補を商品側の `linkedYarnIds` に保持します。
 
 ## 6. 機能性
 
@@ -222,9 +222,9 @@ v0.4では承認済み候補を商品側の `linkedYarnIds` に保持します�
 
 候補・推定を確定値と同じ色や表示にしません。
 
-## 9. v0.4受信箱
+## 9. Human Review受信箱（内部互換形式V04）
 
-Photo Captureからv0.4へ渡す候補は `KC_V04_INBOX_ITEM` とします。
+Photo CaptureからHuman Reviewへ渡す候補は `KC_V04_INBOX_ITEM` とします。形式名は既存データ互換のため変更しません。
 
 - `handoff_id`
 - `dedupe_key`
@@ -322,7 +322,7 @@ MD提案は月次掲載観測へ必ず紐付けます。観測に根拠付き販
 
 `KC-YARN-KNIT-IMAGE` は次の2データ源を読取専用で参照します。
 
-- V04糸マスター: localStorage `kc_independent_practical_v0_4` の `yarns`
+- 正式糸マスター: localStorage `kc_independent_practical_v0_4` の `yarns`（内部互換キー）
 - 2,000件カタログ: `data/yarn-catalog/mz100-catalog-2000.json`。状態は `CATALOG_INDEXED / LISTING_PAGE_ONLY / NOT_PROMOTED`
 
 選択糸から `id`、`source`、`name`、`supplier`、`code`、`count`、`composition`、`structure`、`gauge`、`status` を表示用に引き継ぎます。編み条件は `gauge`、`knitStructure`、`knittingEnds`、`color` を別々に扱い、`knittingEnds` を糸の合糸数・撚り本数から推定しません。

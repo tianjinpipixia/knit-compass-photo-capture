@@ -7,8 +7,11 @@ import subprocess
 import tempfile
 from pathlib import Path
 
+from tooling import require_node
+
 ROOT = Path(__file__).resolve().parents[1]
 APP = ROOT / "brand-intelligence" / "app.html"
+NODE = require_node()
 
 
 def fail(message: str) -> None:
@@ -24,14 +27,14 @@ def main() -> None:
     html = APP.read_text(encoding="utf-8")
     scripts = re.findall(r"<script(?:\s[^>]*)?>(.*?)</script>", html, flags=re.DOTALL | re.IGNORECASE)
     if not scripts:
-        fail("V04 app has no inline script")
+        fail("product research app has no inline script")
     with tempfile.NamedTemporaryFile("w", suffix=".js", encoding="utf-8", delete=False) as handle:
         handle.write(scripts[-1])
         path = Path(handle.name)
     try:
-        result = subprocess.run(["node", "--check", str(path)], capture_output=True, text=True)
+        result = subprocess.run([NODE, "--check", str(path)], capture_output=True, text=True)
         if result.returncode:
-            fail(f"V04 JavaScript syntax error: {result.stderr.strip()}")
+            fail(f"product research JavaScript syntax error: {result.stderr.strip()}")
     finally:
         path.unlink(missing_ok=True)
 

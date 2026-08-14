@@ -1,4 +1,4 @@
-name: Smoke test independent v0.4
+name: Smoke test product research and Human Review
 
 "on":
   pull_request:
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify branch-local V04 shell, Human Review, glossary, app, manifest, and Daily shortcut
+      - name: Verify branch-local sales shell, Human Review, glossary, app, manifest, and Daily shortcut
         shell: python
         run: |
           import hashlib
@@ -45,7 +45,7 @@ jobs:
           assert './index-current.html' in index
           assert './yarn-glossary.html' in index
           assert '中国糸名辞書' in index
-          assert 'Photo Capture受信箱' in current
+          assert 'Human Review受信箱' in current
           assert 'Human Review' in current
           assert 'DecompressionStream' not in current
           assert '中国語糸名 ↔ 日本語標準名' in glossary
@@ -55,7 +55,7 @@ jobs:
           assert manifest['short_name'] == 'Knit Compass'
           assert b'kc_independent_practical_v0_4' in app
 
-          assert '<title>Knit Compass — 独立実用版 v0.4</title>' in daily
+          assert '<title>Knit Compass Daily — 商品調査・MD</title>' in daily
           assert 'kc_independent_practical_v0_4' in daily
           assert 'DecompressionStream' not in daily
           assert 'serviceWorker' not in daily
@@ -64,7 +64,7 @@ jobs:
           assert Path('brand/knit-compass-mark.png').is_file()
           assert Path('daily/icon.svg').is_file()
 
-          print(f'PASS: V04 shell -> preserved Human Review -> {match.group(0)} and China yarn glossary; app SHA-256 {hashlib.sha256(app).hexdigest()}')
+          print(f'PASS: sales shell -> preserved Human Review -> {match.group(0)} and China yarn glossary; app SHA-256 {hashlib.sha256(app).hexdigest()}')
 
   public-main-smoke:
     if: github.event_name != 'pull_request'
@@ -117,14 +117,14 @@ jobs:
                   base = root + 'brand-intelligence/'
                   public_index = get(base)
                   public_index_text = public_index.decode('utf-8')
-                  assert hashlib.sha256(public_index).hexdigest() == expected['index'], 'public V04 shell is not current main'
+                  assert hashlib.sha256(public_index).hexdigest() == expected['index'], 'public sales shell is not current main'
                   assert '中国糸名辞書' in public_index_text
                   assert './index-current.html' in public_index_text
 
                   public_current = get(base + 'index-current.html')
                   public_current_text = public_current.decode('utf-8')
                   assert hashlib.sha256(public_current).hexdigest() == expected['current'], 'public Human Review wrapper is not current main'
-                  assert 'Photo Capture受信箱' in public_current_text
+                  assert 'Human Review受信箱' in public_current_text
                   assert 'Human Review' in public_current_text
                   assert 'DecompressionStream' not in public_current_text
 
@@ -136,7 +136,7 @@ jobs:
                   assert hashlib.sha256(get(root + 'daily/')).hexdigest() == expected['daily'], 'public Daily page is not current main'
                   assert hashlib.sha256(get(root + 'daily/icon.svg')).hexdigest() == expected['daily_icon'], 'public Daily icon is not current main'
 
-                  print(f'PASS: deployed V04 shell, Human Review, glossary, and {app_ref} match main; app SHA-256 {expected["app"]}')
+                  print(f'PASS: deployed sales shell, Human Review, glossary, and {app_ref} match main; app SHA-256 {expected["app"]}')
                   break
               except Exception as error:
                   print(f'Attempt {attempt}/30 failed: {error}')
