@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression checks for Photo Capture → v0.4 Human Review safety."""
+"""Regression checks for Photo Capture → Human Review safety."""
 from __future__ import annotations
 
 import re
@@ -7,9 +7,12 @@ import subprocess
 import tempfile
 from pathlib import Path
 
+from tooling import require_node
+
 ROOT = Path(__file__).resolve().parents[1]
 APP = ROOT / "app.js"
 INBOX = ROOT / "brand-intelligence" / "index-current.html"
+NODE = require_node()
 
 
 def fail(message: str) -> None:
@@ -17,7 +20,7 @@ def fail(message: str) -> None:
 
 
 def node_check(path: Path) -> None:
-    result = subprocess.run(["node", "--check", str(path)], capture_output=True, text=True)
+    result = subprocess.run([NODE, "--check", str(path)], capture_output=True, text=True)
     if result.returncode:
         fail(f"JavaScript syntax error in {path}: {result.stderr.strip()}")
 
@@ -65,7 +68,7 @@ for (const [text, expected] of cases) {
   if (total(text) !== expected) throw new Error(`${text}: ${total(text)} !== ${expected}`);
 }
 """
-    result = subprocess.run(["node", "-e", program], capture_output=True, text=True)
+    result = subprocess.run([NODE, "-e", program], capture_output=True, text=True)
     if result.returncode:
         fail(f"composition percentage simulation failed: {result.stderr.strip()}")
 
@@ -85,12 +88,12 @@ def main() -> None:
         inline_path.unlink(missing_ok=True)
 
     forbid(app_text, r"queue\.slice\(0,\s*500\)", "blind Photo Capture queue truncation")
-    forbid(inline_script, r"queue\.slice\(0,\s*500\)", "blind v0.4 queue truncation")
+    forbid(inline_script, r"queue\.slice\(0,\s*500\)", "blind Human Review queue truncation")
     require(app_text, "compactHandoffQueue", "Photo Capture queue compaction")
     require(app_text, "saveHandoffQueue", "Photo Capture queue save guard")
     require(app_text, "item.review_status === 'PENDING'", "Photo Capture pending retention")
-    require(inline_script, "compactQueue", "v0.4 queue compaction")
-    require(inline_script, "item.review_status==='PENDING'", "v0.4 pending retention")
+    require(inline_script, "compactQueue", "Human Review queue compaction")
+    require(inline_script, "item.review_status==='PENDING'", "Human Review pending retention")
     require(inline_script, "hasMeaningfulValue", "partial upsert protection")
     require(inline_script, "preferIncoming", "existing master preservation")
     require(inline_script, "payload.targetType==='organization'?payload.targetId:''", "organization target ID mapping")
@@ -100,7 +103,7 @@ def main() -> None:
     require(app_text, "saveInProgress", "Photo Capture duplicate-save guard")
     require(app_text, "matchAll(/(\\d+(?:\\.\\d+)?)\\s*[%％]/g)", "half/full-width percentage composition total")
     require(app_text, "let handoffError = null", "DRAFT-preserving handoff failure handling")
-    require(app_text, "DRAFTは保存しましたが、v0.4受信箱へ送信できませんでした", "handoff retry guidance")
+    require(app_text, "DRAFTは保存しましたが、Human Review受信箱へ送信できませんでした", "handoff retry guidance")
     require(inline_script, "normalizeStatus", "normalized weak status protection")
     require(inline_script, "'未確認','候補','推定'", "Japanese weak statuses")
     require(inline_script, "saveApproval", "atomic approval storage")

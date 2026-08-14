@@ -32,7 +32,7 @@
   }
 
   function handoffLabel(item) {
-    if (!item) return 'v0.4受信箱へ送る';
+    if (!item) return 'Human Review受信箱へ送る';
     if (item.review_status === 'APPROVED') return '承認済み';
     if (item.review_status === 'REJECTED') return '差戻し済み（編集して再送）';
     return '受信箱へ送信済み';

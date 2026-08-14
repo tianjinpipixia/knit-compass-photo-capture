@@ -175,10 +175,12 @@ for required in (
     assert required in html, f"owner-yarns page missing: {required}"
 
 top_html = TOP_PAGE.read_text(encoding="utf-8")
-assert "market-signals.js" in top_html, "V04 top is not connected to market signals"
-assert "17件" not in top_html, "V04 top still exposes the stale 17-candidate count"
+assert "market-signals.js" in top_html, "sales top is not connected to market signals"
+assert "17件" not in top_html, "sales top still exposes the stale 17-candidate count"
 for label in ("商品調査", "糸検索", "原料相場", "編み地イメージ", "生地検査", "Human Review", "19件"):
-    assert label in top_html, f"V04 sales navigation missing: {label}"
+    assert label in top_html, f"sales navigation missing: {label}"
+for stale_label in ("V04本体", "V04 TOP", "糸検索2,000件", "糸マスター2,000件", "v0.4受信箱"):
+    assert stale_label not in top_html, f"sales top exposes stale label: {stale_label}"
 
 market_js = MARKET_JS.read_text(encoding="utf-8")
 for required in (

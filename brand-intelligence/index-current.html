@@ -9,7 +9,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Knit Compass">
-  <title>Knit Compass v0.4.7 — Photo Capture受信箱</title>
+  <title>Knit Compass — Human Review受信箱</title>
   <link rel="manifest" href="./manifest.webmanifest?v=0.4.7">
   <link rel="icon" href="../brand/knit-compass-mark.png" type="image/png">
   <link rel="apple-touch-icon" href="../brand/knit-compass-mark.png">
@@ -25,15 +25,15 @@
 <body>
   <div class="shell">
     <header class="bar">
-      <div class="brand"><img class="mark" src="../brand/knit-compass-mark.png" alt="Knit Compass公式ロゴ"><div><strong>Knit Compass v0.4</strong><span>Photo Capture受信箱 → Human Review → マスター確定</span></div></div>
-      <button class="inbox-button" id="openInbox">Photo Capture受信箱 <span class="count" id="pendingBadge">0</span></button>
+      <div class="brand"><img class="mark" src="../brand/knit-compass-mark.png" alt="Knit Compass公式ロゴ"><div><strong>Knit Compass</strong><span>Photo Capture候補 → Human Review → マスター確定</span></div></div>
+      <button class="inbox-button" id="openInbox">Human Review受信箱 <span class="count" id="pendingBadge">0</span></button>
     </header>
-    <main class="frame-wrap"><iframe id="v04Frame" title="Knit Compass 独立実用版 v0.4.7" src="./app.html?v=0.4.7"></iframe></main>
+    <main class="frame-wrap"><iframe id="v04Frame" title="Knit Compass 商品調査・MD" src="./app.html?v=0.4.7"></iframe></main>
   </div>
 
   <div class="overlay" id="overlay"></div>
-  <aside class="drawer" id="drawer" aria-label="Photo Capture受信箱">
-    <div class="drawer-head"><div><div style="font-size:9px;font-weight:900;letter-spacing:.12em">KC-V04-INBOX</div><h1>Human Review</h1><p>承認後だけ商品・糸・会社マスターへ確定反映します。</p></div><button class="close" id="closeInbox">閉じる</button></div>
+  <aside class="drawer" id="drawer" aria-label="Human Review受信箱">
+    <div class="drawer-head"><div><div style="font-size:9px;font-weight:900;letter-spacing:.12em">KC-HUMAN-REVIEW</div><h1>Human Review</h1><p>承認後だけ商品・糸・会社マスターへ確定反映します。</p></div><button class="close" id="closeInbox">閉じる</button></div>
     <section class="controls">
       <div class="control-grid"><div class="field"><label for="reviewer">確認者</label><input id="reviewer" value="Owner Human Review"></div><button class="btn secondary" id="importButton">受信箱JSONを取込</button></div>
       <input class="file" id="importFile" type="file" accept="application/json,.json">

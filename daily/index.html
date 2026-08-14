@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta http-equiv="Cache-Control" content="no-store">
-  <title>Knit Compass — 独立実用版 v0.4</title>
+  <title>Knit Compass Daily — 商品調査・MD</title>
   <link rel="icon" href="../brand/knit-compass-mark.png" type="image/png">
   <meta name="theme-color" content="#163f3c">
   <link rel="apple-touch-icon" href="../brand/knit-compass-mark.png">
@@ -55,12 +55,12 @@
   </style>
 </head>
 <body>
-  <div class="top-banner">KNIT COMPASS 独立実用版 v0.4 — ブランド新商品を毎日の入口にする Daily Brand Intelligence Pilot</div>
+  <div class="top-banner">KNIT COMPASS DAILY — ブランド新商品を毎日の入口にする商品調査・MD</div>
   <nav class="system-nav" aria-label="Knit Compass画面メニュー">
     <a href="../">Photo Capture</a>
-    <a href="../brand-intelligence/">V04 TOP・Human Review</a>
+    <a href="../brand-intelligence/">商品調査・Human Review</a>
     <a href="../brand-intelligence/#cn-yarn-glossary">中国糸名辞書</a>
-    <a href="../owner-yarns/">糸検索2,000件</a>
+    <a href="../owner-yarns/">糸検索</a>
     <a href="../fabric-inspection/">生地検査</a>
     <a href="../market-intelligence/">原料相場</a>
     <a class="active" href="./" aria-current="page">Daily</a>
@@ -69,7 +69,7 @@
   </nav>
   <div class="shell">
     <header class="topbar">
-      <a class="wordmark" href="#" data-go="brand-home"><img class="logo-mark" src="../brand/knit-compass-mark.png" alt="Knit Compass公式ロゴ"><span><strong>Knit Compass</strong><span>独立実用版 v0.4 / Brand → Store → Yarn → Development</span></span></a>
+      <a class="wordmark" href="#" data-go="brand-home"><img class="logo-mark" src="../brand/knit-compass-mark.png" alt="Knit Compass公式ロゴ"><span><strong>Knit Compass</strong><span>商品調査・MD / Brand → Store → Yarn → Development</span></span></a>
       <nav class="nav" aria-label="主要メニュー">
         <button data-page="brand-home" class="active">ブランド情報</button>
         <button data-page="workflow">店舗・商品研究</button>
@@ -159,7 +159,7 @@
 
       <section class="page" id="page-data">
         <div class="section-head"><div><h1>データ管理</h1><p>ローカル保存を基本に、指定HTTPSサーバーとの手動同期を検証します。同期前はJSONバックアップを保管してください。</p></div></div>
-        <div class="server-note"><strong>サーバー同期パイロット</strong><br>v0.4はローカル保存を維持したまま、指定されたHTTPSサーバーへ手動でプッシュ／プルできます。初回は必ずJSONバックアップを作成してください。</div>
+        <div class="server-note"><strong>手動サーバー同期</strong><br>Knit Compassはローカル保存を維持したまま、指定されたHTTPSサーバーへ手動でプッシュ／プルできます。初回は必ずJSONバックアップを作成してください。</div>
         <section class="sync-panel" style="margin-top:14px">
           <article class="card">
             <div class="section-head" style="margin:0 0 10px"><div><h2>接続設定</h2><p>サーバーURL、Workspace ID、Owner tokenをこの端末だけに保存します。</p></div></div>
@@ -183,11 +183,11 @@
         </div>
         <section class="card" style="margin-top:14px"><div class="section-head" style="margin:0 0 10px"><div><h2>保存状況</h2><p>スキーマ4.0はサーバー同期へ移行できるID・更新日時・監査ログを保持します。</p></div><span class="sync-ready">SERVER SYNC PILOT</span></div><div id="storageSummary" class="record-list"></div><div id="dataMessage" class="message"></div></section>
         <section class="card" style="margin-top:14px"><h2>操作履歴（この端末）</h2><div id="auditLogList" class="record-list audit-list"></div></section>
-        <section class="card danger-zone" style="margin-top:14px"><h2>危険な操作</h2><p style="font-size:10px;color:var(--muted)">バックアップを作成してから実行してください。</p><button class="btn danger" id="clearAllData">この端末のv0.4データを全削除</button></section>
+        <section class="card danger-zone" style="margin-top:14px"><h2>危険な操作</h2><p style="font-size:10px;color:var(--muted)">バックアップを作成してから実行してください。</p><button class="btn danger" id="clearAllData">この端末のKnit Compassデータを全削除</button></section>
       </section>
     </main>
 
-    <footer class="footer">Knit Compass 独立実用版 v0.4 / ローカル優先 / 手動サーバー同期Pilot / スキーマ4.0 / 会社データ・Production未接続</footer>
+    <footer class="footer">Knit Compass Daily / Mac設計優先 / ローカル優先 / スキーマ4.0 / 会社データ・Production未接続</footer>
   </div>
 
   <div class="modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="productModalTitle">
@@ -388,7 +388,7 @@
       for(const [key,label] of [[LEGACY_KEY,'v0.3'],[OLDER_KEY,'v0.2'],[ANCIENT_KEY,'v0.1']]){
         const raw=localStorage.getItem(key);if(!raw)continue;const parsed=JSON.parse(raw);const out=normalizeState(parsed.records?blankState():parsed);
         if(parsed.records){(parsed.records||[]).forEach(r=>{if(r.entity_type==='product')out.products.push({id:r.id||makeId('PRODUCT'),brand:r.brand||'未設定',name:r.name||'名称未設定',productNumber:r.code||'',category:'',priority:'B',nextActionDue:'',regularPrice:r.price||'',salePrice:'',country:'',composition:r.composition||'',colors:[],sizes:[],releaseStatus:'UNKNOWN',sourceStatus:'CANDIDATE',discoveredAt:localDate(new Date(r.created_at||Date.now())),confirmedAt:'',officialUrl:r.source_url||'',productImageData:'',brandMemo:r.notes||'',workflowStatus:'NEW_PRODUCT',research:{gauge:r.gauge||'',knitStructure:r.knit_structure||'',touchFeel:(r.functions||[]).join(', '),storeName:'',storeVisitDate:'',observedWeight:'',yarnAppearance:'',actualPrice:'',physicalNotes:'',developmentHypothesis:'',labelImageData:''},linkedYarnIds:[],created_at:r.created_at||nowIso(),updated_at:r.updated_at||nowIso()});if(r.entity_type==='yarn')out.yarns.push({id:r.id||makeId('YARN'),supplier:r.supplier||'',name:r.name||'名称未設定',code:r.code||'',countSystem:'未確認',countValue:r.count||'',plyCount:'',displayCount:r.count||'',structure:r.structure||'未確認',composition:r.composition||'',gauge:r.gauge||'',functions:r.functions||[],status:r.status||'DRAFT',price:r.price||'',moq:'',leadTime:'',sourceUrl:r.source_url||'',notes:r.notes||'',created_at:r.created_at||nowIso(),updated_at:r.updated_at||nowIso()})})}
-        out.auditLog.unshift({id:makeId('AUDIT'),at:nowIso(),action:'MIGRATE',entityType:'workspace',entityId:label,summary:`${label}からv0.4へ移行`});return out;
+        out.auditLog.unshift({id:makeId('AUDIT'),at:nowIso(),action:'MIGRATE',entityType:'workspace',entityId:label,summary:`${label}から現行形式へ移行`});return out;
       }
       return null;
     }catch(e){console.error(e);return null}
@@ -565,15 +565,15 @@
   function renderData(){const bytes=new Blob([JSON.stringify(state)]).size;const rows=[['ブランド商品',state.products.length],['既存糸',state.yarns.length],['開発案件',state.developments.length],['ブランド確認ログ',state.brandCheckLogs.length],['操作履歴',state.auditLog.length],['概算保存容量',`${(bytes/1024/1024).toFixed(2)} MB`],['最終更新',formatDate(state.updated_at)]];$('storageSummary').innerHTML=rows.map(([a,b])=>`<article class="record"><div><h3>${esc(a)}</h3></div><strong>${esc(b)}</strong></article>`).join('');$('auditLogList').innerHTML=state.auditLog.length?state.auditLog.slice(0,50).map(a=>`<article class="record"><div><span class="tag">${esc(a.action)}</span><h3>${esc(a.summary||a.entityType)}</h3><p>${formatDate(a.at)}／${esc(a.entityType)}／${esc(a.entityId)}</p></div></article>`).join(''):'<div class="empty">操作履歴はまだありません。</div>';$('serverApiBase').value=state.server.apiBase||'';$('serverWorkspaceId').value=state.server.workspaceId||'personal-owner';$('serverToken').value=state.server.token||'';renderSyncStatus()}
   function download(name,content,type){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1200)}
   $('exportJson').addEventListener('click',()=>{download(`knit_compass_v0_4_backup_${localDate()}.json`,JSON.stringify({...exportableState(),exported_at:nowIso()},null,2),'application/json');setMessage($('dataMessage'),'JSONバックアップを書き出しました。')});
-  $('importJsonButton').addEventListener('click',()=>$('importJsonFile').click());$('importJsonFile').addEventListener('change',async()=>{const file=$('importJsonFile').files[0];if(!file)return;try{const parsed=normalizeState(JSON.parse(await file.text()));if(confirm(`商品${parsed.products.length}件・糸${parsed.yarns.length}件・開発${parsed.developments.length}件で、この端末のv0.4データを置き換えますか？`)){state=parsed;persist();renderAll();setMessage($('dataMessage'),'バックアップを復元しました。')}}catch(e){setMessage($('dataMessage'),'JSONを読み込めませんでした。','error')}});
+  $('importJsonButton').addEventListener('click',()=>$('importJsonFile').click());$('importJsonFile').addEventListener('change',async()=>{const file=$('importJsonFile').files[0];if(!file)return;try{const parsed=normalizeState(JSON.parse(await file.text()));if(confirm(`商品${parsed.products.length}件・糸${parsed.yarns.length}件・開発${parsed.developments.length}件で、この端末のKnit Compassデータを置き換えますか？`)){state=parsed;persist();renderAll();setMessage($('dataMessage'),'バックアップを復元しました。')}}catch(e){setMessage($('dataMessage'),'JSONを読み込めませんでした。','error')}});
   function csv(rows,cols){const q=v=>`"${String(Array.isArray(v)?v.join('|'):v??'').replaceAll('"','""')}"`;return '\uFEFF'+[cols.join(','),...rows.map(r=>cols.map(c=>q(c.includes('.')?c.split('.').reduce((o,k)=>o?.[k],r):r[c])).join(','))].join('\r\n')}
   $('exportCsv').addEventListener('click',()=>{download(`kc_products_${localDate()}.csv`,csv(state.products,['id','brand','name','productNumber','category','priority','nextActionDue','releaseStatus','regularPrice','salePrice','country','composition','colors','sizes','sourceStatus','discoveredAt','confirmedAt','officialUrl','workflowStatus','research.storeName','research.storeVisitDate','research.gauge','research.knitStructure','research.touchFeel','research.physicalNotes','research.developmentHypothesis']),'text/csv;charset=utf-8');download(`kc_yarns_${localDate()}.csv`,csv(state.yarns,['id','supplier','name','code','displayCount','countSystem','countValue','plyCount','structure','composition','gauge','functions','status','price','moq','leadTime','sourceUrl','notes']),'text/csv;charset=utf-8');download(`kc_developments_${localDate()}.csv`,csv(state.developments,['id','productId','title','status','priority','dueDate','nextAction','targetCount','targetGauge','targetComposition','targetStructure','targetFunctions','targetPrice','supplierCandidates','notes']),'text/csv;charset=utf-8');setMessage($('dataMessage'),'CSVを3種類書き出しました。')});
-  $('exportGeminiBrief').addEventListener('click',()=>{const text=`# Knit Compass 独立実用版 v0.4 — Geminiレビュー依頼\n\n## 目的\nブランド新商品を起点に、店舗確認、商品研究、既存糸検索、新規素材開発、営業提案までを一つの業務フローで管理する。\n\n## 前提\n- ブランド情報＝各ブランドの新商品情報\n- 商品研究＝店舗現物確認後の素材・編地・糸分析。ブランド情報とは別工程\n- 優先ブランド：${PRIORITY_BRANDS.join('、')}\n- 現在は端末内保存のDaily Brand Intelligence Pilot\n\n## 確認してほしい点\n1. 毎朝最初に開くブランド新商品画面として分かりやすいか。\n2. 新商品→店舗確認→商品研究→既存糸検索→候補なし→新規開発→提案の導線が自然か。\n3. PCとスマホで操作項目が多すぎないか。\n4. ブランド情報と商品研究が混同されていないか。\n5. 糸登録項目、開発案件項目に不足・重複がないか。\n6. サーバー同期、Owner token、競合検知、今日の作業の優先順位で直すべき点は何か。\n7. 採用必須、改善候補、不要の3区分で回答してほしい。\n\n## 現在のデータ件数\n- 商品：${state.products.length}\n- 糸：${state.yarns.length}\n- 開発案件：${state.developments.length}
+  $('exportGeminiBrief').addEventListener('click',()=>{const text=`# Knit Compass 商品調査・MD — Geminiレビュー依頼\n\n## 目的\nブランド新商品を起点に、店舗確認、商品研究、既存糸検索、新規素材開発、営業提案までを一つの業務フローで管理する。\n\n## 前提\n- ブランド情報＝各ブランドの新商品情報\n- 商品研究＝店舗現物確認後の素材・編地・糸分析。ブランド情報とは別工程\n- 優先ブランド：${PRIORITY_BRANDS.join('、')}\n- 現在はMac設計優先・端末内保存のKnit Compass Daily\n\n## 確認してほしい点\n1. 毎朝最初に開くブランド新商品画面として分かりやすいか。\n2. 新商品→店舗確認→商品研究→既存糸検索→候補なし→新規開発→提案の導線が自然か。\n3. PCとスマホで操作項目が多すぎないか。\n4. ブランド情報と商品研究が混同されていないか。\n5. 糸登録項目、開発案件項目に不足・重複がないか。\n6. サーバー同期、Owner token、競合検知、今日の作業の優先順位で直すべき点は何か。\n7. 採用必須、改善候補、不要の3区分で回答してほしい。\n\n## 現在のデータ件数\n- 商品：${state.products.length}\n- 糸：${state.yarns.length}\n- 開発案件：${state.developments.length}
 - ブランド確認ログ：${state.brandCheckLogs.length}
-- 操作履歴：${state.auditLog.length}\n`;download(`kc_v0_4_gemini_review_${localDate()}.md`,text,'text/markdown;charset=utf-8');setMessage($('dataMessage'),'Geminiレビュー依頼書を書き出しました。')});
+- 操作履歴：${state.auditLog.length}\n`;download(`kc_product_research_gemini_review_${localDate()}.md`,text,'text/markdown;charset=utf-8');setMessage($('dataMessage'),'Geminiレビュー依頼書を書き出しました。')});
 
-  $('exportServerPayload').addEventListener('click',()=>{const payload={schema_version:'4.0',workspace:{id:state.server.workspaceId,mode:'INDEPENDENT_OWNER'},exported_at:nowIso(),entities:{products:state.products,yarns:state.yarns,developments:state.developments,brand_check_logs:state.brandCheckLogs},audit_log:state.auditLog};download(`kc_server_migration_v0_4_${localDate()}.json`,JSON.stringify(payload,null,2),'application/json');setMessage($('dataMessage'),'サーバー移行JSONを書き出しました。')});
-  $('exportApiContract').addEventListener('click',()=>{const text=`# Knit Compass 独立実用版 v0.4 — Server API Contract
+  $('exportServerPayload').addEventListener('click',()=>{const payload={schema_version:'4.0',workspace:{id:state.server.workspaceId,mode:'INDEPENDENT_OWNER'},exported_at:nowIso(),entities:{products:state.products,yarns:state.yarns,developments:state.developments,brand_check_logs:state.brandCheckLogs},audit_log:state.auditLog};download(`kc_server_migration_${localDate()}.json`,JSON.stringify(payload,null,2),'application/json');setMessage($('dataMessage'),'サーバー移行JSONを書き出しました。')});
+  $('exportApiContract').addEventListener('click',()=>{const text=`# Knit Compass 商品調査・MD — Server API Contract
 
 ## Workspace
 - workspace_id: personal-owner
@@ -608,7 +608,7 @@ Use the app button “サーバー移行データ” and import entities in the 
   $('pushServerData').addEventListener('click',async()=>{if(!confirm('現在の端末データをサーバーへ送信しますか？競合時は上書きせず停止します。'))return;try{state.server.apiBase=cleanApiBase($('serverApiBase').value);state.server.workspaceId=$('serverWorkspaceId').value.trim()||'personal-owner';state.server.token=$('serverToken').value.trim();state.server.lastSyncStatus='PUSHING';renderSyncStatus();const document=exportableState();document.server={...document.server,token:''};const r=await serverFetch('/api/v1/sync/push',{method:'POST',body:JSON.stringify({workspace_id:state.server.workspaceId,client_revision:Number(state.server.serverRevision||0),document})});state.server.serverRevision=r.revision;state.server.lastSyncAt=r.updated_at||nowIso();state.server.lastSyncStatus='PUSH_OK';state.server.syncMode='SERVER_MANUAL';logAction('SYNC_PUSH','workspace',state.server.workspaceId,`サーバーRevision ${r.revision}へ送信`);persist(false);renderAll();setMessage($('syncMessage'),'サーバーへ送信しました。')}catch(e){state.server.lastSyncStatus=e.status===409?'CONFLICT':'PUSH_ERROR';persist(false);renderData();setMessage($('syncMessage'),e.status===409?'競合を検知しました。先にサーバーから取得して内容を確認してください。':`送信失敗：${e.message}`,'error')}});
   $('pullServerData').addEventListener('click',async()=>{try{state.server.apiBase=cleanApiBase($('serverApiBase').value);state.server.workspaceId=$('serverWorkspaceId').value.trim()||'personal-owner';state.server.token=$('serverToken').value.trim();const r=await serverFetch(`/api/v1/sync/pull?workspace_id=${encodeURIComponent(state.server.workspaceId)}`,{method:'GET',headers:{}});if(!r.document){setMessage($('syncMessage'),'サーバーにデータがありません。先に端末から送信してください。','error');return}if(!confirm(`サーバーRevision ${r.revision}のデータで、この端末を置き換えますか？事前にJSONバックアップを推奨します。`))return;const config={apiBase:state.server.apiBase,workspaceId:state.server.workspaceId,token:state.server.token};state=normalizeState(r.document);state.server={...state.server,...config,serverRevision:r.revision,lastSyncAt:r.updated_at||nowIso(),lastSyncStatus:'PULL_OK',syncMode:'SERVER_MANUAL'};logAction('SYNC_PULL','workspace',state.server.workspaceId,`サーバーRevision ${r.revision}を取得`);persist(false);renderAll();setMessage($('syncMessage'),'サーバーから取得しました。')}catch(e){state.server.lastSyncStatus='PULL_ERROR';persist(false);renderData();setMessage($('syncMessage'),`取得失敗：${e.message}`,'error')}});
 
-  $('clearAllData').addEventListener('click',()=>{if(confirm('本当にv0.4の全データを削除しますか？この操作は元に戻せません。')&&confirm('JSONバックアップは作成済みですか？削除を続けますか？')){state=blankState();persist();renderAll();setMessage($('dataMessage'),'全データを削除しました。')}});
+  $('clearAllData').addEventListener('click',()=>{if(confirm('本当にKnit Compassの全データを削除しますか？この操作は元に戻せません。')&&confirm('JSONバックアップは作成済みですか？削除を続けますか？')){state=blankState();persist();renderAll();setMessage($('dataMessage'),'全データを削除しました。')}});
 
   $('newProductHero').addEventListener('click',()=>openProductForm());$('newProductButton').addEventListener('click',()=>openProductForm());$('workflowNewProduct').addEventListener('click',()=>openProductForm());$('showRecentProducts').addEventListener('click',()=>{showRecent=!showRecent;renderBrandHome()});$('newYarnButton').addEventListener('click',()=>openYarnForm());$('newDevelopmentButton').addEventListener('click',()=>openDevelopmentForm());
 

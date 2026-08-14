@@ -1,9 +1,16 @@
 {
   "schema_version": "1.6.0",
-  "updated_at": "2026-08-15T07:37:31+09:00",
+  "updated_at": "2026-08-15T08:56:15+09:00",
   "policy": {
     "unknown_connections_are_forbidden": true,
     "connection_change_requires_registry_update": true,
+    "development_platform": {
+      "primary": "macos-arm64-apple-silicon",
+      "node_minimum_major": 18,
+      "python_minimum": "3.9",
+      "rosetta_intel_node": "forbidden",
+      "windows_scope": "company-browser-and-launcher-only"
+    },
     "sentinel_values": {
       "not_applicable": "not-applicable",
       "runtime_per_device": "runtime-per-device-or-none",
@@ -33,13 +40,13 @@
       "entry_href": "../",
       "entry_label": "Photo Captureを開く",
       "code_source": "app.js@main",
-      "code_revision": "git-blob:709c5d522b41ea527ac31d1f57551c25b2378af2",
+      "code_revision": "git-blob:033667370df8a0eadab15cab1216776e1b551012",
       "auxiliary_sources": [
         {"code_source": "app.css@main", "code_revision": "git-blob:d15e6d27783326d2d3203e93c99cb4c724108de3"},
         {"code_source": "knitting-ends-field.js@main", "code_revision": "git-blob:7488b3500d842978ceb4f959a238943a6ef5c03a"},
-        {"code_source": "app-state-guard.js@main", "code_revision": "git-blob:abce2d3b6b337c4e8811313749a9d7623d4260b8"},
-        {"code_source": "index.html@main", "code_revision": "git-blob:9d6716bc60e5ada0c58a63f0911d773c1edf4932"},
-        {"code_source": "sw.js@main", "code_revision": "git-blob:3c9d643b69908ac9f311ff4b9204eca6d01f1a05"},
+        {"code_source": "app-state-guard.js@main", "code_revision": "git-blob:54de672cc6049ad7f2e33b69c07d512118fa17c7"},
+        {"code_source": "index.html@main", "code_revision": "git-blob:3aa0df75ae5c605ef8be978960470d6a4059fe6b"},
+        {"code_source": "sw.js@main", "code_revision": "git-blob:639c3cc43f4ba54c0e85946effc12f00ab6ff247"},
         {"code_source": "connection-status.css@main", "code_revision": "git-blob:cad76ab49f47b90ee196055c6420571fe3052143"},
         {"code_source": "photo-capture-card-progress-v1.css@main", "code_revision": "git-blob:7f984b4689826118996ef77e9ccc07472fa62f78"},
         {"code_source": "photo-capture-card-progress-v1.js@main", "code_revision": "git-blob:3fc57e93a203128a181e3bd57a28641883c35ecf"},
@@ -60,21 +67,21 @@
     },
     {
       "system_id": "KC-V04-WEB",
-      "display_name": "Knit Compass 独立実用版 v0.4",
+      "display_name": "Knit Compass 商品調査・Human Review",
       "environment": "independent",
       "display_version": "v0.4.7",
       "entry_path": "/brand-intelligence/",
       "entry_href": "../brand-intelligence/",
-      "entry_label": "V04・Human Reviewを開く",
+      "entry_label": "商品調査・Human Reviewを開く",
       "code_source": "brand-intelligence/app.html@main",
-      "code_revision": "git-blob:ac2ab98278006c6f69bcc81965972bfa73747437",
+      "code_revision": "git-blob:89affca33852a7551d2d587528d6a0dde042bb34",
       "auxiliary_sources": [
-        {"code_source": "brand-intelligence/index.html@main", "code_revision": "git-blob:00fe24c6f17df5bc2ee5937ad85fb0f7fbb48cb1"},
-        {"code_source": "brand-intelligence/index-current.html@main", "code_revision": "git-blob:ca69e5192f4db908903fae8396abaf357856ba9c"},
-        {"code_source": "brand-intelligence/yarn-glossary.html@main", "code_revision": "git-blob:53c9a9e79a73a5a0ba9407b9aba97266405d20e4"},
+        {"code_source": "brand-intelligence/index.html@main", "code_revision": "git-blob:c29eebdb8161c5052d93645cfdd4a172d2605a53"},
+        {"code_source": "brand-intelligence/index-current.html@main", "code_revision": "git-blob:f40ca0bf34d9ba019540e4535a5b0a020f4381bc"},
+        {"code_source": "brand-intelligence/yarn-glossary.html@main", "code_revision": "git-blob:a16f407527cfcde33a526524cf01d4c053143b3b"},
         {"code_source": "brand-intelligence/data/cn-yarn-glossary.json@main", "code_revision": "git-blob:1ec9168ff3125e3584f8e808151e11556bab933e"},
-        {"code_source": "brand-intelligence/sw.js@main", "code_revision": "git-blob:0c1ef6f50d6825d4b4f98202616f78d4fdb5aa97"},
-        {"code_source": "market-signals.js@main", "code_revision": "git-blob:762419d9fd77e7580c4eafada0ba100149062118"},
+        {"code_source": "brand-intelligence/sw.js@main", "code_revision": "git-blob:3b5bc846225c35db4af8beacc5f7f31940215755"},
+        {"code_source": "market-signals.js@main", "code_revision": "git-blob:6149cf8c63f82710e98ab9cf239f11859cdaa756"},
         {"code_source": "data/market-trends/market-signals.json@main", "code_revision": "git-blob:b41953a2435bc7bc687f5902f6015e40f8ce0df5"}
       ],
       "data_store": "browser-localstorage",
@@ -93,12 +100,12 @@
       "entry_href": "../owner-yarns/",
       "entry_label": "糸検索を開く",
       "code_source": "owner-yarns/index.html@main",
-      "code_revision": "git-blob:0852b07ea298adeeefb16ef9917b6d2b93584d40",
+      "code_revision": "git-blob:d1f70b86f7fa75b0fe72264ca66fa3a8ecaff502",
       "auxiliary_sources": [
         {"code_source": "data/yarn-catalog/mz100-catalog-2000.json@main", "code_revision": "git-blob:cc53a504df4cdf2f68e4193a7304982dd7acd8f4"},
         {"code_source": "data/yarn-catalog/expansion-status.json@main", "code_revision": "git-blob:5058d3c1d164b56dd66ff7d428281ae071840ab7"},
         {"code_source": "data/human-review/2026-08-15-intake-19-triage.json@main", "code_revision": "git-blob:dce478a0007f89baf797956ed82062b76d3787f5"},
-        {"code_source": "market-signals.js@main", "code_revision": "git-blob:762419d9fd77e7580c4eafada0ba100149062118"},
+        {"code_source": "market-signals.js@main", "code_revision": "git-blob:6149cf8c63f82710e98ab9cf239f11859cdaa756"},
         {"code_source": "data/market-trends/market-signals.json@main", "code_revision": "git-blob:b41953a2435bc7bc687f5902f6015e40f8ce0df5"}
       ],
       "data_store": "static-json-plus-browser-localstorage",
@@ -117,9 +124,9 @@
       "entry_href": "../knit-image/",
       "entry_label": "編み地イメージを開く",
       "code_source": "knit-image/app.js@main",
-      "code_revision": "git-blob:aba4933dae26fb25e60a0555bc982e5f98b8c0df",
+      "code_revision": "git-blob:7a594af0ec21b99b2da30cef5828e9045ef3f882",
       "auxiliary_sources": [
-        {"code_source": "knit-image/index.html@main", "code_revision": "git-blob:19e412fd5b170edbb6f371fcef4001df3bb06be4"},
+        {"code_source": "knit-image/index.html@main", "code_revision": "git-blob:f0353ff84e3d5c66f085c73b87671047bb41a638"},
         {"code_source": "knit-image/app.css@main", "code_revision": "git-blob:c915aff7bdf49e92f10f4f097b201c43aee168b6"}
       ],
       "data_store": "read-only-catalog-and-browser-master",
@@ -140,10 +147,10 @@
       "code_source": "fabric-inspection/app.js@main",
       "code_revision": "git-blob:35f54c3bcd61327f52b7be352fc4edd955a8ebcf",
       "auxiliary_sources": [
-        {"code_source": "fabric-inspection/index.html@main", "code_revision": "git-blob:11be393bdf082576e933eb7ea8c850fb2f4dc3d5"}
+        {"code_source": "fabric-inspection/index.html@main", "code_revision": "git-blob:931afd5883cb8363a596dc72405665a4921a4c13"}
       ],
       "data_store": "browser-localstorage",
-      "storage_detail": "localStorage kc_fabric_inspection_records_v1 stores append-only fabric inspection records; correction records reference supersedes_id instead of overwriting prior records; gauge and knitting_ends remain separate; every record is PENDING_HUMAN_REVIEW with publication_status HOLD; audit JSON export only; no V04 master, Photo Capture inbox, or customer-sharing mutation",
+      "storage_detail": "localStorage kc_fabric_inspection_records_v1 stores append-only fabric inspection records; correction records reference supersedes_id instead of overwriting prior records; gauge and knitting_ends remain separate; every record is PENDING_HUMAN_REVIEW with publication_status HOLD; audit JSON export only; no formal master, Human Review inbox, or customer-sharing mutation",
       "sync_mode": "local-append-only-pending-human-review",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "no-automatic-production-core-company-db-connection",
@@ -161,7 +168,7 @@
       "code_revision": "git-blob:ca577eda8d1d0f1a9110ea4408343dc2c2b3f428",
       "auxiliary_sources": [
         {"code_source": "market-intelligence/index.html@main", "code_revision": "git-blob:8aed53f811f995d4f133351de7813a8128b10c4a"},
-        {"code_source": "data/brand-md-monitoring/latest.json@main", "code_revision": "git-blob:b773dbe4103eb321a89d7bda2c1510f5ce91b61e"},
+        {"code_source": "data/brand-md-monitoring/latest.json@main", "code_revision": "git-blob:69edcdd2e62650a51a9807d5363f148a1eb292f4"},
         {"code_source": "data/brand-md-monitoring/latest-material-proposals.json@main", "code_revision": "git-blob:57152d57108e0639396c1126d333929f6a945353"}
       ],
       "data_store": "browser-localstorage",
@@ -180,7 +187,7 @@
       "entry_href": "../customer-sharing/",
       "entry_label": "共有管理を開く",
       "code_source": "customer-sharing/index.html@main",
-      "code_revision": "git-blob:0144f50c1aeb89d2b50cec36df9eef23a3ff630d",
+      "code_revision": "git-blob:bd2c5cb2d282c8d55670e7fdaf2dabb677365f64",
       "auxiliary_sources": [
         {"code_source": "customer-sharing/policy.js@main", "code_revision": "git-blob:9539c0363dc1c8c32e36d5bf73edc96a609b1ab2"}
       ],
@@ -220,7 +227,7 @@
       "entry_href": "../daily/",
       "entry_label": "Daily Webを開く",
       "code_source": "daily/index.html@main",
-      "code_revision": "git-blob:9a5796f1553f6e628c6f8bcbb656d3f3735f4e64",
+      "code_revision": "git-blob:3f833ddd5ad13f6f3e9d0521346107af9ad626b8",
       "data_store": "browser-localstorage",
       "storage_detail": "localStorage kc_independent_practical_v0_4",
       "sync_mode": "manual-only-when-owner-configured",

@@ -4,24 +4,24 @@
 
 ## 現在の接続状態
 
-Photo Capture、v0.4、Daily、Androidは引き続き独立運用です。Production、Core、Company DBへの自動接続はありません。
+Photo Capture、商品調査・Human Review、Daily、Androidは引き続き独立運用です。Production、Core、Company DBへの自動接続はありません。設計・実装・検証・公開作業はApple Silicon搭載Macを主環境とし、Windowsは会社内でのブラウザ利用と補助起動に限定します。
 
 次の4工程を接続しています。
 
 1. Photo Captureが混率・機能性・サステナブル・共通ID・根拠をAppend Only DRAFTとして保存
-2. DRAFTをv0.4の「Photo Capture受信箱」へ候補送信
+2. DRAFTを「Human Review受信箱」へ候補送信
 3. Human Review承認後だけ商品・糸・会社マスターへ確定反映
 4. 月次掲載観測を根拠付きMD提案へ接続し、販売数量未取得時は推定せず公開保留
 
-同一ブラウザではlocalStorage受信箱を共有します。別サイト・別端末では受信箱JSONを書き出し、v0.4側で取り込みます。PENDINGまたはREJECTEDの候補はマスターへ反映しません。
+同一ブラウザではlocalStorage受信箱を共有します。別サイト・別端末では受信箱JSONを書き出し、Human Review側で取り込みます。PENDINGまたはREJECTEDの候補はマスターへ反映しません。
 
 Photo Capture v1.3.1では、インストール名とカメラアイコンを統一し、Service WorkerによるPWA起動とオフライン再起動を追加しました。営業向けTOPでは「商品調査・糸検索・原料相場・編み地イメージ・生地検査」を先頭に置き、Photo Capture、中国糸名辞書、Daily、共有管理、顧客ポータル、システム状態へも移動できます。
 
 糸マスター／2,000件カタログからは、番手・混率・糸構造・対応ゲージを引き継ぐ「糸 → 編み地イメージ」を開けます。ゲージ・編組織・本取りを指定し、外部AIへ送信せず端末内で検討用PNGを生成します。既存マスターと公開範囲は変更しません。
 
-v0.4.7では、V04入口とカタログ導線を整理し、**中国糸名辞書**と**月次掲載・MD**を接続しています。中国市場名は日本語標準名・代表的な糸タイプ（例）として読取専用で照合し、月次観測は販売数量を推定せずMD提案へ引き継ぎます。
+商品調査・Human Reviewでは、営業向け入口とカタログ導線を整理し、**中国糸名辞書**と**月次掲載・MD**を接続しています。中国市場名は日本語標準名・代表的な糸タイプ（例）として読取専用で照合し、月次観測は販売数量を推定せずMD提案へ引き継ぎます。内部互換性のため、保存キーと受信箱形式には従来の `v0_4` / `V04` 識別子を維持します。
 
-生地検査と原料相場 / Market Intelligenceは独立した端末内の追記型記録です。どちらも `PENDING_HUMAN_REVIEW`・公開保留で保存し、V04マスター、Photo Capture受信箱、顧客共有を自動更新しません。原料相場は中国ベースの綿・ウール・麻・ナイロン・ポリエステル・再生ポリエステルを一画面比較し、出典URL付き確認済み観測だけを表示します。ライブ価格取得、通貨・単位の自動換算、将来予測は行いません。
+生地検査と原料相場 / Market Intelligenceは独立した端末内の追記型記録です。どちらも `PENDING_HUMAN_REVIEW`・公開保留で保存し、正式マスター、Human Review受信箱、顧客共有を自動更新しません。原料相場は中国ベースの綿・ウール・麻・ナイロン・ポリエステル・再生ポリエステルを一画面比較し、出典URL付き確認済み観測だけを表示します。ライブ価格取得、通貨・単位の自動換算、将来予測は行いません。
 
 ### データ保護
 
@@ -46,8 +46,8 @@ v0.4.7では、V04入口とカタログ導線を整理し、**中国糸名辞書
 
 | システム | 入口 | 主な保存先 | 接続 |
 |---|---|---|---|
-| Photo Capture v1.3.1 | `/` | IndexedDB `kc_independent_photo_capture_v1_0` | v0.4受信箱へ候補送信 |
-| Knit Compass v0.4.7 | `/brand-intelligence/` | localStorage `kc_independent_practical_v0_4` | Human Review後にマスター反映／月次掲載観測から公開保留MD提案 |
+| Photo Capture v1.3.1 | `/` | IndexedDB `kc_independent_photo_capture_v1_0` | Human Review受信箱へ候補送信 |
+| 商品調査・Human Review | `/brand-intelligence/` | localStorage `kc_independent_practical_v0_4` | Human Review後にマスター反映／月次掲載観測から公開保留MD提案 |
 | 糸検索（現行2,000件、3,000件以上へ拡張中） | `/owner-yarns/` | 静的カタログ＋localStorage受信箱 | CATALOG_INDEXEDと正式糸を分離／19件はPENDING取込／12承認可能・4条件付き・3HOLDは判定補助のみ／選択糸を編み地イメージへ読取専用で引渡し |
 | 糸 → 編み地イメージ v1.0.0 | `/knit-image/` | なし（Canvas、明示PNG保存のみ） | 外部送信・マスター書込なし |
 | 生地検査 | `/fabric-inspection/` | localStorage `kc_fabric_inspection_records_v1` | 追記専用／Human Review待ち／監査JSON |
@@ -69,37 +69,35 @@ v0.4.7では、V04入口とカタログ導線を整理し、**中国糸名辞書
 
 ## ローカル起動
 
-Windows:
+主開発環境はApple Silicon搭載Macです。初回はApple Silicon版Node.js LTSを導入し、次を実行します。
+
+```sh
+scripts/setup_macos.sh
+```
+
+Finderから `start.command` を開くか、ターミナルから起動します。
+
+```sh
+./start.sh
+```
+
+ブラウザで `http://127.0.0.1:8080/` を開きます。Human Review受信箱と中国糸名辞書は `http://127.0.0.1:8080/brand-intelligence/` から切り替えます。
+
+Windowsは会社PCでの補助起動だけを維持します。設計・実装・検証環境としては使用しません。
 
 ```bat
 start.bat
 ```
 
-macOS / Linux:
-
-```sh
-sh start.sh
-```
-
-ブラウザで `http://127.0.0.1:8080/` を開きます。v0.4のHuman Review受信箱と中国糸名辞書は `http://127.0.0.1:8080/brand-intelligence/` から切り替えます。
+詳細は [Mac開発環境方針](docs/MAC_DEVELOPMENT.md) を参照してください。
 
 ## 検証
 
 ```sh
-python3 -m pip install -r requirements-validation.txt
-python3 scripts/validate_system_registry.py
-python3 scripts/validate_yarn_glossary.py
-python3 scripts/validate_handoff_safety.py
-python3 scripts/validate_ui_state_guard.py
-python3 scripts/validate_photo_capture_install.py
-python3 scripts/validate_v04_monthly_md.py
-python3 scripts/validate_navigation_links.py
-python3 scripts/validate_knit_image.py
-python3 scripts/validate_operational_surfaces.py
-python3 scripts/validate_product_link_completion_20260809.py
+scripts/validate_macos.sh
 ```
 
-検証対象は、接続台帳、全登録ソースのGit blob／content SHA、保存キー、CIトリガー、接続表示、全ローカル画面・素材リンク、JavaScript構文、Photo Captureのインストール名・カメラアイコン・PWA起動・操作配置、空欄上書き防止、根拠付き項目だけの反映、会社IDとプロフィール、PENDING保持、本取り保存契約、中国糸名辞書、生地検査・原料相場の追記／公開保留境界、月次観測から公開保留MD提案への接続、販売数量の非推定、および公式商品URL未登録9件の解消です。
+検証対象は、Apple Silicon/arm64の実行環境、接続台帳、全登録ソースのGit blob／content SHA、保存キー、CIトリガー、営業向け表記、全ローカル画面・素材リンク、JavaScript構文、Photo Captureのインストール名・カメラアイコン・PWA起動・操作配置、空欄上書き防止、根拠付き項目だけの反映、会社IDとプロフィール、PENDING保持、本取り保存契約、中国糸名辞書、生地検査・原料相場の追記／公開保留境界、月次観測から公開保留MD提案への接続、販売数量の非推定、および公式商品URL未登録9件の解消です。Node.jsがない場合にJavaScript検証を省略して成功扱いにはしません。
 
 ## 変更ルール
 

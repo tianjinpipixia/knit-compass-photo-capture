@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the V04 China yarn market-name glossary and main navigation contract."""
+"""Validate the China yarn market-name glossary and sales navigation contract."""
 from __future__ import annotations
 
 import json
@@ -119,7 +119,7 @@ def main() -> None:
         "代表的な糸タイプ（例）",
         "kc_independent_practical_v0_4",
         "cn-yarn-glossary.json",
-        "V04糸マスター",
+        "正式糸マスター",
         "天然対象繊維",
     ):
         if token not in page:
@@ -129,34 +129,35 @@ def main() -> None:
 
     shell = SHELL.read_text(encoding="utf-8")
     if "中国糸名辞書" not in shell or "./index-current.html" not in shell or "./yarn-glossary.html" not in shell:
-        fail("V04 shell is not wired to the preserved Human Review UI and glossary")
+        fail("sales shell is not wired to the preserved Human Review UI and glossary")
     for label, route in REQUIRED_MAIN_NAV.items():
         if label not in shell:
-            fail(f"V04 main navigation missing label: {label}")
+            fail(f"sales navigation missing label: {label}")
         if route not in shell:
-            fail(f"V04 main navigation missing route for {label}: {route}")
+            fail(f"sales navigation missing route for {label}: {route}")
     leading_labels = ("商品調査", "糸検索", "原料相場", "編み地イメージ", "生地検査", "Photo Capture", "中国糸名辞書", "Daily", "管理")
     if any(shell.find(left) > shell.find(right) for left, right in zip(leading_labels, leading_labels[1:])):
-        fail("V04 main navigation leading order is incorrect")
+        fail("sales navigation leading order is incorrect")
 
     if shell.count('class="nav-item') != 9:
-        fail("V04 top navigation must contain exactly 9 primary controls")
+        fail("sales top navigation must contain exactly 9 primary controls")
     for token in ("管理メニュー", "manageButton", "manageMenu", 'aria-expanded="false"'):
         if token not in shell:
-            fail(f"V04 simplified management menu missing token: {token}")
+            fail(f"sales management menu missing token: {token}")
+    management_menu = shell[shell.find('id="manageMenu"'):]
     for label in ("Human Review", "共有管理", "顧客ポータル", "システム状態"):
-        if shell.find(label) < shell.find("manageMenu"):
+        if f"<strong>{label}</strong>" not in management_menu:
             fail(f"{label} must be grouped inside the management menu")
 
     if not PRESERVED.exists():
-        fail("preserved V04 Human Review shell is missing")
+        fail("preserved Human Review shell is missing")
 
     sw = SW.read_text(encoding="utf-8")
     for path in ("./index-current.html", "./yarn-glossary.html", "./data/cn-yarn-glossary.json"):
         if path not in sw:
             fail(f"service worker cache missing {path}")
 
-    print(f"OK: validated {len(entries)} China yarn entries, glossary wiring, and simplified V04 navigation")
+    print(f"OK: validated {len(entries)} China yarn entries, glossary wiring, and simplified sales navigation")
 
 
 if __name__ == "__main__":

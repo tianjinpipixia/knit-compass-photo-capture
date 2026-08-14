@@ -2,11 +2,13 @@
 """Validate fabric inspection and market intelligence safety boundaries."""
 from __future__ import annotations
 
-import shutil
 import subprocess
 from pathlib import Path
 
+from tooling import require_node
+
 ROOT = Path(__file__).resolve().parents[1]
+NODE = require_node()
 
 
 def require(text: str, token: str, label: str) -> None:
@@ -20,10 +22,8 @@ def forbid(text: str, token: str, label: str) -> None:
 
 
 def check_javascript(path: Path) -> None:
-    node = shutil.which("node")
-    if node:
-        result = subprocess.run([node, "--check", str(path)], check=False, capture_output=True, text=True)
-        assert result.returncode == 0, result.stderr
+    result = subprocess.run([NODE, "--check", str(path)], check=False, capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr
 
 
 fabric_html = (ROOT / "fabric-inspection/index.html").read_text(encoding="utf-8")

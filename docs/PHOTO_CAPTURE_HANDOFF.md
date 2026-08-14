@@ -1,4 +1,4 @@
-# Photo Capture → v0.4 → Human Review 接続仕様
+# Photo Capture → Human Review 接続仕様
 
 更新日: 2026-08-05  
 版: 1.0.4
@@ -6,16 +6,16 @@
 ## 接続済みの3工程
 
 1. Photo Captureは混率、機能性、サステナブル、共通ID、根拠、確認状態を同じAppend Only DRAFTに保存します。
-2. DRAFTは `KC_V04_INBOX_ITEM` としてv0.4の受信箱へ渡します。
+2. DRAFTは `KC_V04_INBOX_ITEM` としてHuman Review受信箱へ渡します。形式名は既存データ互換のため維持します。
 3. Human Reviewで承認した場合だけ、商品・糸・会社・素材・調査マスターへ確定反映します。却下時はマスターを変更しません。
 
 ## 保存先と受渡し
 
 - Photo Capture本体: IndexedDB `kc_independent_photo_capture_v1_0`
 - 受信箱: localStorage `kc_v04_handoff_queue_v1`
-- v0.4マスター: localStorage `kc_independent_practical_v0_4`
+- 正式マスター: localStorage `kc_independent_practical_v0_4`（内部互換キー）
 - 同一オリジン・同一ブラウザ: 受信箱を直接共有
-- 別サイト・別端末: `KC_V04_INBOX_EXPORT` JSONを書き出し、v0.4側で取り込み
+- 別サイト・別端末: `KC_V04_INBOX_EXPORT` JSONを書き出し、Human Review側で取り込み
 - 外部Production / Core / Company DBへの自動接続: なし
 
 写真Blobは受信箱へ複製しません。受信箱には写真IDとメタデータだけを渡し、容量増加と意図しない画像複製を防ぎます。
@@ -95,7 +95,7 @@ localStorageの容量不足で保存できない場合は、既存の未承認�
 
 `scripts/validate_handoff_safety.py` と `Validate Human Review safety` workflowで次を確認します。
 
-- Photo Captureとv0.4受信箱のJavaScript構文
+- Photo CaptureとHuman Review受信箱のJavaScript構文
 - 500件での単純切捨てが残っていないこと
 - PENDING保持ロジック
 - 空欄上書き防止ロジック

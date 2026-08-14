@@ -7,10 +7,13 @@ import subprocess
 import tempfile
 from pathlib import Path
 
+from tooling import require_node
+
 ROOT = Path(__file__).resolve().parents[1]
 POLICY = ROOT / "customer-sharing" / "policy.js"
 ADMIN = ROOT / "customer-sharing" / "index.html"
 PORTAL = ROOT / "stylem" / "index.html"
+NODE = require_node()
 
 
 def fail(message: str) -> None:
@@ -32,7 +35,7 @@ def node_check_text(text: str, label: str) -> None:
         handle.write(text)
         path = Path(handle.name)
     try:
-        result = subprocess.run(["node", "--check", str(path)], capture_output=True, text=True)
+        result = subprocess.run([NODE, "--check", str(path)], capture_output=True, text=True)
         if result.returncode:
             fail(f"JavaScript syntax error in {label}: {result.stderr.strip()}")
     finally:
@@ -44,7 +47,7 @@ def node_run_text(text: str, label: str) -> None:
         handle.write(text)
         path = Path(handle.name)
     try:
-        result = subprocess.run(["node", str(path)], capture_output=True, text=True)
+        result = subprocess.run([NODE, str(path)], capture_output=True, text=True)
         if result.returncode:
             fail(f"JavaScript runtime regression in {label}: {(result.stderr or result.stdout).strip()}")
     finally:
