@@ -5,15 +5,15 @@
 ## 観測結果
 
 - 64 / 64ブランドを観測記録。
-- 明確な差分・商品基準拡張: ROPÉ PICNIC、VIS、OPAQUE.CLIP、LEPSIM、AMERICAN HOLIC、YECCA VECCA、NATURAL BEAUTY BASIC、SENSE OF PLACE。
-- 商品単位ベースライン新設: A part by、Elura、mysty woman、Andemiu、ALAND。
-- 明確な変更なしとして確認できたブランドはそのまま記録。
-- 取得鮮度や商品単位比較が不足したブランドは `COMPARISON_INCOMPLETE` とし、「変更なし」や「掲載終了」を推定していない。
-- 五大陸 / TAKEO KIKUCHI はメンズ専用としてレディースMD集計対象外。
-- any FAM は現行ANYとの二重集計を避け、旧ブランド履歴として保持。
-- repipi armario はティーン市場の別スコープとして保持。
-- 販売数量は一次根拠がないため全件 `NOT_AVAILABLE`。推定なし。
-- 公開状態は全件 `PUBLISH_HOLD`。
+- 明確な差分・商品基準拡張: 8ブランド（ROPÉ PICNIC、VIS、OPAQUE.CLIP、LEPSIM、AMERICAN HOLIC、YECCA VECCA、NATURAL BEAUTY BASIC、SENSE OF PLACE）。
+- 商品単位ベースライン新設: 5ブランド（A part by、Elura、mysty woman、Andemiu、ALAND）。
+- 明確な変更なし: 16ブランド。
+- 比較未確定 `COMPARISON_INCOMPLETE`: 31ブランド。取得鮮度や商品単位比較が不足した場合は「変更なし」や「掲載終了」を推定していない。
+- 五大陸 / TAKEO KIKUCHI: 2ブランドをメンズ専用としてレディースMD集計対象外。
+- any FAM: 旧ブランド履歴1件。現行ANYとの二重集計を避ける。
+- repipi armario: ティーン市場の別スコープ1件。
+- 販売数量: 全64件 `NOT_AVAILABLE`。一次根拠なし・推定なし。
+- 公開状態: 全64件 `PUBLISH_HOLD`。
 
 ## 本日の主要差分
 
