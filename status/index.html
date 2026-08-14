@@ -19,7 +19,7 @@
     <a href="../">Photo Capture</a>
     <a href="../brand-intelligence/">V04 TOP・Human Review</a>
     <a href="../brand-intelligence/#cn-yarn-glossary">中国糸名辞書</a>
-    <a href="../owner-yarns/">糸検索2,000件</a>
+    <a href="../owner-yarns/">糸検索</a>
     <a href="../knit-image/">編み地イメージ</a>
     <a href="../fabric-inspection/">生地検査</a>
     <a href="../market-intelligence/">原料相場</a>
@@ -30,9 +30,9 @@
   <main class="shell">
     <section class="hero"><h1>Knit Compass 接続先情報</h1><p>環境、表示バージョン、コードRevision、保存先、同期、最終同期、外部DBを一か所で確認します。</p><div class="meta"><span class="pill" id="schema">台帳版: 読込中</span><span class="pill" id="updated">更新日時: 読込中</span></div></section>
 
-    <section class="section"><div class="notice"><strong>主要導線、生地検査、原料相場、編み地イメージを接続しました。</strong> 糸検索2,000件と未反映17件取込をV04 TOPから開け、選択糸は読取専用で端末内Canvasへ引き渡せます。Photo Capture → v0.4受信箱 → Human Review → 正式マスターの境界は維持し、生地検査・原料相場は独立したPENDING追記記録として保存します。外部送信・自動公開・販売数量や相場の推定は行いません。</div></section>
+    <section class="section"><div class="notice"><strong>営業TOP、Human Review、原料相場、編み地イメージを接続しました。</strong> 糸検索は現行2,000件を維持しながら3,000件以上へ拡張中です。未反映19件は承認可能12・条件付き4・HOLD 3の判定補助を表示しますが、全件PENDING・自動昇格0を維持します。原料相場は中国6原料を確認済み出典だけで比較し、64ブランドMDからNOT_PROMOTED糸候補と素材提案へ接続します。</div></section>
 
-    <section class="section"><h2>確定フロー</h2><div class="flow"><div><strong>1. Photo Capture</strong><span>写真・混率・機能性・サステナブル・共通ID・根拠をDRAFT保存</span></div><div><strong>2. 糸カタログ</strong><span>MZ100一覧情報2,000件を検索索引化。正式糸とは分離</span></div><div><strong>3. 編み地イメージ</strong><span>選択糸を読取専用で参照し、検討用PNGを端末内生成</span></div><div><strong>4. v0.4受信箱</strong><span>同一ブラウザはlocalStorage、別端末はJSONで候補受渡し</span></div><div><strong>5. Human Review</strong><span>根拠確認済み項目だけ承認後にマスター反映。却下は無反映</span></div><div><strong>6. 会社受信箱</strong><span>CSV追記でPENDING_HUMAN_REVIEWとして保存。直接上書きなし</span></div></div></section>
+    <section class="section"><h2>確定フロー</h2><div class="flow"><div><strong>1. Photo Capture</strong><span>写真・混率・機能性・サステナブル・共通ID・根拠をDRAFT保存</span></div><div><strong>2. 糸カタログ</strong><span>MZ100一覧情報2,000件を検索索引化。3,000件以上へ拡張中、全件NOT_PROMOTED</span></div><div><strong>3. 編み地イメージ</strong><span>選択糸を読取専用で参照し、検討用PNGを端末内生成</span></div><div><strong>4. v0.4受信箱</strong><span>同一ブラウザはlocalStorage、別端末はJSONで候補受渡し</span></div><div><strong>5. Human Review</strong><span>根拠確認済み項目だけ承認後にマスター反映。却下・HOLDは無反映</span></div><div><strong>6. 会社バックアップ・共有</strong><span>Knit Compassを主系統とし、必要最小項目だけをBACKUP_SHARE_ONLYで追記</span></div></div></section>
 
     <section class="section"><h2>システム別の接続状況</h2><div id="systems" class="grid"><div class="empty">接続台帳を読み込んでいます。</div></div></section>
 
@@ -45,9 +45,9 @@
     const labels={
       'independent-sandbox':'独立Sandbox','independent':'独立運用','independent-local':'独立端末内','independent-apk':'独立APK',
       'browser-indexeddb':'ブラウザIndexedDB','browser-localstorage':'ブラウザlocalStorage','static-json-plus-browser-localstorage':'静的JSON＋ブラウザlocalStorage','android-webview-app-data':'Android WebView内',
-      'read-only-catalog-and-browser-master':'読取専用カタログ＋ブラウザマスター','local-browser-queue-and-manual-json':'同一ブラウザ受信箱＋手動JSON','catalog-index-plus-local-human-review':'2,000件索引＋端末内Human Review','read-only-local-canvas-generation':'読取専用・端末内Canvas生成','local-append-only-pending-human-review':'端末内追記＋Human Review待ち','manual-only-when-owner-configured':'所有者設定時のみ手動','disabled':'OFF',
+      'read-only-catalog-and-browser-master':'読取専用カタログ＋ブラウザマスター','local-browser-queue-and-manual-json':'同一ブラウザ受信箱＋手動JSON','catalog-index-plus-local-human-review':'2,000件索引＋3,000件拡張＋端末内Human Review','read-only-local-canvas-generation':'読取専用・端末内Canvas生成','local-append-only-pending-human-review':'端末内追記＋Human Review待ち','manual-only-when-owner-configured':'所有者設定時のみ手動','disabled':'OFF',
       'not-applicable':'対象外','runtime-per-device-or-none':'端末内の実行時値／未実施はなし',
-      'no-automatic-production-core-company-db-connection':'Production / Core / Company DBへの自動接続なし','csv-receipt-inbox-only-no-master-write':'会社受信箱CSVのみ／マスター直接書込なし','none':'なし','active':'稼働中','pilot':'Pilot'
+      'no-automatic-production-core-company-db-connection':'Production / Core / Company DBへの自動接続なし','csv-receipt-inbox-only-no-master-write':'会社受信箱CSVのみ／マスター直接書込なし','company-sheet-backup-share-only-not-system-of-record':'会社シートはバックアップ・共有のみ／正本ではない','none':'なし','active':'稼働中','pilot':'Pilot'
     };
     const label=value=>labels[value]||value||'未設定';
     const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));

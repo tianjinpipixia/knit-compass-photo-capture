@@ -1,0 +1,55 @@
+{
+  "format": "KC_BRAND64_MATERIAL_PROPOSALS",
+  "schema_version": "1.0",
+  "observed_date": "2026-08-14",
+  "source_daily_path": "data/brand-md-monitoring/2026-08-14-brand64-daily.jsonl",
+  "source_summary_path": "data/brand-md-monitoring/2026-08-14-brand64-daily-summary.md",
+  "observed_brand_count": 64,
+  "comparison_scope": "Initial daily baseline for most brands; do not claim product-level change where no comparable baseline exists",
+  "sales_quantity_status": "NOT_AVAILABLE",
+  "sales_quantity_estimation": "FORBIDDEN",
+  "catalog_boundary": "CATALOG_INDEXED / LISTING_PAGE_ONLY / NOT_PROMOTED",
+  "review_boundary": "HUMAN_REVIEW_REQUIRED",
+  "publication_status": "PUBLISH_HOLD",
+  "proposals": [
+    {
+      "id": "BR64-MD-20260814-AW-TEXTURE",
+      "title": "夏機能ニットの消化とAW表面感の立上がり",
+      "status": "MD_DRAFT",
+      "publication_status": "PUBLISH_HOLD",
+      "scope_note": "夏向け機能ニットの値下げと、フェザー・シャギー・ケーブル等のAW予約を同時に観測。多くは初回日次ベースライン。",
+      "observed_signal": "接触冷感・UV・遮熱等の夏物値下げと、毛羽・柄・ウール混の秋予約が併存",
+      "market_change": "機能だけでなく軽量な毛羽・凹凸・秋見えを端境期提案へ重ねる",
+      "candidate_terms": ["羽毛纱", "马海毛", "仿兔", "仿貂", "圈圈", "雪尼尔", "羊毛"],
+      "minimum_term_matches": 1,
+      "primary_query": "羽毛纱",
+      "material_proposal": "軽量フェザー、モヘア調、ブークレ調を、カーディガン・ケーブル・ジャカード向けの編地イメージとセットで提案する。"
+    },
+    {
+      "id": "BR64-MD-20260814-TRANS-SEASON",
+      "title": "長い端境期向けドライ・シアー素材",
+      "status": "MD_DRAFT",
+      "publication_status": "PUBLISH_HOLD",
+      "scope_note": "強撚、レーヨン/ナイロン、和紙・ペーパー、シアー・メッシュ、高ゲージを複数ブランドで観測。",
+      "observed_signal": "暑さが残る時期から秋見えを作るドライタッチ・透け・高ゲージが継続",
+      "market_change": "夏の清涼感を残しながら、秋色・チェック・ポロ・ZIPへ載せ替える",
+      "candidate_terms": ["仿麻", "亚麻", "苎麻", "高捻", "强捻", "纸纱", "粘胶", "锦纶"],
+      "minimum_term_matches": 1,
+      "primary_query": "仿麻",
+      "material_proposal": "高捻の麻見え、レーヨン/ナイロン、紙調素材を、シアー・メッシュ・高ゲージの秋色スワッチとして提案する。"
+    },
+    {
+      "id": "BR64-MD-20260814-LAYERING",
+      "title": "羽織・レイヤード型を支える高ゲージストレッチ",
+      "status": "MD_DRAFT",
+      "publication_status": "PUBLISH_HOLD",
+      "scope_note": "2WAY、フェイクレイヤード、ニットジャケット、ジレ、ZIP、ポロ襟など着回し型を複数ブランドで観測。",
+      "observed_signal": "単純なプルオーバー以外の羽織・重ね着型が秋口の主要形として目立つ",
+      "market_change": "形態安定、落ち感、軽い伸縮を持つ細番手素材の提案価値が上がる",
+      "candidate_terms": ["粘胶", "锦纶", "PBT", "PTT", "高弹", "弹力"],
+      "minimum_term_matches": 2,
+      "primary_query": "粘胶 锦纶",
+      "material_proposal": "レーヨン/ナイロンや弾性複合の細番手を、2WAYカーデ・ジャケットライク・レイヤード向けに編地と本取りを分けて提案する。"
+    }
+  ]
+}

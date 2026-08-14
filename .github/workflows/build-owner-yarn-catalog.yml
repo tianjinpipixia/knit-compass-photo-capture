@@ -12,9 +12,12 @@ name: Validate / refresh owner yarn catalog
       - "owner-yarns/index.html"
       - "brand-intelligence/index.html"
       - "market-signals.js"
+      - "market-intelligence/**"
+      - "data/brand-md-monitoring/**"
       - "data/market-trends/**"
       - "data/manual-intake/**"
-      - "data/yarn-catalog/mz100-catalog-2000.json"
+      - "data/human-review/**"
+      - "data/yarn-catalog/**"
       - ".github/workflows/build-owner-yarn-catalog.yml"
   schedule:
     - cron: "17 21 * * 1"
@@ -58,8 +61,8 @@ jobs:
           python-version: "3.12"
       - name: Install catalog dependencies
         run: python -m pip install -r requirements-catalog.txt
-      - name: Refresh 2,000-record MZ100 catalog
-        run: python scripts/build_mz100_catalog.py --target 2000 --delay 0.20 --max-pages 200
+      - name: Expand MZ100 catalog to 3,000 NOT_PROMOTED candidates
+        run: python scripts/build_mz100_catalog.py --target 3000 --seed data/yarn-catalog/mz100-catalog-2000.json --output data/yarn-catalog/mz100-catalog-3000.json --delay 0.20 --max-pages 300 --retries 3
       - name: Validate refreshed catalog, intake, and market signals
         run: python scripts/validate_owner_yarn_implementation.py
       - name: Validate navigation
@@ -67,21 +70,21 @@ jobs:
       - name: Upload generated catalog evidence
         uses: actions/upload-artifact@v4
         with:
-          name: owner-yarn-catalog-2000
-          path: data/yarn-catalog/mz100-catalog-2000.json
+          name: owner-yarn-catalog-3000-candidates
+          path: data/yarn-catalog/mz100-catalog-3000.json
           if-no-files-found: error
           retention-days: 14
       - name: Commit catalog when changed
         shell: bash
         run: |
-          if [ -z "$(git status --porcelain -- data/yarn-catalog/mz100-catalog-2000.json)" ]; then
+          if [ -z "$(git status --porcelain -- data/yarn-catalog/mz100-catalog-3000.json)" ]; then
             echo "Catalog is unchanged."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/yarn-catalog/mz100-catalog-2000.json
-          git commit -m "Build 2,000-record owner yarn catalog"
+          git add data/yarn-catalog/mz100-catalog-3000.json
+          git commit -m "Expand owner yarn catalog to 3,000 candidates"
           git fetch origin "${GITHUB_REF_NAME}"
           git rebase "origin/${GITHUB_REF_NAME}"
           git push origin "HEAD:${GITHUB_REF_NAME}"

@@ -36,10 +36,10 @@ REQUIRED_FIELDS = {
     "exhibition_checks",
 }
 REQUIRED_MAIN_NAV = {
-    "V04本体": "./index-current.html",
+    "商品調査": "./index-current.html",
     "Photo Capture": "../",
     "中国糸名辞書": "./yarn-glossary.html",
-    "糸検索2,000件": "../owner-yarns/",
+    "糸検索": "../owner-yarns/",
     "編み地イメージ": "../knit-image/",
     "生地検査": "../fabric-inspection/",
     "原料相場": "../market-intelligence/",
@@ -135,7 +135,7 @@ def main() -> None:
             fail(f"V04 main navigation missing label: {label}")
         if route not in shell:
             fail(f"V04 main navigation missing route for {label}: {route}")
-    leading_labels = ("V04本体", "Photo Capture", "中国糸名辞書", "糸検索2,000件", "編み地イメージ", "生地検査", "原料相場", "Daily", "管理")
+    leading_labels = ("商品調査", "糸検索", "原料相場", "編み地イメージ", "生地検査", "Photo Capture", "中国糸名辞書", "Daily", "管理")
     if any(shell.find(left) > shell.find(right) for left, right in zip(leading_labels, leading_labels[1:])):
         fail("V04 main navigation leading order is incorrect")
 
@@ -144,7 +144,7 @@ def main() -> None:
     for token in ("管理メニュー", "manageButton", "manageMenu", 'aria-expanded="false"'):
         if token not in shell:
             fail(f"V04 simplified management menu missing token: {token}")
-    for label in ("共有管理", "顧客ポータル", "システム状態"):
+    for label in ("Human Review", "共有管理", "顧客ポータル", "システム状態"):
         if shell.find(label) < shell.find("manageMenu"):
             fail(f"{label} must be grouped inside the management menu")
 

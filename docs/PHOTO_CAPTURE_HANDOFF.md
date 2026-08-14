@@ -104,6 +104,14 @@ localStorageの容量不足で保存できない場合は、既存の未承認�
 - `TENCEL A100`や`G100`の数字を混率へ誤加算しないこと
 - 本取り入力がapp.jsの後に読み込まれ、`knittingEnds`をDRAFTと受信箱payloadへ保持すること
 
+## 会社スプレッドとの運用境界
+
+- 業務データの主系統はKnit Compassとし、会社スプレッドを正本にしない
+- 会社スプレッドへ出すCSVは必要最小項目の `BACKUP_SHARE_ONLY` とする
+- CSVには `source_of_truth: KNIT_COMPASS` と `automatic_import_to_master: FORBIDDEN` を含める
+- 会社シートからKnit Compassマスターへの自動取込、既存行上書き、自動公開を行わない
+- 端末内監査JSONは全payloadを含み得るため、会社共有前に内容をHuman Reviewする
+
 ## 安全条件
 
 - PENDING候補を確定値として表示・利用しない

@@ -2,7 +2,7 @@
   'use strict';
 
   const V04_KEY='kc_independent_practical_v0_4';
-  const CATALOG_URL='../data/yarn-catalog/mz100-catalog-2000.json';
+  const CATALOG_URLS=['../data/yarn-catalog/mz100-catalog-3000.json','../data/yarn-catalog/mz100-catalog-2000.json'];
   const RESULT_LIMIT=80;
   const STRUCTURE_LABELS={
     jersey:'天竺','full-needle':'総針',rib:'リブ',interlock:'スムース',milano:'ミラノリブ',
@@ -34,9 +34,9 @@
   }
 
   async function loadCatalogYarns(){
-    const response=await fetch(CATALOG_URL,{cache:'no-store'});
-    if(!response.ok)throw new Error(`糸カタログ HTTP ${response.status}`);
-    const data=await response.json();
+    let data,lastError;
+    for(const url of CATALOG_URLS){try{const response=await fetch(url,{cache:'no-store'});if(!response.ok)throw new Error(`糸カタログ HTTP ${response.status}`);data=await response.json();if(Array.isArray(data.records))break}catch(error){lastError=error}}
+    if(!data||!Array.isArray(data.records))throw lastError||new Error('糸カタログを読み込めませんでした。');
     const rows=Array.isArray(data.records)?data.records:[];
     return rows.map(row=>({
       id:String(row.catalog_id||`CAT-${row.source_id||row.name||''}`),source:'catalog',name:row.name||'名称未設定',
@@ -50,7 +50,7 @@
     return normalize([yarn.id,yarn.name,yarn.supplier,yarn.code,yarn.count,yarn.composition,yarn.structure,yarn.gauge,yarn.status].join(' '));
   }
 
-  function sourceLabel(yarn){return yarn.source==='master'?'V04マスター':'2,000件カタログ'}
+  function sourceLabel(yarn){return yarn.source==='master'?'V04マスター':`${catalogYarns.length.toLocaleString('ja-JP')}件カタログ`}
 
   function renderYarnResults(){
     const source=$('sourceFilter').value;

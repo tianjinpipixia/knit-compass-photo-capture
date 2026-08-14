@@ -8,9 +8,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "data/yarn-catalog/mz100-catalog-2000.json"
+EXPANDED_CATALOG = ROOT / "data/yarn-catalog/mz100-catalog-3000.json"
+EXPANSION_STATUS = ROOT / "data/yarn-catalog/expansion-status.json"
 PAGE = ROOT / "owner-yarns/index.html"
 TOP_PAGE = ROOT / "brand-intelligence/index.html"
 MARKET_SIGNALS = ROOT / "data/market-trends/market-signals.json"
+MD_PROPOSALS = ROOT / "data/brand-md-monitoring/latest-material-proposals.json"
+TRIAGE = ROOT / "data/human-review/2026-08-15-intake-19-triage.json"
 MARKET_JS = ROOT / "market-signals.js"
 BATCHES = [
     ROOT / "data/manual-intake/2026-08-08-weijie-hesheng-batch1.json",
@@ -50,6 +54,23 @@ assert coverage["name"] == 2000
 assert coverage["count_display"] >= 200
 assert coverage["composition_raw"] >= 200
 assert coverage["listed_supplier"] >= 200
+
+expansion = json.loads(EXPANSION_STATUS.read_text(encoding="utf-8"))
+assert expansion.get("format") == "KC_YARN_CATALOG_EXPANSION_STATUS"
+assert expansion.get("current_searchable_count") == 2000
+assert expansion.get("target_minimum_count", 0) >= 3000
+assert expansion.get("target_policy") == "SEARCH_BASE_FIRST_DEEP_DIVE_ON_REQUEST_ONLY"
+assert expansion.get("candidate_boundary", {}).get("master_status") == "NOT_PROMOTED"
+assert expansion.get("candidate_boundary", {}).get("automatic_promotion") == "FORBIDDEN"
+assert expansion.get("build", {}).get("target_output") == "data/yarn-catalog/mz100-catalog-3000.json"
+if EXPANDED_CATALOG.is_file():
+    expanded = json.loads(EXPANDED_CATALOG.read_text(encoding="utf-8"))
+    expanded_records = expanded.get("records")
+    assert expanded.get("record_count", 0) >= 3000
+    assert isinstance(expanded_records, list) and len(expanded_records) >= 3000
+    assert all(row.get("catalog_status") == "CATALOG_INDEXED" for row in expanded_records)
+    assert all(row.get("verification_status") == "LISTING_PAGE_ONLY" for row in expanded_records)
+    assert all(row.get("master_status") == "NOT_PROMOTED" for row in expanded_records)
 
 assert MARKET_SIGNALS.is_file(), "market signal registry is missing"
 signal_data = json.loads(MARKET_SIGNALS.read_text(encoding="utf-8"))
@@ -110,6 +131,28 @@ assert all(item["payload"].get("compositionStatus") == "confirmed" for item in a
 cool_touch = next(item for item in american_holic if item["payload"].get("productCode") == "0H001683000")
 assert any(prop.get("name") == "接触冷感" for prop in cool_touch["payload"].get("functionalProperties", []))
 
+triage = json.loads(TRIAGE.read_text(encoding="utf-8"))
+assert triage.get("format") == "KC_HUMAN_REVIEW_TRIAGE"
+assert triage.get("effect") == "ADVISORY_ONLY_NO_PROMOTION"
+assert triage.get("source_review_status_required") == "PENDING"
+decisions = triage.get("decisions")
+assert isinstance(decisions, list) and len(decisions) == 19
+assert {row.get("handoff_id") for row in decisions} == {item.get("handoff_id") for item in all_items}
+assert {row.get("classification") for row in decisions} <= {"APPROVABLE", "CONDITIONAL", "HOLD"}
+decision_counts = {label: sum(row.get("classification") == label for row in decisions) for label in ("APPROVABLE", "CONDITIONAL", "HOLD")}
+assert decision_counts == {"APPROVABLE": 12, "CONDITIONAL": 4, "HOLD": 3}
+assert triage.get("counts") == {**decision_counts, "AUTO_PROMOTED": 0}
+
+md_proposals = json.loads(MD_PROPOSALS.read_text(encoding="utf-8"))
+assert md_proposals.get("format") == "KC_BRAND64_MATERIAL_PROPOSALS"
+assert md_proposals.get("observed_brand_count") == 64
+assert md_proposals.get("sales_quantity_status") == "NOT_AVAILABLE"
+assert md_proposals.get("sales_quantity_estimation") == "FORBIDDEN"
+assert md_proposals.get("catalog_boundary") == "CATALOG_INDEXED / LISTING_PAGE_ONLY / NOT_PROMOTED"
+assert md_proposals.get("publication_status") == "PUBLISH_HOLD"
+assert len(md_proposals.get("proposals", [])) >= 3
+assert all(row.get("status") == "MD_DRAFT" and row.get("publication_status") == "PUBLISH_HOLD" for row in md_proposals["proposals"])
+
 html = PAGE.read_text(encoding="utf-8")
 for required in (
     "mz100-catalog-2000.json",
@@ -120,13 +163,22 @@ for required in (
     "AMERICAN HOLIC",
     "2026-08-13-american-holic-products-batch6.json",
     "Human Review",
-    "会社スプレッドシート用CSV",
+    "BACKUP_SHARE_ONLY",
+    "Knit Compassを主系統",
+    "TRIAGE_URL",
+    "data/human-review/2026-08-15-intake-19-triage.json",
+    "mz100-catalog-3000.json",
+    "URLSearchParams(location.search)",
+    "activateTab(location.hash.slice(1))",
     "market-signals.js",
 ):
     assert required in html, f"owner-yarns page missing: {required}"
 
 top_html = TOP_PAGE.read_text(encoding="utf-8")
 assert "market-signals.js" in top_html, "V04 top is not connected to market signals"
+assert "17件" not in top_html, "V04 top still exposes the stale 17-candidate count"
+for label in ("商品調査", "糸検索", "原料相場", "編み地イメージ", "生地検査", "Human Review", "19件"):
+    assert label in top_html, f"V04 sales navigation missing: {label}"
 
 market_js = MARKET_JS.read_text(encoding="utf-8")
 for required in (
@@ -143,5 +195,5 @@ for required in (
 print(
     "owner yarn implementation: OK "
     f"(2000 catalog records, {len(analog_matches)} Analog Revival matches, "
-    "19 PENDING candidates, safety boundary preserved)"
+    "19 PENDING candidates triaged 12/4/3, 3,000+ expansion queued, safety boundary preserved)"
 )
