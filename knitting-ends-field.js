@@ -9,7 +9,7 @@
   const FIELD_NAME = 'knittingEnds';
   const SIDECAR_KEY = 'kc_photo_capture_knitting_ends_v1';
   const DATA_CONTRACT_VERSION = '1.1.1';
-  const DISPLAY_VERSION = '1.3.1';
+  const DISPLAY_VERSION = '1.3.2';
 
   let pendingRecordId = '';
   let hydrateInProgress = false;

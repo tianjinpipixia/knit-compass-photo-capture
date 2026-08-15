@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kc-photo-capture-v1-3-1-operations-10-mac-primary';
+const CACHE_NAME = 'kc-photo-capture-v1-3-2-account-login-2';
 const APP_SHELL = [
   './',
   './index.html',
@@ -11,6 +11,7 @@ const APP_SHELL = [
   './photo-capture-card-progress-v1.js',
   './backup.js',
   './app-state-guard.js',
+  './sw-refresh-1.3.2.js',
   './icon.svg',
   './icon-180.png',
   './icon-192.png',
@@ -89,10 +90,12 @@ self.addEventListener('fetch', event => {
   }
 
   event.respondWith(
-    caches.match(event.request, { ignoreSearch: true }).then(cached => cached || fetch(event.request).then(response => {
-      const copy = response.clone();
-      caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+    fetch(event.request).then(response => {
+      if (response.ok) {
+        const copy = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+      }
       return response;
-    }))
+    }).catch(() => caches.match(event.request, { ignoreSearch: true }))
   );
 });

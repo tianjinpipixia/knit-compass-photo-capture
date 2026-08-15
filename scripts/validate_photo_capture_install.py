@@ -58,15 +58,33 @@ def main() -> None:
     for token in ("ONLY YOU", "DRAFT FIRST", "INBOX UPLOAD", "AUTO MASTER OFF", "PUBLISH HOLD"):
         if token not in app:
             fail(f"safety badge missing: {token}")
-    if "const DISPLAY_VERSION = '1.3.1'" not in knitting or "current !== next" not in knitting:
+    if "const DISPLAY_VERSION = '1.3.2'" not in knitting or "current !== next" not in knitting:
         fail("non-recursive Photo Capture version disclosure guard is missing")
-    if "knitting-ends-field.js?v=1.3.1" not in index:
+    if "knitting-ends-field.js?v=1.3.2" not in index:
         fail("Photo Capture helper cache-busting version is missing")
-    if "serviceWorker.register('./sw.js?v=1.3.1')" not in app:
+    if "serviceWorker.register('./sw.js?v=1.3.2-account-login-2')" not in app:
         fail("Photo Capture install service worker is not registered")
+    refresh = (ROOT / "sw-refresh-1.3.2.js").read_text(encoding="utf-8")
+    for token in ("1.3.2-account-login-2", "controllerchange", "location.reload()", "RELOAD_MARKER"):
+        if token not in refresh:
+            fail(f"Photo Capture stale-cache refresh is incomplete: {token}")
+    if 'sw-refresh-1.3.2.js' not in index:
+        fail("Photo Capture stale-cache refresh is not loaded")
+    for stale in ("Independent Account ID", 'name="account" required pattern=', "IDまたはパスフレーズが違います", "${escapeHtml(session.displayName)} / ${escapeHtml(session.accountId)}", "内部ID"):
+        if stale in app + (ROOT / "backup.js").read_text(encoding="utf-8"):
+            fail(f"Photo Capture still exposes manual account ID entry: {stale}")
+    for token in ("generatedAccountId", "accounts.length === 1", "パスフレーズだけ入力してください", "初回利用です。表示名とパスフレーズを設定してください。", "保存データを開く"):
+        if token not in app:
+            fail(f"Photo Capture simplified account flow is incomplete: {token}")
+    if "indexedDB.open(DB_NAME, 1)" in app + (ROOT / "backup.js").read_text(encoding="utf-8"):
+        fail("Photo Capture still rejects a newer compatible IndexedDB version")
+    if "indexedDB.open(DB_NAME)" not in app or "indexedDB.open(DB_NAME)" not in (ROOT / "backup.js").read_text(encoding="utf-8"):
+        fail("Photo Capture version-compatible IndexedDB open is missing")
+    if "Account IDとパスフレーズ" in (ROOT / "backup.js").read_text(encoding="utf-8"):
+        fail("backup restore still requires manual Account ID entry")
     if "if (!root || root.ownerDocument !== document || !root.isConnected) return;" not in card_progress or "ページ離脱中" not in card_progress:
         fail("Photo Capture async observer unload guard is missing")
-    for token in ("kc-photo-capture-v1-3-1-operations-10-mac-primary", "./index.html", "./app.js", "./icon-192.png", "./icon-512.png", "./brand/knit-compass-mark.png", "./brand-intelligence/", "./owner-yarns/", "./knit-image/", "./fabric-inspection/", "./market-intelligence/", "./data/human-review/2026-08-15-intake-19-triage.json", "./data/brand-md-monitoring/latest-material-proposals.json", "./daily/", "./status/"):
+    for token in ("kc-photo-capture-v1-3-2-account-login-2", "./index.html", "./app.js", "./sw-refresh-1.3.2.js", "./icon-192.png", "./icon-512.png", "./brand/knit-compass-mark.png", "./brand-intelligence/", "./owner-yarns/", "./knit-image/", "./fabric-inspection/", "./market-intelligence/", "./data/human-review/2026-08-15-intake-19-triage.json", "./data/brand-md-monitoring/latest-material-proposals.json", "./daily/", "./status/"):
         if token not in service_worker:
             fail(f"Photo Capture install service worker is incomplete: {token}")
     for destination in ("brand-intelligence/", "brand-intelligence/#cn-yarn-glossary", "owner-yarns/", "knit-image/", "fabric-inspection/", "market-intelligence/", "daily/", "customer-sharing/", "stylem/", "status/"):

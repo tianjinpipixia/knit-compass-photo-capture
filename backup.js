@@ -39,7 +39,7 @@
   function openDatabase() {
     if (dbPromise) return dbPromise;
     dbPromise = new Promise((resolve, reject) => {
-      const request = indexedDB.open(DB_NAME, 1);
+      const request = indexedDB.open(DB_NAME);
       request.onupgradeneeded = () => {
         const database = request.result;
         if (!database.objectStoreNames.contains('accounts')) database.createObjectStore('accounts', { keyPath: 'accountId' });
@@ -405,7 +405,7 @@
         <p class="lead">機種変更時は、以前に書き出したバックアップを選択してください。既存データは削除せず、安全に統合します。</p>
         <button type="button" class="secondary" id="kcAuthRestore">バックアップファイルを選択</button>
         <input class="visually-hidden" id="kcAuthRestoreInput" type="file" accept=".json,.kcbackup,application/json">
-        <p id="kcAuthRestoreMessage" class="message">復元後は、バックアップ作成時のAccount IDとパスフレーズでログインします。</p>
+        <p id="kcAuthRestoreMessage" class="message">復元後は、バックアップ作成時のパスフレーズでログインします。</p>
       </section>`;
   }
 
