@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kc-photo-capture-v1-3-2-account-login-2';
+const CACHE_NAME = 'kc-photo-capture-v1-3-3-operational-hardening-4';
 const APP_SHELL = [
   './',
   './index.html',
@@ -10,6 +10,7 @@ const APP_SHELL = [
   './knitting-ends-field.js',
   './photo-capture-card-progress-v1.js',
   './backup.js',
+  './usage-metrics.js',
   './app-state-guard.js',
   './sw-refresh-1.3.2.js',
   './icon.svg',
@@ -32,6 +33,7 @@ const APP_SHELL = [
   './knit-image/app.css',
   './knit-image/app.js',
   './data/yarn-catalog/mz100-catalog-2000.json',
+  './data/yarn-catalog/mz100-catalog-3000.json',
   './data/yarn-catalog/expansion-status.json',
   './data/manual-intake/2026-08-08-weijie-hesheng-batch1.json',
   './data/manual-intake/2026-08-08-weihai-yaxin-chengyun-batch2.json',

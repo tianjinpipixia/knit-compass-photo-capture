@@ -20,7 +20,7 @@
   </style>
 </head>
 <body>
-  <div class="top">CHINA RAW MATERIAL COMPARISON / VERIFIED SOURCE ONLY / NO AUTO CONVERSION</div>
+  <div class="top">中国原料相場・確認済み出典のみ・自動換算なし</div>
   <nav class="nav" aria-label="Knit Compass owner navigation">
     <a href="../brand-intelligence/">商品調査</a>
     <a href="../owner-yarns/">糸検索</a>
@@ -33,11 +33,11 @@
   </nav>
   <main class="shell">
     <section class="hero">
-      <div><p class="eyebrow">KC-MARKET-INTELLIGENCE / CHINA SIX MATERIALS</p><h1>中国原料相場を6カテゴリで比較</h1><p>綿・ウール・麻・ナイロン・ポリエステル・再生ポリエステルを一画面に集約し、確認済みソースの原表記だけを並べます。</p></div>
+      <div><p class="eyebrow">中国6原料比較</p><h1>中国原料相場を6カテゴリで比較</h1><p>綿・ウール・麻・ナイロン・ポリエステル・再生ポリエステルを一画面に集約し、確認済みソースの原表記だけを並べます。</p></div>
       <div class="boundary"><strong>推定値・自動換算・ライブ取得なし</strong><span>異なる市場、通貨、単位、品質を横並びの数値へ変換しません。出典URL付きの確認済み観測だけを比較カードへ表示します。</span></div>
     </section>
 
-    <div class="notice warn"><strong>比較ルール：</strong>数値は元資料の通貨・単位・市場・グレードをそのまま表示します。未登録カテゴリは「確認済み観測なし」とし、推定値で穴埋めしません。すべてPENDING_HUMAN_REVIEW・PUBLISH_HOLDです。</div>
+    <div class="notice warn"><strong>比較ルール：</strong>数値は元資料の通貨・単位・市場・グレードをそのまま表示します。未登録カテゴリは「確認済み観測なし」とし、推定値で穴埋めしません。すべてHuman Review確認待ち・公開前確認です。</div>
 
     <section class="stats" aria-label="原料相場集計">
       <div class="stat"><span>確認済み観測</span><strong id="totalCount">0</strong></div>
@@ -46,10 +46,10 @@
       <div class="stat"><span>比較充足</span><strong id="materialCount">0 / 6</strong></div>
     </section>
 
-    <div class="section-head"><div><h2>中国ベース 6原料比較</h2><p>同一単位への自動換算はしません。各カードの最新確認済み観測と出典を個別に確認してください。</p></div><div class="tag-row"><span class="tag safe">SOURCE CHECKED</span><span class="tag">CHINA SCOPE</span><span class="tag pending">PUBLISH HOLD</span></div></div>
+    <div class="section-head"><div><h2>中国ベース 6原料比較</h2><p>同一単位への自動換算はしません。各カードの最新確認済み観測と出典を個別に確認してください。</p></div><div class="tag-row"><span class="tag safe">出典確認済み</span><span class="tag">中国市場</span><span class="tag pending">公開前確認</span></div></div>
     <section class="category-grid" id="categoryGrid" aria-label="中国6原料比較"><div class="empty">確認済み観測を読み込んでいます。</div></section>
 
-    <div class="section-head"><div><h2>64ブランド日次MD → 糸候補 → 素材提案</h2><p>公式EC観測の事実とMD解釈を分け、糸候補はカタログのNOT_PROMOTED索引から提示します。</p></div><div class="tag-row"><span class="tag">64 BRANDS</span><span class="tag pending">MD DRAFT</span><span class="tag pending">SALES NOT AVAILABLE</span></div></div>
+    <div class="section-head"><div><h2>64ブランド日次MD → 糸候補 → 素材提案</h2><p>公式EC観測の事実とMD解釈を分け、糸候補は正式登録前の検索索引から提示します。</p></div><div class="tag-row"><span class="tag">64ブランド</span><span class="tag pending">MD下書き</span><span class="tag pending">販売数量なし</span></div></div>
     <section class="flow-list" id="mdFlow"><div class="empty">最新の64ブランドMD提案を読み込んでいます。</div></section>
 
     <div class="section-head"><div><h2>確認済み相場観測を追記</h2><p>中国の対象市場・地域を明記し、価格がない定性観測も出典URL付きで記録できます。</p></div></div>
@@ -72,7 +72,7 @@
             <div class="field wide"><label for="sourceUrl">根拠URL *</label><input id="sourceUrl" name="sourceUrl" type="url" required inputmode="url" placeholder="https://..."></div>
             <div class="field wide"><label for="notes">観測メモ</label><textarea id="notes" name="notes" maxlength="2000" placeholder="比較条件、品質差、ロット条件、確認事項など"></textarea></div>
           </div>
-          <div class="actions"><button class="btn" type="submit">PENDINGで追記</button><button class="btn secondary" type="reset" id="resetForm">入力をクリア</button><button class="btn secondary" type="button" id="exportJson">監査JSONを書き出す</button></div>
+          <div class="actions"><button class="btn" type="submit">確認待ちで追記</button><button class="btn secondary" type="reset" id="resetForm">入力をクリア</button><button class="btn secondary" type="button" id="exportJson">監査JSONを書き出す</button></div>
           <div class="message" id="formMessage" role="status"></div>
         </form>
       </article>
@@ -82,8 +82,9 @@
         <div class="records" id="recordList"><div class="empty">確認済み相場観測はまだありません。</div></div>
       </article>
     </section>
-    <p class="footer">China six-material comparison / Verified source URL required / No live feed / No automatic conversion / PENDING_HUMAN_REVIEW / PUBLISH_HOLD</p>
+    <p class="footer">中国6原料比較／確認済み出典URL必須／ライブ取得なし／自動換算なし／Human Review確認待ち／公開前確認</p>
   </main>
   <script src="./app.js?v=1.1.0" defer></script>
+  <script src="../usage-metrics.js?v=1.0.0" defer></script>
 </body>
 </html>

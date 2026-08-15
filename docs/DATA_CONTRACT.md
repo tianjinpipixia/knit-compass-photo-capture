@@ -323,7 +323,8 @@ MD提案は月次掲載観測へ必ず紐付けます。観測に根拠付き販
 `KC-YARN-KNIT-IMAGE` は次の2データ源を読取専用で参照します。
 
 - 正式糸マスター: localStorage `kc_independent_practical_v0_4` の `yarns`（内部互換キー）
-- 2,000件カタログ: `data/yarn-catalog/mz100-catalog-2000.json`。状態は `CATALOG_INDEXED / LISTING_PAGE_ONLY / NOT_PROMOTED`
+- 現行3,000件カタログ: `data/yarn-catalog/mz100-catalog-3000.json`。状態は `CATALOG_INDEXED / LISTING_PAGE_ONLY / NOT_PROMOTED`
+- 安全な予備索引: `data/yarn-catalog/mz100-catalog-2000.json`。3,000件成果物を読み込めない場合だけ使用
 
 選択糸から `id`、`source`、`name`、`supplier`、`code`、`count`、`composition`、`structure`、`gauge`、`status` を表示用に引き継ぎます。編み条件は `gauge`、`knitStructure`、`knittingEnds`、`color` を別々に扱い、`knittingEnds` を糸の合糸数・撚り本数から推定しません。
 

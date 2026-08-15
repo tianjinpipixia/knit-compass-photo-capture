@@ -30,22 +30,24 @@
   <main class="shell">
     <section class="hero"><h1>Knit Compass 接続先情報</h1><p>環境、表示バージョン、コードRevision、保存先、同期、最終同期、外部DBを一か所で確認します。</p><div class="meta"><span class="pill" id="schema">台帳版: 読込中</span><span class="pill" id="updated">更新日時: 読込中</span></div></section>
 
-    <section class="section"><div class="notice"><strong>営業TOP、Human Review、原料相場、編み地イメージを接続しました。</strong> 糸検索は現行2,000件を維持しながら3,000件以上へ拡張中です。未反映19件は承認可能12・条件付き4・HOLD 3の判定補助を表示しますが、全件PENDING・自動昇格0を維持します。原料相場は中国6原料を確認済み出典だけで比較し、64ブランドMDからNOT_PROMOTED糸候補と素材提案へ接続します。</div></section>
+    <section class="section"><div class="notice"><strong>営業TOP、Human Review、原料相場、編み地イメージを接続しました。</strong> 糸検索は3,000件の軽量索引を公開し、全件NOT_PROMOTEDを維持しています。未反映19件は承認可能12・条件付き4・HOLD 3の判定補助を表示しますが、全件PENDING・自動昇格0を維持します。原料相場は中国6原料を確認済み出典だけで比較し、64ブランドMDからNOT_PROMOTED糸候補と素材提案へ接続します。</div></section>
 
-    <section class="section"><h2>確定フロー</h2><div class="flow"><div><strong>1. Photo Capture</strong><span>写真・混率・機能性・サステナブル・共通ID・根拠をDRAFT保存</span></div><div><strong>2. 糸カタログ</strong><span>MZ100一覧情報2,000件を検索索引化。3,000件以上へ拡張中、全件NOT_PROMOTED</span></div><div><strong>3. 編み地イメージ</strong><span>選択糸を読取専用で参照し、検討用PNGを端末内生成</span></div><div><strong>4. Human Review受信箱</strong><span>同一ブラウザはlocalStorage、別端末はJSONで候補受渡し</span></div><div><strong>5. Human Review</strong><span>根拠確認済み項目だけ承認後にマスター反映。却下・HOLDは無反映</span></div><div><strong>6. 会社バックアップ・共有</strong><span>Knit Compassを主系統とし、必要最小項目だけをBACKUP_SHARE_ONLYで追記</span></div></div></section>
+    <section class="section"><h2>確定フロー</h2><div class="flow"><div><strong>1. Photo Capture</strong><span>写真・混率・機能性・サステナブル・共通ID・根拠をDRAFT保存</span></div><div><strong>2. 糸カタログ</strong><span>MZ100一覧情報3,000件を検索索引化。全件NOT_PROMOTED</span></div><div><strong>3. 編み地イメージ</strong><span>選択糸を読取専用で参照し、検討用PNGを端末内生成</span></div><div><strong>4. Human Review受信箱</strong><span>同一ブラウザはlocalStorage、別端末はJSONで候補受渡し</span></div><div><strong>5. Human Review</strong><span>根拠確認済み項目だけ承認後にマスター反映。却下・HOLDは無反映</span></div><div><strong>6. 会社バックアップ・共有</strong><span>Knit Compassを主系統とし、必要最小項目だけをBACKUP_SHARE_ONLYで追記</span></div></div></section>
 
     <section class="section"><h2>システム別の接続状況</h2><div id="systems" class="grid"><div class="empty">接続台帳を読み込んでいます。</div></div></section>
 
+    <section class="section"><h2>利用実績（このMac）</h2><div id="kcUsageSummary" class="grid"><div class="empty">利用実績を集計しています。</div></div><div class="links"><button class="launch" id="kcExportUsageMetrics" type="button">KPI用CSVを書き出す</button></div><p class="footer">検索語、入力内容、氏名は保存せず、日別・機能別の回数だけを端末内で集計します。</p></section>
+
     <section class="section"><h2>残る次段階</h2><div class="card"><ol><li>会社所有Google Apps Scriptの正式WebアプリURLを確定し、CSV受信箱を認証付き自動取込へ切り替える</li><li>Daily Web／Androidにも同じ受信箱・Human Review導線を展開する</li><li>本番公開版へrelease tagを付与する</li><li>定期エクスポートと復元テストを運用記録する</li></ol></div></section>
 
-    <section class="section"><h2>基準文書</h2><div class="links"><a href="../docs/SYSTEM_REGISTRY.md">システム接続台帳</a><a href="../docs/DATA_CONTRACT.md">共通ID・項目定義</a><a href="../docs/PHOTO_CAPTURE_HANDOFF.md">受渡し仕様</a><a href="../docs/RESEARCH_REVIEW_SOP.md">Human Review SOP</a><a href="../docs/OWNER_YARN_2000_IMPLEMENTATION.md">2,000件実装記録</a><a href="../config/system-registry.json">接続定義JSON</a></div></section>
+    <section class="section"><h2>基準文書</h2><div class="links"><a href="../docs/SYSTEM_REGISTRY.md">システム接続台帳</a><a href="../docs/DATA_CONTRACT.md">共通ID・項目定義</a><a href="../docs/PHOTO_CAPTURE_HANDOFF.md">受渡し仕様</a><a href="../docs/RESEARCH_REVIEW_SOP.md">Human Review SOP</a><a href="../docs/OWNER_YARN_2000_IMPLEMENTATION.md">3,000件実装記録</a><a href="../config/system-registry.json">接続定義JSON</a></div></section>
     <p class="footer">接続変更はコード、SYSTEM_REGISTRY.md、system-registry.json、受渡し仕様を同じPull Requestで更新します。</p>
   </main>
   <script>
     const labels={
       'independent-sandbox':'独立Sandbox','independent':'独立運用','independent-local':'独立端末内','independent-apk':'独立APK',
       'browser-indexeddb':'ブラウザIndexedDB','browser-localstorage':'ブラウザlocalStorage','static-json-plus-browser-localstorage':'静的JSON＋ブラウザlocalStorage','android-webview-app-data':'Android WebView内',
-      'read-only-catalog-and-browser-master':'読取専用カタログ＋ブラウザマスター','local-browser-queue-and-manual-json':'同一ブラウザ受信箱＋手動JSON','catalog-index-plus-local-human-review':'2,000件索引＋3,000件拡張＋端末内Human Review','read-only-local-canvas-generation':'読取専用・端末内Canvas生成','local-append-only-pending-human-review':'端末内追記＋Human Review待ち','manual-only-when-owner-configured':'所有者設定時のみ手動','disabled':'OFF',
+      'read-only-catalog-and-browser-master':'読取専用カタログ＋ブラウザマスター','local-browser-queue-and-manual-json':'同一ブラウザ受信箱＋手動JSON','catalog-index-plus-local-human-review':'3,000件索引＋端末内Human Review','read-only-local-canvas-generation':'読取専用・端末内Canvas生成','local-append-only-pending-human-review':'端末内追記＋Human Review待ち','manual-only-when-owner-configured':'所有者設定時のみ手動','disabled':'OFF',
       'not-applicable':'対象外','runtime-per-device-or-none':'端末内の実行時値／未実施はなし',
       'no-automatic-production-core-company-db-connection':'Production / Core / Company DBへの自動接続なし','csv-receipt-inbox-only-no-master-write':'会社受信箱CSVのみ／マスター直接書込なし','company-sheet-backup-share-only-not-system-of-record':'会社シートはバックアップ・共有のみ／正本ではない','none':'なし','active':'稼働中','pilot':'Pilot'
     };
@@ -56,5 +58,6 @@
     fetch('../config/system-registry.json',{cache:'no-store'}).then(response=>{if(!response.ok)throw new Error(`HTTP ${response.status}`);return response.json()}).then(registry=>{$('schema').textContent=`台帳版: ${registry.schema_version}`;$('updated').textContent=`更新日時: ${registry.updated_at}`;$('systems').innerHTML=registry.systems.map(card).join('')}).catch(error=>{$('systems').innerHTML=`<div class="empty">接続台帳を読み込めませんでした: ${esc(error.message)}</div>`});
     function $(id){return document.getElementById(id)}
   </script>
+  <script src="../usage-metrics.js?v=1.0.0"></script>
 </body>
 </html>

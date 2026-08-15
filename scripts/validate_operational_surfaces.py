@@ -34,8 +34,9 @@ market_js = (ROOT / "market-intelligence/app.js").read_text(encoding="utf-8")
 for html, label in ((fabric_html, "fabric inspection"), (market_html, "market intelligence")):
     for destination in ("../brand-intelligence/", "../", "../owner-yarns/", "../daily/", "../status/"):
         require(html, f'href="{destination}"', label)
-    require(html, "PENDING_HUMAN_REVIEW", label)
     require(html, "自動", label)
+require(fabric_html, "PENDING_HUMAN_REVIEW", "fabric inspection")
+require(market_html, "Human Review確認待ち", "market intelligence")
 
 for javascript, label, storage_key, export_format in (
     (fabric_js, "fabric inspection", "kc_fabric_inspection_records_v1", "KC_FABRIC_INSPECTION_EXPORT"),
@@ -63,7 +64,7 @@ for token in (
     require(market_js, token, "market intelligence")
 for token in (
     "中国ベース 6原料比較", "綿", "ウール", "麻", "ナイロン", "ポリエステル",
-    "再生ポリエステル", "64ブランド日次MD", "推定値で穴埋めしません", "SALES NOT AVAILABLE", "No automatic conversion",
+    "再生ポリエステル", "64ブランド日次MD", "推定値で穴埋めしません", "販売数量なし", "自動換算なし",
 ):
     require(market_html, token, "market intelligence")
 for token in ("fetch('http", 'fetch("http', "XMLHttpRequest", "WebSocket"):

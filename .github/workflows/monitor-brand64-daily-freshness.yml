@@ -1,0 +1,25 @@
+name: Monitor brand64 daily freshness
+
+"on":
+  schedule:
+    - cron: "40 21 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: brand64-daily-freshness
+  cancel-in-progress: true
+
+jobs:
+  freshness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Require a current 64-brand observation and matching proposals
+        run: python scripts/validate_brand64_daily_freshness.py --max-age-days 1

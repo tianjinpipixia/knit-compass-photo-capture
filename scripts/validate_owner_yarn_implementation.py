@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the 2,000-record yarn catalog, intake surface, and market-signal overlay."""
+"""Validate the active 3,000-record yarn catalog and its safety boundaries."""
 from __future__ import annotations
 
 import json
@@ -7,8 +7,8 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-CATALOG = ROOT / "data/yarn-catalog/mz100-catalog-2000.json"
-EXPANDED_CATALOG = ROOT / "data/yarn-catalog/mz100-catalog-3000.json"
+FALLBACK_CATALOG = ROOT / "data/yarn-catalog/mz100-catalog-2000.json"
+CATALOG = ROOT / "data/yarn-catalog/mz100-catalog-3000.json"
 EXPANSION_STATUS = ROOT / "data/yarn-catalog/expansion-status.json"
 PAGE = ROOT / "owner-yarns/index.html"
 TOP_PAGE = ROOT / "brand-intelligence/index.html"
@@ -25,15 +25,21 @@ BATCHES = [
     ROOT / "data/manual-intake/2026-08-13-american-holic-products-batch6.json",
 ]
 
-assert CATALOG.is_file(), "2,000-record catalog has not been generated"
+assert FALLBACK_CATALOG.is_file(), "2,000-record fallback catalog is missing"
+fallback = json.loads(FALLBACK_CATALOG.read_text(encoding="utf-8"))
+assert fallback.get("record_count") == 2000
+assert isinstance(fallback.get("records"), list) and len(fallback["records"]) == 2000
+assert all(row.get("master_status") == "NOT_PROMOTED" for row in fallback["records"])
+
+assert CATALOG.is_file(), "3,000-record active catalog has not been generated"
 data = json.loads(CATALOG.read_text(encoding="utf-8"))
 records = data.get("records")
 assert data.get("schema_version") == "1.0"
-assert data.get("catalog_id") == "KC-YARN-CATALOG-MZ100-2000"
-assert data.get("record_count") == 2000
-assert isinstance(records, list) and len(records) == 2000
-assert len({row.get("catalog_id") for row in records}) == 2000
-assert len({row.get("source_url") for row in records}) == 2000
+assert data.get("catalog_id") == "KC-YARN-CATALOG-MZ100-3000"
+assert data.get("record_count") == 3000
+assert isinstance(records, list) and len(records) == 3000
+assert len({row.get("catalog_id") for row in records}) == 3000
+assert len({row.get("source_url") for row in records}) == 3000
 assert all(row.get("source") == "MZ100" for row in records)
 assert all(row.get("catalog_status") == "CATALOG_INDEXED" for row in records)
 assert all(row.get("verification_status") == "LISTING_PAGE_ONLY" for row in records)
@@ -47,7 +53,7 @@ coverage = {
     "listed_supplier": sum(bool(str(row.get("listed_supplier") or "").strip()) for row in records),
 }
 print("catalog field coverage:", coverage)
-assert coverage["name"] == 2000
+assert coverage["name"] == 3000
 # Listing pages do not expose every field consistently. The quality floor verifies
 # that each optional search facet is populated on a meaningful subset while all
 # records retain a source ID and URL for detailed follow-up.
@@ -57,20 +63,14 @@ assert coverage["listed_supplier"] >= 200
 
 expansion = json.loads(EXPANSION_STATUS.read_text(encoding="utf-8"))
 assert expansion.get("format") == "KC_YARN_CATALOG_EXPANSION_STATUS"
-assert expansion.get("current_searchable_count") == 2000
+assert expansion.get("current_searchable_count") == 3000
 assert expansion.get("target_minimum_count", 0) >= 3000
 assert expansion.get("target_policy") == "SEARCH_BASE_FIRST_DEEP_DIVE_ON_REQUEST_ONLY"
 assert expansion.get("candidate_boundary", {}).get("master_status") == "NOT_PROMOTED"
 assert expansion.get("candidate_boundary", {}).get("automatic_promotion") == "FORBIDDEN"
 assert expansion.get("build", {}).get("target_output") == "data/yarn-catalog/mz100-catalog-3000.json"
-if EXPANDED_CATALOG.is_file():
-    expanded = json.loads(EXPANDED_CATALOG.read_text(encoding="utf-8"))
-    expanded_records = expanded.get("records")
-    assert expanded.get("record_count", 0) >= 3000
-    assert isinstance(expanded_records, list) and len(expanded_records) >= 3000
-    assert all(row.get("catalog_status") == "CATALOG_INDEXED" for row in expanded_records)
-    assert all(row.get("verification_status") == "LISTING_PAGE_ONLY" for row in expanded_records)
-    assert all(row.get("master_status") == "NOT_PROMOTED" for row in expanded_records)
+assert expansion.get("build", {}).get("status") == "SUCCESS"
+assert expansion.get("publication_status") == "ACTIVE"
 
 assert MARKET_SIGNALS.is_file(), "market signal registry is missing"
 signal_data = json.loads(MARKET_SIGNALS.read_text(encoding="utf-8"))
@@ -196,6 +196,6 @@ for required in (
 
 print(
     "owner yarn implementation: OK "
-    f"(2000 catalog records, {len(analog_matches)} Analog Revival matches, "
-    "19 PENDING candidates triaged 12/4/3, 3,000+ expansion queued, safety boundary preserved)"
+    f"(3000 active catalog records, {len(analog_matches)} Analog Revival matches, "
+    "19 PENDING candidates triaged 12/4/3, zero automatic promotion, safety boundary preserved)"
 )

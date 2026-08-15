@@ -6,7 +6,8 @@
   const HANDOFF_KEY = 'kc_v04_handoff_queue_v1';
   const HANDOFF_QUEUE_LIMIT = 500;
   const DATA_CONTRACT_VERSION = '1.1.0';
-  const APP_VERSION = '1.3.2';
+  const APP_VERSION = '1.3.3';
+  const REQUIRED_STORES = ['accounts', 'events', 'photos'];
   const app = document.getElementById('app');
 
   const PHOTO_TYPES = [
@@ -66,26 +67,53 @@
     });
   }
 
-  async function openDatabase() {
-    db = await new Promise((resolve, reject) => {
-      const request = indexedDB.open(DB_NAME);
+  function connectDatabase(version) {
+    return new Promise((resolve, reject) => {
+      const request = version ? indexedDB.open(DB_NAME, version) : indexedDB.open(DB_NAME);
+      let settled = false;
       request.onupgradeneeded = () => {
         const database = request.result;
         if (!database.objectStoreNames.contains('accounts')) database.createObjectStore('accounts', { keyPath: 'accountId' });
         if (!database.objectStoreNames.contains('events')) database.createObjectStore('events', { keyPath: 'eventId' });
         if (!database.objectStoreNames.contains('photos')) database.createObjectStore('photos', { keyPath: 'photoId' });
       };
-      request.onsuccess = () => resolve(request.result);
-      request.onerror = () => reject(request.error || new Error('DATABASE_OPEN_FAILED'));
+      request.onblocked = () => {
+        if (settled) return;
+        settled = true;
+        reject(new Error('別のPhoto Capture画面を閉じてから、この画面を再読み込みしてください。'));
+      };
+      request.onsuccess = () => {
+        const database = request.result;
+        database.onversionchange = () => database.close();
+        if (settled) return database.close();
+        settled = true;
+        resolve(database);
+      };
+      request.onerror = () => {
+        if (settled) return;
+        settled = true;
+        reject(request.error || new Error('DATABASE_OPEN_FAILED'));
+      };
     });
+  }
+
+  async function openDatabase() {
+    db = await connectDatabase();
+    const missingStores = REQUIRED_STORES.filter((name) => !db.objectStoreNames.contains(name));
+    if (missingStores.length) {
+      const nextVersion = db.version + 1;
+      db.close();
+      db = await connectDatabase(nextVersion);
+    }
     session = JSON.parse(sessionStorage.getItem(SESSION_KEY) || 'null');
-    if (session) renderApp(); else renderAuth();
+    if (session) await renderApp(); else await renderAuth();
   }
 
   async function getAll(storeName) {
     const transaction = db.transaction(storeName, 'readonly');
+    const completed = transactionPromise(transaction);
     const rows = await requestPromise(transaction.objectStore(storeName).getAll());
-    await transactionPromise(transaction);
+    await completed;
     return rows;
   }
 
@@ -113,8 +141,8 @@
     shell(`<section class="card">
       <p class="eyebrow">端末内の安全な作業領域</p>
       <h1>Knit Compass Photo Capture</h1>
-      <p class="lead">写真・撮影時情報・共通IDを独立Sandboxへ保存し、承認前データだけをHuman Review受信箱へ渡します。</p>
-      <div class="boundary"><span>この端末専用</span><span>IndexedDB保存</span><span>外部DB自動同期なし</span></div>
+      <p class="lead">写真・撮影時情報・共通IDをこのMacに保存し、確認が必要な情報だけをHuman Reviewへ渡します。</p>
+      <div class="boundary"><span>このMac専用</span><span>入力を自動保存</span><span>外部へ自動送信しません</span></div>
       <form id="auth" class="stack">
         ${hasAccount ? '' : '<label>表示名<input name="display" required placeholder="例：Knit Compass Owner"></label>'}
         ${accountChoice}
@@ -147,6 +175,7 @@
           const transaction = db.transaction('accounts', 'readwrite');
           transaction.objectStore('accounts').add(account);
           await transactionPromise(transaction);
+          window.KnitCompassBackup?.notifyDataChanged?.();
         } else if (!account || await passwordHash(password, new Uint8Array(account.salt), account.iterations) !== account.passHash) {
           throw new Error('パスフレーズが違います');
         }
@@ -252,22 +281,22 @@
     const events = await loadRecords();
     const counts = handoffCounts();
     shell(`<section class="card top">
-      <div><p class="eyebrow">Independent Workspace / Data Contract ${DATA_CONTRACT_VERSION}</p><h1>Knit Compass Photo Capture</h1><p class="lead">混率・機能性・サステナブル・共通IDを同じDRAFTに保持し、承認前の候補としてHuman Review受信箱へ渡します。</p></div>
-      <div class="badges"><span class="badge">v${APP_VERSION}</span><span class="badge">ONLY YOU</span><span class="badge">DRAFT FIRST</span><span class="badge">INBOX UPLOAD</span><span class="badge off">AUTO MASTER OFF</span><span class="badge off">PUBLISH HOLD</span></div>
+      <div><p class="eyebrow">写真・素材情報の登録</p><h1>Knit Compass Photo Capture</h1><p class="lead">混率・機能性・サステナブル・共通IDを下書きに保存し、確認が必要な候補だけをHuman Reviewへ渡します。</p></div>
+      <div class="badges"><span class="badge">v${APP_VERSION}</span><span class="badge">下書き保存</span><span class="badge off">確認後に正式登録</span></div>
       <div class="primary-actions"><button id="new">新規キャプチャ</button><button class="secondary" id="exportHandoff">受信箱JSONを書き出す</button></div>
       <div class="identity"><span>${escapeHtml(session.displayName)}</span><button class="ghost" id="logout">終了</button></div>
     </section>
 
     <section class="card" id="inbox">
-      <p class="eyebrow">Capture Inbox</p>
+      <p class="eyebrow">登録一覧</p>
       <h2>Photo Capture</h2>
-      <p class="lead">CREATE／UPDATEはAppend Onlyです。受信箱へ送っても、Human Review承認まではマスターへ反映しません。</p>
+      <p class="lead">変更履歴を残して保存します。Human Reviewで確認されるまでは正式データへ反映しません。</p>
       <div class="actions top-actions"><a class="button-link secondary" href="brand-intelligence/">Human Review受信箱を開く</a></div>
       <div class="kpis">
         <div class="kpi"><span>全レコード</span><strong>${records.length}</strong></div>
         <div class="kpi"><span>受信箱待ち</span><strong>${counts.pending}</strong></div>
         <div class="kpi"><span>承認済み</span><strong>${counts.approved}</strong></div>
-        <div class="kpi"><span>UPDATE履歴</span><strong>${events.filter((event) => event.eventType === 'UPDATE').length}</strong></div>
+        <div class="kpi"><span>更新履歴</span><strong>${events.filter((event) => event.eventType === 'UPDATE').length}</strong></div>
       </div>
       <div class="toolbar"><input id="query" type="search" placeholder="共通ID、Supplier、糸名、品番、混率を検索"><button class="secondary" id="clear">検索をクリア</button></div>
       <div id="list"></div>
@@ -308,13 +337,13 @@
       const status = handoff?.review_status || '未送信';
       const alreadySent = Boolean(handoff);
       return `<article class="record">
-        <div class="record-head"><div><span class="target-pill">${escapeHtml(targetLabel(row.targetType))}</span><h3>${escapeHtml(row.yarnName || row.productName || row.sourceOrganizationName || row.materialName || '名称未入力のDRAFT')}</h3><p class="muted">${escapeHtml(row.targetId || '共通ID未発行')} / ${escapeHtml(row.sourceOrganizationName || row.supplier || '入手先未入力')}</p></div><span class="priority">${escapeHtml(row.priority || 'NORMAL')}</span></div>
+        <div class="record-head"><div><span class="target-pill">${escapeHtml(targetLabel(row.targetType))}</span><h3>${escapeHtml(row.yarnName || row.productName || row.sourceOrganizationName || row.materialName || '名称未入力の下書き')}</h3><p class="muted">${escapeHtml(row.targetId || '共通ID未発行')} / ${escapeHtml(row.sourceOrganizationName || row.supplier || '入手先未入力')}</p></div><span class="priority">${escapeHtml(row.priority || 'NORMAL')}</span></div>
         <div class="gallery">${photosHtml(row.photoRefs)}</div>
         <div class="mini-tags">${listTags(row)}</div>
-        <div class="meta"><span>DRAFT</span><span>${escapeHtml(event.eventType)} v${event.version}</span><span>受信箱: ${escapeHtml(status)}</span><span>${escapeHtml(formatDate(event.updatedAt))}</span></div>
+        <div class="meta"><span>下書き</span><span>${event.eventType === 'UPDATE' ? '更新' : '新規'} ${event.version}</span><span>受信箱: ${escapeHtml(status)}</span><span>${escapeHtml(formatDate(event.updatedAt))}</span></div>
         <div class="actions"><button class="secondary" data-edit="${escapeHtml(event.recordId)}">編集・再保存</button><button data-send="${escapeHtml(event.recordId)}" ${alreadySent ? 'disabled aria-disabled="true"' : ''}>${alreadySent ? 'この版は送信済み' : 'Human Review受信箱へ送る'}</button></div>
       </article>`;
-    }).join('')}</div>` : '<div class="empty"><h3>まだキャプチャはありません</h3><p class="muted">新規キャプチャから最初のDRAFTを作成してください。</p></div>';
+    }).join('')}</div>` : '<div class="empty"><h3>まだキャプチャはありません</h3><p class="muted">新規キャプチャから最初の下書きを作成してください。</p></div>';
 
     output.onclick = (event) => {
       const edit = event.target.closest('[data-edit]');
@@ -350,7 +379,7 @@
     const editor = document.getElementById('editor');
     editor.classList.remove('hidden');
     editor.innerHTML = `<div class="editor">
-      <div><p class="eyebrow">Draft Editor / Append Only</p><h2>${editing ? 'DRAFTを編集' : '新規キャプチャ'}</h2><p class="lead">共通IDは名称変更後も維持します。未確定の場合は一時IDを自動発行し、Human Review承認時に正式IDへ昇格します。</p></div>
+      <div><p class="eyebrow">写真・情報の登録</p><h2>${editing ? '下書きを編集' : '新規キャプチャ'}</h2><p class="lead">共通IDは名称変更後も維持します。未確定の場合は一時IDを自動発行し、Human Review承認時に正式IDへ昇格します。</p></div>
       <form id="capture">
         <section class="section">
           <h3>1. 対象と共通ID</h3>
@@ -441,8 +470,8 @@
           </div>
         </section>
 
-        <p id="editMessage" class="message">DRAFT保存、または保存してHuman Review受信箱へ送信してください。</p>
-        <div class="sticky"><button type="button" class="secondary" id="back">一覧へ戻る</button><button type="submit" class="secondary" id="saveDraft">${editing ? 'UPDATEをDRAFT保存' : 'DRAFT保存'}</button><button type="button" id="saveAndSend">保存してHuman Review受信箱へ送る</button></div>
+        <p id="editMessage" class="message">下書き保存、または保存してHuman Review受信箱へ送信してください。</p>
+        <div class="sticky"><button type="button" class="secondary" id="back">一覧へ戻る</button><button type="submit" class="secondary" id="saveDraft">${editing ? '更新を下書き保存' : '下書き保存'}</button><button type="button" id="saveAndSend">保存してHuman Review受信箱へ送る</button></div>
       </form>
     </div>`;
 
@@ -644,6 +673,7 @@
       transaction.objectStore('events').add(eventRow);
       photoRows.forEach((row) => transaction.objectStore('photos').add(row));
       await transactionPromise(transaction);
+      window.KnitCompassBackup?.notifyDataChanged?.(eventRow.updatedAt);
 
       let handoffError = null;
       if (submitMode === 'send') {
@@ -658,7 +688,7 @@
       await renderApp();
       document.getElementById('inbox').scrollIntoView({ behavior: 'smooth' });
       if (handoffError) {
-        alert(`DRAFTは保存しましたが、Human Review受信箱へ送信できませんでした。一覧から再送してください。
+        alert(`下書きは保存しましたが、Human Review受信箱へ送信できませんでした。一覧から再送してください。
 
 ${handoffError.message || handoffError}`);
       }
@@ -743,9 +773,9 @@ ${handoffError.message || handoffError}`);
 
   if ('serviceWorker' in navigator && ['http:', 'https:'].includes(location.protocol)) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js?v=1.3.2-account-login-2').catch((error) => console.warn('Photo Captureのオフライン準備に失敗しました。', error));
+      navigator.serviceWorker.register('./sw.js?v=1.3.3-operational-hardening-4').catch((error) => console.warn('Photo Captureのオフライン準備に失敗しました。', error));
     });
   }
 
-  openDatabase().catch((error) => shell(`<section class="card"><h1>Sandboxを開始できません</h1><p class="message error">${escapeHtml(error.message)}</p></section>`));
+  openDatabase().catch((error) => shell(`<section class="card"><h1>Photo Captureを開始できません</h1><p class="message error">${escapeHtml(error.message)}</p></section>`));
 })();

@@ -1,19 +1,19 @@
-# Owner Yarn Master 2,000件実装記録
+# Owner Yarn Master 3,000件実装記録
 
 更新: 2026-08-15
 
 ## 目的
 
-糸を1件ずつ深掘りしてから検索対象へ加える方式ではなく、まず検索できる母数を増やし、実際に必要になった候補だけを元ページ・Supplier資料・現物で深掘りする。現行2,000件を維持しながら、次の3,000件以上を別成果物として生成する。
+糸を1件ずつ深掘りしてから検索対象へ加える方式ではなく、まず検索できる母数を増やし、実際に必要になった候補だけを元ページ・Supplier資料・現物で深掘りする。2,000件索引を安全な予備として維持し、3,000件索引を現行検索データとする。
 
 ## 実装範囲
 
 ### 1. MZ100軽量カタログ索引
 
-- 生成物: `data/yarn-catalog/mz100-catalog-2000.json`
+- 現行生成物: `data/yarn-catalog/mz100-catalog-3000.json`
+- 安全な予備: `data/yarn-catalog/mz100-catalog-2000.json`
 - 生成スクリプト: `scripts/build_mz100_catalog.py`
-- 現行検索件数: 2,000件
-- 次期目標: 3,000件以上（`data/yarn-catalog/mz100-catalog-3000.json`）
+- 現行検索件数: 3,000件
 - 拡張状態: `data/yarn-catalog/expansion-status.json`
 - 取得対象: MZ100の糸一覧ページから確認できる掲載情報
 - 保存項目:
@@ -30,13 +30,13 @@
 - `verification_status: LISTING_PAGE_ONLY`
 - `master_status: NOT_PROMOTED`
 
-したがって、2,000件は検索可能な索引であり、2,000件すべてが確認済み正式糸マスターという意味ではない。
+したがって、3,000件は検索可能な索引であり、3,000件すべてが確認済み正式糸マスターという意味ではない。
 
 ### 2. Owner Yarn Master画面
 
 入口: `/owner-yarns/`
 
-- 2,000件を糸名・供給元・番手・混率・元IDから検索
+- 3,000件を糸名・供給元・番手・混率・元IDから検索
 - 情報充足状態で絞り込み
 - 元MZ100ページを直接確認
 - 端末内の正式糸マスター件数とカタログ件数を分離表示
@@ -73,9 +73,9 @@ Knit Compassを主系統とし、会社スプレッドを正本にしない。CS
 
 会社所有Google Apps Scriptの正式WebアプリURLと認証方式が確定するまでは、任意URLへブラウザから自動送信しない。正式接続が将来有効になっても、用途は必要項目のバックアップ・共有であり、会社シートを正式マスターにはしない。
 
-### 5. 3,000件以上への拡張
+### 5. 3,000件への拡張完了
 
-`scripts/build_mz100_catalog.py` の既定目標を3,000件へ変更し、既存2,000件をseedとして再利用する。GitHub Actionsは `mz100-catalog-3000.json` を別成果物として生成し、成功時だけコミットする。2026-08-15の初回実行はMZ100接続タイムアウトでpage 1取得前に停止したため、2,000件を壊さず `RETRY_QUEUED` とした。生成後も全行 `CATALOG_INDEXED / LISTING_PAGE_ONLY / NOT_PROMOTED` を固定する。
+`scripts/build_mz100_catalog.py` は既存2,000件をseedとして再利用し、MZ100一覧を継続巡回して3,000件を生成する。既存seedだけのページを空ページと誤判定して巡回が2,622件で止まる問題を修正し、2026-08-15に3,000件の生成と検証を完了した。GitHub Actionsは `mz100-catalog-3000.json` を別成果物として生成し、成功時だけコミットする。生成後も全行 `CATALOG_INDEXED / LISTING_PAGE_ONLY / NOT_PROMOTED` を固定する。
 
 ## 個別候補の安全境界
 
@@ -98,12 +98,13 @@ python scripts/validate_navigation_links.py
 
 検証条件:
 
-- カタログが正確に2,000件
-- ID・元URLが2,000件すべて一意
+- 現行カタログが正確に3,000件
+- ID・元URLが3,000件すべて一意
+- 2,000件の予備索引を上書きしていない
 - 全件が `NOT_PROMOTED`
 - 手動取込候補が6バッチ・19件
 - 19件すべて `PENDING`
 - 判定補助が承認可能12・条件付き4・HOLD 3、自動昇格0
-- 3,000件拡張が別成果物で、失敗時に2,000件を上書きしない
+- 3,000件成果物が別ファイルで、失敗時に2,000件の予備を上書きしない
 - TWIN WINとGDM56050が推測値で補完されていない
 - Owner Yarn Master、Photo Capture、V04、System Statusの相互リンクが解決する

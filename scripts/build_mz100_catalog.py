@@ -202,21 +202,34 @@ def build_catalog(target: int, delay: float, timeout: int, max_pages: int, retri
     if len(records) >= target:
         return list(records.values())[:target]
     empty_pages = 0
+    repeated_pages = 0
+    previous_page_ids: tuple[str, ...] | None = None
 
     for page in range(1, max_pages + 1):
         page_url, html = fetch_page(session, page, timeout)
         soup = BeautifulSoup(html, "html.parser")
-        page_records = 0
+        page_ids: list[str] = []
         for anchor in soup.find_all("a", href=True):
             record = parse_card(anchor, page_url)
-            if not record or record.source_id in records:
+            if not record:
+                continue
+            page_ids.append(record.source_id)
+            if record.source_id in records:
                 continue
             records[record.source_id] = record
-            page_records += 1
             if len(records) >= target:
                 return list(records.values())[:target]
-        empty_pages = empty_pages + 1 if page_records == 0 else 0
+
+        # A page containing only seed records is not empty. Treating it as empty
+        # stopped expansion after three overlapping pages and hid later listings.
+        unique_page_ids = tuple(dict.fromkeys(page_ids))
+        empty_pages = empty_pages + 1 if not unique_page_ids else 0
+        repeated_pages = repeated_pages + 1 if unique_page_ids and unique_page_ids == previous_page_ids else 0
+        previous_page_ids = unique_page_ids or previous_page_ids
         if empty_pages >= 3:
+            break
+        # Some listing services repeat the last page for out-of-range requests.
+        if repeated_pages >= 3:
             break
         if delay:
             time.sleep(delay)
