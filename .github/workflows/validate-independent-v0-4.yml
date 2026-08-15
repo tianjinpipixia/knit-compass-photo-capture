@@ -30,7 +30,7 @@ jobs:
           )
           reconstructed = gzip.decompress(base64.b64decode(encoded, validate=True))
           direct = (root / 'app.html').read_bytes()
-          expected = '408b07ff96273fe1118bdc1c74e539d7f711c8540eab46a67814f2c30fbf0e2b'
+          expected = '52dc54f557593eb28f19334408b1d258f5cc28a2df96da70a9282c33ae1d71e3'
           reconstructed_hash = hashlib.sha256(reconstructed).hexdigest()
           direct_hash = hashlib.sha256(direct).hexdigest()
           assert reconstructed_hash == expected, reconstructed_hash

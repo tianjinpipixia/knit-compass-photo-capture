@@ -4,9 +4,12 @@
   const DB_NAME = 'kc_independent_photo_capture_v1_0';
   const BACKUP_FORMAT = 'KC_PHOTO_CAPTURE_BACKUP';
   const BACKUP_VERSION = 1;
-  const FEATURE_VERSION = '1.0.0';
+  const FEATURE_VERSION = '1.1.0';
   const MAX_BACKUP_BYTES = 350 * 1024 * 1024;
   const LAST_BACKUP_KEY = 'kc_photo_capture_last_backup_v1';
+  const LAST_VERIFIED_BACKUP_KEY = 'kc_photo_capture_last_verified_backup_v1';
+  const LAST_DATA_CHANGE_KEY = 'kc_photo_capture_last_data_change_v1';
+  const BACKUP_MAX_AGE_DAYS = 7;
   const STORES = ['accounts', 'events', 'photos'];
   const KEY_PATHS = { accounts: 'accountId', events: 'eventId', photos: 'photoId' };
   const root = document.getElementById('app');
@@ -20,6 +23,83 @@
     return value
       ? new Intl.DateTimeFormat('ja-JP', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(value))
       : 'まだ書き出していません';
+  }
+
+  function validDate(value) {
+    const date = value ? new Date(value) : null;
+    return date && Number.isFinite(date.getTime()) ? date : null;
+  }
+
+  function backupHealth(lastBackupValue, lastChangeValue) {
+    const lastBackup = validDate(lastBackupValue);
+    const lastChange = validDate(lastChangeValue);
+    if (!lastBackup) return { label: '要対応：バックアップ未作成', warning: true };
+    if (lastChange && lastChange > lastBackup) return { label: '要対応：更新後のバックアップが必要', warning: true };
+    const ageDays = Math.floor((Date.now() - lastBackup.getTime()) / 86400000);
+    if (ageDays >= BACKUP_MAX_AGE_DAYS) return { label: `要対応：最終保存から${ageDays}日`, warning: true };
+    return { label: ageDays === 0 ? '正常：本日保存済み' : `正常：${ageDays}日前に保存`, warning: false };
+  }
+
+  function latestTimestamp(rows) {
+    return rows.reduce((latest, row) => {
+      const candidate = validDate(row?.updatedAt || row?.createdAt);
+      return candidate && (!latest || candidate > latest) ? candidate : latest;
+    }, null);
+  }
+
+  async function requestPersistentStorage() {
+    if (!navigator.storage?.persisted || !navigator.storage?.persist) {
+      return { label: '標準保護', detail: 'このブラウザでは自動保護状態を確認できません。' };
+    }
+    let persistent = await navigator.storage.persisted();
+    if (!persistent) persistent = await navigator.storage.persist();
+    let detail = '';
+    if (navigator.storage.estimate) {
+      const estimate = await navigator.storage.estimate();
+      const usedMb = Math.round(Number(estimate.usage || 0) / 1048576);
+      const quotaMb = Math.round(Number(estimate.quota || 0) / 1048576);
+      detail = quotaMb ? `使用量 ${usedMb}MB / 上限目安 ${quotaMb}MB` : `使用量 ${usedMb}MB`;
+    }
+    return persistent
+      ? { label: '端末内データを自動保護', detail }
+      : { label: '標準保護', detail: `${detail}${detail ? '。' : ''}定期バックアップを続けてください。` };
+  }
+
+  async function refreshProtectionStatus() {
+    const storageElement = document.getElementById('kcStorageProtection');
+    const storageDetail = document.getElementById('kcStorageDetail');
+    const healthElement = document.getElementById('kcBackupHealth');
+    const lastBackupElement = document.getElementById('kcLastBackup');
+    const verifiedElement = document.getElementById('kcLastVerifiedBackup');
+    if (!storageElement && !healthElement) return;
+
+    try {
+      const events = await getAll('events');
+      const latest = latestTimestamp(events);
+      const storedChange = validDate(localStorage.getItem(LAST_DATA_CHANGE_KEY));
+      const latestChange = latest && (!storedChange || latest > storedChange) ? latest : storedChange;
+      if (latestChange) localStorage.setItem(LAST_DATA_CHANGE_KEY, latestChange.toISOString());
+      const health = backupHealth(localStorage.getItem(LAST_BACKUP_KEY), latestChange?.toISOString());
+      if (healthElement) {
+        healthElement.textContent = health.label;
+        healthElement.classList.toggle('warning', health.warning);
+      }
+      if (lastBackupElement) lastBackupElement.textContent = formatDate(localStorage.getItem(LAST_BACKUP_KEY));
+      if (verifiedElement) verifiedElement.textContent = formatDate(localStorage.getItem(LAST_VERIFIED_BACKUP_KEY));
+    } catch (error) {
+      if (healthElement) healthElement.textContent = '保護状態を確認できません';
+    }
+
+    if (storageElement) {
+      try {
+        const status = await requestPersistentStorage();
+        storageElement.textContent = status.label;
+        if (storageDetail) storageDetail.textContent = status.detail;
+      } catch {
+        storageElement.textContent = '標準保護';
+        if (storageDetail) storageDetail.textContent = '定期バックアップを続けてください。';
+      }
+    }
   }
 
   function requestPromise(request) {
@@ -38,16 +118,39 @@
 
   function openDatabase() {
     if (dbPromise) return dbPromise;
-    dbPromise = new Promise((resolve, reject) => {
-      const request = indexedDB.open(DB_NAME);
+    const connect = (version) => new Promise((resolve, reject) => {
+      const request = version ? indexedDB.open(DB_NAME, version) : indexedDB.open(DB_NAME);
+      let settled = false;
       request.onupgradeneeded = () => {
         const database = request.result;
         if (!database.objectStoreNames.contains('accounts')) database.createObjectStore('accounts', { keyPath: 'accountId' });
         if (!database.objectStoreNames.contains('events')) database.createObjectStore('events', { keyPath: 'eventId' });
         if (!database.objectStoreNames.contains('photos')) database.createObjectStore('photos', { keyPath: 'photoId' });
       };
-      request.onsuccess = () => resolve(request.result);
-      request.onerror = () => reject(request.error || new Error('DATABASE_OPEN_FAILED'));
+      request.onblocked = () => {
+        if (settled) return;
+        settled = true;
+        reject(new Error('別のPhoto Capture画面を閉じてから、この画面を再読み込みしてください。'));
+      };
+      request.onsuccess = () => {
+        const database = request.result;
+        database.onversionchange = () => database.close();
+        if (settled) return database.close();
+        settled = true;
+        resolve(database);
+      };
+      request.onerror = () => {
+        if (settled) return;
+        settled = true;
+        reject(request.error || new Error('DATABASE_OPEN_FAILED'));
+      };
+    });
+    dbPromise = connect().then((database) => {
+      const missingStores = STORES.filter((name) => !database.objectStoreNames.contains(name));
+      if (!missingStores.length) return database;
+      const nextVersion = database.version + 1;
+      database.close();
+      return connect(nextVersion);
     });
     return dbPromise;
   }
@@ -55,8 +158,9 @@
   async function getAll(storeName) {
     const database = await openDatabase();
     const transaction = database.transaction(storeName, 'readonly');
+    const completed = transactionPromise(transaction);
     const rows = await requestPromise(transaction.objectStore(storeName).getAll());
-    await transactionPromise(transaction);
+    await completed;
     return rows;
   }
 
@@ -210,6 +314,7 @@
         if (lastBackup) lastBackup.textContent = formatDate(exportedAt);
       }
       setMessage('kcBackupMessage', `${result.message} アカウント${accounts.length}件・履歴${events.length}件・写真${photos.length}件。`);
+      await refreshProtectionStatus();
     } catch (error) {
       setMessage('kcBackupMessage', `バックアップを作成できませんでした: ${error.message || error}`, true);
     } finally {
@@ -286,6 +391,36 @@
     }
 
     return { manifest: payload.manifest, accounts: payload.accounts, events: payload.events, photos };
+  }
+
+  async function verifyBackup(file) {
+    const button = document.getElementById('kcVerifyBackup');
+    if (button) button.disabled = true;
+    setMessage('kcBackupMessage', 'バックアップの破損・件数・写真を検証しています。');
+    try {
+      const backup = await decodeBackup(file);
+      const verifiedAt = new Date().toISOString();
+      localStorage.setItem(LAST_VERIFIED_BACKUP_KEY, verifiedAt);
+      const counts = backup.manifest.counts;
+      setMessage('kcBackupMessage', `検証完了：アカウント${counts.accounts}件・履歴${counts.events}件・写真${counts.photos}件。現在のデータは変更していません。`);
+      await refreshProtectionStatus();
+    } catch (error) {
+      setMessage('kcBackupMessage', `バックアップを検証できませんでした: ${error.message || error}`, true);
+    } finally {
+      if (button && document.contains(button)) button.disabled = false;
+    }
+  }
+
+  function wireVerify() {
+    const button = document.getElementById('kcVerifyBackup');
+    const input = document.getElementById('kcVerifyBackupInput');
+    if (!button || !input) return;
+    button.onclick = () => input.click();
+    input.onchange = async () => {
+      const file = input.files?.[0];
+      input.value = '';
+      if (file) await verifyBackup(file);
+    };
   }
 
   function normalizePhoto(row) {
@@ -381,19 +516,23 @@
   function backupCardTemplate() {
     return `
       <section class="card protection-card" id="kcBackupCard">
-        <p class="eyebrow">Data Protection / Backup ${FEATURE_VERSION}</p>
+        <p class="eyebrow">データ保護</p>
         <h2>バックアップ・復元</h2>
-        <p class="lead">端末内のアカウント、登録情報、CREATE／UPDATE履歴、写真を1つのファイルにまとめます。</p>
+        <p class="lead">端末内の利用者情報、登録履歴、写真を1つのファイルにまとめます。7日以上、または登録後に未保存の場合は警告します。</p>
         <div class="protection-summary">
-          <div><span>保存場所</span><strong>この端末内</strong></div>
-          <div><span>最終書き出し</span><strong id="kcLastBackup">${escapeHtml(formatDate(localStorage.getItem(LAST_BACKUP_KEY)))}</strong></div>
+          <div><span>端末内保護</span><strong id="kcStorageProtection">確認中</strong><small id="kcStorageDetail"></small></div>
+          <div><span>バックアップ状態</span><strong id="kcBackupHealth">確認中</strong></div>
+          <div><span>最終バックアップ</span><strong id="kcLastBackup">${escapeHtml(formatDate(localStorage.getItem(LAST_BACKUP_KEY)))}</strong></div>
+          <div><span>最終検証</span><strong id="kcLastVerifiedBackup">${escapeHtml(formatDate(localStorage.getItem(LAST_VERIFIED_BACKUP_KEY)))}</strong></div>
         </div>
         <div class="protection-actions">
           <button type="button" id="kcExportBackup">バックアップを書き出す</button>
+          <button type="button" class="secondary" id="kcVerifyBackup">バックアップを検証</button>
           <button type="button" class="secondary" id="kcRestoreBackup">バックアップから復元</button>
         </div>
+        <input class="visually-hidden" id="kcVerifyBackupInput" type="file" accept=".json,.kcbackup,application/json">
         <input class="visually-hidden" id="kcRestoreBackupInput" type="file" accept=".json,.kcbackup,application/json">
-        <p id="kcBackupMessage" class="message">ファイルには写真と素材情報が含まれます。Androidでは保存先にGoogle Driveなど本人専用の場所を選んでください。</p>
+        <p id="kcBackupMessage" class="message">ファイルには写真と素材情報が含まれます。MacのiCloud Driveまたは本人専用のGoogle Driveへ保存してください。</p>
       </section>`;
   }
 
@@ -414,7 +553,9 @@
     if (inbox && !document.getElementById('kcBackupCard')) {
       inbox.insertAdjacentHTML('beforebegin', backupCardTemplate());
       document.getElementById('kcExportBackup').onclick = exportBackup;
+      wireVerify();
       wireRestore('kcRestoreBackup', 'kcRestoreBackupInput', 'kcBackupMessage');
+      refreshProtectionStatus();
     }
 
     const authForm = document.getElementById('auth');
@@ -430,4 +571,12 @@
     try { observer.observe(root, { childList: true, subtree: true }); } catch { /* ページ離脱中 */ }
   }
   injectControls();
+
+  window.KnitCompassBackup = Object.freeze({
+    notifyDataChanged(value = new Date().toISOString()) {
+      const changedAt = validDate(value)?.toISOString() || new Date().toISOString();
+      localStorage.setItem(LAST_DATA_CHANGE_KEY, changedAt);
+      refreshProtectionStatus();
+    }
+  });
 })();

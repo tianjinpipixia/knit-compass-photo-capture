@@ -1,8 +1,8 @@
 (() => {
   'use strict';
 
-  const SCRIPT_URL = './sw.js?v=1.3.2-account-login-2';
-  const RELOAD_MARKER = 'kc_sw_refresh_1_3_2_account_login_2';
+  const SCRIPT_URL = './sw.js?v=1.3.3-operational-hardening-4';
+  const RELOAD_MARKER = 'kc_sw_refresh_1_3_3_operational_hardening_1';
 
   if (!('serviceWorker' in navigator) || !['http:', 'https:'].includes(location.protocol)) return;
 
@@ -20,7 +20,7 @@
           location.reload();
         };
 
-        if (navigator.serviceWorker.controller?.scriptURL.includes('1.3.2-account-login-2')) {
+        if (navigator.serviceWorker.controller?.scriptURL.includes('1.3.3-operational-hardening-4')) {
           reloadWithCurrentAssets();
           return;
         }

@@ -15,9 +15,9 @@ Photo Capture、商品調査・Human Review、Daily、Androidは引き続き独�
 
 同一ブラウザではlocalStorage受信箱を共有します。別サイト・別端末では受信箱JSONを書き出し、Human Review側で取り込みます。PENDINGまたはREJECTEDの候補はマスターへ反映しません。
 
-Photo Capture v1.3.2では、インストール名とカメラアイコンを統一し、Service WorkerによるPWA起動とオフライン再起動を追加しました。Independent Account IDは端末内の互換識別子として自動生成・自動選択し、初回は表示名とパスフレーズ、2回目以降はパスフレーズだけで利用できます。営業向けTOPでは「商品調査・糸検索・原料相場・編み地イメージ・生地検査」を先頭に置き、Photo Capture、中国糸名辞書、Daily、共有管理、顧客ポータル、システム状態へも移動できます。
+Photo Capture v1.3.3では、Independent Account IDを画面から除外した簡単な利用開始、Macの端末内データ自動保護、7日バックアップ警告、バックアップ整合性検証を追加しました。Service WorkerによるPWA起動とオフライン再起動も維持します。営業向けメニューでは「商品調査・糸検索・原料相場・編み地イメージ・生地検査」を先頭に置き、技術情報と補助画面は管理メニューへ集約します。
 
-糸マスター／2,000件カタログからは、番手・混率・糸構造・対応ゲージを引き継ぐ「糸 → 編み地イメージ」を開けます。ゲージ・編組織・本取りを指定し、外部AIへ送信せず端末内で検討用PNGを生成します。既存マスターと公開範囲は変更しません。
+糸マスター／3,000件カタログからは、番手・混率・糸構造・対応ゲージを引き継ぐ「糸 → 編み地イメージ」を開けます。ゲージ・編組織・本取りを指定し、外部AIへ送信せず端末内で検討用PNGを生成します。既存マスターと公開範囲は変更しません。
 
 商品調査・Human Reviewでは、営業向け入口とカタログ導線を整理し、**中国糸名辞書**と**月次掲載・MD**を接続しています。中国市場名は日本語標準名・代表的な糸タイプ（例）として読取専用で照合し、月次観測は販売数量を推定せずMD提案へ引き継ぎます。内部互換性のため、保存キーと受信箱形式には従来の `v0_4` / `V04` 識別子を維持します。
 
@@ -46,9 +46,9 @@ Photo Capture v1.3.2では、インストール名とカメラアイコンを統
 
 | システム | 入口 | 主な保存先 | 接続 |
 |---|---|---|---|
-| Photo Capture v1.3.2 | `/` | IndexedDB `kc_independent_photo_capture_v1_0` | Human Review受信箱へ候補送信 |
+| Photo Capture v1.3.3 | `/` | IndexedDB `kc_independent_photo_capture_v1_0`＋端末内永続化要求＋検証付きバックアップ | Human Review受信箱へ候補送信 |
 | 商品調査・Human Review | `/brand-intelligence/` | localStorage `kc_independent_practical_v0_4` | Human Review後にマスター反映／月次掲載観測から公開保留MD提案 |
-| 糸検索（現行2,000件、3,000件以上へ拡張中） | `/owner-yarns/` | 静的カタログ＋localStorage受信箱 | CATALOG_INDEXEDと正式糸を分離／19件はPENDING取込／12承認可能・4条件付き・3HOLDは判定補助のみ／選択糸を編み地イメージへ読取専用で引渡し |
+| 糸検索（3,000件） | `/owner-yarns/` | 静的カタログ＋localStorage受信箱 | CATALOG_INDEXEDと正式糸を分離／全件NOT_PROMOTED／19件はPENDING取込／12承認可能・4条件付き・3HOLDは判定補助のみ／選択糸を編み地イメージへ読取専用で引渡し |
 | 糸 → 編み地イメージ v1.0.0 | `/knit-image/` | なし（Canvas、明示PNG保存のみ） | 外部送信・マスター書込なし |
 | 生地検査 | `/fabric-inspection/` | localStorage `kc_fabric_inspection_records_v1` | 追記専用／Human Review待ち／監査JSON |
 | 原料相場 / Market Intelligence | `/market-intelligence/` | localStorage `kc_market_intelligence_observations_v1` | 中国6原料比較／確認済み出典URL必須／64ブランドMD→糸候補→素材提案／自動換算・推定なし／Human Review待ち |

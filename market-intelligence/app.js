@@ -75,10 +75,16 @@
   function proposalMatches(catalog,proposal){
     return catalog.map(row=>{const hay=normalize([row.name,row.count_display,row.composition_raw,row.listed_supplier].join(' '));const score=(proposal.candidate_terms||[]).filter(term=>hay.includes(normalize(term))).length;return{row,score}}).filter(match=>match.score>=(proposal.minimum_term_matches||1)&&match.row.master_status==='NOT_PROMOTED').sort((a,b)=>b.score-a.score||Number(Boolean(b.row.count_display))+Number(Boolean(b.row.composition_raw))-Number(Boolean(a.row.count_display))-Number(Boolean(a.row.composition_raw)));
   }
-  function candidateHtml(matches){return matches.slice(0,3).map(({row})=>`<div class="candidate"><span><b>${esc(row.name)}</b><br>${esc(row.count_display||'番手要確認')}／${esc(row.composition_raw||'混率要確認')}</span><span>NOT_PROMOTED</span></div>`).join('')||'<div class="candidate"><span>条件一致候補なし</span><span>HOLD</span></div>'}
+  function candidateHtml(matches){return matches.slice(0,3).map(({row})=>`<div class="candidate"><span><b>${esc(row.name)}</b><br>${esc(row.count_display||'番手要確認')}／${esc(row.composition_raw||'混率要確認')}</span><span>正式登録前</span></div>`).join('')||'<div class="candidate"><span>条件一致候補なし</span><span>要確認</span></div>'}
   async function loadMdFlow(){
     try{
       const[latest,proposalData,catalog]=await Promise.all([fetchJson(LATEST_MD_URL),fetchJson(PROPOSAL_URL),fetchCatalog()]);
+      const observedDate=new Date(`${latest.observed_date}T00:00:00+09:00`);
+      const ageDays=Math.max(0,Math.floor((Date.now()-observedDate.getTime())/86400000));
+      const proposalDate=String(proposalData.observed_date||'');
+      const freshnessOk=ageDays<=1&&proposalDate===latest.observed_date;
+      const freshnessHtml=`<div class="notice ${freshnessOk?'':'warn'}"><strong>${freshnessOk?'日次観測は最新です':'日次観測または素材提案の更新が必要です'}</strong> 観測日 ${esc(latest.observed_date)}／素材提案 ${esc(proposalDate||'未設定')}。古い情報を最新として扱いません。</div>`;
+      queueMicrotask(()=>$('mdFlow')?.insertAdjacentHTML('afterbegin',freshnessHtml));
       const proposals=Array.isArray(proposalData.proposals)?proposalData.proposals:[];
       $('mdFlow').innerHTML=proposals.map(proposal=>{
         const matches=proposalMatches(catalog,proposal);

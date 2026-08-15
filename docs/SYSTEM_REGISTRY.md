@@ -17,7 +17,7 @@
 
 加えて、商品調査・Human Reviewには読取専用の中国語糸名辞書 `KC-CN-YARN-001` を接続し、中国市場名から日本語標準名・代表的な糸タイプへ変換しながら、同一ブラウザの正式糸マスター一致候補を表示します。辞書はマスターを自動更新しません。
 
-糸マスターと現行2,000件カタログには、読取専用の「糸 → 編み地イメージ」`KC-YARN-KNIT-IMAGE` を接続しています。次の3,000件以上への拡張は別成果物として開始し、成功時だけ切り替えます。番手・混率・糸構造・対応ゲージを引き継ぎ、ゲージ・編組織・本取りを別項目として指定し、端末内Canvasで検討用PNGを生成します。マスター、受信箱、顧客共有データ、外部AI/APIへの書き込みはありません。
+糸マスターと現行3,000件カタログには、読取専用の「糸 → 編み地イメージ」`KC-YARN-KNIT-IMAGE` を接続しています。2,000件索引は安全な予備として維持します。番手・混率・糸構造・対応ゲージを引き継ぎ、ゲージ・編組織・本取りを別項目として指定し、端末内Canvasで検討用PNGを生成します。マスター、受信箱、顧客共有データ、外部AI/APIへの書き込みはありません。
 
 業務入口として、生地検査 `KC-FABRIC-INSPECTION` と原料相場 `KC-MARKET-INTELLIGENCE` を追加します。原料相場は中国の綿・ウール・麻・ナイロン・ポリエステル・再生ポリエステルを確認済み出典URLだけで比較し、64ブランド日次MD観測からNOT_PROMOTED糸候補と素材提案へ接続します。どちらも端末内の追記型記録で、`PENDING_HUMAN_REVIEW`・公開保留のまま保存し、正式マスター、Human Review受信箱、顧客共有を自動変更しません。
 
@@ -29,9 +29,9 @@ PENDING候補とREJECTED候補はマスターへ反映しません。DRAFT／REV
 
 | system_id | 画面・アプリ | 環境 | 表示版 | コード正本・Revision | データ保存先 | 同期・受渡し | 外部DB | 状態 |
 |---|---|---|---|---|---|---|---|---|
-| `KC-PHOTO-CAPTURE` | Photo Capture | 独立Sandbox | `v1.3.2` | `app.js@main` と登録済み補助ソース。カメラアイコン、PWA manifest、iOS用アイコン、root Service Workerを含む | IndexedDB `kc_independent_photo_capture_v1_0`、sessionStorage `kc_session_v1`・`kc_photo_capture_editor_draft_v1`、本取りUI補助localStorage `kc_photo_capture_knitting_ends_v1`、受信箱localStorage `kc_v04_handoff_queue_v1`。内部accountIdは自動生成・自動選択 | 同一ブラウザ受信箱＋手動JSON / PENDINGを全件保持 / 送信失敗時もDRAFT維持 / ゲージと本取りを分離 / PWA再起動 | なし | 稼働中 |
+| `KC-PHOTO-CAPTURE` | Photo Capture | Mac端末内 | `v1.3.3` | `app.js@main` と登録済み補助ソース。カメラアイコン、PWA manifest、iOS用アイコン、root Service Workerを含む | IndexedDB `kc_independent_photo_capture_v1_0`、sessionStorage `kc_session_v1`・`kc_photo_capture_editor_draft_v1`、本取りUI補助localStorage `kc_photo_capture_knitting_ends_v1`、受信箱localStorage `kc_v04_handoff_queue_v1`。内部accountIdは自動生成・自動選択。端末内永続化要求、7日警告、SHA-256バックアップ検証を実施 | 同一ブラウザ受信箱＋手動JSON / PENDINGを全件保持 / 送信失敗時も下書き維持 / ゲージと本取りを分離 / PWA再起動 | なし | 稼働中 |
 | `KC-V04-WEB` | Knit Compass 商品調査・Human Review | 独立運用 | `v0.4.7`（内部互換版） | 本体 `brand-intelligence/app.html` と登録済み補助ソース | localStorage `kc_independent_practical_v0_4`、受信箱 `kc_v04_handoff_queue_v1` | 根拠確認済み項目だけHuman Review反映。会社プロフィールと正式関係IDを保持。月次掲載観測→公開保留MD提案。販売数量は非推定 | Production / Core / Company DBへの自動接続なし | 稼働中 |
-| `KC-OWNER-YARN-MASTER` | 糸検索（現行2,000件、3,000件以上へ拡張中）・未反映19件 | 独立運用 | `v1.1.0` | `owner-yarns/index.html@main` | 静的候補カタログ、端末内正式マスター、受信箱、判定補助 | 全件NOT_PROMOTED。19件はPENDINGのまま承認可能12・条件付き4・HOLD 3を表示。会社CSVはBACKUP_SHARE_ONLY | 会社シートは正本ではない／自動逆流なし | 稼働中 |
+| `KC-OWNER-YARN-MASTER` | 糸検索3,000件・未反映19件 | 独立運用 | `v1.2.0` | `owner-yarns/index.html@main` | 静的候補カタログ、端末内正式マスター、受信箱、判定補助 | 全件NOT_PROMOTED。19件はPENDINGのまま承認可能12・条件付き4・HOLD 3を表示。会社CSVはBACKUP_SHARE_ONLY | 会社シートは正本ではない／自動逆流なし | 稼働中 |
 | `KC-YARN-KNIT-IMAGE` | 糸 → 編み地イメージ | 独立Sandbox | `v1.0.0` | `knit-image/app.js@main` とHTML/CSS | 読取専用カタログ＋端末内正式糸マスター。生成結果はCanvas／明示PNG保存 | 外部送信なし・マスター書込なし・検討用画像のみ | なし | 稼働中 |
 | `KC-FABRIC-INSPECTION` | 生地検査 | 独立端末内 | `v1.0.0` | `fabric-inspection/app.js@main` と `fabric-inspection/index.html@main` | localStorage `kc_fabric_inspection_records_v1` | 追記専用／PENDING_HUMAN_REVIEW／監査JSON | 自動接続なし | 稼働中 |
 | `KC-MARKET-INTELLIGENCE` | 中国6原料相場 / 64ブランド素材提案 | 独立端末内 | `v1.1.0` | `market-intelligence/app.js@main` と `market-intelligence/index.html@main` | localStorage `kc_market_intelligence_observations_v1`＋静的MD DRAFT | 出典URL必須／自動換算なし／64ブランド→NOT_PROMOTED糸候補→素材提案／PENDING_HUMAN_REVIEW | ライブ価格・外部DB接続なし | 稼働中 |

@@ -103,7 +103,7 @@ def main() -> None:
     require(app_text, "saveInProgress", "Photo Capture duplicate-save guard")
     require(app_text, "matchAll(/(\\d+(?:\\.\\d+)?)\\s*[%％]/g)", "half/full-width percentage composition total")
     require(app_text, "let handoffError = null", "DRAFT-preserving handoff failure handling")
-    require(app_text, "DRAFTは保存しましたが、Human Review受信箱へ送信できませんでした", "handoff retry guidance")
+    require(app_text, "下書きは保存しましたが、Human Review受信箱へ送信できませんでした", "handoff retry guidance")
     require(inline_script, "normalizeStatus", "normalized weak status protection")
     require(inline_script, "'未確認','候補','推定'", "Japanese weak statuses")
     require(inline_script, "saveApproval", "atomic approval storage")
