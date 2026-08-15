@@ -6,7 +6,7 @@
   const HANDOFF_KEY = 'kc_v04_handoff_queue_v1';
   const HANDOFF_QUEUE_LIMIT = 500;
   const DATA_CONTRACT_VERSION = '1.1.0';
-  const APP_VERSION = '1.3.1';
+  const APP_VERSION = '1.3.2';
   const app = document.getElementById('app');
 
   const PHOTO_TYPES = [
@@ -46,6 +46,7 @@
   const nowIso = () => new Date().toISOString();
   const uuid = () => crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`;
   const internalId = (prefix) => `${prefix}-${uuid()}`;
+  const generatedAccountId = () => `kc-owner-${uuid().replaceAll('-', '').slice(0, 12).toLowerCase()}`;
   const temporaryCommonId = (type) => `TMP-${ID_PREFIX[type] || 'ID'}-${uuid()}`;
   const formatDate = (value) => value
     ? new Intl.DateTimeFormat('ja-JP', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(value))
@@ -67,7 +68,7 @@
 
   async function openDatabase() {
     db = await new Promise((resolve, reject) => {
-      const request = indexedDB.open(DB_NAME, 1);
+      const request = indexedDB.open(DB_NAME);
       request.onupgradeneeded = () => {
         const database = request.result;
         if (!database.objectStoreNames.contains('accounts')) database.createObjectStore('accounts', { keyPath: 'accountId' });
@@ -88,13 +89,6 @@
     return rows;
   }
 
-  async function getOne(storeName, key) {
-    const transaction = db.transaction(storeName, 'readonly');
-    const row = await requestPromise(transaction.objectStore(storeName).get(key));
-    await transactionPromise(transaction);
-    return row;
-  }
-
   async function passwordHash(password, salt, iterations = 180000) {
     const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveBits']);
     const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt, iterations }, key, 256);
@@ -108,32 +102,43 @@
   async function renderAuth() {
     const accounts = await getAll('accounts');
     const hasAccount = accounts.length > 0;
+    const accountChoice = accounts.length > 1
+      ? `<label>利用者<select name="account" required>${accounts.map((account) => `<option value="${escapeHtml(account.accountId)}">${escapeHtml(account.displayName || '保存済み利用者')}</option>`).join('')}</select></label>`
+      : '';
+    const authGuidance = !hasAccount
+      ? '初回利用です。表示名とパスフレーズを設定してください。'
+      : accounts.length === 1
+        ? `${escapeHtml(accounts[0].displayName || '保存済み利用者')}の保存データへ入ります。パスフレーズだけ入力してください。`
+        : '利用者を選び、パスフレーズを入力してください。';
     shell(`<section class="card">
-      <p class="eyebrow">Independent Workspace</p>
+      <p class="eyebrow">端末内の安全な作業領域</p>
       <h1>Knit Compass Photo Capture</h1>
       <p class="lead">写真・撮影時情報・共通IDを独立Sandboxへ保存し、承認前データだけをHuman Review受信箱へ渡します。</p>
-      <div class="boundary"><span>Independent Account</span><span>IndexedDB保存</span><span>外部DB自動同期なし</span></div>
+      <div class="boundary"><span>この端末専用</span><span>IndexedDB保存</span><span>外部DB自動同期なし</span></div>
       <form id="auth" class="stack">
         ${hasAccount ? '' : '<label>表示名<input name="display" required placeholder="例：Knit Compass Owner"></label>'}
-        <label>Independent Account ID<input name="account" required pattern="[A-Za-z0-9._-]{3,64}" placeholder="例：kc-owner"></label>
+        ${accountChoice}
         <label>パスフレーズ<input name="pass" type="password" minlength="10" required><small class="hint">10文字以上。メールアドレスは不要です。</small></label>
-        <button>${hasAccount ? '独立Workspaceへ入る' : '独立アカウントを作成'}</button>
+        <button>${hasAccount ? '保存データを開く' : '利用を開始'}</button>
       </form>
-      <p id="authMessage" class="message">${hasAccount ? '登録済みアカウントで認証してください。' : '初回利用です。独立Sandbox専用アカウントを作成してください。'}</p>
+      <p id="authMessage" class="message">${authGuidance}</p>
     </section>`);
 
     document.getElementById('auth').addEventListener('submit', async (event) => {
       event.preventDefault();
       const form = event.currentTarget;
-      const accountId = form.account.value.trim().toLowerCase();
       const password = form.pass.value;
       try {
-        let account = await getOne('accounts', accountId);
+        let account = hasAccount
+          ? accounts.length === 1
+            ? accounts[0]
+            : accounts.find((row) => row.accountId === form.account.value)
+          : null;
         if (!hasAccount) {
           if (!form.display.value.trim()) throw new Error('表示名を入力してください');
           const salt = crypto.getRandomValues(new Uint8Array(16));
           account = {
-            accountId,
+            accountId: generatedAccountId(),
             displayName: form.display.value.trim(),
             salt: [...salt],
             passHash: await passwordHash(password, salt),
@@ -143,7 +148,7 @@
           transaction.objectStore('accounts').add(account);
           await transactionPromise(transaction);
         } else if (!account || await passwordHash(password, new Uint8Array(account.salt), account.iterations) !== account.passHash) {
-          throw new Error('IDまたはパスフレーズが違います');
+          throw new Error('パスフレーズが違います');
         }
         session = { accountId: account.accountId, displayName: account.displayName };
         sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));
@@ -250,7 +255,7 @@
       <div><p class="eyebrow">Independent Workspace / Data Contract ${DATA_CONTRACT_VERSION}</p><h1>Knit Compass Photo Capture</h1><p class="lead">混率・機能性・サステナブル・共通IDを同じDRAFTに保持し、承認前の候補としてHuman Review受信箱へ渡します。</p></div>
       <div class="badges"><span class="badge">v${APP_VERSION}</span><span class="badge">ONLY YOU</span><span class="badge">DRAFT FIRST</span><span class="badge">INBOX UPLOAD</span><span class="badge off">AUTO MASTER OFF</span><span class="badge off">PUBLISH HOLD</span></div>
       <div class="primary-actions"><button id="new">新規キャプチャ</button><button class="secondary" id="exportHandoff">受信箱JSONを書き出す</button></div>
-      <div class="identity"><span>${escapeHtml(session.displayName)} / ${escapeHtml(session.accountId)}</span><button class="ghost" id="logout">終了</button></div>
+      <div class="identity"><span>${escapeHtml(session.displayName)}</span><button class="ghost" id="logout">終了</button></div>
     </section>
 
     <section class="card" id="inbox">
@@ -738,7 +743,7 @@ ${handoffError.message || handoffError}`);
 
   if ('serviceWorker' in navigator && ['http:', 'https:'].includes(location.protocol)) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js?v=1.3.1').catch((error) => console.warn('Photo Captureのオフライン準備に失敗しました。', error));
+      navigator.serviceWorker.register('./sw.js?v=1.3.2-account-login-2').catch((error) => console.warn('Photo Captureのオフライン準備に失敗しました。', error));
     });
   }
 

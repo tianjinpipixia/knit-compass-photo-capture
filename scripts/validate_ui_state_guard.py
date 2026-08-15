@@ -43,7 +43,7 @@ def main() -> None:
     node_check(KNITTING_ENDS)
 
     require(index_text, 'app-state-guard.js?v=1.0.0', "guard script include")
-    require(index_text, 'knitting-ends-field.js?v=1.3.1', "knitting ends script include")
+    require(index_text, 'knitting-ends-field.js?v=1.3.2', "knitting ends script include")
     app_script = re.search(r'app\.js\?v=[^"\']+', index_text)
     if not app_script:
         fail("app.js script include is missing")
