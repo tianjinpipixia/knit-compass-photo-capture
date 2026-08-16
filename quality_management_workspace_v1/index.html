@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta http-equiv="Cache-Control" content="no-store">
+  <meta name="theme-color" content="#123f38">
+  <title>Knit Compass — 品質・生地試験</title>
+  <link rel="icon" href="../icon.svg" type="image/svg+xml">
+  <style>
+    :root{
+      --ink:#17322f;--muted:#64736f;--paper:#f4f7f5;--card:#fff;--teal:#123f38;--teal-2:#1e594f;
+      --teal-3:#e9f3ef;--line:#d7e1dd;--soft:#eef4f1;--amber:#8a5b10;--amber-bg:#fff4dc;
+      --red:#8e3b34;--red-bg:#fff0ed;--green:#2e6a43;--green-bg:#eaf6ee;--shadow:0 14px 34px rgba(17,54,49,.08)
+    }
+    *{box-sizing:border-box}
+    html{background:var(--paper)}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}
+    a{color:inherit}button{font:inherit;cursor:pointer}
+    .app{min-height:100vh;display:grid;grid-template-columns:272px minmax(0,1fr)}
+    .sidebar{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;padding:22px 18px 18px;background:linear-gradient(180deg,#123f38 0%,#0d342f 100%);color:#fff}
+    .brand{display:flex;align-items:center;gap:11px;padding:0 7px 19px;border-bottom:1px solid rgba(255,255,255,.12)}
+    .brand img{width:39px;height:39px;border-radius:50%;background:#fff;padding:5px}
+    .brand strong{display:block;font-size:14px;letter-spacing:.04em}.brand span{display:block;margin-top:2px;color:#bdd2ca;font-size:9px;letter-spacing:.11em}
+    .workspace-label{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:20px 8px 9px}
+    .workspace-label strong{font-size:12px}.workspace-label span{border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:3px 7px;color:#cfe1da;font-size:8px;font-weight:900}
+    .nav-section{margin:9px 0 4px;padding:0 8px;color:#91afa5;font-size:8px;font-weight:900;letter-spacing:.14em}
+    .side-nav{display:grid;gap:6px}.side-nav a{display:flex;align-items:center;gap:10px;min-height:43px;padding:9px 11px;border:1px solid transparent;border-radius:10px;text-decoration:none;color:#dce9e4;font-size:11px;font-weight:800}
+    .side-nav a:hover{background:rgba(255,255,255,.06)}.side-nav a.active{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.08);color:#fff}
+    .side-nav .num{display:inline-flex;justify-content:center;min-width:22px;color:#8fb3a7;font-size:8px;font-weight:950;letter-spacing:.06em}
+    .boundary-card{margin-top:auto;border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:12px;background:rgba(0,0,0,.08)}
+    .boundary-card strong{display:block;font-size:9px}.boundary-card p{margin:5px 0 0;color:#bcd0c9;font-size:8px;line-height:1.6}.back-link{display:inline-flex;margin-top:10px;color:#dce9e4;text-decoration:none;font-size:9px}
+    .main{min-width:0}.content{width:min(1180px,calc(100% - 56px));margin:0 auto;padding:42px 0 56px}
+    .hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;padding:0 0 22px;border-bottom:1px solid var(--line)}
+    .eyebrow{margin:0;color:#2a7264;font-size:10px;font-weight:950;letter-spacing:.14em}.hero h1{margin:7px 0 7px;font-size:clamp(31px,5vw,46px);line-height:1.08;letter-spacing:-.025em}.hero-copy{margin:0;max-width:760px;color:var(--muted);font-size:12px}
+    .status-box{min-width:332px;max-width:390px}.status-title{margin:0 0 8px;color:var(--muted);font-size:9px;font-weight:900;text-align:right}.status-badges{display:flex;justify-content:flex-end;gap:6px;flex-wrap:wrap}
+    .badge{display:inline-flex;align-items:center;min-height:27px;padding:5px 9px;border:1px solid #b9cec6;border-radius:999px;background:#f7fbf9;color:#2d675a;font-size:8px;font-weight:900;white-space:nowrap}.badge.warn{border-color:#e6c98f;background:var(--amber-bg);color:var(--amber)}
+    .notice{display:flex;align-items:center;gap:9px;margin:18px 0 20px;padding:10px 13px;border-left:4px solid var(--teal-2);border-radius:0 10px 10px 0;background:#fff;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);font-size:10px;box-shadow:0 3px 13px rgba(17,54,49,.03)}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin:23px 0 11px}.section-head h2{margin:0;font-size:18px}.section-head p{margin:3px 0 0;color:var(--muted);font-size:10px}
+    .entry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.entry-card{position:relative;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;min-height:116px;padding:17px;border:1px solid #cbdad4;border-radius:15px;background:var(--card);text-decoration:none;box-shadow:0 3px 15px rgba(17,54,49,.03);transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease}
+    .entry-card:hover{transform:translateY(-1px);border-color:#9fc0b4;box-shadow:var(--shadow)}.entry-no{font-size:12px;font-weight:950;color:#23806f;align-self:start}.entry-card h3{margin:0;font-size:17px}.entry-card p{margin:4px 0 0;color:var(--muted);font-size:9px;line-height:1.55}.entry-arrow{font-size:18px;color:#4d766d}.entry-count{display:inline-flex;margin-top:9px;padding:3px 7px;border-radius:999px;background:var(--teal-3);color:#236256;font-size:8px;font-weight:900}
+    .dashboard{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(310px,.75fr);gap:14px;align-items:start}.panel{border:1px solid var(--line);border-radius:16px;background:var(--card);padding:16px;box-shadow:0 3px 16px rgba(17,54,49,.035)}
+    .panel-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:13px}.panel-head h3{margin:0;font-size:16px}.panel-head p{margin:2px 0 0;color:var(--muted);font-size:9px}.refresh{min-height:34px;padding:6px 10px;border:1px solid #b7ccc4;border-radius:9px;background:#f6fbf9;color:#255e53;font-size:9px;font-weight:900}
+    .metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.metric{min-height:108px;padding:13px;border:1px solid var(--line);border-radius:12px;background:#fcfdfc}.metric span{display:block;color:var(--muted);font-size:9px;font-weight:900}.metric strong{display:block;margin-top:6px;font-size:29px;line-height:1}.metric small{display:block;margin-top:8px;color:#788681;font-size:8px}.metric.attention{background:#fffafa}.metric.fail{background:var(--red-bg);border-color:#efd5d0}
+    .recent{display:grid;gap:8px}.recent-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:11px;border:1px solid var(--line);border-radius:11px;background:#fcfdfc}.recent-item h4{margin:0;font-size:11px}.recent-item p{margin:3px 0 0;color:var(--muted);font-size:8px;overflow-wrap:anywhere}.recent-empty{padding:25px 14px;border:1px dashed #bdcbc5;border-radius:11px;text-align:center;color:var(--muted);font-size:9px;background:#fafcfb}.result{display:inline-flex;align-items:center;align-self:start;padding:3px 7px;border-radius:999px;background:var(--soft);font-size:8px;font-weight:900;white-space:nowrap}.result.pass{background:var(--green-bg);color:var(--green)}.result.attn{background:var(--amber-bg);color:var(--amber)}.result.fail{background:var(--red-bg);color:var(--red)}
+    details.analysis{margin-top:14px;border:1px solid var(--line);border-radius:13px;background:#fff;overflow:hidden}.analysis summary{display:flex;align-items:center;gap:8px;padding:13px 15px;cursor:pointer;font-size:10px;font-weight:900;list-style:none}.analysis summary::-webkit-details-marker{display:none}.analysis summary::before{content:'›';font-size:15px;transform:rotate(0);transition:transform .15s ease}.analysis[open] summary::before{transform:rotate(90deg)}.analysis-body{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;padding:0 15px 15px}.analysis-cell{padding:11px;border:1px solid var(--line);border-radius:10px;background:#fafcfb}.analysis-cell span{display:block;color:var(--muted);font-size:8px}.analysis-cell strong{display:block;margin-top:4px;font-size:14px}
+    .footnote{margin:22px 0 0;color:#788681;text-align:center;font-size:8px}
+    @media(max-width:1020px){.app{grid-template-columns:222px minmax(0,1fr)}.content{width:min(100% - 34px,1180px)}.hero{grid-template-columns:1fr}.status-box{min-width:0;max-width:none}.status-title{text-align:left}.status-badges{justify-content:flex-start}.dashboard{grid-template-columns:1fr}.entry-card{grid-template-columns:auto 1fr}.entry-arrow{display:none}}
+    @media(max-width:760px){.app{display:block}.sidebar{position:relative;height:auto;padding:15px}.brand{padding-bottom:13px}.workspace-label{padding-top:14px}.side-nav{grid-template-columns:repeat(2,minmax(0,1fr))}.side-nav a{min-height:40px}.boundary-card{margin-top:14px}.content{width:min(100% - 20px,1180px);padding:22px 0 38px}.entry-grid{grid-template-columns:1fr}.entry-card{min-height:98px}.metrics{grid-template-columns:1fr 1fr}.analysis-body{grid-template-columns:1fr}.hero h1{font-size:34px}}
+    @media(max-width:470px){.metrics{grid-template-columns:1fr}.side-nav{grid-template-columns:1fr 1fr}.status-badges{gap:5px}.badge{font-size:7.5px;padding:5px 8px}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" aria-label="品質・生地試験メニュー">
+      <div class="brand"><img src="../icon.svg" alt=""><div><strong>KNIT COMPASS</strong><span>TECHNICAL KNOWLEDGE PLATFORM</span></div></div>
+      <div class="workspace-label"><strong>品質・生地試験</strong><span>CORE</span></div>
+      <div class="nav-section">QUALITY WORKSPACE</div>
+      <nav class="side-nav">
+        <a class="active" href="#quality-status" aria-current="page"><span class="num">00</span><span>品質状況</span></a>
+        <a href="../fabric-inspection/#inspectionForm"><span class="num">01</span><span>生地試験</span></a>
+        <a href="../fabric-inspection/#defectCategory"><span class="num">02</span><span>外観検品</span></a>
+        <a href="../fabric-inspection/#recordList"><span class="num">03</span><span>改善履歴</span></a>
+      </nav>
+      <div class="nav-section">SUPPORT</div>
+      <nav class="side-nav">
+        <a href="../"><span class="num">04</span><span>写真</span></a>
+        <a href="../fabric-inspection/#recordList"><span class="num">05</span><span>試験結果</span></a>
+        <a href="#analysis"><span class="num">06</span><span>補助分析</span></a>
+        <a href="../status/"><span class="num">07</span><span>関連図</span></a>
+      </nav>
+      <div class="boundary-card"><strong>安全境界</strong><p>Append Only / Audit Log Enabled<br>Production / Core Master / Company DB / Material DB changes: 0</p></div>
+      <a class="back-link" href="../brand-intelligence/">← TOPメニューへ戻る</a>
+    </aside>
+
+    <main class="main">
+      <div class="content">
+        <header class="hero">
+          <div>
+            <p class="eyebrow">QUALITY & FABRIC TEST · V04 REVIEW WORKSPACE</p>
+            <h1>品質・生地試験</h1>
+            <p class="hero-copy">生地・編地の測定、製品の外観検品、改善・訂正履歴をひとつにまとめます。既存の生地検査記録は Read Only で集計し、この画面からデータ境界を変更しません。</p>
+          </div>
+          <section class="status-box" aria-label="運用ステータス">
+            <p class="status-title">運用ステータス</p>
+            <div class="status-badges">
+              <span class="badge">Append Only</span><span class="badge">Audit Log</span><span class="badge">AI Proposal Only</span><span class="badge warn">Not for Production</span>
+            </div>
+          </section>
+        </header>
+
+        <div class="notice"><strong>品質台帳に接続済み：</strong><span>Inspection Off / Knowledge Off / Append Only。正式マスター・顧客公開情報の自動更新は行いません。</span></div>
+
+        <section aria-labelledby="entryTitle">
+          <div class="section-head"><div><h2 id="entryTitle">品質業務を始める</h2><p>入口を「試験 → 外観確認 → 改善・訂正履歴」の実務フローに整理しました。</p></div></div>
+          <div class="entry-grid">
+            <a class="entry-card" href="../fabric-inspection/#inspectionForm"><span class="entry-no">01</span><div><h3>生地試験</h3><p>日付・寸法・目付・ゲージ・判定などを追記保存します。</p><span class="entry-count"><span id="testCount">0</span>&nbsp;件</span></div><span class="entry-arrow">→</span></a>
+            <a class="entry-card" href="../fabric-inspection/#defectCategory"><span class="entry-no">02</span><div><h3>外観検品</h3><p>汚れ・穴・糸不良・色差・寸法差などの外観判定へ進みます。</p><span class="entry-count"><span id="appearanceCount">0</span>&nbsp;件</span></div><span class="entry-arrow">→</span></a>
+            <a class="entry-card" href="../fabric-inspection/#recordList"><span class="entry-no">03</span><div><h3>改善履歴</h3><p>訂正元IDを保持した追記履歴と、過去の検査記録を確認します。</p><span class="entry-count"><span id="improvementCount">0</span>&nbsp;件</span></div><span class="entry-arrow">→</span></a>
+          </div>
+        </section>
+
+        <section id="quality-status" aria-labelledby="statusTitle">
+          <div class="section-head"><div><h2 id="statusTitle">品質状況</h2><p>要対応を先に、その後に最近の履歴を確認できます。</p></div></div>
+          <div class="dashboard">
+            <article class="panel">
+              <div class="panel-head"><div><h3>要対応</h3><p>Human Review待ち・要確認・不合格を優先表示します。</p></div><button class="refresh" id="refreshButton" type="button">再集計</button></div>
+              <div class="metrics">
+                <div class="metric"><span>Human Review待ち</span><strong id="pendingCount">0</strong><small>PENDING_HUMAN_REVIEW</small></div>
+                <div class="metric attention"><span>要確認</span><strong id="reviewCount">0</strong><small>NEEDS_REVIEW</small></div>
+                <div class="metric fail"><span>FAIL</span><strong id="failCount">0</strong><small>不合格記録</small></div>
+                <div class="metric"><span>改善・訂正履歴</span><strong id="correctionCount">0</strong><small>訂正元IDあり</small></div>
+              </div>
+            </article>
+
+            <article class="panel">
+              <div class="panel-head"><div><h3>最近の履歴</h3><p>新しい検査記録から最大5件。</p></div></div>
+              <div class="recent" id="recentList"><div class="recent-empty">検査記録はまだありません。</div></div>
+            </article>
+          </div>
+        </section>
+
+        <details class="analysis" id="analysis">
+          <summary>補助分析を見る</summary>
+          <div class="analysis-body">
+            <div class="analysis-cell"><span>検査記録総数</span><strong id="totalCount">0</strong></div>
+            <div class="analysis-cell"><span>合格記録</span><strong id="passCount">0</strong></div>
+            <div class="analysis-cell"><span>FAIL率</span><strong id="failRate">0%</strong></div>
+          </div>
+        </details>
+
+        <p class="footnote">Read only summary / Append only source records / Audit log preserved / No automatic production write</p>
+      </div>
+    </main>
+  </div>
+  <script src="./app.js?v=1.0.0" defer></script>
+  <script src="../usage-metrics.js?v=1.0.0" defer></script>
+</body>
+</html>
