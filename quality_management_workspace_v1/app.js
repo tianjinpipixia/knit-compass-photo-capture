@@ -1,6 +1,11 @@
 (()=>{
   'use strict';
 
+  const polish=document.createElement('link');
+  polish.rel='stylesheet';
+  polish.href='./ui-polish.css?v=1.0.0';
+  document.head.appendChild(polish);
+
   const STORAGE_KEY='kc_fabric_inspection_records_v1';
   const $=id=>document.getElementById(id);
   const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
