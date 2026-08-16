@@ -1,0 +1,31 @@
+name: Validate quality management workspace
+
+"on":
+  pull_request:
+    paths:
+      - ".github/workflows/validate-quality-management-workspace.yml"
+      - "quality_management_workspace_v1/**"
+      - "fabric-inspection/**"
+      - "scripts/validate_quality_management_workspace.py"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/validate-quality-management-workspace.yml"
+      - "quality_management_workspace_v1/**"
+      - "fabric-inspection/**"
+      - "scripts/validate_quality_management_workspace.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate workspace structure and safety boundaries
+        run: python3 scripts/validate_quality_management_workspace.py
+      - name: Check dashboard JavaScript syntax
+        run: node --check quality_management_workspace_v1/app.js
