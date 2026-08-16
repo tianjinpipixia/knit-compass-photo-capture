@@ -1,10 +1,14 @@
 {
   "format": "KC_BRAND64_MD_LATEST_POINTER",
   "schema_version": "1.0",
-  "observed_date": "2026-08-15",
-  "daily_path": "data/brand-md-monitoring/2026-08-15-brand64-daily.jsonl",
-  "summary_path": "data/brand-md-monitoring/2026-08-15-brand64-daily-summary.md",
-  "comparison_policy": "Use the previous daily_path as the next run baseline. Do not claim no-change when product-level fields were not previously comparable.",
+  "observed_date": "2026-08-16",
+  "daily_path": "data/brand-md-monitoring/2026-08-16-brand64-daily.jsonl",
+  "summary_path": "data/brand-md-monitoring/2026-08-16-brand64-daily-summary.md",
+  "product_baseline_path": "data/brand-md-monitoring/2026-08-16-product-baseline-snapshots.jsonl",
+  "previous_daily_path": "data/brand-md-monitoring/2026-08-15-brand64-daily.jsonl",
+  "comparison_policy": "Use the previous daily_path as the next run baseline. Do not claim no-change when product-level fields were not previously comparable. Search-cache-only observations are baseline or SOURCE_FRESHNESS_LIMITED, not same-day change.",
+  "offline_policy": "Never delete a known product when an official page becomes unavailable. Preserve last confirmed fields and mark SOURCE_OFFLINE with the last confirmed date.",
+  "dedupe_policy": "Deduplicate by official product URL and manufacturer product code when available.",
   "sales_quantity_policy": "NO_ESTIMATION",
   "publication_status": "PUBLISH_HOLD"
 }
