@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate Photo Capture PWA naming, camera icon assets, and primary action order."""
+"""Validate Knit Compass V04 install identity, Photo Capture surface, camera assets, and primary action order."""
 from __future__ import annotations
 
 import json
@@ -30,22 +30,24 @@ def main() -> None:
     knitting = (ROOT / "knitting-ends-field.js").read_text(encoding="utf-8")
     service_worker = (ROOT / "sw.js").read_text(encoding="utf-8")
 
-    if manifest.get("name") != "Photo Capture":
-        fail("installed full name must be Photo Capture")
-    if manifest.get("short_name") != "Photo Capture":
-        fail("installed short name must be Photo Capture")
-    if manifest.get("id") != "./" or manifest.get("start_url") != "./":
-        fail("stable PWA id/start_url is missing")
+    if manifest.get("name") != "Knit Compass V04":
+        fail("installed full name must be Knit Compass V04")
+    if manifest.get("short_name") != "Knit Compass":
+        fail("installed short name must be Knit Compass")
+    if manifest.get("id") != "./" or manifest.get("start_url") != "./brand-intelligence/" or manifest.get("scope") != "./":
+        fail("stable V04 PWA id/start_url/scope is missing")
     expected = {"icon-192.png": (192, 192), "icon-512.png": (512, 512), "icon-maskable-512.png": (512, 512)}
     registered = {row.get("src"): row for row in manifest.get("icons", [])}
     for name, size in expected.items():
         if name not in registered or png_size(ROOT / name) != size:
             fail(f"missing or invalid installed icon: {name}")
+    if "brand/knit-compass-mark.png" not in registered:
+        fail("Knit Compass installed brand mark is missing")
     if png_size(ROOT / "icon-180.png") != (180, 180):
         fail("invalid Apple touch icon")
     if "camera icon" not in icon or "<circle" not in icon:
         fail("SVG camera icon is missing")
-    for token in ('application-name" content="Photo Capture"', 'apple-mobile-web-app-title" content="Photo Capture"', '<title>Photo Capture</title>', 'icon-180.png'):
+    for token in ('application-name" content="Knit Compass"', 'apple-mobile-web-app-title" content="Knit Compass"', '<title>Photo Capture | Knit Compass</title>', 'brand/knit-compass-mark.png'):
         if token not in index:
             fail(f"install metadata missing: {token}")
     primary = '<div class="primary-actions"><button id="new">新規キャプチャ</button><button class="secondary" id="exportHandoff">受信箱JSONを書き出す</button></div>'
@@ -101,7 +103,7 @@ def main() -> None:
         if f'href="{destination}"' not in index:
             fail(f"Photo Capture global navigation is missing: {destination}")
 
-    print("OK: Photo Capture install, Mac-first navigation, data protection, cache refresh, and safety boundaries")
+    print("OK: Knit Compass V04 install target, Photo Capture navigation, data protection, cache refresh, and safety boundaries")
 
 
 if __name__ == "__main__":
