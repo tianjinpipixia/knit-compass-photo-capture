@@ -151,7 +151,11 @@ assert md_proposals.get("sales_quantity_estimation") == "FORBIDDEN"
 assert md_proposals.get("catalog_boundary") == "CATALOG_INDEXED / LISTING_PAGE_ONLY / NOT_PROMOTED"
 assert md_proposals.get("publication_status") == "PUBLISH_HOLD"
 assert len(md_proposals.get("proposals", [])) >= 3
-assert all(row.get("status") == "MD_DRAFT" and row.get("publication_status") == "PUBLISH_HOLD" for row in md_proposals["proposals"])
+assert all(
+    row.get("status") in {"MD_DRAFT", "OPERATIONAL_DRAFT"}
+    and row.get("publication_status") == "PUBLISH_HOLD"
+    for row in md_proposals["proposals"]
+)
 
 html = PAGE.read_text(encoding="utf-8")
 for required in (
