@@ -1,0 +1,45 @@
+name: Update market intelligence validation path once
+
+"on":
+  push:
+    branches:
+      - agent/add-cellulosic-autumn-melange-signal
+    paths:
+      - ".github/workflows/update-market-intelligence-validation-path-once.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update-validation-path:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Register the new renderer in both path filters
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('.github/workflows/validate-system-registry.yml')
+          text = path.read_text(encoding='utf-8')
+          anchor = '      - "market-intelligence/app.js"\n'
+          addition = anchor + '      - "market-intelligence/market-trends.js"\n'
+          count = text.count(anchor)
+          if count != 2:
+              raise SystemExit(f'expected two market-intelligence/app.js anchors, found {count}')
+          if text.count('      - "market-intelligence/market-trends.js"\n') == 0:
+              text = text.replace(anchor, addition)
+          path.write_text(text, encoding='utf-8')
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/workflows/validate-system-registry.yml
+          if git diff --cached --quiet; then
+            echo "Validation path already current"
+            exit 0
+          fi
+          git commit -m "Register market trend renderer validation path"
+          git push origin HEAD:${GITHUB_REF_NAME}
