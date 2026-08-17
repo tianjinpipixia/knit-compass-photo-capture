@@ -1,0 +1,109 @@
+name: Update market intelligence registry once
+
+"on":
+  push:
+    branches:
+      - agent/add-cellulosic-autumn-melange-signal
+    paths:
+      - ".github/workflows/update-market-intelligence-registry-once.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update-registry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Register current market intelligence revisions
+        run: |
+          python3 - <<'PY'
+          from __future__ import annotations
+
+          import json
+          import subprocess
+          from datetime import datetime, timezone, timedelta
+          from pathlib import Path
+
+          ROOT = Path.cwd()
+          registry_path = ROOT / "config/system-registry.json"
+          registry = json.loads(registry_path.read_text(encoding="utf-8"))
+
+          def blob(path: str) -> str:
+              digest = subprocess.check_output(
+                  ["git", "hash-object", "--path", path, "--", path],
+                  cwd=ROOT,
+                  text=True,
+              ).strip()
+              if len(digest) != 40:
+                  raise SystemExit(f"invalid blob SHA for {path}: {digest}")
+              return f"git-blob:{digest}"
+
+          def system(system_id: str) -> dict:
+              for row in registry["systems"]:
+                  if row["system_id"] == system_id:
+                      return row
+              raise SystemExit(f"missing system: {system_id}")
+
+          def set_aux(row: dict, code_source: str, code_revision: str) -> None:
+              auxiliaries = row.setdefault("auxiliary_sources", [])
+              for auxiliary in auxiliaries:
+                  if auxiliary.get("code_source") == code_source:
+                      auxiliary["code_revision"] = code_revision
+                      return
+              auxiliaries.append({"code_source": code_source, "code_revision": code_revision})
+
+          signal_revision = blob("data/market-trends/market-signals.json")
+          index_revision = blob("market-intelligence/index.html")
+          renderer_revision = blob("market-intelligence/market-trends.js")
+
+          set_aux(
+              system("KC-V04-WEB"),
+              "data/market-trends/market-signals.json@main",
+              signal_revision,
+          )
+          set_aux(
+              system("KC-OWNER-YARN-MASTER"),
+              "data/market-trends/market-signals.json@main",
+              signal_revision,
+          )
+
+          market = system("KC-MARKET-INTELLIGENCE")
+          market["display_name"] = "Knit Compass マーケット情報 / 素材トレンド・中国6原料相場"
+          market["display_version"] = "v1.2.0"
+          market["entry_label"] = "マーケット情報を開く"
+          set_aux(market, "market-intelligence/index.html@main", index_revision)
+          set_aux(market, "market-intelligence/market-trends.js@main", renderer_revision)
+          set_aux(market, "data/market-trends/market-signals.json@main", signal_revision)
+          market["storage_detail"] = (
+              "localStorage kc_market_intelligence_observations_v1 stores append-only China-scoped observations for six materials; "
+              "evidence must be SOURCE_CHECKED or SUPPLIER_CONFIRMED with an http/https source URL; source currency, unit, market, and grade "
+              "are retained without automatic conversion, gap-filling estimate, or forecast; data/market-trends/market-signals.json is read-only "
+              "and renders evidence-linked material trend hypotheses separately from verified raw-material observations; latest-material-proposals.json "
+              "matches the latest 64-brand observed date and links MD DRAFT to NOT_PROMOTED yarn candidates; stale observation or proposal dates are "
+              "visibly warned and monitored daily; every observation is PENDING_HUMAN_REVIEW with publication_status HOLD; sales quantity remains NOT_AVAILABLE"
+          )
+
+          jst = timezone(timedelta(hours=9))
+          registry["updated_at"] = datetime.now(jst).replace(microsecond=0).isoformat()
+          registry_path.write_text(
+              json.dumps(registry, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          PY
+
+          python3 -m json.tool config/system-registry.json >/dev/null
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add config/system-registry.json
+          if git diff --cached --quiet; then
+            echo "Registry already current"
+            exit 0
+          fi
+          git commit -m "Register market intelligence UI revisions"
+          git push origin HEAD:${GITHUB_REF_NAME}
