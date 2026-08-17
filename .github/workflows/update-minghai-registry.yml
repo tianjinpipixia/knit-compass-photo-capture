@@ -25,29 +25,25 @@ jobs:
           python-version: "3.12"
       - name: Install validation dependencies
         run: python -m pip install -r requirements-validation.txt
-      - name: Refresh registered source revisions and counts
+      - name: Refresh registry, workflow coverage, and counts
         run: |
           python - <<'PY'
           import json
+          import subprocess
           from pathlib import Path
 
-          path = Path("config/system-registry.json")
-          registry = json.loads(path.read_text(encoding="utf-8"))
-          registry["updated_at"] = "2026-08-17T13:52:00+09:00"
+          registry_path = Path("config/system-registry.json")
+          registry = json.loads(registry_path.read_text(encoding="utf-8"))
+          registry["updated_at"] = "2026-08-17T13:55:00+09:00"
           systems = {row["system_id"]: row for row in registry["systems"]}
 
           web = systems["KC-V04-WEB"]
-          for source in web.get("auxiliary_sources", []):
-              if source.get("code_source") == "brand-intelligence/index.html@main":
-                  source["code_revision"] = "git-blob:cfbb46efb965d978a4111018b3af7c402e40c911"
           web["storage_detail"] = web["storage_detail"].replace("未反映19件", "未反映20件")
 
           owner = systems["KC-OWNER-YARN-MASTER"]
-          owner["code_revision"] = "git-blob:53c2e304fd88abf7fcac543e6dad76be9e0c8089"
           for source in owner.get("auxiliary_sources", []):
               if source.get("code_source") == "data/human-review/2026-08-15-intake-19-triage.json@main":
                   source["code_source"] = "data/human-review/2026-08-17-intake-20-triage.json@main"
-                  source["code_revision"] = "git-blob:245a6fe60eb6aa1bc9f6b33078f9136c150f7291"
           detail = owner["storage_detail"]
           detail = detail.replace("receives 19 PENDING candidates", "receives 20 PENDING candidates")
           detail = detail.replace(
@@ -56,18 +52,55 @@ jobs:
           )
           owner["storage_detail"] = detail
 
-          path.write_text(json.dumps(registry, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          def source_name(value: str) -> str:
+              return value.split("@", 1)[0]
+
+          def refresh_file_revision(source: dict) -> None:
+              revision = str(source.get("code_revision") or "")
+              if not revision.startswith("git-blob:"):
+                  return
+              name = source_name(str(source.get("code_source") or ""))
+              if name in {"repository-root", "apk"}:
+                  return
+              path = Path(name)
+              if not path.is_file():
+                  raise SystemExit(f"registered file source is missing: {name}")
+              digest = subprocess.check_output(
+                  ["git", "hash-object", f"--path={name}", "--", name],
+                  text=True,
+              ).strip()
+              source["code_revision"] = f"git-blob:{digest}"
+
+          for system in registry["systems"]:
+              refresh_file_revision(system)
+              for auxiliary in system.get("auxiliary_sources", []):
+                  refresh_file_revision(auxiliary)
+
+          registry_path.write_text(
+              json.dumps(registry, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+          )
+
+          workflow_path = Path(".github/workflows/validate-system-registry.yml")
+          workflow_text = workflow_path.read_text(encoding="utf-8")
+          old_path = "data/human-review/2026-08-15-intake-19-triage.json"
+          new_path = "data/human-review/2026-08-17-intake-20-triage.json"
+          if old_path in workflow_text:
+              workflow_text = workflow_text.replace(old_path, new_path)
+          elif new_path not in workflow_text:
+              raise SystemExit("system-registry workflow is missing the Human Review triage source path")
+          workflow_path.write_text(workflow_text, encoding="utf-8")
           PY
       - name: Validate registry
         run: python scripts/validate_system_registry.py
       - name: Commit registry refresh
         run: |
-          if git diff --quiet -- config/system-registry.json; then
+          if git diff --quiet -- config/system-registry.json .github/workflows/validate-system-registry.yml; then
             echo "Registry is already current."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add config/system-registry.json
+          git add config/system-registry.json .github/workflows/validate-system-registry.yml
           git commit -m "Refresh registry for MINGHAI Human Review intake"
           git push origin "HEAD:${GITHUB_REF_NAME}"
