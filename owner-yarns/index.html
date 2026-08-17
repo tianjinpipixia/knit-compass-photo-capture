@@ -36,10 +36,10 @@
   <main class="shell">
     <section class="hero">
       <div><p class="eyebrow">糸検索</p><h1 id="catalogHeadline">3,000件から糸を検索。</h1><p>検索母数を先に確保し、個別深掘りは依頼案件だけに限定します。掲載情報は検索候補として保持し、Human Reviewなしで正式マスターへ登録しません。</p></div>
-      <div class="hero-stats"><div><span>検索可能カタログ</span><strong id="catalogCount">読込中</strong></div><div><span>正式マスター（端末内）</span><strong id="confirmedCount">0</strong></div><div><span>Human Review候補</span><strong>19件</strong></div><div><span>拡張目標</span><strong>3,000+</strong></div></div>
+      <div class="hero-stats"><div><span>検索可能カタログ</span><strong id="catalogCount">読込中</strong></div><div><span>正式マスター（端末内）</span><strong id="confirmedCount">0</strong></div><div><span>Human Review候補</span><strong>20件</strong></div><div><span>拡張目標</span><strong>3,000+</strong></div></div>
     </section>
 
-    <div class="tabs" role="tablist"><button class="active" data-tab="catalog" id="catalogTabLabel">3,000件検索</button><button data-tab="intake">未反映19件・Human Review</button><button data-tab="company">会社バックアップ・共有</button></div>
+    <div class="tabs" role="tablist"><button class="active" data-tab="catalog" id="catalogTabLabel">3,000件検索</button><button data-tab="intake">未反映20件・Human Review</button><button data-tab="company">会社バックアップ・共有</button></div>
 
     <section class="panel active" data-panel="catalog">
       <div class="section-head"><div><h2>検索可能な糸カタログ</h2><p>糸名・供給元・番手・混率・元IDを横断検索します。</p></div><div class="actions"><button class="btn secondary" id="resetSearch">条件をクリア</button></div></div>
@@ -56,15 +56,15 @@
     </section>
 
     <section class="panel" data-panel="intake">
-      <div class="section-head"><div><h2>ChatGPT作業の未反映候補を一括取込</h2><p>6バッチ・合計19件をHuman Review受信箱へ重複なく入れます。</p></div><div class="actions"><button class="btn" id="importAll">19件をHuman Review受信箱へ取込</button><a class="btn secondary" href="../brand-intelligence/">Human Reviewを開く</a></div></div>
+      <div class="section-head"><div><h2>ChatGPT作業の未反映候補を一括取込</h2><p>7バッチ・合計20件をHuman Review受信箱へ重複なく入れます。</p></div><div class="actions"><button class="btn" id="importAll">20件をHuman Review受信箱へ取込</button><a class="btn secondary" href="../brand-intelligence/">Human Reviewを開く</a></div></div>
       <div class="notice"><strong>取込だけでは正式登録されません。</strong> すべてPENDINGのまま保存し、Human Reviewで承認した項目だけ商品・糸・会社マスターへ反映します。</div>
       <div class="queue-summary"><div><span>現在の受信箱</span><strong id="queueTotal">0</strong></div><div><span>PENDING</span><strong id="queuePending">0</strong></div><div><span>APPROVED</span><strong id="queueApproved">0</strong></div><div><span>REJECTED</span><strong id="queueRejected">0</strong></div></div>
       <p id="intakeMessage" class="message">バッチを確認しています。</p>
       <div id="batchGrid" class="batch-grid"></div>
-      <div class="section-head"><div><h2>2026-08-15 Human Review整理</h2><p>判定補助だけを表示します。元候補のreview_statusはPENDINGのまま、自動昇格しません。</p></div></div>
+      <div class="section-head"><div><h2>2026-08-17 Human Review整理</h2><p>判定補助だけを表示します。元候補のreview_statusはPENDINGのまま、自動昇格しません。</p></div></div>
       <div class="queue-summary"><div><span>承認可能</span><strong id="triageApprovable">—</strong></div><div><span>条件付き</span><strong id="triageConditional">—</strong></div><div><span>HOLD</span><strong id="triageHold">—</strong></div><div><span>自動昇格</span><strong>0</strong></div></div>
       <div id="triageList" class="record-list"><div class="empty">Human Review整理を読み込んでいます。</div></div>
-      <div class="section-head"><div><h2>受信箱のPENDING候補</h2><p>TWIN WIN、GDM56050、AMERICAN HOLIC 2商品を含みます。</p></div></div>
+      <div class="section-head"><div><h2>受信箱のPENDING候補</h2><p>TWIN WIN、GDM56050、AMERICAN HOLIC 2商品、MINGHAI 羊毛绢丝包芯纱を含みます。</p></div></div>
       <div id="queueList" class="record-list"><div class="empty">PENDING候補はありません。</div></div>
     </section>
 
@@ -76,21 +76,22 @@
         <article class="card"><h3 style="margin-top:0">CSVの必要最小項目</h3><p style="font-size:10px;color:var(--muted)">source_of_truth / sheet_role / handoff_id / dedupe_key / review_status / target / 会社・ブランド / 商品・糸 / 番手 / 混率 / 根拠URL・状態</p><div class="tags"><span class="tag safe">Knit Compass主系統</span><span class="tag pending">BACKUP_SHARE_ONLY</span><span class="tag">UTF-8 BOM</span></div><p id="companyMessage" class="message">候補を取込後にバックアップ・共有用CSVを書き出せます。</p></article>
       </div>
     </section>
-    <p class="footer"><span id="footerCatalogCount">検索カタログ 3,000件</span>／Human Review候補19件／自動正式登録なし</p>
+    <p class="footer"><span id="footerCatalogCount">検索カタログ 3,000件</span>／Human Review候補20件／自動正式登録なし</p>
   </main>
   <script>
     const STORAGE_KEY='kc_independent_practical_v0_4';
     const QUEUE_KEY='kc_v04_handoff_queue_v1';
     const CATALOG_URLS=['../data/yarn-catalog/mz100-catalog-3000.json','../data/yarn-catalog/mz100-catalog-2000.json'];
-    const TRIAGE_URL='../data/human-review/2026-08-15-intake-19-triage.json';
-    const EXPECTED_INTAKE_TOTAL=19;
+    const TRIAGE_URL='../data/human-review/2026-08-17-intake-20-triage.json';
+    const EXPECTED_INTAKE_TOTAL=20;
     const BATCHES=[
       {file:'2026-08-08-weijie-hesheng-batch1.json',label:'WEIJIE＋東莞合升',expected:10,detail:'現物BOOKで確認した糸10件'},
       {file:'2026-08-08-weihai-yaxin-chengyun-batch2.json',label:'威海雅信＋威海诚韵',expected:2,detail:'会社候補2件'},
       {file:'2026-08-10-mz100-yarn-research-batch3.json',label:'MZ100調査',expected:3,detail:'69586・69587・52482'},
       {file:'2026-08-12-twin-win-company-factory-batch4.json',label:'TWIN WIN',expected:1,detail:'会社・工場候補'},
       {file:'2026-08-12-rope-picnic-gdm56050-batch5.json',label:'ROPÉ PICNIC GDM56050',expected:1,detail:'公式URL指定の商品候補'},
-      {file:'2026-08-13-american-holic-products-batch6.json',label:'AMERICAN HOLIC 2商品',expected:2,detail:'0H001683000・0H001978600'}
+      {file:'2026-08-13-american-holic-products-batch6.json',label:'AMERICAN HOLIC 2商品',expected:2,detail:'0H001683000・0H001978600'},
+      {file:'2026-08-17-minghai-wool-silk-core-spun-batch7.json',label:'MINGHAI 羊毛绢丝包芯纱',expected:1,detail:'2/50NM・表示混率・包芯纱表記'}
     ];
     const $=id=>document.getElementById(id);
     const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));

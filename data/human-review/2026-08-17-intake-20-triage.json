@@ -1,0 +1,163 @@
+{
+  "format": "KC_HUMAN_REVIEW_TRIAGE",
+  "schema_version": "1.0",
+  "reviewed_on": "2026-08-17",
+  "scope": "Seven manual-intake batches / 20 PENDING candidates",
+  "effect": "ADVISORY_ONLY_NO_PROMOTION",
+  "source_review_status_required": "PENDING",
+  "counts": {
+    "APPROVABLE": 12,
+    "CONDITIONAL": 5,
+    "HOLD": 3,
+    "AUTO_PROMOTED": 0
+  },
+  "policy": {
+    "automatic_master_promotion": "FORBIDDEN",
+    "catalog_candidates": "NOT_PROMOTED",
+    "prices_without_unit_date_and_terms": "EXCLUDE_FROM_PROMOTION",
+    "unverified_manufacturer_or_capital_relationship": "KEEP_UNCONFIRMED",
+    "human_reviewer_must_apply_final_status": true
+  },
+  "decisions": [
+    {
+      "handoff_id": "HF-MANUAL-20260808-01-WEIJIE-TL2251",
+      "display_name": "苏州维杰 TL-2251",
+      "classification": "APPROVABLE",
+      "promotable_fields": ["yarn identity", "supplier/manufacturer shown on BOOK", "2/32NM", "composition"],
+      "rationale": "現物Supplier BOOKの表示根拠があり、番手と混率を対象限定で確定可能。50元は単位・日付・取引条件が不足するため昇格対象外。"
+    },
+    {
+      "handoff_id": "HF-MANUAL-20260808-02-WEIJIE-TL1352",
+      "display_name": "苏州维杰 TL-1352",
+      "classification": "APPROVABLE",
+      "promotable_fields": ["yarn identity", "supplier/manufacturer shown on BOOK", "2/32NM", "composition"],
+      "rationale": "現物Supplier BOOKで品番・番手・混率が確認済み。未確認価格は空欄のまま保持。"
+    },
+    {
+      "handoff_id": "HF-MANUAL-20260808-03-WEIJIE-TL1353",
+      "display_name": "苏州维杰 TL-1353",
+      "classification": "APPROVABLE",
+      "promotable_fields": ["yarn identity", "supplier/manufacturer shown on BOOK", "2/48NM", "composition"],
+      "rationale": "現物Supplier BOOKで品番・番手・混率が確認済み。未確認価格は空欄のまま保持。"
+    },
+    {
+      "handoff_id": "HF-MANUAL-20260808-04-WEIJIE-TL1502",
+      "display_name": "苏州维杰 TL-1502",
+      "classification": "APPROVABLE",
+      "promotable_fields": ["yarn identity", "supplier/manufacturer shown on BOOK", "2/50NM", "composition"],
+      "rationale": "現物Supplier BOOKで品番・番手・混率が確認済み。48元は単位・日付・取引条件が不足するため昇格対象外。"
+    },
+    {
+      "handoff_id": "HF-MANUAL-20260808-05-WEIJIE-TL1530",
+      "display_name": "苏州维杰 TL-1530",
+      "classification": "APPROVABLE",
+      "promotable_fields": ["yarn identity", "supplier/manufacturer shown on BOOK", "2/50NM", "composition", "14G", "1 end"],
+      "rationale": "現物Supplier BOOKで品番・番手・混率・ゲージ・本取りが確認済み。ゲージと本取りは別項目で保持。"
+    },
+    {
+      "handoff_id": "HF-MANUAL-20260808-06-HESHENG-2-80-NANOMASI",
+      "display_name": "合升 2/80NM 纳米丝麻棉",
+      "classification": "APPROVABLE",
+      "promotable_fields": ["yarn identity", "supplier/manufacturer shown on sample card", "2/80NM", "composition", "16G"],
+      "rationale": "現物サンプルカードの印刷表示で対象仕様を確認済み。名称は市場名として保持し、天然麻含有を名称から推定しない。"
+    },
+    {
+      "handoff_id": "HF-MANUAL-20260808-07-HESHENG-48-NANOMASI",
+      "display_name": "合升 48支纳米丝麻棉",
+      "classification": "APPROVABLE",
+      "promotable_fields": ["yarn identity", "supplier/manufacturer shown on sample card", "2/48NM", "composition", "14G"],
+      "rationale": "現物サンプルカードで対象仕様を確認済み。47元は単位・日付・取引条件が不足するため昇格対象外。"
+    },
+    {
+      "handoff_id": "HF-MANUAL-20260808-08-HESHENG-58-NANOMASI",
+      "display_name": "合升 58支纳米丝麻棉",
+      "classification": "APPROVABLE",
+      "promotable_fields": ["yarn identity", "supplier/manufacturer shown on sample card", "2/58NM", "composition", "14G"],
+      "rationale": "現物サンプルカードで対象仕様を確認済み。58元は単位・日付・取引条件が不足するため昇格対象外。"
+    },
+    {
+      "handoff_id": "HF-MANUAL-20260808-09-HESHENG-CHOGAONEN-IMITATION-LINEN",
+      "display_name": "合升 超高捻仿亚麻",
+      "classification": "APPROVABLE",
+      "promotable_fields": ["yarn identity", "supplier/manufacturer shown on sample card", "1/24NM", "composition", "14G"],
+      "rationale": "現物サンプルカードで対象仕様を確認済み。仿亚麻は市場名であり天然麻含有を意味しない。33元は取引条件不足のため除外。"
+    },
+    {
+      "handoff_id": "HF-MANUAL-20260808-10-HESHENG-HIGHEND-LINEN-COOL",
+      "display_name": "合升 高端亚麻爽",
+      "classification": "APPROVABLE",
+      "promotable_fields": ["yarn identity", "supplier/manufacturer shown on sample card", "1/24NM", "composition", "14G"],
+      "rationale": "現物サンプルカードで対象仕様を確認済み。名称中の亚麻から天然麻含有を推定しない。33元は取引条件不足のため除外。"
+    },
+    {
+      "handoff_id": "HF-MANUAL-20260813-18-AH-0H001683000",
+      "display_name": "AMERICAN HOLIC 0H001683000",
+      "classification": "APPROVABLE",
+      "promotable_fields": ["brand/product identity", "official URL", "composition", "cool-touch claim with recorded evidence"],
+      "rationale": "現物タグと公式商品掲載が対象一致。ゲージ・糸構造は未確認のまま残し、セール表示を恒常価格にしない。"
+    },
+    {
+      "handoff_id": "HF-MANUAL-20260813-19-AH-0H001978600",
+      "display_name": "AMERICAN HOLIC 0H001978600",
+      "classification": "APPROVABLE",
+      "promotable_fields": ["brand/product identity", "official URL", "composition", "country shown on physical tag"],
+      "rationale": "現物タグと公式商品掲載が対象一致。ゲージ・糸構造は未確認のまま残し、観測価格は日付付き事実としてのみ扱う。"
+    },
+    {
+      "handoff_id": "HF-MANUAL-20260808-11-WEIHAI-YAXIN",
+      "display_name": "威海雅信纺织服装有限公司",
+      "classification": "CONDITIONAL",
+      "promotable_fields": ["organization identity", "knitwear manufacturer role", "official website", "officially listed gauge range"],
+      "rationale": "会社基本情報は承認可能。威海诚韵との資本親子関係、認証の現行性、担当者所属は未確認のまま条件付きで保持。"
+    },
+    {
+      "handoff_id": "HF-MANUAL-20260808-12-WEIHAI-CHENGYUN",
+      "display_name": "威海诚韵国际贸易有限公司",
+      "classification": "CONDITIONAL",
+      "promotable_fields": ["organization identity", "trading company role", "official website"],
+      "rationale": "会社基本情報は承認可能。威海雅信との資本親子関係と丁晓威氏の诚韵所属は断定せず、業務上の関連候補に限定。"
+    },
+    {
+      "handoff_id": "HF-MANUAL-20260810-13-MZ100-69586",
+      "display_name": "MZ100 69586 韩尚亚麻",
+      "classification": "CONDITIONAL",
+      "promotable_fields": ["platform listing identity", "listed seller", "listing name", "listing count text", "listing composition text"],
+      "rationale": "業界プラットフォーム掲載の転記事実だけ条件付きで利用可能。掲載会社をメーカーにせず、仕様確定・価格・在庫・機能へ昇格しない。"
+    },
+    {
+      "handoff_id": "HF-MANUAL-20260810-14-MZ100-69587",
+      "display_name": "MZ100 69587 韩尚抗菌丝",
+      "classification": "CONDITIONAL",
+      "promotable_fields": ["platform listing identity", "listed seller", "listing name", "raw count alternatives", "raw composition alternatives"],
+      "rationale": "番手と混率の対応が特定できないため単一仕様に正規化しない。抗菌は品名転記に限り、機能・試験・耐久性を確定しない。"
+    },
+    {
+      "handoff_id": "HF-MANUAL-20260817-20-MINGHAI-WOOL-SILK-2-50",
+      "display_name": "MINGHAI 羊毛绢丝包芯纱 2/50NM",
+      "classification": "CONDITIONAL",
+      "promotable_fields": ["social-post display identity", "displayed yarn name", "2/50NM", "displayed composition", "core-spun wording"],
+      "rationale": "ユーザー提供の小红书スクリーンショットに見える糸名・番手・混率・包芯纱表記は条件付きで利用可能。法的会社名、メーカー／販売者の役割、英語糸名『QUEEN』、公式URL、ゲージ・本取り、色番・在庫、仕上げ条件、認証・機能は確認できないため昇格しない。"
+    },
+    {
+      "handoff_id": "HF-MANUAL-20260810-15-MZ100-52482",
+      "display_name": "MZ100 52482 丝爽·云朵亚麻",
+      "classification": "HOLD",
+      "promotable_fields": [],
+      "rationale": "掲載混率が85+5+12=102%で矛盾。原文保持のまま、Supplierまたは一次資料で訂正値が確認できるまでHOLD。"
+    },
+    {
+      "handoff_id": "HF-MANUAL-20260812-17-ROPE-PICNIC-GDM56050",
+      "display_name": "ROPÉ PICNIC GDM56050",
+      "classification": "HOLD",
+      "promotable_fields": [],
+      "rationale": "確実なのはOwner指定URLと品番だけ。公式ページ再確認、商品名・混率・既存重複確認が完了するまでHOLD。"
+    },
+    {
+      "handoff_id": "HF-MANUAL-20260812-16-TWIN-WIN",
+      "display_name": "TWIN WIN TEXTILE CO., LTD.",
+      "classification": "HOLD",
+      "promotable_fields": [],
+      "rationale": "2014年の歴史資料のみ。現行法人、稼働状況、生産能力、設備、認証を再確認するまで正式会社・工場マスターへ昇格しない。"
+    }
+  ]
+}

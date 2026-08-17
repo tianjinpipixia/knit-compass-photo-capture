@@ -14,7 +14,7 @@ PAGE = ROOT / "owner-yarns/index.html"
 TOP_PAGE = ROOT / "brand-intelligence/index.html"
 MARKET_SIGNALS = ROOT / "data/market-trends/market-signals.json"
 MD_PROPOSALS = ROOT / "data/brand-md-monitoring/latest-material-proposals.json"
-TRIAGE = ROOT / "data/human-review/2026-08-15-intake-19-triage.json"
+TRIAGE = ROOT / "data/human-review/2026-08-17-intake-20-triage.json"
 MARKET_JS = ROOT / "market-signals.js"
 BATCHES = [
     ROOT / "data/manual-intake/2026-08-08-weijie-hesheng-batch1.json",
@@ -23,6 +23,7 @@ BATCHES = [
     ROOT / "data/manual-intake/2026-08-12-twin-win-company-factory-batch4.json",
     ROOT / "data/manual-intake/2026-08-12-rope-picnic-gdm56050-batch5.json",
     ROOT / "data/manual-intake/2026-08-13-american-holic-products-batch6.json",
+    ROOT / "data/manual-intake/2026-08-17-minghai-wool-silk-core-spun-batch7.json",
 ]
 
 assert FALLBACK_CATALOG.is_file(), "2,000-record fallback catalog is missing"
@@ -116,8 +117,8 @@ for path in BATCHES:
     assert all(item.get("review_status") == "PENDING" for item in batch["items"])
     all_items.extend(batch["items"])
 
-assert len(all_items) == 19
-assert len({item.get("dedupe_key") for item in all_items}) == 19
+assert len(all_items) == 20
+assert len({item.get("dedupe_key") for item in all_items}) == 20
 assert any(item.get("payload", {}).get("sourceOrganizationName", "").startswith("TWIN WIN") for item in all_items)
 gdm = [item for item in all_items if item.get("payload", {}).get("productCode") == "GDM56050"]
 assert len(gdm) == 1
@@ -128,6 +129,18 @@ american_holic = [item for item in all_items if item.get("payload", {}).get("bra
 assert len(american_holic) == 2
 assert {item["payload"].get("productCode") for item in american_holic} == {"0H001683000", "0H001978600"}
 assert all(item["payload"].get("compositionStatus") == "confirmed" for item in american_holic)
+minghai = [item for item in all_items if item.get("handoff_id") == "HF-MANUAL-20260817-20-MINGHAI-WOOL-SILK-2-50"]
+assert len(minghai) == 1
+minghai_payload = minghai[0]["payload"]
+assert minghai_payload.get("yarnName") == "羊毛绢丝包芯纱"
+assert minghai_payload.get("countDisplay") == "2/50NM"
+assert minghai_payload.get("basicYarnForm") == "core_spun"
+assert minghai_payload.get("compositionRaw") == "15% wool / 5% silk / 32% lyocell / 20% nylon / 28% PBT"
+assert minghai_payload.get("compositionTotal") == 100
+assert minghai_payload.get("manufacturerName") == ""
+assert minghai_payload.get("sourceUrl") == ""
+assert minghai_payload.get("verificationStatus") == "candidate"
+assert "QUEEN" not in json.dumps(minghai_payload, ensure_ascii=False)
 cool_touch = next(item for item in american_holic if item["payload"].get("productCode") == "0H001683000")
 assert any(prop.get("name") == "接触冷感" for prop in cool_touch["payload"].get("functionalProperties", []))
 
@@ -136,11 +149,11 @@ assert triage.get("format") == "KC_HUMAN_REVIEW_TRIAGE"
 assert triage.get("effect") == "ADVISORY_ONLY_NO_PROMOTION"
 assert triage.get("source_review_status_required") == "PENDING"
 decisions = triage.get("decisions")
-assert isinstance(decisions, list) and len(decisions) == 19
+assert isinstance(decisions, list) and len(decisions) == 20
 assert {row.get("handoff_id") for row in decisions} == {item.get("handoff_id") for item in all_items}
 assert {row.get("classification") for row in decisions} <= {"APPROVABLE", "CONDITIONAL", "HOLD"}
 decision_counts = {label: sum(row.get("classification") == label for row in decisions) for label in ("APPROVABLE", "CONDITIONAL", "HOLD")}
-assert decision_counts == {"APPROVABLE": 12, "CONDITIONAL": 4, "HOLD": 3}
+assert decision_counts == {"APPROVABLE": 12, "CONDITIONAL": 5, "HOLD": 3}
 assert triage.get("counts") == {**decision_counts, "AUTO_PROMOTED": 0}
 
 md_proposals = json.loads(MD_PROPOSALS.read_text(encoding="utf-8"))
@@ -151,13 +164,17 @@ assert md_proposals.get("sales_quantity_estimation") == "FORBIDDEN"
 assert md_proposals.get("catalog_boundary") == "CATALOG_INDEXED / LISTING_PAGE_ONLY / NOT_PROMOTED"
 assert md_proposals.get("publication_status") == "PUBLISH_HOLD"
 assert len(md_proposals.get("proposals", [])) >= 3
-assert all(row.get("status") == "MD_DRAFT" and row.get("publication_status") == "PUBLISH_HOLD" for row in md_proposals["proposals"])
+assert all(
+    row.get("status") in {"MD_DRAFT", "OPERATIONAL_DRAFT"}
+    and row.get("publication_status") == "PUBLISH_HOLD"
+    for row in md_proposals["proposals"]
+)
 
 html = PAGE.read_text(encoding="utf-8")
 for required in (
     "mz100-catalog-2000.json",
     "kc_v04_handoff_queue_v1",
-    "19件",
+    "20件",
     "GDM56050",
     "TWIN WIN",
     "AMERICAN HOLIC",
@@ -166,7 +183,7 @@ for required in (
     "BACKUP_SHARE_ONLY",
     "Knit Compassを主系統",
     "TRIAGE_URL",
-    "data/human-review/2026-08-15-intake-19-triage.json",
+    "data/human-review/2026-08-17-intake-20-triage.json",
     "mz100-catalog-3000.json",
     "URLSearchParams(location.search)",
     "activateTab(location.hash.slice(1))",
@@ -177,7 +194,7 @@ for required in (
 top_html = TOP_PAGE.read_text(encoding="utf-8")
 assert "market-signals.js" in top_html, "sales top is not connected to market signals"
 assert "17件" not in top_html, "sales top still exposes the stale 17-candidate count"
-for label in ("商品調査", "糸検索", "原料相場", "編み地イメージ", "生地検査", "Human Review", "19件"):
+for label in ("商品調査", "糸検索", "原料相場", "編み地イメージ", "生地検査", "Human Review", "20件"):
     assert label in top_html, f"sales navigation missing: {label}"
 for stale_label in ("V04本体", "V04 TOP", "糸検索2,000件", "糸マスター2,000件", "v0.4受信箱"):
     assert stale_label not in top_html, f"sales top exposes stale label: {stale_label}"
@@ -197,5 +214,5 @@ for required in (
 print(
     "owner yarn implementation: OK "
     f"(3000 active catalog records, {len(analog_matches)} Analog Revival matches, "
-    "19 PENDING candidates triaged 12/4/3, zero automatic promotion, safety boundary preserved)"
+    "20 PENDING candidates triaged 12/5/3, zero automatic promotion, safety boundary preserved)"
 )

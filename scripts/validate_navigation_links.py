@@ -100,6 +100,8 @@ for batch in (
     "2026-08-10-mz100-yarn-research-batch3.json",
     "2026-08-12-twin-win-company-factory-batch4.json",
     "2026-08-12-rope-picnic-gdm56050-batch5.json",
+    "2026-08-13-american-holic-products-batch6.json",
+    "2026-08-17-minghai-wool-silk-core-spun-batch7.json",
 ):
     assert batch in owner_yarns
     assert (ROOT / "data/manual-intake" / batch).is_file()

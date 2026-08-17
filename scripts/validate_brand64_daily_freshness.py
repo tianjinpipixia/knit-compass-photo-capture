@@ -42,7 +42,10 @@ def main() -> None:
     assert proposals.get("sales_quantity_status") == "NOT_AVAILABLE"
     assert proposals.get("sales_quantity_estimation") == "FORBIDDEN"
     assert proposals.get("publication_status") == "PUBLISH_HOLD"
-    assert all(row.get("status") == "MD_DRAFT" for row in proposals.get("proposals", []))
+    assert all(
+        row.get("status") in {"MD_DRAFT", "OPERATIONAL_DRAFT"}
+        for row in proposals.get("proposals", [])
+    )
     assert all(row.get("publication_status") == "PUBLISH_HOLD" for row in proposals.get("proposals", []))
 
     daily_path = repository_path(latest["daily_path"])
