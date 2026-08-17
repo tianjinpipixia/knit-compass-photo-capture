@@ -1,6 +1,6 @@
 {
   "schema_version": "1.7.0",
-  "updated_at": "2026-08-17T13:58:00+09:00",
+  "updated_at": "2026-08-17T15:34:27+09:00",
   "policy": {
     "unknown_connections_are_forbidden": true,
     "connection_change_requires_registry_update": true,
@@ -155,7 +155,7 @@
         },
         {
           "code_source": "data/market-trends/market-signals.json@main",
-          "code_revision": "git-blob:b41953a2435bc7bc687f5902f6015e40f8ce0df5"
+          "code_revision": "git-blob:940825333c251fd0f5f9771c9aaf708f8887e796"
         },
         {
           "code_source": "usage-metrics.js@main",
@@ -202,7 +202,7 @@
         },
         {
           "code_source": "data/market-trends/market-signals.json@main",
-          "code_revision": "git-blob:b41953a2435bc7bc687f5902f6015e40f8ce0df5"
+          "code_revision": "git-blob:940825333c251fd0f5f9771c9aaf708f8887e796"
         },
         {
           "code_source": "usage-metrics.js@main",
@@ -276,18 +276,18 @@
     },
     {
       "system_id": "KC-MARKET-INTELLIGENCE",
-      "display_name": "Knit Compass 中国6原料相場 / 64ブランド素材提案",
+      "display_name": "Knit Compass マーケット情報 / 素材トレンド・中国6原料相場",
       "environment": "independent-local",
-      "display_version": "v1.1.0",
+      "display_version": "v1.2.0",
       "entry_path": "/market-intelligence/",
       "entry_href": "../market-intelligence/",
-      "entry_label": "原料相場を開く",
+      "entry_label": "マーケット情報を開く",
       "code_source": "market-intelligence/app.js@main",
       "code_revision": "git-blob:e82faf7780f19234f2cd8630cb910b83c2aab75a",
       "auxiliary_sources": [
         {
           "code_source": "market-intelligence/index.html@main",
-          "code_revision": "git-blob:3e5de6c147437fbaac92abb146670cae0ccfb438"
+          "code_revision": "git-blob:5dfac9119480d4c23c1738058c1cadf4a29ad610"
         },
         {
           "code_source": "data/brand-md-monitoring/latest.json@main",
@@ -300,10 +300,18 @@
         {
           "code_source": "usage-metrics.js@main",
           "code_revision": "git-blob:8871a22c66ad2fb70dc1324836f5f1b258851425"
+        },
+        {
+          "code_source": "market-intelligence/market-trends.js@main",
+          "code_revision": "git-blob:92d3fa64ad30a794995fb79658c670181dcecba1"
+        },
+        {
+          "code_source": "data/market-trends/market-signals.json@main",
+          "code_revision": "git-blob:940825333c251fd0f5f9771c9aaf708f8887e796"
         }
       ],
       "data_store": "browser-localstorage",
-      "storage_detail": "localStorage kc_market_intelligence_observations_v1 stores append-only China-scoped observations for six materials; evidence must be SOURCE_CHECKED or SUPPLIER_CONFIRMED with an http/https source URL; source currency, unit, market, and grade are retained without automatic conversion, gap-filling estimate, or forecast; latest-material-proposals.json matches the latest 64-brand observed date and links MD DRAFT to NOT_PROMOTED yarn candidates; stale observation or proposal dates are visibly warned and monitored daily; every observation is PENDING_HUMAN_REVIEW with publication_status HOLD; sales quantity remains NOT_AVAILABLE",
+      "storage_detail": "localStorage kc_market_intelligence_observations_v1 stores append-only China-scoped observations for six materials; evidence must be SOURCE_CHECKED or SUPPLIER_CONFIRMED with an http/https source URL; source currency, unit, market, and grade are retained without automatic conversion, gap-filling estimate, or forecast; data/market-trends/market-signals.json is read-only and renders evidence-linked material trend hypotheses separately from verified raw-material observations; latest-material-proposals.json matches the latest 64-brand observed date and links MD DRAFT to NOT_PROMOTED yarn candidates; stale observation or proposal dates are visibly warned and monitored daily; every observation is PENDING_HUMAN_REVIEW with publication_status HOLD; sales quantity remains NOT_AVAILABLE",
       "sync_mode": "local-append-only-pending-human-review",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "no-automatic-production-core-company-db-connection",
