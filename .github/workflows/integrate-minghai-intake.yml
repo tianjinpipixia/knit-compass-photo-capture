@@ -1,0 +1,171 @@
+name: Integrate MINGHAI intake candidate
+
+"on":
+  push:
+    branches:
+      - agent/register-minghai-wool-silk-core-spun-20260817
+    paths:
+      - ".github/workflows/integrate-minghai-intake.yml"
+      - "data/manual-intake/2026-08-17-minghai-wool-silk-core-spun-batch7.json"
+      - "data/human-review/2026-08-17-intake-20-triage.json"
+
+permissions:
+  contents: write
+
+jobs:
+  integrate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Integrate candidate into active intake surfaces
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          ROOT = Path.cwd()
+
+          def replace_once(path: str, old: str, new: str) -> None:
+              target = ROOT / path
+              text = target.read_text(encoding="utf-8")
+              if new in text:
+                  return
+              if old not in text:
+                  raise SystemExit(f"replacement source missing in {path}: {old!r}")
+              target.write_text(text.replace(old, new, 1), encoding="utf-8")
+
+          def replace_all(path: str, old: str, new: str) -> None:
+              target = ROOT / path
+              text = target.read_text(encoding="utf-8")
+              if old not in text:
+                  if new in text:
+                      return
+                  raise SystemExit(f"replacement source missing in {path}: {old!r}")
+              target.write_text(text.replace(old, new), encoding="utf-8")
+
+          owner = "owner-yarns/index.html"
+          replace_once(owner, "<span>Human Review候補</span><strong>19件</strong>", "<span>Human Review候補</span><strong>20件</strong>")
+          replace_once(owner, "未反映19件・Human Review", "未反映20件・Human Review")
+          replace_once(owner, "6バッチ・合計19件をHuman Review受信箱へ重複なく入れます。", "7バッチ・合計20件をHuman Review受信箱へ重複なく入れます。")
+          replace_once(owner, "id=\"importAll\">19件をHuman Review受信箱へ取込", "id=\"importAll\">20件をHuman Review受信箱へ取込")
+          replace_once(owner, "2026-08-15 Human Review整理", "2026-08-17 Human Review整理")
+          replace_once(owner, "TWIN WIN、GDM56050、AMERICAN HOLIC 2商品を含みます。", "TWIN WIN、GDM56050、AMERICAN HOLIC 2商品、MINGHAI 羊毛绢丝包芯纱を含みます。")
+          replace_once(owner, "Human Review候補19件／自動正式登録なし", "Human Review候補20件／自動正式登録なし")
+          replace_once(owner, "const TRIAGE_URL='../data/human-review/2026-08-15-intake-19-triage.json';", "const TRIAGE_URL='../data/human-review/2026-08-17-intake-20-triage.json';")
+          replace_once(owner, "const EXPECTED_INTAKE_TOTAL=19;", "const EXPECTED_INTAKE_TOTAL=20;")
+          replace_once(
+              owner,
+              "      {file:'2026-08-13-american-holic-products-batch6.json',label:'AMERICAN HOLIC 2商品',expected:2,detail:'0H001683000・0H001978600'}\n",
+              "      {file:'2026-08-13-american-holic-products-batch6.json',label:'AMERICAN HOLIC 2商品',expected:2,detail:'0H001683000・0H001978600'},\n"
+              "      {file:'2026-08-17-minghai-wool-silk-core-spun-batch7.json',label:'MINGHAI 羊毛绢丝包芯纱',expected:1,detail:'2/50NM・表示混率・包芯纱表記'}\n",
+          )
+
+          replace_once(
+              "brand-intelligence/index.html",
+              "19件をHuman Review受信箱へPENDING追加",
+              "20件をHuman Review受信箱へPENDING追加",
+          )
+
+          manual_readme = "data/manual-intake/README.md"
+          replace_once(
+              manual_readme,
+              "- `2026-08-13-american-holic-products-batch6.json` — AMERICAN HOLIC 2件\n",
+              "- `2026-08-13-american-holic-products-batch6.json` — AMERICAN HOLIC 2件\n"
+              "- `2026-08-17-minghai-wool-silk-core-spun-batch7.json` — MINGHAI 羊毛绢丝包芯纱 1件\n",
+          )
+          replace_once(
+              manual_readme,
+              "上記6バッチ・合計19件を `kc_v04_handoff_queue_v1` へ重複なく追加できます。",
+              "上記7バッチ・合計20件を `kc_v04_handoff_queue_v1` へ重複なく追加できます。",
+          )
+
+          status = "docs/MANUAL_INTAKE_STATUS.md"
+          replace_once(status, "更新: 2026-08-15", "更新: 2026-08-17")
+          replace_once(
+              status,
+              "| AMERICAN HOLIC Batch 6 | READY_FOR_HUMAN_REVIEW | 2 | 現物タグ・公式商品掲載の対象一致項目を確認 |\n",
+              "| AMERICAN HOLIC Batch 6 | READY_FOR_HUMAN_REVIEW | 2 | 現物タグ・公式商品掲載の対象一致項目を確認 |\n"
+              "| MINGHAI 羊毛绢丝包芯纱 Batch 7 | READY_FOR_HUMAN_REVIEW_WITH_LIMITS | 1 | スクリーンショット表示値のみを条件付き確認。法的会社名・公式URL・ゲージ等は未確認 |\n",
+          )
+          replace_once(status, "| **一括取込対象** | **READY** | **19** |", "| **一括取込対象** | **READY** | **20** |")
+          replace_once(
+              status,
+              "2026-08-15の判定補助は承認可能12・条件付き4・HOLD 3。`data/human-review/2026-08-15-intake-19-triage.json` は助言専用で、元19件の `review_status` は `PENDING` のまま、自動昇格しない。",
+              "2026-08-17の判定補助は承認可能12・条件付き5・HOLD 3。`data/human-review/2026-08-17-intake-20-triage.json` は助言専用で、元20件の `review_status` は `PENDING` のまま、自動昇格しない。",
+          )
+
+          validator = "scripts/validate_owner_yarn_implementation.py"
+          replace_once(
+              validator,
+              'TRIAGE = ROOT / "data/human-review/2026-08-15-intake-19-triage.json"',
+              'TRIAGE = ROOT / "data/human-review/2026-08-17-intake-20-triage.json"',
+          )
+          replace_once(
+              validator,
+              '    ROOT / "data/manual-intake/2026-08-13-american-holic-products-batch6.json",\n]',
+              '    ROOT / "data/manual-intake/2026-08-13-american-holic-products-batch6.json",\n'
+              '    ROOT / "data/manual-intake/2026-08-17-minghai-wool-silk-core-spun-batch7.json",\n]',
+          )
+          replace_all(validator, "assert len(all_items) == 19", "assert len(all_items) == 20")
+          replace_all(validator, "assert len({item.get(\"dedupe_key\") for item in all_items}) == 19", "assert len({item.get(\"dedupe_key\") for item in all_items}) == 20")
+          replace_once(
+              validator,
+              "assert all(item[\"payload\"].get(\"compositionStatus\") == \"confirmed\" for item in american_holic)\n",
+              "assert all(item[\"payload\"].get(\"compositionStatus\") == \"confirmed\" for item in american_holic)\n"
+              "minghai = [item for item in all_items if item.get(\"handoff_id\") == \"HF-MANUAL-20260817-20-MINGHAI-WOOL-SILK-2-50\"]\n"
+              "assert len(minghai) == 1\n"
+              "minghai_payload = minghai[0][\"payload\"]\n"
+              "assert minghai_payload.get(\"yarnName\") == \"羊毛绢丝包芯纱\"\n"
+              "assert minghai_payload.get(\"countDisplay\") == \"2/50NM\"\n"
+              "assert minghai_payload.get(\"basicYarnForm\") == \"core_spun\"\n"
+              "assert minghai_payload.get(\"compositionRaw\") == \"15% wool / 5% silk / 32% lyocell / 20% nylon / 28% PBT\"\n"
+              "assert minghai_payload.get(\"compositionTotal\") == 100\n"
+              "assert minghai_payload.get(\"manufacturerName\") == \"\"\n"
+              "assert minghai_payload.get(\"sourceUrl\") == \"\"\n"
+              "assert minghai_payload.get(\"verificationStatus\") == \"candidate\"\n"
+              "assert \"QUEEN\" not in json.dumps(minghai_payload, ensure_ascii=False)\n",
+          )
+          replace_once(validator, 'assert isinstance(decisions, list) and len(decisions) == 19', 'assert isinstance(decisions, list) and len(decisions) == 20')
+          replace_once(validator, 'assert decision_counts == {"APPROVABLE": 12, "CONDITIONAL": 4, "HOLD": 3}', 'assert decision_counts == {"APPROVABLE": 12, "CONDITIONAL": 5, "HOLD": 3}')
+          replace_once(validator, '    "19件",', '    "20件",')
+          replace_once(validator, '    "data/human-review/2026-08-15-intake-19-triage.json",', '    "data/human-review/2026-08-17-intake-20-triage.json",')
+          replace_once(validator, 'for label in ("商品調査", "糸検索", "原料相場", "編み地イメージ", "生地検査", "Human Review", "19件"):', 'for label in ("商品調査", "糸検索", "原料相場", "編み地イメージ", "生地検査", "Human Review", "20件"):')
+          replace_once(
+              validator,
+              '    "19 PENDING candidates triaged 12/4/3, zero automatic promotion, safety boundary preserved)"',
+              '    "20 PENDING candidates triaged 12/5/3, zero automatic promotion, safety boundary preserved)"',
+          )
+
+          nav_validator = "scripts/validate_navigation_links.py"
+          replace_once(
+              nav_validator,
+              '    "2026-08-12-rope-picnic-gdm56050-batch5.json",\n):',
+              '    "2026-08-12-rope-picnic-gdm56050-batch5.json",\n'
+              '    "2026-08-13-american-holic-products-batch6.json",\n'
+              '    "2026-08-17-minghai-wool-silk-core-spun-batch7.json",\n):',
+          )
+          PY
+      - name: Validate integrated intake
+        run: |
+          python scripts/validate_owner_yarn_implementation.py
+          python scripts/validate_navigation_links.py
+      - name: Commit integrated surfaces
+        shell: bash
+        run: |
+          if [ -z "$(git status --porcelain -- owner-yarns/index.html brand-intelligence/index.html data/manual-intake/README.md docs/MANUAL_INTAKE_STATUS.md scripts/validate_owner_yarn_implementation.py scripts/validate_navigation_links.py)" ]; then
+            echo "Integration surfaces are already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add owner-yarns/index.html brand-intelligence/index.html data/manual-intake/README.md docs/MANUAL_INTAKE_STATUS.md scripts/validate_owner_yarn_implementation.py scripts/validate_navigation_links.py
+          git commit -m "Integrate MINGHAI yarn into Human Review intake"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
