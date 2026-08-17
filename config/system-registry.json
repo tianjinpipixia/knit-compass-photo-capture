@@ -1,6 +1,6 @@
 {
   "schema_version": "1.7.0",
-  "updated_at": "2026-08-17T15:34:27+09:00",
+  "updated_at": "2026-08-18T08:50:00+09:00",
   "policy": {
     "unknown_connections_are_forbidden": true,
     "connection_change_requires_registry_update": true,
@@ -56,7 +56,7 @@
         },
         {
           "code_source": "index.html@main",
-          "code_revision": "git-blob:67da7ded1acd8beb17d675aaa336dc4b46de62ad"
+          "code_revision": "git-blob:92a9b9bd96d8f4a065d005f1a17901773c78aa2b"
         },
         {
           "code_source": "sw.js@main",
@@ -88,7 +88,7 @@
         },
         {
           "code_source": "manifest.webmanifest@main",
-          "code_revision": "git-blob:13e20f7768848182411f85b3cb1ddee3ce18d95f"
+          "code_revision": "git-blob:fba007be840c528c0f3f636948796205ee4402f8"
         },
         {
           "code_source": "icon.svg@main",
@@ -112,7 +112,7 @@
         }
       ],
       "data_store": "browser-indexeddb",
-      "storage_detail": "IndexedDB kc_independent_photo_capture_v1_0 is opened at its existing version to preserve forward-compatible device data; persistent browser storage is requested when supported; internal accountId is generated automatically and hidden from the normal UI while remaining in backups and actorId for compatibility; sessionStorage kc_session_v1; sessionStorage kc_photo_capture_editor_draft_v1 stores recoverable in-progress form values without photo blobs; localStorage kc_photo_capture_last_backup_v1, kc_photo_capture_last_verified_backup_v1, and kc_photo_capture_last_data_change_v1 drive seven-day and post-change backup health; SHA-256 verification does not mutate current data; localStorage kc_photo_capture_knitting_ends_v1 is a UI restore/index sidecar while IndexedDB event snapshots remain the source of truth; localStorage kc_v04_handoff_queue_v1 stores Human Review candidates without photo blobs; localStorage kc_usage_metrics_v1 stores only daily aggregate counts without names, input contents, or search terms; each event version is sent once; DRAFT remains saved when handoff storage fails; install name is Photo Capture",
+      "storage_detail": "IndexedDB kc_independent_photo_capture_v1_0 is opened at its existing version to preserve forward-compatible device data; persistent browser storage is requested when supported; internal accountId is generated automatically and hidden from the normal UI while remaining in backups and actorId for compatibility; sessionStorage kc_session_v1; sessionStorage kc_photo_capture_editor_draft_v1 stores recoverable in-progress form values without photo blobs; localStorage kc_photo_capture_last_backup_v1, kc_photo_capture_last_verified_backup_v1, and kc_photo_capture_last_data_change_v1 drive seven-day and post-change backup health; SHA-256 verification does not mutate current data; localStorage kc_photo_capture_knitting_ends_v1 is a UI restore/index sidecar while IndexedDB event snapshots remain the source of truth; localStorage kc_v04_handoff_queue_v1 stores Human Review candidates without photo blobs; localStorage kc_usage_metrics_v1 stores only daily aggregate counts without names, input contents, or search terms; each event version is sent once; DRAFT remains saved when handoff storage fails; installed app identity is Knit Compass V04 and starts at /brand-intelligence/; Photo Capture remains available at / as a workspace function",
       "sync_mode": "local-browser-queue-and-manual-json",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "none",
@@ -147,7 +147,7 @@
         },
         {
           "code_source": "brand-intelligence/sw.js@main",
-          "code_revision": "git-blob:3b5bc846225c35db4af8beacc5f7f31940215755"
+          "code_revision": "git-blob:ac4b8d6e3934f99d9431d91b40b37ea14f1a134c"
         },
         {
           "code_source": "market-signals.js@main",
