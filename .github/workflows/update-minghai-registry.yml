@@ -1,0 +1,71 @@
+name: Update MINGHAI registry revisions
+
+"on":
+  push:
+    branches:
+      - agent/register-minghai-wool-silk-core-spun-20260817
+    paths:
+      - ".github/workflows/update-minghai-registry.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update-registry:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Refresh registered source revisions and counts
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path("config/system-registry.json")
+          registry = json.loads(path.read_text(encoding="utf-8"))
+          registry["updated_at"] = "2026-08-17T13:52:00+09:00"
+          systems = {row["system_id"]: row for row in registry["systems"]}
+
+          web = systems["KC-V04-WEB"]
+          for source in web.get("auxiliary_sources", []):
+              if source.get("code_source") == "brand-intelligence/index.html@main":
+                  source["code_revision"] = "git-blob:cfbb46efb965d978a4111018b3af7c402e40c911"
+          web["storage_detail"] = web["storage_detail"].replace("未反映19件", "未反映20件")
+
+          owner = systems["KC-OWNER-YARN-MASTER"]
+          owner["code_revision"] = "git-blob:53c2e304fd88abf7fcac543e6dad76be9e0c8089"
+          for source in owner.get("auxiliary_sources", []):
+              if source.get("code_source") == "data/human-review/2026-08-15-intake-19-triage.json@main":
+                  source["code_source"] = "data/human-review/2026-08-17-intake-20-triage.json@main"
+                  source["code_revision"] = "git-blob:245a6fe60eb6aa1bc9f6b33078f9136c150f7291"
+          detail = owner["storage_detail"]
+          detail = detail.replace("receives 19 PENDING candidates", "receives 20 PENDING candidates")
+          detail = detail.replace(
+              "data/human-review/2026-08-15-intake-19-triage.json provides advisory 12 APPROVABLE / 4 CONDITIONAL / 3 HOLD",
+              "data/human-review/2026-08-17-intake-20-triage.json provides advisory 12 APPROVABLE / 5 CONDITIONAL / 3 HOLD",
+          )
+          owner["storage_detail"] = detail
+
+          path.write_text(json.dumps(registry, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          PY
+      - name: Validate registry
+        run: python scripts/validate_system_registry.py
+      - name: Commit registry refresh
+        run: |
+          if git diff --quiet -- config/system-registry.json; then
+            echo "Registry is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add config/system-registry.json
+          git commit -m "Refresh registry for MINGHAI Human Review intake"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
