@@ -1,9 +1,7 @@
-const CACHE_NAME = 'kc-photo-capture-v1-3-3-compat-route-1';
+const CACHE_NAME = 'kc-photo-capture-v1-3-3-operational-hardening-4';
 const APP_SHELL = [
   './',
   './index.html',
-  './photo-capture-current/',
-  './photo-capture-current/index.html',
   './manifest.webmanifest',
   './app.css',
   './connection-status.css',
