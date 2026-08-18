@@ -290,7 +290,7 @@
       element?.replaceWith(link);
     }
     link.href = reviewInboxHref();
-    link.textContent = '受信箱で内容確認';
+    if (link.textContent !== '受信箱で内容確認') link.textContent = '受信箱で内容確認';
     link.title = 'Human Review受信箱を開く';
     link.dataset.kcReviewInboxAction = 'true';
     link.removeAttribute('disabled');
