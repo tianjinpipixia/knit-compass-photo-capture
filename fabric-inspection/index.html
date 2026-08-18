@@ -9,61 +9,69 @@
   <title>Knit Compass — 生地検査</title>
   <link rel="icon" href="../icon.svg" type="image/svg+xml">
   <style>
-    :root{--ink:#172826;--muted:#5d6d69;--paper:#f2f5f3;--card:#fff;--teal:#163f3c;--teal2:#235c56;--line:#d6dfdb;--soft:#eef3f1;--green:#2f6a37;--green-bg:#e9f5e7;--amber:#8a5d12;--amber-bg:#fff5df;--red:#8a342e;--red-bg:#fff0ed;--blue:#315d86;--blue-bg:#eaf3fb;--shadow:0 8px 28px rgba(23,40,38,.07)}
+    :root{--ink:#172826;--muted:#5d6d69;--paper:#f2f5f3;--card:#fff;--teal:#163f3c;--teal2:#235c56;--line:#d6dfdb;--soft:#eef3f1;--green:#2f6a37;--green-bg:#e9f5e7;--amber:#8a5d12;--amber-bg:#fff5df;--red:#8a342e;--red-bg:#fff0ed;--shadow:0 8px 28px rgba(23,40,38,.07)}
     *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:var(--teal2)}
     .top{background:var(--ink);color:#fff;text-align:center;padding:8px 12px;font-size:10px;font-weight:900;letter-spacing:.08em}.nav{display:flex;gap:7px;align-items:center;padding:9px 14px;background:#e5ece9;border-bottom:1px solid var(--line);overflow:auto}.nav a{display:inline-flex;align-items:center;min-height:35px;padding:7px 11px;border:1px solid #aabcb5;border-radius:9px;background:#fff;color:var(--teal);text-decoration:none;font-size:10px;font-weight:900;white-space:nowrap}.nav a.active{background:var(--teal);color:#fff;border-color:var(--teal)}
-    .shell{width:min(1220px,calc(100% - 28px));margin:auto;padding:20px 0 50px}.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;background:linear-gradient(135deg,var(--teal),#235750);color:#fff;border-radius:20px;padding:24px 26px;box-shadow:var(--shadow)}.eyebrow{margin:0;color:#bfd5cc;font-size:10px;font-weight:950;letter-spacing:.14em}.hero h1{margin:5px 0 7px;font-size:clamp(29px,5vw,44px);line-height:1.08}.hero p{margin:0;color:#dfebe7;max-width:760px;font-size:12px}.boundary{min-width:230px;border:1px solid rgba(255,255,255,.28);border-radius:13px;padding:12px}.boundary strong,.boundary span{display:block}.boundary strong{font-size:13px}.boundary span{margin-top:4px;color:#dce9e4;font-size:9px}
-    .notice{border-left:5px solid var(--amber);background:var(--amber-bg);border-radius:0 13px 13px 0;padding:12px 14px;margin:14px 0;color:#6f531d;font-size:11px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}.stat,.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}.stat span{display:block;color:var(--muted);font-size:9px;font-weight:900}.stat strong{display:block;font-size:25px;margin-top:3px}.layout{display:grid;grid-template-columns:minmax(320px,.82fr) minmax(0,1.18fr);gap:13px}.card h2{margin:0 0 4px;font-size:19px}.card>p{margin:0 0 12px;color:var(--muted);font-size:10px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.field{display:grid;gap:4px}.field.wide{grid-column:1/-1}.field label{font-size:9px;font-weight:900;color:var(--muted)}.field input,.field select,.field textarea{width:100%;min-height:42px;border:1px solid #bdcbc5;border-radius:10px;background:#fff;padding:9px 10px;color:var(--ink)}.field textarea{min-height:92px;resize:vertical}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.btn{min-height:42px;border:1px solid var(--teal);border-radius:10px;background:var(--teal);color:#fff;padding:9px 13px;font-size:10px;font-weight:900}.btn.secondary{background:#fff;color:var(--teal);border-color:#aabcb5}.message{min-height:22px;margin-top:8px;font-size:10px;font-weight:800;color:var(--green)}.message.error{color:var(--red)}
-    .list-head{display:flex;justify-content:space-between;align-items:end;gap:10px;margin-bottom:10px}.list-head h2{margin:0}.search{width:min(310px,100%);min-height:40px;border:1px solid #bdcbc5;border-radius:10px;padding:8px 10px}.records{display:grid;gap:8px}.record{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;border:1px solid var(--line);border-radius:12px;padding:11px;background:#fff}.record h3{margin:0;font-size:13px}.record p{margin:3px 0 0;color:var(--muted);font-size:9px;overflow-wrap:anywhere;white-space:pre-wrap}.tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:5px}.tag{display:inline-flex;border-radius:999px;padding:3px 7px;background:var(--soft);color:#35574d;font-size:8px;font-weight:900}.tag.pending{background:var(--amber-bg);color:var(--amber)}.tag.pass{background:var(--green-bg);color:var(--green)}.tag.attention{background:var(--red-bg);color:var(--red)}.empty{border:1px dashed #aebdb7;border-radius:13px;padding:26px;text-align:center;color:var(--muted);font-size:11px;background:#fff}.footer{margin-top:22px;color:var(--muted);font-size:9px;text-align:center}
-    @media(max-width:900px){.hero,.layout{grid-template-columns:1fr}.boundary{min-width:0}.stats{grid-template-columns:1fr 1fr}}@media(max-width:620px){.shell{width:min(100% - 16px,1220px);padding-top:8px}.hero{padding:19px}.form-grid{grid-template-columns:1fr}.field.wide{grid-column:auto}.stats{grid-template-columns:1fr 1fr}.list-head{align-items:stretch;flex-direction:column}.search{width:100%}.record{grid-template-columns:1fr}.nav{justify-content:flex-start}.btn{min-height:44px}}
+    .shell{width:min(1220px,calc(100% - 28px));margin:auto;padding:20px 0 50px}.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;background:linear-gradient(135deg,var(--teal),#235750);color:#fff;border-radius:20px;padding:24px 26px;box-shadow:var(--shadow)}.eyebrow{margin:0;color:#bfd5cc;font-size:10px;font-weight:950;letter-spacing:.14em}.hero h1{margin:5px 0 7px;font-size:clamp(29px,5vw,44px);line-height:1.08}.hero p{margin:0;color:#dfebe7;max-width:760px;font-size:12px}.boundary{min-width:260px;border:1px solid rgba(255,255,255,.28);border-radius:13px;padding:12px}.boundary strong,.boundary span{display:block}.boundary strong{font-size:13px}.boundary span{margin-top:4px;color:#dce9e4;font-size:9px}
+    .notice{border-left:5px solid var(--amber);background:var(--amber-bg);border-radius:0 13px 13px 0;padding:12px 14px;margin:14px 0;color:#6f531d;font-size:11px}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:14px 0}.stat,.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}.stat span{display:block;color:var(--muted);font-size:9px;font-weight:900}.stat strong{display:block;font-size:25px;margin-top:3px}
+    .layout{display:grid;grid-template-columns:minmax(320px,.9fr) minmax(0,1.1fr);gap:13px}.workflow-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:13px}.card h2{margin:0 0 4px;font-size:19px}.card>p{margin:0 0 12px;color:var(--muted);font-size:10px}.subhead{margin:16px 0 8px;padding-top:13px;border-top:1px solid var(--line);font-size:12px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.field{display:grid;gap:4px}.field.wide{grid-column:1/-1}.field label{font-size:9px;font-weight:900;color:var(--muted)}.field input,.field select,.field textarea{width:100%;min-height:42px;border:1px solid #bdcbc5;border-radius:10px;background:#fff;padding:9px 10px;color:var(--ink)}.field textarea{min-height:88px;resize:vertical}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.btn{min-height:42px;border:1px solid var(--teal);border-radius:10px;background:var(--teal);color:#fff;padding:9px 13px;font-size:10px;font-weight:900}.btn.secondary{background:#fff;color:var(--teal);border-color:#aabcb5}.message{min-height:22px;margin-top:8px;font-size:10px;font-weight:800;color:var(--green)}.message.error{color:var(--red)}
+    .list-head{display:flex;justify-content:space-between;align-items:end;gap:10px;margin-bottom:10px}.list-head h2{margin:0}.list-controls{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.search,.filter{min-height:40px;border:1px solid #bdcbc5;border-radius:10px;padding:8px 10px;background:#fff}.search{width:min(310px,100%)}.filter-status{margin:0 0 8px;color:var(--muted);font-size:9px}.records{display:grid;gap:8px}.record{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;border:1px solid var(--line);border-radius:12px;padding:11px;background:#fff}.record h3{margin:0;font-size:13px}.record p{margin:3px 0 0;color:var(--muted);font-size:9px;overflow-wrap:anywhere;white-space:pre-wrap}.tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:5px}.tag{display:inline-flex;border-radius:999px;padding:3px 7px;background:var(--soft);color:#35574d;font-size:8px;font-weight:900}.tag.pending{background:var(--amber-bg);color:var(--amber)}.tag.pass{background:var(--green-bg);color:var(--green)}.tag.attention{background:var(--red-bg);color:var(--red)}.empty{border:1px dashed #aebdb7;border-radius:13px;padding:26px;text-align:center;color:var(--muted);font-size:11px;background:#fff}.footer{margin-top:22px;color:var(--muted);font-size:9px;text-align:center}
+    @media(max-width:1000px){.stats{grid-template-columns:repeat(3,1fr)}.workflow-grid{grid-template-columns:1fr}}@media(max-width:900px){.hero,.layout{grid-template-columns:1fr}.boundary{min-width:0}}@media(max-width:620px){.shell{width:min(100% - 16px,1220px);padding-top:8px}.hero{padding:19px}.form-grid{grid-template-columns:1fr}.field.wide{grid-column:auto}.stats{grid-template-columns:1fr 1fr}.list-head{align-items:stretch;flex-direction:column}.list-controls{justify-content:stretch}.search,.filter{width:100%}.record{grid-template-columns:1fr}.nav{justify-content:flex-start}.btn{min-height:44px}}
   </style>
 </head>
 <body>
-  <div class="top">FABRIC INSPECTION / LOCAL APPEND-ONLY / HUMAN REVIEW REQUIRED</div>
+  <div class="top">FABRIC QUALITY / LOCAL APPEND-ONLY / HUMAN REVIEW TRACEABLE</div>
   <nav class="nav" aria-label="Knit Compass owner navigation">
-    <a href="../brand-intelligence/">商品調査</a>
-    <a href="../">Photo Capture</a>
-    <a href="../owner-yarns/">糸検索</a>
-    <a class="active" href="./" aria-current="page">生地検査</a>
-    <a href="../market-intelligence/">原料相場</a>
-    <a href="../daily/">Daily</a>
-    <a href="../status/">管理・接続先</a>
+    <a href="../brand-intelligence/">商品調査</a><a href="../">Photo Capture</a><a href="../owner-yarns/">糸検索</a><a class="active" href="./" aria-current="page">生地検査</a><a href="../market-intelligence/">原料相場</a><a href="../daily/">Daily</a><a href="../status/">管理・接続先</a>
   </nav>
   <main class="shell">
     <section class="hero">
-      <div><p class="eyebrow">KC-FABRIC-INSPECTION / V1.0</p><h1>生地検査</h1><p>編地、ゲージ、本取り、寸法・目付、外観不良と判定を、根拠付きの検査記録として端末内へ追記します。</p></div>
-      <div class="boundary"><strong>自動マスター反映 OFF</strong><span>保存記録は PENDING_HUMAN_REVIEW。Photo Capture・Human Review受信箱・顧客共有を直接変更しません。</span></div>
+      <div><p class="eyebrow">KC-FABRIC-QUALITY / V1.1</p><h1>生地検査・品質台帳</h1><p>検査、外観確認、Human Review、改善・効果確認を、元記録を上書きしない追記型の品質履歴としてこの端末内に保存します。</p></div>
+      <div class="boundary"><strong>この端末内のみ</strong><span>ブラウザLocal Storage保存。Mac／iPhone／別ブラウザへ自動共有しません。正式マスター・会社DB・顧客共有への自動反映もありません。</span></div>
     </section>
 
-    <div class="notice"><strong>安全境界：</strong>検査記録は追記専用です。修正は元記録を上書きせず、「訂正元ID」を指定した新しい記録として残します。Human Review前の記録は正式仕様・顧客公開情報ではありません。</div>
+    <div class="notice"><strong>安全境界：</strong>検査記録は追記専用です。Human Reviewと改善も別イベントとして追記し、元記録を変更しません。訂正は「訂正元ID」を持つ新規検査として残します。</div>
 
     <section class="stats" aria-label="生地検査集計">
       <div class="stat"><span>検査記録</span><strong id="totalCount">0</strong></div>
       <div class="stat"><span>Human Review待ち</span><strong id="pendingCount">0</strong></div>
       <div class="stat"><span>合格記録</span><strong id="passCount">0</strong></div>
       <div class="stat"><span>要確認・不合格</span><strong id="attentionCount">0</strong></div>
+      <div class="stat"><span>改善対応中</span><strong id="openImprovementCount">0</strong></div>
     </section>
 
     <section class="layout">
       <article class="card">
         <h2>検査記録を追記</h2>
-        <p>分かる範囲だけ入力できます。根拠状態と判定は分けて保存します。</p>
+        <p>試験と外観検品を区別し、試験方法・基準値・実測値・単位、写真根拠を構造化して保存します。</p>
         <form id="inspectionForm">
           <div class="form-grid">
+            <div class="field"><label for="inspectionScope">記録区分 *</label><select id="inspectionScope" name="inspectionScope" required><option value="FABRIC_TEST">生地試験</option><option value="APPEARANCE">外観検品</option><option value="BOTH">試験＋外観検品</option></select></div>
             <div class="field"><label for="inspectedOn">検査日 *</label><input id="inspectedOn" name="inspectedOn" type="date" required></div>
             <div class="field"><label for="operator">検査者 *</label><input id="operator" name="operator" required maxlength="80" autocomplete="name"></div>
             <div class="field wide"><label for="itemRef">商品・生地・サンプル参照 *</label><input id="itemRef" name="itemRef" required maxlength="160" placeholder="品番、サンプル名、Photo Capture IDなど"></div>
+
             <div class="field"><label for="fabricStructure">編地組織</label><input id="fabricStructure" name="fabricStructure" maxlength="120" placeholder="天竺、リブ、リンクス等"></div>
             <div class="field"><label for="gauge">Gauge</label><input id="gauge" name="gauge" maxlength="40" placeholder="12G"></div>
             <div class="field"><label for="knittingEnds">本取り</label><input id="knittingEnds" name="knittingEnds" type="number" min="1" max="99" step="1" inputmode="numeric"></div>
             <div class="field"><label for="composition">混率表示</label><input id="composition" name="composition" maxlength="160" placeholder="WOOL 50% / POLY 50%"></div>
             <div class="field"><label for="width">幅・寸法</label><input id="width" name="width" maxlength="80" placeholder="例：150 cm"></div>
             <div class="field"><label for="weight">目付</label><input id="weight" name="weight" maxlength="80" placeholder="例：280 g/m²"></div>
+
+            <div class="field wide"><h3 class="subhead">構造化した試験値</h3></div>
+            <div class="field"><label for="testMethod">試験方法・規格</label><input id="testMethod" name="testMethod" maxlength="160" placeholder="JIS / 社内法 / Q-max 等"></div>
+            <div class="field"><label for="standardValue">基準値</label><input id="standardValue" name="standardValue" maxlength="80" placeholder="例：3級以上"></div>
+            <div class="field"><label for="measuredValue">実測値</label><input id="measuredValue" name="measuredValue" maxlength="80" placeholder="例：3.5"></div>
+            <div class="field"><label for="measurementUnit">単位</label><input id="measurementUnit" name="measurementUnit" maxlength="40" placeholder="級 / g/m² / W/cm² 等"></div>
+
             <div class="field"><label for="defectCategory">外観・不良区分</label><select id="defectCategory" name="defectCategory"><option value="NONE_OBSERVED">目立つ不良なし</option><option value="STAIN">汚れ</option><option value="HOLE">穴・破れ</option><option value="YARN_DEFECT">糸・編み不良</option><option value="COLOR_VARIATION">色差</option><option value="DIMENSION_VARIATION">寸法差</option><option value="OTHER">その他</option></select></div>
             <div class="field"><label for="result">検査判定 *</label><select id="result" name="result" required><option value="PASS">合格</option><option value="NEEDS_REVIEW">要確認</option><option value="FAIL">不合格</option></select></div>
             <div class="field"><label for="evidenceStatus">根拠状態 *</label><select id="evidenceStatus" name="evidenceStatus" required><option value="PHYSICAL_INSPECTION">現物確認</option><option value="MEASURED">実測済み</option><option value="DOCUMENT_CHECKED">資料確認済み</option><option value="UNCONFIRMED">未確認</option></select></div>
             <div class="field"><label for="supersedesId">訂正元ID</label><input id="supersedesId" name="supersedesId" maxlength="80" placeholder="訂正時のみ"></div>
-            <div class="field wide"><label for="sourceUrl">根拠URL</label><input id="sourceUrl" name="sourceUrl" type="url" inputmode="url" placeholder="https://..."></div>
+
+            <div class="field"><label for="photoCaptureId">Photo Capture ID</label><input id="photoCaptureId" name="photoCaptureId" maxlength="120" placeholder="写真台帳の参照ID"></div>
+            <div class="field"><label for="sourceUrl">根拠URL</label><input id="sourceUrl" name="sourceUrl" type="url" inputmode="url" placeholder="https://..."></div>
+            <div class="field wide"><label for="qualityPhotoRefs">品質写真・根拠参照</label><textarea id="qualityPhotoRefs" name="qualityPhotoRefs" maxlength="3000" placeholder="Drive URL、Photo Capture参照、画像ファイル名など。1行1件またはカンマ区切り。"></textarea></div>
             <div class="field wide"><label for="notes">観察・測定メモ</label><textarea id="notes" name="notes" maxlength="2000" placeholder="不良位置、測定条件、追加確認事項など"></textarea></div>
           </div>
           <div class="actions"><button class="btn" type="submit">検査記録を追記保存</button><button class="btn secondary" type="reset" id="resetForm">入力をクリア</button><button class="btn secondary" type="button" id="exportJson">監査JSONを書き出す</button></div>
@@ -72,13 +80,57 @@
       </article>
 
       <article class="card">
-        <div class="list-head"><div><h2>端末内の検査記録</h2><p>新しい記録から表示します。</p></div><input class="search" id="recordSearch" type="search" placeholder="ID、品番、編地、判定で検索" aria-label="生地検査記録を検索"></div>
+        <div class="list-head">
+          <div><h2>端末内の検査記録</h2><p>ダッシュボードからの条件指定もここへ反映します。</p></div>
+          <div class="list-controls">
+            <select class="filter" id="recordFilter" aria-label="検査記録を絞り込み"><option value="all">すべて</option><option value="pending">Human Review待ち</option><option value="needs-review">要確認</option><option value="fail">FAIL</option><option value="appearance">外観検品</option><option value="improvement">改善履歴あり</option><option value="photo">写真根拠あり</option></select>
+            <input class="search" id="recordSearch" type="search" placeholder="ID、品番、編地、判定、写真参照で検索" aria-label="生地検査記録を検索">
+          </div>
+        </div>
+        <p class="filter-status">現在の絞り込み：<strong id="filterLabel">すべて</strong></p>
         <div class="records" id="recordList"><div class="empty">検査記録はまだありません。</div></div>
       </article>
     </section>
-    <p class="footer">Local only / Append only / PENDING_HUMAN_REVIEW / No automatic master write / No customer publish</p>
+
+    <section class="workflow-grid">
+      <article class="card">
+        <h2>Human Reviewを追記</h2>
+        <p>承認・差戻し・再確認を別イベントとして追加します。元の検査記録のPENDING状態を書き換えません。</p>
+        <form id="reviewForm">
+          <div class="form-grid">
+            <div class="field wide"><label for="reviewInspectionId">対象検査 *</label><select id="reviewInspectionId" name="reviewInspectionId" required><option value="">対象記録を選択</option></select></div>
+            <div class="field"><label for="reviewer">確認者 *</label><input id="reviewer" name="reviewer" required maxlength="80"></div>
+            <div class="field"><label for="reviewDecision">Review判定 *</label><select id="reviewDecision" name="reviewDecision" required><option value="APPROVED">承認</option><option value="RETURNED">差戻し</option><option value="RECHECK_REQUIRED">再確認</option></select></div>
+            <div class="field wide"><label for="reviewNote">Reviewメモ</label><textarea id="reviewNote" name="reviewNote" maxlength="2000" placeholder="承認根拠、差戻し理由、再確認事項"></textarea></div>
+          </div>
+          <div class="actions"><button class="btn" type="submit">Reviewイベントを追記</button></div>
+          <div class="message" id="reviewMessage" role="status"></div>
+        </form>
+      </article>
+
+      <article class="card">
+        <h2>改善・効果確認を追記</h2>
+        <p>原因 → 改善策 → 担当・期限 → 再試験・効果確認をPDCA履歴として残します。</p>
+        <form id="improvementForm">
+          <div class="form-grid">
+            <div class="field wide"><label for="improvementInspectionId">対象検査 *</label><select id="improvementInspectionId" name="improvementInspectionId" required><option value="">対象記録を選択</option></select></div>
+            <div class="field wide"><label for="cause">原因 *</label><textarea id="cause" name="cause" required maxlength="2000" placeholder="発生原因・推定原因"></textarea></div>
+            <div class="field wide"><label for="action">改善策 *</label><textarea id="action" name="action" required maxlength="2000" placeholder="工程・糸・編成・仕上げ等の対応"></textarea></div>
+            <div class="field"><label for="improvementOwner">担当者</label><input id="improvementOwner" name="improvementOwner" maxlength="80"></div>
+            <div class="field"><label for="dueDate">期限</label><input id="dueDate" name="dueDate" type="date"></div>
+            <div class="field"><label for="improvementStatus">状態</label><select id="improvementStatus" name="improvementStatus"><option value="OPEN">未着手</option><option value="IN_PROGRESS">対応中</option><option value="VERIFIED">効果確認済み</option><option value="CLOSED">完了</option></select></div>
+            <div class="field wide"><label for="verification">再試験・効果確認</label><textarea id="verification" name="verification" maxlength="2000" placeholder="再試験結果、改善効果、残課題"></textarea></div>
+          </div>
+          <div class="actions"><button class="btn" type="submit">改善イベントを追記</button></div>
+          <div class="message" id="improvementMessage" role="status"></div>
+        </form>
+      </article>
+    </section>
+
+    <p class="footer">Local device only / Append-only inspection + review + improvement events / No automatic master write / No customer publish</p>
   </main>
-  <script src="./app.js?v=1.0.0" defer></script>
+  <script src="./quality-model.js?v=1.1.0" defer></script>
+  <script src="./app.js?v=1.1.0" defer></script>
   <script src="../usage-metrics.js?v=1.0.0" defer></script>
 </body>
 </html>

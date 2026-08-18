@@ -35,7 +35,6 @@ for html, label in ((fabric_html, "fabric inspection"), (market_html, "market in
     for destination in ("../brand-intelligence/", "../", "../owner-yarns/", "../daily/", "../status/"):
         require(html, f'href="{destination}"', label)
     require(html, "自動", label)
-require(fabric_html, "PENDING_HUMAN_REVIEW", "fabric inspection")
 require(market_html, "Human Review確認待ち", "market intelligence")
 
 for javascript, label, storage_key, export_format in (

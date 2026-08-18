@@ -1,6 +1,6 @@
 {
-  "schema_version": "1.7.0",
-  "updated_at": "2026-08-18T09:29:00+09:00",
+  "schema_version": "1.8.0",
+  "updated_at": "2026-08-18T09:55:00+09:00",
   "policy": {
     "unknown_connections_are_forbidden": true,
     "connection_change_requires_registry_update": true,
@@ -253,18 +253,34 @@
     },
     {
       "system_id": "KC-FABRIC-INSPECTION",
-      "display_name": "Knit Compass 生地検査",
+      "display_name": "Knit Compass 品質・生地試験",
       "environment": "independent-local",
-      "display_version": "v1.0.0",
+      "display_version": "v1.1.0",
       "entry_path": "/fabric-inspection/",
       "entry_href": "../fabric-inspection/",
-      "entry_label": "生地検査を開く",
+      "entry_label": "品質・生地試験を開く",
       "code_source": "fabric-inspection/app.js@main",
-      "code_revision": "git-blob:35f54c3bcd61327f52b7be352fc4edd955a8ebcf",
+      "code_revision": "git-blob:94a315bb10855216ae06cbc0de72a321ef669f9c",
       "auxiliary_sources": [
         {
           "code_source": "fabric-inspection/index.html@main",
-          "code_revision": "git-blob:88fb993f3d69d6900b3591850e6f0bedcf982dc8"
+          "code_revision": "git-blob:07685a076f51101e242c6c160aec9eaf086ce9d5"
+        },
+        {
+          "code_source": "fabric-inspection/quality-model.js@main",
+          "code_revision": "git-blob:30facd3218400cdfb494035bd2ba086ff17ee7c7"
+        },
+        {
+          "code_source": "quality_management_workspace_v1/index.html@main",
+          "code_revision": "git-blob:9e5fd19b13961467da38d52c9fabf0c7a3fc59c7"
+        },
+        {
+          "code_source": "quality_management_workspace_v1/app.js@main",
+          "code_revision": "git-blob:8348730dbf274676b0b5b9c48eac4c5f5ad95237"
+        },
+        {
+          "code_source": "quality_management_workspace_v1/ui-polish.css@main",
+          "code_revision": "git-blob:5cd9c08c8d5bd8e5963d9d099820e398f2d71c06"
         },
         {
           "code_source": "usage-metrics.js@main",
@@ -272,8 +288,8 @@
         }
       ],
       "data_store": "browser-localstorage",
-      "storage_detail": "localStorage kc_fabric_inspection_records_v1 stores append-only fabric inspection records; correction records reference supersedes_id instead of overwriting prior records; gauge and knitting_ends remain separate; every record is PENDING_HUMAN_REVIEW with publication_status HOLD; audit JSON export only; no formal master, Human Review inbox, or customer-sharing mutation",
-      "sync_mode": "local-append-only-pending-human-review",
+      "storage_detail": "localStorage kc_fabric_inspection_records_v1 stores device-local append-only quality state with immutable inspection records plus separate review_events and improvement_events; corrections reference supersedes_id instead of overwriting prior records; inspection_scope separates fabric tests from appearance inspection; test method, standard value, measured value, unit, Photo Capture ID, and quality photo references are retained; Review decisions and improvement PDCA are appended as audit events; manual audit JSON export only; no automatic Mac/iPhone/browser sync, formal master write, company DB write, Human Review inbox mutation, or customer-sharing publish",
+      "sync_mode": "local-append-only-quality-event-log",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "no-automatic-production-core-company-db-connection",
       "status": "active"
