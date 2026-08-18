@@ -14,7 +14,7 @@ PAGE = ROOT / "owner-yarns/index.html"
 TOP_PAGE = ROOT / "brand-intelligence/index.html"
 MARKET_SIGNALS = ROOT / "data/market-trends/market-signals.json"
 MD_PROPOSALS = ROOT / "data/brand-md-monitoring/latest-material-proposals.json"
-TRIAGE = ROOT / "data/human-review/2026-08-18-intake-22-triage.json"
+TRIAGE = ROOT / "data/human-review/2026-08-18-intake-24-triage.json"
 MARKET_JS = ROOT / "market-signals.js"
 BATCHES = [
     ROOT / "data/manual-intake/2026-08-08-weijie-hesheng-batch1.json",
@@ -25,6 +25,7 @@ BATCHES = [
     ROOT / "data/manual-intake/2026-08-13-american-holic-products-batch6.json",
     ROOT / "data/manual-intake/2026-08-17-minghai-wool-silk-core-spun-batch7.json",
     ROOT / "data/manual-intake/2026-08-18-american-holic-products-batch8.json",
+    ROOT / "data/manual-intake/2026-08-18-dinghong-mz100-25139-batch9.json",
 ]
 
 assert FALLBACK_CATALOG.is_file(), "2,000-record fallback catalog is missing"
@@ -56,9 +57,6 @@ coverage = {
 }
 print("catalog field coverage:", coverage)
 assert coverage["name"] == 3000
-# Listing pages do not expose every field consistently. The quality floor verifies
-# that each optional search facet is populated on a meaningful subset while all
-# records retain a source ID and URL for detailed follow-up.
 assert coverage["count_display"] >= 200
 assert coverage["composition_raw"] >= 200
 assert coverage["listed_supplier"] >= 200
@@ -118,8 +116,8 @@ for path in BATCHES:
     assert all(item.get("review_status") == "PENDING" for item in batch["items"])
     all_items.extend(batch["items"])
 
-assert len(all_items) == 22
-assert len({item.get("dedupe_key") for item in all_items}) == 22
+assert len(all_items) == 24
+assert len({item.get("dedupe_key") for item in all_items}) == 24
 assert any(item.get("payload", {}).get("sourceOrganizationName", "").startswith("TWIN WIN") for item in all_items)
 gdm = [item for item in all_items if item.get("payload", {}).get("productCode") == "GDM56050"]
 assert len(gdm) == 1
@@ -147,6 +145,32 @@ assert minghai_payload.get("manufacturerName") == ""
 assert minghai_payload.get("sourceUrl") == ""
 assert minghai_payload.get("verificationStatus") == "candidate"
 assert "QUEEN" not in json.dumps(minghai_payload, ensure_ascii=False)
+
+dinghong_org = [item for item in all_items if item.get("handoff_id") == "HF-MANUAL-20260818-23-DINGHONG"]
+assert len(dinghong_org) == 1
+dinghong_org_payload = dinghong_org[0]["payload"]
+assert dinghong_org_payload.get("targetType") == "organization"
+assert dinghong_org_payload.get("targetId") == "TMP-OR-KC-20260818-DINGHONG"
+assert dinghong_org_payload.get("sourceOrganizationName") == "东莞市鼎宏纺织品有限公司"
+assert dinghong_org_payload.get("manufacturerName") == ""
+assert dinghong_org_payload.get("organizationProfile", {}).get("legalNameEnglish") == "Dongguan Dinghong Textile Co Ltd"
+assert "东莞市鼎宏纺织有限公司" in dinghong_org_payload.get("organizationProfile", {}).get("aliases", [])
+
+dinghong_yarn = [item for item in all_items if item.get("handoff_id") == "HF-MANUAL-20260818-24-MZ100-25139"]
+assert len(dinghong_yarn) == 1
+dinghong_yarn_payload = dinghong_yarn[0]["payload"]
+assert dinghong_yarn_payload.get("targetType") == "yarn"
+assert dinghong_yarn_payload.get("yarnName") == "羊毛马海毛"
+assert dinghong_yarn_payload.get("yarnCode") == "MZ100-25139"
+assert dinghong_yarn_payload.get("countSystem") == "unknown"
+assert dinghong_yarn_payload.get("countDisplay") == "9S/1 13S/1"
+assert dinghong_yarn_payload.get("compositionRaw") == "8%马海毛 30%尼龙(锦纶) 15%羊毛 47%腈纶"
+assert dinghong_yarn_payload.get("compositionTotal") == 100
+assert dinghong_yarn_payload.get("manufacturerName") == ""
+assert dinghong_yarn_payload.get("sourceUrl") == "https://www.mz100.cn/seka/25139"
+assert dinghong_yarn_payload.get("verificationStatus") == "candidate"
+assert dinghong_yarn_payload.get("fieldEvidence", {}).get("countDisplay", {}).get("status") == "raw_text_count_system_unconfirmed"
+
 cool_touch = next(item for item in american_holic if item["payload"].get("productCode") == "0H001683000")
 assert any(prop.get("name") == "接触冷感" for prop in cool_touch["payload"].get("functionalProperties", []))
 
@@ -172,11 +196,11 @@ assert triage.get("format") == "KC_HUMAN_REVIEW_TRIAGE"
 assert triage.get("effect") == "ADVISORY_ONLY_NO_PROMOTION"
 assert triage.get("source_review_status_required") == "PENDING"
 decisions = triage.get("decisions")
-assert isinstance(decisions, list) and len(decisions) == 22
+assert isinstance(decisions, list) and len(decisions) == 24
 assert {row.get("handoff_id") for row in decisions} == {item.get("handoff_id") for item in all_items}
 assert {row.get("classification") for row in decisions} <= {"APPROVABLE", "CONDITIONAL", "HOLD"}
 decision_counts = {label: sum(row.get("classification") == label for row in decisions) for label in ("APPROVABLE", "CONDITIONAL", "HOLD")}
-assert decision_counts == {"APPROVABLE": 14, "CONDITIONAL": 5, "HOLD": 3}
+assert decision_counts == {"APPROVABLE": 14, "CONDITIONAL": 7, "HOLD": 3}
 assert triage.get("counts") == {**decision_counts, "AUTO_PROMOTED": 0}
 
 md_proposals = json.loads(MD_PROPOSALS.read_text(encoding="utf-8"))
@@ -197,17 +221,20 @@ html = PAGE.read_text(encoding="utf-8")
 for required in (
     "mz100-catalog-2000.json",
     "kc_v04_handoff_queue_v1",
-    "22件",
+    "24件",
     "GDM56050",
     "TWIN WIN",
     "AMERICAN HOLIC",
+    "鼎宏",
+    "MZ100 25139",
     "2026-08-13-american-holic-products-batch6.json",
     "2026-08-18-american-holic-products-batch8.json",
+    "2026-08-18-dinghong-mz100-25139-batch9.json",
     "Human Review",
     "BACKUP_SHARE_ONLY",
     "Knit Compassを主系統",
     "TRIAGE_URL",
-    "data/human-review/2026-08-18-intake-22-triage.json",
+    "data/human-review/2026-08-18-intake-24-triage.json",
     "mz100-catalog-3000.json",
     "URLSearchParams(location.search)",
     "activateTab(location.hash.slice(1))",
@@ -218,9 +245,9 @@ for required in (
 top_html = TOP_PAGE.read_text(encoding="utf-8")
 assert "market-signals.js" in top_html, "sales top is not connected to market signals"
 assert "17件" not in top_html, "sales top still exposes the stale 17-candidate count"
-for label in ("商品調査", "糸検索", "原料相場", "編み地イメージ", "生地検査", "Human Review", "22件"):
+for label in ("商品調査", "糸検索", "原料相場", "編み地イメージ", "生地検査", "Human Review", "24件"):
     assert label in top_html, f"sales navigation missing: {label}"
-for stale_label in ("V04本体", "V04 TOP", "糸検索2,000件", "糸マスター2,000件", "v0.4受信箱"):
+for stale_label in ("V04本体", "V04 TOP", "糸検索2,000件", "糸マスター2,000件", "v0.4受信箱", "未反映22件"):
     assert stale_label not in top_html, f"sales top exposes stale label: {stale_label}"
 
 market_js = MARKET_JS.read_text(encoding="utf-8")
@@ -238,5 +265,5 @@ for required in (
 print(
     "owner yarn implementation: OK "
     f"(3000 active catalog records, {len(analog_matches)} Analog Revival matches, "
-    "22 PENDING candidates triaged 14/5/3, zero automatic promotion, safety boundary preserved)"
+    "24 PENDING candidates triaged 14/7/3, zero automatic promotion, safety boundary preserved)"
 )
