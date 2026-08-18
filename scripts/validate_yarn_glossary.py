@@ -60,7 +60,7 @@ def main() -> None:
     except (OSError, json.JSONDecodeError) as error:
         fail(f"cannot read glossary JSON: {error}")
 
-    if data.get("schema_version") != "1.0.0":
+    if data.get("schema_version") != "1.1.0":
         fail("unexpected glossary schema_version")
     if data.get("dictionary_id") != "KC-CN-YARN-001":
         fail("dictionary_id must be KC-CN-YARN-001")
@@ -70,6 +70,8 @@ def main() -> None:
         fail("market names must not be treated as composition")
     if policy.get("natural_fiber_must_be_verified_from_composition") is not True:
         fail("natural fiber verification policy is missing")
+    if policy.get("combed_does_not_imply_ring_spinning") is not True:
+        fail("combed cotton must not imply ring spinning")
     if policy.get("representative_field_label") != "代表的な糸タイプ（例）":
         fail("representative field label must be 代表的な糸タイプ（例）")
     if policy.get("avoid_field_label") != "糸例":
