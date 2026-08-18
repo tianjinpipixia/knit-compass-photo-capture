@@ -1,0 +1,28 @@
+name: Validate Siro glossary unification
+
+on:
+  pull_request:
+    paths:
+      - 'brand-intelligence/index.html'
+      - 'brand-intelligence/siro-glossary-augment.js'
+      - 'brand-intelligence/siro-sirofil-core-spun.html'
+      - 'scripts/validate_siro_glossary_unification.py'
+      - '.github/workflows/validate-siro-glossary-unification.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'brand-intelligence/index.html'
+      - 'brand-intelligence/siro-glossary-augment.js'
+      - 'brand-intelligence/siro-sirofil-core-spun.html'
+      - 'scripts/validate_siro_glossary_unification.py'
+      - '.github/workflows/validate-siro-glossary-unification.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/validate_siro_glossary_unification.py
