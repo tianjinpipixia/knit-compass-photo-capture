@@ -5,6 +5,9 @@
   const HANDOFF_KEY = 'kc_v04_handoff_queue_v1';
   const EDITOR_DRAFT_KEY = 'kc_photo_capture_editor_draft_v1';
   const DRAFT_SAVE_DELAY_MS = 250;
+  const DRAFT_STATUS_LABELS = new Set(['端末に下書き保存', '下書き保存']);
+  const REVIEW_ACTION_LABELS = new Set(['受信箱で内容確認', 'Human Review受信箱を開く']);
+  const FORMAL_STATUS_LABELS = new Set(['正式登録は人が確認', '確認後に正式登録']);
 
   let activeForm = null;
   let draftTimer = null;
@@ -246,6 +249,80 @@
     setFormMessage(form, `保存できませんでした: ${event.reason?.message || '保存処理でエラーが発生しました'}`, true);
   });
 
+  function normalizedText(element) {
+    return (element?.textContent || '').replace(/\s+/g, ' ').trim();
+  }
+
+  function photoCaptureHeader() {
+    const heading = [...document.querySelectorAll('h1')]
+      .find((element) => normalizedText(element).includes('Knit Compass Photo Capture'));
+    if (!heading) return null;
+    return heading.closest('section,.card,header') || heading.parentElement?.parentElement || heading.parentElement;
+  }
+
+  function exactLabeledElement(root, labels) {
+    if (!root) return null;
+    return [...root.querySelectorAll('a,button,span')]
+      .find((element) => !element.children.length && labels.has(normalizedText(element))) || null;
+  }
+
+  function statusOnly(element) {
+    if (!element || !element.matches('a,button,[role="button"]')) return element;
+    const status = document.createElement('span');
+    status.className = element.className || 'badge';
+    status.textContent = normalizedText(element);
+    status.setAttribute('aria-label', `${status.textContent}（状態表示）`);
+    status.dataset.kcStatusOnly = 'true';
+    element.replaceWith(status);
+    return status;
+  }
+
+  function reviewInboxHref() {
+    return window.location.pathname.includes('/photo-capture-current/')
+      ? '../brand-intelligence/'
+      : 'brand-intelligence/';
+  }
+
+  function reviewInboxLink(element, fallbackClass = 'badge') {
+    const link = element?.tagName === 'A' ? element : document.createElement('a');
+    if (link !== element) {
+      link.className = element?.className || fallbackClass;
+      element?.replaceWith(link);
+    }
+    link.href = reviewInboxHref();
+    if (link.textContent !== '受信箱で内容確認') link.textContent = '受信箱で内容確認';
+    link.title = 'Human Review受信箱を開く';
+    link.dataset.kcReviewInboxAction = 'true';
+    link.removeAttribute('disabled');
+    link.removeAttribute('aria-disabled');
+    link.removeAttribute('role');
+    return link;
+  }
+
+  function refreshTopWorkflowControls() {
+    const header = photoCaptureHeader();
+    if (!header) return;
+
+    const draft = statusOnly(exactLabeledElement(header, DRAFT_STATUS_LABELS));
+    const formal = statusOnly(exactLabeledElement(header, FORMAL_STATUS_LABELS));
+    const existingAction = exactLabeledElement(header, REVIEW_ACTION_LABELS);
+
+    if (existingAction) {
+      reviewInboxLink(existingAction);
+      return;
+    }
+
+    if (header.querySelector('[data-kc-review-inbox-action="true"]')) return;
+
+    const host = header.querySelector('.badges')
+      || (draft && formal && draft.parentElement === formal.parentElement ? draft.parentElement : null);
+    if (!host) return;
+
+    const link = reviewInboxLink(null, draft?.className || formal?.className || 'badge');
+    if (draft?.parentElement === host) draft.insertAdjacentElement('afterend', link);
+    else host.append(link);
+  }
+
   const observer = new MutationObserver(() => {
     const form = document.getElementById(FORM_ID);
     if (form) initializeEditorForm(form);
@@ -254,6 +331,7 @@
       activeForm = null;
     }
     refreshRecordSendState();
+    refreshTopWorkflowControls();
   });
 
   const observerRoot = document.documentElement;
@@ -261,4 +339,5 @@
     try { observer.observe(observerRoot, { childList: true, subtree: true }); } catch { /* ページ離脱中 */ }
   }
   refreshRecordSendState();
+  refreshTopWorkflowControls();
 })();

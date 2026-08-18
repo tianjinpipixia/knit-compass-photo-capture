@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression checks for Photo Capture save, resend, editor recovery, and knitting ends."""
+"""Regression checks for Photo Capture save, resend, editor recovery, navigation, and knitting ends."""
 from __future__ import annotations
 
 import re
@@ -60,6 +60,13 @@ def main() -> None:
     require(guard_text, "setFormBusy(form, true)", "save double-submit guard")
     require(guard_text, "EDITOR_DRAFT_KEY", "editor draft recovery")
     require(guard_text, "sessionStorage.removeItem(EDITOR_DRAFT_KEY)", "draft cleanup after save")
+    require(guard_text, "DRAFT_STATUS_LABELS", "draft status-only labels")
+    require(guard_text, "REVIEW_ACTION_LABELS", "review inbox action labels")
+    require(guard_text, "FORMAL_STATUS_LABELS", "formal registration status labels")
+    require(guard_text, "function refreshTopWorkflowControls()", "top workflow control repair")
+    require(guard_text, "function reviewInboxHref()", "review inbox route resolver")
+    require(guard_text, "../brand-intelligence/", "photo-capture-current inbox route")
+    require(guard_text, 'data-kc-review-inbox-action', "review inbox action marker")
 
     require(knitting_text, "const FIELD_NAME = 'knittingEnds'", "knitting ends data key")
     require(knitting_text, "value.snapshot[FIELD_NAME] = ends", "IndexedDB event enrichment")
@@ -68,7 +75,7 @@ def main() -> None:
     require(knitting_text, "kc_photo_capture_knitting_ends_v1", "UI restore sidecar")
     require(knitting_text, "本取り（編地）", "visible knitting ends label")
 
-    print("OK: Photo Capture UI state guard and knitting ends checks passed")
+    print("OK: Photo Capture UI state guard, navigation, and knitting ends checks passed")
 
 
 if __name__ == "__main__":
