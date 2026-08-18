@@ -1,0 +1,32 @@
+name: Validate Photo Capture current route
+
+"on":
+  pull_request:
+    paths:
+      - "photo-capture-current/**"
+      - "sw.js"
+      - "scripts/validate_photo_capture_current_route.py"
+      - ".github/workflows/validate-photo-capture-current-route.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "photo-capture-current/**"
+      - "sw.js"
+      - "scripts/validate_photo_capture_current_route.py"
+      - ".github/workflows/validate-photo-capture-current-route.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate legacy Photo Capture compatibility route
+        run: python scripts/validate_photo_capture_current_route.py
