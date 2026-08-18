@@ -99,6 +99,10 @@
     if(value==='appearance')return isAppearanceRecord(record);
     if(value==='photo')return photoEvidenceCount(record)>0;
     if(value==='improvement')return summary.improvementMap.has(String(record.inspection_id||''));
+    if(value==='improvement-open'){
+      const event=summary.improvementMap.get(String(record.inspection_id||''));
+      return Boolean(event&&IMPROVEMENT_OPEN_STATUSES.has(event.status));
+    }
     return true;
   }
 
