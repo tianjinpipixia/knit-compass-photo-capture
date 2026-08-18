@@ -1,8 +1,18 @@
 {
   "format": "KC_BRAND64_MD_MONITORING",
-  "schema_version": "1.0",
-  "updated_at": "2026-08-13T23:41:00+09:00",
-  "scope": "64 canonical brands / women's knit focus",
+  "schema_version": "1.1",
+  "updated_at": "2026-08-18T09:24:00+09:00",
+  "scope": "64 active brands / women's knit focus",
+  "active_brand_source": "config/brand64-active-brands.json",
+  "active_brand_count": 64,
+  "inactive_history_policy": "KEEP_INACTIVE_LEGACY_REFERENCE_AND_NEVER_REUSE_BRAND_ID",
+  "pal_group": {
+    "active_brand_count": 10,
+    "brand_id_range": "BR-00065..BR-00074",
+    "common_knit_entry_url": "https://www.palcloset.jp/display/display/?mode=zSearch&SearchItem.SORT_KEY=POPULARITY_DESC&b=&sex=&c=1104,1105&type=01",
+    "daily_entry_checks": ["new_arrival", "pre_order", "sale", "ranking"],
+    "weekly_extra_checks": ["popularity_rank_change"]
+  },
   "cadence": {
     "daily": {
       "mode": "LIGHT_SCAN",
@@ -26,6 +36,7 @@
         "price_band_change",
         "reservation_change",
         "design_change",
+        "popularity_rank_change",
         "top_products",
         "material_development_implication",
         "next_checks"
@@ -57,6 +68,9 @@
     "sales_quantity_without_evidence": "NOT_AVAILABLE",
     "sales_quantity_estimation": "FORBIDDEN",
     "dedupe_keys": ["brand", "product_code", "official_url"],
+    "preserve_first_seen_product_baseline": true,
+    "source_offline_deletion": "FORBIDDEN",
+    "brand_id_reuse": "FORBIDDEN",
     "human_review_before_master": true,
     "customer_publication": "HOLD"
   },
