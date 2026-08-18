@@ -1,0 +1,187 @@
+{
+  "format": "KC_V04_INBOX_EXPORT",
+  "schema_version": "1.0",
+  "exported_at": "2026-08-18T03:58:00Z",
+  "source_system": "KC-MANUAL-INTAKE",
+  "batch_id": "KC-MANUAL-20260818-BATCH9-DINGHONG-MZ100-25139",
+  "description": "Dongguan Dinghong organization candidate plus MZ100 listing 25139. MZ100 listing facts are preserved as PENDING evidence; count system, manufacturing role and full specification require Human Review.",
+  "items": [
+    {
+      "format": "KC_V04_INBOX_ITEM",
+      "schema_version": "1.0",
+      "handoff_id": "HF-MANUAL-20260818-23-DINGHONG",
+      "dedupe_key": "manual-20260818-batch9:DINGHONG-TEXTILE:v1",
+      "capture_id": "MANUAL-20260818-DINGHONG-TEXTILE",
+      "event_id": "KCI-EVENT-MANUAL-20260818-23",
+      "event_version": 1,
+      "source_system": "KC-MANUAL-INTAKE",
+      "sent_at": "2026-08-18T03:58:00Z",
+      "review_status": "PENDING",
+      "payload": {
+        "dataContractVersion": "1.1.1",
+        "captureId": "MANUAL-20260818-DINGHONG-TEXTILE",
+        "priority": "HIGH",
+        "targetType": "organization",
+        "targetId": "TMP-OR-KC-20260818-DINGHONG",
+        "commonIds": {
+          "productId": "",
+          "yarnId": "",
+          "materialId": "",
+          "researchId": "TMP-RS-KC-20260818-DINGHONG"
+        },
+        "sourceOrganizationName": "东莞市鼎宏纺织品有限公司",
+        "sourceOrganizationId": "TMP-OR-KC-20260818-DINGHONG",
+        "manufacturerName": "",
+        "manufacturerId": "",
+        "sellerName": "",
+        "sellerId": "",
+        "brandName": "",
+        "productName": "",
+        "productCode": "",
+        "productUrl": "",
+        "yarnName": "",
+        "yarnCode": "",
+        "countSystem": "unknown",
+        "countValue": "",
+        "countDisplay": "",
+        "plyCount": null,
+        "gauge": "",
+        "knittingEnds": null,
+        "basicYarnForm": "unconfirmed",
+        "yarnStructure": "",
+        "spinningMethod": "",
+        "processingMethod": "",
+        "compositionRaw": "",
+        "compositionTotal": null,
+        "compositionStatus": "unconfirmed",
+        "functionalProperties": [],
+        "functionClaimStatus": "not_confirmed",
+        "functionDetail": "",
+        "functionTest": "",
+        "sustainableAttributes": [],
+        "sustainableStatus": "not_confirmed",
+        "sustainableBasis": "",
+        "certification": "",
+        "seasons": [],
+        "documentType": "official_exhibitor_directory",
+        "sourceType": "official_exhibitor_directory",
+        "sourceUrl": "https://yarn-expo-spring.hk.messefrankfurt.com/content/dam/messefrankfurt-redaktion/yarn_expo_spring/download/yes26/YES2026_VG%E5%86%85%E9%A1%B5-%E7%94%B5%E5%AD%90%E7%89%88.pdf",
+        "verificationStatus": "candidate",
+        "evidenceId": "TMP-EV-KC-20260818-DINGHONG-YES26",
+        "organizationProfile": {
+          "legalNameLocal": "东莞市鼎宏纺织品有限公司",
+          "legalNameEnglish": "Dongguan Dinghong Textile Co Ltd",
+          "organizationType": "yarn_supplier",
+          "countryRegion": "China / Guangdong / Dongguan",
+          "aliases": [
+            "东莞市鼎宏纺织有限公司"
+          ],
+          "productGroups": [
+            "Fancy Yarn"
+          ],
+          "evidenceSummary": "Messe Frankfurt Yarn Expo official exhibitor material confirms the company name Dongguan Dinghong Textile Co Ltd / 东莞市鼎宏纺织品有限公司. MZ100 lists yarn 25139 under the shorter name 东莞市鼎宏纺织有限公司; the shorter form is retained only as an alias candidate. Address, contacts, certifications, MOQ, export record and manufacturer role are not confirmed here."
+        },
+        "fieldEvidence": {
+          "legalNameLocal": {
+            "status": "official_exhibitor_directory",
+            "evidenceId": "TMP-EV-KC-20260818-DINGHONG-YES26"
+          },
+          "legalNameEnglish": {
+            "status": "official_exhibitor_directory",
+            "evidenceId": "TMP-EV-KC-20260818-DINGHONG-YES26"
+          },
+          "mz100Alias": {
+            "status": "candidate_alias_only",
+            "evidenceId": "TMP-EV-KC-20260818-MZ100-25139"
+          }
+        },
+        "notes": "会社マスター候補。Yarn Expo公式出展者資料の法人表記を主証拠とし、MZ100掲載名の『东莞市鼎宏纺织有限公司』は『品』が省略された別表記候補として保持する。現時点ではMZ100掲載会社を糸25139の製造者とは確定しない。Human Review後に正式OR-IDへ昇格する。",
+        "photoRefs": []
+      }
+    },
+    {
+      "format": "KC_V04_INBOX_ITEM",
+      "schema_version": "1.0",
+      "handoff_id": "HF-MANUAL-20260818-24-MZ100-25139",
+      "dedupe_key": "manual-20260818-batch9:MZ100-25139:v1",
+      "capture_id": "MANUAL-20260818-MZ100-25139",
+      "event_id": "KCI-EVENT-MANUAL-20260818-24",
+      "event_version": 1,
+      "source_system": "KC-RESEARCH-INTAKE",
+      "sent_at": "2026-08-18T03:58:00Z",
+      "review_status": "PENDING",
+      "payload": {
+        "dataContractVersion": "1.1.1",
+        "captureId": "MANUAL-20260818-MZ100-25139",
+        "priority": "HIGH",
+        "targetType": "yarn",
+        "targetId": "TMP-YN-KC-20260818-MZ100-25139",
+        "commonIds": {
+          "productId": "",
+          "yarnId": "TMP-YN-KC-20260818-MZ100-25139",
+          "materialId": "",
+          "researchId": "TMP-RS-KC-20260818-MZ100-25139"
+        },
+        "sourceOrganizationName": "东莞市鼎宏纺织有限公司",
+        "sourceOrganizationId": "TMP-OR-KC-20260818-DINGHONG",
+        "manufacturerName": "",
+        "manufacturerId": "",
+        "sellerName": "东莞市鼎宏纺织有限公司",
+        "sellerId": "TMP-OR-KC-20260818-DINGHONG",
+        "brandName": "",
+        "productName": "",
+        "productCode": "",
+        "productUrl": "",
+        "yarnName": "羊毛马海毛",
+        "yarnCode": "MZ100-25139",
+        "countSystem": "unknown",
+        "countValue": "",
+        "countDisplay": "9S/1 13S/1",
+        "plyCount": null,
+        "gauge": "",
+        "knittingEnds": null,
+        "basicYarnForm": "unconfirmed",
+        "yarnStructure": "",
+        "spinningMethod": "",
+        "processingMethod": "",
+        "compositionRaw": "8%马海毛 30%尼龙(锦纶) 15%羊毛 47%腈纶",
+        "compositionTotal": 100,
+        "compositionStatus": "candidate",
+        "functionalProperties": [],
+        "functionClaimStatus": "not_confirmed",
+        "functionDetail": "",
+        "functionTest": "",
+        "sustainableAttributes": [],
+        "sustainableStatus": "not_confirmed",
+        "sustainableBasis": "",
+        "certification": "",
+        "seasons": [],
+        "documentType": "industry_platform_supplier_listing",
+        "sourceType": "industry_platform_supplier_listing",
+        "sourceUrl": "https://www.mz100.cn/seka/25139",
+        "verificationStatus": "candidate",
+        "evidenceId": "TMP-EV-KC-20260818-MZ100-25139",
+        "fieldEvidence": {
+          "yarnName": {
+            "status": "candidate",
+            "evidenceId": "TMP-EV-KC-20260818-MZ100-25139"
+          },
+          "countDisplay": {
+            "status": "raw_text_count_system_unconfirmed",
+            "evidenceId": "TMP-EV-KC-20260818-MZ100-25139"
+          },
+          "compositionRaw": {
+            "status": "candidate",
+            "evidenceId": "TMP-EV-KC-20260818-MZ100-25139"
+          },
+          "listedCompanyRole": {
+            "status": "seller_or_source_only",
+            "evidenceId": "TMP-EV-KC-20260818-MZ100-25139"
+          }
+        },
+        "notes": "MZ100 ID 25139に限定したPENDING候補。掲載名は羊毛马海毛、番手表示は『9S/1 13S/1』、混率表示は8%马海毛/30%尼龙(锦纶)/15%羊毛/47%腈纶。S表記の番手体系は未確認のためNe/Nmへ変換せず、countSystem=unknownで原文保持する。MZ100掲載会社は『东莞市鼎宏纺织有限公司』だが、公式Yarn Expo資料の法人表記『东莞市鼎宏纺织品有限公司』との関係はHuman Reviewで確認する。MZ100掲載だけでは製造者、糸構造、紡績方式、ゲージ、本取り、認証、MOQ、価格、在庫数量を確定しない。",
+        "photoRefs": []
+      }
+    }
+  ]
+}
