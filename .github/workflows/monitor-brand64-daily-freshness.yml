@@ -3,13 +3,30 @@ name: Monitor brand64 daily freshness
 "on":
   schedule:
     - cron: "40 21 * * *"
+  pull_request:
+    paths:
+      - "config/brand64-active-brands.json"
+      - "config/brand64-md-monitoring.json"
+      - "data/brand-md-monitoring/**"
+      - "docs/BRAND64_DAILY_MD_MONITORING.md"
+      - "scripts/validate_brand64_daily_freshness.py"
+      - ".github/workflows/monitor-brand64-daily-freshness.yml"
+  push:
+    branches: [main]
+    paths:
+      - "config/brand64-active-brands.json"
+      - "config/brand64-md-monitoring.json"
+      - "data/brand-md-monitoring/**"
+      - "docs/BRAND64_DAILY_MD_MONITORING.md"
+      - "scripts/validate_brand64_daily_freshness.py"
+      - ".github/workflows/monitor-brand64-daily-freshness.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: brand64-daily-freshness
+  group: brand64-daily-freshness-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -21,5 +38,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Require a current 64-brand observation and matching proposals
+      - name: Require a current active 64-brand observation and matching proposals
         run: python scripts/validate_brand64_daily_freshness.py --max-age-days 1
