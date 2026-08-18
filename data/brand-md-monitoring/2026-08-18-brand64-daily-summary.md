@@ -2,44 +2,49 @@
 
 ## 実施範囲
 
-- canonical 64ブランドの公式サイト・公式EC入口について、新着・予約・SALE・ランキング等の導線を軽量巡回した。
-- レディースニット中心。五大陸 / TAKEO KIKUCHI はレディースMD対象外、repipi armario はティーン別スコープ、any FAM は現行ANYとの二重集計を避けるため履歴参照扱い。
-- 前日に `SOURCE_FRESHNESS_LIMITED` 系だった21ブランドを優先回復。純粋な `SOURCE_FRESHNESS_LIMITED` は GARAGE OF GOOD CLOTHING 1ブランドまで縮小。CRAFT STANDARD BOUTIQUE / #Newans は部分回復、green label relaxing はカテゴリ鮮度回復・商品詳細取得待ち。
-- 64/64ブランドを日次記録。販売数量は一次根拠がないため全件 `NOT_AVAILABLE`、推定なし。同一URL/同一品番は重複追加しない。
-- 公式索引・検索結果の取得日が当日ライブでない場合、鮮度回復には使うが「8/18新着」「8/18値下げ」などの日次差分とは断定しない。
+- Issue #53のオーナー決定を反映し、アクティブBrand64の正本を `config/brand64-active-brands.json` に一本化。
+- 旧10ブランド（RAGEBLUE / repipi armario / ALAND / CRAFT STANDARD BOUTIQUE / GARAGE OF GOOD CLOTHING / J.Press / 五大陸 / uncrave / #Newans / MATINEE LINE）はアクティブ監視から外し、過去観測・商品URL・根拠を削除せず `INACTIVE_LEGACY_REFERENCE` として保持。旧BR-IDは再利用しない。
+- 代わりにPAL系10ブランドをBR-00065〜BR-00074で追加し、PAL CLOSET公式ブランドページと共通ニット入口を初回基準化。
+- 2026-08-18の旧構成64行は履歴として保持したまま、アクティブ集計では旧10行を除外し、`2026-08-18-pal10-daily.jsonl` の新規10行を重ねて**アクティブ64件**とする。
+- 販売数量は一次根拠がないため全件 `NOT_AVAILABLE`、推定なし。同一URL/同一品番は重複追加しない。PUBLISH_HOLD / HUMAN_REVIEW_REQUIREDを維持。
 
-## 本日の新規取得・基準拡張
+## 新規PAL10ブランド — 初回鮮度回復
 
-1. **ROPÉ PICNIC** — NEW ARRIVALから「テープヤーンラメカーディガン」¥5,489、「透かし編みスポンディッシュヘンリーネックニット」¥5,489、「[WEB限定]スフレニット Vネックコンパクトプルオーバー」¥4,994を部分基準化。商品URL・品番・混率・色は未取得のため次回補完。
-2. **Te chichi** — `2601413-22-12` 多機能フレンチスリーブニットを¥4,290→¥2,145、UV/接触冷感/抗菌防臭/マシンウォッシャブル、色別混率まで公式商品ページで保全。`2601402-22-12` 14GミドルVカーデも¥6,490→¥3,245、レーヨン78%/ポリエステル22%まで保全。
-3. **INDIVI** — `BR12726Z0003` 洗えるファンシーヤーンVネックニットベスト ¥14,300を商品ページ単位で保全。
-4. **any SiS** — `KRWPGA0902` ビスチェ風ニットを公式商品ページ基準化。UV/洗える、¥7,990→¥6,392基準を保持。
-5. **ANY** — `KRFXCS0301` コットンメッシュニットを公式商品ページで再確認。¥5,999→¥2,999、綿100%、UV/ウォッシャブル/アンチピリング、オフ/ブルーを保持。
-6. **IÉNA** — `26080900337030` フレアニット ¥15,400、手洗い可、ブラック/ブラウンを商品ページ基準化。
-7. **低〜中価格帯**では LOWRYS FARM / studio CLIP / LEPSIM / LAKOLE / JEANASIS / HARE / RAGEBLUE / Heather / PAGEBOY / A part by / mysty woman などで秋予約・NEWの比較基準を拡張。
-8. **中〜高価格帯**では SLOBE IENA / Spick & Span / IÉNA / Mila Owen / ROPÉ / uncrave 等で、天然混・毛羽・ハイゲージ・外衣型の比較基準を拡張。
+1. **GALLARDAGALANTE** — 公式PALページでNEW ARRIVAL / PRE ORDER / RANKING / NEWS導線を現行確認。初秋予約・シアー系の公式特集を基準化。
+2. **Whim Gazette** — 2026AW THE PAUSEでスラブニットカーディガン¥20,900予約、MIXヤーンカーディガン¥18,700等を確認。
+3. **LOUNGEDRESS** — PRE ORDER / PRE FALL COLLECTION / NEW LOOK / SALE入口を基準化。
+4. **RIVE DROITE** — PRE ORDER / NEW ARRIVAL / 人気ランキング / SPECIAL PRICE入口を基準化。
+5. **DOUDOU** — 新作 / SALE / MONTHLY RANKING / 先取りSTYLE BOOK入口を基準化。
+6. **SHENERY** — 2026 PRE FALL ORDER EVENT、NEW PRE ORDER、Weekly / Monthly Ranking入口を基準化。
+7. **un dix cors** — メッシュスリーブプルオーバー¥5,940、強撚ミックスラメトッパー¥5,500、UVドルマンニットのSALE等を確認。
+8. **La boutique BonBon** — ヘアリーフェザー前後2WAYフレンチニット¥11,550予約、ラメペプラム前後2WAYカーデ¥17,820予約、ロングフェザーベルリボンニット¥14,850予約等を確認。
+9. **natural couture** — UV / 接触冷感 / 吸水速乾の機能特集、異素材ペプラム半袖ニットSALE、秋先取り新着/予約導線を基準化。
+10. **DISCOAT** — EARLY AUTUMN / PRE ORDER / SALE / RANKINGを基準化。WEB限定前後2wayシャギー系予約など秋先取り表面感を確認。
 
-## 情報切れ・状態競合リスク
+PAL共通ニット入口:
+`https://www.palcloset.jp/display/display/?mode=zSearch&SearchItem.SORT_KEY=POPULARITY_DESC&b=&sex=&c=1104,1105&type=01`
 
-- **AMERICAN HOLIC `0H001683000`** — 公式系ソースで通常¥2,990、¥2,290・23%OFF、過去保全¥2,093・30%OFFが競合。ライブ商品ページ確定前は既存基準を上書きしない。
-- **UNFILO `KRUMSW0424`** — 公式索引で¥7,990→¥2,396・70%OFF/SOLD OUTが再確認できる一方、8/16保全の¥3,995・50%OFFと時系列競合。ライブ状態確定前は当日値下げとは扱わない。
-- **GARAGE OF GOOD CLOTHING** — 公式入口は確認できるが、レディースニットの商品単位で十分に新しい取得ができず `SOURCE_FRESHNESS_LIMITED` 継続。
-- **CRAFT STANDARD BOUTIQUE / #Newans** — 部分回復。最新商品の直接ページ詳細が不足。
-- **green label relaxing** — カテゴリ鮮度は回復したが、商品名・品番・混率の直接商品ページ保全が不足。
-- **ROPÉ PICNIC** — 新規3商品は発見時の価格/予約状態を保持したが、直接商品URL・品番・混率が未取得。
+## 既存アクティブブランドの鮮度回復
 
-## 重要MD差分
+- 前日まで鮮度不足だった既存ブランドではUNIQLO / GU / MUJI / ikka / any SiS / 23区 / ICB / 自由区 / 組曲 / UNTITLED / B.C STOCK / SLOBE IENA / Mila Owen等の公式入口・索引を再取得し、商品比較基準を更新。
+- **green label relaxing** はカテゴリ鮮度を回復したが、商品名・品番・混率の直接商品ページ取得がまだ不足。
+- **AMERICAN HOLIC `0H001683000`** は公式系ソース間の価格状態競合を維持し、ライブ商品ページ確定前は上書きしない。
+- **UNFILO `KRUMSW0424`** も¥3,995・50%OFF保全値と¥2,396・70%OFF/SOLD OUT索引が時系列競合しているため、ライブ状態確定前は当日差分と扱わない。
+- **ROPÉ PICNIC** 新規3商品は発見時の価格/予約状態を保持したが、直接商品URL・品番・混率は次回補完。
 
-- **残暑機能の意匠化**: 接触冷感・UV・洗える・抗ピルを、配色、フリル、ボウタイ、ペプラム、襟、メッシュなどへ載せる動きが継続。
-- **秋表面感の軽量化**: フェザー、シャギー、モヘヤ、ブークレ、モール、スフレ、スポンディッシュを重く見せず、半袖・ベスト・薄手羽織へ展開。
-- **上質ハイゲージの外衣化**: 14G〜18G級のメリノ、カシミヤ、シルク混、レーヨン/ナイロン系をポロ、金釦、ZIP、ジレ、ジャケット見えへ展開。
-- **完成スタイリング型**: レイヤード、2点セット、ドッキング、ペプラムなど、糸単体ではなく着方まで設計したニットが増えている。
+## 本日の重要MD差分
+
+- **残暑機能の意匠化**: 既存ブランドに加え、natural couture / un dix corsでもUV・冷感・強撚・メッシュ等の端境期機能を着映え方向へつなぐ動きが確認できる。
+- **軽量毛羽・表面感の拡大**: Whim Gazette / La boutique BonBon / DISCOATの追加で、スラブ、MIX、フェザー、シャギー、2WAYなど秋表面感の比較レンジが広がった。
+- **予約/ランキングの先行性**: PAL系はPRE ORDERとランキング導線が明確で、週次MDでは人気順変化を素材・型の先行シグナルとして使える。
+- **上質ハイゲージの外衣化**: IÉNA / ROPÉ / Mila Owen / Whim Gazette等の比較から、細番手〜中肉の上質見えニットをカーデ、ポロ、ZIP、ジレへ外衣化する流れを継続監視する。
 
 ## 素材開発への示唆
 
-- 14G/16G: 接触冷感・UV・吸水速乾・抗ピル・洗えるを、秋色、配色、ペプラム、襟、ラメ等の意匠へ載せる。
-- 10G〜12G: 軽量フェザー/モヘヤ/ブークレ/モール/スフレを、ウォッシャブル・静電気軽減・抗ピルとセットで提案。
-- 16G〜18G: メリノ/カシミヤ/シルク混、レーヨン/ナイロン等の細番手を、ポロ・金釦・ZIP・ジャケット/ジレ向けに展開。
-- 商品保全: 初回発見時に商品URL・品番・価格・混率・機能・色・予約状態を優先保存。取得できない項目は推定せず、次回補完対象として残す。
+- 14G/16G: 接触冷感・UV・吸水速乾・抗ピル・洗えるを、秋色、配色、ペプラム、襟、ラメ、メッシュ等の意匠へ載せる。
+- 10G〜12G: 軽量フェザー / シャギー / モヘヤ / ブークレ / MIXヤーンを、ウォッシャブル・静電気軽減・抗ピルと組み合わせる。
+- 16G〜18G: メリノ / カシミヤ / シルク混、レーヨン/ナイロン等の細番手を、ポロ・金釦・ZIP・ジャケット/ジレ向けに展開。
+- PAL系は日次で新着・予約・SALE・ランキングを軽量確認し、週次では人気順変化をブランド別MDへ集約する。
+- 新規商品は初回発見時に商品URL・品番・通常/SALE価格・混率・機能・色・予約状態を優先保存し、未取得項目は推定せず次回補完する。
 
 Publication: **PUBLISH_HOLD / HUMAN_REVIEW_REQUIRED**
