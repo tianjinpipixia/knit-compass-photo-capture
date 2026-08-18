@@ -1,8 +1,8 @@
 {
   "format": "KC_BRAND64_ACTIVE_SET",
-  "schema_version": "1.1",
-  "updated_at": "2026-08-19T08:20:00+09:00",
-  "decision_source": "GitHub Issue #73 / owner decision 2026-08-19",
+  "schema_version": "1.2",
+  "updated_at": "2026-08-19T08:32:00+09:00",
+  "decision_source": "GitHub Issues #73 and #75 / owner decisions 2026-08-19",
   "effective_from": "2026-08-19",
   "active_brand_count": 64,
   "active_brands": {
@@ -25,7 +25,6 @@
     "BR-00017": "coen",
     "BR-00018": "DoCLASSE",
     "BR-00019": "any SiS",
-    "BR-00020": "any FAM",
     "BR-00021": "LEPSIM",
     "BR-00022": "LAKOLE",
     "BR-00023": "JEANASIS",
@@ -69,10 +68,12 @@
     "BR-00072": "La boutique BonBon",
     "BR-00073": "natural couture",
     "BR-00074": "DISCOAT",
-    "BR-00075": "ZARA"
+    "BR-00075": "ZARA",
+    "BR-00076": "SNIDEL"
   },
-  "inactive_legacy_count": 11,
+  "inactive_legacy_count": 12,
   "inactive_legacy_brands": {
+    "BR-00020": "any FAM",
     "BR-00026": "RAGEBLUE",
     "BR-00029": "repipi armario",
     "BR-00034": "ALAND",
@@ -92,12 +93,16 @@
   },
   "transition": {
     "effective_from": "2026-08-19",
-    "removed_from_active": {"BR-00048": "TAKEO KIKUCHI"},
-    "added_to_active": {"BR-00075": "ZARA"},
+    "removed_from_active": {
+      "BR-00020": "any FAM",
+      "BR-00048": "TAKEO KIKUCHI"
+    },
+    "added_to_active": {
+      "BR-00075": "ZARA",
+      "BR-00076": "SNIDEL"
+    },
     "previous_snapshot_date": "2026-08-18",
-    "previous_active_id": "BR-00048",
-    "new_active_id": "BR-00075",
-    "historical_snapshot_rule": "Snapshots before effective_from remain valid against the previous active set. Do not fabricate a retroactive ZARA row."
+    "historical_snapshot_rule": "Snapshots before effective_from remain valid against the previous active set. Do not fabricate retroactive ZARA or SNIDEL rows."
   },
   "pal_group": {
     "common_knit_entry_url": "https://www.palcloset.jp/display/display/?mode=zSearch&SearchItem.SORT_KEY=POPULARITY_DESC&b=&sex=&c=1104,1105&type=01",
@@ -126,8 +131,16 @@
       "weekly_focus": ["new_shape", "surface_texture", "color", "price_band", "markdown_depth", "product_turnover"]
     }
   },
-  "special_scope": {
-    "BR-00020": "LEGACY_REFERENCE_IN_ACTIVE64"
+  "japan_signal_brands": {
+    "BR-00076": {
+      "brand_name": "SNIDEL",
+      "role": "JAPAN_FEMININE_DESIGN_FUNCTION_LEADING_MD_SIGNAL",
+      "official_url": "https://usagi-online.com/brand/snidel/",
+      "knit_url": "https://usagi-online.com/brand/snidel/category/AB/AB01/",
+      "cardigan_url": "https://usagi-online.com/brand/snidel/category/AB/AB05/",
+      "daily_entry_checks": ["NEW", "PREORDER", "SALE", "SOLD_OUT", "KNIT", "CARDIGAN"],
+      "weekly_focus": ["feminine_detail", "function_claim", "surface_texture", "color", "price_band", "preorder_to_launch"]
+    }
   },
   "rules": {
     "sales_quantity_estimation": "FORBIDDEN",
