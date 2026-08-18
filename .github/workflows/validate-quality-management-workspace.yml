@@ -7,6 +7,7 @@ name: Validate quality management workspace
       - "quality_management_workspace_v1/**"
       - "fabric-inspection/**"
       - "scripts/validate_quality_management_workspace.py"
+      - "scripts/validate_quality_model.js"
   push:
     branches:
       - main
@@ -15,6 +16,7 @@ name: Validate quality management workspace
       - "quality_management_workspace_v1/**"
       - "fabric-inspection/**"
       - "scripts/validate_quality_management_workspace.py"
+      - "scripts/validate_quality_model.js"
   workflow_dispatch:
 
 permissions:
@@ -27,5 +29,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate workspace structure and safety boundaries
         run: python3 scripts/validate_quality_management_workspace.py
-      - name: Check dashboard JavaScript syntax
-        run: node --check quality_management_workspace_v1/app.js
+      - name: Check quality JavaScript syntax
+        run: |
+          node --check fabric-inspection/quality-model.js
+          node --check fabric-inspection/app.js
+          node --check quality_management_workspace_v1/app.js
+      - name: Validate quality model behavior
+        run: node scripts/validate_quality_model.js
