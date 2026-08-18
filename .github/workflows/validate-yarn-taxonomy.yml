@@ -1,0 +1,33 @@
+name: Validate yarn taxonomy
+
+on:
+  pull_request:
+    paths:
+      - 'usage-metrics.js'
+      - 'yarn-taxonomy-guard.js'
+      - 'index.html'
+      - 'brand-intelligence/data/cn-yarn-glossary.json'
+      - 'scripts/validate_yarn_taxonomy.py'
+      - '.github/workflows/validate-yarn-taxonomy.yml'
+  push:
+    paths:
+      - 'usage-metrics.js'
+      - 'yarn-taxonomy-guard.js'
+      - 'index.html'
+      - 'brand-intelligence/data/cn-yarn-glossary.json'
+      - 'scripts/validate_yarn_taxonomy.py'
+      - '.github/workflows/validate-yarn-taxonomy.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate preparation and spinning taxonomy
+        run: python scripts/validate_yarn_taxonomy.py
