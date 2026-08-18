@@ -1,10 +1,12 @@
 {
   "format": "KC_BRAND64_MD_MONITORING",
-  "schema_version": "1.2",
-  "updated_at": "2026-08-19T08:22:00+09:00",
+  "schema_version": "1.3",
+  "updated_at": "2026-08-19T08:33:00+09:00",
   "scope": "64 active brands / women's knit focus",
   "active_brand_source": "config/brand64-active-brands.json",
   "active_brand_count": 64,
+  "external_signal_source": "config/md-external-signal-brands.json",
+  "external_signal_brand_count": 7,
   "inactive_history_policy": "KEEP_INACTIVE_LEGACY_REFERENCE_AND_NEVER_REUSE_BRAND_ID",
   "pal_group": {
     "active_brand_count": 10,
@@ -21,6 +23,17 @@
       "special_prices_url": "https://www.zara.com/jp/ja/woman-knitwear-special-prices-l1163.html",
       "daily_entry_checks": ["the_new", "women_knit", "special_prices"],
       "weekly_extra_checks": ["new_shape", "surface_texture", "color", "price_band", "markdown_depth", "product_turnover"]
+    }
+  },
+  "japan_signal_group": {
+    "brands": ["BR-00076"],
+    "role": "JAPAN_FEMININE_DESIGN_FUNCTION_LEADING_MD_SIGNAL",
+    "snidel": {
+      "official_url": "https://usagi-online.com/brand/snidel/",
+      "knit_url": "https://usagi-online.com/brand/snidel/category/AB/AB01/",
+      "cardigan_url": "https://usagi-online.com/brand/snidel/category/AB/AB05/",
+      "daily_entry_checks": ["new", "preorder", "sale", "sold_out", "knit", "cardigan"],
+      "weekly_extra_checks": ["feminine_detail", "function_claim", "surface_texture", "color", "price_band", "preorder_to_launch"]
     }
   },
   "cadence": {
@@ -48,9 +61,11 @@
         "design_change",
         "popularity_rank_change",
         "top_products",
+        "external_signal_comparison",
         "material_development_implication",
         "next_checks"
-      ]
+      ],
+      "external_signal_mode": "WEEKLY_LIGHT_SCAN_AND_COMPARISON"
     },
     "monthly": {
       "mode": "BRAND_MD_DRAFT",
@@ -68,7 +83,8 @@
         "sales_proposal_theme",
         "next_month_hypothesis",
         "evidence_urls"
-      ]
+      ],
+      "use_external_weekly_signals_as_context": true
     }
   },
   "rules": {
@@ -82,7 +98,8 @@
     "source_offline_deletion": "FORBIDDEN",
     "brand_id_reuse": "FORBIDDEN",
     "human_review_before_master": true,
-    "customer_publication": "HOLD"
+    "customer_publication": "HOLD",
+    "external_signals_do_not_change_brand64_count": true
   },
   "gemini": {
     "status": "INSTRUCTION_READY_CONNECTION_REQUIRED",

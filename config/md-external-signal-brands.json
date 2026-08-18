@@ -1,0 +1,60 @@
+{
+  "format": "KC_MD_EXTERNAL_SIGNAL_SET",
+  "schema_version": "1.0",
+  "updated_at": "2026-08-19T08:31:00+09:00",
+  "scope": "weekly supplemental knit MD signals outside Brand64",
+  "cadence": "WEEKLY_LIGHT_SCAN",
+  "brand_count": 7,
+  "brands": {
+    "EXT-MD-001": {
+      "brand_name": "PLST",
+      "role": "JAPAN_FUNCTIONAL_COMMUTE_KNIT_SIGNAL",
+      "official_url": "https://www.plst.com/jp/ja/women/sweaters",
+      "weekly_checks": ["new", "price", "markdown", "material", "function", "machine_washable", "uv", "wholegarment"]
+    },
+    "EXT-MD-002": {
+      "brand_name": "FRAY I.D",
+      "role": "JAPAN_PREMIUM_FEMININE_FUNCTION_SIGNAL",
+      "official_url": "https://usagi-online.com/brand/frayid/category/AB/AB01/",
+      "weekly_checks": ["new", "preorder", "sale", "sold_out", "material", "function", "surface_texture", "silhouette"]
+    },
+    "EXT-MD-003": {
+      "brand_name": "H&M",
+      "role": "GLOBAL_VALUE_FAST_FASHION_SIGNAL",
+      "official_url": "https://www2.hm.com/ja_jp/ladies/shop-by-product/cardigans-and-jumpers.html",
+      "weekly_checks": ["new", "price_band", "member_price", "color", "surface_texture", "silhouette", "product_turnover"]
+    },
+    "EXT-MD-004": {
+      "brand_name": "COS",
+      "role": "GLOBAL_PREMIUM_MATERIAL_SHAPE_SIGNAL",
+      "official_url": "https://www.cos.com/ja-jp/women/knitwear",
+      "weekly_checks": ["new", "merino", "cashmere", "material_mix", "shape", "outerwear_knit", "price_band"]
+    },
+    "EXT-MD-005": {
+      "brand_name": "MANGO",
+      "role": "EUROPE_MID_MARKET_SIGNAL",
+      "official_url": "https://shop.mango.com/jp/en/c/women/knitwear/f7676df9",
+      "weekly_checks": ["new", "price_band", "color", "openwork", "polo", "metallic", "silhouette", "markdown"]
+    },
+    "EXT-MD-006": {
+      "brand_name": "NOLLEY'S",
+      "role": "JAPAN_MATERIAL_FUNCTION_COMMERCIALIZATION_SIGNAL",
+      "official_url": "https://nolleys-mall.jp/items?bc=1&gc=02&lcc=001001&sc=nolleys&scc=001001007",
+      "weekly_checks": ["new", "preorder", "sale", "material", "function", "washable", "anti_pilling", "yarn_story"]
+    },
+    "EXT-MD-007": {
+      "brand_name": "BEAUTY&YOUTH",
+      "role": "JAPAN_SELECT_DEMAND_RANKING_SIGNAL",
+      "official_url": "https://store.united-arrows.co.jp/brand/by/category/01/0105/?lm=10W1",
+      "weekly_checks": ["new", "preorder", "ranking", "restock", "price_band", "material", "color", "silhouette"]
+    }
+  },
+  "rules": {
+    "brand64_membership": "OUTSIDE_BRAND64",
+    "official_sources_first": true,
+    "sales_quantity_estimation": "FORBIDDEN",
+    "fact_inference_separation": true,
+    "source_offline_deletion": "FORBIDDEN",
+    "publication_status": "PUBLISH_HOLD"
+  }
+}
