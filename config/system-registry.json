@@ -1,6 +1,6 @@
 {
   "schema_version": "1.8.0",
-  "updated_at": "2026-08-18T10:14:00+09:00",
+  "updated_at": "2026-08-18T10:34:00+09:00",
   "policy": {
     "unknown_connections_are_forbidden": true,
     "connection_change_requires_registry_update": true,
@@ -52,7 +52,7 @@
         },
         {
           "code_source": "app-state-guard.js@main",
-          "code_revision": "git-blob:54de672cc6049ad7f2e33b69c07d512118fa17c7"
+          "code_revision": "git-blob:4386a5d889822b6723ba98dc5e199edd12a55c78"
         },
         {
           "code_source": "index.html@main",
@@ -175,7 +175,7 @@
         }
       ],
       "data_store": "browser-localstorage",
-      "storage_detail": "localStorage kc_independent_practical_v0_4; Human Review inbox kc_v04_handoff_queue_v1; reviewer name kc_v04_reviewer_name_v1; partial approvals preserve existing values; only evidence-backed yarn specifications are promoted; organizationProfile persists on formal organization IDs; related organization temporary IDs resolve to formal organization IDs; master and inbox approval results roll back together on storage failure; monthlyObservations link to mdProposals; unavailable sales quantity remains null and is never estimated; MD proposals remain publication HOLD; 中国糸名辞書 KC-CN-YARN-001 と糸→編み地イメージ KC-YARN-KNIT-IMAGE は同じ yarns を読取専用で参照し、マスターへ書き込まない; 営業TOPは商品調査・糸検索・原料相場・編み地イメージ・生地検査を先頭表示し、管理メニューからHuman Review・未反映20件・共有管理・顧客ポータル・システム状態へ接続する",
+      "storage_detail": "localStorage kc_independent_practical_v0_4; Human Review inbox kc_v04_handoff_queue_v1; reviewer name kc_v04_reviewer_name_v1; partial approvals preserve existing values; only evidence-backed yarn specifications are promoted; organizationProfile persists on formal organization IDs; related organization temporary IDs resolve to formal organization IDs; master and inbox approval results roll back together on storage failure; monthlyObservations link to mdProposals; unavailable sales quantity remains null and is never estimated; MD proposals remain publication HOLD; 中国糸名辞書 KC-CN-YARN-001 と糸→編み地イメージ KC-YARN-KNIT-IMAGE は同じ yarns を読取専用で参照し、マスターへ書き込まない; 営業TOPは商品調査・糸検索・原料相場・編み地イメージ・生地検査を先頭表示し、管理メニューからHuman Review・未反映22件・共有管理・顧客ポータル・システム状態へ接続する",
       "sync_mode": "local-browser-queue-and-manual-json",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "no-automatic-production-core-company-db-connection",
@@ -185,12 +185,12 @@
       "system_id": "KC-OWNER-YARN-MASTER",
       "display_name": "Knit Compass Owner Yarn Master",
       "environment": "independent",
-      "display_version": "v1.2.0",
+      "display_version": "v1.2.1",
       "entry_path": "/owner-yarns/",
       "entry_href": "../owner-yarns/",
       "entry_label": "糸検索を開く",
       "code_source": "owner-yarns/index.html@main",
-      "code_revision": "git-blob:53c2e304fd88abf7fcac543e6dad76be9e0c8089",
+      "code_revision": "git-blob:8c2d146bdf402a01f9f2b8c90d066161dfae2bd1",
       "auxiliary_sources": [
         {
           "code_source": "data/yarn-catalog/mz100-catalog-3000.json@main",
@@ -205,8 +205,8 @@
           "code_revision": "git-blob:b83bdaed569f486bbb5ce623dc1b189725d28d4e"
         },
         {
-          "code_source": "data/human-review/2026-08-17-intake-20-triage.json@main",
-          "code_revision": "git-blob:245a6fe60eb6aa1bc9f6b33078f9136c150f7291"
+          "code_source": "data/human-review/2026-08-18-intake-22-triage.json@main",
+          "code_revision": "git-blob:4c32e9244d191eab90ba6b24d3b9fe4698a41029"
         },
         {
           "code_source": "market-signals.js@main",
@@ -222,7 +222,7 @@
         }
       ],
       "data_store": "static-json-plus-browser-localstorage",
-      "storage_detail": "data/yarn-catalog/mz100-catalog-3000.json is the active searchable catalog; data/yarn-catalog/mz100-catalog-2000.json remains the stable fallback; all 3,000 rows are CATALOG_INDEXED / LISTING_PAGE_ONLY / NOT_PROMOTED; localStorage kc_independent_practical_v0_4 is the confirmed browser master; localStorage kc_v04_handoff_queue_v1 receives 20 PENDING candidates; data/human-review/2026-08-17-intake-20-triage.json provides advisory 12 APPROVABLE / 5 CONDITIONAL / 3 HOLD with zero automatic promotion; company CSV is BACKUP_SHARE_ONLY; localStorage kc_usage_metrics_v1 stores only daily aggregate usage counts",
+      "storage_detail": "data/yarn-catalog/mz100-catalog-3000.json is the active searchable catalog; data/yarn-catalog/mz100-catalog-2000.json remains the stable fallback; all 3,000 rows are CATALOG_INDEXED / LISTING_PAGE_ONLY / NOT_PROMOTED; localStorage kc_independent_practical_v0_4 is the confirmed browser master; localStorage kc_v04_handoff_queue_v1 receives 22 PENDING candidates; data/human-review/2026-08-18-intake-22-triage.json provides advisory 14 APPROVABLE / 5 CONDITIONAL / 3 HOLD with zero automatic promotion; company CSV is BACKUP_SHARE_ONLY; localStorage kc_usage_metrics_v1 stores only daily aggregate usage counts",
       "sync_mode": "catalog-index-plus-local-human-review",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "company-sheet-backup-share-only-not-system-of-record",
