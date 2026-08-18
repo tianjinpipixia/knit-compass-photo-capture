@@ -12,12 +12,19 @@ ROOT = Path(__file__).resolve().parents[1]
 LATEST = ROOT / "data/brand-md-monitoring/latest.json"
 PROPOSALS = ROOT / "data/brand-md-monitoring/latest-material-proposals.json"
 ACTIVE_CONFIG = ROOT / "config/brand64-active-brands.json"
+MONITORING_CONFIG = ROOT / "config/brand64-md-monitoring.json"
+EXTERNAL_CONFIG = ROOT / "config/md-external-signal-brands.json"
 ZARA_BASELINE = ROOT / "data/brand-md-monitoring/2026-08-19-zara-initial-baseline.jsonl"
+SNIDEL_BASELINE = ROOT / "data/brand-md-monitoring/2026-08-19-snidel-initial-baseline.jsonl"
 EXPECTED_PAL_IDS = {f"BR-{i:05d}" for i in range(65, 75)}
 EXPECTED_ZARA_ID = "BR-00075"
+EXPECTED_SNIDEL_ID = "BR-00076"
 EXPECTED_INACTIVE_IDS = {
-    "BR-00026", "BR-00029", "BR-00034", "BR-00037", "BR-00038",
+    "BR-00020", "BR-00026", "BR-00029", "BR-00034", "BR-00037", "BR-00038",
     "BR-00043", "BR-00044", "BR-00045", "BR-00046", "BR-00048", "BR-00061",
+}
+EXPECTED_EXTERNAL_NAMES = {
+    "PLST", "FRAY I.D", "H&M", "COS", "MANGO", "NOLLEY'S", "BEAUTY&YOUTH"
 }
 
 
@@ -44,6 +51,19 @@ def row_name(row: dict) -> str:
     return str(row.get("b") or row.get("brand") or row.get("brand_name") or "")
 
 
+def validate_single_baseline(path: Path, expected_id: str, expected_name: str) -> None:
+    assert path.is_file()
+    rows = load_jsonl(path)
+    assert len(rows) == 1
+    row = rows[0]
+    assert row_id(row) == expected_id
+    assert row_name(row) == expected_name
+    assert row.get("d") == "2026-08-19"
+    assert valid_http_url(row.get("u"))
+    assert row.get("q") in {"NA", "NOT_AVAILABLE"}
+    assert row.get("p") in {"HOLD", "PUBLISH_HOLD"}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--max-age-days", type=int)
@@ -52,6 +72,8 @@ def main() -> None:
     latest = json.loads(LATEST.read_text(encoding="utf-8"))
     proposals = json.loads(PROPOSALS.read_text(encoding="utf-8"))
     active_config = json.loads(ACTIVE_CONFIG.read_text(encoding="utf-8"))
+    monitoring_config = json.loads(MONITORING_CONFIG.read_text(encoding="utf-8"))
+    external_config = json.loads(EXTERNAL_CONFIG.read_text(encoding="utf-8"))
     observed_date = date.fromisoformat(latest["observed_date"])
 
     assert active_config.get("format") == "KC_BRAND64_ACTIVE_SET"
@@ -65,7 +87,9 @@ def main() -> None:
     assert set(inactive_brands) == EXPECTED_INACTIVE_IDS
     assert EXPECTED_PAL_IDS <= set(active_brands)
     assert active_brands.get(EXPECTED_ZARA_ID) == "ZARA"
+    assert active_brands.get(EXPECTED_SNIDEL_ID) == "SNIDEL"
     assert inactive_brands.get("BR-00048") == "TAKEO KIKUCHI"
+    assert inactive_brands.get("BR-00020") == "any FAM"
     assert active_config.get("inactive_policy", {}).get("brand_id_reuse") == "FORBIDDEN"
     assert active_config.get("inactive_policy", {}).get("history_preserved") is True
 
@@ -85,28 +109,54 @@ def main() -> None:
     assert valid_http_url(zara.get("official_url"))
     assert valid_http_url(zara.get("special_prices_url"))
     assert "zara.com" in zara.get("official_url", "")
-    assert "zara.com" in zara.get("special_prices_url", "")
-    assert ZARA_BASELINE.is_file()
-    zara_baseline_rows = load_jsonl(ZARA_BASELINE)
-    assert len(zara_baseline_rows) == 1
-    zara_baseline = zara_baseline_rows[0]
-    assert row_id(zara_baseline) == EXPECTED_ZARA_ID
-    assert row_name(zara_baseline) == "ZARA"
-    assert zara_baseline.get("d") == "2026-08-19"
-    assert valid_http_url(zara_baseline.get("u"))
-    assert zara_baseline.get("q") in {"NA", "NOT_AVAILABLE"}
-    assert zara_baseline.get("p") in {"HOLD", "PUBLISH_HOLD"}
+    validate_single_baseline(ZARA_BASELINE, EXPECTED_ZARA_ID, "ZARA")
+
+    japan_signals = active_config.get("japan_signal_brands", {})
+    snidel = japan_signals.get(EXPECTED_SNIDEL_ID, {})
+    assert snidel.get("brand_name") == "SNIDEL"
+    assert snidel.get("role") == "JAPAN_FEMININE_DESIGN_FUNCTION_LEADING_MD_SIGNAL"
+    for key in ("official_url", "knit_url", "cardigan_url"):
+        assert valid_http_url(snidel.get(key))
+        assert "usagi-online.com" in snidel.get(key, "")
+    validate_single_baseline(SNIDEL_BASELINE, EXPECTED_SNIDEL_ID, "SNIDEL")
+
+    assert external_config.get("format") == "KC_MD_EXTERNAL_SIGNAL_SET"
+    external_brands = external_config.get("brands", {})
+    assert external_config.get("brand_count") == 7 == len(external_brands)
+    assert {item.get("brand_name") for item in external_brands.values()} == EXPECTED_EXTERNAL_NAMES
+    assert external_config.get("rules", {}).get("brand64_membership") == "OUTSIDE_BRAND64"
+    assert external_config.get("rules", {}).get("sales_quantity_estimation") == "FORBIDDEN"
+    assert external_config.get("rules", {}).get("publication_status") == "PUBLISH_HOLD"
+    assert not (EXPECTED_EXTERNAL_NAMES & set(active_brands.values()))
+    for signal_id, item in external_brands.items():
+        assert signal_id.startswith("EXT-MD-")
+        assert valid_http_url(item.get("official_url"))
+        assert item.get("weekly_checks")
+
+    assert monitoring_config.get("format") == "KC_BRAND64_MD_MONITORING"
+    assert monitoring_config.get("active_brand_count") == 64
+    assert monitoring_config.get("external_signal_source") == "config/md-external-signal-brands.json"
+    assert monitoring_config.get("external_signal_brand_count") == 7
+    assert monitoring_config.get("japan_signal_group", {}).get("brands") == [EXPECTED_SNIDEL_ID]
+    assert monitoring_config.get("global_signal_group", {}).get("brands") == [EXPECTED_ZARA_ID]
+    assert monitoring_config.get("rules", {}).get("external_signals_do_not_change_brand64_count") is True
 
     transition = active_config.get("transition", {})
     effective_from = date.fromisoformat(transition.get("effective_from"))
     removed_from_active = transition.get("removed_from_active", {})
     added_to_active = transition.get("added_to_active", {})
-    assert removed_from_active == {"BR-00048": "TAKEO KIKUCHI"}
-    assert added_to_active == {"BR-00075": "ZARA"}
+    assert removed_from_active == {
+        "BR-00020": "any FAM",
+        "BR-00048": "TAKEO KIKUCHI",
+    }
+    assert added_to_active == {
+        "BR-00075": "ZARA",
+        "BR-00076": "SNIDEL",
+    }
 
     # The latest committed snapshot can predate an owner-approved active-set change.
-    # Validate that historical snapshot against the active set that actually applied on that date;
-    # never fabricate a retroactive row for the newly added brand.
+    # Validate historical snapshots against the active set that applied on that date;
+    # never fabricate retroactive rows for newly added brands.
     snapshot_active_brands = dict(active_brands)
     snapshot_inactive_ids = set(inactive_brands)
     if observed_date < effective_from:
@@ -166,17 +216,17 @@ def main() -> None:
     if observed_date < effective_from:
         legacy_present = {row_id(row) for row in primary_rows if row_id(row) in snapshot_inactive_ids}
         assert legacy_present == snapshot_inactive_ids
-        assert "BR-00048" in set(active_ids)
-        assert EXPECTED_ZARA_ID not in set(active_ids)
+        assert set(removed_from_active) <= set(active_ids)
+        assert not (set(added_to_active) & set(active_ids))
     else:
-        assert "BR-00048" not in set(active_ids)
-        assert EXPECTED_ZARA_ID in set(active_ids)
-        # Historical evidence for TAKEO KIKUCHI must remain in an older snapshot.
+        assert not (set(removed_from_active) & set(active_ids))
+        assert set(added_to_active) <= set(active_ids)
         previous_daily = repository_path(latest.get("previous_daily_path", latest["daily_path"]))
         previous_rows = load_jsonl(previous_daily)
         historical_ids = {row_id(row) for row in previous_rows}
-        assert "BR-00048" in historical_ids or any(
-            "BR-00048" in {row_id(row) for row in load_jsonl(path)} for path in overlay_paths
+        assert set(removed_from_active) <= historical_ids or all(
+            any(brand_id in {row_id(row) for row in load_jsonl(path)} for path in overlay_paths)
+            for brand_id in removed_from_active
         )
 
     pal_active_rows = [row for row in active_rows if row_id(row) in EXPECTED_PAL_IDS]
@@ -193,8 +243,8 @@ def main() -> None:
     current_or_transition = "current" if observed_date >= effective_from else "pre-transition snapshot"
     print(
         f"brand64 active daily freshness: OK ({latest['observed_date']}, {current_or_transition}, "
-        f"64 active brands, 10 PAL additions, ZARA configured, {len(inactive_brands)} legacy preserved, "
-        f"{len(proposals.get('proposals', []))} proposals, no sales estimation)"
+        f"64 active brands, 10 PAL additions, ZARA+SNIDEL configured, {len(inactive_brands)} legacy preserved, "
+        f"7 external weekly signals, {len(proposals.get('proposals', []))} proposals, no sales estimation)"
     )
 
 
