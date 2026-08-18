@@ -1,6 +1,6 @@
 {
   "schema_version": "1.8.0",
-  "updated_at": "2026-08-18T10:21:00+09:00",
+  "updated_at": "2026-08-18T12:46:00+09:00",
   "policy": {
     "unknown_connections_are_forbidden": true,
     "connection_change_requires_registry_update": true,
@@ -126,7 +126,7 @@
       "system_id": "KC-V04-WEB",
       "display_name": "Knit Compass 商品調査・Human Review",
       "environment": "independent",
-      "display_version": "v0.4.7",
+      "display_version": "v0.4.8",
       "entry_path": "/brand-intelligence/",
       "entry_href": "../brand-intelligence/",
       "entry_label": "商品調査・Human Reviewを開く",
@@ -135,7 +135,15 @@
       "auxiliary_sources": [
         {
           "code_source": "brand-intelligence/index.html@main",
-          "code_revision": "git-blob:ccc8cf514e58c68f0bc59c938e91b76e937e8563"
+          "code_revision": "git-blob:0a71b73cc94402dfc660392f0fb1f8c155612c1d"
+        },
+        {
+          "code_source": "brand-intelligence/owner-observed-products.js@main",
+          "code_revision": "git-blob:c788f0a22f4106955239d7f3eb5489ba946466bc"
+        },
+        {
+          "code_source": "data/manual-intake/2026-08-18-american-holic-products-batch8.json@main",
+          "code_revision": "git-blob:cee3930ef82c5de40a8e771c37923ae189398510"
         },
         {
           "code_source": "brand-intelligence/siro-glossary-augment.js@main",
@@ -174,9 +182,9 @@
           "code_revision": "git-blob:4e021f4f5a5c949c3c7613b1df294f76b1d1f477"
         }
       ],
-      "data_store": "browser-localstorage",
-      "storage_detail": "localStorage kc_independent_practical_v0_4; Human Review inbox kc_v04_handoff_queue_v1; reviewer name kc_v04_reviewer_name_v1; partial approvals preserve existing values; only evidence-backed yarn specifications are promoted; organizationProfile persists on formal organization IDs; related organization temporary IDs resolve to formal organization IDs; master and inbox approval results roll back together on storage failure; monthlyObservations link to mdProposals; unavailable sales quantity remains null and is never estimated; MD proposals remain publication HOLD; 中国糸名辞書 KC-CN-YARN-001 と糸→編み地イメージ KC-YARN-KNIT-IMAGE は同じ yarns を読取専用で参照し、マスターへ書き込まない; 営業TOPは商品調査・糸検索・原料相場・編み地イメージ・生地検査を先頭表示し、管理メニューからHuman Review・未反映22件・共有管理・顧客ポータル・システム状態へ接続する",
-      "sync_mode": "local-browser-queue-and-manual-json",
+      "data_store": "browser-localstorage-plus-read-only-static-candidates",
+      "storage_detail": "localStorage kc_independent_practical_v0_4; Human Review inbox kc_v04_handoff_queue_v1; reviewer name kc_v04_reviewer_name_v1; partial approvals preserve existing values; only evidence-backed yarn specifications are promoted; organizationProfile persists on formal organization IDs; related organization temporary IDs resolve to formal organization IDs; master and inbox approval results roll back together on storage failure; monthlyObservations link to mdProposals; unavailable sales quantity remains null and is never estimated; MD proposals remain publication HOLD; 中国糸名辞書 KC-CN-YARN-001 と糸→編み地イメージ KC-YARN-KNIT-IMAGE は同じ yarns を読取専用で参照し、マスターへ書き込まない; 営業TOPは商品調査・糸検索・原料相場・編み地イメージ・生地検査を先頭表示し、管理メニューからHuman Review・未反映22件・共有管理・顧客ポータル・システム状態へ接続する; data/manual-intake/2026-08-18-american-holic-products-batch8.json のPENDING現物確認商品2件は商品検索に読取専用表示し、Human Review承認前はlocalStorageマスターへ書き込まない",
+      "sync_mode": "local-browser-queue-and-manual-json-plus-read-only-candidate-index",
       "last_sync_at": "runtime-per-device-or-none",
       "external_database": "no-automatic-production-core-company-db-connection",
       "status": "active"
