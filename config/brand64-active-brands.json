@@ -1,8 +1,9 @@
 {
   "format": "KC_BRAND64_ACTIVE_SET",
-  "schema_version": "1.0",
-  "updated_at": "2026-08-18T09:20:00+09:00",
-  "decision_source": "GitHub Issue #53 / owner decision 2026-08-17",
+  "schema_version": "1.1",
+  "updated_at": "2026-08-19T08:20:00+09:00",
+  "decision_source": "GitHub Issue #73 / owner decision 2026-08-19",
+  "effective_from": "2026-08-19",
   "active_brand_count": 64,
   "active_brands": {
     "BR-00001": "UNIQLO",
@@ -43,7 +44,6 @@
     "BR-00041": "自由区",
     "BR-00042": "組曲",
     "BR-00047": "UNFILO",
-    "BR-00048": "TAKEO KIKUCHI",
     "BR-00049": "INDIVI",
     "BR-00050": "UNTITLED",
     "BR-00051": "NATURAL BEAUTY BASIC",
@@ -68,9 +68,10 @@
     "BR-00071": "un dix cors",
     "BR-00072": "La boutique BonBon",
     "BR-00073": "natural couture",
-    "BR-00074": "DISCOAT"
+    "BR-00074": "DISCOAT",
+    "BR-00075": "ZARA"
   },
-  "inactive_legacy_count": 10,
+  "inactive_legacy_count": 11,
   "inactive_legacy_brands": {
     "BR-00026": "RAGEBLUE",
     "BR-00029": "repipi armario",
@@ -81,12 +82,22 @@
     "BR-00044": "五大陸",
     "BR-00045": "uncrave",
     "BR-00046": "#Newans",
+    "BR-00048": "TAKEO KIKUCHI",
     "BR-00061": "MATINEE LINE"
   },
   "inactive_policy": {
     "status": "INACTIVE_LEGACY_REFERENCE",
     "history_preserved": true,
     "brand_id_reuse": "FORBIDDEN"
+  },
+  "transition": {
+    "effective_from": "2026-08-19",
+    "removed_from_active": {"BR-00048": "TAKEO KIKUCHI"},
+    "added_to_active": {"BR-00075": "ZARA"},
+    "previous_snapshot_date": "2026-08-18",
+    "previous_active_id": "BR-00048",
+    "new_active_id": "BR-00075",
+    "historical_snapshot_rule": "Snapshots before effective_from remain valid against the previous active set. Do not fabricate a retroactive ZARA row."
   },
   "pal_group": {
     "common_knit_entry_url": "https://www.palcloset.jp/display/display/?mode=zSearch&SearchItem.SORT_KEY=POPULARITY_DESC&b=&sex=&c=1104,1105&type=01",
@@ -105,9 +116,18 @@
       "BR-00074": {"brand_name": "DISCOAT", "official_url": "https://www.palcloset.jp/discoat/"}
     }
   },
+  "global_signal_brands": {
+    "BR-00075": {
+      "brand_name": "ZARA",
+      "role": "GLOBAL_FAST_FASHION_LEADING_MD_SIGNAL",
+      "official_url": "https://www.zara.com/jp/ja/woman-knitwear-l1152.html",
+      "special_prices_url": "https://www.zara.com/jp/ja/woman-knitwear-special-prices-l1163.html",
+      "daily_entry_checks": ["THE_NEW", "WOMEN_KNIT", "SPECIAL_PRICES"],
+      "weekly_focus": ["new_shape", "surface_texture", "color", "price_band", "markdown_depth", "product_turnover"]
+    }
+  },
   "special_scope": {
-    "BR-00020": "LEGACY_REFERENCE_IN_ACTIVE64",
-    "BR-00048": "CURRENT_BRAND_STATUS_ONLY_MENS_SCOPE"
+    "BR-00020": "LEGACY_REFERENCE_IN_ACTIVE64"
   },
   "rules": {
     "sales_quantity_estimation": "FORBIDDEN",
