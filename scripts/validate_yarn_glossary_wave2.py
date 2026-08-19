@@ -23,9 +23,10 @@ REQUIRED = {
     "金银丝／金银线",
     "珠片纱／亮片纱",
     "植绒纱／植绒线",
+    "AB纱／AB纱效果",
 }
 FANCY = {"螺旋纱／螺旋线", "波形纱／波形线", "辫子纱／小辫线", "结圈线", "蜈蚣纱"}
-COLOR = {"彩点纱／点子纱", "段彩纱", "段染纱", "色纺纱／混色线"}
+COLOR = {"彩点纱／点子纱", "段彩纱", "段染纱", "色纺纱／混色线", "AB纱／AB纱效果"}
 SPECIAL = {"金银丝／金银线", "珠片纱／亮片纱", "植绒纱／植绒线"}
 HOLD_TERMS = {"牙刷纱", "乒乓纱", "菊花纱", "蝴蝶纱", "珠圈纱", "丝雨纱", "隆纹纱", "彩虹纱", "印花纱", "链条纱", "夹丝线", "毛巾纱", "梯子纱", "项链纱", "TT纱", "米粒纱", "云纹纱", "冰岛毛"}
 
@@ -44,15 +45,16 @@ def main() -> None:
     wave = load(WAVE2)
     base_entries = base.get("entries", [])
     entries = wave.get("entries", [])
+    require(wave.get("schema_version") == "1.0.1", "wave2 schema must include AB-effect correction")
     require(wave.get("batch_id") == "KC-CN-YARN-WAVE2-20260819", "unexpected wave2 batch id")
     require(len(base_entries) >= 33, "base glossary unexpectedly shrank")
-    require(len(entries) == 12, "wave2 must contain exactly 12 reviewed additions")
+    require(len(entries) == 13, "wave2 must contain 13 reviewed additions including AB effect")
 
     base_names = {row.get("market_name") for row in base_entries}
     names = {row.get("market_name") for row in entries}
     require(names == REQUIRED, f"wave2 term set mismatch: {sorted(REQUIRED ^ names)}")
     require(not (base_names & names), "wave2 must not duplicate base market names")
-    require(len(base_entries) + len(entries) >= 45, "combined glossary must expose at least 45 entries")
+    require(len(base_entries) + len(entries) >= 46, "combined glossary must expose at least 46 entries")
 
     ids = [row.get("id") for row in entries]
     priorities = [row.get("priority") for row in entries]
@@ -73,14 +75,21 @@ def main() -> None:
     require("FZ/T 63026-2015" in json.dumps(by_name["金银丝／金银线"], ensure_ascii=False), "金银丝 standard evidence missing")
     require("静電" in json.dumps(by_name["植绒纱／植绒线"], ensure_ascii=False), "植绒 electrostatic-process evidence missing")
 
+    ab = by_name["AB纱／AB纱效果"]
+    ab_text = json.dumps(ab, ensure_ascii=False)
+    for token in ("合撚", "Siro", "一つにすぎない", "固定しない"):
+        require(token in ab_text, f"AB effect correction missing token: {token}")
+
     serialized = json.dumps(entries, ensure_ascii=False)
     require(not any(term in serialized for term in HOLD_TERMS), "hold/C-rank terms must not be promoted into wave2")
 
     augment = AUGMENT.read_text(encoding="utf-8")
-    for token in ("cn-yarn-glossary-wave2.json", "AB纱", "A，B纱", "并捻纺", "AB纱は独立構造へ増殖させずSiroの別名"):
+    for token in ("cn-yarn-glossary-wave2.json?v=1.0.1", "并捻纺", "AB纱をSiroの別名にはしない"):
         require(token in augment, f"Siro/wave2 augment missing token: {token}")
+    require("chinese:['赛络纺','赛络纺纱','赛络纱','并捻纺']" in augment, "Siro aliases must not include AB纱")
+    require("chinese:['赛络纺','赛络纺纱','赛络纱','AB纱'" not in augment, "AB纱 must not remain a Siro alias")
 
-    print(f"PASS: KIMI wave2 adds {len(entries)} reviewed terms; combined glossary {len(base_entries)+len(entries)} entries; hold terms remain unpromoted")
+    print(f"PASS: KIMI wave2 adds {len(entries)} reviewed terms including corrected AB effect; combined glossary {len(base_entries)+len(entries)} entries; hold terms remain unpromoted")
 
 
 if __name__ == "__main__":
