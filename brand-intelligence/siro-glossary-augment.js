@@ -2,9 +2,9 @@
   'use strict';
 
   const V04_KEY='kc_independent_practical_v0_4';
-  const WAVE2_URL='./data/cn-yarn-glossary-wave2.json?v=1.0.0';
+  const WAVE2_URL='./data/cn-yarn-glossary-wave2.json?v=1.0.1';
   const TERMS=[
-    {id:'KC-SIRO-001',display:'Siro／赛络纺',japanese:'サイロ紡績／サイロ糸',chinese:['赛络纺','赛络纺纱','赛络纱','AB纱','A，B纱','A,B纱','并捻纺'],english:['Siro','Siro spinning','Sirospun'],structure:'短繊維束 × 短繊維束',description:'2本の短繊維束（ロービング）を別々にドラフトし、合流後に同時加撚するリング系紡績。中国ではAB纱／A，B纱／并捻纺と呼ばれる例もある。',rule:'最終紡績方式＝Ring系／糸構造＝Siro。AB纱は独立構造へ増殖させずSiroの別名として扱う。Sirofil、Core-spunとは別分類。',checks:['短繊維束の本数','ロービング間隔','AB纱表記時にSiro構造か','撚数・撚方向','番手','前紡工程','編立ゲージ'],keywords:['サイロ','サイロ紡績','サイロ糸','赛络纺','赛络纺纱','赛络纱','AB纱','A，B纱','A,B纱','并捻纺','Siro','Siro spinning','Sirospun']},
+    {id:'KC-SIRO-001',display:'Siro／赛络纺',japanese:'サイロ紡績／サイロ糸',chinese:['赛络纺','赛络纺纱','赛络纱','并捻纺'],english:['Siro','Siro spinning','Sirospun'],structure:'短繊維束 × 短繊維束',description:'2本の短繊維束（ロービング）を別々にドラフトし、合流後に同時加撚するリング系紡績。中国では并捻纺と説明される資料もある。AB纱／AB纱效果はSiroに限定されず、別の色・外観効果語として扱う。',rule:'最終紡績方式＝Ring系／糸構造＝Siro。AB纱をSiroの別名にはしない。Sirofil、Core-spunとは別分類。',checks:['短繊維束の本数','ロービング間隔','撚数・撚方向','番手','前紡工程','編立ゲージ'],keywords:['サイロ','サイロ紡績','サイロ糸','赛络纺','赛络纺纱','赛络纱','并捻纺','Siro','Siro spinning','Sirospun']},
     {id:'KC-SIRO-002',display:'Sirofil／赛络菲尔纺',japanese:'サイロフィル紡績／サイロフィル糸',chinese:['赛络菲尔纺','赛络菲尔纱'],english:['Sirofil','Sirofil spinning','Sirofil yarn'],structure:'短繊維束 × 連続フィラメント',description:'短繊維束（ロービング）と連続フィラメントを別経路から供給し、合流後に同時加撚する複合紡績。短繊維束×フィラメントの構造で、フィラメントは必ずしも中心芯に固定されないためCore-spunとは別分類とする。',rule:'最終紡績方式＝Ring系／糸構造＝Sirofil。Core-spunへ自動変換しない。',checks:['フィラメント素材','D数・F数','フィラメント供給位置','ロービングとの間隔','フィラメント張力','撚数・撚方向','番手','編立ゲージ'],keywords:['サイロフィル','サイロフィル紡績','サイロフィル糸','赛络菲尔纺','赛络菲尔纱','Sirofil','Sirofil spinning','Sirofil yarn']},
     {id:'KC-SIRO-003',display:'Core-spun／包芯纱',japanese:'コアスパンヤーン／芯鞘型紡績糸',chinese:['包芯纱','包芯纺','包芯纱线'],english:['core-spun','core spun yarn','core spinning'],structure:'中心芯 ＋ 外側短繊維',description:'フィラメントや弾性糸などの芯材を中心に配置し、その周囲を短繊維で被覆して紡績する構造。中心芯＋外側短繊維の構造で、Sirofilとはフィラメントの配置思想が異なる。',rule:'糸構造＝Core-spun。最終紡績方式はRing／Compact／その他を別途確認し、名称だけから決めない。',checks:['芯材の種類','芯材番手・D数','芯材位置','被覆短繊維','カバレッジ','撚数・撚方向','番手','編立ゲージ'],keywords:['コアスパン','コアスパンヤーン','芯鞘糸','芯糸紡績','包芯纱','包芯纺','包芯纱线','core-spun','core spun yarn','core spinning']}
   ];
