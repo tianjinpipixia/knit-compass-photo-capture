@@ -22,6 +22,24 @@ REQUIRED_MARKET_NAMES = {
     "仿亚麻",
     "冰麻／丝麻",
 }
+REQUIRED_FANCY_TERMS = {
+    "花捻纱／花式捻线",
+    "双曲纱",
+    "圈圈纱／圈圈线",
+    "结子纱／结子线",
+    "大肚纱／粗节纱",
+    "竹节纱",
+    "羽毛纱",
+    "睫毛纱",
+    "带子纱／扁带纱",
+    "空心带／筒状纱",
+    "雪尼尔纱",
+    "拉毛纱",
+    "磨毛纱／刷毛纱",
+    "小马海／仿马海",
+    "皮毛纱／仿皮草纱",
+    "色纺拉毛纱",
+}
 REQUIRED_FIELDS = {
     "id",
     "priority",
@@ -72,18 +90,23 @@ def main() -> None:
         fail("natural fiber verification policy is missing")
     if policy.get("combed_does_not_imply_ring_spinning") is not True:
         fail("combed cotton must not imply ring spinning")
+    if policy.get("fancy_market_terms_do_not_determine_structure") is not True:
+        fail("fancy market terms must not determine yarn structure")
+    if policy.get("post_process_does_not_determine_base_structure") is not True:
+        fail("post process terms must not determine base yarn structure")
     if policy.get("representative_field_label") != "代表的な糸タイプ（例）":
         fail("representative field label must be 代表的な糸タイプ（例）")
     if policy.get("avoid_field_label") != "糸例":
         fail("avoid_field_label must preserve the rejected label 糸例")
 
     entries = data.get("entries")
-    if not isinstance(entries, list) or len(entries) < 8:
-        fail("at least 8 initial glossary entries are required")
+    if not isinstance(entries, list) or len(entries) < 32:
+        fail("at least 32 glossary entries are required after fancy-yarn expansion")
 
     ids: set[str] = set()
     priorities: set[int] = set()
     names: set[str] = set()
+    by_name: dict[str, dict] = {}
     for entry in entries:
         if not isinstance(entry, dict):
             fail("every glossary entry must be an object")
@@ -102,6 +125,7 @@ def main() -> None:
         if not name:
             fail(f"{entry_id} has empty market_name")
         names.add(name)
+        by_name[name] = entry
         for field in ("aliases", "representative_yarn_types", "common_fibers", "search_keywords", "exhibition_checks"):
             value = entry[field]
             if not isinstance(value, list) or not value or not all(str(item).strip() for item in value):
@@ -114,6 +138,30 @@ def main() -> None:
     missing_names = REQUIRED_MARKET_NAMES - names
     if missing_names:
         fail(f"missing initial market names: {sorted(missing_names)}")
+    missing_fancy = REQUIRED_FANCY_TERMS - names
+    if missing_fancy:
+        fail(f"missing fancy yarn terms: {sorted(missing_fancy)}")
+
+    structure_terms = {
+        "花捻纱／花式捻线", "双曲纱", "圈圈纱／圈圈线", "结子纱／结子线",
+        "大肚纱／粗节纱", "竹节纱", "羽毛纱", "睫毛纱", "带子纱／扁带纱",
+        "空心带／筒状纱", "雪尼尔纱",
+    }
+    for term in structure_terms:
+        if by_name[term]["category"] != "① ファンシー構造名":
+            fail(f"{term} must be categorized as ① ファンシー構造名")
+    for term in ("拉毛纱", "磨毛纱／刷毛纱"):
+        if by_name[term]["category"] != "③ 後加工名":
+            fail(f"{term} must be categorized as ③ 後加工名")
+    for term in ("小马海／仿马海", "皮毛纱／仿皮草纱"):
+        if by_name[term]["category"] != "④ 市場呼称・外観名":
+            fail(f"{term} must be categorized as ④ 市場呼称・外観名")
+    if by_name["色纺拉毛纱"]["category"] != "④ 複合市場呼称":
+        fail("色纺拉毛纱 must be categorized as ④ 複合市場呼称")
+    if "元の糸構造を自動的に決めない" not in by_name["拉毛纱"]["natural_target_fiber"]:
+        fail("拉毛纱 must not imply a base yarn structure")
+    if "花捻や特定紡績方式を確定しない" not in by_name["色纺拉毛纱"]["natural_target_fiber"]:
+        fail("色纺拉毛纱 must not imply 花捻 or a spinning method")
 
     page = PAGE.read_text(encoding="utf-8")
     for token in (
@@ -159,7 +207,7 @@ def main() -> None:
         if path not in sw:
             fail(f"service worker cache missing {path}")
 
-    print(f"OK: validated {len(entries)} China yarn entries, glossary wiring, and simplified sales navigation")
+    print(f"OK: validated {len(entries)} China yarn entries including fancy-yarn taxonomy and sales navigation")
 
 
 if __name__ == "__main__":
