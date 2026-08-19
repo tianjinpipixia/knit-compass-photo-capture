@@ -1,0 +1,44 @@
+{
+  "format": "KC_YARN_RESEARCH_EVIDENCE",
+  "schema_version": "1.0",
+  "recorded_at": "2026-08-19T01:50:00Z",
+  "target_yarn_temp_id": "TMP-YN-KC-20260819-WINNING-LEVITA-1-40",
+  "target_yarn_name": "Levita / 利维纱",
+  "source_organization": "Winning Textile",
+  "evidence_type": "user_macro_photo_opened_viscose_component",
+  "verification_status": "physical_sample_visual_confirmation",
+  "evidence_id": "TMP-EV-KC-20260819-WINNING-LEVITA-VISCOSE-MULTIFILAMENT",
+  "confirmed_visible_facts": {
+    "component_identification_by_user": "Viscose side",
+    "opened_bundle_visible": true,
+    "multiple_fine_continuous_filaments_visible": true,
+    "multifilament_form": "visually_confirmed",
+    "staple_spun_form": "not_supported_by_this_opened_component",
+    "exact_filament_count": "not_confirmed"
+  },
+  "linked_known_specification": {
+    "finished_count": "1/40 Nm",
+    "composition": "78% Viscose / 22% Polyester",
+    "supplier_explanation": "交撚; Viscose side is filament",
+    "prior_separated_component_evidence": "two monofilament strands visible on the fine secondary side"
+  },
+  "calculation_inference": {
+    "finished_tex_from_1_40_Nm": 25.0,
+    "viscose_tex_at_78_percent": 19.5,
+    "viscose_denier_equivalent": 175.5,
+    "candidate_total_viscose_count": "approximately 180D multifilament",
+    "status": "strong_mass_balance_inference_not_supplier_confirmed",
+    "warning": "The total Viscose denier estimate comes from finished count and composition. Exact D/F cannot be determined from this photograph because the opened filaments overlap and are not fully separated/countable."
+  },
+  "updated_structure_hypothesis": {
+    "viscose_side": "approximately 180D Viscose multifilament; multifilament form visually confirmed, exact D/F unconfirmed",
+    "polyester_side": "two monofilament strands visually confirmed; if equal count, approximately 25D/1F x 2 Polyester is a strong mass-balance candidate",
+    "finished_yarn": "combined twist / 交撚, 1/40 Nm, 78% Viscose / 22% Polyester"
+  },
+  "next_confirmation": "Ask Winning Textile for the exact Viscose D/F, the exact denier of each of the two monofilaments, polymer confirmation, twist direction and T/M.",
+  "photo_ref": {
+    "photo_id": "LIB-file_00000000a5a08206ab09efb6b878d6c6",
+    "file_name": "1692.jpg",
+    "label": "Levita Viscose-side bundle manually opened, showing multifilament construction"
+  }
+}
