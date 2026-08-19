@@ -4,7 +4,7 @@
   "exported_at": "2026-08-19T01:13:00Z",
   "source_system": "KC-MANUAL-INTAKE",
   "batch_id": "KC-MANUAL-20260819-BATCH10-WINNING-TEXTILE-LEVITA",
-  "description": "One Winning Textile Levita yarn candidate transcribed from the user-provided physical supplier sample book, with yarn form additionally recorded as cross-twisted based on the user's supplier explanation and the book cover's TWISTED COLLECTION label. Human Review is required; exact component-yarn construction, component count, twist direction/count, manufacturer role, gauge, knitting ends, certifications, and any UNFILO KRUMLA0225 adoption/link remain unconfirmed.",
+  "description": "One Winning Textile Levita yarn candidate transcribed from the user-provided physical supplier sample book. Yarn form is recorded as cross-twisted based on the user's supplier explanation and the book cover's TWISTED COLLECTION label; the Viscose side is additionally recorded as filament based on the user's supplier explanation, consistent with Winning Textile's official company description as a specialist in viscose filament yarns. Human Review is required; Polyester-side yarn form, exact component count/specification, twist direction/count, manufacturer role, gauge, knitting ends, certifications, and any UNFILO KRUMLA0225 adoption/link remain unconfirmed.",
   "items": [
     {
       "format": "KC_V04_INBOX_ITEM",
@@ -48,7 +48,7 @@
         "gauge": "",
         "knittingEnds": null,
         "basicYarnForm": "combined",
-        "yarnStructure": "交撚 / combined twist（Viscose + Polyester）。構成糸の本数・原糸形態、撚方向、撚数、各原糸番手・フィラメント仕様は未確認。",
+        "yarnStructure": "交撚 / combined twist（Viscose + Polyester）。Viscose側はフィラメント（長繊維）とのSupplier説明。Polyester側の原糸形態、構成糸本数、撚方向、撚数、各原糸番手・フィラメント仕様は未確認。",
         "spinningMethod": "",
         "processingMethod": "bright 有光 / dull 无光 variants",
         "compositionRaw": "78% Viscose / 22% Polyester",
@@ -85,8 +85,12 @@
             "status": "owner_reported_supplier_explanation_supported_by_twisted_collection_book_label",
             "evidenceId": "TMP-EV-KC-20260819-WINNING-LEVITA-BOOK"
           },
+          "viscoseComponentForm": {
+            "status": "owner_reported_supplier_explanation_filament_consistent_with_official_winning_textile_company_profile",
+            "evidenceId": "TMP-EV-KC-20260819-WINNING-LEVITA-BOOK"
+          },
           "yarnStructureDetail": {
-            "status": "partial_only_exact_component_count_and_twist_spec_unconfirmed",
+            "status": "partial_viscose_side_filament_polyester_side_and_exact_twist_spec_unconfirmed",
             "evidenceId": "TMP-EV-KC-20260819-WINNING-LEVITA-BOOK"
           },
           "lusterVariants": {
@@ -102,7 +106,7 @@
             "evidenceId": "TMP-EV-KC-20260819-WINNING-LEVITA-BOOK"
           }
         },
-        "notes": "2026-08-19にユーザー提供のWinning Textile現物サンプルBOOKで確認。標準表示は Levita / 利维纱、1/40 Nm、78% Viscose / 22% Polyester。1/40 NmはSupplierの完成糸表示として保持し、構成糸本数を示すplyCountには変換しない。BOOK上で bright 有光 / dull 无光 の2バリエーションを確認。ユーザーはSupplierから糸が『交撚』と説明されたと報告しており、BOOK表紙の『TWISTED COLLECTION』表記とも整合するため、基本糸形態は combined（交撚）の候補として保持する。ただしViscose側・Polyester側それぞれの原糸形態、構成糸本数、撚方向、撚数、各原糸番手・フィラメント数は未確認。Supplier記載特性は Light & Sheer、Refined & Delicate、Dry handfeel、Burn-out Printing。Stock Service（常备库存）、CUSTOM MAKE、ONLINE winningtextile.com.hk の表示も確認した。これらはSupplier BOOK記載であり独立試験ではない。法的会社名・製造者役割、紡績方式、ゲージ・本取り、認証は未確認。UNFILO KRUMLA0225との関連は別調査上の仮説に留め、このバッチでは採用実績・同一糸・R76/P24への変更を行わない。",
+        "notes": "2026-08-19にユーザー提供のWinning Textile現物サンプルBOOKで確認。標準表示は Levita / 利维纱、1/40 Nm、78% Viscose / 22% Polyester。1/40 NmはSupplierの完成糸表示として保持し、構成糸本数を示すplyCountには変換しない。BOOK上で bright 有光 / dull 无光 の2バリエーションを確認。ユーザーはSupplierから糸が『交撚』、かつ『レーヨン／Viscose側はフィラメント』と説明されたと報告している。BOOK表紙の『TWISTED COLLECTION』表記は交撚説明と整合し、Winning Textile公式会社紹介も同社が粘胶长丝（viscose filament yarn）を長年専門に生産し、糸の合撚工程を持つと説明しているため、Viscose側フィラメントという説明とは整合する。ただしLevita個別製品ページでのフィラメント明記は未取得のため、証拠レベルはSupplier説明として保持する。Polyester側の原糸形態、構成糸本数、撚方向、撚数、各原糸番手・フィラメント数は未確認。Supplier記載特性は Light & Sheer、Refined & Delicate、Dry handfeel、Burn-out Printing。Stock Service（常备库存）、CUSTOM MAKE、ONLINE winningtextile.com.hk の表示も確認した。これらはSupplier BOOK記載であり独立試験ではない。法的会社名・製造者役割、紡績方式、ゲージ・本取り、認証は未確認。UNFILO KRUMLA0225との関連は別調査上の仮説に留め、このバッチでは採用実績・同一糸・R76/P24への変更を行わない。",
         "photoRefs": [
           {
             "photoId": "LIB-file_00000000035082068efd5d04e0e1812c",
