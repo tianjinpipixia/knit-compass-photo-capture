@@ -194,12 +194,15 @@ def main() -> None:
 
     page = PAGE.read_text(encoding="utf-8")
     for token in (
-        "中国語糸名 ↔ 日本語標準名",
+        "中国糸名・素材名辞典",
         "代表的な糸タイプ（例）",
         "kc_independent_practical_v0_4",
-        "cn-yarn-glossary.json",
+        "cn-yarn-glossary.json?v=1.2.0",
         "正式糸マスター",
-        "天然対象繊維",
+        "判定注意",
+        "双曲",
+        "拉毛",
+        "喷毛",
     ):
         if token not in page:
             fail(f"glossary page missing token: {token}")
