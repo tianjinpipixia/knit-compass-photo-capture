@@ -1,18 +1,20 @@
 (()=>{
   'use strict';
 
+  const V04_KEY='kc_independent_practical_v0_4';
+  const WAVE2_URL='./data/cn-yarn-glossary-wave2.json?v=1.0.0';
   const TERMS=[
     {
       id:'KC-SIRO-001',
       display:'Siro／赛络纺',
       japanese:'サイロ紡績／サイロ糸',
-      chinese:['赛络纺','赛络纺纱','赛络纱'],
+      chinese:['赛络纺','赛络纺纱','赛络纱','AB纱','A，B纱','A,B纱','并捻纺'],
       english:['Siro','Siro spinning','Sirospun'],
       structure:'短繊維束 × 短繊維束',
-      description:'2本の短繊維束（ロービング）を別々にドラフトし、合流後に同時加撚するリング系紡績。短繊維束×短繊維束の構造で、通常の単糸より毛羽低減・均斉性向上・双糸調の外観を狙う。',
-      rule:'最終紡績方式＝Ring系／糸構造＝Siro。Sirofil、Core-spunとは別分類。',
-      checks:['短繊維束の本数','ロービング間隔','撚数・撚方向','番手','前紡工程','編立ゲージ'],
-      keywords:['サイロ','サイロ紡績','サイロ糸','赛络纺','赛络纺纱','赛络纱','Siro','Siro spinning','Sirospun']
+      description:'2本の短繊維束（ロービング）を別々にドラフトし、合流後に同時加撚するリング系紡績。中国ではAB纱／A，B纱／并捻纺と呼ばれる例もある。',
+      rule:'最終紡績方式＝Ring系／糸構造＝Siro。AB纱は独立構造へ増殖させずSiroの別名として扱う。Sirofil、Core-spunとは別分類。',
+      checks:['短繊維束の本数','ロービング間隔','AB纱表記時にSiro構造か','撚数・撚方向','番手','前紡工程','編立ゲージ'],
+      keywords:['サイロ','サイロ紡績','サイロ糸','赛络纺','赛络纺纱','赛络纱','AB纱','A，B纱','A,B纱','并捻纺','Siro','Siro spinning','Sirospun']
     },
     {
       id:'KC-SIRO-002',
@@ -39,75 +41,58 @@
       keywords:['コアスパン','コアスパンヤーン','芯鞘糸','芯糸紡績','包芯纱','包芯纺','包芯纱线','core-spun','core spun yarn','core spinning']
     }
   ];
+  let wave2=[];
 
   const normalize=value=>String(value||'').toLowerCase().normalize('NFKC').replace(/[／/・,、()（）\-]+/g,' ').replace(/\s+/g,' ').trim();
   const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
   const tags=(items,klass='')=>(items||[]).map(value=>`<span class="tag ${klass}">${esc(value)}</span>`).join('');
+  const parseCount=value=>Number(String(value||'0').replace(/\D/g,''))||0;
 
   function termText(term){return normalize([term.display,term.japanese,...term.chinese,...term.english,term.structure,term.description,term.rule,...term.checks,...term.keywords].join(' '));}
+  function entryText(entry){return normalize([entry.market_name,...(entry.aliases||[]),entry.japanese_name,...(entry.representative_yarn_types||[]),...(entry.common_fibers||[]),entry.category,entry.natural_target_fiber,...(entry.search_keywords||[]),...(entry.exhibition_checks||[])].join(' '));}
+  function masterYarns(){try{const state=JSON.parse(localStorage.getItem(V04_KEY)||'{}');return Array.isArray(state.yarns)?state.yarns:[]}catch{return[]}}
+  function masterText(yarn){return normalize([yarn.name,yarn.code,yarn.supplier,yarn.structure,yarn.composition,yarn.gauge,...(Array.isArray(yarn.functions)?yarn.functions:[]),yarn.notes].join(' '));}
+  function masterMatches(entry){const needles=[entry.market_name,...(entry.aliases||[]),entry.japanese_name,...(entry.search_keywords||[])].flatMap(value=>String(value||'').split(/[／/]/)).map(normalize).filter(value=>value.length>=2);return masterYarns().filter(yarn=>{const hay=masterText(yarn);return needles.some(needle=>hay.includes(needle))});}
 
-  function card(term,doc){
-    const article=doc.createElement('article');
-    article.className='card kc-siro-term-card';
-    article.dataset.kcSiroTerm=term.id;
-    article.innerHTML=`
-      <div class="card-head"><div><div class="market">${esc(term.display)}</div><div class="jp">${esc(term.japanese)}</div></div><span class="priority">構造標準</span></div>
+  function siroCard(term,doc){
+    const article=doc.createElement('article');article.className='card kc-siro-term-card';article.dataset.kcSiroTerm=term.id;
+    article.innerHTML=`<div class="card-head"><div><div class="market">${esc(term.display)}</div><div class="jp">${esc(term.japanese)}</div></div><span class="priority">構造標準</span></div>
       <div><div style="font-size:9px;color:var(--muted);font-weight:900;margin-bottom:5px">構造</div><div class="tags"><span class="tag type">${esc(term.structure)}</span></div></div>
-      <div class="row"><strong>中国語表記</strong><div class="tags">${tags(term.chinese)}</div></div>
-      <div class="row"><strong>英語検索語</strong><div class="tags">${tags(term.english)}</div></div>
-      <div class="row"><strong>日本語検索語</strong><div class="tags">${tags(term.keywords.filter(value=>/[ぁ-んァ-ヶ一-龠]/.test(value)))}</div></div>
-      <div class="warning"><strong>説明：</strong>${esc(term.description)}</div>
-      <div class="match"><strong>KC分類ルール：</strong>${esc(term.rule)}</div>
-      <div class="row"><strong>Supplier確認ポイント</strong><div>${esc(term.checks.join(' ／ '))}</div></div>
-      <div class="row"><strong>検索キーワード</strong><div class="tags">${tags(term.keywords)}</div></div>
-      <div class="actions"><a class="mini" href="./siro-sirofil-core-spun.html" target="_top">技術解説を開く</a></div>`;
-    return article;
+      <div class="row"><strong>中国語表記</strong><div class="tags">${tags(term.chinese)}</div></div><div class="row"><strong>英語検索語</strong><div class="tags">${tags(term.english)}</div></div>
+      <div class="warning"><strong>説明：</strong>${esc(term.description)}</div><div class="match"><strong>KC分類ルール：</strong>${esc(term.rule)}</div>
+      <div class="row"><strong>Supplier確認ポイント</strong><div>${esc(term.checks.join(' ／ '))}</div></div><div class="row"><strong>検索キーワード</strong><div class="tags">${tags(term.keywords)}</div></div>
+      <div class="actions"><a class="mini" href="./siro-sirofil-core-spun.html" target="_top">技術解説を開く</a></div>`;return article;
   }
+
+  function waveCard(entry,doc){
+    const matches=masterMatches(entry);const article=doc.createElement('article');article.className='card kc-wave2-term-card';article.dataset.kcWave2Term=entry.id;
+    article.innerHTML=`<div class="card-head"><div><div class="market">${esc(entry.market_name)}</div><div class="jp">${esc(entry.japanese_name)}</div></div><span class="priority">第2波 ${esc(entry.priority)}</span></div>
+      <div><div style="font-size:9px;color:var(--muted);font-weight:900;margin-bottom:5px">代表的な糸タイプ（例）</div><div class="tags">${tags(entry.representative_yarn_types,'type')}</div></div>
+      <div class="row"><strong>簡体字別名</strong><div class="tags">${tags(entry.aliases)}</div></div><div class="row"><strong>よく使う実繊維</strong><div>${esc((entry.common_fibers||[]).join(' ／ '))}</div></div>
+      <div class="row"><strong>分類</strong><div>${esc(entry.category)}</div></div><div class="warning"><strong>判定注意：</strong>${esc(entry.natural_target_fiber)}</div>
+      <div class="row"><strong>検索キーワード</strong><div class="tags">${tags(entry.search_keywords)}</div></div><div class="row"><strong>展示会・Supplier確認</strong><div>${esc((entry.exhibition_checks||[]).join(' ／ '))}</div></div>
+      <div class="match"><strong>正式糸マスター：</strong>${matches.length?`${matches.length}件一致 — ${matches.slice(0,3).map(y=>esc([y.supplier,y.name].filter(Boolean).join('｜'))).join('、')}${matches.length>3?' ほか':''}`:'現在の登録糸に一致なし'}</div>`;return article;
+  }
+
+  function addOption(select,value){if(![...select.options].some(option=>option.value===value)){const option=select.ownerDocument.createElement('option');option.value=value;option.textContent=value;select.appendChild(option);}}
+  async function loadWave2(){if(wave2.length)return;try{const response=await fetch(WAVE2_URL,{cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status}`);const payload=await response.json();wave2=Array.isArray(payload.entries)?payload.entries:[]}catch(error){console.warn('[KC] wave2 glossary unavailable',error);wave2=[]}}
 
   function install(){
-    const frame=document.getElementById('contentFrame');
-    if(!(frame instanceof HTMLIFrameElement))return;
-
+    const frame=document.getElementById('contentFrame');if(!(frame instanceof HTMLIFrameElement))return;
     const apply=()=>{
-      let doc;
-      try{doc=frame.contentDocument;}catch{return;}
-      if(!doc||!String(frame.getAttribute('src')||'').includes('yarn-glossary.html'))return;
-      const list=doc.getElementById('list');
-      const query=doc.getElementById('query');
-      const category=doc.getElementById('category');
-      if(!list||!query||!category)return;
-
-      if(![...category.options].some(option=>option.value==='糸構造・複合紡績')){
-        const option=doc.createElement('option'); option.value='糸構造・複合紡績'; option.textContent='糸構造・複合紡績'; category.appendChild(option);
-      }
-
-      list.querySelectorAll('.kc-siro-term-card').forEach(node=>node.remove());
-      const q=normalize(query.value);
-      const cat=category.value;
-      const visible=TERMS.filter(term=>(!q||termText(term).includes(q))&&(!cat||cat==='糸構造・複合紡績'));
-      visible.forEach(term=>list.appendChild(card(term,doc)));
-
-      const total=doc.getElementById('totalCount');
-      const shown=doc.getElementById('visibleCount');
-      if(total&&!total.dataset.kcSiroBase){total.dataset.kcSiroBase=total.textContent||'0';}
-      if(shown&&!shown.dataset.kcSiroBase){shown.dataset.kcSiroBase=shown.textContent||'0';}
-      const parse=value=>Number(String(value||'0').replace(/\D/g,''))||0;
-      if(total)total.textContent=String(parse(total.dataset.kcSiroBase)+TERMS.length);
-      if(shown)shown.textContent=String(parse(shown.dataset.kcSiroBase)+visible.length);
+      let doc;try{doc=frame.contentDocument}catch{return}if(!doc||!String(frame.getAttribute('src')||'').includes('yarn-glossary.html'))return;
+      const list=doc.getElementById('list'),query=doc.getElementById('query'),category=doc.getElementById('category');if(!list||!query||!category)return;
+      const total=doc.getElementById('totalCount'),shown=doc.getElementById('visibleCount');
+      list.querySelectorAll('.kc-siro-term-card,.kc-wave2-term-card').forEach(node=>node.remove());
+      const baseTotal=parseCount(total?.textContent),baseShown=parseCount(shown?.textContent);
+      addOption(category,'糸構造・複合紡績');[...new Set(wave2.map(entry=>entry.category).filter(Boolean))].sort().forEach(value=>addOption(category,value));
+      const q=normalize(query.value),cat=category.value;
+      const visibleWave=wave2.filter(entry=>(!q||entryText(entry).includes(q))&&(!cat||cat===entry.category));
+      const visibleSiro=TERMS.filter(term=>(!q||termText(term).includes(q))&&(!cat||cat==='糸構造・複合紡績'));
+      visibleWave.forEach(entry=>list.appendChild(waveCard(entry,doc)));visibleSiro.forEach(term=>list.appendChild(siroCard(term,doc));
+      if(total)total.textContent=String(baseTotal+wave2.length+TERMS.length);if(shown)shown.textContent=String(baseShown+visibleWave.length+visibleSiro.length);
     };
-
-    frame.addEventListener('load',()=>{
-      apply();
-      let doc; try{doc=frame.contentDocument;}catch{return;}
-      if(!doc)return;
-      const rerender=()=>setTimeout(apply,0);
-      doc.getElementById('query')?.addEventListener('input',rerender);
-      doc.getElementById('category')?.addEventListener('change',rerender);
-      doc.getElementById('clear')?.addEventListener('click',rerender);
-      const observer=new MutationObserver(()=>{if(!doc.querySelector('.kc-siro-term-card'))setTimeout(apply,0);});
-      const list=doc.getElementById('list'); if(list)observer.observe(list,{childList:true});
-    });
+    frame.addEventListener('load',()=>{loadWave2().then(()=>{apply();let doc;try{doc=frame.contentDocument}catch{return}if(!doc)return;const rerender=()=>setTimeout(apply,0);doc.getElementById('query')?.addEventListener('input',rerender);doc.getElementById('category')?.addEventListener('change',rerender);doc.getElementById('clear')?.addEventListener('click',rerender);const list=doc.getElementById('list');if(list)new MutationObserver(()=>{if(!doc.querySelector('.kc-siro-term-card')&&!doc.querySelector('.kc-wave2-term-card'))setTimeout(apply,0)}).observe(list,{childList:true});});});
   }
-
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
 })();
