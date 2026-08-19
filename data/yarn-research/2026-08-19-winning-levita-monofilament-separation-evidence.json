@@ -1,0 +1,42 @@
+{
+  "format": "KC_YARN_RESEARCH_EVIDENCE",
+  "schema_version": "1.0",
+  "recorded_at": "2026-08-19T01:43:00Z",
+  "target_yarn_temp_id": "TMP-YN-KC-20260819-WINNING-LEVITA-1-40",
+  "target_yarn_name": "Levita / 利维纱",
+  "source_organization": "Winning Textile",
+  "evidence_type": "user_macro_photo_separated_component",
+  "verification_status": "mixed_visual_confirmation_and_inference",
+  "evidence_id": "TMP-EV-KC-20260819-WINNING-LEVITA-MONOFILAMENT",
+  "confirmed_visible_facts": {
+    "separated_fine_component_visible": true,
+    "single_filament_appearance": true,
+    "monofilament_form": "visually_confirmed",
+    "polymer_identity_from_photo_alone": "not_confirmed"
+  },
+  "linked_known_specification": {
+    "finished_count": "1/40 Nm",
+    "composition": "78% Viscose / 22% Polyester",
+    "supplier_explanation": "交撚; Viscose side is filament"
+  },
+  "calculation_inference": {
+    "finished_tex_from_1_40_Nm": 25.0,
+    "polyester_tex_at_22_percent": 5.5,
+    "polyester_denier_equivalent": 49.5,
+    "candidate_component": "Polyester monofilament approximately 50D/1F",
+    "status": "strong_inference_not_supplier_confirmed",
+    "reasoning": "The newly separated fine component is visually a monofilament. With Viscose already reported by the supplier as the filament side and the finished composition at 78/22, the 22% component corresponds to approximately 49.5D. This makes approximately 50D/1F Polyester a strong construction candidate.",
+    "warning": "Polymer identity is inferred from the known composition, supplier explanation and mass balance, not chemically identified from the image. Exact denier, polymer grade, luster and twist specification still require supplier confirmation."
+  },
+  "updated_structure_hypothesis": {
+    "viscose_side": "approximately 180D Viscose filament; supplier-reported filament, exact D/F unconfirmed",
+    "polyester_side": "approximately 50D/1F Polyester monofilament; visually monofilament and numerically strong fit, polymer assignment inferred",
+    "finished_yarn": "combined twist / 交撚, 1/40 Nm, 78% Viscose / 22% Polyester"
+  },
+  "next_confirmation": "Ask Winning Textile whether Levita is approximately Viscose filament 180D (exact D/F requested) + Polyester monofilament 50D/1F, and request twist direction and T/M.",
+  "photo_ref": {
+    "photo_id": "LIB-file_00000000575c8209be79db17e1359935",
+    "file_name": "1691.jpg",
+    "label": "Levita separated fine component showing monofilament appearance"
+  }
+}
