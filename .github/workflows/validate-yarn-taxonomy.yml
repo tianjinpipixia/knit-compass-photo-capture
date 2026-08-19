@@ -7,6 +7,8 @@ on:
       - 'yarn-taxonomy-guard.js'
       - 'index.html'
       - 'brand-intelligence/data/cn-yarn-glossary.json'
+      - 'brand-intelligence/yarn-glossary.html'
+      - 'scripts/validate_yarn_glossary.py'
       - 'scripts/validate_yarn_taxonomy.py'
       - '.github/workflows/validate-yarn-taxonomy.yml'
   push:
@@ -15,6 +17,8 @@ on:
       - 'yarn-taxonomy-guard.js'
       - 'index.html'
       - 'brand-intelligence/data/cn-yarn-glossary.json'
+      - 'brand-intelligence/yarn-glossary.html'
+      - 'scripts/validate_yarn_glossary.py'
       - 'scripts/validate_yarn_taxonomy.py'
       - '.github/workflows/validate-yarn-taxonomy.yml'
 
@@ -31,3 +35,5 @@ jobs:
           python-version: '3.12'
       - name: Validate preparation and spinning taxonomy
         run: python scripts/validate_yarn_taxonomy.py
+      - name: Validate China yarn glossary and fancy-yarn taxonomy
+        run: python scripts/validate_yarn_glossary.py
