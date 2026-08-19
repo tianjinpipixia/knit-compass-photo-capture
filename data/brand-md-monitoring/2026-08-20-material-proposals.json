@@ -1,0 +1,25 @@
+{
+  "format": "KC_BRAND64_MATERIAL_PROPOSALS",
+  "schema_version": "1.2",
+  "observed_date": "2026-08-20",
+  "active_brand_source": "config/brand64-active-brands.json",
+  "source_daily_path": "data/brand-md-monitoring/2026-08-20-brand64-daily.jsonl",
+  "active_daily_overlay_paths": [],
+  "source_summary_path": "data/brand-md-monitoring/2026-08-20-brand64-daily-summary.md",
+  "product_baseline_path": "data/brand-md-monitoring/2026-08-20-product-baseline-snapshots.jsonl",
+  "product_risk_path": "data/brand-md-monitoring/2026-08-20-product-risk-events.jsonl",
+  "observed_brand_count": 64,
+  "comparison_scope": "Current active Brand64 is defined by config/brand64-active-brands.json. 2026-08-20 uses the 2026-08-18 daily baseline where comparable and the 2026-08-19 initial baselines for ZARA/SNIDEL. Source-freshness-limited brands are not interpreted as no-change. Scheduled PAL events not yet active at 08:45 JST are kept separate from live deltas.",
+  "sales_quantity_status": "NOT_AVAILABLE",
+  "sales_quantity_estimation": "FORBIDDEN",
+  "catalog_boundary": "CATALOG_INDEXED / LISTING_PAGE_ONLY / NOT_PROMOTED",
+  "review_boundary": "HUMAN_REVIEW_REQUIRED",
+  "publication_status": "PUBLISH_HOLD",
+  "proposals": [
+    {"id":"BR64-MD-20260820-FUNCTION-FEMININE","title":"残暑機能をフェミニン秋意匠へ","status":"MD_DRAFT","publication_status":"PUBLISH_HOLD","scope_note":"index、mysty woman、natural couture、SNIDEL、Heather等で、洗える/抗ピル等とフリル、チュール、レース、パール、ペプラム、フェザー等の意匠が併存。","observed_signal":"端境期ニットは機能ベーシック単独より、残暑対応を維持したまま秋見え意匠を強める方向が複数ブランドで確認できる。","market_change":"機能訴求を表に出しすぎず、見映えの中に埋め込む商品設計が競争軸になる。","candidate_terms":["抗起球","防晒","凉感","吸湿速干","粘胶","锦纶"],"minimum_term_matches":1,"primary_query":"抗起球 防晒","material_proposal":"14G/16Gで接触冷感・UV・吸水速乾・抗ピル・洗えるを、フリル/チュール/パール/レース/配色へ載せる。秋色展開を前提に端境期素材として提案する。"},
+    {"id":"BR64-MD-20260820-LIGHT-HAIRY","title":"軽量毛羽を半袖・ベスト・短丈へ","status":"MD_DRAFT","publication_status":"PUBLISH_HOLD","scope_note":"BAYFLOWのブークレ、PAGEBOYのシャギー、A part byのモヘア/ラクーン、natural coutureの半袖フェザー、LOWRYS FARMのシャギーベスト等を確認。","observed_signal":"毛羽素材は厚手冬物としてではなく、残暑期から着られる軽量・袖短め・ベスト・短丈カーデで先行投入されている。","market_change":"毛羽感に加えて軽さ、肌当たり、ケア性、静電気対策が素材価値になる。","candidate_terms":["马海毛","圈圈","羽毛纱","狐狸毛","羊驼","花式纱"],"minimum_term_matches":1,"primary_query":"马海毛 花式纱","material_proposal":"10G〜12Gで軽量ブークレ/シャギー/モヘア/ラクーン見え/フェザーを、ウォッシャブル・静電気軽減・抗ピルと組み合わせる。半袖、ベスト、短丈カーデ向けを優先。"},
+    {"id":"BR64-MD-20260820-LAYERED-12-14G","title":"12G〜14Gをレイヤード・外衣化","status":"MD_DRAFT","publication_status":"PUBLISH_HOLD","scope_note":"LAKOLE 12Gレイヤードライク、LEPSIM 14Gシャツ＋ベスト2P、JEANASIS 14G装飾カーデ、AndemiuレイヤードSET、Elura ZIPカーデ等を確認。","observed_signal":"細〜中肉ニットを単純なプルオーバーではなく、2WAY、セット、ZIP、レイヤード、装飾カーデへ変換する動きが強い。","market_change":"端境期は一枚着の素材性能だけでなく、重ね着しやすい厚みと形態安定性が商品価値になる。","candidate_terms":["高支","双曲","包芯纱","粘胶","锦纶","涤纶"],"minimum_term_matches":1,"primary_query":"高支 粘胶 锦纶","material_proposal":"12G〜14Gでレイヤード/2WAY/ZIP/セットアップ向けの編地安定性を重視。レーヨン/ナイロン、綿/ポリエステル、細番手毛混で型崩れを抑える設計を提案する。"},
+    {"id":"BR64-MD-20260820-ZARA-TURNOVER","title":"ZARAのNEW回転を先行シグナル化","status":"MD_DRAFT","publication_status":"PUBLISH_HOLD","scope_note":"8/19初回基準と8/20公式レディースニット上位を比較し、ギャザーネック、ボートネック等を含むNEW上位の顔ぶれ変化を確認。","observed_signal":"同一SKUの値下げではなく、カテゴリ上位の商品構成そのものが短周期で入れ替わる。","market_change":"国内ブランドの予約MDだけでなく、グローバルSPAの商品回転速度を型・表面感・色の先行指標として使う価値が高い。","candidate_terms":["针织开衫","针织衫","蜂窝","褶皱","短袖"],"minimum_term_matches":1,"primary_query":"针织开衫 蜂窝","material_proposal":"ZARA NEW上位を日次で型分類し、国内で未増加の襟型・表面組織・短丈/半袖バランスが2〜3日継続した場合に試作候補へ上げる。"},
+    {"id":"BR64-MD-20260820-SOURCE-RISK","title":"鮮度不足・状態競合を差分から分離","status":"OPERATIONAL_DRAFT","publication_status":"PUBLISH_HOLD","scope_note":"NBBの公式EC移行、AMERICAN HOLIC 0H001683000、UNFILO KRUMSW0424、SNIDEL限定アーガイルの状態競合、11ブランドのSOURCE_FRESHNESS_LIMITEDを記録。","observed_signal":"検索索引や予定時刻だけで価格・発売・SOLD OUTを上書きすると、日次MDの誤差が拡大する。","market_change":"商品サイトのURL変更や販促時間指定も、商品差分と同じくらい保全対象として重要。","candidate_terms":[],"minimum_term_matches":0,"primary_query":"","material_proposal":"商品差分はライブ比較可能性を優先し、競合時はSOURCE_STATE_CONFLICT、鮮度不足はSOURCE_FRESHNESS_LIMITEDとして保持。Human Review前に推定補完しない。"}
+  ]
+}
