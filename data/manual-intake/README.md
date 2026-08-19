@@ -22,10 +22,8 @@ Human Reviewへ安全に投入するための手動候補バッチを保存し�
 - `2026-08-17-minghai-wool-silk-core-spun-batch7.json` — MINGHAI 羊毛绢丝包芯纱 1件
 - `2026-08-18-american-holic-products-batch8.json` — AMERICAN HOLIC 2件（0H001683100 / 0H002151200、2026-08-14現物タグ）
 - `2026-08-18-dinghong-mz100-25139-batch9.json` — 东莞市鼎宏纺织品有限公司 会社候補＋MZ100 25139 羊毛马海毛 2件
-- `2026-08-19-winning-textile-levita-batch10.json` — Winning Textile `Levita / 利维纱` 1件（Nm 1/40、R78/P22、bright/dull、交撚候補。Supplier説明＋BOOK表紙 `TWISTED COLLECTION` と整合、詳細撚仕様は未確認）
+- `2026-08-19-winning-textile-levita-batch10.json` — Winning Textile Levita / 利维纱 1件（1/40 Nm・R78/P22・bright/dull・交撚、Viscose側フィラメントはSupplier説明として保持）
 
 ## 一括取込
 
-`/owner-yarns/` の「未反映24件の取込」から、batch1〜9・合計24件を `kc_v04_handoff_queue_v1` へ重複なく追加できます。AMERICAN HOLICは8/13の2件に加え、8/14現物確認の2件（0H001683100 / 0H002151200）も同じHuman Review導線に含まれます。鼎宏は会社候補とMZ100 ID 25139の糸候補を別レコードで保持し、MZ100掲載会社を製造者へ自動昇格しません。取込後も全件 `PENDING` のままで、承認前に正式マスターへ自動昇格しません。
-
-batch10（Levita）は現在、既存24件の一括取込には含めず、独立したHuman Review候補として管理します。
+`/owner-yarns/` の「未反映24件の取込」からは、現在もbatch1–9の合計24件を `kc_v04_handoff_queue_v1` へ重複なく追加できます。batch10のLevitaは別候補としてHuman Reviewへ投入する前段に保持します。AMERICAN HOLICは8/13の2件に加え、8/14現物確認の2件（0H001683100 / 0H002151200）も同じHuman Review導線に含まれます。鼎宏は会社候補とMZ100 ID 25139の糸候補を別レコードで保持し、MZ100掲載会社を製造者へ自動昇格しません。取込後も全件 `PENDING` のままで、承認前に正式マスターへ自動昇格しません。
