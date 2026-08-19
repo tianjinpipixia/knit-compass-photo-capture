@@ -48,10 +48,14 @@ jobs:
           assert 'Human Review受信箱' in current
           assert 'Human Review' in current
           assert 'DecompressionStream' not in current
-          assert '中国語糸名 ↔ 日本語標準名' in glossary
+          assert '中国糸名・素材名辞典' in glossary
           assert '代表的な糸タイプ（例）' in glossary
+          assert '判定注意' in glossary
           assert glossary_data['dictionary_id'] == 'KC-CN-YARN-001'
-          assert len(glossary_data['entries']) >= 8
+          assert glossary_data['title'] == '中国糸名・素材名辞典'
+          assert len(glossary_data['entries']) >= 33
+          assert any(row.get('market_name') == '双曲纱／曲珠纱' for row in glossary_data['entries'])
+          assert any(row.get('market_name') == '喷毛纱' for row in glossary_data['entries'])
           assert manifest['short_name'] == 'Knit Compass'
           assert b'kc_independent_practical_v0_4' in app
 
@@ -64,7 +68,7 @@ jobs:
           assert Path('brand/knit-compass-mark.png').is_file()
           assert Path('daily/icon.svg').is_file()
 
-          print(f'PASS: sales shell -> preserved Human Review -> {match.group(0)} and China yarn glossary; app SHA-256 {hashlib.sha256(app).hexdigest()}')
+          print(f'PASS: sales shell -> preserved Human Review -> {match.group(0)} and 33+ entry China yarn/material glossary; app SHA-256 {hashlib.sha256(app).hexdigest()}')
 
   public-main-smoke:
     if: github.event_name != 'pull_request'
