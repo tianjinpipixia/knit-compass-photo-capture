@@ -8,8 +8,8 @@ on:
       - 'index.html'
       - 'brand-intelligence/data/cn-yarn-glossary.json'
       - 'brand-intelligence/data/cn-yarn-glossary-wave2.json'
-      - 'brand-intelligence/yarn-glossary.html'
       - 'brand-intelligence/siro-glossary-augment.js'
+      - 'brand-intelligence/yarn-glossary.html'
       - 'scripts/validate_yarn_glossary.py'
       - 'scripts/validate_yarn_glossary_wave2.py'
       - 'scripts/validate_yarn_taxonomy.py'
@@ -21,8 +21,8 @@ on:
       - 'index.html'
       - 'brand-intelligence/data/cn-yarn-glossary.json'
       - 'brand-intelligence/data/cn-yarn-glossary-wave2.json'
-      - 'brand-intelligence/yarn-glossary.html'
       - 'brand-intelligence/siro-glossary-augment.js'
+      - 'brand-intelligence/yarn-glossary.html'
       - 'scripts/validate_yarn_glossary.py'
       - 'scripts/validate_yarn_glossary_wave2.py'
       - 'scripts/validate_yarn_taxonomy.py'
@@ -43,5 +43,5 @@ jobs:
         run: python scripts/validate_yarn_taxonomy.py
       - name: Validate China yarn glossary and fancy-yarn taxonomy
         run: python scripts/validate_yarn_glossary.py
-      - name: Validate KIMI wave2 glossary additions
+      - name: Validate KIMI wave2 and AB-effect boundary
         run: python scripts/validate_yarn_glossary_wave2.py
