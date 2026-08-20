@@ -15,14 +15,23 @@ def load_json(path: str) -> dict:
 
 def main() -> None:
     brand_index = (ROOT / "brand-intelligence/index.html").read_text(encoding="utf-8")
+    owner_current = (ROOT / "owner-yarns/current.html").read_text(encoding="utf-8")
     intake = (ROOT / "owner-yarns/intake-current.html").read_text(encoding="utf-8")
     reflection = (ROOT / "brand-intelligence/v04-reflection-status.html").read_text(encoding="utf-8")
 
     # V04 navigation must expose the current surfaces, not a stale 24-item route.
     assert "中国糸名・素材名辞典" in brand_index
+    assert "../owner-yarns/current.html" in brand_index
     assert "../owner-yarns/intake-current.html" in brand_index
     assert "25件（Winning Textile Levita含む）" in brand_index
     assert "./v04-reflection-status.html" in brand_index
+    assert "../owner-yarns/\" target=\"_top\">糸検索" not in brand_index
+
+    # V04 yarn-search wrapper prevents the old 24-item intake tab from becoming the current route.
+    assert "./index.html" in owner_current
+    assert "./intake-current.html" in owner_current
+    assert "未反映25件・Human Review" in owner_current
+    assert "Winning Textile Levita含む" in owner_current
 
     # Current intake must include every historical batch plus Winning Levita batch10.
     expected_batches = [
@@ -92,7 +101,7 @@ def main() -> None:
 
     print(
         "V04 reflection guard: OK "
-        "(glossary connected, 25-item intake incl. Levita, 11 Tier-A incl. SNIDEL, latest MD pointer aligned)"
+        "(current yarn-search route, glossary, 25-item intake incl. Levita, 11 Tier-A incl. SNIDEL, latest MD pointer aligned)"
     )
 
 
