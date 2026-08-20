@@ -19,6 +19,11 @@ def main() -> None:
     intake = (ROOT / "owner-yarns/intake-current.html").read_text(encoding="utf-8")
     reflection = (ROOT / "brand-intelligence/v04-reflection-status.html").read_text(encoding="utf-8")
 
+    # V04 public navigation must never reintroduce retired Sites labels.
+    for retired_label in ("展示会モード", "中国糸辞典", "中国糸名辞書"):
+        assert retired_label not in brand_index, f"retired V04 public label reintroduced: {retired_label}"
+    assert 'data-legacy-candidate-label="24件"' not in brand_index
+
     # V04 navigation must expose the current surfaces, not a stale 24-item route.
     assert "中国糸名・素材名辞典" in brand_index
     assert "../owner-yarns/current.html" in brand_index
@@ -104,7 +109,7 @@ def main() -> None:
 
     print(
         "V04 reflection guard: OK "
-        "(current yarn-search route, glossary 33+13, 25-item intake incl. Levita, 11 Tier-A incl. SNIDEL, latest MD pointer aligned)"
+        "(retired public labels absent, current yarn-search route, glossary 33+13, 25-item intake incl. Levita, 11 Tier-A incl. SNIDEL, latest MD pointer aligned)"
     )
 
 
