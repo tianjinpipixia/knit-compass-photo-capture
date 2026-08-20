@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the China yarn market-name glossary and sales navigation contract."""
+"""Validate the China yarn/material glossary and sales navigation contract."""
 from __future__ import annotations
 
 import json
@@ -21,6 +21,25 @@ REQUIRED_MARKET_NAMES = {
     "仿羊驼",
     "仿亚麻",
     "冰麻／丝麻",
+}
+REQUIRED_FANCY_TERMS = {
+    "花捻纱／花式捻线",
+    "双曲纱／曲珠纱",
+    "圈圈纱／圈圈线",
+    "结子纱／结子线",
+    "大肚纱／粗节纱",
+    "竹节纱",
+    "羽毛纱",
+    "睫毛纱",
+    "带子纱／扁带纱",
+    "空心带／筒状纱",
+    "雪尼尔纱",
+    "拉毛纱",
+    "磨毛纱／刷毛纱",
+    "小马海／仿马海",
+    "皮毛纱／仿皮草纱",
+    "色纺拉毛纱",
+    "喷毛纱",
 }
 REQUIRED_FIELDS = {
     "id",
@@ -64,26 +83,33 @@ def main() -> None:
         fail("unexpected glossary schema_version")
     if data.get("dictionary_id") != "KC-CN-YARN-001":
         fail("dictionary_id must be KC-CN-YARN-001")
+    if data.get("title") != "中国糸名・素材名辞典":
+        fail("glossary title must be 中国糸名・素材名辞典")
 
     policy = data.get("policy") or {}
-    if policy.get("market_name_is_not_composition") is not True:
-        fail("market names must not be treated as composition")
-    if policy.get("natural_fiber_must_be_verified_from_composition") is not True:
-        fail("natural fiber verification policy is missing")
-    if policy.get("combed_does_not_imply_ring_spinning") is not True:
-        fail("combed cotton must not imply ring spinning")
+    for key in (
+        "market_name_is_not_composition",
+        "natural_fiber_must_be_verified_from_composition",
+        "combed_does_not_imply_ring_spinning",
+        "fancy_market_terms_do_not_determine_structure",
+        "post_process_does_not_determine_base_structure",
+        "supplier_specific_usage_must_not_be_generalized",
+    ):
+        if policy.get(key) is not True:
+            fail(f"required glossary policy is missing: {key}")
     if policy.get("representative_field_label") != "代表的な糸タイプ（例）":
         fail("representative field label must be 代表的な糸タイプ（例）")
     if policy.get("avoid_field_label") != "糸例":
         fail("avoid_field_label must preserve the rejected label 糸例")
 
     entries = data.get("entries")
-    if not isinstance(entries, list) or len(entries) < 8:
-        fail("at least 8 initial glossary entries are required")
+    if not isinstance(entries, list) or len(entries) < 33:
+        fail("at least 33 glossary entries are required after KIMI reconciliation")
 
     ids: set[str] = set()
     priorities: set[int] = set()
     names: set[str] = set()
+    by_name: dict[str, dict] = {}
     for entry in entries:
         if not isinstance(entry, dict):
             fail("every glossary entry must be an object")
@@ -101,7 +127,10 @@ def main() -> None:
         name = str(entry["market_name"]).strip()
         if not name:
             fail(f"{entry_id} has empty market_name")
+        if name in by_name:
+            fail(f"duplicate market_name: {name}")
         names.add(name)
+        by_name[name] = entry
         for field in ("aliases", "representative_yarn_types", "common_fibers", "search_keywords", "exhibition_checks"):
             value = entry[field]
             if not isinstance(value, list) or not value or not all(str(item).strip() for item in value):
@@ -109,20 +138,71 @@ def main() -> None:
         if not str(entry["japanese_name"]).strip() or not str(entry["category"]).strip():
             fail(f"{entry_id} Japanese name/category must be present")
         if not str(entry["natural_target_fiber"]).strip():
-            fail(f"{entry_id} natural fiber caution is required")
+            fail(f"{entry_id} caution/definition note is required")
 
     missing_names = REQUIRED_MARKET_NAMES - names
     if missing_names:
         fail(f"missing initial market names: {sorted(missing_names)}")
+    missing_fancy = REQUIRED_FANCY_TERMS - names
+    if missing_fancy:
+        fail(f"missing fancy yarn terms: {sorted(missing_fancy)}")
+
+    fancy_structure_terms = {
+        "花捻纱／花式捻线", "圈圈纱／圈圈线", "结子纱／结子线",
+        "大肚纱／粗节纱", "竹节纱", "羽毛纱", "睫毛纱", "带子纱／扁带纱",
+        "空心带／筒状纱", "雪尼尔纱", "喷毛纱",
+    }
+    for term in fancy_structure_terms:
+        if by_name[term]["category"] != "② ファンシー構造名":
+            fail(f"{term} must be categorized as ② ファンシー構造名")
+
+    double_curve = by_name["双曲纱／曲珠纱"]
+    if double_curve["category"] != "① 基本構造・複合加工糸":
+        fail("双曲纱／曲珠纱 must be separated from fancy-twist structure")
+    double_curve_text = json.dumps(double_curve, ensure_ascii=False)
+    for token in ("エアー交絡", "粘胶", "锦纶", "花捻", "Supplier"):
+        if token not in double_curve_text:
+            fail(f"双曲纱／曲珠纱 missing reconciliation token: {token}")
+
+    for term in ("拉毛纱", "磨毛纱／刷毛纱"):
+        if by_name[term]["category"] != "③ 後加工名":
+            fail(f"{term} must be categorized as ③ 後加工名")
+    for term in ("小马海／仿马海", "皮毛纱／仿皮草纱"):
+        if by_name[term]["category"] != "④ 市場呼称・外観名":
+            fail(f"{term} must be categorized as ④ 市場呼称・外観名")
+    if by_name["色纺拉毛纱"]["category"] != "④ 複合市場呼称":
+        fail("色纺拉毛纱 must be categorized as ④ 複合市場呼称")
+
+    brushed_text = by_name["拉毛纱"]["natural_target_fiber"]
+    if "元の糸構造" not in brushed_text or "自動的に決めない" not in brushed_text:
+        fail("拉毛纱 must not imply a base yarn structure")
+
+    color_brushed_text = by_name["色纺拉毛纱"]["natural_target_fiber"]
+    for token in ("花捻構造を意味しない", "固定しない", "最終紡績方式"):
+        if token not in color_brushed_text:
+            fail(f"色纺拉毛纱 missing guard token: {token}")
+
+    air_yarn_text = json.dumps(by_name["喷毛纱"], ensure_ascii=False)
+    for token in ("FZ/T 22016-2019", "空心网状带子", "松散繊維"):
+        if token not in air_yarn_text:
+            fail(f"喷毛纱 missing standardized structure token: {token}")
+
+    feather_text = json.dumps(by_name["羽毛纱"], ensure_ascii=False)
+    eyelash_text = json.dumps(by_name["睫毛纱"], ensure_ascii=False)
+    if "睫毛纱" not in feather_text or "羽毛纱" not in eyelash_text:
+        fail("羽毛纱 and 睫毛纱 must cross-reference their overlapping market usage")
 
     page = PAGE.read_text(encoding="utf-8")
     for token in (
-        "中国語糸名 ↔ 日本語標準名",
+        "中国糸名・素材名辞典",
         "代表的な糸タイプ（例）",
         "kc_independent_practical_v0_4",
-        "cn-yarn-glossary.json",
+        "cn-yarn-glossary.json?v=1.2.0",
         "正式糸マスター",
-        "天然対象繊維",
+        "判定注意",
+        "双曲",
+        "拉毛",
+        "喷毛",
     ):
         if token not in page:
             fail(f"glossary page missing token: {token}")
@@ -159,7 +239,7 @@ def main() -> None:
         if path not in sw:
             fail(f"service worker cache missing {path}")
 
-    print(f"OK: validated {len(entries)} China yarn entries, glossary wiring, and simplified sales navigation")
+    print(f"OK: validated {len(entries)} China yarn/material entries including KIMI-reconciled fancy-yarn taxonomy")
 
 
 if __name__ == "__main__":

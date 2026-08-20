@@ -33,6 +33,7 @@ name: Validate system registry
       - "brand-intelligence/index-current.html"
       - "brand-intelligence/yarn-glossary.html"
       - "brand-intelligence/data/cn-yarn-glossary.json"
+      - "brand-intelligence/data/cn-yarn-glossary-wave2.json"
       - "brand-intelligence/sw.js"
       - "brand-intelligence/manifest.webmanifest"
       - "market-signals.js"
@@ -71,6 +72,7 @@ name: Validate system registry
       - "config/system-registry.json"
       - "docs/SYSTEM_REGISTRY.md"
       - "docs/CN_YARN_GLOSSARY.md"
+      - "docs/CN_YARN_GLOSSARY_WAVE2.md"
       - "docs/CUSTOMER_SHARING.md"
       - "docs/DATA_CONTRACT.md"
       - "docs/KPI_MEASUREMENT.md"
@@ -82,6 +84,7 @@ name: Validate system registry
       - "requirements-validation.txt"
       - "scripts/validate_system_registry.py"
       - "scripts/validate_yarn_glossary.py"
+      - "scripts/validate_yarn_glossary_wave2.py"
       - "scripts/validate_handoff_safety.py"
       - "scripts/validate_ui_state_guard.py"
       - "scripts/validate_customer_sharing.py"
@@ -127,6 +130,7 @@ name: Validate system registry
       - "brand-intelligence/index-current.html"
       - "brand-intelligence/yarn-glossary.html"
       - "brand-intelligence/data/cn-yarn-glossary.json"
+      - "brand-intelligence/data/cn-yarn-glossary-wave2.json"
       - "brand-intelligence/sw.js"
       - "brand-intelligence/manifest.webmanifest"
       - "market-signals.js"
@@ -165,6 +169,7 @@ name: Validate system registry
       - "config/system-registry.json"
       - "docs/SYSTEM_REGISTRY.md"
       - "docs/CN_YARN_GLOSSARY.md"
+      - "docs/CN_YARN_GLOSSARY_WAVE2.md"
       - "docs/CUSTOMER_SHARING.md"
       - "docs/DATA_CONTRACT.md"
       - "docs/KPI_MEASUREMENT.md"
@@ -176,6 +181,7 @@ name: Validate system registry
       - "requirements-validation.txt"
       - "scripts/validate_system_registry.py"
       - "scripts/validate_yarn_glossary.py"
+      - "scripts/validate_yarn_glossary_wave2.py"
       - "scripts/validate_handoff_safety.py"
       - "scripts/validate_ui_state_guard.py"
       - "scripts/validate_customer_sharing.py"
@@ -208,6 +214,8 @@ jobs:
         run: python scripts/validate_system_registry.py
       - name: Validate China yarn glossary contract
         run: python scripts/validate_yarn_glossary.py
+      - name: Validate KIMI wave2 glossary additions
+        run: python scripts/validate_yarn_glossary_wave2.py
       - name: Validate Photo Capture install surface
         run: python scripts/validate_photo_capture_install.py
       - name: Validate product research monthly observation and MD contract
