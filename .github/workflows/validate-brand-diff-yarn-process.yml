@@ -1,0 +1,37 @@
+name: Validate Brand64 diff and yarn process fields
+
+"on":
+  pull_request:
+    paths:
+      - 'brand-intelligence/brand-diff-auto-intake.js'
+      - 'brand-intelligence/yarn-process-master-v1.js'
+      - 'brand-intelligence/owner-observed-products.js'
+      - 'yarn-process-fields-v1.js'
+      - 'yarn-taxonomy-guard.js'
+      - 'scripts/validate_brand_diff_yarn_process.py'
+      - 'tests/test_brand_diff_auto_intake.js'
+      - 'tests/test_yarn_process_overlays.js'
+      - '.github/workflows/validate-brand-diff-yarn-process.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: python scripts/validate_brand_diff_yarn_process.py
+      - run: node --check brand-intelligence/brand-diff-auto-intake.js
+      - run: node --check brand-intelligence/yarn-process-master-v1.js
+      - run: node --check yarn-process-fields-v1.js
+      - run: node tests/test_brand_diff_auto_intake.js
+      - run: node tests/test_yarn_process_overlays.js

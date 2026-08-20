@@ -56,3 +56,13 @@
     detectSpinningMethod: (text) => detect(text, spinningRules, 'Unknown')
   });
 })();
+
+(()=>{
+  'use strict';
+  if(document.querySelector('script[data-kc-yarn-process-fields]'))return;
+  const script=document.createElement('script');
+  script.src='yarn-process-fields-v1.js?v=1.0.0';
+  script.dataset.kcYarnProcessFields='1';
+  script.defer=true;
+  document.head.appendChild(script);
+})();

@@ -181,3 +181,13 @@
     if(contentFrame.contentDocument?.readyState==='complete')wire();
   }).catch(error=>console.warn('Owner-observed product candidates could not be loaded:',error));
 })();
+
+(()=>{
+  'use strict';
+  const sources=['./brand-diff-auto-intake.js?v=1.0.0','./yarn-process-master-v1.js?v=1.0.0'];
+  for(const src of sources){
+    if(document.querySelector(`script[data-kc-extension="${src}"]`))continue;
+    const script=document.createElement('script');
+    script.src=src;script.dataset.kcExtension=src;script.defer=true;document.head.appendChild(script);
+  }
+})();
