@@ -1,0 +1,103 @@
+{
+  "format": "KC_MD_MONTH_SCOPE_FIXTURE",
+  "schema_version": "1.0",
+  "observed_at": "2026-08-20T15:33:00+09:00",
+  "brand_id": "BR-00006",
+  "brand_name": "GLOBAL WORK",
+  "fiscal_year": 2026,
+  "purpose": "Regression fixture for Issue #87. Preserve owner-confirmed launch timing, composition and weight facts used to verify month-scoped product selection. This fixture is not an automatic formal-master promotion.",
+  "products": [
+    {
+      "product_code": "826491",
+      "product_name": "クルーネックカーディガン／長袖",
+      "official_url": "https://www.dot-st.com/globalwork/disp/item/826491/?COLOR_CD=14",
+      "bucket": "MAINLINE",
+      "sales_start_date": "2026-08-07",
+      "preorder_start_date": "2026-08-07",
+      "preorder_end_date": "2026-08-25T12:00:00+09:00",
+      "delivery_expected_month": "2026-09",
+      "md_primary_month": "2026-08",
+      "md_primary_event": "PREORDER_START",
+      "count_as_new_in_delivery_month": false,
+      "selected_color_code": "14",
+      "selected_color_composition": "Acrylic 30% / Regenerated fiber (cellulose) 30% / Rayon 29% / Linen 11%",
+      "knit_structure": "Milano rib",
+      "knit_structure_status": "CONFIRMED_FROM_PRODUCT_DESCRIPTION",
+      "owner_confirmed_fields": ["sales_start_date", "preorder_start_date", "preorder_end_date", "delivery_expected_month"],
+      "notes": "COLOR_CD=14 selected. Color-specific composition must not be generalized to every color without evidence."
+    },
+    {
+      "product_code": "1051672",
+      "product_name": "ブークレニットベスト",
+      "official_url": "https://www.dot-st.com/globalwork/disp/item/1051672/?COLOR_CD=10",
+      "bucket": "MAINLINE",
+      "sales_start_date": "2026-08-12",
+      "preorder_start_date": null,
+      "delivery_expected_month": null,
+      "md_primary_month": "2026-08",
+      "md_primary_event": "SALES_START",
+      "composition": "Polyester 71% / Acrylic 29%",
+      "weight_g_approx": 280,
+      "owner_confirmed_fields": ["sales_start_date", "composition", "weight_g_approx"]
+    },
+    {
+      "product_code": "1051195",
+      "product_name": "ブークレドルマンニットプルオーバー",
+      "official_url": "https://www.dot-st.com/globalwork/disp/item/1051195/?COLOR_CD=18",
+      "bucket": "MAINLINE",
+      "sales_start_date": "2026-08-13",
+      "preorder_start_date": null,
+      "delivery_expected_month": null,
+      "md_primary_month": "2026-08",
+      "md_primary_event": "SALES_START",
+      "composition": "Cotton 72% / Polyester 28%",
+      "weight_g_approx": 400,
+      "owner_confirmed_fields": ["sales_start_date", "composition", "weight_g_approx"]
+    },
+    {
+      "product_code": "670330",
+      "product_name": "スウェットライクVネックプルオーバー",
+      "official_url": "https://www.dot-st.com/globalwork/disp/item/670330/?COLOR_CD=15",
+      "bucket": "MAINLINE",
+      "sales_start_date": null,
+      "preorder_start_date": "2026-08-18",
+      "preorder_end_date": "2026-08-24T12:00:00+09:00",
+      "delivery_expected_month": "2026-09",
+      "md_primary_month": "2026-08",
+      "md_primary_event": "PREORDER_START",
+      "count_as_new_in_delivery_month": false,
+      "composition": "Acrylic 48% / Cotton 37% / Polyester 15%",
+      "knit_structure": "Double jacquard / WJQD-like",
+      "knit_structure_status": "OWNER_INFERENCE_NOT_YET_CONFIRMED",
+      "owner_confirmed_fields": ["preorder_start_date", "preorder_end_date", "delivery_expected_month", "composition"],
+      "notes": "Do not promote WJQD as confirmed until source or physical inspection confirms it."
+    },
+    {
+      "product_code": "1044391",
+      "product_name": "STAFF LAB せこ子プロデュース／透かし編みニットプルオーバー",
+      "official_url": "https://www.dot-st.com/globalwork/disp/item/1044391/?COLOR_CD=08",
+      "bucket": "SPECIAL_TEST",
+      "sales_start_date": "2026-08-13",
+      "md_primary_month": "2026-08",
+      "md_primary_event": "SALES_START",
+      "special_program": "STAFF LAB",
+      "include_in_mainline_style_count": false,
+      "include_in_main_material_aggregation": false,
+      "notes": "Keep as reference signal but exclude from GLOBAL WORK mainline MD counts."
+    }
+  ],
+  "competitor_references": [
+    {
+      "brand_id": "BR-00002",
+      "brand_name": "GU",
+      "product_code": "360801",
+      "official_url": "https://www.gu-global.com/jp/ja/products/E360801-000/00?colorDisplayCode=04&sizeDisplayCode=004",
+      "bucket": "COMPETITOR_REFERENCE",
+      "composition": "Cotton 40% / Nylon 30% / Acrylic 30%",
+      "knit_structure": "WJQD",
+      "knit_structure_status": "OWNER_CONFIRMED",
+      "relationship": "DIRECT_COMPETITOR_TO_GLOBAL_WORK_670330",
+      "include_in_global_work_product_count": false
+    }
+  ]
+}
