@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "brand-intelligence/data/cn-yarn-glossary.json"
 WAVE2 = ROOT / "brand-intelligence/data/cn-yarn-glossary-wave2.json"
 AUGMENT = ROOT / "brand-intelligence/siro-glossary-augment.js"
+SW = ROOT / "brand-intelligence/sw.js"
 
 REQUIRED = {
     "螺旋纱／螺旋线",
@@ -45,7 +46,7 @@ def main() -> None:
     wave = load(WAVE2)
     base_entries = base.get("entries", [])
     entries = wave.get("entries", [])
-    require(wave.get("schema_version") == "1.0.1", "wave2 schema must include AB-effect correction")
+    require(wave.get("schema_version") == "1.0.2", "wave2 schema must include AB search-boundary correction")
     require(wave.get("batch_id") == "KC-CN-YARN-WAVE2-20260819", "unexpected wave2 batch id")
     require(len(base_entries) >= 33, "base glossary unexpectedly shrank")
     require(len(entries) == 13, "wave2 must contain 13 reviewed additions including AB effect")
@@ -79,17 +80,30 @@ def main() -> None:
     ab_text = json.dumps(ab, ensure_ascii=False)
     for token in ("合撚", "Siro", "一つにすぎない", "固定しない"):
         require(token in ab_text, f"AB effect correction missing token: {token}")
+    ab_keywords = set(ab["search_keywords"])
+    for overly_broad in ("Siro", "赛络纺", "合股", "合撚"):
+        require(overly_broad not in ab_keywords, f"AB search keyword is too broad and can create false master matches: {overly_broad}")
+    for token in ("AB纱", "AB纱效果", "AB合股纱", "AB风格"):
+        require(token in ab_keywords, f"AB effect search keyword missing: {token}")
 
     serialized = json.dumps(entries, ensure_ascii=False)
     require(not any(term in serialized for term in HOLD_TERMS), "hold/C-rank terms must not be promoted into wave2")
 
     augment = AUGMENT.read_text(encoding="utf-8")
-    for token in ("cn-yarn-glossary-wave2.json?v=1.0.1", "并捻纺", "AB纱をSiroの別名にはしない"):
+    for token in ("cn-yarn-glossary-wave2.json?v=1.0.2", "并捻纺", "AB纱をSiroの別名にはしない"):
         require(token in augment, f"Siro/wave2 augment missing token: {token}")
     require("chinese:['赛络纺','赛络纺纱','赛络纱','并捻纺']" in augment, "Siro aliases must not include AB纱")
     require("chinese:['赛络纺','赛络纺纱','赛络纱','AB纱'" not in augment, "AB纱 must not remain a Siro alias")
+    require(
+        "const termText=term=>normalize([term.display,term.japanese,...term.chinese,...term.english,term.structure,...term.checks,...term.keywords].join(' '));" in augment,
+        "technical-card search must not index explanatory text that mentions AB effect",
+    )
 
-    print(f"PASS: KIMI wave2 adds {len(entries)} reviewed terms including corrected AB effect; combined glossary {len(base_entries)+len(entries)} entries; hold terms remain unpromoted")
+    sw = SW.read_text(encoding="utf-8")
+    require("cn-yarn-glossary-wave2.json?v=1.0.2" in sw, "service worker must cache the corrected wave2 version")
+    require("glossary-wave2-ab-effect-v2" in sw, "service worker cache name must roll after AB search correction")
+
+    print(f"PASS: KIMI wave2 adds {len(entries)} reviewed terms including corrected AB effect; combined glossary {len(base_entries)+len(entries)} entries; AB/Siro search boundaries are isolated")
 
 
 if __name__ == "__main__":
