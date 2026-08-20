@@ -60,11 +60,14 @@ def main() -> None:
     assert payload.get("countDisplay") == "1/40 Nm"
     assert payload.get("compositionRaw") == "78% Viscose / 22% Polyester"
 
-    # #82 glossary remains reachable and retains at least the reviewed baseline.
+    # #82 glossary remains reachable and retains the reviewed 33 + 13 = 46 dictionary composition.
     glossary = load_json("brand-intelligence/data/cn-yarn-glossary.json")
     wave2 = load_json("brand-intelligence/data/cn-yarn-glossary-wave2.json")
-    assert len(glossary.get("entries", [])) >= 46
-    assert len(wave2.get("entries", [])) >= 13
+    base_entries = glossary.get("entries", [])
+    wave2_entries = wave2.get("entries", [])
+    assert len(base_entries) == 33
+    assert len(wave2_entries) == 13
+    assert len(base_entries) + len(wave2_entries) == 46
     assert "cn-yarn-glossary" in brand_index
 
     # #81 framework must stay at 11 Tier-A brands including SNIDEL and owner model roles.
@@ -101,7 +104,7 @@ def main() -> None:
 
     print(
         "V04 reflection guard: OK "
-        "(current yarn-search route, glossary, 25-item intake incl. Levita, 11 Tier-A incl. SNIDEL, latest MD pointer aligned)"
+        "(current yarn-search route, glossary 33+13, 25-item intake incl. Levita, 11 Tier-A incl. SNIDEL, latest MD pointer aligned)"
     )
 
 
