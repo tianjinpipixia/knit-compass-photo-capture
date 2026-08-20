@@ -21,6 +21,7 @@ EXPECTED_TIER_A = {
     "BR-00051": "NATURAL BEAUTY BASIC",
     "BR-00054": "SLOBE IENA",
     "BR-00058": "Te chichi",
+    "BR-00076": "SNIDEL",
 }
 
 REQUIRED_TIMELINE_FIELDS = {
@@ -51,7 +52,7 @@ def main() -> None:
     tier_a = framework.get("scan_strategy", {}).get("tier_a_deep_dive", {})
     tier_a_brands = tier_a.get("brands", {})
     assert tier_a.get("mode") == "FULL_MD_TIMELINE"
-    assert tier_a.get("brand_count") == 10 == len(tier_a_brands)
+    assert tier_a.get("brand_count") == 11 == len(tier_a_brands)
     assert tier_a_brands == EXPECTED_TIER_A
     for brand_id, brand_name in EXPECTED_TIER_A.items():
         assert active_brands.get(brand_id) == brand_name
@@ -112,7 +113,7 @@ def main() -> None:
 
     print(
         "brand MD analysis framework: OK "
-        "(10 Tier-A brands, Brand64 diff escalation, GU=TREND, UNIQLO=LIFE, explicit launch timeline)"
+        "(11 Tier-A brands, Brand64 diff escalation, GU=TREND, UNIQLO=LIFE, explicit launch timeline)"
     )
 
 
