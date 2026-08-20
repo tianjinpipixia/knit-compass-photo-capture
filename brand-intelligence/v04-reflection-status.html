@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta http-equiv="Cache-Control" content="no-store">
+  <title>Knit Compass — V04反映確認</title>
+  <style>
+    :root{--ink:#172826;--muted:#5d6d69;--paper:#f2f5f3;--card:#fff;--teal:#163f3c;--line:#d6dfdb;--green:#2f6a37;--greenbg:#e9f5e7;--amber:#8a5d12;--amberbg:#fff5df;--red:#8a342e;--redbg:#fff0ed}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}a{color:var(--teal)}.shell{width:min(920px,calc(100% - 24px));margin:auto;padding:20px 0 44px}.hero{background:linear-gradient(135deg,var(--teal),#235750);color:#fff;border-radius:18px;padding:22px}.hero h1{margin:4px 0 7px;font-size:clamp(26px,5vw,40px)}.hero p{margin:0;color:#deebe7}.grid{display:grid;gap:10px;margin:14px 0}.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:start}.card h2{margin:0;font-size:15px}.card p{margin:4px 0 0;color:var(--muted);font-size:10px}.status{display:inline-flex;border-radius:999px;padding:5px 9px;font-size:9px;font-weight:950;background:var(--amberbg);color:var(--amber)}.status.pass{background:var(--greenbg);color:var(--green)}.status.fail{background:var(--redbg);color:var(--red)}.links{display:flex;gap:8px;flex-wrap:wrap}.btn{display:inline-flex;min-height:40px;align-items:center;border:1px solid #aabcb5;border-radius:9px;background:#fff;color:var(--teal);padding:8px 12px;text-decoration:none;font-size:10px;font-weight:900}.foot{color:var(--muted);font-size:9px;margin-top:18px}@media(max-width:560px){.card{grid-template-columns:1fr}.shell{width:min(100% - 16px,920px)}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <section class="hero"><div style="font-size:9px;font-weight:900;letter-spacing:.12em">KC-V04-REFLECTION-GUARD</div><h1>V04反映確認</h1><p>GitHub mainに入った変更が、V04の実際の導線・Human Review・MD設定へ接続されているかを確認します。</p></section>
+  <section class="grid" id="grid"><article class="card"><div><h2>確認中</h2><p>反映状態を読み込んでいます。</p></div><span class="status">CHECK</span></article></section>
+  <div class="links"><a class="btn" href="./">V04へ戻る</a><a class="btn" href="../owner-yarns/intake-current.html">未反映25件の取込</a><a class="btn" href="../market-intelligence/">マーケット情報</a></div>
+  <p class="foot">表示はread-only確認です。Human Review・正式マスター・顧客公開を自動変更しません。</p>
+</main>
+<script>
+(()=>{
+  'use strict';
+  const $=id=>document.getElementById(id);
+  const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+  const fetchJson=async url=>{const response=await fetch(url,{cache:'no-store'});if(!response.ok)throw new Error(`${url}: HTTP ${response.status}`);return response.json()};
+  function card(title,pass,detail){return`<article class="card"><div><h2>${esc(title)}</h2><p>${esc(detail)}</p></div><span class="status ${pass?'pass':'fail'}">${pass?'PASS':'ATTENTION'}</span></article>`}
+  async function run(){
+    const rows=[];
+    try{
+      const [glossary,wave2,levita,framework,latest]=await Promise.all([
+        fetchJson('./data/cn-yarn-glossary.json'),
+        fetchJson('./data/cn-yarn-glossary-wave2.json'),
+        fetchJson('../data/manual-intake/2026-08-19-winning-textile-levita-batch10.json'),
+        fetchJson('../config/brand-md-analysis-framework.json'),
+        fetchJson('../data/brand-md-monitoring/latest.json')
+      ]);
+      const base=Array.isArray(glossary.entries)?glossary.entries.length:0;
+      const wave=Array.isArray(wave2.entries)?wave2.entries.length:0;
+      const dictionaryTotal=base+wave;
+      rows.push(card('#82 中国糸名・素材名辞典',base===33&&wave===13&&dictionaryTotal===46,`基礎 ${base}語＋Wave2 ${wave}語＝辞典 ${dictionaryTotal}語。V04では技術カード3件を加えて表示します。`));
+      const levitaItems=Array.isArray(levita.items)?levita.items:[];
+      const levitaPending=levitaItems.length===1&&levitaItems[0]?.review_status==='PENDING';
+      rows.push(card('#80 Winning Textile Levita',levitaPending,`batch10 ${levitaItems.length}件／${levitaItems[0]?.review_status||'未確認'}。現行25件取込からHuman Review受信箱へ接続します。`));
+      const tierBrands=framework?.scan_strategy?.tier_a_deep_dive?.brands||{};
+      const tierIds=Object.keys(tierBrands);
+      const tierCount=tierIds.length;
+      const snidel=tierBrands['BR-00076']==='SNIDEL';
+      const trendRole=framework?.cross_brand_relationships?.fast_retailing_trend_to_life?.trend_signal_brand?.role;
+      const lifeRole=framework?.cross_brand_relationships?.fast_retailing_trend_to_life?.life_translation_brand?.role;
+      rows.push(card('#81 ブランドMD',tierCount===11&&snidel&&trendRole==='TREND'&&lifeRole==='LIFE',`Tier-A ${tierCount}ブランド／SNIDEL ${snidel?'含む':'未接続'}／GU=${trendRole||'未設定'}・UNIQLO=${lifeRole||'未設定'}。`));
+      rows.push(card('Brand64 最新観測',latest.observed_date==='2026-08-20',`latest pointer: ${latest.observed_date||'未設定'}。古い観測を最新として表示しません。`));
+    }catch(error){rows.push(card('反映監査データ',false,error.message||String(error)))}
+    $('grid').innerHTML=rows.join('');
+  }
+  run();
+})();
+</script>
+</body>
+</html>
