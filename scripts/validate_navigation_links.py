@@ -59,7 +59,7 @@ assert not invalid_placeholders, "unhandled placeholder links:\n" + "\n".join(in
 
 entry_expectations = {
     "index.html": ("brand-intelligence/", "brand-intelligence/#cn-yarn-glossary", "owner-yarns/", "knit-image/", "fabric-inspection/", "market-intelligence/", "daily/", "customer-sharing/", "stylem/", "status/"),
-    "brand-intelligence/index.html": ("../", "../owner-yarns/", "../knit-image/", "../fabric-inspection/", "../market-intelligence/", "../daily/", "../customer-sharing/", "../stylem/", "../status/"),
+    "brand-intelligence/index.html": ("../", "../owner-yarns/current.html", "../owner-yarns/intake-current.html", "./v04-reflection-status.html", "../knit-image/", "../fabric-inspection/", "../market-intelligence/", "../daily/", "../customer-sharing/", "../stylem/", "../status/"),
     "owner-yarns/index.html": ("../", "../brand-intelligence/", "../brand-intelligence/#cn-yarn-glossary", "../knit-image/", "../fabric-inspection/", "../market-intelligence/", "../daily/", "../status/"),
     "knit-image/index.html": ("../", "../brand-intelligence/", "../owner-yarns/", "../daily/", "../status/"),
     "fabric-inspection/index.html": ("../", "../brand-intelligence/", "../owner-yarns/", "../market-intelligence/", "../daily/", "../status/"),
@@ -76,6 +76,9 @@ for name, destinations in entry_expectations.items():
 wrapper = (ROOT / "brand-intelligence/index.html").read_text(encoding="utf-8")
 assert "./index-current.html" in wrapper
 assert "./yarn-glossary.html" in wrapper
+assert "../owner-yarns/current.html" in wrapper
+assert "../owner-yarns/intake-current.html" in wrapper
+assert "./v04-reflection-status.html" in wrapper
 inbox = (ROOT / "brand-intelligence/index-current.html").read_text(encoding="utf-8")
 assert 'src="./app.html?v=0.4.7"' in inbox
 
@@ -105,5 +108,12 @@ for batch in (
 ):
     assert batch in owner_yarns
     assert (ROOT / "data/manual-intake" / batch).is_file()
+
+current_owner = (ROOT / "owner-yarns/current.html").read_text(encoding="utf-8")
+current_intake = (ROOT / "owner-yarns/intake-current.html").read_text(encoding="utf-8")
+assert "./intake-current.html" in current_owner
+assert "未反映25件・Human Review" in current_owner
+assert "2026-08-19-winning-textile-levita-batch10.json" in current_intake
+assert "const EXPECTED_TOTAL=25" in current_intake
 
 print(f"navigation links: OK ({len(html_files)} HTML files; all local assets and registered entry destinations resolve)")
