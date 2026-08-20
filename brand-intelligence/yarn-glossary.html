@@ -44,7 +44,7 @@
   const DATA_URL='./data/cn-yarn-glossary.json?v=1.2.0';
   const V04_KEY='kc_independent_practical_v0_4';
   const $=id=>document.getElementById(id);
-  const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[c]));
+  const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
   const normalize=value=>String(value||'').toLowerCase().replace(/[／/・,、()（）\-]+/g,' ').replace(/\s+/g,' ').trim();
   let data={entries:[]};
   let masterYarns=[];
