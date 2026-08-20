@@ -19,6 +19,12 @@ def main() -> None:
     intake = (ROOT / "owner-yarns/intake-current.html").read_text(encoding="utf-8")
     reflection = (ROOT / "brand-intelligence/v04-reflection-status.html").read_text(encoding="utf-8")
 
+    # Retired Sites labels must never return as visible V04 navigation text.
+    # Hidden compatibility metadata may remain until the older smoke checks are retired.
+    assert ">展示会モード<" not in brand_index
+    assert ">中国糸辞典<" not in brand_index
+    assert ">中国糸名辞書<" not in brand_index
+
     # V04 navigation must expose the current surfaces, not a stale 24-item route.
     assert "中国糸名・素材名辞典" in brand_index
     assert "../owner-yarns/current.html" in brand_index
@@ -104,7 +110,7 @@ def main() -> None:
 
     print(
         "V04 reflection guard: OK "
-        "(current yarn-search route, glossary 33+13, 25-item intake incl. Levita, 11 Tier-A incl. SNIDEL, latest MD pointer aligned)"
+        "(retired visible Sites labels absent, current yarn-search route, glossary 33+13, 25-item intake incl. Levita, 11 Tier-A incl. SNIDEL, latest MD pointer aligned)"
     )
 
 
