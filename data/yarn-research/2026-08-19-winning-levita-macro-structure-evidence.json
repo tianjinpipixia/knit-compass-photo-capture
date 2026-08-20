@@ -1,0 +1,49 @@
+{
+  "format": "KC_YARN_RESEARCH_EVIDENCE",
+  "schema_version": "1.0",
+  "recorded_at": "2026-08-19T01:38:00Z",
+  "target_yarn_temp_id": "TMP-YN-KC-20260819-WINNING-LEVITA-1-40",
+  "target_yarn_name": "Levita / 利维纱",
+  "source_organization": "Winning Textile",
+  "evidence_type": "user_macro_photo_yarn_structure",
+  "verification_status": "mixed_document_and_inference",
+  "evidence_id": "TMP-EV-KC-20260819-WINNING-LEVITA-MACRO",
+  "confirmed_visible_facts": {
+    "two_component_twisted_appearance": true,
+    "dominant_coloured_bundle_visible": true,
+    "fine_high_lustre_secondary_strand_visible": true,
+    "staple_or_filament_identity_from_photo_alone": "not_confirmed"
+  },
+  "linked_known_specification": {
+    "finished_count": "1/40 Nm",
+    "composition": "78% Viscose / 22% Polyester",
+    "supplier_explanation": "交撚; Viscose side is filament"
+  },
+  "calculation_inference": {
+    "finished_tex_from_1_40_Nm": 25.0,
+    "viscose_tex_at_78_percent": 19.5,
+    "polyester_tex_at_22_percent": 5.5,
+    "viscose_denier_equivalent": 175.5,
+    "polyester_denier_equivalent": 49.5,
+    "strong_numeric_fit_candidate": "approximately Viscose filament 180D + Polyester approximately 50D",
+    "candidate_check": {
+      "180D_plus_50D_total_denier": 230,
+      "equivalent_total_tex": 25.56,
+      "equivalent_Nm": 39.13,
+      "viscose_share_percent_if_180D": 78.26,
+      "polyester_share_percent_if_50D": 21.74
+    },
+    "status": "inferred_not_confirmed",
+    "warning": "The 180D + 50D reconstruction is a reverse-engineering hypothesis from finished count and composition. Twist contraction, finishing and component-yarn actual counts may shift the exact construction. Do not promote to confirmed specification without supplier confirmation."
+  },
+  "interpretation": {
+    "structure": "The macro photograph visually supports a combined-twist construction with a dominant coloured bundle and a finer lustrous strand spiralling along it.",
+    "component_assignment": "Given the supplier explanation that the Viscose side is filament and the 78/22 mass ratio, the dominant component is plausibly the Viscose filament side and the fine secondary strand plausibly the Polyester side, but polymer identity cannot be determined from the photograph alone.",
+    "next_confirmation": "Ask Winning Textile whether the component specification is approximately 180D Viscose filament + 50D Polyester, and request exact denier/dtex, filament count, twist direction and T/M."
+  },
+  "photo_ref": {
+    "photo_id": "LIB-file_0000000052c4821192e2ad31dc2429a0",
+    "file_name": "1690.jpg",
+    "label": "Levita macro yarn structure photograph"
+  }
+}

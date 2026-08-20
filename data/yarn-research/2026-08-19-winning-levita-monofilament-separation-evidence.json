@@ -1,0 +1,55 @@
+{
+  "format": "KC_YARN_RESEARCH_EVIDENCE",
+  "schema_version": "1.0",
+  "recorded_at": "2026-08-19T01:43:00Z",
+  "target_yarn_temp_id": "TMP-YN-KC-20260819-WINNING-LEVITA-1-40",
+  "target_yarn_name": "Levita / 利维纱",
+  "source_organization": "Winning Textile",
+  "evidence_type": "user_macro_photo_separated_component",
+  "verification_status": "mixed_visual_confirmation_and_inference",
+  "evidence_id": "TMP-EV-KC-20260819-WINNING-LEVITA-MONOFILAMENT",
+  "confirmed_visible_facts": {
+    "separated_fine_components_visible": true,
+    "monofilament_form": "visually_confirmed",
+    "visible_monofilament_strand_count": 2,
+    "visual_note": "Two distinct smooth single-filament strands are visible, with four separated endpoints and crossings/overlap in the field.",
+    "polymer_identity_from_photo_alone": "not_confirmed"
+  },
+  "linked_known_specification": {
+    "finished_count": "1/40 Nm",
+    "composition": "78% Viscose / 22% Polyester",
+    "supplier_explanation": "交撚; Viscose side is filament"
+  },
+  "calculation_inference": {
+    "finished_tex_from_1_40_Nm": 25.0,
+    "polyester_tex_at_22_percent_total": 5.5,
+    "polyester_denier_equivalent_total": 49.5,
+    "if_two_equal_monofilaments_tex_each": 2.75,
+    "if_two_equal_monofilaments_denier_each": 24.75,
+    "candidate_component": "Polyester monofilament approximately 25D/1F x 2 (total approximately 50D)",
+    "candidate_check": {
+      "viscose_candidate_denier": 180,
+      "polyester_candidate_denier_each": 25,
+      "polyester_strand_count": 2,
+      "total_denier": 230,
+      "equivalent_total_tex": 25.56,
+      "equivalent_Nm": 39.13,
+      "viscose_share_percent": 78.26,
+      "polyester_share_percent": 21.74
+    },
+    "status": "strong_inference_not_supplier_confirmed",
+    "reasoning": "The separated photo visibly shows two monofilament strands. The known 22% Polyester mass share corresponds to approximately 49.5D total at 1/40 Nm; divided across two equal monofilaments this is approximately 24.75D each, making 25D/1F x 2 a strong construction candidate.",
+    "warning": "Polymer identity and exact denier are inferred from the known composition, supplier explanation, visual strand count and mass balance. Equality of the two monofilament counts is not supplier-confirmed. Twist contraction and finishing can shift the exact nominal construction."
+  },
+  "updated_structure_hypothesis": {
+    "viscose_side": "approximately 180D Viscose filament; supplier-reported filament, exact D/F unconfirmed",
+    "polyester_side": "two monofilament strands, strongest candidate approximately 25D/1F x 2 Polyester (approximately 50D total); strand count visually confirmed, polymer/count inferred",
+    "finished_yarn": "combined twist / 交撚, 1/40 Nm, 78% Viscose / 22% Polyester"
+  },
+  "next_confirmation": "Ask Winning Textile whether Levita is approximately Viscose filament 180D (exact D/F requested) + Polyester monofilament 25D/1F x 2, and request twist direction and T/M.",
+  "photo_ref": {
+    "photo_id": "LIB-file_00000000575c8209be79db17e1359935",
+    "file_name": "1691.jpg",
+    "label": "Levita separated fine components showing two monofilament strands"
+  }
+}
