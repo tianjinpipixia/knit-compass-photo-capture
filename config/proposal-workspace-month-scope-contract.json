@@ -1,0 +1,94 @@
+{
+  "format": "KC_PROPOSAL_WORKSPACE_MONTH_SCOPE_CONTRACT",
+  "schema_version": "1.0",
+  "updated_at": "2026-08-20T15:33:00+09:00",
+  "issue": 87,
+  "target_route": "/proposal-workspace#product",
+  "scope": "02 個別MD情報 / 3. 商品情報を選ぶ",
+  "purpose": "Prevent products and dependent selections from leaking across brand, fiscal-year, or month changes.",
+  "source_boundary": {
+    "chatgpt_sites_latest_source_is_canonical_for_public_ui": true,
+    "do_not_overwrite_sites_with_older_github_or_drive_snapshot": true,
+    "github_contract_is_reference_and_regression_guard": true
+  },
+  "selection_scope": {
+    "keys": ["brand_id", "fiscal_year", "selected_month"],
+    "product_list_must_recompute_on_any_scope_change": true,
+    "keep_previous_month_products_in_normal_list": false,
+    "auto_select_first_product": false,
+    "empty_month_uses_previous_products_as_fallback": false
+  },
+  "month_resolution": {
+    "primary_month_field": "md_primary_month",
+    "rules": [
+      "If a confirmed preorder_start_date is the first commercial entry event, use its YYYY-MM as md_primary_month and mark the item PREORDER.",
+      "Otherwise use confirmed sales_start_date YYYY-MM as md_primary_month.",
+      "first_seen_date is an observation date and must not replace a confirmed commercial entry date.",
+      "delivery_expected_date_or_month is supplementary only and must never create a second NEW count.",
+      "If no confirmed commercial entry month exists, keep the product in MONTH_UNRESOLVED instead of guessing."
+    ],
+    "preorder_counts_as_primary_entry_when_first_commercial_event": true,
+    "sales_start_is_primary_when_no_prior_confirmed_preorder": true,
+    "first_seen_is_not_launch_month": true,
+    "delivery_month_is_not_new_launch_month": true,
+    "unknown_month_bucket": "MONTH_UNRESOLVED"
+  },
+  "display_buckets": {
+    "MAINLINE": "Normal brand MD products for the selected month.",
+    "CARRYOVER": "Separate section; only products with explicit carryover evidence.",
+    "SPECIAL_TEST": "Separate section for STAFF LAB, staff-produced, collaboration, limited capsule, or other non-mainline企画.",
+    "MONTH_UNRESOLVED": "Separate section; never injected into a selected month.",
+    "COMPETITOR_REFERENCE": "Cross-brand reference only; never counted in the selected brand product list."
+  },
+  "carryover_policy": {
+    "requires_explicit_evidence": true,
+    "previous_month_presence_is_not_carryover_evidence": true,
+    "include_in_new_launch_count": false
+  },
+  "special_policy": {
+    "keep_record": true,
+    "include_in_mainline_style_count": false,
+    "include_in_main_material_aggregation": false,
+    "display_separately": true
+  },
+  "reset_contract": {
+    "triggers": ["brand_change", "fiscal_year_change", "month_change"],
+    "clear_state_keys": [
+      "selectedProductId",
+      "selectedProduct",
+      "selectedMaterialCandidateId",
+      "selectedMaterialCandidate",
+      "selectedKnitCandidateId",
+      "selectedKnitCandidate",
+      "selectedDesignProposalId",
+      "selectedDesignProposal"
+    ],
+    "clear_dependent_collections": [
+      "materialCandidatesForSelectedProduct",
+      "knitCandidatesForSelectedProduct",
+      "designProposalsForSelectedProduct"
+    ],
+    "invalidate_stale_product_id_in": ["url_query", "url_hash_state", "session_state", "local_ui_state"],
+    "delete_underlying_product_records": false,
+    "auto_restore_previous_selection_when_returning_to_month": false
+  },
+  "downstream_gate": {
+    "material_step_requires_current_scope_product": true,
+    "knit_step_requires_current_scope_product": true,
+    "design_step_requires_current_scope_product": true,
+    "stale_product_must_not_feed_downstream": true
+  },
+  "empty_state": {
+    "message": "この月に確認済みの商品はありません",
+    "show_previous_month_products": false,
+    "show_unresolved_products_inline": false
+  },
+  "safety_boundaries": {
+    "human_review": "UNCHANGED",
+    "pending": "UNCHANGED",
+    "not_promoted": "UNCHANGED",
+    "publish_hold": "UNCHANGED",
+    "customer_sharing": "UNCHANGED",
+    "sales_quantity_estimation": "FORBIDDEN"
+  }
+}

@@ -1,11 +1,12 @@
 {
   "format": "KC_BRAND64_MD_MONITORING",
-  "schema_version": "1.4",
-  "updated_at": "2026-08-20T13:15:00+09:00",
+  "schema_version": "1.5",
+  "updated_at": "2026-08-20T15:33:00+09:00",
   "scope": "64 active brands / women's knit focus",
   "active_brand_source": "config/brand64-active-brands.json",
   "active_brand_count": 64,
   "analysis_framework_source": "config/brand-md-analysis-framework.json",
+  "proposal_workspace_month_scope_contract": "config/proposal-workspace-month-scope-contract.json",
   "external_signal_source": "config/md-external-signal-brands.json",
   "external_signal_brand_count": 7,
   "inactive_history_policy": "KEEP_INACTIVE_LEGACY_REFERENCE_AND_NEVER_REUSE_BRAND_ID",
@@ -25,7 +26,7 @@
     ],
     "tier_a_mode": "FULL_MD_TIMELINE",
     "other_brand64_mode": "DIFF_ONLY_WITH_ESCALATION",
-    "ui_change": "NONE"
+    "ui_change": "MONTH_SCOPED_PRODUCT_SELECTION_REQUIRED"
   },
   "pal_group": {
     "active_brand_count": 10,
@@ -72,14 +73,20 @@
       "tier_a_timeline_fields": [
         "first_seen_date",
         "preorder_start_date",
+        "preorder_end_date",
         "sales_start_date",
+        "delivery_expected_date_or_month",
+        "md_primary_month",
+        "md_primary_event",
+        "md_bucket",
         "new_color_date",
         "restock_date",
         "promotion_push_date",
         "source_offline_date",
         "sales_start_evidence_level"
       ],
-      "sales_start_date_rule": "NEVER_EQUATE_FIRST_SEEN_WITH_SALES_START_WITHOUT_EVIDENCE"
+      "sales_start_date_rule": "NEVER_EQUATE_FIRST_SEEN_WITH_SALES_START_WITHOUT_EVIDENCE",
+      "month_assignment_rule": "ONE_PRIMARY_MD_MONTH; PREORDER_FIRST_COMMERCIAL_ENTRY_OR_SALES_START; DELIVERY_NEVER_SECOND_NEW_COUNT"
     },
     "weekly": {
       "mode": "BRAND_SIGNAL_SYNTHESIS",
@@ -110,6 +117,7 @@
         "carryover_vs_new_structure",
         "capsule_or_material_family",
         "material_mix_change",
+        "weight_transition",
         "function_change",
         "function_persistence",
         "price_band",
@@ -126,7 +134,8 @@
         "next_month_hypothesis",
         "evidence_urls"
       ],
-      "use_external_weekly_signals_as_context": true
+      "use_external_weekly_signals_as_context": true,
+      "proposal_workspace_filter_scope": ["brand_id", "fiscal_year", "selected_month"]
     }
   },
   "rules": {
@@ -144,7 +153,12 @@
     "human_review_before_master": true,
     "customer_publication": "HOLD",
     "external_signals_do_not_change_brand64_count": true,
-    "cross_brand_similarity_is_not_copying_claim": true
+    "cross_brand_similarity_is_not_copying_claim": true,
+    "month_scope_prevents_stale_product_selection": true,
+    "delivery_month_new_launch_double_count": "FORBIDDEN",
+    "carryover_requires_explicit_evidence": true,
+    "special_test_excluded_from_mainline_counts": true,
+    "competitor_reference_excluded_from_brand_counts": true
   },
   "gemini": {
     "status": "INSTRUCTION_READY_CONNECTION_REQUIRED",

@@ -1,10 +1,11 @@
 {
   "format": "KC_BRAND_MD_ANALYSIS_FRAMEWORK",
-  "schema_version": "1.0",
-  "updated_at": "2026-08-20T13:15:00+09:00",
+  "schema_version": "1.1",
+  "updated_at": "2026-08-20T15:33:00+09:00",
   "scope": "Brand64 women's knit MD analysis with selective deep dives",
   "active_brand_source": "config/brand64-active-brands.json",
   "monitoring_source": "config/brand64-md-monitoring.json",
+  "proposal_workspace_month_scope_contract": "config/proposal-workspace-month-scope-contract.json",
   "scan_strategy": {
     "tier_a_deep_dive": {
       "mode": "FULL_MD_TIMELINE",
@@ -45,16 +46,26 @@
     "required_when_available": [
       "first_seen_date",
       "preorder_start_date",
+      "preorder_end_date",
       "sales_start_date",
+      "delivery_expected_date_or_month",
+      "md_primary_month",
+      "md_primary_event",
+      "md_bucket",
       "new_color_date",
       "restock_date",
       "promotion_push_date",
       "source_offline_date"
     ],
     "date_semantics": {
-      "first_seen_date": "First date Knit Compass observed the product; never substitute for sales start without evidence.",
-      "preorder_start_date": "First confirmed preorder/reservation start date.",
-      "sales_start_date": "First confirmed normal sales start date. This is the primary MD launch date.",
+      "first_seen_date": "First date Knit Compass observed the product; never substitute for sales start or preorder start without evidence.",
+      "preorder_start_date": "First confirmed preorder/reservation start date. If preorder is the first commercial entry event, its month is the product's primary MD month.",
+      "preorder_end_date": "Confirmed preorder/reservation close date or time when available.",
+      "sales_start_date": "First confirmed normal sales start date. Use its month when there is no earlier confirmed preorder commercial entry.",
+      "delivery_expected_date_or_month": "Expected delivery timing for a preorder. Supplementary timeline only; never create a second NEW launch count.",
+      "md_primary_month": "Single YYYY-MM month used by proposal-workspace normal product filtering and new-launch counting.",
+      "md_primary_event": "Commercial event that established md_primary_month, e.g. PREORDER_START or SALES_START.",
+      "md_bucket": "MAINLINE, CARRYOVER, SPECIAL_TEST, MONTH_UNRESOLVED, or COMPETITOR_REFERENCE.",
       "new_color_date": "Date a new color is confirmed for an existing style.",
       "restock_date": "Date a restock is confirmed; preserve multiple events in observation history.",
       "promotion_push_date": "Date an existing product is re-featured in official editorial, collection or campaign content.",
@@ -71,8 +82,45 @@
       "prefer_explicit_sales_start": true,
       "first_seen_is_not_sales_start": true,
       "inferred_dates_must_be_labeled": true,
-      "preserve_original_evidence_url": true
+      "preserve_original_evidence_url": true,
+      "preorder_first_commercial_entry_can_define_primary_month": true,
+      "delivery_month_must_not_duplicate_new_launch_count": true,
+      "unknown_month_must_not_be_guessed": true
     }
+  },
+  "product_detail_required_when_available": [
+    "product_name",
+    "product_code",
+    "official_url",
+    "regular_price",
+    "current_price",
+    "colors",
+    "color_specific_composition",
+    "composition",
+    "weight_g_approx",
+    "knit_structure",
+    "knit_structure_status",
+    "gauge",
+    "functions",
+    "care_method",
+    "size_range",
+    "measurements",
+    "silhouette",
+    "sales_channel",
+    "special_program"
+  ],
+  "proposal_workspace_product_selection": {
+    "scope_keys": ["brand_id", "fiscal_year", "selected_month"],
+    "recompute_product_list_on_scope_change": true,
+    "normal_list_bucket": "MAINLINE",
+    "carryover_separate": true,
+    "special_test_separate": true,
+    "month_unresolved_separate": true,
+    "competitor_reference_separate": true,
+    "reset_selected_product_and_downstream_on_scope_change": true,
+    "auto_select_first_product": false,
+    "previous_month_products_as_fallback": false,
+    "contract_source": "config/proposal-workspace-month-scope-contract.json"
   },
   "md_dimensions": [
     "launch_count_by_month",
@@ -86,6 +134,7 @@
     "surface_texture_transition",
     "silhouette_transition",
     "gauge_and_knit_structure",
+    "weight_transition",
     "price_band_transition",
     "promotion_repush",
     "source_offline_preservation"
@@ -111,13 +160,16 @@
       },
       "comparison_fields": [
         "first_seen_date",
+        "preorder_start_date",
         "sales_start_date",
+        "md_primary_month",
         "item_type",
         "shape",
         "detail",
         "silhouette",
         "sleeve_length",
         "composition",
+        "weight_g_approx",
         "function_claims",
         "knit_structure",
         "surface_texture",
@@ -146,6 +198,7 @@
     "material_family_map",
     "capsule_structure",
     "sleeve_length_transition",
+    "weight_transition",
     "color_transition",
     "function_persistence",
     "price_band_transition",
@@ -160,6 +213,8 @@
     "sales_quantity_estimation": "FORBIDDEN",
     "customer_publication": "HOLD",
     "human_review_before_master": true,
-    "keep_current_ui_unchanged": true
+    "keep_current_ui_unchanged": false,
+    "allowed_ui_change": "MONTH_SCOPED_PRODUCT_SELECTION_AND_STALE_STATE_RESET_ONLY",
+    "preserve_other_v04_ui_and_routes": true
   }
 }
