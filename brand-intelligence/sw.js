@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kc-brand-intelligence-v0-4-8-glossary-wave2-ab-effect';
+const CACHE_NAME = 'kc-brand-intelligence-v0-4-8-glossary-wave2-ab-effect-v2';
 const APP_SHELL = [
   './',
   './index.html',
@@ -10,7 +10,7 @@ const APP_SHELL = [
   './data/cn-yarn-glossary.json',
   './data/cn-yarn-glossary.json?v=1.2.0',
   './data/cn-yarn-glossary-wave2.json',
-  './data/cn-yarn-glossary-wave2.json?v=1.0.1'
+  './data/cn-yarn-glossary-wave2.json?v=1.0.2'
 ];
 
 const scopeUrl = new URL(self.registration.scope);
