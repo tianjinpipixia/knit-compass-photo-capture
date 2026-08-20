@@ -98,12 +98,15 @@ def main() -> None:
         "const termText=term=>normalize([term.display,term.japanese,...term.chinese,...term.english,term.structure,...term.checks,...term.keywords].join(' '));" in augment,
         "technical-card search must not index explanatory text that mentions AB effect",
     )
+    require("const directEntryFields=entry=>[entry.market_name,...(entry.aliases||[]),entry.japanese_name,...(entry.search_keywords||[])];" in augment, "direct glossary search fields missing")
+    require("entry.id==='CN-YARN-072'?directEntryFields(entry)" in augment, "AB entry must use direct-term-only search")
+    require("function masterMatches(entry){const needles=directEntryFields(entry)" in augment, "master matching must use direct terms rather than explanatory process words")
 
     sw = SW.read_text(encoding="utf-8")
     require("cn-yarn-glossary-wave2.json?v=1.0.2" in sw, "service worker must cache the corrected wave2 version")
     require("glossary-wave2-ab-effect-v2" in sw, "service worker cache name must roll after AB search correction")
 
-    print(f"PASS: KIMI wave2 adds {len(entries)} reviewed terms including corrected AB effect; combined glossary {len(base_entries)+len(entries)} entries; AB/Siro search boundaries are isolated")
+    print(f"PASS: KIMI wave2 adds {len(entries)} reviewed terms including corrected AB effect; combined glossary {len(base_entries)+len(entries)} entries; AB/Siro search and master-match boundaries are isolated")
 
 
 if __name__ == "__main__":
