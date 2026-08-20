@@ -43,6 +43,11 @@ def main() -> None:
     if any(alias in siro_block.split('english:', 1)[0] for alias in ["'AB纱'", "'A，B纱'", "'A,B纱'"]):
         raise SystemExit('ERROR: AB纱 must not be registered as a Siro Chinese alias')
 
+    searchable = "const termText=term=>normalize([term.display,term.japanese,...term.chinese,...term.english,term.structure,...term.checks,...term.keywords].join(' '));"
+    require(aug, searchable, 'technical-card search boundary')
+    if 'term.structure,term.description,term.rule' in aug:
+        raise SystemExit('ERROR: Siro explanatory text must not make AB-effect searches return the Siro technical card')
+
     require(shell, './siro-glossary-augment.js?v=1.0.0', 'shell script load')
     for token in ['Siro', 'Sirofil', 'Core-spun', '赛络纺', '赛络菲尔纺', '包芯纱']:
         require(guide, token, 'guide alignment')
@@ -52,7 +57,7 @@ def main() -> None:
     if '中心芯 ＋ 外側短繊維' in sirofil_block:
         raise SystemExit('ERROR: Sirofil must not use the Core-spun centered-core structure')
 
-    print('OK: unified Siro / Sirofil / Core-spun names while keeping AB effect outside the Siro alias set')
+    print('OK: unified Siro / Sirofil / Core-spun names while keeping AB effect outside aliases and search hits')
 
 
 if __name__ == '__main__':
