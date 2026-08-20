@@ -10,7 +10,7 @@
   ];
   let wave2=[];
   const normalize=value=>String(value||'').toLowerCase().normalize('NFKC').replace(/[／/・,、()（）\-]+/g,' ').replace(/\s+/g,' ').trim();
-  const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[c]));
+  const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
   const tags=(items,klass='')=>(items||[]).map(value=>`<span class="tag ${klass}">${esc(value)}</span>`).join('');
   const parseCount=value=>Number(String(value||'0').replace(/\D/g,''))||0;
   const termText=term=>normalize([term.display,term.japanese,...term.chinese,...term.english,term.structure,...term.checks,...term.keywords].join(' '));
