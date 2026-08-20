@@ -41,10 +41,13 @@
       const levitaItems=Array.isArray(levita.items)?levita.items:[];
       const levitaPending=levitaItems.length===1&&levitaItems[0]?.review_status==='PENDING';
       rows.push(card('#80 Winning Textile Levita',levitaPending,`batch10 ${levitaItems.length}件／${levitaItems[0]?.review_status||'未確認'}。現行25件取込からHuman Review受信箱へ接続します。`));
-      const tierIds=framework?.tiering?.tier_a?.brand_ids||framework?.tier_a_brand_ids||[];
-      const tierCount=Array.isArray(tierIds)?tierIds.length:0;
-      const snidel=Array.isArray(tierIds)&&tierIds.includes('BR-00076');
-      rows.push(card('#81 ブランドMD',tierCount===11&&snidel,`Tier-A ${tierCount}ブランド／SNIDEL ${snidel?'含む':'未接続'}。GU=TREND / UNIQLO=LIFEの内部モデルを維持します。`));
+      const tierBrands=framework?.scan_strategy?.tier_a_deep_dive?.brands||{};
+      const tierIds=Object.keys(tierBrands);
+      const tierCount=tierIds.length;
+      const snidel=tierBrands['BR-00076']==='SNIDEL';
+      const trendRole=framework?.cross_brand_relationships?.fast_retailing_trend_to_life?.trend_signal_brand?.role;
+      const lifeRole=framework?.cross_brand_relationships?.fast_retailing_trend_to_life?.life_translation_brand?.role;
+      rows.push(card('#81 ブランドMD',tierCount===11&&snidel&&trendRole==='TREND'&&lifeRole==='LIFE',`Tier-A ${tierCount}ブランド／SNIDEL ${snidel?'含む':'未接続'}／GU=${trendRole||'未設定'}・UNIQLO=${lifeRole||'未設定'}。`));
       rows.push(card('Brand64 最新観測',latest.observed_date==='2026-08-20',`latest pointer: ${latest.observed_date||'未設定'}。古い観測を最新として表示しません。`));
     }catch(error){rows.push(card('反映監査データ',false,error.message||String(error)))}
     $('grid').innerHTML=rows.join('');
