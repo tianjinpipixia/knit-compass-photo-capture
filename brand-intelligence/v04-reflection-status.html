@@ -37,7 +37,8 @@
       ]);
       const base=Array.isArray(glossary.entries)?glossary.entries.length:0;
       const wave=Array.isArray(wave2.entries)?wave2.entries.length:0;
-      rows.push(card('#82 中国糸名・素材名辞典',base===46&&wave===13,`辞典 ${base}語／Wave2 ${wave}語。V04の辞典タブから参照します。`));
+      const dictionaryTotal=base+wave;
+      rows.push(card('#82 中国糸名・素材名辞典',base===33&&wave===13&&dictionaryTotal===46,`基礎 ${base}語＋Wave2 ${wave}語＝辞典 ${dictionaryTotal}語。V04では技術カード3件を加えて表示します。`));
       const levitaItems=Array.isArray(levita.items)?levita.items:[];
       const levitaPending=levitaItems.length===1&&levitaItems[0]?.review_status==='PENDING';
       rows.push(card('#80 Winning Textile Levita',levitaPending,`batch10 ${levitaItems.length}件／${levitaItems[0]?.review_status||'未確認'}。現行25件取込からHuman Review受信箱へ接続します。`));
