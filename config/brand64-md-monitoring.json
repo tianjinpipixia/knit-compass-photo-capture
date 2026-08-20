@@ -1,13 +1,32 @@
 {
   "format": "KC_BRAND64_MD_MONITORING",
-  "schema_version": "1.3",
-  "updated_at": "2026-08-19T08:33:00+09:00",
+  "schema_version": "1.4",
+  "updated_at": "2026-08-20T13:15:00+09:00",
   "scope": "64 active brands / women's knit focus",
   "active_brand_source": "config/brand64-active-brands.json",
   "active_brand_count": 64,
+  "analysis_framework_source": "config/brand-md-analysis-framework.json",
   "external_signal_source": "config/md-external-signal-brands.json",
   "external_signal_brand_count": 7,
   "inactive_history_policy": "KEEP_INACTIVE_LEGACY_REFERENCE_AND_NEVER_REUSE_BRAND_ID",
+  "tiered_analysis": {
+    "tier_a_deep_dive_brand_ids": [
+      "BR-00001",
+      "BR-00002",
+      "BR-00003",
+      "BR-00004",
+      "BR-00006",
+      "BR-00012",
+      "BR-00047",
+      "BR-00051",
+      "BR-00054",
+      "BR-00058",
+      "BR-00076"
+    ],
+    "tier_a_mode": "FULL_MD_TIMELINE",
+    "other_brand64_mode": "DIFF_ONLY_WITH_ESCALATION",
+    "ui_change": "NONE"
+  },
   "pal_group": {
     "active_brand_count": 10,
     "brand_id_range": "BR-00065..BR-00074",
@@ -38,7 +57,7 @@
   },
   "cadence": {
     "daily": {
-      "mode": "LIGHT_SCAN",
+      "mode": "LIGHT_SCAN_WITH_TIER_A_DEEP_TIMELINE",
       "fields": [
         "new_knit_listing",
         "reservation_listing",
@@ -49,7 +68,18 @@
         "silhouette_change",
         "knit_structure_change",
         "listing_removed"
-      ]
+      ],
+      "tier_a_timeline_fields": [
+        "first_seen_date",
+        "preorder_start_date",
+        "sales_start_date",
+        "new_color_date",
+        "restock_date",
+        "promotion_push_date",
+        "source_offline_date",
+        "sales_start_evidence_level"
+      ],
+      "sales_start_date_rule": "NEVER_EQUATE_FIRST_SEEN_WITH_SALES_START_WITHOUT_EVIDENCE"
     },
     "weekly": {
       "mode": "BRAND_SIGNAL_SYNTHESIS",
@@ -61,6 +91,9 @@
         "design_change",
         "popularity_rank_change",
         "top_products",
+        "md_timeline_change",
+        "carryover_vs_new",
+        "group_relationship_comparison",
         "external_signal_comparison",
         "material_development_implication",
         "next_checks"
@@ -72,11 +105,20 @@
       "outputs": [
         "brand_position",
         "monthly_knit_theme",
+        "brand_month_timeline",
+        "launch_count_and_timing",
+        "carryover_vs_new_structure",
+        "capsule_or_material_family",
         "material_mix_change",
         "function_change",
+        "function_persistence",
         "price_band",
         "color_silhouette_knit_structure",
+        "sleeve_length_transition",
         "new_reservation_markdown_change",
+        "promotion_repush",
+        "late_summer_to_autumn_translation",
+        "cross_brand_relationship_findings",
         "recommended_yarn_types",
         "existing_yarn_candidates",
         "new_development_candidates",
@@ -95,11 +137,14 @@
     "sales_quantity_estimation": "FORBIDDEN",
     "dedupe_keys": ["brand", "product_code", "official_url"],
     "preserve_first_seen_product_baseline": true,
+    "preserve_sales_start_separately_from_first_seen": true,
+    "preserve_new_color_and_promotion_dates": true,
     "source_offline_deletion": "FORBIDDEN",
     "brand_id_reuse": "FORBIDDEN",
     "human_review_before_master": true,
     "customer_publication": "HOLD",
-    "external_signals_do_not_change_brand64_count": true
+    "external_signals_do_not_change_brand64_count": true,
+    "cross_brand_similarity_is_not_copying_claim": true
   },
   "gemini": {
     "status": "INSTRUCTION_READY_CONNECTION_REQUIRED",

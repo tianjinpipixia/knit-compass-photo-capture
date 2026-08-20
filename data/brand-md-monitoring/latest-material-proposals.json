@@ -1,74 +1,25 @@
 {
   "format": "KC_BRAND64_MATERIAL_PROPOSALS",
-  "schema_version": "1.1",
-  "observed_date": "2026-08-18",
+  "schema_version": "1.2",
+  "observed_date": "2026-08-20",
   "active_brand_source": "config/brand64-active-brands.json",
-  "source_daily_path": "data/brand-md-monitoring/2026-08-18-brand64-daily.jsonl",
-  "active_daily_overlay_paths": [
-    "data/brand-md-monitoring/2026-08-18-pal10-daily.jsonl"
-  ],
-  "source_summary_path": "data/brand-md-monitoring/2026-08-18-brand64-daily-summary.md",
-  "product_baseline_path": "data/brand-md-monitoring/2026-08-18-product-baseline-snapshots.jsonl",
-  "product_risk_path": "data/brand-md-monitoring/2026-08-18-product-risk-events.jsonl",
+  "source_daily_path": "data/brand-md-monitoring/2026-08-20-brand64-daily.jsonl",
+  "active_daily_overlay_paths": [],
+  "source_summary_path": "data/brand-md-monitoring/2026-08-20-brand64-daily-summary.md",
+  "product_baseline_path": "data/brand-md-monitoring/2026-08-20-product-baseline-snapshots.jsonl",
+  "product_risk_path": "data/brand-md-monitoring/2026-08-20-product-risk-events.jsonl",
   "observed_brand_count": 64,
-  "comparison_scope": "Active Brand64 is defined by config/brand64-active-brands.json. The 54 retained brands use the 2026-08-17 baseline where comparable; PAL IDs BR-00065..BR-00074 begin as 2026-08-18 official baselines. Inactive legacy rows remain preserved but are excluded from active MD aggregation. Non-live official indexes are baseline/freshness evidence only, not same-day change evidence.",
+  "comparison_scope": "Current active Brand64 is defined by config/brand64-active-brands.json. 2026-08-20 uses the 2026-08-18 daily baseline where comparable and the 2026-08-19 initial baselines for ZARA/SNIDEL. Source-freshness-limited brands are not interpreted as no-change. Scheduled PAL events not yet active at 08:45 JST are kept separate from live deltas.",
   "sales_quantity_status": "NOT_AVAILABLE",
   "sales_quantity_estimation": "FORBIDDEN",
   "catalog_boundary": "CATALOG_INDEXED / LISTING_PAGE_ONLY / NOT_PROMOTED",
   "review_boundary": "HUMAN_REVIEW_REQUIRED",
   "publication_status": "PUBLISH_HOLD",
   "proposals": [
-    {
-      "id": "BR64-MD-20260818-FUNCTION-ORNAMENT",
-      "title": "残暑機能を秋意匠へ",
-      "status": "MD_DRAFT",
-      "publication_status": "PUBLISH_HOLD",
-      "scope_note": "index/SHOO・LA・RUE/grove/ANY/SENSE OF PLACEに加え、新規PALのnatural couture/un dix corsでも、冷感・UV・洗える等の端境期機能を意匠や秋見えへつなぐ動きを確認。",
-      "observed_signal": "残暑対応の機能表示を残したまま、秋色と着映え意匠へ移行する商品が複数価格帯で増えている。",
-      "market_change": "機能だけのベーシックから、機能と見映えを一体化した端境期ニットへ競争軸が移る。",
-      "candidate_terms": ["抗起球", "高捻", "粘胶", "锦纶", "冰感", "防晒"],
-      "minimum_term_matches": 1,
-      "primary_query": "抗起球 防晒",
-      "material_proposal": "14G/16Gで接触冷感・UV・吸水速乾・抗ピル・洗えるを、秋色、配色、ペプラム、襟、ラメ等の編地・型提案とセット化する。"
-    },
-    {
-      "id": "BR64-MD-20260818-LIGHT-TEXTURE",
-      "title": "軽量毛羽・表面感の先行投入",
-      "status": "MD_DRAFT",
-      "publication_status": "PUBLISH_HOLD",
-      "scope_note": "LOWRYS FARM、A part by、Spick & Span、Mila Owenに加え、Whim Gazette、La boutique BonBon、DISCOATで、スラブ/MIX、フェザー、シャギー、モヘヤ、ブークレ等の軽い表面感を予約・薄手羽織へ展開。",
-      "observed_signal": "冬素材を厚重にせず、端境期から着られる軽さと部分使いで先行投入する動きが強い。",
-      "market_change": "毛羽感そのものに加え、軽量性、肌当たり、ケア性、静電気対策が素材価値になる。",
-      "candidate_terms": ["马海毛", "圈圈", "羽毛纱", "狐狸毛", "羊驼", "花式纱"],
-      "minimum_term_matches": 1,
-      "primary_query": "马海毛 花式纱",
-      "material_proposal": "10G〜12Gを中心に、軽量フェザー/モヘヤ/ブークレ/モール/スフレを、ウォッシャブル・静電気軽減・抗ピルと組み合わせる。"
-    },
-    {
-      "id": "BR64-MD-20260818-FINE-OUTER",
-      "title": "上質ハイゲージを外衣化",
-      "status": "MD_DRAFT",
-      "publication_status": "PUBLISH_HOLD",
-      "scope_note": "IÉNA、ROPÉ、Mila Owen、Whim Gazette等で、上質混や表面感のある細番手〜中肉ニットをポロ、金釦、ZIP、ジレ、構築カーデへ展開する方向を継続監視。",
-      "observed_signal": "高級混は厚手冬物だけでなく、薄手・軽量・外衣型へ移り、秋の早い時期から提案しやすくなっている。",
-      "market_change": "16G〜18G級での外衣見え、落ち感、編地安定性、イージーケアのバランスが重要。",
-      "candidate_terms": ["羊毛", "羊绒", "真丝", "粘胶", "锦纶", "高支"],
-      "minimum_term_matches": 1,
-      "primary_query": "羊绒 高支",
-      "material_proposal": "16G〜18Gのメリノ/カシミヤ/シルク混、レーヨン/ナイロン細番手を、ポロ・金釦・ZIP・ジャケット/ジレ向けの編地で提案する。"
-    },
-    {
-      "id": "BR64-MD-20260818-SOURCE-RECOVERY",
-      "title": "取得鮮度をMD基盤として回復",
-      "status": "OPERATIONAL_DRAFT",
-      "publication_status": "PUBLISH_HOLD",
-      "scope_note": "Issue #53に従い旧10ブランドをINACTIVE_LEGACY_REFERENCEへ移し、PAL系10ブランドをBR-00065..BR-00074で新規アクティブ化。PAL10は全てPAL CLOSET公式ブランドページで初回基準を取得。既存アクティブではgreen label relaxingの商品詳細補完、AMERICAN HOLIC/UNFILOのSOURCE_STATE_CONFLICTが残る。",
-      "observed_signal": "アクティブ対象の単一ソースと初回発見時の公式基準を持つことで、検索キャッシュの古さを『変更なし』や『掲載終了』と誤認するリスクを下げられる。",
-      "market_change": "ブランド入替時も過去履歴を消さず、アクティブ集合と履歴集合を分離する運用がMD時系列の連続性に必要。",
-      "candidate_terms": [],
-      "minimum_term_matches": 0,
-      "primary_query": "",
-      "material_proposal": "新規商品は初回発見時にURL・品番・価格・混率・機能・色・予約状態を優先保全し、未取得項目は推定せず次回補完。競合時は基準を上書きせずHuman Reviewへ送る。"
-    }
+    {"id":"BR64-MD-20260820-FUNCTION-FEMININE","title":"残暑機能をフェミニン秋意匠へ","status":"MD_DRAFT","publication_status":"PUBLISH_HOLD","scope_note":"index、mysty woman、natural couture、SNIDEL、Heather等で、洗える/抗ピル等とフリル、チュール、レース、パール、ペプラム、フェザー等の意匠が併存。","observed_signal":"端境期ニットは機能ベーシック単独より、残暑対応を維持したまま秋見え意匠を強める方向が複数ブランドで確認できる。","market_change":"機能訴求を表に出しすぎず、見映えの中に埋め込む商品設計が競争軸になる。","candidate_terms":["抗起球","防晒","凉感","吸湿速干","粘胶","锦纶"],"minimum_term_matches":1,"primary_query":"抗起球 防晒","material_proposal":"14G/16Gで接触冷感・UV・吸水速乾・抗ピル・洗えるを、フリル/チュール/パール/レース/配色へ載せる。秋色展開を前提に端境期素材として提案する。"},
+    {"id":"BR64-MD-20260820-LIGHT-HAIRY","title":"軽量毛羽を半袖・ベスト・短丈へ","status":"MD_DRAFT","publication_status":"PUBLISH_HOLD","scope_note":"BAYFLOWのブークレ、PAGEBOYのシャギー、A part byのモヘア/ラクーン、natural coutureの半袖フェザー、LOWRYS FARMのシャギーベスト等を確認。","observed_signal":"毛羽素材は厚手冬物としてではなく、残暑期から着られる軽量・袖短め・ベスト・短丈カーデで先行投入されている。","market_change":"毛羽感に加えて軽さ、肌当たり、ケア性、静電気対策が素材価値になる。","candidate_terms":["马海毛","圈圈","羽毛纱","狐狸毛","羊驼","花式纱"],"minimum_term_matches":1,"primary_query":"马海毛 花式纱","material_proposal":"10G〜12Gで軽量ブークレ/シャギー/モヘア/ラクーン見え/フェザーを、ウォッシャブル・静電気軽減・抗ピルと組み合わせる。半袖、ベスト、短丈カーデ向けを優先。"},
+    {"id":"BR64-MD-20260820-LAYERED-12-14G","title":"12G〜14Gをレイヤード・外衣化","status":"MD_DRAFT","publication_status":"PUBLISH_HOLD","scope_note":"LAKOLE 12Gレイヤードライク、LEPSIM 14Gシャツ＋ベスト2P、JEANASIS 14G装飾カーデ、AndemiuレイヤードSET、Elura ZIPカーデ等を確認。","observed_signal":"細〜中肉ニットを単純なプルオーバーではなく、2WAY、セット、ZIP、レイヤード、装飾カーデへ変換する動きが強い。","market_change":"端境期は一枚着の素材性能だけでなく、重ね着しやすい厚みと形態安定性が商品価値になる。","candidate_terms":["高支","双曲","包芯纱","粘胶","锦纶","涤纶"],"minimum_term_matches":1,"primary_query":"高支 粘胶 锦纶","material_proposal":"12G〜14Gでレイヤード/2WAY/ZIP/セットアップ向けの編地安定性を重視。レーヨン/ナイロン、綿/ポリエステル、細番手毛混で型崩れを抑える設計を提案する。"},
+    {"id":"BR64-MD-20260820-ZARA-TURNOVER","title":"ZARAのNEW回転を先行シグナル化","status":"MD_DRAFT","publication_status":"PUBLISH_HOLD","scope_note":"8/19初回基準と8/20公式レディースニット上位を比較し、ギャザーネック、ボートネック等を含むNEW上位の顔ぶれ変化を確認。","observed_signal":"同一SKUの値下げではなく、カテゴリ上位の商品構成そのものが短周期で入れ替わる。","market_change":"国内ブランドの予約MDだけでなく、グローバルSPAの商品回転速度を型・表面感・色の先行指標として使う価値が高い。","candidate_terms":["针织开衫","针织衫","蜂窝","褶皱","短袖"],"minimum_term_matches":1,"primary_query":"针织开衫 蜂窝","material_proposal":"ZARA NEW上位を日次で型分類し、国内で未増加の襟型・表面組織・短丈/半袖バランスが2〜3日継続した場合に試作候補へ上げる。"},
+    {"id":"BR64-MD-20260820-SOURCE-RISK","title":"鮮度不足・状態競合を差分から分離","status":"OPERATIONAL_DRAFT","publication_status":"PUBLISH_HOLD","scope_note":"NBBの公式EC移行、AMERICAN HOLIC 0H001683000、UNFILO KRUMSW0424、SNIDEL限定アーガイルの状態競合、11ブランドのSOURCE_FRESHNESS_LIMITEDを記録。","observed_signal":"検索索引や予定時刻だけで価格・発売・SOLD OUTを上書きすると、日次MDの誤差が拡大する。","market_change":"商品サイトのURL変更や販促時間指定も、商品差分と同じくらい保全対象として重要。","candidate_terms":[],"minimum_term_matches":0,"primary_query":"","material_proposal":"商品差分はライブ比較可能性を優先し、競合時はSOURCE_STATE_CONFLICT、鮮度不足はSOURCE_FRESHNESS_LIMITEDとして保持。Human Review前に推定補完しない。"}
   ]
 }
