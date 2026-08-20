@@ -1,0 +1,77 @@
+{
+  "format": "KC_MATERIALS_DB_SCHEMA",
+  "schema_version": "1.0",
+  "entity": "material",
+  "id_prefix": "MT",
+  "purpose": "原料・ブランド繊維・ポリマー・添加剤・機能技術・加工技術を、糸構造や製品情報から分離して管理する。",
+  "policy": {
+    "material_identity_is_not_yarn_identity": true,
+    "trade_name_and_generic_material_are_separate": true,
+    "composition_must_not_be_inferred_from_trade_name": true,
+    "function_claim_requires_evidence_status": true,
+    "supplier_and_manufacturer_roles_are_separate": true,
+    "human_review_before_confirmed_master": true,
+    "automatic_product_claim_inheritance": "FORBIDDEN"
+  },
+  "material_type_enum": [
+    "fiber_generic",
+    "branded_fiber",
+    "polymer",
+    "filament",
+    "functional_additive",
+    "functional_technology",
+    "dye_finish",
+    "processing_technology",
+    "other"
+  ],
+  "form_enum": [
+    "staple",
+    "filament",
+    "chip_resin",
+    "additive",
+    "finish",
+    "technology",
+    "unknown"
+  ],
+  "verification_status_enum": [
+    "unconfirmed",
+    "candidate",
+    "supplier_claim",
+    "document_confirmed",
+    "test_confirmed",
+    "confirmed",
+    "conflicting"
+  ],
+  "relationship_role_enum": [
+    "bulk",
+    "core",
+    "sheath",
+    "cover",
+    "plating",
+    "blend_component",
+    "finish",
+    "additive",
+    "technology",
+    "unknown"
+  ],
+  "fields": [
+    {"name": "id", "required": true},
+    {"name": "commonId", "required": true},
+    {"name": "name", "required": true},
+    {"name": "tradeName", "required": false},
+    {"name": "aliases", "type": "array"},
+    {"name": "materialType", "required": true},
+    {"name": "fiberPolymer", "required": false},
+    {"name": "form", "required": true},
+    {"name": "manufacturerOrganizationId", "required": false},
+    {"name": "supplierOrganizationIds", "type": "array"},
+    {"name": "composition", "required": false},
+    {"name": "functionalProperties", "type": "array"},
+    {"name": "sustainableAttributes", "type": "array"},
+    {"name": "evidence", "type": "array"},
+    {"name": "linkedYarnIds", "type": "array"},
+    {"name": "linkedProductIds", "type": "array"},
+    {"name": "commercial", "type": "object"},
+    {"name": "notes", "required": false}
+  ]
+}

@@ -1,0 +1,36 @@
+name: Validate Materials DB and Sales Story
+
+"on":
+  pull_request:
+    paths:
+      - 'config/materials-db-schema.json'
+      - 'brand-intelligence/materials-db-v1.js'
+      - 'brand-intelligence/sales-story-v1.js'
+      - 'brand-intelligence/owner-observed-products.js'
+      - 'data/sales-story/**'
+      - 'data/yarn-research/2026-08-20-r80-pet20-core-spun.json'
+      - 'data/brand-md-monitoring/2026-08-20-nbb-live-products.jsonl'
+      - 'docs/MATERIALS_DB_V1.md'
+      - 'docs/SALES_STORY_V1.md'
+      - 'scripts/validate_materials_sales_story.py'
+      - '.github/workflows/validate-materials-sales-story.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: python scripts/validate_materials_sales_story.py
+      - run: node --check brand-intelligence/materials-db-v1.js
+      - run: node --check brand-intelligence/sales-story-v1.js

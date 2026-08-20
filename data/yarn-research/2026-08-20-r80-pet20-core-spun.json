@@ -1,0 +1,58 @@
+{
+  "format": "KC_YARN_RESEARCH",
+  "schema_version": "1.0",
+  "researched_on": "2026-08-20",
+  "subject": "R80 / Polyester20 高捻コアスパン",
+  "status": "CANDIDATE_FOUND_NEEDS_POLYESTER_SUBTYPE_CONFIRMATION",
+  "conclusion": "广东鸿德纺织品有限公司の過去製品資料に60/2・80/2 高捻包芯纱、80%粘胶/20%涤纶の記載を確認。現行会社情報でも高捻包芯纱を主力としている。ただし20%涤纶が通常PETかPBTかは未確定。",
+  "confidence": {
+    "r80_polyester20_listing": "HIGH",
+    "high_twist_core_spun_structure": "HIGH",
+    "current_exact_60_2_80_2_availability": "MEDIUM",
+    "polyester_is_standard_pet_not_pbt": "LOW"
+  },
+  "candidates": [
+    {
+      "supplier": "广东鸿德纺织品有限公司",
+      "region": "广东东莞大朗",
+      "spec": ["60/2 高捻包芯纱", "80/2 高捻包芯纱"],
+      "composition": "80%粘胶 / 20%涤纶",
+      "evidence_status": "historical_product_listing_plus_current_supplier_presence",
+      "contact": {
+        "name": "黄小姐",
+        "mobile": "13713196629",
+        "phone": "0769-81063268"
+      },
+      "open_questions": [
+        "20%涤纶は通常PETかPBTか",
+        "60/2・80/2の番手体系",
+        "芯丝D/F",
+        "捻度TPM",
+        "現行色カード",
+        "MOQ",
+        "大貨価格"
+      ]
+    },
+    {
+      "supplier": "东莞市安丰纺织品有限公司",
+      "region": "广东东莞大朗",
+      "spec": ["60Nm/2", "80Nm/2", "100Nm/2", "120Nm/2"],
+      "composition": "80%粘胶 / 20%PBT",
+      "evidence_status": "current_structural_alternative",
+      "note": "R80/PBT20の比較候補。通常PET指定案件とは分離する。"
+    },
+    {
+      "supplier": "泓达纺织有限公司",
+      "region": "广东东莞大朗",
+      "spec": ["50Nm/2 高捻包芯纱"],
+      "composition": "72%粘胶 / 28%PBT",
+      "evidence_status": "current_related_alternative",
+      "note": "混率違いのローカル高捻包芯纱比較候補。"
+    }
+  ],
+  "supplier_question_zh": "请确认贵司60/2、80/2高捻包芯纱目前是否还在生产。资料写80%粘胶/20%涤纶，请问20%涤纶具体是普通PET还是PBT？另外请提供纱支体系、芯丝规格(D/F)、捻度(TPM)、现货色卡、MOQ和大货价格。",
+  "boundary": {
+    "pet_vs_pbt_must_be_confirmed": true,
+    "do_not_promote_to_confirmed_yarn_master_before_reply": true
+  }
+}

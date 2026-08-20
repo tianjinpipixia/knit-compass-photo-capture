@@ -1,0 +1,73 @@
+{
+  "format": "KC_SALES_STORY_FRAMEWORK",
+  "schema_version": "1.0",
+  "status": "DRAFT_INTERNAL",
+  "guardrails": {
+    "sales_quantity_estimation": "FORBIDDEN",
+    "unsupported_function_claims": "FORBIDDEN",
+    "candidate_materials_must_be_labeled": true,
+    "competitor_product_is_market_evidence_not_copy_instruction": true,
+    "customer_specific_story_requires_human_review": true
+  },
+  "templates": [
+    {
+      "id": "SS-T01",
+      "title": "残暑の秋立ち上がり：秋見え×夏機能",
+      "signal": "秋色・羽織需要を取り込みつつ、UV・接触冷感・洗濯対応で残暑に対応する。",
+      "market_evidence": [
+        {
+          "brand": "NATURAL BEAUTY BASIC",
+          "product": "ドルマンボレロカーディガン",
+          "product_code": "0176275661",
+          "season": "2026FW",
+          "composition": "レーヨン63% / ナイロン37%",
+          "functions": ["UVカット", "マシンウォッシャブル", "接触冷感"],
+          "url": "https://mix.tokyo/products/0176275661"
+        }
+      ],
+      "sales_angle": [
+        "秋の売場を早く立ち上げられる",
+        "夏機能を残して端境期を長く売れる",
+        "薄手羽織・12G〜14Gの提案へ接続しやすい"
+      ],
+      "required_checks": ["機能の試験根拠", "糸番手・ゲージ", "色展開", "価格・MOQ"]
+    },
+    {
+      "id": "SS-T02",
+      "title": "Non-Wool Mélange：非ウールで秋冬TOP調",
+      "signal": "綿・レーヨン・リヨセル等でウール調の杢感・TOP調を作り、早い時期から秋冬感を出す。",
+      "market_evidence": [],
+      "sales_angle": [
+        "ウールを使わず秋冬らしい外観",
+        "軽さ・肌当たり・価格の調整余地",
+        "残暑期から秋見えを作れる"
+      ],
+      "required_checks": ["TOP調の実製法", "染色・色紡工程", "ピリング", "見本色の再現性"]
+    },
+    {
+      "id": "SS-T03",
+      "title": "高捻コアスパン：シャリ感＋形態安定の春夏細番手",
+      "signal": "レーヨン主体の高捻外観にポリエステル系芯材を組み合わせ、ドライタッチと安定性を両立する候補。",
+      "market_evidence": [
+        {
+          "supplier": "广东鸿德纺织品有限公司",
+          "spec": "60/2・80/2 高捻包芯纱",
+          "composition": "80%粘胶 / 20%涤纶",
+          "status": "historical_listing_current_supplier_active"
+        },
+        {
+          "supplier": "东莞市安丰纺织品有限公司",
+          "spec": "60Nm/2・80Nm/2等 高捻包芯纱",
+          "composition": "80%粘胶 / 20%PBT",
+          "status": "current_structural_alternative"
+        }
+      ],
+      "sales_angle": [
+        "細番手で春夏のシャリ感を作りやすい",
+        "コアで寸法安定・ストレッチ設計の余地",
+        "12G〜16Gのベーシック〜きれいめへ展開可能"
+      ],
+      "required_checks": ["20%涤纶が通常PETかPBTか", "芯糸D/F", "撚度TPM", "番手体系", "色・MOQ・価格"]
+    }
+  ]
+}
