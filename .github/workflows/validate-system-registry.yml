@@ -27,6 +27,7 @@ name: Validate system registry
       - "icon-maskable-512.png"
       - "brand-intelligence/app.html"
       - "brand-intelligence/index.html"
+      - "brand-intelligence/v04-reflection-status.html"
       - "brand-intelligence/owner-observed-products.js"
       - "brand-intelligence/siro-glossary-augment.js"
       - "brand-intelligence/siro-sirofil-core-spun.html"
@@ -39,6 +40,8 @@ name: Validate system registry
       - "market-signals.js"
       - "data/market-trends/market-signals.json"
       - "owner-yarns/index.html"
+      - "owner-yarns/current.html"
+      - "owner-yarns/intake-current.html"
       - "data/yarn-catalog/**"
       - "data/yarn-catalog/mz100-catalog-2000.json"
       - "data/yarn-catalog/mz100-catalog-3000.json"
@@ -46,6 +49,7 @@ name: Validate system registry
       - "data/human-review/**"
       - "data/human-review/2026-08-18-intake-24-triage.json"
       - "data/manual-intake/2026-08-18-american-holic-products-batch8.json"
+      - "data/manual-intake/2026-08-19-winning-textile-levita-batch10.json"
       - "data/brand-md-monitoring/latest-material-proposals.json"
       - "data/brand-md-monitoring/latest.json"
       - "knit-image/index.html"
@@ -70,6 +74,7 @@ name: Validate system registry
       - "daily/index.html"
       - "android-daily/**"
       - "config/system-registry.json"
+      - "config/brand-md-analysis-framework.json"
       - "docs/SYSTEM_REGISTRY.md"
       - "docs/CN_YARN_GLOSSARY.md"
       - "docs/CN_YARN_GLOSSARY_WAVE2.md"
@@ -93,6 +98,7 @@ name: Validate system registry
       - "scripts/validate_knit_image.py"
       - "scripts/validate_operational_surfaces.py"
       - "scripts/validate_owner_observed_product_search.py"
+      - "scripts/validate_v04_reflection_guard.py"
       - ".github/workflows/validate-system-registry.yml"
       - ".github/workflows/validate-handoff-safety.yml"
       - ".github/workflows/validate-customer-sharing.yml"
@@ -124,6 +130,7 @@ name: Validate system registry
       - "icon-maskable-512.png"
       - "brand-intelligence/app.html"
       - "brand-intelligence/index.html"
+      - "brand-intelligence/v04-reflection-status.html"
       - "brand-intelligence/owner-observed-products.js"
       - "brand-intelligence/siro-glossary-augment.js"
       - "brand-intelligence/siro-sirofil-core-spun.html"
@@ -136,6 +143,8 @@ name: Validate system registry
       - "market-signals.js"
       - "data/market-trends/market-signals.json"
       - "owner-yarns/index.html"
+      - "owner-yarns/current.html"
+      - "owner-yarns/intake-current.html"
       - "data/yarn-catalog/**"
       - "data/yarn-catalog/mz100-catalog-2000.json"
       - "data/yarn-catalog/mz100-catalog-3000.json"
@@ -143,6 +152,7 @@ name: Validate system registry
       - "data/human-review/**"
       - "data/human-review/2026-08-18-intake-24-triage.json"
       - "data/manual-intake/2026-08-18-american-holic-products-batch8.json"
+      - "data/manual-intake/2026-08-19-winning-textile-levita-batch10.json"
       - "data/brand-md-monitoring/latest-material-proposals.json"
       - "data/brand-md-monitoring/latest.json"
       - "knit-image/index.html"
@@ -167,6 +177,7 @@ name: Validate system registry
       - "daily/index.html"
       - "android-daily/**"
       - "config/system-registry.json"
+      - "config/brand-md-analysis-framework.json"
       - "docs/SYSTEM_REGISTRY.md"
       - "docs/CN_YARN_GLOSSARY.md"
       - "docs/CN_YARN_GLOSSARY_WAVE2.md"
@@ -190,6 +201,7 @@ name: Validate system registry
       - "scripts/validate_knit_image.py"
       - "scripts/validate_operational_surfaces.py"
       - "scripts/validate_owner_observed_product_search.py"
+      - "scripts/validate_v04_reflection_guard.py"
       - ".github/workflows/validate-system-registry.yml"
       - ".github/workflows/validate-handoff-safety.yml"
       - ".github/workflows/validate-customer-sharing.yml"
@@ -212,6 +224,8 @@ jobs:
         run: python -m pip install -r requirements-validation.txt
       - name: Validate registry, source revisions, and KPI schema
         run: python scripts/validate_system_registry.py
+      - name: Validate V04 reflection completeness
+        run: python scripts/validate_v04_reflection_guard.py
       - name: Validate China yarn glossary contract
         run: python scripts/validate_yarn_glossary.py
       - name: Validate KIMI wave2 glossary additions
