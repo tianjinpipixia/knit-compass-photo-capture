@@ -7,18 +7,22 @@ name: Monitor brand64 daily freshness
     paths:
       - "config/brand64-active-brands.json"
       - "config/brand64-md-monitoring.json"
+      - "config/brand-md-analysis-framework.json"
       - "data/brand-md-monitoring/**"
       - "docs/BRAND64_DAILY_MD_MONITORING.md"
       - "scripts/validate_brand64_daily_freshness.py"
+      - "scripts/validate_brand_md_analysis_framework.py"
       - ".github/workflows/monitor-brand64-daily-freshness.yml"
   push:
     branches: [main]
     paths:
       - "config/brand64-active-brands.json"
       - "config/brand64-md-monitoring.json"
+      - "config/brand-md-analysis-framework.json"
       - "data/brand-md-monitoring/**"
       - "docs/BRAND64_DAILY_MD_MONITORING.md"
       - "scripts/validate_brand64_daily_freshness.py"
+      - "scripts/validate_brand_md_analysis_framework.py"
       - ".github/workflows/monitor-brand64-daily-freshness.yml"
   workflow_dispatch:
 
@@ -40,3 +44,5 @@ jobs:
           python-version: "3.12"
       - name: Require a current active 64-brand observation and matching proposals
         run: python scripts/validate_brand64_daily_freshness.py --max-age-days 1
+      - name: Validate tiered brand MD analysis framework
+        run: python scripts/validate_brand_md_analysis_framework.py

@@ -1,0 +1,164 @@
+{
+  "format": "KC_BRAND_MD_ANALYSIS_FRAMEWORK",
+  "schema_version": "1.0",
+  "updated_at": "2026-08-19T12:46:00+09:00",
+  "scope": "Brand64 women's knit MD analysis with selective deep dives",
+  "active_brand_source": "config/brand64-active-brands.json",
+  "monitoring_source": "config/brand64-md-monitoring.json",
+  "scan_strategy": {
+    "tier_a_deep_dive": {
+      "mode": "FULL_MD_TIMELINE",
+      "brand_count": 10,
+      "brands": {
+        "BR-00001": "UNIQLO",
+        "BR-00002": "GU",
+        "BR-00003": "MUJI",
+        "BR-00004": "ROPÉ PICNIC",
+        "BR-00006": "GLOBAL WORK",
+        "BR-00012": "OPAQUE.CLIP",
+        "BR-00047": "UNFILO",
+        "BR-00051": "NATURAL BEAUTY BASIC",
+        "BR-00054": "SLOBE IENA",
+        "BR-00058": "Te chichi"
+      },
+      "cadence": "DAILY_DIFF_WEEKLY_SYNTHESIS_MONTHLY_FULL_MD",
+      "purpose": "High-precision reconstruction of launch timing, material transitions and knit MD structure"
+    },
+    "brand64_default": {
+      "mode": "DIFF_ONLY_WITH_ESCALATION",
+      "cadence": "DAILY_LIGHT_SCAN",
+      "escalation_triggers": [
+        "new_material_family",
+        "new_function_claim",
+        "new_shape_or_silhouette",
+        "new_knit_structure",
+        "meaningful_color_shift",
+        "price_band_shift",
+        "preorder_or_launch_pattern_change",
+        "cross_brand_repeat_signal"
+      ],
+      "escalation_action": "TEMPORARY_DEEP_DIVE"
+    }
+  },
+  "product_timeline": {
+    "required_when_available": [
+      "first_seen_date",
+      "preorder_start_date",
+      "sales_start_date",
+      "new_color_date",
+      "restock_date",
+      "promotion_push_date",
+      "source_offline_date"
+    ],
+    "date_semantics": {
+      "first_seen_date": "First date Knit Compass observed the product; never substitute for sales start without evidence.",
+      "preorder_start_date": "First confirmed preorder/reservation start date.",
+      "sales_start_date": "First confirmed normal sales start date. This is the primary MD launch date.",
+      "new_color_date": "Date a new color is confirmed for an existing style.",
+      "restock_date": "Date a restock is confirmed; preserve multiple events in observation history.",
+      "promotion_push_date": "Date an existing product is re-featured in official editorial, collection or campaign content.",
+      "source_offline_date": "Date the source becomes unavailable; historical product facts remain preserved."
+    },
+    "sales_start_evidence_levels": [
+      "OFFICIAL_PRODUCT_PAGE",
+      "OFFICIAL_EDITORIAL_OR_NEWS",
+      "AUTHORIZED_RETAILER_EXPLICIT_DATE",
+      "INFERRED_FROM_FIRST_SEEN",
+      "UNKNOWN"
+    ],
+    "rules": {
+      "prefer_explicit_sales_start": true,
+      "first_seen_is_not_sales_start": true,
+      "inferred_dates_must_be_labeled": true,
+      "preserve_original_evidence_url": true
+    }
+  },
+  "md_dimensions": [
+    "launch_count_by_month",
+    "new_vs_carryover",
+    "capsule_or_material_family",
+    "item_type",
+    "sleeve_length_transition",
+    "material_composition_transition",
+    "function_claim_transition",
+    "color_transition",
+    "surface_texture_transition",
+    "silhouette_transition",
+    "gauge_and_knit_structure",
+    "price_band_transition",
+    "promotion_repush",
+    "source_offline_preservation"
+  ],
+  "cross_brand_relationships": {
+    "fast_retailing_trend_to_life": {
+      "group": "Fast Retailing",
+      "relationship_type": "TREND_TO_LIFE_TRANSLATION",
+      "model_status": "OWNER_DOMAIN_MODEL",
+      "owner_model_date": "2026-08-19",
+      "not_an_official_corporate_claim": true,
+      "trend_signal_brand": {
+        "brand_id": "BR-00002",
+        "brand_name": "GU",
+        "role": "TREND",
+        "interpretation": "Use as a signal for shapes, details, silhouettes and styling gaining traction."
+      },
+      "life_translation_brand": {
+        "brand_id": "BR-00001",
+        "brand_name": "UNIQLO",
+        "role": "LIFE",
+        "interpretation": "Use as a signal for translation into everyday utility, broader wearability, function, quality and price optimization."
+      },
+      "comparison_fields": [
+        "first_seen_date",
+        "sales_start_date",
+        "item_type",
+        "shape",
+        "detail",
+        "silhouette",
+        "sleeve_length",
+        "composition",
+        "function_claims",
+        "knit_structure",
+        "surface_texture",
+        "price",
+        "colors",
+        "size_range",
+        "care_and_machine_washability"
+      ],
+      "derived_outputs": [
+        "launch_lag_days_when_dates_are_confirmed",
+        "shape_retained_or_simplified",
+        "detail_retained_removed_or_subdued",
+        "material_upgraded_simplified_or_changed",
+        "function_added_removed_or_strengthened",
+        "price_repositioning",
+        "color_breadth_change",
+        "size_and_daily_wearability_change"
+      ],
+      "interpretation_rule": "Do not label similarity as copying. Describe observable changes as translation from trend demand to life/everyday demand unless direct evidence supports a stronger claim."
+    }
+  },
+  "monthly_md_outputs": [
+    "brand_month_timeline",
+    "launch_count_and_timing",
+    "carryover_vs_new_structure",
+    "material_family_map",
+    "capsule_structure",
+    "sleeve_length_transition",
+    "color_transition",
+    "function_persistence",
+    "price_band_transition",
+    "late_summer_to_autumn_translation",
+    "cross_brand_relationship_findings",
+    "material_development_implication",
+    "evidence_urls"
+  ],
+  "rules": {
+    "official_sources_first": true,
+    "fact_inference_separation": true,
+    "sales_quantity_estimation": "FORBIDDEN",
+    "customer_publication": "HOLD",
+    "human_review_before_master": true,
+    "keep_current_ui_unchanged": true
+  }
+}
