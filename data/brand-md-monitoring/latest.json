@@ -1,24 +1,26 @@
 {
   "format": "KC_BRAND64_MD_LATEST_POINTER",
-  "schema_version": "1.2",
-  "observed_date": "2026-08-21",
+  "schema_version": "1.3",
+  "observed_date": "2026-08-23",
+  "observed_at": "2026-08-23T08:18:58+09:00",
   "active_brand_source": "config/brand64-active-brands.json",
-  "daily_path": "data/brand-md-monitoring/2026-08-21-brand64-daily.jsonl",
-  "active_daily_overlay_paths": [
-    "data/brand-md-monitoring/2026-08-21-brand64-intraday-overlay.jsonl"
+  "active_brand_count": 64,
+  "daily_path": "data/brand-md-monitoring/2026-08-23-brand64-daily.jsonl",
+  "summary_path": "data/brand-md-monitoring/2026-08-23-brand64-summary.md",
+  "product_baseline_path": "data/brand-md-monitoring/2026-08-23-product-baseline-snapshots.jsonl",
+  "inactive_legacy_reference_path": "data/brand-md-monitoring/2026-08-23-inactive-legacy-reference.jsonl",
+  "comparison_daily_path": "data/brand-md-monitoring/2026-08-21-brand64-intraday-overlay.jsonl",
+  "comparison_base_path": "data/brand-md-monitoring/2026-08-21-brand64-daily.jsonl",
+  "observation_gap_dates": [
+    "2026-08-22"
   ],
-  "summary_path": "data/brand-md-monitoring/2026-08-21-brand64-intraday-summary.md",
-  "product_baseline_path": "data/brand-md-monitoring/2026-08-21-product-baseline-snapshots.jsonl",
-  "product_risk_path": "data/brand-md-monitoring/2026-08-21-product-risk-events.jsonl",
-  "comparison_daily_path": "data/brand-md-monitoring/2026-08-20-brand64-daily.jsonl",
-  "previous_daily_path": "data/brand-md-monitoring/2026-08-18-brand64-daily.jsonl",
-  "previous_product_baseline_path": "data/brand-md-monitoring/2026-08-20-product-baseline-snapshots.jsonl",
-  "active_set_policy": "Read the current 64 active IDs from config/brand64-active-brands.json. Use the 2026-08-21 daily file as the 08:29 JST base and apply active_daily_overlay_paths in order for later same-day confirmed differences. Inactive legacy rows remain preserved in historical files and are excluded from the current active aggregation.",
-  "comparison_policy": "Use comparison_daily_path (2026-08-20) for daily comparison. previous_daily_path retains the last pre-transition historical snapshot required to prove BR-00020 any FAM and BR-00048 TAKEO KIKUCHI history preservation. For 2026-08-21, the intraday overlay may confirm later launch/reservation/promotion states, but stale product pages or older crawls must not overwrite fresher live evidence. Do not claim no-change when product-level fields or source freshness are not comparable. Official indexes/search results with non-live crawl timestamps may recover source coverage or create a baseline, but must not be treated as same-day launch, markdown, reservation-state, or stock change without a current product-page confirmation.",
-  "offline_policy": "Never delete a known product when an official page becomes unavailable. Preserve last confirmed fields and mark SOURCE_OFFLINE with the last confirmed date.",
-  "conflict_policy": "Do not overwrite a fresher baseline with stale or conflicting index/search values. Record SOURCE_STATE_CONFLICT and require a live product-page recheck.",
-  "dedupe_policy": "Deduplicate by official product URL and manufacturer product code when available. If neither is available, use brand plus exact product title only as a temporary discovery key until the product page is captured.",
-  "brand_id_policy": "Never reuse an inactive BR-ID for a new brand. Inactive brands remain INACTIVE_LEGACY_REFERENCE with history preserved.",
+  "historical_pre_transition_path": "data/brand-md-monitoring/2026-08-18-brand64-daily.jsonl",
+  "active_set_policy": "Read exactly the current 64 active IDs from config/brand64-active-brands.json. INACTIVE_LEGACY_REFERENCE brands are preserved separately and never included in active aggregation.",
+  "comparison_policy": "Compare 2026-08-23 against the latest saved 2026-08-21 base plus intraday overlay. Do not fabricate 2026-08-22 observations and do not equate a missing observation with no change. Do not claim no-change where current product-level freshness is insufficient.",
+  "offline_policy": "Never delete known products when an official page becomes unavailable. Preserve the last confirmed fields and mark SOURCE_OFFLINE with last confirmed date.",
+  "conflict_policy": "Do not overwrite fresher baselines with stale/conflicting badges, search indexes, or older crawls. Record SOURCE_STATE_CONFLICT and recheck the live product page.",
+  "dedupe_policy": "Deduplicate by official product URL and product code when available; never duplicate the same URL/code.",
   "sales_quantity_policy": "NO_ESTIMATION",
-  "publication_status": "PUBLISH_HOLD"
+  "publication_status": "PUBLISH_HOLD",
+  "human_review_required": true
 }
