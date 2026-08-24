@@ -1,0 +1,46 @@
+{
+  "format": "KC_BRAND64_DAILY_OBSERVATION",
+  "schema_version": "1.4",
+  "observed_date": "2026-08-25",
+  "observed_at": "2026-08-25T08:23:36+09:00",
+  "previous_observation_date": "2026-08-24",
+  "observation_gap_dates": ["2026-08-22"],
+  "active_brand_source": "config/brand64-active-brands.json",
+  "active_brand_count": 64,
+  "light_check_count": 64,
+  "checked_brand_ids": ["BR-00001","BR-00002","BR-00003","BR-00004","BR-00005","BR-00006","BR-00007","BR-00008","BR-00009","BR-00010","BR-00011","BR-00012","BR-00013","BR-00014","BR-00015","BR-00016","BR-00017","BR-00018","BR-00019","BR-00021","BR-00022","BR-00023","BR-00024","BR-00025","BR-00027","BR-00028","BR-00030","BR-00031","BR-00032","BR-00033","BR-00035","BR-00036","BR-00039","BR-00040","BR-00041","BR-00042","BR-00047","BR-00049","BR-00050","BR-00051","BR-00052","BR-00053","BR-00054","BR-00055","BR-00056","BR-00057","BR-00058","BR-00059","BR-00060","BR-00062","BR-00063","BR-00064","BR-00065","BR-00066","BR-00067","BR-00068","BR-00069","BR-00070","BR-00071","BR-00072","BR-00073","BR-00074","BR-00075","BR-00076"],
+  "light_scan_default_status": "LIGHT_SCAN_NO_ESCALATION",
+  "deep_dive_brand_count": 14,
+  "deep_dive_brand_ids": ["BR-00002","BR-00004","BR-00065","BR-00066","BR-00067","BR-00068","BR-00069","BR-00070","BR-00071","BR-00072","BR-00073","BR-00074","BR-00075","BR-00076"],
+  "deep_dive_brand_names": ["GU","ROPÉ PICNIC","GALLARDAGALANTE","Whim Gazette","LOUNGEDRESS","RIVE DROITE","DOUDOU","SHENERY","un dix cors","La boutique BonBon","natural couture","DISCOAT","ZARA","SNIDEL"],
+  "deep_dive_reason": "GU/ROPÉ PICNIC + PAL10 + ZARA + SNIDELを重点確認。公式サイト/公式ECの新着・予約・SALE・価格・掲載状態を差分観測。",
+  "current_first_seen_product_count": 2,
+  "retrospective_backfill_product_count": 10,
+  "formal_product_candidate_count": 12,
+  "status_overrides": [
+    {"brand_id":"BR-00004","brand_name":"ROPÉ PICNIC","status":"PROMOTION_BOUNDARY_AND_PREORDER_CONTINUES","fact":"2BUY10%OFF/アウトレット系8/24終了境界を確認。26AWニット予約は継続。","interpretation":"販促終了を商品需要の低下とは扱わない。","next_check":"終了後の通常価格・掲載順位を次回比較。"},
+    {"brand_id":"BR-00070","brand_name":"SHENERY","status":"PROMOTION_BOUNDARY","fact":"SET UP FAIRは公式商品関連表示で8/24まで。8/25時点で期間終了境界。","interpretation":"販促終了と商品シグナルを分離。","next_check":"メランジニット等の予約状態のみ継続確認。"},
+    {"brand_id":"BR-00073","brand_name":"natural couture","status":"PROMOTION_AND_RANKING_REFRESH","fact":"公式トップで8/24付『お気に入り総選挙TOP5 15%OFF』とランキング更新を確認。","interpretation":"値引き・ランキング露出は販促要因として分離。","next_check":"15%OFF対象SKUと通常価格を個別確認。"},
+    {"brand_id":"BR-00074","brand_name":"DISCOAT","status":"RANKING_REFRESH_OBSERVED","fact":"公式トップで8/24付RANKING10更新、ニット/カーディガン導線と秋じたく施策を確認。","interpretation":"ランキングは販売数量根拠ではない。","next_check":"ランキング継続とニット新規SKUを次回確認。"},
+    {"brand_id":"BR-00075","brand_name":"ZARA","status":"SPECIAL_PRICES_FRESHNESS_RECOVERED","fact":"日本公式ニット一覧とSpecial Pricesを当日取得。Special Pricesで複数ニット-80%表示を確認。","interpretation":"8/25に値下げ開始したとは断定せず、価格ページ鮮度回復として扱う。","next_check":"同一SKUの価格継続・NEW並び替えを比較。"},
+    {"brand_id":"BR-00076","brand_name":"SNIDEL","status":"TODAY_RELEASE_TIME_BOUNDARY","fact":"近沢レース店コラボのニットカーディガン2型が2026-08-25 12:00発売開始予定。08:23時点ではCOMING SOON。","interpretation":"発売前を発売済みに置換しない。レース×ニットの秋意匠を新規シグナルとして保全。","next_check":"12:00以降の発売状態は次回観測で確認。"}
+  ],
+  "md_signals": [
+    {"code":"LACE_KNIT_TIME_BOUNDARY","fact":"SNIDEL近沢レース店コラボ2型は8/25 12:00発売開始予定。","interpretation":"12G〜16Gでレース/ボウタイ/柄編みをニットへ組み込むフェミニン意匠が継続。"},
+    {"code":"TRANSITIONAL_CABLE_AND_FEATHER","fact":"ROPÉ PICNICで綿/アクリルのミニケーブル、PBT素材説明のヘンリー、ショートフェザーのアンチピリングカーデを公式確認。","interpretation":"端境期は軽いケーブルと軽量毛羽を機能・ケア性込みで設計する余地。"},
+    {"code":"PROMOTION_BOUNDARY","fact":"ROPÉ PICNICの8/24終了施策、SHENERYの8/24までSET UP FAIRの終了境界を確認。","interpretation":"販促終了後の順位変化を実需と即断しない。"},
+    {"code":"ZARA_PRICE_FRESHNESS_RECOVERED","fact":"ZARA Special Pricesで-80%のニット複数を当日取得。NEW一覧ではレース、ダブルレイヤー、ストライプ、ショルダーパッド等が併存。","interpretation":"クラシック/フェミニンと構築系の併存。値下げ開始日・販売数量は未推定。"}
+  ],
+  "risk_notes": [
+    {"code":"TIME_BOUNDARY","text":"SNIDEL 2型は8/25 12:00発売予定。08:23時点では販売開始前。"},
+    {"code":"SOURCE_STATE_CONFLICT","text":"La boutique BonBon、LOUNGEDRESS、un dix corsの一部個別ページで過去日付のCOMING SOON/本日発売/販売前が併存。最新状態を推測で上書きしない。"},
+    {"code":"PROMOTION_BIAS","text":"ROPÉ PICNIC/PALの期限付きSALE・クーポン・ランキング露出を商品需要と分離。"},
+    {"code":"PRICE_FRESHNESS_RECOVERED","text":"ZARA Special Pricesは当日取得できたが、-80%値下げの開始日を8/25とは断定しない。"},
+    {"code":"OBSERVATION_GAP","text":"2026-08-22は無観測。変化なしへ置換しない。"}
+  ],
+  "sales_quantity_policy": "NO_ESTIMATION",
+  "publication_status": "PUBLISH_HOLD",
+  "human_review_required": true,
+  "dedupe_policy": "product_id / product_code / official_url",
+  "inactive_legacy_policy": "INACTIVE_LEGACY_REFERENCEはアクティブ64集計に含めない。履歴のみ保持。"
+}
