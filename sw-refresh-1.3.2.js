@@ -1,8 +1,8 @@
 (() => {
   'use strict';
 
-  const SCRIPT_URL = './sw.js?v=1.3.3-operational-hardening-4';
-  const RELOAD_MARKER = 'kc_sw_refresh_1_3_3_operational_hardening_1';
+  const SCRIPT_URL = './sw.js?v=1.3.4-direct-form-order-mobile-actions';
+  const RELOAD_MARKER = 'kc_sw_refresh_1_3_4_direct_form_order_mobile_actions';
 
   if (!('serviceWorker' in navigator) || !['http:', 'https:'].includes(location.protocol)) return;
 
@@ -20,7 +20,7 @@
           location.reload();
         };
 
-        if (navigator.serviceWorker.controller?.scriptURL.includes('1.3.3-operational-hardening-4')) {
+        if (navigator.serviceWorker.controller?.scriptURL.includes('1.3.4-direct-form-order-mobile-actions')) {
           reloadWithCurrentAssets();
           return;
         }

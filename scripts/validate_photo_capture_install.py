@@ -29,6 +29,9 @@ def main() -> None:
     icon = (ROOT / "icon.svg").read_text(encoding="utf-8")
     knitting = (ROOT / "knitting-ends-field.js").read_text(encoding="utf-8")
     service_worker = (ROOT / "sw.js").read_text(encoding="utf-8")
+    capture_index = (ROOT / "capture" / "index.html").read_text(encoding="utf-8")
+    capture_worker = (ROOT / "capture" / "sw.js").read_text(encoding="utf-8")
+    capture_register = (ROOT / "capture" / "sw-register.js").read_text(encoding="utf-8")
 
     if manifest.get("name") != "Knit Compass V04":
         fail("installed full name must be Knit Compass V04")
@@ -63,14 +66,14 @@ def main() -> None:
     for stale in ("Independent Workspace", "独立Sandbox", "IndexedDB保存", "System ID:", "Revision:"):
         if stale in app + index:
             fail(f"Photo Capture sales surface exposes technical label: {stale}")
-    if "const DISPLAY_VERSION = '1.3.3'" not in knitting or "current !== next" not in knitting:
+    if "const DISPLAY_VERSION = '1.3.4'" not in knitting or "current !== next" not in knitting:
         fail("non-recursive Photo Capture version disclosure guard is missing")
-    if "knitting-ends-field.js?v=1.3.3" not in index:
+    if "knitting-ends-field.js?v=1.3.4" not in index:
         fail("Photo Capture helper cache-busting version is missing")
-    if "serviceWorker.register('./sw.js?v=1.3.3-operational-hardening-4')" not in app:
+    if "serviceWorker.register('./sw.js?v=1.3.4-direct-form-order-mobile-actions')" not in app:
         fail("Photo Capture install service worker is not registered")
     refresh = (ROOT / "sw-refresh-1.3.2.js").read_text(encoding="utf-8")
-    for token in ("1.3.3-operational-hardening-4", "controllerchange", "location.reload()", "RELOAD_MARKER"):
+    for token in ("1.3.4-direct-form-order-mobile-actions", "controllerchange", "location.reload()", "RELOAD_MARKER"):
         if token not in refresh:
             fail(f"Photo Capture stale-cache refresh is incomplete: {token}")
     if 'sw-refresh-1.3.2.js' not in index:
@@ -96,9 +99,32 @@ def main() -> None:
             fail(f"Photo Capture data protection is incomplete: {token}")
     if "if (!root || root.ownerDocument !== document || !root.isConnected) return;" not in card_progress or "ページ離脱中" not in card_progress:
         fail("Photo Capture async observer unload guard is missing")
-    for token in ("kc-photo-capture-v1-3-3-operational-hardening-4", "./index.html", "./app.js", "./sw-refresh-1.3.2.js", "./icon-192.png", "./icon-512.png", "./brand/knit-compass-mark.png", "./brand-intelligence/", "./owner-yarns/", "./knit-image/", "./fabric-inspection/", "./market-intelligence/", "./data/yarn-catalog/mz100-catalog-3000.json", "./data/human-review/2026-08-15-intake-19-triage.json", "./data/brand-md-monitoring/latest-material-proposals.json", "./daily/", "./status/"):
+    for token in ("kc-photo-capture-v1-3-4-direct-form-order-mobile-actions", "./index.html", "./app.js", "./sw-refresh-1.3.2.js", "./icon-192.png", "./icon-512.png", "./brand/knit-compass-mark.png", "./brand-intelligence/", "./owner-yarns/", "./knit-image/", "./fabric-inspection/", "./market-intelligence/", "./data/yarn-catalog/mz100-catalog-3000.json", "./data/human-review/2026-08-15-intake-19-triage.json", "./data/brand-md-monitoring/latest-material-proposals.json", "./daily/", "./status/"):
         if token not in service_worker:
             fail(f"Photo Capture install service worker is incomplete: {token}")
+
+    editor = app[app.find('<form id="capture">'):app.find('</form>', app.find('<form id="capture">'))]
+    direct_order = [">登録日<", ">展示会 / 入手先<", ">糸商 / Supplier<", ">糸名・素材名<", ">資料区分<", ">2. 写真<"]
+    previous = -1
+    for token in direct_order:
+        current = editor.find(token, previous + 1)
+        if current <= previous:
+            fail(f"Photo Capture basic-item order is incorrect: {token}")
+        previous = current
+    for token in ('captureDate: form.captureDate.value', 'visitContext: form.visitContext.value.trim()', 'sourceOrganizationName: form.sourceOrganizationName.value.trim()', 'yarnName: form.yarnName.value.trim()', 'documentType: form.documentType.value'):
+        if token not in app:
+            fail(f"Photo Capture save contract is missing: {token}")
+    if '.sticky{position:static;' not in css:
+        fail("Photo Capture mobile actions can still overlap the photo area")
+    if '端末にDRAFT保存' not in app or '一覧へ戻る' not in app:
+        fail("Photo Capture form actions are missing")
+    for token in ('app.js?v=1.3.4-direct-form-order-mobile-actions', 'app.css?v=1.3.4-direct-form-order-mobile-actions', 'sw-register.js?v=1.3.4-direct-form-order-mobile-actions'):
+        if token not in capture_index:
+            fail(f"Public Capture cache key is missing: {token}")
+    if "kc-photo-capture-independent-v2-direct-form-order-mobile-actions" not in capture_worker:
+        fail("Public Capture service-worker cache key is stale")
+    if "./sw.js?v=1.3.4-direct-form-order-mobile-actions" not in capture_register:
+        fail("Public Capture service-worker registration is stale")
     for destination in ("brand-intelligence/", "brand-intelligence/#cn-yarn-glossary", "owner-yarns/", "knit-image/", "fabric-inspection/", "market-intelligence/", "daily/", "customer-sharing/", "stylem/", "status/"):
         if f'href="{destination}"' not in index:
             fail(f"Photo Capture global navigation is missing: {destination}")
