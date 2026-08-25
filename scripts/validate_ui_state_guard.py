@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
-"""Regression checks for Photo Capture save, resend, editor recovery, navigation, and knitting ends."""
+"""Regression checks for the Photo Capture 2.1.41 independent migration."""
 from __future__ import annotations
 
-import re
 import subprocess
 from pathlib import Path
 
 from tooling import require_node
 
 ROOT = Path(__file__).resolve().parents[1]
+APP = ROOT / "app.js"
+CSS = ROOT / "app.css"
 INDEX = ROOT / "index.html"
-GUARD = ROOT / "app-state-guard.js"
-KNITTING_ENDS = ROOT / "knitting-ends-field.js"
+CAPTURE_INDEX = ROOT / "capture" / "index.html"
 NODE = require_node()
 
 
@@ -24,58 +24,95 @@ def require(text: str, needle: str, label: str) -> None:
         fail(f"missing {label}: {needle}")
 
 
-def node_check(path: Path) -> None:
-    result = subprocess.run([NODE, "--check", str(path)], capture_output=True, text=True)
-    if result.returncode:
-        fail(f"JavaScript syntax error in {path.name}: {result.stderr.strip()}")
+def forbid(text: str, needle: str, label: str) -> None:
+    if needle in text:
+        fail(f"forbidden {label}: {needle}")
 
 
 def main() -> None:
-    for path in (GUARD, KNITTING_ENDS):
-        if not path.exists():
-            fail(f"{path.name} is missing")
+    app = APP.read_text(encoding="utf-8")
+    css = CSS.read_text(encoding="utf-8")
+    index = INDEX.read_text(encoding="utf-8")
+    capture_index = CAPTURE_INDEX.read_text(encoding="utf-8")
 
-    index_text = INDEX.read_text(encoding="utf-8")
-    guard_text = GUARD.read_text(encoding="utf-8")
-    knitting_text = KNITTING_ENDS.read_text(encoding="utf-8")
+    result = subprocess.run([NODE, "--check", str(APP)], capture_output=True, text=True)
+    if result.returncode:
+        fail(f"JavaScript syntax error in app.js: {result.stderr.strip()}")
 
-    node_check(GUARD)
-    node_check(KNITTING_ENDS)
+    for token in (
+        'version: "2.1.41-independent.1"',
+        'implementation_scope: "OWNER_DEVICE_DRAFT_WITH_PORTABLE_HANDOFF"',
+        'authentication_realm: "KNIT_COMPASS_DEVICE_LOCAL"',
+        'external_network_calls: "OFF"',
+        'photo_store: "photos"',
+        'event_store: "events"',
+        'audit_store: "audit"',
+    ):
+        require(app, token, "independent 2.1.41 contract")
 
-    require(index_text, 'app-state-guard.js?v=1.0.0', "guard script include")
-    require(index_text, 'knitting-ends-field.js?v=1.3.5', "knitting ends script include")
-    app_script = re.search(r'app\.js\?v=[^"\']+', index_text)
-    if not app_script:
-        fail("app.js script include is missing")
-    knitting_position = index_text.index("knitting-ends-field.js")
-    guard_position = index_text.index("app-state-guard.js")
-    if knitting_position < app_script.start():
-        fail("knitting ends field must load after app.js")
-    if guard_position < knitting_position:
-        fail("UI state guard must load after knitting ends field")
+    for token in (
+        "loadDeviceSession",
+        "renderDeviceAuth",
+        "generatedAccountId",
+        "passwordHash",
+        "sessionStorage.setItem(SESSION_KEY",
+        "accounts.length === 1",
+    ):
+        require(app, token, "device-local authentication")
+    forbid(app, "loadHostedSession", "Sites-only authentication dependency")
 
-    require(guard_text, "const dedupeKey = `${recordId}:${version}`", "version-specific handoff state")
-    require(guard_text, "button.disabled = sent", "completed send button lock")
-    require(guard_text, "form.checkValidity()", "send validation guard")
-    require(guard_text, "setFormBusy(form, true)", "save double-submit guard")
-    require(guard_text, "EDITOR_DRAFT_KEY", "editor draft recovery")
-    require(guard_text, "sessionStorage.removeItem(EDITOR_DRAFT_KEY)", "draft cleanup after save")
-    require(guard_text, "DRAFT_STATUS_LABELS", "draft status-only labels")
-    require(guard_text, "REVIEW_ACTION_LABELS", "review inbox action labels")
-    require(guard_text, "FORMAL_STATUS_LABELS", "formal registration status labels")
-    require(guard_text, "function refreshTopWorkflowControls()", "top workflow control repair")
-    require(guard_text, "function reviewInboxHref()", "review inbox route resolver")
-    require(guard_text, "../brand-intelligence/", "photo-capture-current inbox route")
-    require(guard_text, 'data-kc-review-inbox-action', "review inbox action marker")
+    for token in ("missingStores", "database.version + 1", "Object.values(STORES)"):
+        require(app, token, "non-destructive IndexedDB self-repair")
+    for token in (
+        'dataState: "DRAFT"',
+        'historyPolicy: "APPEND_ONLY"',
+        'automaticSync: "OFF"',
+        "state.isSaving",
+        "STORES.audit",
+        "snapshotSha256",
+    ):
+        require(app, token, "append-only DRAFT safety")
 
-    require(knitting_text, "const FIELD_NAME = 'knittingEnds'", "knitting ends data key")
-    require(knitting_text, "value.snapshot[FIELD_NAME] = ends", "IndexedDB event enrichment")
-    require(knitting_text, "value.snapshot.dataContractVersion = DATA_CONTRACT_VERSION", "data contract version update")
-    require(knitting_text, "stripEndsFromGauge", "combined gauge migration")
-    require(knitting_text, "kc_photo_capture_knitting_ends_v1", "UI restore sidecar")
-    require(knitting_text, "本取り（編地）", "visible knitting ends label")
+    form_start = app.find('<form id="kcCaptureForm"')
+    form_end = app.find("</form>", form_start)
+    if form_start < 0 or form_end < 0:
+        fail("2.1.41 capture form is missing")
+    form = app[form_start:form_end]
+    ordered = ["登録日", "展示会 / 入手先", "糸商 / Supplier", "糸名・素材名", "資料区分", "2. 写真"]
+    previous = -1
+    for token in ordered:
+        current = form.find(token, previous + 1)
+        if current <= previous:
+            fail(f"Photo Capture basic-item order is incorrect: {token}")
+        previous = current
+    for token in ("7分類", "全分類合計10枚", "本取り", "手配・進捗", "調査依頼"):
+        require(form, token, "2.1.41 migrated field")
 
-    print("OK: Photo Capture UI state guard, navigation, and knitting ends checks passed")
+    require(css, ".kc-form-actions {", "form actions")
+    require(css, "position: static;", "mobile non-overlapping actions")
+    require(capture_index, 'body data-surface="mobile"', "mobile surface")
+
+    for token in (
+        "exportPortablePackage",
+        "uploadPortableManifest",
+        'importedFrom: "PHOTO_CAPTURE_2_1_41_PORTABLE_ZIP"',
+        "2.1.41 ZIPを取り込む",
+        "DRAFT保存＋外部取込ZIP",
+        "normalizeStandaloneSnapshot",
+        "...existingSnapshot",
+    ):
+        require(app, token, "2.1.41 portable migration")
+
+    for document in (index, capture_index):
+        for token in (
+            "app.js?v=2.1.41-independent.1",
+            "app.css?v=2.1.41-independent.1",
+            "exhibition-supplier-master.js?v=2.1.41-independent.1",
+            "knit-compass-ui.css?v=2.1.41-independent.1",
+        ):
+            require(document, token, "independent cache key")
+
+    print("OK: Photo Capture 2.1.41 independent migration, DRAFT safety, data compatibility, and mobile action checks passed")
 
 
 if __name__ == "__main__":
