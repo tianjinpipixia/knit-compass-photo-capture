@@ -6,7 +6,7 @@
   const HANDOFF_KEY = 'kc_v04_handoff_queue_v1';
   const HANDOFF_QUEUE_LIMIT = 500;
   const DATA_CONTRACT_VERSION = '1.1.0';
-  const APP_VERSION = '1.3.4';
+  const APP_VERSION = '1.3.5';
   const REQUIRED_STORES = ['accounts', 'events', 'photos'];
   const app = document.getElementById('app');
 
@@ -788,7 +788,7 @@ ${handoffError.message || handoffError}`);
 
   if ('serviceWorker' in navigator && ['http:', 'https:'].includes(location.protocol)) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js?v=1.3.4-direct-form-order-mobile-actions').catch((error) => console.warn('Photo Captureのオフライン準備に失敗しました。', error));
+      navigator.serviceWorker.register('./sw.js?v=1.3.5-current-ui-direct-entry').catch((error) => console.warn('Photo Captureのオフライン準備に失敗しました。', error));
     });
   }
 
