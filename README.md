@@ -15,9 +15,9 @@ Photo Capture、商品調査・Human Review、Daily、Androidは引き続き独�
 
 同一ブラウザではlocalStorage受信箱を共有します。別サイト・別端末では受信箱JSONを書き出し、Human Review側で取り込みます。PENDINGまたはREJECTEDの候補はマスターへ反映しません。
 
-Photo Capture 2.1.41 independent.1では、V04 Sites内の2.1.41画面・7分類10枚撮影・素材項目・手配進捗・調査依頼・Append Only監査を独立Photo Captureへ移植しました。基本項目は登録日、展示会／入手先、糸商／Supplier、糸名・素材名、資料区分の順とし、その後に写真を配置します。スマートフォンでは保存操作を通常のページ末尾へ戻して写真欄との重なりを防ぎます。
+Photo Capture 2.1.43 independent.1では、V04 Sites内の現行2.1.43画面・7分類10枚撮影・素材項目・手配進捗・調査依頼・Append Only監査を独立Photo Captureへ移植しました。2.1.42／2.1.43で更新された現行版表示・直接導線・キャッシュ識別子も反映しています。基本項目は登録日、展示会／入手先、糸商／Supplier、糸名・素材名、資料区分の順とし、その後に写真を配置します。スマートフォンでは保存操作を通常のページ末尾へ戻して写真欄との重なりを防ぎます。
 
-独立版はSitesログインやCompany APIを必須にせず、端末内アカウントとIndexedDBで動作します。既存1.3.5の `accounts`・`events`・`photos` は同じデータベースで読み込み、未表示項目も次回保存時に保持します。2.1.41で書き出した外部取込ZIPは、写真・履歴・素材情報を検証したうえで独立版のDRAFTへ追加でき、原本は変更しません。外部への自動送信は行わず、引き渡し時だけ外部取込ZIPを書き出します。
+独立版はSitesログインやCompany APIを必須にせず、端末内アカウントとIndexedDBで動作します。既存1.3.5および2.1.41 independent.1の `accounts`・`events`・`photos` は同じデータベースで読み込み、未表示項目も次回保存時に保持します。2.1.41〜2.1.43で書き出した外部取込ZIPは、写真・履歴・素材情報を検証したうえで独立版のDRAFTへ追加でき、原本は変更しません。外部への自動送信は行わず、引き渡し時だけ外部取込ZIPを書き出します。
 
 糸マスター／3,000件カタログからは、番手・混率・糸構造・対応ゲージを引き継ぐ「糸 → 編み地イメージ」を開けます。ゲージ・編組織・本取りを指定し、外部AIへ送信せず端末内で検討用PNGを生成します。既存マスターと公開範囲は変更しません。
 
@@ -48,7 +48,7 @@ Photo Capture 2.1.41 independent.1では、V04 Sites内の2.1.41画面・7分類
 
 | システム | 入口 | 主な保存先 | 接続 |
 |---|---|---|---|
-| Photo Capture 2.1.41 independent.1 | `/capture/` | IndexedDB `kc_independent_photo_capture_v1_0`＋端末内永続化要求＋Append Only監査＋検証付きバックアップ | 外部取込ZIPを明示的に書き出し／2.1.41 ZIPを端末DRAFTへ移植 |
+| Photo Capture 2.1.43 independent.1 | `/capture/` | IndexedDB `kc_independent_photo_capture_v1_0`＋端末内永続化要求＋Append Only監査＋検証付きバックアップ | 外部取込ZIPを明示的に書き出し／2.1.41〜2.1.43 ZIPを端末DRAFTへ移植 |
 | 商品調査・Human Review | `/brand-intelligence/` | localStorage `kc_independent_practical_v0_4` | Human Review後にマスター反映／月次掲載観測から公開保留MD提案 |
 | 糸検索（3,000件） | `/owner-yarns/` | 静的カタログ＋localStorage受信箱 | CATALOG_INDEXEDと正式糸を分離／全件NOT_PROMOTED／19件はPENDING取込／12承認可能・4条件付き・3HOLDは判定補助のみ／選択糸を編み地イメージへ読取専用で引渡し |
 | 糸 → 編み地イメージ v1.0.0 | `/knit-image/` | なし（Canvas、明示PNG保存のみ） | 外部送信・マスター書込なし |

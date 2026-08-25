@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the independent Photo Capture 2.1.41 install and safety contract."""
+"""Validate the independent Photo Capture 2.1.43 install and safety contract."""
 from __future__ import annotations
 
 import json
@@ -7,7 +7,7 @@ import struct
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-BUILD = "2.1.41-independent.1"
+BUILD = "2.1.43-independent.1"
 
 
 def fail(message: str) -> None:
@@ -63,7 +63,7 @@ def main() -> None:
     require(capture_index, 'body data-surface="mobile"', "mobile capture surface")
 
     for token in (
-        'version: "2.1.41-independent.1"',
+        'version: "2.1.43-independent.1"',
         'implementation_scope: "OWNER_DEVICE_DRAFT_WITH_PORTABLE_HANDOFF"',
         'authentication_realm: "KNIT_COMPASS_DEVICE_LOCAL"',
         'external_network_calls: "OFF"',
@@ -100,7 +100,7 @@ def main() -> None:
     form_start = app.find('<form id="kcCaptureForm"')
     form_end = app.find("</form>", form_start)
     if form_start < 0 or form_end < 0:
-        fail("2.1.41 capture form is missing")
+        fail("2.1.43 capture form is missing")
     editor = app[form_start:form_end]
     previous = -1
     for token in ("登録日", "展示会 / 入手先", "糸商 / Supplier", "糸名・素材名", "資料区分", "2. 写真"):
@@ -109,18 +109,19 @@ def main() -> None:
             fail(f"Photo Capture basic-item order is incorrect: {token}")
         previous = current
     for token in ("7分類", "全分類合計10枚", "本取り", "手配・進捗", "調査依頼", "端末にDRAFT保存", "DRAFT保存＋外部取込ZIP"):
-        require(editor, token, "2.1.41 migrated surface")
+        require(editor, token, "2.1.43 migrated surface")
     require(css, ".kc-form-actions {", "form action layout")
     require(css, "position: static;", "mobile action non-overlap")
 
     for token in (
         "exportPortablePackage",
         "uploadPortableManifest",
-        'importedFrom: "PHOTO_CAPTURE_2_1_41_PORTABLE_ZIP"',
-        "2.1.41 ZIPを取り込む",
+        "sourceVersionMatch",
+        "PHOTO_CAPTURE_2_1_${sourceVersionMatch[1]}_PORTABLE_ZIP",
+        "2.1.41〜2.1.43 ZIPを取り込む",
         "原本は変更せず",
     ):
-        require(app, token, "portable 2.1.41 migration")
+        require(app, token, "portable 2.1.41–2.1.43 migration")
     require(supplier_master, "KC_EXHIBITION_SUPPLIER_MASTER_V1", "exhibition Supplier candidates")
 
     for token in (
@@ -135,7 +136,7 @@ def main() -> None:
         require(backup + app, token, "data protection")
 
     for token in (
-        "kc-photo-capture-v2-1-41-independent-1",
+        "kc-photo-capture-v2-1-43-independent-1",
         "./app.js",
         "./app.css",
         "./knit-compass-ui.css",
@@ -150,7 +151,7 @@ def main() -> None:
         "./status/",
     ):
         require(worker, token, "root service-worker shell")
-    require(capture_worker, "kc-photo-capture-independent-v4-v2141-migration", "capture service-worker cache")
+    require(capture_worker, "kc-photo-capture-independent-v5-v2143-current-ui", "capture service-worker cache")
     require(capture_worker, "../exhibition-supplier-master.js", "capture Supplier master cache")
     require(capture_worker, "../knit-compass-ui.css", "capture UI cache")
     require(capture_register, f"./sw.js?v={BUILD}", "capture service-worker registration")
@@ -171,7 +172,7 @@ def main() -> None:
     ):
         require(index, f'href="{destination}"', "global navigation")
 
-    print("OK: Photo Capture 2.1.41 independent install, migration, cache, and safety boundaries")
+    print("OK: Photo Capture 2.1.43 independent install, migration, cache, and safety boundaries")
 
 
 if __name__ == "__main__":

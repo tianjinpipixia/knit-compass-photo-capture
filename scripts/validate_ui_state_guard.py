@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression checks for the Photo Capture 2.1.41 independent migration."""
+"""Regression checks for the Photo Capture 2.1.43 independent migration."""
 from __future__ import annotations
 
 import subprocess
@@ -40,7 +40,7 @@ def main() -> None:
         fail(f"JavaScript syntax error in app.js: {result.stderr.strip()}")
 
     for token in (
-        'version: "2.1.41-independent.1"',
+        'version: "2.1.43-independent.1"',
         'implementation_scope: "OWNER_DEVICE_DRAFT_WITH_PORTABLE_HANDOFF"',
         'authentication_realm: "KNIT_COMPASS_DEVICE_LOCAL"',
         'external_network_calls: "OFF"',
@@ -48,7 +48,7 @@ def main() -> None:
         'event_store: "events"',
         'audit_store: "audit"',
     ):
-        require(app, token, "independent 2.1.41 contract")
+        require(app, token, "independent 2.1.43 contract")
 
     for token in (
         "loadDeviceSession",
@@ -76,7 +76,7 @@ def main() -> None:
     form_start = app.find('<form id="kcCaptureForm"')
     form_end = app.find("</form>", form_start)
     if form_start < 0 or form_end < 0:
-        fail("2.1.41 capture form is missing")
+        fail("2.1.43 capture form is missing")
     form = app[form_start:form_end]
     ordered = ["登録日", "展示会 / 入手先", "糸商 / Supplier", "糸名・素材名", "資料区分", "2. 写真"]
     previous = -1
@@ -86,7 +86,7 @@ def main() -> None:
             fail(f"Photo Capture basic-item order is incorrect: {token}")
         previous = current
     for token in ("7分類", "全分類合計10枚", "本取り", "手配・進捗", "調査依頼"):
-        require(form, token, "2.1.41 migrated field")
+        require(form, token, "2.1.43 migrated field")
 
     require(css, ".kc-form-actions {", "form actions")
     require(css, "position: static;", "mobile non-overlapping actions")
@@ -95,24 +95,25 @@ def main() -> None:
     for token in (
         "exportPortablePackage",
         "uploadPortableManifest",
-        'importedFrom: "PHOTO_CAPTURE_2_1_41_PORTABLE_ZIP"',
-        "2.1.41 ZIPを取り込む",
+        "sourceVersionMatch",
+        "PHOTO_CAPTURE_2_1_${sourceVersionMatch[1]}_PORTABLE_ZIP",
+        "2.1.41〜2.1.43 ZIPを取り込む",
         "DRAFT保存＋外部取込ZIP",
         "normalizeStandaloneSnapshot",
         "...existingSnapshot",
     ):
-        require(app, token, "2.1.41 portable migration")
+        require(app, token, "2.1.41–2.1.43 portable migration")
 
     for document in (index, capture_index):
         for token in (
-            "app.js?v=2.1.41-independent.1",
-            "app.css?v=2.1.41-independent.1",
-            "exhibition-supplier-master.js?v=2.1.41-independent.1",
-            "knit-compass-ui.css?v=2.1.41-independent.1",
+            "app.js?v=2.1.43-independent.1",
+            "app.css?v=2.1.43-independent.1",
+            "exhibition-supplier-master.js?v=2.1.43-independent.1",
+            "knit-compass-ui.css?v=2.1.43-independent.1",
         ):
             require(document, token, "independent cache key")
 
-    print("OK: Photo Capture 2.1.41 independent migration, DRAFT safety, data compatibility, and mobile action checks passed")
+    print("OK: Photo Capture 2.1.43 independent migration, DRAFT safety, data compatibility, and mobile action checks passed")
 
 
 if __name__ == "__main__":

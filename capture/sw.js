@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kc-photo-capture-independent-v4-v2141-migration';
+const CACHE_NAME = 'kc-photo-capture-independent-v5-v2143-current-ui';
 const APP_SHELL = [
   './',
   './index.html',
