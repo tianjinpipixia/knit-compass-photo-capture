@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kc-photo-capture-v2-1-41-independent-1';
+const CACHE_NAME = 'kc-photo-capture-v2-1-43-independent-1';
 const APP_SHELL = [
   './',
   './index.html',

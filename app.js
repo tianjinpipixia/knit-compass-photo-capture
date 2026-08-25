@@ -3,7 +3,7 @@
 
   const CONTRACT = Object.freeze({
     application: "Knit Compass Independent Photo Capture",
-    version: "2.1.41-independent.1",
+    version: "2.1.43-independent.1",
     feature_version: "COMPANY_MATERIAL_PHOTO_COMPATIBILITY",
     implementation_scope: "OWNER_DEVICE_DRAFT_WITH_PORTABLE_HANDOFF",
     database_name: "kc_independent_photo_capture_v1_0",
@@ -28,9 +28,9 @@
   });
 
   const BUILD_INFO = Object.freeze({
-    version: "2.1.41 独立版",
-    updated_at: "2026-08-26T07:30:00+08:00",
-    updated_label: "2026-08-26 07:30 CST"
+    version: "2.1.43 独立版",
+    updated_at: "2026-08-26T07:41:09+08:00",
+    updated_label: "2026-08-26 07:41 CST"
   });
 
   const COMPANY_IMPORT_FILE = "Company_PhotoCapture_External_Import.csv";
@@ -1185,7 +1185,7 @@
         "photos/: 表紙・全体、糸・素材本体、編地・質感、色見本、品質表示・規格、WeChat・連絡記録、その他の写真です。CSV内の相対パスと対応します。",
         "写真は合計10枚まで。同じ分類に複数枚を保存できます。旧版の商品・糸・糸帳写真も失わず保持します。",
         "",
-        "Knit Compass Photo Capture 2.1.41 独立版は、写真と素材情報をこの端末のDRAFTとして扱います。",
+        "Knit Compass Photo Capture 2.1.43 独立版は、写真と素材情報をこの端末のDRAFTとして扱います。",
         "機能性繊維詳細・サステナブル繊維使用/詳細はmanifest.jsonのcompany_spreadsheet_payloadにも保持します。旧CSV取込ではメモ欄へ補足します。",
         "略称・実番手・詳細紡績方式・加工方法・カバリング詳細など、会社側取込対象外の情報はKnitCompass_Data.csvだけに残ります。",
         "担当者名と部署は空欄です。会社側の取込処理が、会社管理の設定値だけを補います。",
@@ -1227,6 +1227,11 @@
       throw new Error(`PORTABLE_SCHEMA_UNSUPPORTED: ${clean(manifest.package_schema) || "UNKNOWN"}`);
     }
     const record = manifest.record && typeof manifest.record === "object" ? manifest.record : {};
+    const sourceAppVersion = clean(manifest.source?.app_version);
+    const sourceVersionMatch = sourceAppVersion.match(/^2\.1\.(41|42|43)(?:\b|[- ])/);
+    const importSource = sourceVersionMatch
+      ? `PHOTO_CAPTURE_2_1_${sourceVersionMatch[1]}_PORTABLE_ZIP`
+      : "PHOTO_CAPTURE_PORTABLE_ZIP";
     const recordId = clean(record.record_id);
     if (!/^KCI-CAPTURE-[0-9a-f-]{36}$/i.test(recordId) || !record.export_data || typeof record.export_data !== "object") {
       throw new Error("PORTABLE_RECORD_INVALID");
@@ -1302,7 +1307,7 @@
       historyPolicy: "APPEND_ONLY",
       automaticSync: "OFF",
       automaticPublish: "OFF",
-      importedFrom: "PHOTO_CAPTURE_2_1_41_PORTABLE_ZIP"
+      importedFrom: importSource
     };
     const auditRecord = {
       auditId: createId("KCI-AUDIT"),
@@ -1380,7 +1385,7 @@
       await loadEvents();
       refreshCandidateOptions();
       renderRecords();
-      const summary = `2.1.41移植：対象${recordTotal}件、新規${uploaded}件、移植済み${duplicates}件`;
+      const summary = `2.1.41〜2.1.43移植：対象${recordTotal}件、新規${uploaded}件、移植済み${duplicates}件`;
       setMessage(
         "kcInboxMessage",
         failures.length ? `${summary}、失敗${failures.length}件（${failures.join(" / ")}）` : `${summary}。原本は変更せず、独立版の端末内DRAFTへ追加しました。`,
@@ -1400,7 +1405,7 @@
           <p class="kc-eyebrow">独立Photo Capture</p>
           <h1 id="kcAuthTitle">Knit Compass Photo Capture</h1>
           <p class="kc-lead">端末内DRAFTを開けませんでした。別のPhoto Capture画面を閉じてから、もう一度お試しください。</p>
-          <a class="kc-file-button" href="${escapeHtml(`${window.location.pathname}?build=2.1.41-independent.1`)}">再読み込み</a>
+          <a class="kc-file-button" href="${escapeHtml(`${window.location.pathname}?build=2.1.43-independent.1`)}">再読み込み</a>
           <a class="kc-file-button secondary" href="https://knit-compass-v04.s-zhujing.chatgpt.site/">Knit Compass V04へ戻る</a>
           <p class="kc-message error" role="status">${escapeHtml(message)}</p>
         </section>
@@ -1479,7 +1484,7 @@
           <div class="kc-brand">
             <p class="kc-eyebrow">写真から素材情報を登録</p>
             <h1>Knit Compass Photo Capture</h1>
-            <p class="kc-lead">Photo Capture 2.1.41を独立版へ移植した現行画面です。写真と素材情報は端末へDRAFT保存し、必要な記録だけを外部取込ZIPとして書き出します。正式マスターへの反映は確認後に行います。</p>
+            <p class="kc-lead">Photo Capture 2.1.43を独立版へ移植した現行画面です。写真と素材情報は端末へDRAFT保存し、必要な記録だけを外部取込ZIPとして書き出します。正式マスターへの反映は確認後に行います。</p>
             <div class="kc-build-info" aria-label="画面バージョン情報">
               <span>画面バージョン <strong>${escapeHtml(BUILD_INFO.version)}</strong></span>
               <span>最終更新 <time datetime="${escapeHtml(BUILD_INFO.updated_at)}">${escapeHtml(BUILD_INFO.updated_label)}</time></span>
@@ -1558,10 +1563,10 @@
               </div>
             </details>
             <details class="kc-recovery-tools">
-              <summary>2.1.41データを移植</summary>
+              <summary>2.1.41〜2.1.43データを移植</summary>
               <div class="kc-recovery-tools-body">
-                <p>Photo Capture 2.1.41で書き出した外部取込ZIPを選ぶと、写真・履歴・素材情報を独立版の端末内DRAFTへ追加します。原本は変更しません。</p>
-                <label class="kc-file-button secondary">2.1.41 ZIPを取り込む
+                <p>Photo Capture 2.1.41〜2.1.43で書き出した外部取込ZIPを選ぶと、写真・履歴・素材情報を独立版の端末内DRAFTへ追加します。原本は変更しません。</p>
+                <label class="kc-file-button secondary">2.1.41〜2.1.43 ZIPを取り込む
                   <input class="kc-visually-hidden-file" id="kcPortableImport" type="file" accept=".zip,application/zip" multiple>
                 </label>
               </div>
@@ -1822,7 +1827,7 @@
         <section class="kc-auth-card" aria-labelledby="kcAuthTitle">
           <p class="kc-eyebrow">独立Photo Capture</p>
           <h1 id="kcAuthTitle">Knit Compass Photo Capture</h1>
-          <p class="kc-lead">2.1.41の入力画面を独立版へ移植しました。写真とDRAFTはこの端末内に保存され、外部へ自動送信しません。</p>
+          <p class="kc-lead">2.1.43の入力画面を独立版へ移植しました。写真とDRAFTはこの端末内に保存され、外部へ自動送信しません。</p>
           <div class="kc-badges" aria-label="データ保護方針"><span class="kc-badge safe">端末内保存</span><span class="kc-badge safe">Append Only</span><span class="kc-badge">正式登録は人が確認</span></div>
           <form id="auth" class="kc-auth-form">
             ${hasAccount ? "" : `<label>表示名<input name="display" required placeholder="例：Knit Compass Owner"></label>`}
@@ -3056,7 +3061,7 @@
     if (typeof navigator === "undefined" || !("serviceWorker" in navigator)) return;
     window.addEventListener("load", () => {
       const appBasePath = new URL(".", window.location.href).pathname;
-      navigator.serviceWorker.register(`${appBasePath}service-worker.js?v=2.1.41-direct-form-order-mobile-actions`, {
+      navigator.serviceWorker.register(`${appBasePath}service-worker.js?v=2.1.43-current-ui-direct-entry`, {
         scope: appBasePath,
         updateViaCache: "none"
       }).catch(() => {});
