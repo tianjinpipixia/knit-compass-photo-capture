@@ -66,14 +66,14 @@ def main() -> None:
     for stale in ("Independent Workspace", "独立Sandbox", "IndexedDB保存", "System ID:", "Revision:"):
         if stale in app + index:
             fail(f"Photo Capture sales surface exposes technical label: {stale}")
-    if "const DISPLAY_VERSION = '1.3.4'" not in knitting or "current !== next" not in knitting:
+    if "const DISPLAY_VERSION = '1.3.5'" not in knitting or "current !== next" not in knitting:
         fail("non-recursive Photo Capture version disclosure guard is missing")
-    if "knitting-ends-field.js?v=1.3.4" not in index:
+    if "knitting-ends-field.js?v=1.3.5" not in index:
         fail("Photo Capture helper cache-busting version is missing")
-    if "serviceWorker.register('./sw.js?v=1.3.4-direct-form-order-mobile-actions')" not in app:
+    if "serviceWorker.register('./sw.js?v=1.3.5-current-ui-direct-entry')" not in app:
         fail("Photo Capture install service worker is not registered")
     refresh = (ROOT / "sw-refresh-1.3.2.js").read_text(encoding="utf-8")
-    for token in ("1.3.4-direct-form-order-mobile-actions", "controllerchange", "location.reload()", "RELOAD_MARKER"):
+    for token in ("1.3.5-current-ui-direct-entry", "controllerchange", "location.reload()", "RELOAD_MARKER"):
         if token not in refresh:
             fail(f"Photo Capture stale-cache refresh is incomplete: {token}")
     if 'sw-refresh-1.3.2.js' not in index:
@@ -99,7 +99,7 @@ def main() -> None:
             fail(f"Photo Capture data protection is incomplete: {token}")
     if "if (!root || root.ownerDocument !== document || !root.isConnected) return;" not in card_progress or "ページ離脱中" not in card_progress:
         fail("Photo Capture async observer unload guard is missing")
-    for token in ("kc-photo-capture-v1-3-4-direct-form-order-mobile-actions", "./index.html", "./app.js", "./sw-refresh-1.3.2.js", "./icon-192.png", "./icon-512.png", "./brand/knit-compass-mark.png", "./brand-intelligence/", "./owner-yarns/", "./knit-image/", "./fabric-inspection/", "./market-intelligence/", "./data/yarn-catalog/mz100-catalog-3000.json", "./data/human-review/2026-08-15-intake-19-triage.json", "./data/brand-md-monitoring/latest-material-proposals.json", "./daily/", "./status/"):
+    for token in ("kc-photo-capture-v1-3-5-current-ui-direct-entry", "./index.html", "./app.js", "./sw-refresh-1.3.2.js", "./icon-192.png", "./icon-512.png", "./brand/knit-compass-mark.png", "./brand-intelligence/", "./owner-yarns/", "./knit-image/", "./fabric-inspection/", "./market-intelligence/", "./data/yarn-catalog/mz100-catalog-3000.json", "./data/human-review/2026-08-15-intake-19-triage.json", "./data/brand-md-monitoring/latest-material-proposals.json", "./daily/", "./status/"):
         if token not in service_worker:
             fail(f"Photo Capture install service worker is incomplete: {token}")
 
@@ -118,12 +118,12 @@ def main() -> None:
         fail("Photo Capture mobile actions can still overlap the photo area")
     if '端末にDRAFT保存' not in app or '一覧へ戻る' not in app:
         fail("Photo Capture form actions are missing")
-    for token in ('app.js?v=1.3.4-direct-form-order-mobile-actions', 'app.css?v=1.3.4-direct-form-order-mobile-actions', 'sw-register.js?v=1.3.4-direct-form-order-mobile-actions'):
+    for token in ('app.js?v=1.3.5-current-ui-direct-entry', 'app.css?v=1.3.5-current-ui-direct-entry', 'sw-register.js?v=1.3.5-current-ui-direct-entry'):
         if token not in capture_index:
             fail(f"Public Capture cache key is missing: {token}")
-    if "kc-photo-capture-independent-v2-direct-form-order-mobile-actions" not in capture_worker:
+    if "kc-photo-capture-independent-v3-current-ui-direct-entry" not in capture_worker:
         fail("Public Capture service-worker cache key is stale")
-    if "./sw.js?v=1.3.4-direct-form-order-mobile-actions" not in capture_register:
+    if "./sw.js?v=1.3.5-current-ui-direct-entry" not in capture_register:
         fail("Public Capture service-worker registration is stale")
     for destination in ("brand-intelligence/", "brand-intelligence/#cn-yarn-glossary", "owner-yarns/", "knit-image/", "fabric-inspection/", "market-intelligence/", "daily/", "customer-sharing/", "stylem/", "status/"):
         if f'href="{destination}"' not in index:
