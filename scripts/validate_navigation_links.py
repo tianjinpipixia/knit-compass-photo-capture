@@ -58,6 +58,7 @@ assert not missing, "missing local destinations:\n" + "\n".join(missing)
 assert not invalid_placeholders, "unhandled placeholder links:\n" + "\n".join(invalid_placeholders)
 
 entry_expectations = {
+    "index.html": ("brand-intelligence/", "brand-intelligence/#cn-yarn-glossary", "owner-yarns/", "knit-image/", "fabric-inspection/", "market-intelligence/", "daily/", "customer-sharing/", "stylem/", "status/"),
     "brand-intelligence/index.html": ("../", "../owner-yarns/current.html", "../owner-yarns/intake-current.html", "./v04-reflection-status.html", "../knit-image/", "../fabric-inspection/", "../market-intelligence/", "../daily/", "../customer-sharing/", "../stylem/", "../status/"),
     "owner-yarns/index.html": ("../", "../brand-intelligence/", "../brand-intelligence/#cn-yarn-glossary", "../knit-image/", "../fabric-inspection/", "../market-intelligence/", "../daily/", "../status/"),
     "knit-image/index.html": ("../", "../brand-intelligence/", "../owner-yarns/", "../daily/", "../status/"),
@@ -71,22 +72,6 @@ for name, destinations in entry_expectations.items():
     text = (ROOT / name).read_text(encoding="utf-8")
     for destination in destinations:
         assert f'href="{destination}"' in text, f"{name} missing navigation to {destination}"
-
-root_entry = (ROOT / "index.html").read_text(encoding="utf-8")
-assert "Knit Compass Photo Capture" in root_entry
-assert "<strong>Photo Capture</strong>" in root_entry
-for destination in (
-    "brand-intelligence/",
-    "owner-yarns/",
-    "knit-image/",
-    "fabric-inspection/",
-    "market-intelligence/",
-    "daily/",
-    "customer-sharing/",
-    "stylem/",
-    "status/",
-):
-    assert f'href="{destination}"' not in root_entry, f"index.html must stay Photo Capture only: {destination}"
 
 wrapper = (ROOT / "brand-intelligence/index.html").read_text(encoding="utf-8")
 assert "./index-current.html" in wrapper
