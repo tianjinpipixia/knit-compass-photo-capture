@@ -6,7 +6,7 @@
   const HANDOFF_KEY = 'kc_v04_handoff_queue_v1';
   const HANDOFF_QUEUE_LIMIT = 500;
   const DATA_CONTRACT_VERSION = '1.1.0';
-  const APP_VERSION = '1.3.3';
+  const APP_VERSION = '1.3.4';
   const REQUIRED_STORES = ['accounts', 'events', 'photos'];
   const app = document.getElementById('app');
 
@@ -45,6 +45,11 @@
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
   })[character]);
   const nowIso = () => new Date().toISOString();
+  const dateInputValue = (value = new Date()) => {
+    const parsed = value instanceof Date ? value : new Date(value);
+    const date = Number.isNaN(parsed.getTime()) ? new Date() : parsed;
+    return new Date(date.getTime() - date.getTimezoneOffset() * 60_000).toISOString().slice(0, 10);
+  };
   const uuid = () => crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`;
   const internalId = (prefix) => `${prefix}-${uuid()}`;
   const generatedAccountId = () => `kc-owner-${uuid().replaceAll('-', '').slice(0, 12).toLowerCase()}`;
@@ -382,7 +387,20 @@
       <div><p class="eyebrow">写真・情報の登録</p><h2>${editing ? '下書きを編集' : '新規キャプチャ'}</h2><p class="lead">共通IDは名称変更後も維持します。未確定の場合は一時IDを自動発行し、Human Review承認時に正式IDへ昇格します。</p></div>
       <form id="capture">
         <section class="section">
-          <h3>1. 対象と共通ID</h3>
+          <h3>1. 基本項目</h3>
+          <div class="form-grid">
+            <label>登録日<input type="date" name="captureDate" value="${escapeHtml(row.captureDate || dateInputValue(editing?.createdAt))}"></label>
+            <label>展示会 / 入手先<input name="visitContext" value="${escapeHtml(row.visitContext || row.acquisitionSource || '')}" placeholder="展示会名・訪問先・商談先"></label>
+            <label>糸商 / Supplier<input name="sourceOrganizationName" value="${escapeHtml(row.sourceOrganizationName || row.supplier || '')}"></label>
+            <label>糸名・素材名<input name="yarnName" value="${escapeHtml(row.yarnName || row.materialName || '')}"></label>
+            <label>資料区分<select name="documentType">${selectOptions([['color_book', 'カラーBOOK'], ['swatch', '編地・スワッチ'], ['product_sample', '製品サンプル'], ['raw_material', '原料'], ['catalog', 'カタログ'], ['exhibition', '展示会資料'], ['other', 'その他']], row.documentType || 'swatch')}</select></label>
+          </div>
+        </section>
+
+        <section class="section"><h3>2. 写真</h3><div class="photo-grid">${PHOTO_TYPES.map((item) => photoSlot(...item)).join('')}</div></section>
+
+        <section class="section">
+          <h3>3. 対象と共通ID</h3>
           <div class="form-grid">
             <label>重要度<select name="priority"><option>NORMAL</option><option>HIGH</option><option>URGENT</option></select></label>
             <label>対象種別<select name="targetType">${selectOptions(TARGET_TYPES, row.targetType || 'yarn')}</select></label>
@@ -394,12 +412,9 @@
           </div>
         </section>
 
-        <section class="section"><h3>2. 写真</h3><div class="photo-grid">${PHOTO_TYPES.map((item) => photoSlot(...item)).join('')}</div></section>
-
         <section class="section">
-          <h3>3. 入手先・会社</h3>
+          <h3>4. 会社・取引先詳細</h3>
           <div class="form-grid">
-            <label>入手先名<input name="sourceOrganizationName" value="${escapeHtml(row.sourceOrganizationName || row.supplier || '')}"></label>
             <label>入手先ID<input name="sourceOrganizationId" value="${escapeHtml(row.sourceOrganizationId || '')}" placeholder="OR-0000000 / 未確定可"></label>
             <label>メーカー名<input name="manufacturerName" value="${escapeHtml(row.manufacturerName || '')}"></label>
             <label>メーカーID<input name="manufacturerId" value="${escapeHtml(row.manufacturerId || '')}" placeholder="OR-0000000"></label>
@@ -409,13 +424,12 @@
         </section>
 
         <section class="section">
-          <h3>4. 商品・糸の基本情報</h3>
+          <h3>5. 商品・糸の詳細</h3>
           <div class="form-grid">
             <label>ブランド名<input name="brandName" value="${escapeHtml(row.brandName || '')}"></label>
             <label>商品名<input name="productName" value="${escapeHtml(row.productName || '')}"></label>
             <label>商品品番<input name="productCode" value="${escapeHtml(row.productCode || '')}"></label>
             <label>商品公式URL<input name="productUrl" type="url" value="${escapeHtml(row.productUrl || '')}"></label>
-            <label>糸名<input name="yarnName" value="${escapeHtml(row.yarnName || '')}"></label>
             <label>糸品番・略称<input name="yarnCode" value="${escapeHtml(row.yarnCode || row.abbreviation || '')}"></label>
             <label>番手体系<select name="countSystem">${selectOptions([['Nm', '毛番手 Nm'], ['Ne', '綿番手 Ne'], ['D', 'デニール D'], ['dtex', 'dtex'], ['tex', 'tex'], ['unknown', '未確認']], row.countSystem || 'Nm')}</select></label>
             <label>番手値<input name="countValue" value="${escapeHtml(row.countValue || row.yarnCount || '')}" placeholder="例：30/2 または 30"></label>
@@ -429,7 +443,7 @@
         </section>
 
         <section class="section">
-          <h3>5. 混率</h3>
+          <h3>6. 混率</h3>
           <div class="form-grid">
             <label class="wide">混率（品質表示どおり）<textarea name="compositionRaw" placeholder="例：再生繊維（セルロース）65%、レーヨン20%、ナイロン15%">${escapeHtml(row.compositionRaw || '')}</textarea></label>
             <label>確認状態<select name="compositionStatus">${selectOptions([['unconfirmed', '未確認'], ['candidate', '候補'], ['inferred', '推定'], ['confirmed', '確認済み'], ['conflicting', '矛盾あり']], row.compositionStatus || 'unconfirmed')}</select></label>
@@ -438,7 +452,7 @@
         </section>
 
         <section class="section">
-          <h3>6. 機能性</h3>
+          <h3>7. 機能性</h3>
           <div class="check-grid">${checkboxGroup('functionCodes', FUNCTION_OPTIONS, (row.functionalProperties || []).map((item) => item.code))}</div>
           <div class="form-grid">
             <label class="wide">機能性の補足<input name="functionDetail" value="${escapeHtml(row.functionDetail || '')}" placeholder="試験値、商品訴求、Supplier説明等"></label>
@@ -448,7 +462,7 @@
         </section>
 
         <section class="section">
-          <h3>7. サステナブル</h3>
+          <h3>8. サステナブル</h3>
           <div class="check-grid">${checkboxGroup('sustainableCodes', SUSTAINABLE_OPTIONS, (row.sustainableAttributes || []).map((item) => item.code))}</div>
           <div class="form-grid">
             <label class="wide">根拠・認証・規格<input name="sustainableBasis" value="${escapeHtml(row.sustainableBasis || '')}" placeholder="再生原料、FSC/PEFC、GRS、バイオベース比率等"></label>
@@ -458,10 +472,9 @@
         </section>
 
         <section class="section">
-          <h3>8. シーズン・根拠</h3>
+          <h3>9. シーズン・根拠</h3>
           <div class="form-grid">
             <fieldset class="wide"><legend>シーズン</legend><div class="seasons">${SEASONS.map((season) => `<label><input type="checkbox" name="season" value="${season}" ${(row.seasons || []).includes(season) ? 'checked' : ''}>${season}</label>`).join('')}</div></fieldset>
-            <label>資料区分<select name="documentType">${selectOptions([['color_book', 'カラーBOOK'], ['swatch', '編地・スワッチ'], ['product_sample', '製品サンプル'], ['raw_material', '原料'], ['catalog', 'カタログ'], ['exhibition', '展示会資料'], ['other', 'その他']], row.documentType || 'swatch')}</select></label>
             <label>情報源種別<select name="sourceType">${selectOptions([['physical', '現物確認'], ['official', '公式資料・URL'], ['supplier', 'Supplier資料'], ['wechat', 'WeChat'], ['ai_candidate', 'AI候補'], ['other', 'その他']], row.sourceType || 'physical')}</select></label>
             <label class="wide">情報源URL・資料参照<input name="sourceUrl" value="${escapeHtml(row.sourceUrl || '')}"></label>
             <label>全体確認状態<select name="verificationStatus">${selectOptions([['unconfirmed', '未確認'], ['candidate', '候補'], ['inferred', '推定'], ['confirmed', '確認済み'], ['conflicting', '矛盾あり']], row.verificationStatus || 'candidate')}</select></label>
@@ -471,7 +484,7 @@
         </section>
 
         <p id="editMessage" class="message">下書き保存、または保存してHuman Review受信箱へ送信してください。</p>
-        <div class="sticky"><button type="button" class="secondary" id="back">一覧へ戻る</button><button type="submit" class="secondary" id="saveDraft">${editing ? '更新を下書き保存' : '下書き保存'}</button><button type="button" id="saveAndSend">保存してHuman Review受信箱へ送る</button></div>
+        <div class="sticky"><button type="button" class="secondary" id="back">一覧へ戻る</button><button type="submit" class="secondary" id="saveDraft">${editing ? '端末のDRAFTを更新' : '端末にDRAFT保存'}</button><button type="button" id="saveAndSend">保存してHuman Review受信箱へ送る</button></div>
       </form>
     </div>`;
 
@@ -604,6 +617,8 @@
       const snapshot = {
         dataContractVersion: DATA_CONTRACT_VERSION,
         captureId,
+        captureDate: form.captureDate.value,
+        visitContext: form.visitContext.value.trim(),
         priority: form.priority.value,
         targetType,
         targetId,
@@ -650,7 +665,7 @@
       };
 
       const meaningful = photoRefs.length || snapshot.yarnName || snapshot.productName
-        || snapshot.sourceOrganizationName || snapshot.compositionRaw || snapshot.notes;
+        || snapshot.visitContext || snapshot.sourceOrganizationName || snapshot.compositionRaw || snapshot.notes;
       if (!meaningful) {
         if (message) message.textContent = '写真または対象情報を入力してください。';
         return;
@@ -773,7 +788,7 @@ ${handoffError.message || handoffError}`);
 
   if ('serviceWorker' in navigator && ['http:', 'https:'].includes(location.protocol)) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js?v=1.3.3-operational-hardening-4').catch((error) => console.warn('Photo Captureのオフライン準備に失敗しました。', error));
+      navigator.serviceWorker.register('./sw.js?v=1.3.4-direct-form-order-mobile-actions').catch((error) => console.warn('Photo Captureのオフライン準備に失敗しました。', error));
     });
   }
 

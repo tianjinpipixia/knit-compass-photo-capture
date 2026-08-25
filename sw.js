@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kc-photo-capture-v1-3-3-operational-hardening-4';
+const CACHE_NAME = 'kc-photo-capture-v1-3-4-direct-form-order-mobile-actions';
 const APP_SHELL = [
   './',
   './index.html',

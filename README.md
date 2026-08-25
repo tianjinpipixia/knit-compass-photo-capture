@@ -15,7 +15,7 @@ Photo Capture、商品調査・Human Review、Daily、Androidは引き続き独�
 
 同一ブラウザではlocalStorage受信箱を共有します。別サイト・別端末では受信箱JSONを書き出し、Human Review側で取り込みます。PENDINGまたはREJECTEDの候補はマスターへ反映しません。
 
-Photo Capture v1.3.3では、Independent Account IDを画面から除外した簡単な利用開始、Macの端末内データ自動保護、7日バックアップ警告、バックアップ整合性検証を追加しました。Service WorkerによるPWA起動とオフライン再起動も維持します。営業向けメニューでは「商品調査・糸検索・原料相場・編み地イメージ・生地検査」を先頭に置き、技術情報と補助画面は管理メニューへ集約します。
+Photo Capture v1.3.4では、新規キャプチャの基本項目を登録日、展示会／入手先、糸商／Supplier、糸名・素材名、資料区分の順に統一し、その後に写真を配置しました。スマートフォンでは保存操作を通常のページ末尾に置き、写真欄への重なりを防ぎます。既存の端末内データ、自動保護、バックアップ、Human Review受信箱の保存契約は維持します。
 
 糸マスター／3,000件カタログからは、番手・混率・糸構造・対応ゲージを引き継ぐ「糸 → 編み地イメージ」を開けます。ゲージ・編組織・本取りを指定し、外部AIへ送信せず端末内で検討用PNGを生成します。既存マスターと公開範囲は変更しません。
 
@@ -46,7 +46,7 @@ Photo Capture v1.3.3では、Independent Account IDを画面から除外した�
 
 | システム | 入口 | 主な保存先 | 接続 |
 |---|---|---|---|
-| Photo Capture v1.3.3 | `/` | IndexedDB `kc_independent_photo_capture_v1_0`＋端末内永続化要求＋検証付きバックアップ | Human Review受信箱へ候補送信 |
+| Photo Capture v1.3.4 | `/` | IndexedDB `kc_independent_photo_capture_v1_0`＋端末内永続化要求＋検証付きバックアップ | Human Review受信箱へ候補送信 |
 | 商品調査・Human Review | `/brand-intelligence/` | localStorage `kc_independent_practical_v0_4` | Human Review後にマスター反映／月次掲載観測から公開保留MD提案 |
 | 糸検索（3,000件） | `/owner-yarns/` | 静的カタログ＋localStorage受信箱 | CATALOG_INDEXEDと正式糸を分離／全件NOT_PROMOTED／19件はPENDING取込／12承認可能・4条件付き・3HOLDは判定補助のみ／選択糸を編み地イメージへ読取専用で引渡し |
 | 糸 → 編み地イメージ v1.0.0 | `/knit-image/` | なし（Canvas、明示PNG保存のみ） | 外部送信・マスター書込なし |
