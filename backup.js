@@ -515,10 +515,10 @@
 
   function backupCardTemplate() {
     return `
-      <section class="card protection-card" id="kcBackupCard">
-        <p class="eyebrow">データ保護</p>
+      <section class="kc-panel protection-card" id="kcBackupCard">
+        <p class="kc-eyebrow">データ保護</p>
         <h2>バックアップ・復元</h2>
-        <p class="lead">端末内の利用者情報、登録履歴、写真を1つのファイルにまとめます。7日以上、または登録後に未保存の場合は警告します。</p>
+        <p class="kc-lead">端末内の利用者情報、登録履歴、写真を1つのファイルにまとめます。7日以上、または登録後に未保存の場合は警告します。</p>
         <div class="protection-summary">
           <div><span>端末内保護</span><strong id="kcStorageProtection">確認中</strong><small id="kcStorageDetail"></small></div>
           <div><span>バックアップ状態</span><strong id="kcBackupHealth">確認中</strong></div>
@@ -532,24 +532,24 @@
         </div>
         <input class="visually-hidden" id="kcVerifyBackupInput" type="file" accept=".json,.kcbackup,application/json">
         <input class="visually-hidden" id="kcRestoreBackupInput" type="file" accept=".json,.kcbackup,application/json">
-        <p id="kcBackupMessage" class="message">ファイルには写真と素材情報が含まれます。MacのiCloud Driveまたは本人専用のGoogle Driveへ保存してください。</p>
+        <p id="kcBackupMessage" class="kc-message">ファイルには写真と素材情報が含まれます。MacのiCloud Driveまたは本人専用のGoogle Driveへ保存してください。</p>
       </section>`;
   }
 
   function authRestoreCardTemplate() {
     return `
-      <section class="card protection-card" id="kcAuthRestoreCard">
-        <p class="eyebrow">Restore Access</p>
+      <section class="kc-auth-card protection-card" id="kcAuthRestoreCard">
+        <p class="kc-eyebrow">Restore Access</p>
         <h2>バックアップから復元</h2>
-        <p class="lead">機種変更時は、以前に書き出したバックアップを選択してください。既存データは削除せず、安全に統合します。</p>
+        <p class="kc-lead">機種変更時は、以前に書き出したバックアップを選択してください。既存データは削除せず、安全に統合します。</p>
         <button type="button" class="secondary" id="kcAuthRestore">バックアップファイルを選択</button>
         <input class="visually-hidden" id="kcAuthRestoreInput" type="file" accept=".json,.kcbackup,application/json">
-        <p id="kcAuthRestoreMessage" class="message">復元後は、バックアップ作成時のパスフレーズでログインします。</p>
+        <p id="kcAuthRestoreMessage" class="kc-message">復元後は、バックアップ作成時のパスフレーズでログインします。</p>
       </section>`;
   }
 
   function injectControls() {
-    const inbox = document.getElementById('inbox');
+    const inbox = document.getElementById('kcInbox');
     if (inbox && !document.getElementById('kcBackupCard')) {
       inbox.insertAdjacentHTML('beforebegin', backupCardTemplate());
       document.getElementById('kcExportBackup').onclick = exportBackup;
@@ -559,7 +559,7 @@
     }
 
     const authForm = document.getElementById('auth');
-    const main = root?.querySelector('main.app');
+    const main = root?.querySelector('main.kc-app');
     if (authForm && main && !document.getElementById('kcAuthRestoreCard')) {
       main.insertAdjacentHTML('beforeend', authRestoreCardTemplate());
       wireRestore('kcAuthRestore', 'kcAuthRestoreInput', 'kcAuthRestoreMessage');

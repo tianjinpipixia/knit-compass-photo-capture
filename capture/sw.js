@@ -1,19 +1,17 @@
-const CACHE_NAME = 'kc-photo-capture-independent-v3-current-ui-direct-entry';
+const CACHE_NAME = 'kc-photo-capture-independent-v4-v2141-migration';
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
   './sw-register.js',
   '../app.css',
+  '../knit-compass-ui.css',
   '../connection-status.css',
-  '../photo-capture-card-progress-v1.css',
   '../app.js',
-  '../knitting-ends-field.js',
-  '../photo-capture-card-progress-v1.js',
+  '../exhibition-supplier-master.js',
   '../backup.js',
   '../usage-metrics.js',
   '../yarn-taxonomy-guard.js',
-  '../app-state-guard.js',
   '../brand/knit-compass-mark.png',
   '../icon-192.png',
   '../icon-512.png',

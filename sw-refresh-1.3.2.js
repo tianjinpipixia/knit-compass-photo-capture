@@ -1,8 +1,8 @@
 (() => {
   'use strict';
 
-  const SCRIPT_URL = './sw.js?v=1.3.5-current-ui-direct-entry';
-  const RELOAD_MARKER = 'kc_sw_refresh_1_3_4_direct_form_order_mobile_actions';
+  const SCRIPT_URL = './sw.js?v=2.1.41-independent.1';
+  const RELOAD_MARKER = 'kc_sw_refresh_2_1_41_independent_1';
 
   if (!('serviceWorker' in navigator) || !['http:', 'https:'].includes(location.protocol)) return;
 
@@ -20,7 +20,7 @@
           location.reload();
         };
 
-        if (navigator.serviceWorker.controller?.scriptURL.includes('1.3.5-current-ui-direct-entry')) {
+        if (navigator.serviceWorker.controller?.scriptURL.includes('2.1.41-independent.1')) {
           reloadWithCurrentAssets();
           return;
         }

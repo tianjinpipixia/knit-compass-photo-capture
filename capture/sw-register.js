@@ -2,7 +2,7 @@
   'use strict';
   if (!('serviceWorker' in navigator) || !['http:', 'https:'].includes(location.protocol)) return;
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js?v=1.3.5-current-ui-direct-entry', { scope: './' })
+    navigator.serviceWorker.register('./sw.js?v=2.1.41-independent.1', { scope: './' })
       .then((registration) => registration.update())
       .catch((error) => console.warn('Photo Captureのオフライン準備に失敗しました。', error));
   });
