@@ -1,9 +1,11 @@
-const CACHE_NAME = 'kc-photo-capture-independent-v5-v2143-current-ui';
+const CACHE_NAME = 'kc-photo-capture-independent-v6-v2144-exhibition-burst';
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
   './sw-register.js',
+  './exhibition-burst-mode.css',
+  './exhibition-burst-mode.js',
   '../app.css',
   '../knit-compass-ui.css',
   '../connection-status.css',
