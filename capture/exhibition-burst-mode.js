@@ -11,6 +11,27 @@
     return String(value == null ? "" : value).trim();
   }
 
+  function setText(node, value) {
+    if (node && node.textContent !== value) node.textContent = value;
+  }
+
+  function setHidden(node, hidden) {
+    if (node && node.hidden !== hidden) node.hidden = hidden;
+  }
+
+  function setDisabled(node, disabled) {
+    if (node && node.disabled !== disabled) node.disabled = disabled;
+  }
+
+  function setAttributeIfChanged(node, name, value) {
+    if (!node) return;
+    if (value == null) {
+      if (node.hasAttribute(name)) node.removeAttribute(name);
+      return;
+    }
+    if (node.getAttribute(name) !== value) node.setAttribute(name, value);
+  }
+
   function readContext() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -94,18 +115,22 @@
     const currentSupplier = clean(supplierInput.value);
     if (!force && (currentVisit || currentSupplier)) return;
 
-    visitInput.value = context.visitContext;
-    dispatchFieldEvent(visitInput, "input");
-    dispatchFieldEvent(visitInput, "change");
+    if (visitInput.value !== context.visitContext) {
+      visitInput.value = context.visitContext;
+      dispatchFieldEvent(visitInput, "input");
+      dispatchFieldEvent(visitInput, "change");
+    }
 
     window.setTimeout(() => {
       const currentForm = captureForm();
       if (!currentForm || !isNewRecord(currentForm)) return;
       const currentSupplierInput = currentForm.elements?.supplier;
       if (!currentSupplierInput) return;
-      currentSupplierInput.value = context.supplier;
-      dispatchFieldEvent(currentSupplierInput, "input");
-      dispatchFieldEvent(currentSupplierInput, "change");
+      if (currentSupplierInput.value !== context.supplier) {
+        currentSupplierInput.value = context.supplier;
+        dispatchFieldEvent(currentSupplierInput, "input");
+        dispatchFieldEvent(currentSupplierInput, "change");
+      }
       ensureBurstUi();
     }, 0);
   }
@@ -151,12 +176,13 @@
     if (!button.dataset.kcOriginalLabel) {
       button.dataset.kcOriginalLabel = clean(button.textContent) || "新規登録";
     }
-    button.textContent = context ? "同じメーカーで次を登録" : button.dataset.kcOriginalLabel;
-    if (context) {
-      button.setAttribute("aria-label", `${context.supplier}を引き継いで新しい素材・写真を登録`);
-    } else {
-      button.removeAttribute("aria-label");
-    }
+    const nextLabel = context ? "同じメーカーで次を登録" : button.dataset.kcOriginalLabel;
+    setText(button, nextLabel);
+    setAttributeIfChanged(
+      button,
+      "aria-label",
+      context ? `${context.supplier}を引き継いで新しい素材・写真を登録` : null
+    );
   }
 
   function updatePanel() {
@@ -175,24 +201,24 @@
     const changeButton = panel.querySelector('[data-kc-burst-action="change"]');
 
     if (stored) {
-      panel.dataset.active = "true";
-      if (title) title.textContent = "メーカー固定中";
-      if (summary) summary.textContent = `${stored.visitContext} / ${stored.supplier}`;
+      if (panel.dataset.active !== "true") panel.dataset.active = "true";
+      setText(title, "メーカー固定中");
+      setText(summary, `${stored.visitContext} / ${stored.supplier}`);
       if (lockButton) {
         const same = Boolean(current && current.visitContext === stored.visitContext && current.supplier === stored.supplier);
-        lockButton.textContent = same ? "固定済み" : "この入力内容で固定を更新";
-        lockButton.disabled = same;
+        setText(lockButton, same ? "固定済み" : "この入力内容で固定を更新");
+        setDisabled(lockButton, same);
       }
-      if (changeButton) changeButton.hidden = false;
+      setHidden(changeButton, false);
     } else {
-      panel.dataset.active = "false";
-      if (title) title.textContent = "メーカー連続撮影";
-      if (summary) summary.textContent = "展示会・訪問先とメーカーを一度選ぶと、次の新規登録にも引き継ぎます。";
+      if (panel.dataset.active !== "false") panel.dataset.active = "false";
+      setText(title, "メーカー連続撮影");
+      setText(summary, "展示会・訪問先とメーカーを一度選ぶと、次の新規登録にも引き継ぎます。");
       if (lockButton) {
-        lockButton.textContent = "現在のメーカーを固定";
-        lockButton.disabled = !current;
+        setText(lockButton, "現在のメーカーを固定");
+        setDisabled(lockButton, !current);
       }
-      if (changeButton) changeButton.hidden = true;
+      setHidden(changeButton, true);
     }
 
     updateNewCaptureButton(stored);
@@ -276,8 +302,9 @@
     }, 0);
   }, true);
 
+  const appRoot = document.getElementById("app") || document.documentElement;
   const observer = new MutationObserver(queueEnsure);
-  observer.observe(document.documentElement, {
+  observer.observe(appRoot, {
     childList: true,
     subtree: true,
     attributes: true,
