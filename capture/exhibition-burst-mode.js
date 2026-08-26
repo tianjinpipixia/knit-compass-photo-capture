@@ -32,6 +32,25 @@
     if (node.getAttribute(name) !== value) node.setAttribute(name, value);
   }
 
+  function updateVisibleReleaseLabel() {
+    const version = document.querySelector(".kc-build-info strong");
+    setText(version, "2.1.44 独立版");
+
+    const updated = document.querySelector(".kc-build-info time");
+    if (updated) {
+      setText(updated, "2026-08-26 10:18 CST");
+      setAttributeIfChanged(updated, "datetime", "2026-08-26T10:18:00+08:00");
+    }
+
+    const lead = document.querySelector(".kc-lead");
+    if (lead && lead.textContent.includes("Photo Capture 2.1.43")) {
+      setText(
+        lead,
+        "Photo Capture 2.1.44の現行画面です。展示会ではメーカーを一度選ぶと、同じメーカーの写真・素材登録へ引き継げます。写真と素材情報は端末へDRAFT保存し、必要な記録だけを外部取込ZIPとして書き出します。正式マスターへの反映は確認後に行います。"
+      );
+    }
+  }
+
   function readContext() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -236,6 +255,7 @@
   }
 
   function ensureBurstUi() {
+    updateVisibleReleaseLabel();
     addSupplierHint();
     updatePanel();
     const form = captureForm();
