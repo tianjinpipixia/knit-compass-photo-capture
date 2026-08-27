@@ -26,6 +26,18 @@
     ].some((id) => String(document.getElementById(id)?.value || '').trim());
   }
 
+  function isDefaultListingStatus(value) {
+    const matched = String(value || '').trim().match(/^保存済み(\d+)件\s*\/\s*検索結果(\d+)件。最新値を表示しています。$/);
+    return Boolean(matched && matched[1] === matched[2]);
+  }
+
+  function updateInboxMessageVisibility(inbox) {
+    const message = inbox.querySelector('#kcInboxMessage');
+    if (!message) return;
+    const hideDefaultStatus = !activeSearchFilters() && isDefaultListingStatus(text(message));
+    message.hidden = hideDefaultStatus;
+  }
+
   function currentPrimaryActions(inbox) {
     const live = inbox.querySelector('.kc-panel-heading .kc-primary-actions')
       || inbox.querySelector('.kc-primary-actions');
@@ -107,6 +119,7 @@
       label: text(item.querySelector('small')),
       value: text(item.querySelector('strong'))
     }));
+    const meaningfulSpecs = specs.filter(({ value }) => value && !['未入力', '—', '不明'].includes(value));
     const signature = JSON.stringify({ name, supplier, updated, specs });
 
     if (signature !== latestSignature) {
@@ -118,15 +131,22 @@
       if (supplierNode) supplierNode.textContent = supplier;
       if (timeNode) timeNode.textContent = updated;
       if (specsNode) {
-        specsNode.replaceChildren(...specs.map(({ label, value }) => {
-          const cell = document.createElement('span');
-          const small = document.createElement('small');
-          const strong = document.createElement('strong');
-          small.textContent = label;
-          strong.textContent = value;
-          cell.append(small, strong);
-          return cell;
-        }));
+        if (meaningfulSpecs.length) {
+          specsNode.replaceChildren(...meaningfulSpecs.map(({ label, value }) => {
+            const cell = document.createElement('span');
+            const small = document.createElement('small');
+            const strong = document.createElement('strong');
+            small.textContent = label;
+            strong.textContent = value;
+            cell.append(small, strong);
+            return cell;
+          }));
+        } else {
+          const empty = document.createElement('span');
+          empty.className = 'kc-mobile-latest-empty';
+          empty.textContent = '番手・混率・品質表示・ゲージは未入力';
+          specsNode.replaceChildren(empty);
+        }
       }
       latestSignature = signature;
     }
@@ -156,6 +176,7 @@
     const summary = updateLatestSummary(inbox, recordList);
     const actions = currentPrimaryActions(inbox);
     const drawer = ensureSearchDrawer(inbox);
+    updateInboxMessageVisibility(inbox);
 
     moving = true;
     try {
@@ -186,5 +207,7 @@
 
   const observer = new MutationObserver(queueArrange);
   observer.observe(root, { childList: true, subtree: true, characterData: true });
+  root.addEventListener('input', queueArrange, true);
+  root.addEventListener('change', queueArrange, true);
   arrangeMobileInbox();
 })();
