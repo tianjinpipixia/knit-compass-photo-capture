@@ -1,0 +1,48 @@
+{
+  "format": "KC_BRAND64_DAILY_OBSERVATION",
+  "schema_version": "1.5",
+  "observed_date": "2026-08-22",
+  "observed_at": null,
+  "recovered_on": "2026-08-27",
+  "observation_mode": "RETROSPECTIVE_GAP_RECOVERY",
+  "recovery_reason": "Historical 2026-08-22 observation gap was found during the 2026-08-27 run. All 64 current active brands were date-scoped against official domains. Only official sources explicitly dated 2026-08-22 or carrying a preserved 8/22 styling/news timestamp are recorded as differences; absent dated evidence is not converted to no-change.",
+  "previous_observation_date": "2026-08-21",
+  "observation_gap_dates": [],
+  "active_brand_source": "config/brand64-active-brands.json",
+  "active_brand_count": 64,
+  "scope": "WOMEN_KNIT",
+  "light_check_count": 64,
+  "checked_brand_ids": ["BR-00001","BR-00002","BR-00003","BR-00004","BR-00005","BR-00006","BR-00007","BR-00008","BR-00009","BR-00010","BR-00011","BR-00012","BR-00013","BR-00014","BR-00015","BR-00016","BR-00017","BR-00018","BR-00019","BR-00021","BR-00022","BR-00023","BR-00024","BR-00025","BR-00027","BR-00028","BR-00030","BR-00031","BR-00032","BR-00033","BR-00035","BR-00036","BR-00039","BR-00040","BR-00041","BR-00042","BR-00047","BR-00049","BR-00050","BR-00051","BR-00052","BR-00053","BR-00054","BR-00055","BR-00056","BR-00057","BR-00058","BR-00059","BR-00060","BR-00062","BR-00063","BR-00064","BR-00065","BR-00066","BR-00067","BR-00068","BR-00069","BR-00070","BR-00071","BR-00072","BR-00073","BR-00074","BR-00075","BR-00076"],
+  "default_brand_status": "SOURCE_FRESHNESS_LIMITED_RETROSPECTIVE",
+  "deep_dive_brand_count": 6,
+  "deep_dive_brand_ids": ["BR-00004","BR-00005","BR-00063","BR-00064","BR-00068","BR-00069"],
+  "deep_dive_brand_names": ["ROPÉ PICNIC","VIS","ROPÉ","ADAM ET ROPÉ","RIVE DROITE","DOUDOU"],
+  "current_first_seen_product_count": 0,
+  "retrospective_backfill_product_count": 0,
+  "formal_product_candidate_count": 0,
+  "status_overrides": [
+    {"brand_id":"BR-00004","brand_name":"ROPÉ PICNIC","status":"DATED_STYLING_KNIT_SIGNAL_20260822","fact":"公式J'aDoRe JUN ONLINEの2026.08.22スタイリングで、ラメフェザーニットを秋冬ムードのニットとして着用提案していることを確認。","official_url":"https://www.junonline.jp/rope-picnic/styling/502573","interpretation":"8/22付のニット編集・着用信号として保持。個別商品ページと品番を8/22 first-seenとして確定できないため正式商品候補には追加しない。"},
+    {"brand_id":"BR-00005","brand_name":"VIS","status":"DATED_STYLING_FEMININE_CARDIGAN_SIGNAL_20260822","fact":"公式J'aDoRe JUN ONLINEの2026.08.22スタイリングで、MARY QUANT×VISのカーディガンを秋先取りのフェミニンスタイルとして確認。","official_url":"https://www.junonline.jp/vis/styling/504802","interpretation":"配色・フェミニン意匠の8/22付着用信号。商品公開開始日を示す証拠ではないため当日新規商品にはしない。"},
+    {"brand_id":"BR-00063","brand_name":"ROPÉ","status":"DATED_MESH_KNIT_STYLING_SIGNAL_20260822","fact":"公式J'aDoRe JUN ONLINEの2026.08.22スタイリングで、メッシュニット／メッシュ編みポロニットを確認。","official_url":"https://www.junonline.jp/rope/styling/505096","interpretation":"残暑期の軽量・透けるニット編集信号として保持。個別商品first-seenや販売数量は推定しない。"},
+    {"brand_id":"BR-00064","brand_name":"ADAM ET ROPÉ","status":"DATED_FUTURE_KNIT_PREVIEW_20260822","fact":"公式J'aDoRe JUN ONLINEの2026.08.22スタイリングで、10月度新作予定のロゴスウェットニットを品番GAM26170として紹介し、商品ページ未完成との記載を確認。","official_url":"https://www.junonline.jp/adam-et-rope-femme/styling/504450","interpretation":"将来商品プレビューの日時境界として保持。8/22時点で個別商品ページが未完成のため正式商品候補へ昇格しない。"},
+    {"brand_id":"BR-00068","brand_name":"RIVE DROITE","status":"NEW_ARRIVAL_AND_RANKING_NEWS_20260822","fact":"公式PAL CLOSETの2026.08.22 NEW ARRIVALと同日ランキングで、ポコポコルーズニット、ペーパーフェザーZIPニット等のニット露出を確認。ペーパーフェザーZIPニットは8/20 PRE ORDER記事にも掲載済み。","official_url":"https://www.palcloset.jp/display/article/detail/?acd=260822riv_003&b=","interpretation":"8/22の編集・露出差分として保持するが、既に8/20予約掲載のあるSKUを8/22 first-seenとして重複登録しない。"},
+    {"brand_id":"BR-00069","brand_name":"DOUDOU","status":"AW_LOOKBOOK_RELEASE_20260822","fact":"公式PAL CLOSETで2026.08.22『2026AW LOOK BOOK vol.1』公開を確認。新しいディテールとレイヤードを重ねる秋冬提案を明示。","official_url":"https://www.palcloset.jp/display/article/detail/?acd=260822dou_001&b=doudou&cpvcd=sex-type%7C000","interpretation":"秋冬の編集・レイヤード方向の差分として保持。記事単位のため個別ニットSKUの新規登録には使わない。"}
+  ],
+  "md_signals": [
+    {"code":"LIGHTWEIGHT_KNIT_TRANSITION_0822","fact":"ROPÉ PICNICのラメフェザー、ROPÉのメッシュニットなど、8/22付公式スタイリングで軽量・透け・秋見えの端境期ニットを確認。","interpretation":"残暑対応の軽さを維持しながら、毛羽・ラメ・メッシュで秋意匠を付加する方向を保持。"},
+    {"code":"FEMININE_DETAIL_CONTINUES_0822","fact":"VISのMARY QUANTカーディガン着用提案を8/22付公式スタイリングで確認。","interpretation":"高ゲージの配色・モチーフ・フェミニン意匠を継続観測。"},
+    {"code":"LAYERING_AW_EDITORIAL_0822","fact":"DOUDOU 2026AW LOOK BOOKが新しいディテールとレイヤードを明示。","interpretation":"秋冬のレイヤード前提で、軽量・形態保持・異素材接続を素材開発側で分けて検討。"}
+  ],
+  "risk_notes": [
+    {"code":"RETROSPECTIVE_RECOVERY","text":"8/22ライブ観測は保存されていなかったため8/27に後追い補填。8/22当時の全ページ状態を再現したとは扱わない。"},
+    {"code":"SOURCE_FRESHNESS_LIMITED","text":"64ブランドを日付指定で公式ドメイン確認したが、8/22明示の証拠が得られないブランドは『変化なし』ではなく鮮度限定として保持。"},
+    {"code":"NO_FORMAL_PRODUCT_CANDIDATE","text":"8/22 first-seenとして公式個別商品ページ・品番・当日公開境界まで確定できた婦人ニットは0件。記事・スタイリングだけの情報を正式候補にしない。"},
+    {"code":"DEDUPED_EXISTING_SKU","text":"RIVE DROITEのペーパーフェザーZIPニット等、8/22記事に出ても8/20以前の予約掲載を確認できるSKUは8/22新規として重複登録しない。"},
+    {"code":"BRAND_NAME_BOUNDARY","text":"8/22付COLLAGE GALLARDAGALANTE記事はアクティブBrand64のGALLARDAGALANTEとは別ブランドのため集計対象外。"}
+  ],
+  "sales_quantity_policy": "NO_ESTIMATION",
+  "publication_status": "PUBLISH_HOLD",
+  "human_review_required": true,
+  "dedupe_policy": "product_id / product_code / official_url",
+  "inactive_legacy_policy": "INACTIVE_LEGACY_REFERENCEはアクティブ64集計に含めない。履歴のみ保持。"
+}
