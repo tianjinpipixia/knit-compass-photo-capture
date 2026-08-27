@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kc-photo-capture-independent-v13-v2144-editor-entry';
+const CACHE_NAME = 'kc-photo-capture-independent-v14-v2144-immediate-entry';
 const APP_SHELL = [
   './',
   './index.html',
@@ -56,8 +56,20 @@ async function networkFirst(request, navigationFallback = false) {
   }
 }
 
+async function cacheAvailableAppShell() {
+  const cache = await caches.open(CACHE_NAME);
+  await Promise.all(APP_SHELL.map(async (path) => {
+    try {
+      const response = await fetch(path, { cache: 'reload' });
+      if (response.ok) await cache.put(path, response);
+    } catch (_error) {
+      // One optional asset must not prevent the current online screen from opening.
+    }
+  }));
+}
+
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
+  event.waitUntil(cacheAvailableAppShell());
   self.skipWaiting();
 });
 
