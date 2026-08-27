@@ -1,0 +1,49 @@
+{
+  "format": "KC_BRAND64_DAILY_OBSERVATION",
+  "schema_version": "1.5",
+  "observed_date": "2026-08-26",
+  "observed_at": null,
+  "recovered_on": "2026-08-27",
+  "observation_mode": "RETROSPECTIVE_GAP_RECOVERY",
+  "recovery_reason": "2026-08-26 scheduled run was not saved because freshness validation failed. Reconstructed only from official sources with explicit 2026-08-26 dating or preserved crawl evidence; undated historical state was not invented.",
+  "previous_observation_date": "2026-08-25",
+  "observation_gap_dates": ["2026-08-22"],
+  "active_brand_source": "config/brand64-active-brands.json",
+  "active_brand_count": 64,
+  "scope": "WOMEN_KNIT",
+  "light_check_count": 64,
+  "checked_brand_ids": ["BR-00001","BR-00002","BR-00003","BR-00004","BR-00005","BR-00006","BR-00007","BR-00008","BR-00009","BR-00010","BR-00011","BR-00012","BR-00013","BR-00014","BR-00015","BR-00016","BR-00017","BR-00018","BR-00019","BR-00021","BR-00022","BR-00023","BR-00024","BR-00025","BR-00027","BR-00028","BR-00030","BR-00031","BR-00032","BR-00033","BR-00035","BR-00036","BR-00039","BR-00040","BR-00041","BR-00042","BR-00047","BR-00049","BR-00050","BR-00051","BR-00052","BR-00053","BR-00054","BR-00055","BR-00056","BR-00057","BR-00058","BR-00059","BR-00060","BR-00062","BR-00063","BR-00064","BR-00065","BR-00066","BR-00067","BR-00068","BR-00069","BR-00070","BR-00071","BR-00072","BR-00073","BR-00074","BR-00075","BR-00076"],
+  "default_brand_status": "SOURCE_FRESHNESS_LIMITED_RETROSPECTIVE",
+  "deep_dive_brand_count": 7,
+  "deep_dive_brand_ids": ["BR-00004","BR-00014","BR-00015","BR-00030","BR-00067","BR-00070","BR-00076"],
+  "deep_dive_brand_names": ["ROPÉ PICNIC","SHOO・LA・RUE","grove","A part by","LOUNGEDRESS","SHENERY","SNIDEL"],
+  "current_first_seen_product_count": 0,
+  "retrospective_backfill_product_count": 0,
+  "formal_product_candidate_count": 0,
+  "status_overrides": [
+    {"brand_id":"BR-00004","brand_name":"ROPÉ PICNIC","status":"PROMOTION_PRICE_UPDATE_20260826","fact":"公式ECで「8/26(水)更新 MAX70%OFF！SPECIAL PRICE」と、8/26 12:00〜9/3 11:59の税込7,700円以上向けクーポンを確認。","official_url":"https://www.junonline.jp/rope-picnic/?mode=rearrival","interpretation":"8/26の価格・販促状態差分。販売数量や商品人気の上昇とは扱わない。"},
+    {"brand_id":"BR-00030","brand_name":"A part by","status":"KNIT_MARKDOWN_20260826","fact":"公式ニット一覧で「〖8/26 お値下げ〗アーガイルニットベスト」¥5,225・36%OFFを確認。","official_url":"https://www.dot-st.com/apartbylowrys/disp/itemlist/?dispNo=001001003004","interpretation":"日付が明示されたニット価格差分。個別商品ページの品番を確定できていないため正式商品候補には追加しない。"},
+    {"brand_id":"BR-00067","brand_name":"LOUNGEDRESS","status":"NEW_COLOR_PREORDER_COLLECTION_20260826","fact":"公式ニュース2026.08.26で、秋の新作についてニットやアウター等への新色追加と予約開始を案内。","official_url":"https://www.palcloset.jp/display/article/detail/?acd=260826lou_001&b=&bg=outlet","interpretation":"コレクション単位の新色・予約差分。検索結果で個別ニットSKUを確定できないため正式商品候補には追加しない。"},
+    {"brand_id":"BR-00070","brand_name":"SHENERY","status":"ENCORE_TIME_SALE_20260826","fact":"公式ニュース2026.08.26で、8/26 0:00〜9/1 23:59のENCORE TIME SALE（セール品60%OFF・最大70%OFF）を確認。","official_url":"https://www.palcloset.jp/display/article/detail/?acd=260826snr_001&b=shenery&cpvcd=sex-type%7C000","interpretation":"販促状態差分として保持し、商品需要とは分離する。"},
+    {"brand_id":"BR-00014","brand_name":"SHOO・LA・RUE","status":"EDITORIAL_EXPOSURE_20260826","fact":"WORLD公式の2026.08.26「大人の晩夏トップス」で、配色ボウタイニット（ひんやり・毎日洗える・UV）が掲載。","official_url":"https://store.world.co.jp/s/journal/fashionnews/promotion/095006/","interpretation":"8/26の編集露出。新商品発売日・販売数量とは扱わない。"},
+    {"brand_id":"BR-00015","brand_name":"grove","status":"EDITORIAL_EXPOSURE_20260826","fact":"WORLD公式の2026.08.26「大人の晩夏トップス」で、やわらかドライタッチ スカラップスリーブニットが掲載。","official_url":"https://store.world.co.jp/s/journal/fashionnews/promotion/095006/","interpretation":"秋色×晩夏ニットの編集露出として保持。新商品発売日とは扱わない。"},
+    {"brand_id":"BR-00076","brand_name":"SNIDEL","status":"POST_LAUNCH_SOURCE_STATE_CONFLICT","fact":"8/25 12:00発売予定だった近沢レース店コラボのニットカーディガンは、8/26周辺のカテゴリ/検索結果で予約・NEW表示が続く一方、古い個別ページキャッシュにはCOMING SOONが残る。","official_url":"https://usagi-online.com/brand/snidel/item/SND0126F0220","interpretation":"8/25発売境界後の状態競合として保持し、8/26に新規発売した商品とは再登録しない。"}
+  ],
+  "md_signals": [
+    {"code":"PROMOTION_HEAVY_BOUNDARY","fact":"ROPÉ PICNIC、A part by、SHENERYで8/26明示の値下げ・クーポン・タイムセールを確認。","interpretation":"価格・販促差分を商品人気や販売数量から分離して読む。"},
+    {"code":"LATE_SUMMER_AUTUMN_COLOR_KNIT","fact":"WORLD公式8/26特集で、涼しさを保ちながら秋色・バイカラー・ドライタッチ等を載せる晩夏ニットを提示。","interpretation":"高ゲージの残暑対応機能に秋色・配色・きれい見えを重ねる方向を継続観測。"},
+    {"code":"NEW_COLOR_PREORDER_SIGNAL","fact":"LOUNGEDRESS公式8/26ニュースでニット・アウター等の新色と予約開始を案内。","interpretation":"新型だけでなく既存人気型の秋色追加も端境期MDの差分として重要。"}
+  ],
+  "risk_notes": [
+    {"code":"RETROSPECTIVE_RECOVERY","text":"8/26のライブ観測記録が失敗したため、8/27に公式情報から後追い補填。8/26当時の全ページ状態を再現したとは扱わない。"},
+    {"code":"SOURCE_FRESHNESS_LIMITED","text":"明示的な8/26日付または保存されたクロール証拠を確認できないブランドは『変化なし』ではなく鮮度限定として扱う。"},
+    {"code":"PROMOTION_BIAS","text":"ROPÉ PICNIC、A part by、SHENERYの値下げ・クーポン・TIME SALEを商品需要と分離。"},
+    {"code":"SOURCE_STATE_CONFLICT","text":"SNIDEL近沢レース店コラボは発売予定時刻経過後も古いCOMING SOON表示が残るソースがあり、状態競合を保持。"},
+    {"code":"NO_FORMAL_PRODUCT_CANDIDATE","text":"8/26日付で公式個別商品ページ・品番まで確定できた新規婦人ニットは今回の後追い補填では0件。記事/一覧だけの情報を正式候補へ昇格しない。"}
+  ],
+  "sales_quantity_policy": "NO_ESTIMATION",
+  "publication_status": "PUBLISH_HOLD",
+  "human_review_required": true,
+  "dedupe_policy": "product_id / product_code / official_url",
+  "inactive_legacy_policy": "INACTIVE_LEGACY_REFERENCEはアクティブ64集計に含めない。履歴のみ保持。"
+}
