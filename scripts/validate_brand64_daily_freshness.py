@@ -43,6 +43,22 @@ def load_jsonl(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
+def load_daily_snapshot(path: Path) -> tuple[str, dict | list[dict]]:
+    """Support both legacy 64-row JSONL and the structured daily-observation JSON."""
+    text = path.read_text(encoding="utf-8").strip()
+    if not text:
+        return "rows", []
+    try:
+        parsed = json.loads(text)
+    except json.JSONDecodeError:
+        return "rows", load_jsonl(path)
+    if isinstance(parsed, dict) and parsed.get("format") == "KC_BRAND64_DAILY_OBSERVATION":
+        return "structured", parsed
+    if isinstance(parsed, list):
+        return "rows", parsed
+    return "rows", load_jsonl(path)
+
+
 def row_id(row: dict) -> str:
     return str(row.get("id") or row.get("brand_id") or "")
 
@@ -62,6 +78,69 @@ def validate_single_baseline(path: Path, expected_id: str, expected_name: str) -
     assert valid_http_url(row.get("u"))
     assert row.get("q") in {"NA", "NOT_AVAILABLE"}
     assert row.get("p") in {"HOLD", "PUBLISH_HOLD"}
+
+
+def validate_structured_daily(
+    daily: dict,
+    latest: dict,
+    active_brands: dict[str, str],
+    inactive_brands: dict[str, str],
+) -> None:
+    assert daily.get("format") == "KC_BRAND64_DAILY_OBSERVATION"
+    assert daily.get("observed_date") == latest["observed_date"]
+    assert daily.get("active_brand_source") == latest["active_brand_source"]
+    assert daily.get("active_brand_count") == 64
+
+    checked_ids = daily.get("checked_brand_ids", [])
+    assert len(checked_ids) == 64
+    assert len(set(checked_ids)) == 64
+    assert set(checked_ids) == set(active_brands)
+    light_count = daily.get("light_check_count", daily.get("light_check_completed"))
+    assert light_count == 64
+
+    deep_ids = daily.get("deep_dive_brand_ids", [])
+    assert len(deep_ids) == daily.get("deep_dive_brand_count", daily.get("deep_dive_completed", len(deep_ids)))
+    assert set(deep_ids) <= set(active_brands)
+
+    assert daily.get("sales_quantity_policy") == "NO_ESTIMATION"
+    assert daily.get("publication_status") == "PUBLISH_HOLD"
+    assert daily.get("human_review_required") is True
+
+    for item in daily.get("status_overrides", []):
+        if isinstance(item, dict) and item.get("official_url"):
+            assert valid_http_url(item["official_url"])
+            assert item.get("brand_id") in active_brands
+            if item.get("brand_name"):
+                assert item["brand_name"] == active_brands[item["brand_id"]]
+
+    details = daily.get("meaningful_delta_details", {})
+    if isinstance(details, dict):
+        for brand_id, item in details.items():
+            assert brand_id in active_brands
+            if isinstance(item, dict) and item.get("official_url"):
+                assert valid_http_url(item["official_url"])
+
+    inactive_path = repository_path(latest["inactive_legacy_reference_path"])
+    assert inactive_path.is_file()
+    inactive_rows = load_jsonl(inactive_path)
+    assert len(inactive_rows) == len(inactive_brands)
+    assert {row_id(row) for row in inactive_rows} == set(inactive_brands)
+    for row in inactive_rows:
+        assert row_name(row) == inactive_brands[row_id(row)]
+        assert row.get("observed_date") == latest["observed_date"]
+        assert row.get("included_in_active_aggregation") is False
+        assert row.get("history_preserved") is True
+
+    product_path = latest.get("product_baseline_path")
+    if product_path:
+        assert repository_path(product_path).is_file()
+    risk_path = latest.get("product_risk_path")
+    if risk_path:
+        assert repository_path(risk_path).is_file()
+
+    if daily.get("observed_at") is None:
+        assert daily.get("observation_mode") == "RETROSPECTIVE_GAP_RECOVERY"
+        assert daily.get("recovered_on")
 
 
 def main() -> None:
@@ -154,9 +233,6 @@ def main() -> None:
         "BR-00076": "SNIDEL",
     }
 
-    # The latest committed snapshot can predate an owner-approved active-set change.
-    # Validate historical snapshots against the active set that applied on that date;
-    # never fabricate retroactive rows for newly added brands.
     snapshot_active_brands = dict(active_brands)
     snapshot_inactive_ids = set(inactive_brands)
     if observed_date < effective_from:
@@ -190,48 +266,51 @@ def main() -> None:
     assert summary_path.is_file()
     assert proposals.get("source_daily_path") == latest.get("daily_path")
     assert proposals.get("source_summary_path") == latest.get("summary_path")
+    assert latest.get("active_daily_overlay_paths", []) == proposals.get("active_daily_overlay_paths", [])
 
-    primary_rows = load_jsonl(daily_path)
-    overlay_paths = [repository_path(p) for p in latest.get("active_daily_overlay_paths", [])]
-    overlay_rows = []
-    for path in overlay_paths:
-        assert path.is_file()
-        overlay_rows.extend(load_jsonl(path))
-    assert latest.get("active_daily_overlay_paths") == proposals.get("active_daily_overlay_paths")
-
-    all_rows = primary_rows + overlay_rows
-    active_rows = [row for row in all_rows if row_id(row) in snapshot_active_brands]
-    active_ids = [row_id(row) for row in active_rows]
-    assert len(active_rows) == 64
-    assert len(set(active_ids)) == 64
-    assert set(active_ids) == set(snapshot_active_brands)
-    for row in active_rows:
-        brand_id = row_id(row)
-        assert row_name(row) == snapshot_active_brands[brand_id]
-        assert (row.get("d") or row.get("observed_date")) == latest["observed_date"]
-        assert valid_http_url(row.get("u") or row.get("source"))
-        assert (row.get("q") or row.get("sales_quantity_status")) in {"NA", "NOT_AVAILABLE"}
-        assert (row.get("p") or row.get("publication_status")) in {"HOLD", "PUBLISH_HOLD"}
-
-    if observed_date < effective_from:
-        legacy_present = {row_id(row) for row in primary_rows if row_id(row) in snapshot_inactive_ids}
-        assert legacy_present == snapshot_inactive_ids
-        assert set(removed_from_active) <= set(active_ids)
-        assert not (set(added_to_active) & set(active_ids))
+    daily_mode, daily_payload = load_daily_snapshot(daily_path)
+    if daily_mode == "structured":
+        assert isinstance(daily_payload, dict)
+        validate_structured_daily(daily_payload, latest, snapshot_active_brands, inactive_brands)
     else:
-        assert not (set(removed_from_active) & set(active_ids))
-        assert set(added_to_active) <= set(active_ids)
-        previous_daily = repository_path(latest.get("previous_daily_path", latest["daily_path"]))
-        previous_rows = load_jsonl(previous_daily)
-        historical_ids = {row_id(row) for row in previous_rows}
-        assert set(removed_from_active) <= historical_ids or all(
-            any(brand_id in {row_id(row) for row in load_jsonl(path)} for path in overlay_paths)
-            for brand_id in removed_from_active
-        )
+        assert isinstance(daily_payload, list)
+        primary_rows = daily_payload
+        overlay_paths = [repository_path(p) for p in latest.get("active_daily_overlay_paths", [])]
+        overlay_rows = []
+        for path in overlay_paths:
+            assert path.is_file()
+            overlay_rows.extend(load_jsonl(path))
 
-    pal_active_rows = [row for row in active_rows if row_id(row) in EXPECTED_PAL_IDS]
-    assert len(pal_active_rows) == 10
-    assert all("palcloset.jp" in (row.get("u") or "") for row in pal_active_rows)
+        all_rows = primary_rows + overlay_rows
+        active_rows = [row for row in all_rows if row_id(row) in snapshot_active_brands]
+        active_ids = [row_id(row) for row in active_rows]
+        assert len(active_rows) == 64
+        assert len(set(active_ids)) == 64
+        assert set(active_ids) == set(snapshot_active_brands)
+        for row in active_rows:
+            brand_id = row_id(row)
+            assert row_name(row) == snapshot_active_brands[brand_id]
+            assert (row.get("d") or row.get("observed_date")) == latest["observed_date"]
+            assert valid_http_url(row.get("u") or row.get("source"))
+            assert (row.get("q") or row.get("sales_quantity_status")) in {"NA", "NOT_AVAILABLE"}
+            assert (row.get("p") or row.get("publication_status")) in {"HOLD", "PUBLISH_HOLD"}
+
+        if observed_date < effective_from:
+            legacy_present = {row_id(row) for row in primary_rows if row_id(row) in snapshot_inactive_ids}
+            assert legacy_present == snapshot_inactive_ids
+            assert set(removed_from_active) <= set(active_ids)
+            assert not (set(added_to_active) & set(active_ids))
+        else:
+            assert not (set(removed_from_active) & set(active_ids))
+            assert set(added_to_active) <= set(active_ids)
+
+        pal_active_rows = [row for row in active_rows if row_id(row) in EXPECTED_PAL_IDS]
+        assert len(pal_active_rows) == 10
+        assert all("palcloset.jp" in (row.get("u") or "") for row in pal_active_rows)
+
+    previous_daily = latest.get("previous_daily_path")
+    if previous_daily:
+        assert repository_path(previous_daily).is_file()
 
     if args.max_age_days is not None:
         age_days = (date.today() - observed_date).days
