@@ -59,7 +59,6 @@ def main() -> None:
         "sessionStorage.setItem(SESSION_KEY",
         "if (accounts.length > 1) return null",
         'displayName: "Photo Capture利用者"',
-        "if (!state.events.length) await openEditor()",
         "写真を撮る・素材を登録",
     ):
         require(app, token, "device-local authentication")
@@ -116,11 +115,11 @@ def main() -> None:
     ):
         require(index, token, "root independent cache key")
     for token in (
-        "app.js?v=2.1.44-independent.10-immediate-entry",
+        "app.js?v=2.1.44-independent.11-immediate-home",
         "app.css?v=2.1.44-independent.1",
         "exhibition-supplier-master.js?v=2.1.44-independent.1",
         "knit-compass-ui.css?v=2.1.44-independent.1",
-        "sw-register.js?v=2.1.44-independent.10-immediate-entry",
+        "sw-register.js?v=2.1.44-independent.11-immediate-home",
     ):
         require(capture_index, token, "direct capture cache key")
 

@@ -1818,13 +1818,15 @@
     let account = accounts[0] || null;
     if (!account) {
       const salt = crypto.getRandomValues(new Uint8Array(16));
-      const deviceSecret = [...crypto.getRandomValues(new Uint8Array(24))].join("-");
+      const deviceSecretHash = [...crypto.getRandomValues(new Uint8Array(32))]
+        .map((byte) => byte.toString(16).padStart(2, "0"))
+        .join("");
       account = {
         accountId: generatedAccountId(),
         displayName: "Photo Capture利用者",
         salt: [...salt],
-        passHash: await passwordHash(deviceSecret, salt),
-        iterations: 180000,
+        passHash: deviceSecretHash,
+        iterations: 0,
         deviceAutoUnlock: true
       };
       const transaction = state.db.transaction(STORES.accounts, "readwrite");
@@ -3085,7 +3087,6 @@
       state.session = loadDeviceSession() || await ensureImmediateDeviceSession();
       if (state.session) {
         await renderApplication();
-        if (!state.events.length) await openEditor();
       } else {
         await renderDeviceAuth();
       }
