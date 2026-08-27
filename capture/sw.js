@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kc-photo-capture-independent-v12-v2144-passphrase-fix';
+const CACHE_NAME = 'kc-photo-capture-independent-v13-v2144-editor-entry';
 const APP_SHELL = [
   './',
   './index.html',
@@ -9,6 +9,7 @@ const APP_SHELL = [
   './exhibition-burst-mode.js',
   './mobile-compact-20260827.css',
   './mobile-compact-20260827.js',
+  './mobile-editor-entry-20260827.js',
   './auth-legacy-compat-20260827.js',
   '../app.css',
   '../knit-compass-ui.css',
