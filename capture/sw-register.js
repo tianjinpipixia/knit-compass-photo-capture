@@ -2,7 +2,13 @@
   'use strict';
   if (!('serviceWorker' in navigator) || !['http:', 'https:'].includes(location.protocol)) return;
 
-  const SW_VERSION = '2.1.44-independent.7-passphrase-fix';
+  const params = new URLSearchParams(location.search);
+  if (params.get('direct') === '1') {
+    console.info('Photo Capture direct mode: Service Worker registration skipped.');
+    return;
+  }
+
+  const SW_VERSION = '2.1.44-independent.8-direct-repair';
   const RELOAD_MARKER = `kc_photo_capture_controller_${SW_VERSION}`;
   let reloading = false;
 
