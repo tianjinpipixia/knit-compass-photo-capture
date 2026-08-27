@@ -118,12 +118,13 @@ def main() -> None:
     ):
         require(index, token, "root independent cache key")
     for token in (
-        "app.js?v=2.1.44-independent.12-observer-fix",
+        "app.js?v=2.1.44-independent.13-v04-ui",
         "app.css?v=2.1.44-independent.1",
         "exhibition-supplier-master.js?v=2.1.44-independent.1",
         "knit-compass-ui.css?v=2.1.44-independent.1",
-        "mobile-compact-20260827.js?v=2-idempotent",
-        "sw-register.js?v=2.1.44-independent.12-observer-fix",
+        "v04-visual-alignment.css?v=2.1.44-independent.13-v04-ui",
+        "mobile-compact-20260827.js?v=3-v04-ui",
+        "sw-register.js?v=2.1.44-independent.13-v04-ui",
     ):
         require(capture_index, token, "direct capture cache key")
 

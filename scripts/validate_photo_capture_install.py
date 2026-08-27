@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT_BUILD = "2.1.43-independent.1"
-CAPTURE_BUILD = "2.1.44-independent.12-observer-fix"
+CAPTURE_BUILD = "2.1.44-independent.13-v04-ui"
 
 
 def fail(message: str) -> None:
@@ -65,6 +65,9 @@ def main() -> None:
         "app.css?v=2.1.44-independent.1",
         "exhibition-supplier-master.js?v=2.1.44-independent.1",
         "knit-compass-ui.css?v=2.1.44-independent.1",
+        f"v04-visual-alignment.css?v={CAPTURE_BUILD}",
+        f"exhibition-burst-mode.js?v={CAPTURE_BUILD}",
+        "mobile-compact-20260827.js?v=3-v04-ui",
         f"sw-register.js?v={CAPTURE_BUILD}",
     ):
         require(capture_index, token, "direct Photo Capture asset")
@@ -160,9 +163,10 @@ def main() -> None:
         "./status/",
     ):
         require(worker, token, "root service-worker shell")
-    require(capture_worker, "kc-photo-capture-independent-v16-v2144-observer-fix", "capture service-worker cache")
+    require(capture_worker, "kc-photo-capture-independent-v17-v2144-v04-ui", "capture service-worker cache")
     require(capture_worker, "../exhibition-supplier-master.js", "capture Supplier master cache")
     require(capture_worker, "../knit-compass-ui.css", "capture UI cache")
+    require(capture_worker, "./v04-visual-alignment.css", "capture V04 UI cache")
     require(capture_register, f"./sw.js?v=${{SW_VERSION}}", "capture service-worker registration")
     require(capture_register, CAPTURE_BUILD, "capture service-worker version")
     for token in (CONTRACT_BUILD, "controllerchange", "location.reload()", "RELOAD_MARKER"):

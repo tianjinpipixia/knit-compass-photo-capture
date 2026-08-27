@@ -1482,9 +1482,9 @@
       <main class="kc-app kc-shell">
         <header class="kc-topbar">
           <div class="kc-brand">
-            <p class="kc-eyebrow">写真から素材情報を登録</p>
-            <h1>Knit Compass Photo Capture</h1>
-            <p class="kc-lead">Photo Capture 2.1.43を独立版へ移植した現行画面です。写真と素材情報は端末へDRAFT保存し、必要な記録だけを外部取込ZIPとして書き出します。正式マスターへの反映は確認後に行います。</p>
+            <p class="kc-eyebrow">PHOTO CAPTURE</p>
+            <h1>写真から素材情報を登録する</h1>
+            <p class="kc-lead">展示会や訪問先で、写真と素材情報を端末内DRAFTとして記録します。必要な記録だけを外部取込ZIPとして書き出し、正式マスターへは内容を確認してから反映します。</p>
             <div class="kc-build-info" aria-label="画面バージョン情報">
               <span>画面バージョン <strong>${escapeHtml(BUILD_INFO.version)}</strong></span>
               <span>最終更新 <time datetime="${escapeHtml(BUILD_INFO.updated_at)}">${escapeHtml(BUILD_INFO.updated_label)}</time></span>
@@ -1507,7 +1507,7 @@
           <div class="kc-panel-heading">
             <div>
               <p class="kc-eyebrow">Capture Inbox</p>
-              <h2 id="kcInboxTitle">Photo Capture</h2>
+              <h2 id="kcInboxTitle">写真登録</h2>
               <p class="kc-muted">保存済みの最新値を表示します。CREATE／UPDATEの全イベントは別に保持されます。</p>
             </div>
             <div class="kc-primary-actions">

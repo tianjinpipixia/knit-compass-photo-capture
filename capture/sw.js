@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kc-photo-capture-independent-v16-v2144-observer-fix';
+const CACHE_NAME = 'kc-photo-capture-independent-v17-v2144-v04-ui';
 const APP_SHELL = [
   './',
   './index.html',
@@ -8,6 +8,7 @@ const APP_SHELL = [
   './exhibition-burst-mode.css',
   './exhibition-burst-mode.js',
   './mobile-compact-20260827.css',
+  './v04-visual-alignment.css',
   './mobile-compact-20260827.js',
   './mobile-editor-entry-20260827.js',
   './auth-legacy-compat-20260827.js',
