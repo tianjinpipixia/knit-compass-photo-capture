@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#163f3c">
+  <meta http-equiv="Cache-Control" content="no-store">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>Photo Capture 修復</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;color:#173f3c;background:#f3f6f4}
+    body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;box-sizing:border-box}
+    main{width:min(560px,100%);background:#fff;border:1px solid #d7dfda;border-radius:18px;padding:24px;box-shadow:0 18px 50px rgba(24,45,34,.09)}
+    h1{margin:0 0 12px;font-size:28px}p{line-height:1.7;color:#5e6f67}.status{margin-top:18px;padding:14px;border-radius:12px;background:#edf4ef;color:#0d5039;font-weight:700}.error{background:#fff0f0;color:#a63d3d}
+    button,a{display:block;width:100%;box-sizing:border-box;margin-top:14px;padding:13px 16px;border-radius:12px;border:1px solid #146b4d;background:#146b4d;color:#fff;text-align:center;text-decoration:none;font-weight:800;font-size:16px}
+    small{display:block;margin-top:12px;color:#6b7871;line-height:1.6}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Photo Captureを修復します</h1>
+    <p>保存済みDRAFT・写真・利用者データには触れず、Knit Compass Photo CaptureのService Workerだけを解除して、直接起動モードへ切り替えます。</p>
+    <div id="status" class="status" role="status">修復を開始しています…</div>
+    <button id="retry" type="button" hidden>もう一度修復する</button>
+    <a id="direct" href="./?direct=1&repair=114" hidden>直接起動モードで開く</a>
+    <small>この処理ではIndexedDB、端末内DRAFT、写真、アカウント、パスフレーズ情報を削除・変更しません。</small>
+  </main>
+  <script>
+    (() => {
+      'use strict';
+      const status = document.getElementById('status');
+      const retry = document.getElementById('retry');
+      const direct = document.getElementById('direct');
+      const repoPrefix = '/knit-compass-photo-capture/';
+
+      function setStatus(message, isError = false) {
+        status.textContent = message;
+        status.classList.toggle('error', isError);
+      }
+
+      async function repair() {
+        retry.hidden = true;
+        direct.hidden = true;
+        try {
+          if ('serviceWorker' in navigator) {
+            const registrations = await navigator.serviceWorker.getRegistrations();
+            const targets = registrations.filter((registration) => {
+              try {
+                return new URL(registration.scope).pathname.startsWith(repoPrefix);
+              } catch (_error) {
+                return false;
+              }
+            });
+            await Promise.all(targets.map((registration) => registration.unregister()));
+          }
+          sessionStorage.setItem('kc_photo_capture_direct_repair_114', 'done');
+          setStatus('修復しました。保存データはそのままです。直接起動モードへ移動します…');
+          const target = `./?direct=1&repair=114&t=${Date.now()}`;
+          window.setTimeout(() => location.replace(target), 500);
+        } catch (error) {
+          setStatus(`修復できませんでした: ${error.message || error}`, true);
+          retry.hidden = false;
+          direct.hidden = false;
+        }
+      }
+
+      retry.addEventListener('click', repair);
+      repair();
+    })();
+  </script>
+</body>
+</html>
