@@ -1,9 +1,10 @@
-const CACHE_NAME = 'kc-photo-capture-independent-v6-v2144-exhibition-burst';
+const CACHE_NAME = 'kc-photo-capture-independent-v7-v2144-mobile-flow';
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
   './sw-register.js',
+  './layout-priority.js',
   './exhibition-burst-mode.css',
   './exhibition-burst-mode.js',
   '../app.css',
