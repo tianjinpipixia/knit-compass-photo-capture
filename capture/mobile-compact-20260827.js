@@ -34,6 +34,10 @@
     const meaningful = cells.filter((cell) => !EMPTY_VALUES.has(text(cell.querySelector('strong'))));
 
     if (meaningful.length === 0) {
+      const currentEmpty = specs.children.length === 1
+        && specs.firstElementChild?.classList.contains('kc-mobile-latest-empty')
+        && text(specs.firstElementChild) === '番手・混率・品質表示・ゲージは未入力';
+      if (currentEmpty) return;
       const empty = document.createElement('span');
       empty.className = 'kc-mobile-latest-empty';
       empty.textContent = '番手・混率・品質表示・ゲージは未入力';
@@ -41,7 +45,9 @@
       return;
     }
 
-    specs.replaceChildren(...meaningful);
+    const needsCompaction = specs.children.length !== meaningful.length
+      || meaningful.some((node, index) => specs.children[index] !== node);
+    if (needsCompaction) specs.replaceChildren(...meaningful);
   }
 
   function hideDuplicateStatus() {

@@ -12,6 +12,7 @@ APP = ROOT / "app.js"
 CSS = ROOT / "app.css"
 INDEX = ROOT / "index.html"
 CAPTURE_INDEX = ROOT / "capture" / "index.html"
+MOBILE_COMPACT = ROOT / "capture" / "mobile-compact-20260827.js"
 NODE = require_node()
 
 
@@ -34,10 +35,12 @@ def main() -> None:
     css = CSS.read_text(encoding="utf-8")
     index = INDEX.read_text(encoding="utf-8")
     capture_index = CAPTURE_INDEX.read_text(encoding="utf-8")
+    mobile_compact = MOBILE_COMPACT.read_text(encoding="utf-8")
 
-    result = subprocess.run([NODE, "--check", str(APP)], capture_output=True, text=True)
-    if result.returncode:
-        fail(f"JavaScript syntax error in app.js: {result.stderr.strip()}")
+    for script in (APP, MOBILE_COMPACT):
+        result = subprocess.run([NODE, "--check", str(script)], capture_output=True, text=True)
+        if result.returncode:
+            fail(f"JavaScript syntax error in {script.name}: {result.stderr.strip()}")
 
     for token in (
         'version: "2.1.43-independent.1"',
@@ -115,13 +118,17 @@ def main() -> None:
     ):
         require(index, token, "root independent cache key")
     for token in (
-        "app.js?v=2.1.44-independent.11-immediate-home",
+        "app.js?v=2.1.44-independent.12-observer-fix",
         "app.css?v=2.1.44-independent.1",
         "exhibition-supplier-master.js?v=2.1.44-independent.1",
         "knit-compass-ui.css?v=2.1.44-independent.1",
-        "sw-register.js?v=2.1.44-independent.11-immediate-home",
+        "mobile-compact-20260827.js?v=2-idempotent",
+        "sw-register.js?v=2.1.44-independent.12-observer-fix",
     ):
         require(capture_index, token, "direct capture cache key")
+
+    for token in ("currentEmpty", "if (currentEmpty) return", "needsCompaction", "if (needsCompaction)"):
+        require(mobile_compact, token, "idempotent mobile summary update")
 
     print("OK: Photo Capture 2.1.43 independent migration, DRAFT safety, data compatibility, and mobile action checks passed")
 
