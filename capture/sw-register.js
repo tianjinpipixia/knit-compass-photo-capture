@@ -8,7 +8,7 @@
     return;
   }
 
-  const SW_VERSION = '2.1.44-independent.10-immediate-entry';
+  const SW_VERSION = '2.1.44-independent.11-immediate-home';
   const RELOAD_MARKER = `kc_photo_capture_controller_${SW_VERSION}`;
   let reloading = false;
 
