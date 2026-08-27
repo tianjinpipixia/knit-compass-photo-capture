@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kc-photo-capture-independent-v7-v2144-mobile-flow';
+const CACHE_NAME = 'kc-photo-capture-independent-v8-v2144-compact-summary';
 const APP_SHELL = [
   './',
   './index.html',
