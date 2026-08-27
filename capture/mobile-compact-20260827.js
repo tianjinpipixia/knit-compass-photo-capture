@@ -59,8 +59,8 @@
 
   function markPatchVersion() {
     const version = document.querySelector('.kc-build-info strong');
-    if (version && !text(version).includes('UI 3')) {
-      version.textContent = `${text(version)} · UI 3`;
+    if (version && !text(version).includes('UI 4')) {
+      version.textContent = `${text(version).replace(/\s·\sUI\s\d+$/, '')} · UI 4`;
     }
   }
 

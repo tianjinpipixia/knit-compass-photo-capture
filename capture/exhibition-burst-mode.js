@@ -1,7 +1,7 @@
 (function knitCompassExhibitionBurstMode() {
   "use strict";
 
-  const BUILD = "2.1.44-independent.1";
+  const BUILD = "2.1.44-independent.13-v04-ui";
   const STORAGE_KEY = "kc_photo_capture_supplier_session_v1";
   const MAX_CONTEXT_AGE_MS = 18 * 60 * 60 * 1000;
 
@@ -38,8 +38,8 @@
 
     const updated = document.querySelector(".kc-build-info time");
     if (updated) {
-      setText(updated, "2026-08-26 10:18 CST");
-      setAttributeIfChanged(updated, "datetime", "2026-08-26T10:18:00+08:00");
+      setText(updated, "2026-08-27 20:40 CST");
+      setAttributeIfChanged(updated, "datetime", "2026-08-27T20:40:00+08:00");
     }
 
     const lead = document.querySelector(".kc-lead");
