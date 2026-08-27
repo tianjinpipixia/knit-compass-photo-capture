@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#163f3c">
+  <meta http-equiv="Cache-Control" content="no-store">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>Photo Capture データ救出</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;color:#173f3c;background:#f3f6f4}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;padding:22px;background:#f3f6f4}main{width:min(620px,100%);margin:0 auto;background:#fff;border:1px solid #d7dfda;border-radius:18px;padding:22px;box-shadow:0 18px 50px rgba(24,45,34,.09)}
+    h1{margin:0 0 8px;font-size:28px;line-height:1.25}p{margin:8px 0;color:#5e6f67;line-height:1.7}.badge{display:inline-block;margin:4px 6px 4px 0;padding:6px 10px;border:1px solid #9bc9b4;border-radius:999px;background:#e8f4ee;color:#0d5039;font-weight:800;font-size:13px}
+    .status,.data{margin-top:16px;padding:14px;border-radius:12px;background:#edf4ef;color:#0d5039;line-height:1.7}.error{background:#fff0f0;color:#a63d3d}.data{background:#f7faf8;border:1px solid #d7dfda}.data strong{font-size:22px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.cell{padding:10px;border-radius:10px;background:#fff;border:1px solid #d7dfda}.cell span{display:block;color:#6b7871;font-size:12px}.cell strong{display:block;margin-top:3px;font-size:20px;color:#173f3c}
+    button,a{display:block;width:100%;margin-top:14px;padding:13px 16px;border-radius:12px;border:1px solid #146b4d;background:#146b4d;color:#fff;text-align:center;text-decoration:none;font-weight:800;font-size:16px}button.secondary,a.secondary{background:#fff;color:#0d5039}.note{font-size:12px;color:#6b7871}@media(max-width:480px){body{padding:14px}main{padding:18px}.row{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main>
+    <div><span class="badge">データを消さない修復</span><span class="badge">Xiaomi用</span></div>
+    <h1>Photo Captureの保存データを救出します</h1>
+    <p>このページは <strong>capture/ の外側</strong> にあるため、壊れたPhoto Capture用Service Workerに邪魔されずに端末内データを確認できます。</p>
+    <div id="status" class="status" role="status">端末内データを確認しています…</div>
+    <section id="data" class="data" hidden>
+      <div>保存済み利用者：<strong id="owner">—</strong></div>
+      <div class="row">
+        <div class="cell"><span>保存レコード</span><strong id="records">—</strong></div>
+        <div class="cell"><span>イベント履歴</span><strong id="events">—</strong></div>
+        <div class="cell"><span>写真</span><strong id="photos">—</strong></div>
+        <div class="cell"><span>利用者</span><strong id="accounts">—</strong></div>
+      </div>
+    </section>
+    <button id="open" type="button" hidden>この端末の保存データを開く</button>
+    <button id="retry" type="button" class="secondary">もう一度確認する</button>
+    <a class="secondary" href="./capture/?direct=1&rescue=115">Photo Captureを直接開く</a>
+    <p class="note">IndexedDB・DRAFT・写真・アカウントは削除・変更しません。Photo Capture専用Service Workerとそのキャッシュだけを解除します。</p>
+  </main>
+  <script>
+    (() => {
+      'use strict';
+      const DB_NAME = 'kc_independent_photo_capture_v1_0';
+      const SESSION_KEY = 'kc_session_v1';
+      const AUTH_REALM = 'KNIT_COMPASS_DEVICE_LOCAL';
+      const status = document.getElementById('status');
+      const data = document.getElementById('data');
+      const openButton = document.getElementById('open');
+      const retryButton = document.getElementById('retry');
+      let savedAccount = null;
+
+      function setStatus(message, error = false) {
+        status.textContent = message;
+        status.classList.toggle('error', error);
+      }
+
+      function requestValue(request) {
+        return new Promise((resolve, reject) => {
+          request.addEventListener('success', () => resolve(request.result), { once: true });
+          request.addEventListener('error', () => reject(request.error || new Error('端末内データを読めません')), { once: true });
+        });
+      }
+
+      async function clearCaptureWorker() {
+        let removed = 0;
+        if ('serviceWorker' in navigator) {
+          const registrations = await navigator.serviceWorker.getRegistrations();
+          const targets = registrations.filter((registration) => {
+            try {
+              return new URL(registration.scope).pathname.includes('/knit-compass-photo-capture/capture/');
+            } catch (_error) {
+              return false;
+            }
+          });
+          const results = await Promise.all(targets.map((registration) => registration.unregister()));
+          removed = results.filter(Boolean).length;
+        }
+        if ('caches' in window) {
+          const keys = await caches.keys();
+          await Promise.all(keys.filter((key) => key.startsWith('kc-photo-capture-independent-')).map((key) => caches.delete(key)));
+        }
+        return removed;
+      }
+
+      async function databaseExists() {
+        if (typeof indexedDB.databases !== 'function') return true;
+        const databases = await indexedDB.databases();
+        return databases.some((entry) => entry && entry.name === DB_NAME);
+      }
+
+      function openDb() {
+        return new Promise((resolve, reject) => {
+          const request = indexedDB.open(DB_NAME);
+          request.addEventListener('success', () => resolve(request.result), { once: true });
+          request.addEventListener('error', () => reject(request.error || new Error('端末内データベースを開けません')), { once: true });
+          request.addEventListener('blocked', () => reject(new Error('別のPhoto Capture画面を完全に閉じてください')), { once: true });
+        });
+      }
+
+      async function inspect() {
+        retryButton.disabled = true;
+        openButton.hidden = true;
+        savedAccount = null;
+        data.hidden = true;
+        setStatus('Photo Captureの古い起動処理を解除し、端末内データを確認しています…');
+        let db;
+        try {
+          const removed = await clearCaptureWorker();
+          if (!(await databaseExists())) throw new Error('このChrome内にPhoto Captureの保存データベースが見つかりません');
+          db = await openDb();
+          const required = ['accounts','events','photos'];
+          const missing = required.filter((name) => !db.objectStoreNames.contains(name));
+          if (missing.length) throw new Error(`保存領域が不足しています: ${missing.join(', ')}`);
+
+          const tx = db.transaction(required, 'readonly');
+          const [accounts, events, photos] = await Promise.all([
+            requestValue(tx.objectStore('accounts').getAll()),
+            requestValue(tx.objectStore('events').getAll()),
+            requestValue(tx.objectStore('photos').count())
+          ]);
+          const recordIds = new Set((events || []).map((event) => event && event.recordId).filter(Boolean));
+          document.getElementById('accounts').textContent = String(accounts.length);
+          document.getElementById('records').textContent = String(recordIds.size);
+          document.getElementById('events').textContent = String(events.length);
+          document.getElementById('photos').textContent = String(photos || 0);
+          document.getElementById('owner').textContent = accounts.length === 1 ? (accounts[0].displayName || 'Knit Compass Owner') : `${accounts.length}件`;
+          data.hidden = false;
+
+          if (accounts.length === 1 && accounts[0] && accounts[0].accountId) {
+            savedAccount = accounts[0];
+            openButton.hidden = false;
+            setStatus(`保存データを確認できました。専用Service Worker解除 ${removed}件。下の緑ボタンで開けます。`);
+          } else if (accounts.length > 1) {
+            setStatus('保存データは確認できましたが、利用者が複数あるためパスフレーズ認証が必要です。', true);
+          } else {
+            setStatus('保存レコードはありますが、保存済み利用者が見つかりません。', true);
+          }
+        } catch (error) {
+          setStatus(`確認できませんでした: ${error.message || error}`, true);
+        } finally {
+          try { db?.close(); } catch (_error) {}
+          retryButton.disabled = false;
+        }
+      }
+
+      openButton.addEventListener('click', () => {
+        if (!savedAccount) return;
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify({
+          accountId: savedAccount.accountId,
+          displayName: savedAccount.displayName || 'Knit Compass Owner',
+          realm: AUTH_REALM
+        }));
+        setStatus('端末内セッションを作成しました。Photo Captureを直接起動します…');
+        location.href = `./capture/?direct=1&rescue=115&t=${Date.now()}`;
+      });
+      retryButton.addEventListener('click', () => void inspect());
+      void inspect();
+    })();
+  </script>
+</body>
+</html>
