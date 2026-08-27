@@ -7,7 +7,8 @@ import struct
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-BUILD = "2.1.43-independent.1"
+CONTRACT_BUILD = "2.1.43-independent.1"
+CAPTURE_BUILD = "2.1.44-independent.10-immediate-entry"
 
 
 def fail(message: str) -> None:
@@ -44,7 +45,7 @@ def main() -> None:
         fail("stable Knit Compass PWA identity changed")
     if manifest.get("id") != "./" or manifest.get("start_url") != "./brand-intelligence/" or manifest.get("scope") != "./":
         fail("stable V04 PWA id/start_url/scope is missing")
-    if capture_manifest.get("start_url") != f"./?build={BUILD}" or capture_manifest.get("scope") != "./":
+    if capture_manifest.get("start_url") != f"./?build={CAPTURE_BUILD}" or capture_manifest.get("scope") != "./":
         fail("independent Photo Capture PWA start URL is stale")
 
     expected = {"icon-192.png": (192, 192), "icon-512.png": (512, 512), "icon-maskable-512.png": (512, 512)}
@@ -52,14 +53,21 @@ def main() -> None:
         if png_size(ROOT / name) != size:
             fail(f"missing or invalid installed icon: {name}")
 
-    for document in (index, capture_index):
-        for token in (
-            f"app.js?v={BUILD}",
-            f"app.css?v={BUILD}",
-            f"exhibition-supplier-master.js?v={BUILD}",
-            f"knit-compass-ui.css?v={BUILD}",
-        ):
-            require(document, token, "independent Photo Capture asset")
+    for token in (
+        f"app.js?v={CONTRACT_BUILD}",
+        f"app.css?v={CONTRACT_BUILD}",
+        f"exhibition-supplier-master.js?v={CONTRACT_BUILD}",
+        f"knit-compass-ui.css?v={CONTRACT_BUILD}",
+    ):
+        require(index, token, "root independent Photo Capture asset")
+    for token in (
+        f"app.js?v={CAPTURE_BUILD}",
+        "app.css?v=2.1.44-independent.1",
+        "exhibition-supplier-master.js?v=2.1.44-independent.1",
+        "knit-compass-ui.css?v=2.1.44-independent.1",
+        f"sw-register.js?v={CAPTURE_BUILD}",
+    ):
+        require(capture_index, token, "direct Photo Capture asset")
     require(capture_index, 'body data-surface="mobile"', "mobile capture surface")
 
     for token in (
@@ -69,6 +77,7 @@ def main() -> None:
         'external_network_calls: "OFF"',
         'automatic_sync: "OFF_PORTABLE_ZIP_ONLY"',
         "renderDeviceAuth",
+        "ensureImmediateDeviceSession",
         "passwordHash",
         "generatedAccountId",
         "missingStores",
@@ -151,11 +160,12 @@ def main() -> None:
         "./status/",
     ):
         require(worker, token, "root service-worker shell")
-    require(capture_worker, "kc-photo-capture-independent-v5-v2143-current-ui", "capture service-worker cache")
+    require(capture_worker, "kc-photo-capture-independent-v14-v2144-immediate-entry", "capture service-worker cache")
     require(capture_worker, "../exhibition-supplier-master.js", "capture Supplier master cache")
     require(capture_worker, "../knit-compass-ui.css", "capture UI cache")
-    require(capture_register, f"./sw.js?v={BUILD}", "capture service-worker registration")
-    for token in (BUILD, "controllerchange", "location.reload()", "RELOAD_MARKER"):
+    require(capture_register, f"./sw.js?v=${{SW_VERSION}}", "capture service-worker registration")
+    require(capture_register, CAPTURE_BUILD, "capture service-worker version")
+    for token in (CONTRACT_BUILD, "controllerchange", "location.reload()", "RELOAD_MARKER"):
         require(refresh, token, "stale-cache refresh")
 
     for destination in (

@@ -52,11 +52,15 @@ def main() -> None:
 
     for token in (
         "loadDeviceSession",
+        "ensureImmediateDeviceSession",
         "renderDeviceAuth",
         "generatedAccountId",
         "passwordHash",
         "sessionStorage.setItem(SESSION_KEY",
-        "accounts.length === 1",
+        "if (accounts.length > 1) return null",
+        'displayName: "Photo Capture利用者"',
+        "if (!state.events.length) await openEditor()",
+        "写真を撮る・素材を登録",
     ):
         require(app, token, "device-local authentication")
     forbid(app, "loadHostedSession", "Sites-only authentication dependency")
@@ -104,14 +108,21 @@ def main() -> None:
     ):
         require(app, token, "2.1.41–2.1.43 portable migration")
 
-    for document in (index, capture_index):
-        for token in (
-            "app.js?v=2.1.43-independent.1",
-            "app.css?v=2.1.43-independent.1",
-            "exhibition-supplier-master.js?v=2.1.43-independent.1",
-            "knit-compass-ui.css?v=2.1.43-independent.1",
-        ):
-            require(document, token, "independent cache key")
+    for token in (
+        "app.js?v=2.1.43-independent.1",
+        "app.css?v=2.1.43-independent.1",
+        "exhibition-supplier-master.js?v=2.1.43-independent.1",
+        "knit-compass-ui.css?v=2.1.43-independent.1",
+    ):
+        require(index, token, "root independent cache key")
+    for token in (
+        "app.js?v=2.1.44-independent.10-immediate-entry",
+        "app.css?v=2.1.44-independent.1",
+        "exhibition-supplier-master.js?v=2.1.44-independent.1",
+        "knit-compass-ui.css?v=2.1.44-independent.1",
+        "sw-register.js?v=2.1.44-independent.10-immediate-entry",
+    ):
+        require(capture_index, token, "direct capture cache key")
 
     print("OK: Photo Capture 2.1.43 independent migration, DRAFT safety, data compatibility, and mobile action checks passed")
 

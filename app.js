@@ -1498,7 +1498,7 @@
             </div>
             <div class="kc-session">
               <span id="kcSessionIdentity"></span>
-              <button type="button" class="ghost" id="kcLogout">終了</button>
+              <button type="button" class="ghost" id="kcLogout">利用者を切り替える</button>
             </div>
           </div>
         </header>
@@ -1511,7 +1511,7 @@
               <p class="kc-muted">保存済みの最新値を表示します。CREATE／UPDATEの全イベントは別に保持されます。</p>
             </div>
             <div class="kc-primary-actions">
-              <button type="button" id="kcNewCapture">新規キャプチャ</button>
+              <button type="button" id="kcNewCapture">写真を撮る・素材を登録</button>
             </div>
           </div>
           <div id="kcConnectivityStatus" class="kc-connectivity-status" role="status" aria-live="polite" data-connectivity="${state.isOnline ? "online" : "offline"}">
@@ -1809,6 +1809,37 @@
     } catch {
       return null;
     }
+  }
+
+  async function ensureImmediateDeviceSession() {
+    const accounts = await getAll(STORES.accounts);
+    if (accounts.length > 1) return null;
+
+    let account = accounts[0] || null;
+    if (!account) {
+      const salt = crypto.getRandomValues(new Uint8Array(16));
+      const deviceSecret = [...crypto.getRandomValues(new Uint8Array(24))].join("-");
+      account = {
+        accountId: generatedAccountId(),
+        displayName: "Photo Capture利用者",
+        salt: [...salt],
+        passHash: await passwordHash(deviceSecret, salt),
+        iterations: 180000,
+        deviceAutoUnlock: true
+      };
+      const transaction = state.db.transaction(STORES.accounts, "readwrite");
+      transaction.objectStore(STORES.accounts).add(account);
+      await transactionPromise(transaction);
+      window.KnitCompassBackup?.notifyDataChanged?.();
+    }
+
+    const session = {
+      accountId: account.accountId,
+      displayName: account.displayName || "Photo Capture利用者",
+      realm: CONTRACT.authentication_realm
+    };
+    sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    return session;
   }
 
   async function renderDeviceAuth() {
@@ -3037,6 +3068,8 @@
   async function renderApplication() {
     app.innerHTML = appTemplate();
     document.getElementById("kcSessionIdentity").textContent = state.session.displayName;
+    const accounts = await getAll(STORES.accounts);
+    document.getElementById("kcLogout").hidden = accounts.length <= 1;
     wireApplication();
     await loadEvents();
     refreshCandidateOptions();
@@ -3049,9 +3082,13 @@
       state.db = await withStartupTimeout(openDatabase(), 8000, "端末内DRAFTの確認がタイムアウトしました");
       await withStartupTimeout(seedIndependentMasters(), 8000, "端末内DRAFTの初期化がタイムアウトしました");
       await withStartupTimeout(readMasters(), 8000, "端末内マスターの読込みがタイムアウトしました");
-      state.session = loadDeviceSession();
-      if (state.session) await renderApplication();
-      else await renderDeviceAuth();
+      state.session = loadDeviceSession() || await ensureImmediateDeviceSession();
+      if (state.session) {
+        await renderApplication();
+        if (!state.events.length) await openEditor();
+      } else {
+        await renderDeviceAuth();
+      }
     } catch (error) {
       app.innerHTML = sessionErrorTemplate(error.message || error);
     }

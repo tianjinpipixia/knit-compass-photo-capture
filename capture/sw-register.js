@@ -8,7 +8,7 @@
     return;
   }
 
-  const SW_VERSION = '2.1.44-independent.9-editor-entry';
+  const SW_VERSION = '2.1.44-independent.10-immediate-entry';
   const RELOAD_MARKER = `kc_photo_capture_controller_${SW_VERSION}`;
   let reloading = false;
 
@@ -23,6 +23,8 @@
   window.addEventListener('load', () => {
     navigator.serviceWorker.register(`./sw.js?v=${SW_VERSION}`, { scope: './', updateViaCache: 'none' })
       .then((registration) => registration.update())
-      .catch((error) => console.warn('Photo Captureのオフライン準備に失敗しました。', error));
+      .catch(() => {
+        // The online screen remains usable even when this browser blocks Service Workers.
+      });
   });
 })();
