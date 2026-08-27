@@ -2,7 +2,7 @@
   'use strict';
   if (!('serviceWorker' in navigator) || !['http:', 'https:'].includes(location.protocol)) return;
 
-  const SW_VERSION = '2.1.44-independent.6-safe-launch';
+  const SW_VERSION = '2.1.44-independent.7-passphrase-fix';
   const RELOAD_MARKER = `kc_photo_capture_controller_${SW_VERSION}`;
   let reloading = false;
 
