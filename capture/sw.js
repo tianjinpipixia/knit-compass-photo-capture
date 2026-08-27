@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kc-photo-capture-independent-v8-v2144-compact-summary';
+const CACHE_NAME = 'kc-photo-capture-independent-v9-v2144-cache-recovery';
 const APP_SHELL = [
   './',
   './index.html',
@@ -7,6 +7,8 @@ const APP_SHELL = [
   './layout-priority.js',
   './exhibition-burst-mode.css',
   './exhibition-burst-mode.js',
+  './mobile-compact-20260827.css',
+  './mobile-compact-20260827.js',
   '../app.css',
   '../knit-compass-ui.css',
   '../connection-status.css',
@@ -27,13 +29,22 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) => Promise.all(
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(
       keys.filter((key) => key.startsWith('kc-photo-capture-independent-') && key !== CACHE_NAME)
         .map((key) => caches.delete(key))
-    ))
-  );
-  self.clients.claim();
+    );
+    await self.clients.claim();
+    const clients = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    await Promise.all(clients.map(async (client) => {
+      try {
+        if (new URL(client.url).pathname.includes('/capture/')) await client.navigate(client.url);
+      } catch (_error) {
+        // The next manual launch will still use the new cache.
+      }
+    }));
+  })());
 });
 
 self.addEventListener('fetch', (event) => {
@@ -43,13 +54,13 @@ self.addEventListener('fetch', (event) => {
 
   if (event.request.mode === 'navigate') {
     event.respondWith(
-      fetch(event.request).catch(() => caches.match('./index.html'))
+      fetch(event.request, { cache: 'no-store' }).catch(() => caches.match('./index.html'))
     );
     return;
   }
 
   event.respondWith(
-    fetch(event.request).then((response) => {
+    fetch(event.request, { cache: 'no-store' }).then((response) => {
       if (response.ok) {
         const copy = response.clone();
         caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
