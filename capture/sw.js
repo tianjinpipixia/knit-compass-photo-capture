@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kc-photo-capture-independent-v11-v2144-safe-launch';
+const CACHE_NAME = 'kc-photo-capture-independent-v12-v2144-passphrase-fix';
 const APP_SHELL = [
   './',
   './index.html',
@@ -67,8 +67,6 @@ self.addEventListener('activate', (event) => {
       keys.filter((key) => key.startsWith('kc-photo-capture-independent-') && key !== CACHE_NAME)
         .map((key) => caches.delete(key))
     );
-    // Never navigate clients from inside activate. On Android WebAPK/PWA this can
-    // deadlock the first navigation and leave the generated splash screen visible.
     await self.clients.claim();
   })());
 });
