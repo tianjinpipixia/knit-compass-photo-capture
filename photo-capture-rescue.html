@@ -33,7 +33,7 @@
     </section>
     <button id="open" type="button" hidden>この端末の保存データを開く</button>
     <button id="retry" type="button" class="secondary">もう一度確認する</button>
-    <a class="secondary" href="./capture/?direct=1&rescue=115">Photo Captureを直接開く</a>
+    <a class="secondary" href="./photo-capture-direct.html?rescue=116">ルート直接版を開く</a>
     <p class="note">IndexedDB・DRAFT・写真・アカウントは削除・変更しません。Photo Capture専用Service Workerとそのキャッシュだけを解除します。</p>
   </main>
   <script>
@@ -149,8 +149,8 @@
           displayName: savedAccount.displayName || 'Knit Compass Owner',
           realm: AUTH_REALM
         }));
-        setStatus('端末内セッションを作成しました。Photo Captureを直接起動します…');
-        location.href = `./capture/?direct=1&rescue=115&t=${Date.now()}`;
+        setStatus('端末内セッションを作成しました。Service Workerを使わないルート直接版を起動します…');
+        location.href = `./photo-capture-direct.html?rescue=116&t=${Date.now()}`;
       });
       retryButton.addEventListener('click', () => void inspect());
       void inspect();
