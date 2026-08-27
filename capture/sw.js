@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kc-photo-capture-independent-v10-v2144-legacy-login';
+const CACHE_NAME = 'kc-photo-capture-independent-v11-v2144-safe-launch';
 const APP_SHELL = [
   './',
   './index.html',
@@ -24,6 +24,37 @@ const APP_SHELL = [
   '../icon-maskable-512.png'
 ];
 
+const NETWORK_TIMEOUT_MS = 5000;
+
+async function fetchWithTimeout(request) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), NETWORK_TIMEOUT_MS);
+  try {
+    return await fetch(request, { cache: 'no-store', signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function networkFirst(request, navigationFallback = false) {
+  try {
+    const response = await fetchWithTimeout(request);
+    if (response.ok) {
+      const copy = response.clone();
+      caches.open(CACHE_NAME).then((cache) => cache.put(request, copy)).catch(() => {});
+    }
+    return response;
+  } catch (_error) {
+    const cached = await caches.match(request, { ignoreSearch: true });
+    if (cached) return cached;
+    if (navigationFallback) {
+      const fallback = await caches.match('./index.html');
+      if (fallback) return fallback;
+    }
+    return Response.error();
+  }
+}
+
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
   self.skipWaiting();
@@ -36,15 +67,9 @@ self.addEventListener('activate', (event) => {
       keys.filter((key) => key.startsWith('kc-photo-capture-independent-') && key !== CACHE_NAME)
         .map((key) => caches.delete(key))
     );
+    // Never navigate clients from inside activate. On Android WebAPK/PWA this can
+    // deadlock the first navigation and leave the generated splash screen visible.
     await self.clients.claim();
-    const clients = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
-    await Promise.all(clients.map(async (client) => {
-      try {
-        if (new URL(client.url).pathname.includes('/capture/')) await client.navigate(client.url);
-      } catch (_error) {
-        // The next manual launch will still use the new cache.
-      }
-    }));
   })());
 });
 
@@ -54,19 +79,9 @@ self.addEventListener('fetch', (event) => {
   if (url.origin !== self.location.origin) return;
 
   if (event.request.mode === 'navigate') {
-    event.respondWith(
-      fetch(event.request, { cache: 'no-store' }).catch(() => caches.match('./index.html'))
-    );
+    event.respondWith(networkFirst(event.request, true));
     return;
   }
 
-  event.respondWith(
-    fetch(event.request, { cache: 'no-store' }).then((response) => {
-      if (response.ok) {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
-      }
-      return response;
-    }).catch(() => caches.match(event.request, { ignoreSearch: true }))
-  );
+  event.respondWith(networkFirst(event.request, false));
 });
