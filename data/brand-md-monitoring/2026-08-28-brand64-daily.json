@@ -1,0 +1,49 @@
+{
+  "format": "KC_BRAND64_DAILY_OBSERVATION",
+  "schema_version": "1.5",
+  "observed_date": "2026-08-28",
+  "observed_at": "2026-08-28T10:05:37+09:00",
+  "observation_mode": "DAILY_LIVE",
+  "previous_observation_date": "2026-08-27",
+  "observation_gap_dates": [],
+  "active_brand_source": "config/brand64-active-brands.json",
+  "active_brand_count": 64,
+  "scope": "WOMEN_KNIT",
+  "light_check_count": 64,
+  "checked_brand_ids": ["BR-00001","BR-00002","BR-00003","BR-00004","BR-00005","BR-00006","BR-00007","BR-00008","BR-00009","BR-00010","BR-00011","BR-00012","BR-00013","BR-00014","BR-00015","BR-00016","BR-00017","BR-00018","BR-00019","BR-00021","BR-00022","BR-00023","BR-00024","BR-00025","BR-00027","BR-00028","BR-00030","BR-00031","BR-00032","BR-00033","BR-00035","BR-00036","BR-00039","BR-00040","BR-00041","BR-00042","BR-00047","BR-00049","BR-00050","BR-00051","BR-00052","BR-00053","BR-00054","BR-00055","BR-00056","BR-00057","BR-00058","BR-00059","BR-00060","BR-00062","BR-00063","BR-00064","BR-00065","BR-00066","BR-00067","BR-00068","BR-00069","BR-00070","BR-00071","BR-00072","BR-00073","BR-00074","BR-00075","BR-00076"],
+  "default_brand_status": "NO_CONFIRMED_DELTA_OR_SOURCE_FRESHNESS_LIMITED",
+  "deep_dive_brand_count": 7,
+  "deep_dive_brand_ids": ["BR-00001","BR-00064","BR-00067","BR-00068","BR-00069","BR-00070","BR-00075"],
+  "deep_dive_brand_names": ["UNIQLO","ADAM ET ROPÉ","LOUNGEDRESS","RIVE DROITE","DOUDOU","SHENERY","ZARA"],
+  "current_first_seen_product_count": 12,
+  "retrospective_backfill_product_count": 0,
+  "formal_product_candidate_count": 12,
+  "status_overrides": [
+    {"brand_id":"BR-00001","brand_name":"UNIQLO","status":"CDC_26FW_LAUNCH_20260828_PRODUCT_CODES_PENDING","fact":"UNIQLO and COMPTOIR DES COTONNIERS 2026年秋冬コレクションが8/28発売開始。婦人7アイテムの公式発表を確認。","official_url":"https://www.uniqlo.com/jp/ja/contents/corp/press-release/2026/08/_uniqlo_and_comptoir_des_coton.html","interpretation":"発売日差分として深掘り。個別商品ページ＋品番まで確定できた新規婦人ニットは今回昇格しない。"},
+    {"brand_id":"BR-00064","brand_name":"ADAM ET ROPÉ","status":"EMOELLE_2_KNIT_FIRST_SEEN_20260828","fact":"EMOELLEのシアーモヘアニットカーディガン GAK76500 とショルダーフォルムニット GAM76500が公式個別ページで8/28販売開始。","official_url":"https://www.junonline.jp/emoelle/","interpretation":"公式個別ページ・品番・価格・混率まで確認できた2SKUを当日first-seen候補として保存。"},
+    {"brand_id":"BR-00067","brand_name":"LOUNGEDRESS","status":"RESERVATION_COUPON_20260828","fact":"公式ブランドページで8/28付『3日間限定！予約アイテムに使える！2000円OFFクーポン配布中!!』を確認。","official_url":"https://www.palcloset.jp/loungedress/","interpretation":"販促差分として保持。クーポン露出を販売数量・商品人気へ換算しない。"},
+    {"brand_id":"BR-00068","brand_name":"RIVE DROITE","status":"LAUNCH_BOUNDARY_7_KNIT_FIRST_SEEN_20260828","fact":"公式8/28発売ニュースと個別商品ページで、ファーヤーン2WAY、ダブルフェイスシャギー、フラッフィ、ヘアリー2WAY、シルクカシミヤリブ、ヘアリー片畦V、スウェットライクの7婦人ニットSKUを確認。","official_url":"https://www.palcloset.jp/display/article/detail/?acd=260828riv_011&b=","interpretation":"7SKUを当日first-seen候補として保存。条件付き10%OFFクーポンは商品セール価格と分離。"},
+    {"brand_id":"BR-00069","brand_name":"DOUDOU","status":"TIME_BOUNDARY_20260828_1200","fact":"公式ブランドページで8/28予約スタート予定のカミングスーンニット群を確認。観測時刻10:05 JSTでは12:00開始前。","official_url":"https://www.palcloset.jp/doudou/","interpretation":"TIME_BOUNDARYを保持し、開始済み・当日first-seen正式候補とは扱わない。"},
+    {"brand_id":"BR-00070","brand_name":"SHENERY","status":"3_KNIT_FIRST_SEEN_AND_TIMESALE_20260828","fact":"公式個別商品ページでレースドッキングニットカーディガン、メランジボリュームカーディガン、ケーブルカーディガンの本日発売・予約・TIME SALEを確認。","official_url":"https://www.palcloset.jp/shenery/","interpretation":"3SKUを当日first-seen候補として保存。TIME SALE価格と通常価格を分離して保持。"},
+    {"brand_id":"BR-00075","brand_name":"ZARA","status":"NEW_WOOL_ASSORTMENT_AND_SPECIAL_PRICE_CONTINUES","fact":"公式婦人ニット一覧でウール100%・カシミヤ混等のNEW構成を確認し、Special Pricesでは一部ニットの-80%表示を継続確認。","official_url":"https://www.zara.com/jp/ja/woman-knitwear-l1152.html","interpretation":"品揃え・価格状態差分として保持。前日以前の公開境界が不明なSKUを8/28 first-seenにはしない。"}
+  ],
+  "md_signals": [
+    {"code":"HAIRY_LAUNCH_BOUNDARY_0828","fact":"RIVE DROITEでファー、シャギー、フラッフィ、ヘアリーの複数SKUが8/28発売・予約へ移行。","interpretation":"8G〜12Gで軽量毛羽・本格ウール/カシミヤを価格帯と用途別に分けて検証する。"},
+    {"code":"HIGH_GAUGE_SHOULDER_FORM","fact":"ADAM ET ROPÉ EMOELLEのGAM76500で肩フォルムを作るウール主体ニットを確認。","interpretation":"12G〜16Gで薄手でも肩線・立体形状を保持できる編地安定性を優先。"},
+    {"code":"SHEER_MOHAIR_FEMININE","fact":"EMOELLEシアーモヘアとSHENERYレースドッキングを同日確認。","interpretation":"10G〜14Gで透け、モヘア、レース接続を軽量・きれい見えへ翻訳。"},
+    {"code":"PROMOTION_AND_PRICE_BOUNDARY","fact":"LOUNGEDRESS予約クーポン、RIVE DROITE条件付き10%OFF、SHENERY TIME SALE、ZARA Special Pricesを確認。","interpretation":"販促・価格差分は商品需要・販売数量と分離して扱う。"},
+    {"code":"TIME_BOUNDARY_DOUDOU_1200","fact":"DOUDOUの8/28予約開始予定ニット群は観測時刻10:05 JST時点で12:00開始前。","interpretation":"開始前の商品を発売済みとしない。次回ライブ観測で状態を再確認。"}
+  ],
+  "risk_notes": [
+    {"code":"SOURCE_FRESHNESS_LIMITED","text":"公式ページで当日差分を確証できないブランドは『変化なし』と断定せず鮮度限定として保持。"},
+    {"code":"PROMOTION_BIAS","text":"クーポン、TIME SALE、Special Pricesを販売数量・商品人気から分離。"},
+    {"code":"TIME_BOUNDARY","text":"DOUDOU 8/28 12:00開始予定は10:05 JST観測時点で開始済みにしない。"},
+    {"code":"SOURCE_MATERIAL_DESCRIPTION_CONFLICT","text":"RIVE DROITE RDZ1062205A0003はアイテム詳細の混率と画像説明の混率が競合するため両方を監査情報として保持。"},
+    {"code":"DEDUPED_EXISTING_SKU","text":"既存deltaのproduct_id / product_code / official_urlと照合し、8/28正式候補12件に既登録コード・URLなし。"}
+  ],
+  "sales_quantity_policy": "NO_ESTIMATION",
+  "publication_status": "PUBLISH_HOLD",
+  "human_review_required": true,
+  "dedupe_policy": "product_id / product_code / official_url",
+  "inactive_legacy_policy": "INACTIVE_LEGACY_REFERENCEはアクティブ64集計に含めない。履歴のみ保持。"
+}
