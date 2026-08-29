@@ -8,10 +8,13 @@ name: Monitor brand64 daily freshness
       - "config/brand64-active-brands.json"
       - "config/brand64-md-monitoring.json"
       - "config/brand-md-analysis-framework.json"
+      - "config/proposal-workspace-month-scope-contract.json"
       - "data/brand-md-monitoring/**"
       - "docs/BRAND64_DAILY_MD_MONITORING.md"
+      - "docs/CODEX_MD_MONTH_PRODUCT_FILTER_TASK.md"
       - "scripts/validate_brand64_daily_freshness.py"
       - "scripts/validate_brand_md_analysis_framework.py"
+      - "scripts/validate_proposal_workspace_month_scope.py"
       - ".github/workflows/monitor-brand64-daily-freshness.yml"
   push:
     branches: [main]
@@ -19,10 +22,13 @@ name: Monitor brand64 daily freshness
       - "config/brand64-active-brands.json"
       - "config/brand64-md-monitoring.json"
       - "config/brand-md-analysis-framework.json"
+      - "config/proposal-workspace-month-scope-contract.json"
       - "data/brand-md-monitoring/**"
       - "docs/BRAND64_DAILY_MD_MONITORING.md"
+      - "docs/CODEX_MD_MONTH_PRODUCT_FILTER_TASK.md"
       - "scripts/validate_brand64_daily_freshness.py"
       - "scripts/validate_brand_md_analysis_framework.py"
+      - "scripts/validate_proposal_workspace_month_scope.py"
       - ".github/workflows/monitor-brand64-daily-freshness.yml"
   workflow_dispatch:
 
@@ -46,3 +52,5 @@ jobs:
         run: python scripts/validate_brand64_daily_freshness.py --max-age-days 1
       - name: Validate tiered brand MD analysis framework
         run: python scripts/validate_brand_md_analysis_framework.py
+      - name: Validate proposal-workspace month-scoped product selection contract
+        run: python scripts/validate_proposal_workspace_month_scope.py
