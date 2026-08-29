@@ -15,29 +15,32 @@
   "deep_dive_brand_count": 3,
   "deep_dive_brand_ids": ["BR-00069","BR-00072","BR-00073"],
   "deep_dive_brand_names": ["DOUDOU","La boutique BonBon","natural couture"],
-  "current_first_seen_product_count": 3,
+  "current_first_seen_product_count": 2,
   "retrospective_backfill_product_count": 0,
-  "formal_product_candidate_count": 3,
+  "existing_product_state_update_count": 1,
+  "formal_product_candidate_count": 2,
   "status_overrides": [
-    {"brand_id":"BR-00072","brand_name":"La boutique BonBon","status":"3_KNIT_FIRST_SEEN_20260829","fact":"公式個別商品ページでヘアリーウールカシミヤ混の婦人ニット3SKU（LBZ1062405A0003 / A0004 / A0007）を本日発売・予約として確認。","official_url":"https://www.palcloset.jp/laboutiquebonbon/","interpretation":"3SKUを当日first-seen候補として保存。条件付き10%OFFクーポンは商品セール価格と分離する。"},
+    {"brand_id":"BR-00072","brand_name":"La boutique BonBon","status":"2_KNIT_FIRST_SEEN_1_EXISTING_STATE_UPDATE_20260829","fact":"公式個別商品ページでヘアリーウールカシミヤ混の婦人ニット3SKU（LBZ1062405A0003 / A0004 / A0007）を本日発売・予約として確認。A0007は8/20保存済みの同ブランド・同商品名・同価格レコードと一致。","official_url":"https://www.palcloset.jp/laboutiquebonbon/","interpretation":"A0003/A0004の2SKUを当日first-seen候補として保存し、A0007は8/20初回観測商品の予約開始・品番・公式URL確定という状態更新として接続する。条件付き10%OFFクーポンは商品セール価格と分離する。"},
     {"brand_id":"BR-00073","brand_name":"natural couture","status":"TIMESALE_15PCT_START_20260829","fact":"公式キャンペーンで8/29 00:00〜8/31 23:59の15%OFF開始を確認。上位対象にフラワースパンコールポケ付きカーディガン、ふわふわファーオフショル風ニットを確認。","official_url":"https://www.palcloset.jp/naturalcouture/","interpretation":"価格・販促状態差分として保持。既存商品の値引きを新商品登録や販売数量シグナルへ置換しない。"},
     {"brand_id":"BR-00069","brand_name":"DOUDOU","status":"TIME_BOUNDARY_RESOLVED_EXISTING_SKU_20260829","fact":"8/28 10:05 JST時点で開始前だった予約ニット群が公式ECで予約・クーポン対象として現在表示。個別確認したスクエアニットロングスリーブプルオーバー DDZ1061105A0015には2026年3月・5月のレビュー履歴があり、8/29新商品ではない。","official_url":"https://www.palcloset.jp/doudou/","interpretation":"前回TIME_BOUNDARYの解消だけを状態差分として記録し、既存SKUを当日first-seenまたは遡及商品として誤登録しない。"}
   ],
   "md_signals": [
     {"code":"HAIRY_WOOL_CASHMERE_FEMININE_0829","fact":"La boutique BonBonで毛90%/カシミヤ10%のワンショルリボンと衿付きカーディガン、毛80%/ポリエステル11%/カシミヤ9%のラメヘアリーオフショルを同日確認。","interpretation":"8G〜12Gで上質毛羽をリボン・衿・オフショル等のフェミニン意匠へ接続し、重量・毛抜け・静電気・ピリングを比較する。"},
     {"code":"PROMOTION_PRICE_BOUNDARY_0829","fact":"La boutique BonBonの条件付き10%OFF、natural coutureの8/29開始15%OFF、DOUDOUの予約10%OFFを確認。","interpretation":"クーポン・TIME SALE・値引き開始を商品需要や販売数量の証拠にしない。"},
+    {"code":"PREANNOUNCED_PRODUCT_ACTIVATED_NOT_NEW_0829","fact":"La boutique BonBon LBZ1062405A0007は8/20に同ブランド・同商品名・同価格で予約開始前商品として保存済み。8/29に品番・個別URL・混率・色・予約状態を確定。","interpretation":"不完全な過去レコードを当日新規へ重複登録せず、既存商品の状態更新・識別情報補完として接続する。"},
     {"code":"TIME_BOUNDARY_RESOLVED_NOT_NEW","fact":"DOUDOUの前日開始前商品が予約状態へ移行したが、個別商品の過去レビューから既存SKUと確認。","interpretation":"開始時刻の解消と新商品first-seenを分離し、既存SKUの再露出を新商品登録しない。"}
   ],
   "risk_notes": [
     {"code":"SOURCE_FRESHNESS_LIMITED","text":"公式ソースで8/29差分を確証できないブランドは『変化なし』と断定せず鮮度限定として保持。"},
     {"code":"PROMOTION_BIAS","text":"条件付きクーポンと15%OFFキャンペーンを販売数量・商品人気から分離。"},
     {"code":"SOURCE_MATERIAL_DESCRIPTION_CONFLICT","text":"La boutique BonBon LBZ1062405A0007は商品コピーにFOX混表現がある一方、アイテム詳細の混率表は毛80%・ポリエステル11%・カシミヤ9%。正式混率は詳細表を優先し、表現競合を保持。"},
+    {"code":"PREVIOUS_BASELINE_MATCH","text":"La boutique BonBon LBZ1062405A0007は8/20保存済みの同ブランド・同商品名・同価格レコードに接続し、8/29新商品件数から除外。"},
     {"code":"TIME_BOUNDARY_RESOLVED_NOT_NEW_PRODUCT","text":"DOUDOU DDZ1061105A0015は8/28開始境界後に予約表示へ移行したが、2026年3月・5月レビューがあるため新商品候補へ昇格しない。"},
-    {"code":"DEDUPED_EXISTING_SKU","text":"8/29正式候補3件は既存product deltaに同一product_code / official_urlがないことを確認。"}
+    {"code":"DEDUPED_EXISTING_SKU","text":"8/29正式候補2件は既存product deltaに同一product_code / official_urlがないことを確認。A0007は過去の不完全レコードへ名称・価格の補助キーで接続。"}
   ],
   "sales_quantity_policy": "NO_ESTIMATION",
   "publication_status": "PUBLISH_HOLD",
   "human_review_required": true,
-  "dedupe_policy": "product_id / product_code / official_url",
+  "dedupe_policy": "product_id / product_code / official_url; when legacy records lack strong IDs, also compare brand + normalized product name + regular price",
   "inactive_legacy_policy": "INACTIVE_LEGACY_REFERENCEはアクティブ64集計に含めない。履歴のみ保持。"
 }
