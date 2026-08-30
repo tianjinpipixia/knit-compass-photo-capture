@@ -37,3 +37,17 @@ ZARA、SNIDEL、GLOBAL WORK、NATURAL BEAUTY BASIC、VIS、ROPÉ PICNIC、PAL系
 ## データ境界
 
 不明項目は `NOT AVAILABLE` のまま保持。公式個別商品ページで確定できない商品は正式候補にしない。404・掲載終了が今後発生した場合も既存レコードは削除せず、最終確認情報を `SOURCE_OFFLINE` 等で保持する。product_id / product_code / official_url を優先し、過去レコードに強い識別子がない場合はブランド＋正規化商品名＋上代でも重複照合する。
+
+<!-- KC_RETROSPECTIVE_SEASON_BACKFILL:START -->
+## 2026年春先遡及（当日差分とは別集計）
+
+- 対象期間: `2026-01-01/2026-04-30`
+- 当日春先遡及: **0件**
+- 春先遡及累積: **0件**
+- 実行条件: 当日64ブランド確認完了、かつ未処理日なしの場合のみ
+- 区分: `RETROSPECTIVE_BASELINE`（当日新規・通常の遡及候補には加算しない）
+- 根拠: 公式個別商品ページのみ。不明項目は推測しない
+- 公開境界: `PUBLISH_HOLD / HUMAN_REVIEW_REQUIRED`
+- 保存先: `data/brand-md-monitoring/2026-spring-retrospective-baselines.json`
+- 実データ再集計: `data/brand-md-monitoring/2026-08-29-retrospective-season-backfill-report.json`
+<!-- KC_RETROSPECTIVE_SEASON_BACKFILL:END -->

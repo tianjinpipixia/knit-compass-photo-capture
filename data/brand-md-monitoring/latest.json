@@ -15,7 +15,10 @@
   "comparison_base_path": "data/brand-md-monitoring/2026-08-28-brand64-daily.json",
   "active_daily_overlay_paths": [],
   "observation_gap_dates": [],
-  "recovered_observation_dates": ["2026-08-22","2026-08-26"],
+  "recovered_observation_dates": [
+    "2026-08-22",
+    "2026-08-26"
+  ],
   "light_check_count": 64,
   "deep_dive_brand_count": 3,
   "current_first_seen_product_count": 2,
@@ -29,5 +32,10 @@
   "dedupe_policy": "Deduplicate by product_id, official product URL and product code. When a legacy record lacks those strong IDs, also compare brand, normalized product name and regular price.",
   "sales_quantity_policy": "NO_ESTIMATION",
   "publication_status": "PUBLISH_HOLD",
-  "human_review_required": true
+  "human_review_required": true,
+  "retrospective_season_backfill_count": 0,
+  "retrospective_season_backfill_cumulative_count": 0,
+  "retrospective_period": "2026-01-01/2026-04-30",
+  "retrospective_season_backfill_path": "data/brand-md-monitoring/2026-spring-retrospective-baselines.json",
+  "retrospective_season_backfill_report_path": "data/brand-md-monitoring/2026-08-29-retrospective-season-backfill-report.json"
 }
