@@ -1,15 +1,15 @@
 {
   "format": "KC_BRAND64_MATERIAL_PROPOSALS",
   "schema_version": "1.3",
-  "observed_date": "2026-08-29",
+  "observed_date": "2026-08-30",
   "observation_mode": "DAILY_LIVE",
   "active_brand_source": "config/brand64-active-brands.json",
-  "source_daily_path": "data/brand-md-monitoring/2026-08-29-brand64-daily.json",
+  "source_daily_path": "data/brand-md-monitoring/2026-08-30-brand64-daily.json",
   "active_daily_overlay_paths": [],
-  "source_summary_path": "data/brand-md-monitoring/2026-08-29-brand64-summary.md",
-  "product_baseline_path": "data/brand-md-monitoring/2026-08-29-product-baseline-snapshots.jsonl",
+  "source_summary_path": "data/brand-md-monitoring/2026-08-30-brand64-summary.md",
+  "product_baseline_path": "data/brand-md-monitoring/2026-08-30-product-baseline-snapshots.jsonl",
   "observed_brand_count": 64,
-  "comparison_scope": "2026-08-29 DAILY_LIVE observation compared with 2026-08-28. Only official-source differences are translated; promotion, descriptive-material conflicts and resolved time boundaries remain separate from demand evidence.",
+  "comparison_scope": "2026-08-30 DAILY_LIVE observation compared with 2026-08-29. Current official individual-product-page evidence is translated while unresolved prior MD drafts remain visible; source-date uncertainty, retrospective timing and promotion remain separate from demand evidence.",
   "sales_quantity_status": "NOT_AVAILABLE",
   "sales_quantity_estimation": "FORBIDDEN",
   "catalog_boundary": "OFFICIAL_INDIVIDUAL_PRODUCT_PAGE_REQUIRED_FOR_FORMAL_CANDIDATE / LISTING_AND_NEWS_SIGNALS_REMAIN_OBSERVATION_ONLY",
@@ -54,6 +54,45 @@
       "minimum_term_matches": 0,
       "primary_query": "",
       "material_proposal": "販促・時刻境界・再露出は素材開発の直接根拠にせず、商品シグナルから分離した観測属性として保持する。"
+    },
+    {
+      "id": "BR64-MD-20260830-ZARA-OPEN-BACK-FIT",
+      "title": "12G〜16G 背面開きフィットニット",
+      "status": "MD_DRAFT",
+      "publication_status": "PUBLISH_HOLD",
+      "scope_note": "ZARA公式個別ページで3433/006/800のVネック、ロングスリーブ、オープンバック、クロスコード、¥4,390、ブラックを確認。",
+      "observed_signal": "背面開きとクロスコードを持つフィットニットが8/30監視上のCURRENT_FIRST_SEENとして保存された。",
+      "market_change": "公式発売日は不明のため、発売日の根拠ではなく8/30の初回観測商品として扱う。",
+      "candidate_terms": ["细针", "弹力", "高回复", "贴身", "抗变形"],
+      "minimum_term_matches": 1,
+      "primary_query": "细针 弹力 高回复 贴身",
+      "material_proposal": "12G〜16Gの細番手で、背面開きとフィット感を両立する伸縮性、戻り、透け、縫い代安定性を比較する。"
+    },
+    {
+      "id": "BR64-MD-20260830-SNIDEL-PEPLUM-STRUCTURE",
+      "title": "構築ペプラム × 異素材接続",
+      "status": "MD_DRAFT",
+      "publication_status": "PUBLISH_HOLD",
+      "scope_note": "SNIDEL公式個別ページでSWNJ264260のヴィスコース混本体、ペプラム、チュール、レース、3色、9月上旬出荷予定を確認。",
+      "observed_signal": "ペプラム形状とチュールレース接続を持つ予約ニットジャケットをRETROSPECTIVE_BACKFILLとして保存した。",
+      "market_change": "当日以前から掲載されていた可能性があるため、8/30の当日新商品ではなく時点不確定の遡及候補として扱う。",
+      "candidate_terms": ["粘胶", "罗马布", "高回复", "挺括", "拼接"],
+      "minimum_term_matches": 1,
+      "primary_query": "粘胶 高回复 挺括 拼接",
+      "material_proposal": "高〜中ゲージのレーヨン混構築ニットで、ペプラム形状保持、異素材接続部の伸び差、重量、洗濯後外観を比較する。"
+    },
+    {
+      "id": "BR64-MD-20260830-PROMOTION-INVENTORY-BOUNDARY",
+      "title": "値引き・在庫表示を需要から分離",
+      "status": "OPERATIONAL_DRAFT",
+      "publication_status": "PUBLISH_HOLD",
+      "scope_note": "Whim Gazette既存品WGZ1032306A0002で¥16,500から¥14,850への表示、10%OFF案内、在庫なしを確認。",
+      "observed_signal": "価格、販促、在庫の表示状態が変化したが、販売数量は確認できない。",
+      "market_change": "既存商品の状態差分として保持し、新商品件数や素材需要の根拠には加算しない。",
+      "candidate_terms": [],
+      "minimum_term_matches": 0,
+      "primary_query": "",
+      "material_proposal": "値引き、クーポン、在庫表示は商品需要や販売数量へ変換せず、商品シグナルと分離した観測属性として保持する。"
     }
   ]
 }

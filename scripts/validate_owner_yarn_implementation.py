@@ -208,7 +208,10 @@ assert md_proposals.get("format") == "KC_BRAND64_MATERIAL_PROPOSALS"
 assert md_proposals.get("observed_brand_count") == 64
 assert md_proposals.get("sales_quantity_status") == "NOT_AVAILABLE"
 assert md_proposals.get("sales_quantity_estimation") == "FORBIDDEN"
-assert md_proposals.get("catalog_boundary") == "CATALOG_INDEXED / LISTING_PAGE_ONLY / NOT_PROMOTED"
+assert md_proposals.get("catalog_boundary") == (
+    "OFFICIAL_INDIVIDUAL_PRODUCT_PAGE_REQUIRED_FOR_FORMAL_CANDIDATE / "
+    "LISTING_AND_NEWS_SIGNALS_REMAIN_OBSERVATION_ONLY"
+)
 assert md_proposals.get("publication_status") == "PUBLISH_HOLD"
 assert len(md_proposals.get("proposals", [])) >= 3
 assert all(

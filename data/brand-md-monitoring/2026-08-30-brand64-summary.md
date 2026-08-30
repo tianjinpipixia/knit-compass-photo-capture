@@ -29,3 +29,17 @@
 ## データ境界
 
 公式個別商品ページで確認できない項目は推測で補完していません。公式発売日が不明な商品はSOURCE_DATE_UNAVAILABLE、遡及時点が確定できない商品はRETROSPECTIVE_TIMING_UNCERTAINとして保持します。404・掲載終了が将来発生しても既存レコードを削除せず最終確認情報を保持します。
+
+<!-- KC_RETROSPECTIVE_SEASON_BACKFILL:START -->
+## 2026年春先遡及（当日差分とは別集計）
+
+- 対象期間: `2026-01-01/2026-04-30`
+- 当日春先遡及: **0件**
+- 春先遡及累積: **0件**
+- 実行条件: 当日64ブランド確認完了、かつ未処理日なしの場合のみ
+- 区分: `RETROSPECTIVE_BASELINE`（当日新規・通常の遡及候補には加算しない）
+- 根拠: 公式個別商品ページのみ。不明項目は推測しない
+- 公開境界: `PUBLISH_HOLD / HUMAN_REVIEW_REQUIRED`
+- 保存先: `data/brand-md-monitoring/2026-spring-retrospective-baselines.json`
+- 実データ再集計: `data/brand-md-monitoring/2026-08-30-retrospective-season-backfill-report.json`
+<!-- KC_RETROSPECTIVE_SEASON_BACKFILL:END -->

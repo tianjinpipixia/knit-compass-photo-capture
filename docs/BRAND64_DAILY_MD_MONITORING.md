@@ -1,6 +1,6 @@
 # 64ブランド 日次観測 → ブランド別MDプラン
 
-更新日: 2026-08-20
+更新日: 2026-08-30
 
 ## 目的
 64ブランドを一度確認して終わりにせず、日次で変化を拾い、週次で意味づけし、月次でブランド別MDプランに変換する。アクティブ監視対象の単一ソースは `config/brand64-active-brands.json` とする。
@@ -138,6 +138,44 @@ Tier Aでは上記に加えて、販売開始日、新色追加、再入荷、�
 - 掲載終了は `SOURCE_OFFLINE` 等で扱い、最終確認情報を残す
 - 取引先非公開情報は混ぜない
 
+### 余力がある日 — 2026年春先の遡及ベースライン
+
+春先遡及は通常の日次処理ではなく、次の順序をすべて満たした後だけ実行する。
+
+1. 実行日のBrand64当日観測を64/64ブランドまで完了し、商品0件でも `latest.json` の観測日を実行日へ進める
+2. `observation_gap_dates` に残る未処理日をすべて補完する
+3. なお余力がある場合だけ、2026-01-01〜2026-04-30の婦人ニットを少量遡及する
+
+未処理日が1日でも残る、当日確認が64/64未満、または `latest.json` が当日へ進んでいない場合、春先遡及は `SKIPPED` とし、台帳・日次件数を変更しない。
+
+優先順は GLOBAL WORK、NATURAL BEAUTY BASIC、VIS、ROPÉ PICNIC、PAL系10ブランド、ZARA、SNIDEL、そのほか既存重点ブランドとする。1回最大4件、同一ブランド最大2件とし、少量ずつ積み上げる。
+
+保存条件:
+
+- 公式の個別商品ページで商品を確認できた場合だけ保存する。カテゴリ一覧、検索結果、第三者ECだけでは保存しない
+- 公式ページ上の発売日、予約日、公開日、または明示された2026春/SS表記を `period_evidence` として保持する
+- `record_scope` と `observation_kind` は `RETROSPECTIVE_BASELINE` とする。既存の `RETROSPECTIVE_BACKFILL`（通常の日次遡及候補）や `CURRENT_FIRST_SEEN`（当日新規）へ混ぜない
+- ブランド名、商品名、品番、通常価格、セール価格、素材混率、機能表示、カラー、発売/予約状態、公式商品URL、確認日時を公式表示の範囲だけ保持する。不明値は `null` とし、推測しない
+- 販売数量は `NOT_AVAILABLE`、推定方針は `FORBIDDEN` のままとする
+- 同一品番またはクエリを除いた同一公式URLが、既存の日次商品基準または春先台帳にあれば新規追加しない
+- 404/掲載終了は既存の春先台帳レコードに対する `SOURCE_OFFLINE` 更新として扱い、最終確認済みの商品情報を消さない
+- `PUBLISH_HOLD / HUMAN_REVIEW_REQUIRED` を維持する
+
+保存先は `data/brand-md-monitoring/2026-spring-retrospective-baselines.json`。日別の実行結果は `data/brand-md-monitoring/YYYY-MM-DD-retrospective-season-backfill-report.json` に保存する。
+
+春先台帳の各行には、V04の商品delta/候補アーカイブへ同じ識別子で接続できる `product_id`、`product_url`、`source_type`、`record_scope`、`PUBLISH_HOLD` 関連フィールドも併記する。V04側は候補アーカイブとlatest deltaの実データ和集合を品番/URL/IDで重複排除し、`RETROSPECTIVE_BASELINE` だけを春先遡及指標として再集計する。
+
+公式個別ページで確認済みのJSON/JSONLを用意した後、次のコマンドでゲート判定、重複排除、少量選択、台帳保存、日次サマリーとlatestの再集計を一度に行う。
+
+```sh
+python scripts/brand64_retrospective_baseline.py \
+  --date YYYY-MM-DD \
+  --input verified-spring-products.jsonl \
+  --apply --strict
+```
+
+入力が0件でも同じ再集計を行い、春先遡及件数を0として明示する。当日新規、通常の日次遡及、春先遡及はそれぞれ `current_first_seen_product_count`、`retrospective_backfill_product_count`、`retrospective_season_backfill_count` で別集計する。`formal_product_candidate_count` の従来定義は変えない。
+
 ### 毎週 — Weekly Brand Signal
 日次差分をブランド単位で集約する。
 
@@ -192,9 +230,11 @@ Tier Aでは特に、発売日順に並べたブランド月次タイムライ�
 
 > Knit Compassのアクティブ64ブランドについて、`config/brand64-active-brands.json` を正本として公式サイト・公式ECの公開情報だけを確認し、前回観測との差分をブランド別に記録してください。分析方式は `config/brand-md-analysis-framework.json` に従ってください。対象はレディースニット中心です。新着、予約、値下げ、商品終了、価格、混率、機能、カラー、シルエット、編地、商品名、品番、公式URLを確認してください。Tier Aの11ブランドは発売時系列を深掘りし、first_seen_date、preorder_start_date、sales_start_date、新色追加、再入荷、販促再プッシュ、掲載終了を可能な限り分離して記録してください。first_seen_dateを販売開始日とみなさず、販売開始日は明示根拠を優先し、推定の場合は推定と明記してください。GUはTREND、UNIQLOはLIFEというKnit Compass内部モデルで比較し、GUのトレンド需要がUNIQLOで生活需要へどう翻訳されるかを、形、ディテール、素材、機能、価格、色、サイズ、ケア性の変更点から比較してください。類似だけでコピーとは判定しないでください。PAL系10ブランドはPAL CLOSET共通ニット入口と各ブランド公式ページの新着・予約・SALE・ランキングを毎日確認し、週次では人気順変化も記録してください。ZARAはTHE NEW / レディースニット / Special Pricesを毎日軽量確認し、週次では新シルエット・表面感・カラー・価格帯・値下げ深度・商品回転を先行MDシグナルとして整理してください。SNIDELはNEW / 予約 / SALE / SOLD OUT / ニット / カーディガンを毎日軽量確認し、意匠・機能表示・表面感・カラー・価格帯・予約→発売を先行MDシグナルとして整理してください。販売数量は一次根拠がある場合だけ保存し、推定しないでください。事実と解釈を分離し、事実には公式URLを付けてください。同一URL・同一品番は重複登録しないでください。初回発見時の基準情報は保持し、後日404や掲載終了になっても削除しないでください。変更がないブランドも観測済みを残してください。旧INACTIVEブランドは日次アクティブ集計に混ぜず、履歴参照としてのみ保持してください。
 
+> 当日64/64確認と未処理日補完がすべて完了し、なお余力がある場合だけ、2026年1〜4月の婦人ニットをGLOBAL WORK、NATURAL BEAUTY BASIC、VIS、ROPÉ PICNIC、PAL系、ZARA、SNIDELの順で1回最大4件・同一ブランド最大2件まで遡及してください。公式個別商品ページで確認でき、公式上の期間根拠がある商品だけを `RETROSPECTIVE_BASELINE` として分離保存してください。当日新規や通常の日次遡及へ加算せず、不明値はnull、販売数量はNOT_AVAILABLE、PUBLISH_HOLD / HUMAN_REVIEW_REQUIREDを維持してください。
+
 週次では `config/md-external-signal-brands.json` のPLST / FRAY I.D / H&M / COS / MANGO / NOLLEY'S / BEAUTY&YOUTHも公式入口で軽量確認し、64ブランドのMDを補正する比較材料としてまとめる。
 
 ## 重要
 この指示ファイルだけではGeminiを自動実行しない。Gemini API / Gemini側の定期実行環境が接続された場合に、この内容を固定プロンプトとして使う。Knit Compass側のMDデータはHuman Review後にのみ確定する。
 
-GitHub Actionsの `monitor-brand64-daily-freshness.yml` は毎朝6:40（日本時間）に、最新のアクティブ64ブランドが揃っていること、BR-ID/ブランド名の重複がないこと、INACTIVEブランドがアクティブ一覧に戻っていないこと、PAL10ブランド・ZARA・SNIDELの公式URLが保持されること、外部シグナル7ブランドがBrand64外として定義されること、販売数量非推定・公開保留が維持されることを確認する。加えてTier A 11ブランド、GU=TREND / UNIQLO=LIFEの内部分析モデル、販売開始日と初回発見日の分離ルールをCIで検証する。これは外部サイトを自動調査する処理ではなく、更新漏れや古い提案を「最新」と扱わないための監視である。
+GitHub Actionsの `monitor-brand64-daily-freshness.yml` は毎朝6:40（日本時間）に、最新のアクティブ64ブランドが揃っていること、BR-ID/ブランド名の重複がないこと、INACTIVEブランドがアクティブ一覧に戻っていないこと、PAL10ブランド・ZARA・SNIDELの公式URLが保持されること、外部シグナル7ブランドがBrand64外として定義されること、販売数量非推定・公開保留が維持されることを確認する。加えてTier A 11ブランド、GU=TREND / UNIQLO=LIFEの内部分析モデル、販売開始日と初回発見日の分離ルール、春先遡及ゲート、公式個別ページ限定、品番/URL重複排除、日次/累積件数の実データ再集計をCIで検証する。これは外部サイトを自動調査する処理ではなく、更新漏れや古い提案を「最新」と扱わないための監視である。

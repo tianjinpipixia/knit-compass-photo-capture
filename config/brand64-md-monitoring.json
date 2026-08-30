@@ -1,7 +1,7 @@
 {
   "format": "KC_BRAND64_MD_MONITORING",
-  "schema_version": "1.4",
-  "updated_at": "2026-08-20T13:15:00+09:00",
+  "schema_version": "1.5",
+  "updated_at": "2026-08-30T00:00:00+09:00",
   "scope": "64 active brands / women's knit focus",
   "active_brand_source": "config/brand64-active-brands.json",
   "active_brand_count": 64,
@@ -128,6 +128,57 @@
       ],
       "use_external_weekly_signals_as_context": true
     }
+  },
+  "retrospective_season_backfill": {
+    "status": "ENABLED_WHEN_DAILY_CAPACITY_REMAINS",
+    "scope": "WOMEN_KNIT",
+    "retrospective_period": "2026-01-01/2026-04-30",
+    "execution_order": [
+      "CURRENT_DAY_BRAND64_COMPLETE",
+      "UNPROCESSED_OBSERVATION_DATES_RECOVERED",
+      "RETROSPECTIVE_BASELINE"
+    ],
+    "readiness": {
+      "latest_observed_date_must_equal_run_date": true,
+      "required_light_check_count": 64,
+      "required_checked_brand_count": 64,
+      "observation_gap_dates_must_be_empty": true
+    },
+    "priority_brand_ids": [
+      "BR-00006",
+      "BR-00051",
+      "BR-00005",
+      "BR-00004",
+      "BR-00065",
+      "BR-00066",
+      "BR-00067",
+      "BR-00068",
+      "BR-00069",
+      "BR-00070",
+      "BR-00071",
+      "BR-00072",
+      "BR-00073",
+      "BR-00074",
+      "BR-00075",
+      "BR-00076"
+    ],
+    "selection_policy": "PRIORITY_ORDER_WITH_SMALL_PER_BRAND_BATCH",
+    "max_products_per_run": 4,
+    "max_products_per_brand_per_run": 2,
+    "accepted_source_kinds": [
+      "OFFICIAL_PRODUCT_PAGE",
+      "OFFICIAL_EC_PRODUCT_PAGE"
+    ],
+    "require_official_individual_product_url": true,
+    "record_scope": "RETROSPECTIVE_BASELINE",
+    "ledger_path": "data/brand-md-monitoring/2026-spring-retrospective-baselines.json",
+    "report_path_pattern": "data/brand-md-monitoring/{observed_date}-retrospective-season-backfill-report.json",
+    "v04_projection": "LEDGER_ROWS_INCLUDE_PRODUCT_ID_PRODUCT_URL_SOURCE_TYPE_AND_PUBLISH_HOLD_FIELDS",
+    "dedupe_keys": ["product_code", "official_url"],
+    "source_offline_status": "SOURCE_OFFLINE",
+    "publication_status": "PUBLISH_HOLD",
+    "human_review_required": true,
+    "sales_quantity_estimation": "FORBIDDEN"
   },
   "rules": {
     "official_sources_first": true,
