@@ -1,0 +1,78 @@
+{
+  "format": "KC_BRAND64_DAILY_OBSERVATION",
+  "schema_version": "1.5",
+  "observed_date": "2026-08-30",
+  "observed_at": "2026-08-30T10:03:44+09:00",
+  "observation_mode": "DAILY_LIVE",
+  "previous_observation_date": "2026-08-29",
+  "observation_gap_dates": [],
+  "active_brand_source": "config/brand64-active-brands.json",
+  "active_brand_count": 64,
+  "scope": "WOMEN_KNIT",
+  "light_check_count": 64,
+  "checked_brand_ids": ["BR-00001","BR-00002","BR-00003","BR-00004","BR-00005","BR-00006","BR-00007","BR-00008","BR-00009","BR-00010","BR-00011","BR-00012","BR-00013","BR-00014","BR-00015","BR-00016","BR-00017","BR-00018","BR-00019","BR-00021","BR-00022","BR-00023","BR-00024","BR-00025","BR-00027","BR-00028","BR-00030","BR-00031","BR-00032","BR-00033","BR-00035","BR-00036","BR-00039","BR-00040","BR-00041","BR-00042","BR-00047","BR-00049","BR-00050","BR-00051","BR-00052","BR-00053","BR-00054","BR-00055","BR-00056","BR-00057","BR-00058","BR-00059","BR-00060","BR-00062","BR-00063","BR-00064","BR-00065","BR-00066","BR-00067","BR-00068","BR-00069","BR-00070","BR-00071","BR-00072","BR-00073","BR-00074","BR-00075","BR-00076"],
+  "source_groups_checked": ["UNIQLO","GU","MUJI","JUN ONLINE","dot-st","STRIPE CLUB","WORLD ONLINE STORE","ONWARD CROSSET","BAYCREW'S STORE","UNITED ARROWS","PAL CLOSET","ZARA JAPAN","USAGI ONLINE/SNIDEL","coen","DoCLASSE","URBAN RESEARCH","CAN ONLINE SHOP","Mila Owen"],
+  "default_brand_status": "NO_CONFIRMED_DELTA_OR_SOURCE_FRESHNESS_LIMITED",
+  "deep_dive_brand_count": 3,
+  "deep_dive_brand_ids": ["BR-00066","BR-00075","BR-00076"],
+  "deep_dive_brand_names": ["Whim Gazette","ZARA","SNIDEL"],
+  "current_first_seen_product_count": 1,
+  "retrospective_backfill_product_count": 1,
+  "existing_product_state_update_count": 1,
+  "formal_product_candidate_count": 2,
+  "status_overrides": [
+    {
+      "brand_id": "BR-00075",
+      "brand_name": "ZARA",
+      "status": "CURRENT_FIRST_SEEN_NEW_KNIT_20260830",
+      "fact": "ZARA WOMAN公式ニットトップス一覧でNEW表示の『クロスバック ニットトップス』を確認し、公式個別商品ページで品番3433/006/800、価格¥4,390、ブラックを確認。前日までのBrand64保存データとconnected deltaに同品番の記録なし。",
+      "official_url": "https://www.zara.com/jp/ja/%E3%83%8F%E3%82%99%E3%83%83%E3%82%AF%E3%82%AF%E3%83%AD%E3%82%B9-%E3%83%8B%E3%83%83%E3%83%88%E3%83%88%E3%83%83%E3%83%95%E3%82%9A%E3%82%B9-p03433006.html",
+      "interpretation": "8/30監視上のCURRENT_FIRST_SEENとして保存。公式発売日はページに明示されていないため推測しない。"
+    },
+    {
+      "brand_id": "BR-00076",
+      "brand_name": "SNIDEL",
+      "status": "RETROSPECTIVE_MISSED_RESERVATION_KNIT_20260830",
+      "fact": "USAGI ONLINE公式SNIDELニット一覧で『ペプラムニットジャケット』を予約・newとして確認。個別ページでメーカー品番SWNJ264260、¥19,800、9月上旬出荷予定、混率、3色を確認。ページ自体は当日以前から存在する可能性があるため8/30当日新規とはせず遡及候補へ分類。",
+      "official_url": "https://usagi-online.com/brand/snidel/item/SND0126F0056",
+      "interpretation": "RETROSPECTIVE_BACKFILLとして保存し、正確な初回掲載日を推測しない。"
+    },
+    {
+      "brand_id": "BR-00066",
+      "brand_name": "Whim Gazette",
+      "status": "PROMOTION_PRICE_LISTING_STATE_20260830",
+      "fact": "公式個別ページWGZ1032306A0002『コンパクトダンボールプルオーバー』で通常¥16,500に対し¥14,850表示、10%OFF案内、表示色の在庫なしを確認。商品自体は既存品のため新規候補にはしない。",
+      "official_url": "https://www.palcloset.jp/display/item/WGZ1032306A0002/",
+      "interpretation": "価格・販促・掲載状態の差分としてのみ保存し、販売数量や需要の証拠にはしない。"
+    }
+  ],
+  "md_signals": [
+    {
+      "code": "ZARA_OPEN_BACK_FITTED_NEW_0830",
+      "fact": "ZARAでVネック・ロングスリーブ・オープンバック・クロスコードのフィットニットがNEW表示。",
+      "interpretation": "12G〜16Gの細番手で背面開きとフィット感を両立する伸縮性・形態安定性を確認する。"
+    },
+    {
+      "code": "SNIDEL_PEPLUM_KNIT_STRUCTURE_BACKFILL_0830",
+      "fact": "SNIDELでヴィスコース混のペプラムニットジャケットを遡及確認。チュールレースパニエ付き、9月上旬出荷予定。",
+      "interpretation": "高ゲージ〜中ゲージの構築ニットで、ペプラム形状保持と異素材接続の設計を継続観測する。"
+    },
+    {
+      "code": "PROMOTION_PRICE_BOUNDARY_0830",
+      "fact": "Whim Gazette公式個別ページで10%OFF表示と在庫なしを確認。PAL全体でもTIME SALE継続案内あり。",
+      "interpretation": "値引き・クーポン・在庫表示を商品需要や販売数量の根拠にしない。"
+    }
+  ],
+  "risk_notes": [
+    {"code":"SOURCE_FRESHNESS_LIMITED","text":"8/30差分を公式個別ページまで確証できないブランドは『変化なし』と断定せず鮮度限定として保持。"},
+    {"code":"PROMOTION_BIAS","text":"Whim Gazetteの10%OFF表示やPALの販促を販売数量・人気シグナルから分離。"},
+    {"code":"SOURCE_DATE_UNAVAILABLE","text":"ZARA 3433/006/800は8/30の公式一覧でNEWかつ個別ページ確認済みだが、公式発売日は明示なし。発売日を推測しない。"},
+    {"code":"RETROSPECTIVE_TIMING_UNCERTAIN","text":"SNIDEL SWNJ264260は当日以前から公式ページが存在した可能性があるため、8/30当日新規ではなく遡及候補として保持。"},
+    {"code":"DEDUPED_EXISTING_SKU","text":"8/30正式候補2件は既存Brand64保存データ・connected deltaに同一product_codeがないことを確認。Whim Gazette WGZ1032306A0002は状態差分のみで候補件数に加算しない。"}
+  ],
+  "sales_quantity_policy": "NO_ESTIMATION",
+  "publication_status": "PUBLISH_HOLD",
+  "human_review_required": true,
+  "dedupe_policy": "product_id / product_code / official_url; when legacy records lack strong IDs, also compare brand + normalized product name + regular price",
+  "inactive_legacy_policy": "INACTIVE_LEGACY_REFERENCEはアクティブ64集計に含めない。履歴のみ保持。"
+}
