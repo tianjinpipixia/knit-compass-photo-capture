@@ -72,10 +72,16 @@ class RetrospectiveBaselineTest(unittest.TestCase):
             "metrics": {"retrospective_season_backfill_cumulative_count": 0, "counts_by_brand": {}},
         })
         (root / "data/brand-md-monitoring/2026-08-29-product-baseline-snapshots.jsonl").write_text(
-            json.dumps({
-                "product_code": "EXISTING-1",
-                "official_url": "https://official.example/products/existing-1",
-            }) + "\n",
+            "\n".join([
+                json.dumps({
+                    "product_code": "EXISTING-1",
+                    "official_url": "https://official.example/products/existing-1",
+                }),
+                json.dumps({
+                    "product_code": None,
+                    "official_product_url": "https://official.example/products/legacy-url-only",
+                }),
+            ]) + "\n",
             encoding="utf-8",
         )
         return root
@@ -121,6 +127,18 @@ class RetrospectiveBaselineTest(unittest.TestCase):
         self.assertEqual(latest["observed_date"], "2026-08-30")
         self.assertEqual(latest["retrospective_season_backfill_count"], 0)
         self.assertEqual(report["retrospective_season_backfill_count"], 0)
+
+    def test_gate_rejects_same_size_brand_set_with_unknown_replacement(self) -> None:
+        root = self.fixture()
+        daily_path = root / "data/brand-md-monitoring/2026-08-30-brand64-daily.json"
+        daily = json.loads(daily_path.read_text(encoding="utf-8"))
+        daily["checked_brand_ids"] = ["BR-00001", "BR-99999"]
+        write_json(daily_path, daily)
+
+        report = execute(root, run_date="2026-08-30", apply=True)
+
+        self.assertEqual(report["status"], "SKIPPED")
+        self.assertIn("CURRENT_DAY_BRAND_SET_INCOMPLETE", report["gate_reasons"])
 
     def test_ingest_uses_official_pages_dedupes_and_recounts_actual_rows(self) -> None:
         root = self.fixture()
@@ -171,6 +189,18 @@ class RetrospectiveBaselineTest(unittest.TestCase):
         write_json(input_path, [candidate])
         with self.assertRaises(ValueError):
             execute(root, run_date="2026-08-30", input_path=input_path, apply=True, strict=True)
+
+    def test_legacy_official_product_url_is_deduplicated(self) -> None:
+        root = self.fixture()
+        candidate = self.candidate("BR-00002", "VIS", "LEGACY-URL-NEW-CODE")
+        candidate["official_url"] = "https://official.example/products/legacy-url-only?tracking=1"
+        input_path = root / "legacy-url-input.json"
+        write_json(input_path, [candidate])
+
+        report = execute(root, run_date="2026-08-30", input_path=input_path, apply=True, strict=True)
+
+        self.assertEqual(report["accepted_count"], 0)
+        self.assertEqual(report["duplicate_existing_count"], 1)
 
 
 if __name__ == "__main__":

@@ -91,7 +91,12 @@ def normalized_code(value: Any) -> str:
 
 def strong_keys(row: dict[str, Any]) -> list[str]:
     code = normalized_code(row.get("product_code"))
-    url = canonical_url(row.get("official_url") or row.get("product_url") or row.get("source_url"))
+    url = canonical_url(
+        row.get("official_url")
+        or row.get("official_product_url")
+        or row.get("product_url")
+        or row.get("source_url")
+    )
     return [key for key in (f"code:{code}" if code else "", f"url:{url}" if url else "") if key]
 
 
@@ -282,6 +287,7 @@ def readiness(
     daily: dict[str, Any],
     run_date: str,
     policy: dict[str, Any],
+    active_brand_ids: set[str],
 ) -> tuple[bool, list[str]]:
     reasons: list[str] = []
     gate = policy.get("readiness", {})
@@ -291,7 +297,10 @@ def readiness(
         reasons.append("DAILY_DATE_NOT_ADVANCED")
     if daily.get("light_check_count", daily.get("light_check_completed")) != gate.get("required_light_check_count"):
         reasons.append("CURRENT_DAY_LIGHT_SCAN_INCOMPLETE")
-    if len(set(daily.get("checked_brand_ids", []))) != gate.get("required_checked_brand_count"):
+    checked_brand_ids = set(daily.get("checked_brand_ids", []))
+    if len(checked_brand_ids) != gate.get("required_checked_brand_count"):
+        reasons.append("CURRENT_DAY_BRAND_SET_INCOMPLETE")
+    elif checked_brand_ids != active_brand_ids:
         reasons.append("CURRENT_DAY_BRAND_SET_INCOMPLETE")
     gaps = sorted(set(latest.get("observation_gap_dates", [])) | set(daily.get("observation_gap_dates", [])))
     if gate.get("observation_gap_dates_must_be_empty") and gaps:
@@ -447,7 +456,13 @@ def execute(
     ledger = read_json(ledger_path)
     validate_ledger(ledger, period=period, accepted_source_kinds=accepted_source_kinds, active_brands=active)
 
-    eligible, gate_reasons = readiness(latest=latest, daily=daily, run_date=run_date, policy=policy)
+    eligible, gate_reasons = readiness(
+        latest=latest,
+        daily=daily,
+        run_date=run_date,
+        policy=policy,
+        active_brand_ids=set(active),
+    )
     if not eligible:
         if strict:
             raise RuntimeError("retrospective backfill gate closed: " + ", ".join(gate_reasons))
