@@ -11,6 +11,8 @@ name: Monitor brand64 daily freshness
       - "data/brand-md-monitoring/**"
       - "docs/BRAND64_DAILY_MD_MONITORING.md"
       - "scripts/validate_brand64_daily_freshness.py"
+      - "scripts/brand64_retrospective_baseline.py"
+      - "tests/test_brand64_retrospective_baseline.py"
       - "scripts/validate_brand_md_analysis_framework.py"
       - ".github/workflows/monitor-brand64-daily-freshness.yml"
   push:
@@ -22,6 +24,8 @@ name: Monitor brand64 daily freshness
       - "data/brand-md-monitoring/**"
       - "docs/BRAND64_DAILY_MD_MONITORING.md"
       - "scripts/validate_brand64_daily_freshness.py"
+      - "scripts/brand64_retrospective_baseline.py"
+      - "tests/test_brand64_retrospective_baseline.py"
       - "scripts/validate_brand_md_analysis_framework.py"
       - ".github/workflows/monitor-brand64-daily-freshness.yml"
   workflow_dispatch:
@@ -44,5 +48,7 @@ jobs:
           python-version: "3.12"
       - name: Require a current active 64-brand observation and matching proposals
         run: python scripts/validate_brand64_daily_freshness.py --max-age-days 1
+      - name: Test gated spring retrospective baseline handling
+        run: python -m unittest tests/test_brand64_retrospective_baseline.py -v
       - name: Validate tiered brand MD analysis framework
         run: python scripts/validate_brand_md_analysis_framework.py
