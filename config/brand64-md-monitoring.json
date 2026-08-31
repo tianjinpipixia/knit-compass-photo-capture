@@ -1,7 +1,7 @@
 {
   "format": "KC_BRAND64_MD_MONITORING",
-  "schema_version": "1.5",
-  "updated_at": "2026-08-30T00:00:00+09:00",
+  "schema_version": "1.6",
+  "updated_at": "2026-09-01T08:45:00+09:00",
   "scope": "64 active brands / women's knit focus",
   "active_brand_source": "config/brand64-active-brands.json",
   "active_brand_count": 64,
@@ -98,7 +98,19 @@
         "material_development_implication",
         "next_checks"
       ],
-      "external_signal_mode": "WEEKLY_LIGHT_SCAN_AND_COMPARISON"
+      "external_signal_mode": "WEEKLY_LIGHT_SCAN_AND_COMPARISON",
+      "canonical_storage": {
+        "save_required": true,
+        "report_path_pattern": "data/brand-md-monitoring/weekly/{period_start}_{period_end}-brand64-weekly-md.md",
+        "latest_pointer_path": "data/brand-md-monitoring/brand64-weekly-md-latest.json",
+        "source_lineage_required": true,
+        "facts_require_official_url_or_saved_official_source_record": true,
+        "inactive_legacy_excluded_from_active_aggregation": true,
+        "limited_state_rule": "SOURCE_SHORTAGE_OR_CONFLICT_IS_NOT_NO_CHANGE",
+        "sales_quantity_estimation": "FORBIDDEN",
+        "human_review_required": true,
+        "publication_status": "PUBLISH_HOLD"
+      }
     },
     "monthly": {
       "mode": "BRAND_MD_DRAFT",
