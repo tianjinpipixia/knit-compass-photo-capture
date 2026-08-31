@@ -1,0 +1,23 @@
+{
+  "format": "KC_BRAND64_WEEKLY_MD_LATEST_POINTER",
+  "schema_version": "1.0",
+  "period_start": "2026-08-24",
+  "period_end": "2026-08-30",
+  "active_brand_source": "config/brand64-active-brands.json",
+  "active_brand_count": 64,
+  "weekly_report_path": "data/brand-md-monitoring/weekly/2026-08-24_2026-08-30-brand64-weekly-md.md",
+  "daily_source_paths": [
+    "data/brand-md-monitoring/2026-08-24-brand64-daily.json",
+    "data/brand-md-monitoring/2026-08-25-brand64-daily.json",
+    "data/brand-md-monitoring/2026-08-26-brand64-daily.json",
+    "data/brand-md-monitoring/2026-08-27-brand64-daily.json",
+    "data/brand-md-monitoring/2026-08-28-brand64-daily.json",
+    "data/brand-md-monitoring/2026-08-29-brand64-daily.json",
+    "data/brand-md-monitoring/2026-08-30-brand64-daily.json"
+  ],
+  "external_signal_source": "config/md-external-signal-brands.json",
+  "inactive_legacy_policy": "EXCLUDE_FROM_ACTIVE_AGGREGATION_KEEP_HISTORY_ONLY",
+  "sales_quantity_policy": "NO_ESTIMATION",
+  "publication_status": "PUBLISH_HOLD",
+  "human_review_required": true
+}
