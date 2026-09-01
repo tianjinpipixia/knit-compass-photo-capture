@@ -83,6 +83,8 @@
     },
     "weekly": {
       "mode": "BRAND_SIGNAL_SYNTHESIS",
+      "display_language": "ja-JP",
+      "language_policy": "WEEKLY_SUMMARY_AND_MD_IMPLICATIONS_MUST_BE_WRITTEN_IN_PLAIN_JAPANESE",
       "outputs": [
         "material_change",
         "function_change",
@@ -109,7 +111,8 @@
         "limited_state_rule": "SOURCE_SHORTAGE_OR_CONFLICT_IS_NOT_NO_CHANGE",
         "sales_quantity_estimation": "FORBIDDEN",
         "human_review_required": true,
-        "publication_status": "PUBLISH_HOLD"
+        "publication_status": "PUBLISH_HOLD",
+        "public_surface_policy": "OWNER_REVIEW_ONLY_UNTIL_HUMAN_APPROVAL"
       }
     },
     "monthly": {

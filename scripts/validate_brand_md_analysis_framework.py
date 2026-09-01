@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ACTIVE_CONFIG = ROOT / "config/brand64-active-brands.json"
 MONITORING_CONFIG = ROOT / "config/brand64-md-monitoring.json"
 FRAMEWORK_CONFIG = ROOT / "config/brand-md-analysis-framework.json"
+LATEST_WEEKLY = ROOT / "data/brand-md-monitoring/weekly/2026-08-24_2026-08-30-brand64-weekly-md.md"
 
 EXPECTED_TIER_A = {
     "BR-00001": "UNIQLO",
@@ -110,6 +111,16 @@ def main() -> None:
     assert rules.get("preserve_sales_start_separately_from_first_seen") is True
     assert rules.get("preserve_new_color_and_promotion_dates") is True
     assert rules.get("cross_brand_similarity_is_not_copying_claim") is True
+
+    weekly = monitoring.get("cadence", {}).get("weekly", {})
+    canonical = weekly.get("canonical_storage", {})
+    assert weekly.get("display_language") == "ja-JP"
+    assert weekly.get("language_policy") == "WEEKLY_SUMMARY_AND_MD_IMPLICATIONS_MUST_BE_WRITTEN_IN_PLAIN_JAPANESE"
+    assert canonical.get("public_surface_policy") == "OWNER_REVIEW_ONLY_UNTIL_HUMAN_APPROVAL"
+
+    latest_weekly = LATEST_WEEKLY.read_text(encoding="utf-8")
+    for heading in ["## 週次MDのまとめ", "### 確認できた事実", "### MDへの示唆", "## 素材開発の優先テーマ", "## 次週の重点確認事項"]:
+        assert heading in latest_weekly
 
     print(
         "brand MD analysis framework: OK "
