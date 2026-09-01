@@ -232,7 +232,7 @@ Tier Aでは特に、発売日順に並べたブランド月次タイムライ�
 
 > 当日64/64確認と未処理日補完がすべて完了し、なお余力がある場合だけ、2026年1〜4月の婦人ニットをGLOBAL WORK、NATURAL BEAUTY BASIC、VIS、ROPÉ PICNIC、PAL系、ZARA、SNIDELの順で1回最大4件・同一ブランド最大2件まで遡及してください。公式個別商品ページで確認でき、公式上の期間根拠がある商品だけを `RETROSPECTIVE_BASELINE` として分離保存してください。当日新規や通常の日次遡及へ加算せず、不明値はnull、販売数量はNOT_AVAILABLE、PUBLISH_HOLD / HUMAN_REVIEW_REQUIREDを維持してください。
 
-週次では `config/md-external-signal-brands.json` のPLST / FRAY I.D / H&M / COS / MANGO / NOLLEY'S / BEAUTY&YOUTHも公式入口で軽量確認し、64ブランドのMDを補正する比較材料としてまとめる。
+週次では `config/md-external-signal-brands.json` のPLST / FRAY I.D / H&M / COS / MANGO / NOLLEY'S / BEAUTY&YOUTHも公式入口で軽量確認し、64ブランドのMDを補正する比較材料としてまとめる。週次レポートの「確認できた事実」「MDへの示唆」「素材開発の優先テーマ」「次週の重点確認事項」は、英語の内部コードをそのまま表示せず、専門外の利用者にも読める平易な日本語で記載する。人による確認が終わるまでは管理者の内部確認用に限定し、承認済みの要点だけをMD提案へ掲載する。
 
 ## 重要
 この指示ファイルだけではGeminiを自動実行しない。Gemini API / Gemini側の定期実行環境が接続された場合に、この内容を固定プロンプトとして使う。Knit Compass側のMDデータはHuman Review後にのみ確定する。
