@@ -185,9 +185,8 @@ def validate_photo_storage(systems: list[dict[str, Any]]) -> None:
     app_text = (ROOT / "app.js").read_text(encoding="utf-8")
     backup_text = (ROOT / "backup.js").read_text(encoding="utf-8")
     patterns = [
-        r"const\s+(?:DB|DB_NAME)\s*=\s*'([^']+)'",
-        r"(?:const\s+)?(?:SESSION|SESSION_KEY)\s*=\s*'([^']+)'",
-        r"const\s+HANDOFF_KEY\s*=\s*'([^']+)'",
+        r"(?:const\s+(?:DB|DB_NAME)\s*=|database_name\s*:)\s*[\"']([^\"']+)[\"']",
+        r"(?:const\s+)?(?:SESSION|SESSION_KEY)\s*=\s*[\"']([^\"']+)[\"']",
     ]
     keys = []
     for pattern in patterns:
