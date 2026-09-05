@@ -9,4 +9,6 @@
 - スキャナー修正をmainへ反映した際も試運転する。通常の日次時刻は05:30 JSTを維持。
 - 実行先はこのGitHubリポジトリのActions。V04のSitesに登録したキーは、このリポジトリのGEMINI_API_KEY Secretには自動共有されない。
 - APIキーはチャット・ソース・ログへ書かず、GitHubのActions Secretへ登録する。
+- mainのPR必須設定を維持し、実行結果は毎回固有の引継ぎブランチとActions artifactへ保存する。検証前のmainへの直接書込みはしない。
+- 次回実行では同じworkflowの直近成功artifactを復元する。失敗した日の結果を比較基準にしない。Phase Bは当日の引継ぎブランチ／artifactを取得し、通常のPRで処理する。
 - Phase Aの成功だけでは正式マスター・V04 latest・顧客公開へ昇格しない。ChatGPTによる公式個別商品ページ確認と既存のHuman Reviewを維持する。
