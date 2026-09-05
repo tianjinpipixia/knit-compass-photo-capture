@@ -45,9 +45,19 @@ for relative in SURFACES:
 
 photo_capture = (ROOT / "app.js").read_text(encoding="utf-8")
 human_review = (ROOT / "brand-intelligence/index-current.html").read_text(encoding="utf-8")
-assert "KC_V04_INBOX_ITEM" in photo_capture, "internal handoff format must remain compatible"
-assert "kc_v04_handoff_queue_v1" in photo_capture, "internal queue key must remain compatible"
+# Legacy inbox compatibility belongs to the Human Review receiver. The active
+# independent Photo Capture exports portable ZIPs and does not write this queue.
+assert "KC_V04_INBOX_ITEM" in human_review, "internal handoff format must remain compatible"
+assert "kc_v04_handoff_queue_v1" in human_review, "internal queue key must remain compatible"
 assert "kc_independent_practical_v0_4" in human_review, "internal master key must remain compatible"
-assert "Human Review受信箱" in photo_capture, "Photo Capture must use the current inbox label"
+assert "Human Review受信箱" in human_review, "receiver must use the current inbox label"
+assert "KC_PORTABLE_PHOTO_EXPORT_V1" in photo_capture, "portable handoff format must remain compatible"
+for label in (
+    "撮影中：端末にDRAFT保存",
+    "引き渡し時：外部取込ZIPを書き出す",
+    "取込後：内容をHuman Reviewで確認",
+    "正式登録：人が確認してから反映",
+):
+    assert label in photo_capture, f"Photo Capture must describe its current handoff: {label}"
 
-print("sales labels: OK (current terminology shown; internal V04 compatibility IDs preserved)")
+print("sales labels: OK (current portable handoff shown; receiver compatibility IDs preserved)")
