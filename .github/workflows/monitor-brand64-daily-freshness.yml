@@ -46,9 +46,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Require a current active 64-brand observation and matching proposals
-        run: python scripts/validate_brand64_daily_freshness.py --max-age-days 1
+      - name: Validate saved observation integrity
+        run: python scripts/validate_brand64_daily_freshness.py
       - name: Test gated spring retrospective baseline handling
         run: python -m unittest tests/test_brand64_retrospective_baseline.py -v
       - name: Validate tiered brand MD analysis framework
         run: python scripts/validate_brand_md_analysis_framework.py
+      - name: Require a current active 64-brand observation and matching proposals
+        run: python scripts/validate_brand64_daily_freshness.py --max-age-days 1

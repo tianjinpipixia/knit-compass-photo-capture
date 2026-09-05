@@ -25,6 +25,8 @@ ZARA公式個別商品ページで、既存connected delta未収録の「スパ�
 取得制限の8ブランドは「差分なし」と断定せずSOURCE_ACCESS_LIMITEDとして保持。
 
 <!-- KC_RETROSPECTIVE_SEASON_BACKFILL:START -->
+- 当日春先遡及: **2件**
+- 春先遡及累積: **2件**
 retrospective_period: 2026-01-01/2026-04-30
 retrospective_season_backfill_count: 2
 retrospective_season_backfill_cumulative_count: 2

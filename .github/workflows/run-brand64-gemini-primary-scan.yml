@@ -5,6 +5,13 @@ on:
     # 05:30 JST every day (20:30 UTC previous day)
     - cron: "30 20 * * *"
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - scripts/run_brand64_gemini_primary_scan.py
+      - tests/test_brand64_gemini_primary_scan.py
+      - config/brand64-active-brands.json
+      - .github/workflows/run-brand64-gemini-primary-scan.yml
 
 permissions:
   contents: write
@@ -19,7 +26,7 @@ jobs:
     timeout-minutes: 30
     env:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      GEMINI_MODEL: gemini-2.5-flash
+      GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
       TZ: Asia/Tokyo
 
     steps:
@@ -35,6 +42,9 @@ jobs:
         id: obs
         shell: bash
         run: echo "date=$(date +%F)" >> "$GITHUB_OUTPUT"
+
+      - name: Verify scanner completion and evidence handling
+        run: python -m unittest discover -s tests -p test_brand64_gemini_primary_scan.py -v
 
       - name: Run Phase A Gemini primary scan
         id: scan
