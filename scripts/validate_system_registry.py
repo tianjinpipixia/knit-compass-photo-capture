@@ -184,10 +184,11 @@ def validate_photo_storage(systems: list[dict[str, Any]]) -> None:
         fail("KC-PHOTO-CAPTURE missing")
     app_text = (ROOT / "app.js").read_text(encoding="utf-8")
     backup_text = (ROOT / "backup.js").read_text(encoding="utf-8")
+    # The independent runtime declares its database in CONTRACT and transfers
+    # records through portable ZIPs. Legacy HANDOFF_KEY is owned by the receiver.
     patterns = [
-        r"const\s+(?:DB|DB_NAME)\s*=\s*'([^']+)'",
-        r"(?:const\s+)?(?:SESSION|SESSION_KEY)\s*=\s*'([^']+)'",
-        r"const\s+HANDOFF_KEY\s*=\s*'([^']+)'",
+        r"""\bdatabase_name\s*:\s*["']([^"']+)["']""",
+        r"""\bconst\s+SESSION_KEY\s*=\s*["']([^"']+)["']""",
     ]
     keys = []
     for pattern in patterns:
@@ -195,10 +196,14 @@ def validate_photo_storage(systems: list[dict[str, Any]]) -> None:
         if not match:
             fail(f"could not extract Photo Capture storage key: {pattern}")
         keys.append(match.group(1))
-    backup = re.search(r"const LAST_BACKUP_KEY = '([^']+)'", backup_text)
-    if not backup:
-        fail("could not extract backup timestamp key")
-    keys.append(backup.group(1))
+    for constant in ("LAST_BACKUP_KEY", "LAST_VERIFIED_BACKUP_KEY", "LAST_DATA_CHANGE_KEY"):
+        backup = re.search(rf"""\bconst\s+{constant}\s*=\s*["']([^"']+)["']""", backup_text)
+        if not backup:
+            fail(f"could not extract backup timestamp key: {constant}")
+        keys.append(backup.group(1))
+    backup_db = re.search(r"""\bconst\s+DB_NAME\s*=\s*["']([^"']+)["']""", backup_text)
+    if not backup_db or backup_db.group(1) != keys[0]:
+        fail("Photo Capture and backup database names must agree")
     detail = str(photo.get("storage_detail") or "")
     for key in keys:
         if key not in detail:
