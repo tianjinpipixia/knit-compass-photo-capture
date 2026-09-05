@@ -1,0 +1,77 @@
+name: Run Brand64 Gemini primary scan
+
+on:
+  schedule:
+    # 05:30 JST every day (20:30 UTC previous day)
+    - cron: "30 20 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: brand64-gemini-primary-scan
+  cancel-in-progress: false
+
+jobs:
+  gemini-scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_MODEL: gemini-2.5-flash
+      TZ: Asia/Tokyo
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Determine observation date
+        id: obs
+        shell: bash
+        run: echo "date=$(date +%F)" >> "$GITHUB_OUTPUT"
+
+      - name: Run Phase A Gemini primary scan
+        id: scan
+        continue-on-error: true
+        shell: bash
+        run: |
+          python scripts/run_brand64_gemini_primary_scan.py \
+            --date "${{ steps.obs.outputs.date }}" \
+            --batch-size 8
+
+      - name: Upload Gemini scan artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: brand64-gemini-primary-scan-${{ steps.obs.outputs.date }}
+          path: data/brand-md-monitoring/gemini-primary-scans/
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Save scan status to main
+        if: always()
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain -- data/brand-md-monitoring/gemini-primary-scans)" ]; then
+            git add data/brand-md-monitoring/gemini-primary-scans
+            git commit -m "Brand64 Gemini primary scan ${{ steps.obs.outputs.date }}"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          else
+            echo "No Gemini scan artifact changes to save."
+          fi
+
+      - name: Enforce scan completion state
+        if: steps.scan.outcome != 'success'
+        shell: bash
+        run: |
+          echo "Gemini primary scan is missing or incomplete. Artifact/status was preserved; day must not be marked no-change." >&2
+          exit 1
