@@ -9,8 +9,10 @@ on:
     branches: [main]
     paths:
       - scripts/run_brand64_gemini_primary_scan.py
+      - scripts/run_brand64_gemini_primary_scan_39.py
       - tests/test_brand64_gemini_primary_scan.py
       - config/brand64-active-brands.json
+      - docs/BRAND64_GEMINI_PRIMARY_SCAN_SETUP.md
       - .github/workflows/run-brand64-gemini-primary-scan.yml
 
 permissions:
@@ -57,16 +59,19 @@ jobs:
         run: echo "date=$(date +%F)" >> "$GITHUB_OUTPUT"
 
       - name: Verify scanner completion and evidence handling
-        run: python -m unittest discover -s tests -p test_brand64_gemini_primary_scan.py -v
+        run: |
+          python -m unittest discover -s tests -p test_brand64_gemini_primary_scan.py -v
+          python -m py_compile scripts/run_brand64_gemini_primary_scan_39.py
 
-      - name: Run Phase A Gemini primary scan
+      - name: Run Phase A Gemini primary scan (39 confirmed brands required)
         id: scan
         continue-on-error: true
         shell: bash
         run: |
-          python scripts/run_brand64_gemini_primary_scan.py \
+          python scripts/run_brand64_gemini_primary_scan_39.py \
             --date "${{ steps.obs.outputs.date }}" \
-            --batch-size 8
+            --batch-size 8 \
+            --required-confirmed 39
 
       - name: Upload Gemini scan artifact
         if: always() && steps.scan.outcome != 'skipped'
@@ -98,5 +103,5 @@ jobs:
         if: always() && steps.scan.outcome != 'success'
         shell: bash
         run: |
-          echo "Gemini primary scan is missing or incomplete. Artifact/status was preserved; day must not be marked no-change." >&2
+          echo "Gemini primary scan did not reach 39 officially confirmed brands. Artifact/status was preserved; day must not be marked no-change." >&2
           exit 1
