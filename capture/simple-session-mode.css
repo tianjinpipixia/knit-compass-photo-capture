@@ -294,3 +294,18 @@ body:not(.kc-simple-capture-mode) #kcSimpleHistoryToggle {
     grid-column: auto;
   }
 }
+
+body.kc-simple-capture-mode #kcExhibitionBurstPanel,
+body.kc-simple-capture-mode .kc-exhibition-burst-inline-hint,
+body.kc-simple-capture-mode .kc-simple-section-photo .kc-section-heading .kc-muted,
+body.kc-simple-capture-mode .kc-simple-section-photo #kcPhotoCount {
+  display: none !important;
+}
+
+body.kc-simple-capture-mode.kc-simple-show-details .kc-photo-grid.kc-simple-photo-original {
+  display: grid !important;
+}
+
+body.kc-simple-capture-mode.kc-simple-show-details .kc-form-actions.kc-simple-original-actions {
+  display: flex !important;
+}
