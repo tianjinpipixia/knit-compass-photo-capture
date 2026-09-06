@@ -1,11 +1,15 @@
-(function knitCompassExhibitionBurstMode() {
+(function knitCompassSimpleSessionMode() {
   "use strict";
 
   const BUILD = "2.1.44-independent.13-v04-ui";
-  const STORAGE_KEY = "kc_photo_capture_supplier_session_v1";
-  const MAX_CONTEXT_AGE_MS = 18 * 60 * 60 * 1000;
+  const SESSION_KEY = "kc_photo_capture_simple_supplier_session_v1";
+  const MODE_KEY = "kc_photo_capture_simple_mode_v1";
+  const MAX_SESSION_AGE_MS = 18 * 60 * 60 * 1000;
 
   let renderQueued = false;
+  let pendingNext = false;
+  let saveAttemptSawDisabled = false;
+  let lastEditorHidden = true;
 
   function clean(value) {
     return String(value == null ? "" : value).trim();
@@ -15,251 +19,404 @@
     if (node && node.textContent !== value) node.textContent = value;
   }
 
-  function setHidden(node, hidden) {
-    if (node && node.hidden !== hidden) node.hidden = hidden;
-  }
-
-  function setDisabled(node, disabled) {
-    if (node && node.disabled !== disabled) node.disabled = disabled;
-  }
-
-  function setAttributeIfChanged(node, name, value) {
-    if (!node) return;
-    if (value == null) {
-      if (node.hasAttribute(name)) node.removeAttribute(name);
-      return;
-    }
-    if (node.getAttribute(name) !== value) node.setAttribute(name, value);
-  }
-
-  function updateVisibleReleaseLabel() {
-    const version = document.querySelector(".kc-build-info strong");
-    setText(version, "2.1.44 独立版");
-
-    const updated = document.querySelector(".kc-build-info time");
-    if (updated) {
-      setText(updated, "2026-08-27 20:40 CST");
-      setAttributeIfChanged(updated, "datetime", "2026-08-27T20:40:00+08:00");
-    }
-
-    const lead = document.querySelector(".kc-lead");
-    if (lead && lead.textContent.includes("Photo Capture 2.1.43")) {
-      setText(
-        lead,
-        "Photo Capture 2.1.44の現行画面です。展示会ではメーカーを一度選ぶと、同じメーカーの写真・素材登録へ引き継げます。写真と素材情報は端末へDRAFT保存し、必要な記録だけを外部取込ZIPとして書き出します。正式マスターへの反映は確認後に行います。"
-      );
-    }
-  }
-
-  function readContext() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return null;
-      const parsed = JSON.parse(raw);
-      const savedAt = Number(parsed.savedAt || 0);
-      if (!savedAt || Date.now() - savedAt > MAX_CONTEXT_AGE_MS) {
-        localStorage.removeItem(STORAGE_KEY);
-        return null;
-      }
-      const visitContext = clean(parsed.visitContext);
-      const supplier = clean(parsed.supplier);
-      if (!visitContext || !supplier) return null;
-      return { visitContext, supplier, savedAt };
-    } catch (_error) {
-      return null;
-    }
-  }
-
-  function writeContext(visitContext, supplier) {
-    const next = {
-      visitContext: clean(visitContext),
-      supplier: clean(supplier),
-      savedAt: Date.now(),
-      build: BUILD
-    };
-    if (!next.visitContext || !next.supplier) return null;
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-    } catch (_error) {
-      return null;
-    }
-    return next;
-  }
-
-  function clearContext() {
-    try {
-      localStorage.removeItem(STORAGE_KEY);
-    } catch (_error) {
-      // Device-local convenience state only. Failure must not block capture.
-    }
-  }
-
   function captureForm() {
     return document.getElementById("kcCaptureForm");
+  }
+
+  function editor() {
+    return document.getElementById("kcEditor");
   }
 
   function isNewRecord(form) {
     return !clean(form?.elements?.record_id?.value);
   }
 
-  function currentContextFromForm(form) {
-    if (!form) return null;
-    const visitContext = clean(form.elements?.visit_context?.value);
-    const supplier = clean(form.elements?.supplier?.value);
-    if (!visitContext || !supplier) return null;
-    return { visitContext, supplier };
-  }
-
-  function persistCurrentContext() {
-    const form = captureForm();
-    const context = currentContextFromForm(form);
-    if (!context) return null;
-    return writeContext(context.visitContext, context.supplier);
-  }
-
-  function dispatchFieldEvent(input, type) {
+  function dispatchField(input, type) {
+    if (!input) return;
     input.dispatchEvent(new Event(type, { bubbles: true }));
   }
 
-  function applyStoredContextToNewRecord({ force = false } = {}) {
-    const form = captureForm();
-    const context = readContext();
-    if (!form || !context || !isNewRecord(form)) return;
+  function setFieldValue(input, value) {
+    if (!input || clean(input.value) === clean(value)) return;
+    input.value = value;
+    dispatchField(input, "input");
+    dispatchField(input, "change");
+  }
 
-    const visitInput = form.elements?.visit_context;
-    const supplierInput = form.elements?.supplier;
-    if (!visitInput || !supplierInput) return;
-
-    const currentVisit = clean(visitInput.value);
-    const currentSupplier = clean(supplierInput.value);
-    if (!force && (currentVisit || currentSupplier)) return;
-
-    if (visitInput.value !== context.visitContext) {
-      visitInput.value = context.visitContext;
-      dispatchFieldEvent(visitInput, "input");
-      dispatchFieldEvent(visitInput, "change");
-    }
-
-    window.setTimeout(() => {
-      const currentForm = captureForm();
-      if (!currentForm || !isNewRecord(currentForm)) return;
-      const currentSupplierInput = currentForm.elements?.supplier;
-      if (!currentSupplierInput) return;
-      if (currentSupplierInput.value !== context.supplier) {
-        currentSupplierInput.value = context.supplier;
-        dispatchFieldEvent(currentSupplierInput, "input");
-        dispatchFieldEvent(currentSupplierInput, "change");
+  function readSession() {
+    try {
+      const raw = localStorage.getItem(SESSION_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      const supplier = clean(parsed.supplier);
+      const savedAt = Number(parsed.savedAt || 0);
+      if (!supplier || !savedAt || Date.now() - savedAt > MAX_SESSION_AGE_MS) {
+        localStorage.removeItem(SESSION_KEY);
+        return null;
       }
-      ensureBurstUi();
-    }, 0);
+      return {
+        supplier,
+        visitContext: clean(parsed.visitContext),
+        sequence: Math.max(1, Number(parsed.sequence) || 1),
+        startedAt: Number(parsed.startedAt || savedAt),
+        savedAt,
+        build: clean(parsed.build)
+      };
+    } catch (_error) {
+      return null;
+    }
   }
 
-  function panelMarkup() {
-    const panel = document.createElement("section");
-    panel.id = "kcExhibitionBurstPanel";
-    panel.className = "kc-exhibition-burst-panel";
-    panel.setAttribute("aria-live", "polite");
-    panel.innerHTML = `
-      <div class="kc-exhibition-burst-copy">
-        <span class="kc-exhibition-burst-kicker">EXHIBITION QUICK CAPTURE</span>
-        <strong id="kcExhibitionBurstTitle">メーカー連続撮影</strong>
-        <p id="kcExhibitionBurstSummary">展示会・訪問先とメーカーを一度選ぶと、次の新規登録にも引き継ぎます。</p>
-      </div>
-      <div class="kc-exhibition-burst-actions">
-        <button type="button" class="secondary" data-kc-burst-action="lock">現在のメーカーを固定</button>
-        <button type="button" class="secondary" data-kc-burst-action="change">メーカー変更</button>
-      </div>
-      <p class="kc-exhibition-burst-note">同じメーカーでは写真を何枚でも続けて記録できます。1素材あたりの写真上限を超える場合や別素材に分ける場合は「新規登録」を使ってください。展示会・メーカー名は自動で残ります。</p>
-    `;
-    return panel;
-  }
-
-  function ensurePanel() {
-    const form = captureForm();
+  function writeSessionFromForm(form, options = {}) {
     if (!form) return null;
-    let panel = document.getElementById("kcExhibitionBurstPanel");
-    if (panel) return panel;
+    const supplier = clean(form.elements?.supplier?.value);
+    if (!supplier) return null;
+    const visitContext = clean(form.elements?.visit_context?.value);
+    const previous = readSession();
+    const sameSupplier = Boolean(previous && previous.supplier === supplier && previous.visitContext === visitContext);
+    const sequence = options.sequence != null
+      ? Math.max(1, Number(options.sequence) || 1)
+      : (sameSupplier ? previous.sequence : 1);
+    const next = {
+      supplier,
+      visitContext,
+      sequence,
+      startedAt: sameSupplier ? previous.startedAt : Date.now(),
+      savedAt: Date.now(),
+      build: BUILD
+    };
+    try {
+      localStorage.setItem(SESSION_KEY, JSON.stringify(next));
+      return next;
+    } catch (_error) {
+      return null;
+    }
+  }
+
+  function incrementStoredSequence() {
+    const previous = readSession();
+    if (!previous) return null;
+    const next = { ...previous, sequence: previous.sequence + 1, savedAt: Date.now(), build: BUILD };
+    try {
+      localStorage.setItem(SESSION_KEY, JSON.stringify(next));
+      return next;
+    } catch (_error) {
+      return null;
+    }
+  }
+
+  function clearSession() {
+    try {
+      localStorage.removeItem(SESSION_KEY);
+    } catch (_error) {
+      // Convenience state only. Existing capture data is never touched here.
+    }
+  }
+
+  function applySessionToNewRecord() {
+    const form = captureForm();
+    const currentEditor = editor();
+    const session = readSession();
+    if (!form || !currentEditor || currentEditor.hidden || !session || !isNewRecord(form)) return;
 
     const supplierInput = form.elements?.supplier;
-    const supplierLabel = supplierInput?.closest("label");
-    if (!supplierLabel) return null;
-
-    panel = panelMarkup();
-    supplierLabel.insertAdjacentElement("afterend", panel);
-    return panel;
-  }
-
-  function updateNewCaptureButton(context) {
-    const button = document.getElementById("kcNewCapture");
-    if (!button) return;
-    if (!button.dataset.kcOriginalLabel) {
-      button.dataset.kcOriginalLabel = clean(button.textContent) || "新規登録";
+    const visitInput = form.elements?.visit_context;
+    if (visitInput && !clean(visitInput.value) && session.visitContext) {
+      setFieldValue(visitInput, session.visitContext);
     }
-    const nextLabel = context ? "同じメーカーで次を登録" : button.dataset.kcOriginalLabel;
-    setText(button, nextLabel);
-    setAttributeIfChanged(
-      button,
-      "aria-label",
-      context ? `${context.supplier}を引き継いで新しい素材・写真を登録` : null
-    );
+    if (supplierInput && !clean(supplierInput.value)) {
+      setFieldValue(supplierInput, session.supplier);
+    }
   }
 
-  function updatePanel() {
-    const panel = ensurePanel();
+  function preferredSimpleMode() {
+    const params = new URLSearchParams(location.search);
+    if (params.get("full") === "1") return false;
+    try {
+      return localStorage.getItem(MODE_KEY) !== "full";
+    } catch (_error) {
+      return true;
+    }
+  }
+
+  function simpleModeEnabled() {
+    return document.body.classList.contains("kc-simple-capture-mode");
+  }
+
+  function detailsVisible() {
+    return document.body.classList.contains("kc-simple-show-details");
+  }
+
+  function setSimpleMode(enabled) {
+    document.body.classList.toggle("kc-simple-capture-mode", enabled);
+    if (!enabled) document.body.classList.remove("kc-simple-show-details", "kc-simple-history-open");
+    try {
+      localStorage.setItem(MODE_KEY, enabled ? "simple" : "full");
+    } catch (_error) {
+      // Preference only.
+    }
+    updateModeControls();
+  }
+
+  function activePhotoCountFromUi() {
+    const text = clean(document.getElementById("kcPhotoCount")?.textContent);
+    const match = text.match(/^(\d+)/);
+    return match ? Number(match[1]) : 0;
+  }
+
+  function buildModeToggle() {
+    if (document.getElementById("kcSimpleModeToggle")) return;
+    const host = document.querySelector(".kc-topbar .kc-session") || document.querySelector(".kc-topbar");
+    if (!host) return;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.id = "kcSimpleModeToggle";
+    button.className = "ghost kc-simple-mode-toggle";
+    button.dataset.simpleAction = "toggle-mode";
+    host.appendChild(button);
+  }
+
+  function buildHistoryToggle() {
+    if (document.getElementById("kcSimpleHistoryToggle")) return;
+    const actions = document.querySelector("#kcInbox .kc-primary-actions");
+    if (!actions) return;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.id = "kcSimpleHistoryToggle";
+    button.className = "secondary";
+    button.dataset.simpleAction = "history";
+    actions.appendChild(button);
+  }
+
+  function updateModeControls() {
+    const toggle = document.getElementById("kcSimpleModeToggle");
+    setText(toggle, simpleModeEnabled() ? "通常画面" : "シンプル撮影");
+
+    const history = document.getElementById("kcSimpleHistoryToggle");
+    setText(
+      history,
+      document.body.classList.contains("kc-simple-history-open") ? "保存済みを閉じる" : "保存済みを見る"
+    );
+
+    document.querySelectorAll('[data-simple-action="details"]').forEach((button) => {
+      setText(button, detailsVisible() ? "詳細入力を閉じる" : "詳細入力");
+    });
+  }
+
+  function markSimpleFields(form) {
+    if (!form || form.dataset.kcSimpleFieldsMarked === "true") return;
+    form.dataset.kcSimpleFieldsMarked = "true";
+
+    const keepBasic = new Set(["entry_date", "visit_context", "supplier", "yarn_name"]);
+    const keepMaterial = new Set(["yarn_count", "composition", "notes"]);
+
+    const basic = document.getElementById("kcBasicTitle")?.closest(".kc-form-section");
+    const photo = document.getElementById("kcPhotoTitle")?.closest(".kc-form-section");
+    const material = document.getElementById("kcMaterialTitle")?.closest(".kc-form-section");
+    const action = document.getElementById("kcActionTitle")?.closest(".kc-form-section");
+    const research = document.getElementById("kcResearchTitle")?.closest(".kc-form-section");
+    const details = form.querySelector(".kc-kc-details");
+
+    basic?.classList.add("kc-simple-section-basic");
+    photo?.classList.add("kc-simple-section-photo");
+    material?.classList.add("kc-simple-section-material");
+    action?.classList.add("kc-simple-hidden-section");
+    research?.classList.add("kc-simple-hidden-section");
+    details?.classList.add("kc-simple-hidden-section");
+
+    basic?.querySelectorAll("label.kc-company-question").forEach((label) => {
+      const control = label.querySelector("input[name], select[name], textarea[name]");
+      if (control && !keepBasic.has(control.name)) label.classList.add("kc-simple-hidden-field");
+    });
+
+    material?.querySelectorAll("label.kc-company-question, fieldset.kc-company-question").forEach((block) => {
+      const control = block.querySelector("input[name], select[name], textarea[name]");
+      if (!control || !keepMaterial.has(control.name)) block.classList.add("kc-simple-hidden-field");
+    });
+
+    photo?.querySelector(".kc-primary-photo-slot")?.classList.add("kc-simple-photo-original");
+    photo?.querySelector(".kc-photo-category-guide")?.classList.add("kc-simple-photo-original");
+    photo?.querySelector(".kc-photo-grid")?.classList.add("kc-simple-photo-original");
+    form.querySelector(".kc-policy")?.classList.add("kc-simple-hidden-section");
+    form.querySelector(".kc-form-actions")?.classList.add("kc-simple-original-actions");
+  }
+
+  function buildSessionPanel(form) {
+    if (!form || document.getElementById("kcSimpleSessionPanel")) return;
+    const basic = document.getElementById("kcBasicTitle")?.closest(".kc-form-section");
+    if (!basic) return;
+    const panel = document.createElement("section");
+    panel.id = "kcSimpleSessionPanel";
+    panel.className = "kc-simple-session-panel";
+    panel.innerHTML = `
+      <div class="kc-simple-session-copy">
+        <span class="kc-simple-kicker">メーカー連続撮影</span>
+        <strong id="kcSimpleSessionTitle">メーカーを選択</strong>
+        <span id="kcSimpleSessionSummary">メーカー名を一度入力すると、次の素材へ自動で引き継ぎます。</span>
+      </div>
+      <div class="kc-simple-session-badge" id="kcSimpleSequence">素材 01</div>
+      <button type="button" class="secondary" data-simple-action="change-supplier">メーカー変更</button>
+    `;
+    basic.insertAdjacentElement("beforebegin", panel);
+  }
+
+  function buildQuickPhotoPanel(form) {
+    if (!form || document.getElementById("kcSimpleQuickPhoto")) return;
+    const photo = document.getElementById("kcPhotoTitle")?.closest(".kc-form-section");
+    const heading = photo?.querySelector(".kc-section-heading");
+    if (!photo || !heading) return;
+
+    const panel = document.createElement("div");
+    panel.id = "kcSimpleQuickPhoto";
+    panel.className = "kc-simple-quick-photo";
+    panel.innerHTML = `
+      <div class="kc-simple-quick-photo-heading">
+        <div>
+          <span class="kc-simple-kicker">QUICK PHOTO</span>
+          <strong>写真を連続追加</strong>
+          <span>分類は後回し。まず撮影テンポを優先します。</span>
+        </div>
+        <span id="kcSimplePhotoCount" class="kc-simple-photo-count">0 / 10枚</span>
+      </div>
+      <div class="kc-simple-photo-actions">
+        <label class="kc-simple-camera-button">撮影
+          <input class="kc-visually-hidden-file" type="file" accept="image/*" capture="environment" data-photo-input="other" data-photo-source="camera">
+        </label>
+        <label class="kc-simple-library-button">写真からまとめて選択
+          <input class="kc-visually-hidden-file" type="file" accept="image/*" multiple data-photo-input="other" data-photo-source="library">
+        </label>
+      </div>
+      <div id="kcSimpleQuickPreview" class="kc-simple-quick-preview"><span>写真はまだありません</span></div>
+      <button type="button" class="ghost kc-simple-details-inline" data-simple-action="details">詳細入力</button>
+    `;
+    heading.insertAdjacentElement("afterend", panel);
+  }
+
+  function buildQuickActions(form) {
+    if (!form || document.getElementById("kcSimpleActions")) return;
+    const original = form.querySelector(".kc-form-actions");
+    if (!original) return;
+    const actions = document.createElement("div");
+    actions.id = "kcSimpleActions";
+    actions.className = "kc-simple-actions";
+    actions.innerHTML = `
+      <button type="button" class="kc-simple-next" data-simple-action="next">保存して次の素材</button>
+      <button type="button" class="secondary" data-simple-action="finish">保存して終了</button>
+      <button type="button" class="ghost" data-simple-action="details">詳細入力</button>
+    `;
+    original.insertAdjacentElement("beforebegin", actions);
+  }
+
+  function updateSessionPanel() {
     const form = captureForm();
-    const stored = readContext();
-    if (!panel || !form) {
-      updateNewCaptureButton(stored);
+    const panel = document.getElementById("kcSimpleSessionPanel");
+    if (!form || !panel) return;
+    const session = readSession();
+    const currentSupplier = clean(form.elements?.supplier?.value);
+    const currentVisit = clean(form.elements?.visit_context?.value);
+    const active = currentSupplier || session?.supplier || "";
+    const visit = currentVisit || session?.visitContext || "";
+    const sequence = session?.sequence || 1;
+
+    setText(document.getElementById("kcSimpleSessionTitle"), active ? `${active} 固定中` : "メーカーを選択");
+    setText(
+      document.getElementById("kcSimpleSessionSummary"),
+      active
+        ? `${visit ? `${visit} / ` : ""}このメーカーのまま素材を続けて登録できます。`
+        : "メーカー名を一度入力すると、次の素材へ自動で引き継ぎます。"
+    );
+    setText(document.getElementById("kcSimpleSequence"), `素材 ${String(sequence).padStart(2, "0")}`);
+    const activeValue = active ? "true" : "false";
+    if (panel.dataset.active !== activeValue) panel.dataset.active = activeValue;
+  }
+
+  function updateQuickPhotoPreview() {
+    const count = document.getElementById("kcPhotoCount");
+    setText(document.getElementById("kcSimplePhotoCount"), clean(count?.textContent) || "0 / 10枚");
+
+    const source = document.querySelector('[data-photo-preview="other"]');
+    const target = document.getElementById("kcSimpleQuickPreview");
+    if (!source || !target) return;
+    const images = [...source.querySelectorAll("img")].slice(-6);
+    if (!images.length) {
+      if (target.dataset.signature !== "__empty__") {
+        target.dataset.signature = "__empty__";
+        target.innerHTML = "<span>写真はまだありません</span>";
+      }
       return;
     }
+    const signature = images.map((image) => image.src).join("|");
+    if (target.dataset.signature === signature) return;
+    target.dataset.signature = signature;
+    target.innerHTML = "";
+    images.forEach((image) => {
+      const clone = document.createElement("img");
+      clone.src = image.src;
+      clone.alt = "撮影済み写真";
+      target.appendChild(clone);
+    });
+  }
 
-    const current = currentContextFromForm(form);
-    const title = panel.querySelector("#kcExhibitionBurstTitle");
-    const summary = panel.querySelector("#kcExhibitionBurstSummary");
-    const lockButton = panel.querySelector('[data-kc-burst-action="lock"]');
-    const changeButton = panel.querySelector('[data-kc-burst-action="change"]');
+  function updateQuickActionState() {
+    const source = document.getElementById("kcSaveDraft");
+    const disabled = Boolean(source?.disabled);
+    document.querySelectorAll('[data-simple-action="next"], [data-simple-action="finish"]').forEach((button) => {
+      if (button.disabled !== disabled) button.disabled = disabled;
+    });
 
-    if (stored) {
-      if (panel.dataset.active !== "true") panel.dataset.active = "true";
-      setText(title, "メーカー固定中");
-      setText(summary, `${stored.visitContext} / ${stored.supplier}`);
-      if (lockButton) {
-        const same = Boolean(current && current.visitContext === stored.visitContext && current.supplier === stored.supplier);
-        setText(lockButton, same ? "固定済み" : "この入力内容で固定を更新");
-        setDisabled(lockButton, same);
-      }
-      setHidden(changeButton, false);
-    } else {
-      if (panel.dataset.active !== "false") panel.dataset.active = "false";
-      setText(title, "メーカー連続撮影");
-      setText(summary, "展示会・訪問先とメーカーを一度選ぶと、次の新規登録にも引き継ぎます。");
-      if (lockButton) {
-        setText(lockButton, "現在のメーカーを固定");
-        setDisabled(lockButton, !current);
-      }
-      setHidden(changeButton, true);
+    if (pendingNext && disabled) saveAttemptSawDisabled = true;
+    const currentEditor = editor();
+    if (pendingNext && saveAttemptSawDisabled && currentEditor && !currentEditor.hidden && !disabled) {
+      pendingNext = false;
+      saveAttemptSawDisabled = false;
     }
-
-    updateNewCaptureButton(stored);
   }
 
-  function addSupplierHint() {
-    const form = captureForm();
-    const supplierInput = form?.elements?.supplier;
-    const label = supplierInput?.closest("label");
-    if (!label || label.querySelector(".kc-exhibition-burst-inline-hint")) return;
-    const hint = document.createElement("span");
-    hint.className = "kc-field-hint kc-exhibition-burst-inline-hint";
-    hint.textContent = "展示会ではメーカー名を一度選べば、次の新規登録にも自動で引き継ぎます。";
-    label.appendChild(hint);
+  function updateSimpleCopy() {
+    const heading = document.querySelector(".kc-brand h1");
+    const lead = document.querySelector(".kc-brand .kc-lead");
+    if (heading && !heading.dataset.kcSimpleOriginal) heading.dataset.kcSimpleOriginal = heading.textContent;
+    if (lead && !lead.dataset.kcSimpleOriginal) lead.dataset.kcSimpleOriginal = lead.textContent;
+
+    if (simpleModeEnabled()) {
+      setText(heading, "Photo Capture");
+      setText(lead, "メーカーを一度選び、素材ごとに写真をテンポよく連続撮影します。詳細項目は必要な時だけ開けます。");
+    } else {
+      if (heading?.dataset.kcSimpleOriginal) setText(heading, heading.dataset.kcSimpleOriginal);
+      if (lead?.dataset.kcSimpleOriginal) setText(lead, lead.dataset.kcSimpleOriginal);
+    }
   }
 
-  function ensureBurstUi() {
-    updateVisibleReleaseLabel();
-    addSupplierHint();
-    updatePanel();
+  function handleEditorTransition() {
+    const currentEditor = editor();
+    if (!currentEditor) return;
+    const hidden = currentEditor.hidden;
+    if (pendingNext && hidden && !lastEditorHidden) {
+      pendingNext = false;
+      saveAttemptSawDisabled = false;
+      incrementStoredSequence();
+      window.setTimeout(() => document.getElementById("kcNewCapture")?.click(), 80);
+    }
+    lastEditorHidden = hidden;
+  }
+
+  function ensureUi() {
+    buildModeToggle();
+    buildHistoryToggle();
     const form = captureForm();
-    if (form && isNewRecord(form)) applyStoredContextToNewRecord();
+    if (form) {
+      markSimpleFields(form);
+      buildSessionPanel(form);
+      buildQuickPhotoPanel(form);
+      buildQuickActions(form);
+      applySessionToNewRecord();
+    }
+    updateModeControls();
+    updateSessionPanel();
+    updateQuickPhotoPreview();
+    updateQuickActionState();
+    updateSimpleCopy();
+    handleEditorTransition();
   }
 
   function queueEnsure() {
@@ -267,69 +424,107 @@
     renderQueued = true;
     window.requestAnimationFrame(() => {
       renderQueued = false;
-      ensureBurstUi();
+      ensureUi();
     });
   }
+
+  function showFormMessage(text, isError = false) {
+    const target = document.getElementById("kcEditorMessage");
+    if (!target) return;
+    setText(target, text);
+    target.classList.toggle("error", isError);
+  }
+
+  function startSave(nextAfterSave) {
+    const form = captureForm();
+    if (!form) return;
+    const supplier = clean(form.elements?.supplier?.value);
+    if (!supplier && nextAfterSave) {
+      showFormMessage("連続撮影では、最初にメーカー / Supplierを入力してください。", true);
+      form.elements?.supplier?.focus();
+      return;
+    }
+    if (activePhotoCountFromUi() < 1) {
+      showFormMessage("この素材の写真を1枚以上追加してから保存してください。", true);
+      document.querySelector(".kc-simple-camera-button")?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    if (supplier) writeSessionFromForm(form);
+    pendingNext = Boolean(nextAfterSave);
+    saveAttemptSawDisabled = false;
+    document.getElementById("kcSaveDraft")?.click();
+  }
+
+  document.addEventListener("click", (event) => {
+    const action = event.target.closest?.("[data-simple-action]");
+    if (!action) return;
+    const name = action.dataset.simpleAction;
+
+    if (name === "toggle-mode") {
+      setSimpleMode(!simpleModeEnabled());
+      queueEnsure();
+      return;
+    }
+    if (name === "history") {
+      document.body.classList.toggle("kc-simple-history-open");
+      updateModeControls();
+      return;
+    }
+    if (name === "details") {
+      document.body.classList.toggle("kc-simple-show-details");
+      updateModeControls();
+      return;
+    }
+    if (name === "next") {
+      startSave(true);
+      return;
+    }
+    if (name === "finish") {
+      startSave(false);
+      return;
+    }
+    if (name === "change-supplier") {
+      clearSession();
+      const form = captureForm();
+      if (form && isNewRecord(form)) {
+        setFieldValue(form.elements?.supplier, "");
+        setFieldValue(form.elements?.visit_context, "");
+        form.elements?.supplier?.focus();
+      }
+      updateSessionPanel();
+    }
+  }, true);
+
+  document.addEventListener("input", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLInputElement)) return;
+    if (!target.form || target.form.id !== "kcCaptureForm") return;
+    if (!["supplier", "visit_context"].includes(target.name)) return;
+    if (clean(target.form.elements?.supplier?.value)) writeSessionFromForm(target.form);
+    updateSessionPanel();
+  });
 
   document.addEventListener("change", (event) => {
     const target = event.target;
     if (!(target instanceof HTMLInputElement) && !(target instanceof HTMLSelectElement)) return;
     if (!target.form || target.form.id !== "kcCaptureForm") return;
-    if (!["visit_context", "supplier"].includes(target.name)) return;
-
-    const context = currentContextFromForm(target.form);
-    if (context) writeContext(context.visitContext, context.supplier);
-    updatePanel();
+    if (["supplier", "visit_context"].includes(target.name) && clean(target.form.elements?.supplier?.value)) {
+      writeSessionFromForm(target.form);
+      updateSessionPanel();
+    }
+    queueEnsure();
   });
 
-  document.addEventListener("blur", (event) => {
-    const target = event.target;
-    if (!(target instanceof HTMLInputElement)) return;
-    if (!target.form || target.form.id !== "kcCaptureForm" || target.name !== "supplier") return;
-    const context = currentContextFromForm(target.form);
-    if (context) writeContext(context.visitContext, context.supplier);
-    updatePanel();
-  }, true);
-
-  document.addEventListener("click", (event) => {
-    const action = event.target.closest?.("[data-kc-burst-action]");
-    if (action) {
-      const form = captureForm();
-      if (action.dataset.kcBurstAction === "lock") {
-        const context = currentContextFromForm(form);
-        if (!context) return;
-        writeContext(context.visitContext, context.supplier);
-        updatePanel();
-        return;
-      }
-      if (action.dataset.kcBurstAction === "change") {
-        clearContext();
-        if (form && isNewRecord(form)) {
-          if (form.elements?.supplier) form.elements.supplier.value = "";
-          form.elements?.supplier?.focus();
-        }
-        updatePanel();
-        return;
-      }
-    }
-
-    const newCapture = event.target.closest?.("#kcNewCapture, [data-empty-create]");
-    if (!newCapture) return;
-    persistCurrentContext();
-    window.setTimeout(() => {
-      applyStoredContextToNewRecord({ force: true });
-      ensureBurstUi();
-    }, 0);
-  }, true);
-
-  const appRoot = document.getElementById("app") || document.documentElement;
+  const root = document.getElementById("app") || document.documentElement;
   const observer = new MutationObserver(queueEnsure);
-  observer.observe(appRoot, {
+  observer.observe(root, {
     childList: true,
     subtree: true,
     attributes: true,
-    attributeFilter: ["hidden"]
+    attributeFilter: ["hidden", "disabled"]
   });
+
+  if (preferredSimpleMode()) document.body.classList.add("kc-simple-capture-mode");
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", queueEnsure, { once: true });
