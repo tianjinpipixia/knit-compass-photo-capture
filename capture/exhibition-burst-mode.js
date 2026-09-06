@@ -1,12 +1,11 @@
-(function knitCompassSimpleCapture() {
+(function knitCompassSingleCapture() {
   "use strict";
 
   const SESSION_KEY = "kc_photo_capture_simple_supplier_session_v1";
-  const MODE_KEY = "kc_photo_capture_simple_mode_v1";
-  const BUILD = "2.1.45-independent.16-rapid-material";
+  const LEGACY_MODE_KEY = "kc_photo_capture_simple_mode_v1";
+  const BUILD = "2.1.46-independent.17-single-mode";
   const byId = id => document.getElementById(id);
   const clean = value => String(value == null ? "" : value).trim();
-  const simpleMode = () => document.body.classList.contains("kc-simple-capture-mode");
   let queued = false;
   let pendingSave = null;
   let savedResult = null;
@@ -14,6 +13,16 @@
 
   function setText(node, value) {
     if (node && node.textContent !== value) node.textContent = value;
+  }
+
+  function forceSingleMode() {
+    document.body.classList.add("kc-simple-capture-mode");
+    byId("kcSimpleModeToggle")?.remove();
+    try {
+      localStorage.removeItem(LEGACY_MODE_KEY);
+    } catch (_error) {
+      /* Legacy preference is optional. */
+    }
   }
 
   function readSession() {
@@ -52,39 +61,16 @@
     field.dispatchEvent(new Event("change", { bubbles: true }));
   }
 
-  function preferredSimpleMode() {
-    if (new URLSearchParams(location.search).get("full") === "1") return false;
-    try {
-      return localStorage.getItem(MODE_KEY) !== "full";
-    } catch (_error) {
-      return true;
-    }
-  }
-
-  function buildButtons() {
-    if (!byId("kcSimpleModeToggle")) {
-      const host = document.querySelector(".kc-v04-header-inner") || document.querySelector(".kc-topbar");
-      if (host) {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.id = "kcSimpleModeToggle";
-        button.className = "secondary kc-simple-mode-toggle";
-        button.dataset.simpleAction = "toggle-mode";
-        host.appendChild(button);
-      }
-    }
-
-    if (!byId("kcSimpleHistoryToggle")) {
-      const host = document.querySelector("#kcInbox .kc-primary-actions");
-      if (host) {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.id = "kcSimpleHistoryToggle";
-        button.className = "secondary";
-        button.dataset.simpleAction = "history";
-        host.appendChild(button);
-      }
-    }
+  function buildHistoryButton() {
+    if (byId("kcSimpleHistoryToggle")) return;
+    const host = document.querySelector("#kcInbox .kc-primary-actions");
+    if (!host) return;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.id = "kcSimpleHistoryToggle";
+    button.className = "secondary";
+    button.dataset.simpleAction = "history";
+    host.appendChild(button);
   }
 
   function hideSimpleBasicFields(form) {
@@ -106,12 +92,13 @@
   }
 
   function buildForm(form) {
+    hideSimpleBasicFields(form);
     if (byId("kcSimpleQuickPhoto")) return;
+
     const photo = byId("kcPhotoTitle")?.closest(".kc-form-section");
     const originalActions = form.querySelector(".kc-form-actions");
     if (!photo || !originalActions) return;
 
-    hideSimpleBasicFields(form);
     originalActions.classList.add("kc-simple-original-actions");
     photo.classList.add("kc-simple-section-photo");
     [".kc-primary-photo-slot", ".kc-photo-category-guide", ".kc-photo-grid"].forEach(selector => {
@@ -174,16 +161,13 @@
     const label = byId("kcSupplierInput")?.closest("label");
     if (!label) return;
     const textNode = [...label.childNodes].find(node => node.nodeType === Node.TEXT_NODE && clean(node.textContent));
-    if (!textNode) return;
-    if (!label.dataset.kcOriginalLeadingCopy) label.dataset.kcOriginalLeadingCopy = textNode.textContent;
-    const value = simpleMode() ? "メーカー / Supplier " : label.dataset.kcOriginalLeadingCopy;
-    if (textNode.textContent !== value) textNode.textContent = value;
+    if (textNode) textNode.textContent = "メーカー / Supplier ";
   }
 
   function updateControls() {
     const source = byId("kcSaveDraft");
     const busy = Boolean(source?.disabled || pendingSave);
-    ["kcSimpleSave", "kcSimpleNextSupplier", "kcSimpleChangeSupplier", "kcSimpleModeToggle"].forEach(id => {
+    ["kcSimpleSave", "kcSimpleNextSupplier", "kcSimpleChangeSupplier"].forEach(id => {
       const button = byId(id);
       if (button && button.disabled !== busy) button.disabled = busy;
     });
@@ -191,41 +175,31 @@
     setText(byId("kcSimpleSave"), pendingSave === "save-next-material" ? "保存中…" : "保存・次の素材");
     setText(byId("kcSimpleNextSupplier"), pendingSave === "save" ? "保存中…" : "保存・終了");
     setText(byId("kcSimpleChangeSupplier"), pendingSave === "save-change-supplier" ? "保存中…" : "メーカー変更");
-    setText(byId("kcSimpleModeToggle"), simpleMode() ? "通常画面" : "シンプル撮影");
     setText(byId("kcSimpleHistoryToggle"), document.body.classList.contains("kc-simple-history-open") ? "保存済みを閉じる" : "保存済みを見る");
     document.querySelectorAll('[data-simple-action="details"]').forEach(button => {
       setText(button, document.body.classList.contains("kc-simple-show-details") ? "詳細を閉じる" : "詳細（必要な時だけ）");
     });
 
-    document.body.classList.toggle("kc-simple-editing", Boolean(simpleMode() && byId("kcEditor") && !byId("kcEditor").hidden));
+    document.body.classList.toggle("kc-simple-editing", Boolean(byId("kcEditor") && !byId("kcEditor").hidden));
     const photoTitle = byId("kcPhotoTitle");
-    if (photoTitle?.firstChild?.nodeType === 3) {
-      const text = "2. 写真 ";
-      if (photoTitle.firstChild.textContent !== text) photoTitle.firstChild.textContent = text;
+    if (photoTitle?.firstChild?.nodeType === 3 && photoTitle.firstChild.textContent !== "2. 写真 ") {
+      photoTitle.firstChild.textContent = "2. 写真 ";
     }
   }
 
   function updateCopy() {
-    const heading = document.querySelector(".kc-brand h1");
-    const lead = document.querySelector(".kc-brand .kc-lead");
-    const basicTitle = byId("kcBasicTitle");
-    [heading, lead, basicTitle].forEach(node => {
-      if (node && !node.dataset.kcOriginalCopy) node.dataset.kcOriginalCopy = node.textContent;
-    });
-
-    setText(heading, simpleMode() ? "Photo Capture" : heading?.dataset.kcOriginalCopy);
+    setText(document.querySelector(".kc-brand h1"), "Photo Capture");
     setText(
-      lead,
-      simpleMode()
-        ? "メーカーを一度入力したら固定。素材名は任意です。撮影して「保存・次の素材」で連続登録できます。"
-        : lead?.dataset.kcOriginalCopy
+      document.querySelector(".kc-brand .kc-lead"),
+      "メーカーを一度入力したら固定。素材名は任意です。撮影して「保存・次の素材」で連続登録できます。"
     );
-    setText(basicTitle, simpleMode() ? "1. メーカー・素材" : basicTitle?.dataset.kcOriginalCopy);
+    setText(byId("kcBasicTitle"), "1. メーカー・素材");
     updateLeadingLabelCopy();
   }
 
   function ensureUi() {
-    buildButtons();
+    forceSingleMode();
+    buildHistoryButton();
     const form = byId("kcCaptureForm");
     if (form) buildForm(form);
     updatePreview();
@@ -247,14 +221,14 @@
     const source = byId("kcSaveDraft");
     if (!form || pendingSave || !source || source.disabled) return;
 
-    if (!clean(form.elements.supplier.value) || !photoCount()) {
-      const missingSupplier = !clean(form.elements.supplier.value);
+    if (!clean(form.elements.supplier?.value) || !photoCount()) {
+      const missingSupplier = !clean(form.elements.supplier?.value);
       setText(
         byId("kcEditorMessage"),
         missingSupplier ? "メーカー / Supplierを選択または入力してください。" : "写真を1枚以上追加してください。"
       );
       byId("kcEditorMessage")?.classList.add("error");
-      if (missingSupplier) form.elements.supplier.focus();
+      if (missingSupplier) form.elements.supplier?.focus();
       else byId("kcSimpleQuickPhoto")?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
@@ -270,8 +244,8 @@
     const form = byId("kcCaptureForm");
     if (!form) return;
 
-    if (!clean(form.elements.record_id.value)) {
-      const context = nextContext || (simpleMode() ? readSession() : null);
+    if (!clean(form.elements.record_id?.value)) {
+      const context = nextContext || readSession();
       if (context) {
         setField(form.elements.visit_context, clean(context.visitContext));
         setField(form.elements.supplier, clean(context.supplier));
@@ -320,16 +294,6 @@
     if (!button || button.disabled) return;
 
     switch (button.dataset.simpleAction) {
-      case "toggle-mode": {
-        const enabled = !simpleMode();
-        document.body.classList.toggle("kc-simple-capture-mode", enabled);
-        document.body.classList.remove("kc-simple-show-details");
-        try {
-          localStorage.setItem(MODE_KEY, enabled ? "simple" : "full");
-        } catch (_error) {}
-        ensureUi();
-        break;
-      }
       case "history":
         document.body.classList.toggle("kc-simple-history-open");
         updateControls();
@@ -354,7 +318,7 @@
     attributeFilter: ["hidden", "disabled"]
   });
 
-  if (preferredSimpleMode()) document.body.classList.add("kc-simple-capture-mode");
+  forceSingleMode();
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", queueEnsure, { once: true });
   } else {
