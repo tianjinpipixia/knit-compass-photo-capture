@@ -145,6 +145,16 @@
     return document.body.classList.contains("kc-simple-capture-mode");
   }
 
+  function detailsVisible() {
+    return document.body.classList.contains("kc-simple-show-details");
+  }
+
+  function activePhotoCountFromUi() {
+    const text = clean(document.getElementById("kcPhotoCount")?.textContent);
+    const match = text.match(/^(\d+)/);
+    return match ? Number(match[1]) : 0;
+  }
+
   function buildModeToggle() {
     if (document.getElementById("kcSimpleModeToggle")) return;
     const host = document.querySelector(".kc-topbar .kc-session") || document.querySelector(".kc-topbar");
@@ -178,6 +188,9 @@
         ? "保存済みを閉じる"
         : "保存済みを見る";
     }
+    document.querySelectorAll('[data-simple-action="details"]').forEach((button) => {
+      button.textContent = detailsVisible() ? "詳細入力を閉じる" : "詳細入力";
+    });
   }
 
   function markSimpleFields(form) {
@@ -318,7 +331,8 @@
     if (!source || !target) return;
     const images = [...source.querySelectorAll("img")].slice(-6);
     if (!images.length) {
-      if (!target.querySelector("img")) target.innerHTML = "<span>写真はまだありません</span>";
+      target.dataset.signature = "";
+      target.innerHTML = "<span>写真はまだありません</span>";
       return;
     }
     const signature = images.map((image) => image.src).join("|");
@@ -345,9 +359,14 @@
   function updateSimpleCopy() {
     const heading = document.querySelector(".kc-brand h1");
     const lead = document.querySelector(".kc-brand .kc-lead");
+    if (heading && !heading.dataset.kcSimpleOriginal) heading.dataset.kcSimpleOriginal = heading.textContent;
+    if (lead && !lead.dataset.kcSimpleOriginal) lead.dataset.kcSimpleOriginal = lead.textContent;
     if (simpleModeEnabled()) {
       if (heading) heading.textContent = "Photo Capture";
       if (lead) lead.textContent = "メーカーを一度選び、素材ごとに写真をテンポよく連続撮影します。詳細項目は必要な時だけ開けます。";
+    } else {
+      if (heading?.dataset.kcSimpleOriginal) heading.textContent = heading.dataset.kcSimpleOriginal;
+      if (lead?.dataset.kcSimpleOriginal) lead.textContent = lead.dataset.kcSimpleOriginal;
     }
   }
 
@@ -405,6 +424,11 @@
       form.elements?.supplier?.focus();
       return;
     }
+    if (activePhotoCountFromUi() < 1) {
+      showFormMessage("この素材の写真を1枚以上追加してから保存してください。", true);
+      document.querySelector(".kc-simple-camera-button")?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
     if (supplier) writeSessionFromForm(form);
     pendingNext = Boolean(nextAfterSave);
     document.getElementById("kcSaveDraft")?.click();
@@ -427,7 +451,7 @@
     }
     if (name === "details") {
       document.body.classList.toggle("kc-simple-show-details");
-      action.textContent = document.body.classList.contains("kc-simple-show-details") ? "詳細入力を閉じる" : "詳細入力";
+      updateModeControls();
       return;
     }
     if (name === "next") {
