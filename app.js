@@ -2613,6 +2613,7 @@
     updateSaveButtonState();
     await renderEditorPhotoPreviews();
     document.getElementById("kcEditor").scrollIntoView({ behavior: "smooth", block: "start" });
+    document.dispatchEvent(new CustomEvent("kc:capture-opened", { detail: { recordId } }));
   }
 
   function closeEditor() {
@@ -2877,6 +2878,7 @@
 
   async function saveDraft(event) {
     event.preventDefault();
+    if (state.isSaving) return;
     const form = event.currentTarget;
     const saveDestination = event.submitter?.dataset.saveDestination === "LOCAL" ? "LOCAL" : "INBOX";
     if (state.processingPhotos.size > 0) {
@@ -2947,6 +2949,9 @@
       refreshCandidateOptions();
       renderRecords();
       closeEditor();
+      document.dispatchEvent(new CustomEvent("kc:capture-saved", {
+        detail: { recordId, supplier: snapshot.supplier, visitContext: snapshot.visitContext, photoCount: photoRefs.length, eventType }
+      }));
       if (saveDestination === "INBOX") {
         setMessage("kcInboxMessage", "端末へのDRAFT保存が完了しました。外部取込ZIPを作成しています。");
         try {
@@ -2964,6 +2969,7 @@
       state.isSaving = false;
       state.saveDestination = "LOCAL";
       updateSaveButtonState();
+      document.dispatchEvent(new CustomEvent("kc:capture-save-finished"));
     }
   }
 

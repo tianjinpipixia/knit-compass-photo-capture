@@ -6,6 +6,7 @@
   if (!root) return;
 
   let queued = false;
+  let lastVisibleEditor = null;
 
   function clean(value) {
     return String(value == null ? '' : value).trim();
@@ -96,8 +97,12 @@
 
   function ensureEditorPlacement() {
     const editor = document.getElementById('kcEditor');
-    if (!editor || editor.hidden) return;
-    showEditorNow();
+    if (!editor || editor.hidden) { lastVisibleEditor = null; return; }
+    placeEditorFirst();
+    if (lastVisibleEditor !== editor) {
+      lastVisibleEditor = editor;
+      showEditorNow();
+    }
   }
 
   function queueEnsure() {

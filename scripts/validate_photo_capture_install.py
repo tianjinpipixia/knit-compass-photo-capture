@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT_BUILD = "2.1.43-independent.1"
-CAPTURE_BUILD = "2.1.44-independent.13-v04-ui"
+CAPTURE_BUILD = "2.1.44-independent.14-save-next"
 
 
 def fail(message: str) -> None:
@@ -163,7 +163,7 @@ def main() -> None:
         "./status/",
     ):
         require(worker, token, "root service-worker shell")
-    require(capture_worker, "kc-photo-capture-independent-v17-v2144-v04-ui", "capture service-worker cache")
+    require(capture_worker, "kc-photo-capture-independent-v18-v2144-save-next", "capture service-worker cache")
     require(capture_worker, "../exhibition-supplier-master.js", "capture Supplier master cache")
     require(capture_worker, "../knit-compass-ui.css", "capture UI cache")
     require(capture_worker, "./v04-visual-alignment.css", "capture V04 UI cache")
