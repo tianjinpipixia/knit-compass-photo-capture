@@ -165,6 +165,19 @@ def main() -> int:
     for brand in canonical_brands:
         if brand["brand_id"] in results:
             continue
+        if brand["brand_id"] in attempted_ids:
+            results[brand["brand_id"]] = {
+                "brand_id": brand["brand_id"],
+                "brand_name": brand["brand_name"],
+                "scan_status": "NOT_RETURNED_BY_GEMINI",
+                "official_listing_url": "",
+                "official_url_hints": brand["official_url_hints"],
+                "notes": "This brand was attempted but the batch failed or did not yield a validated row.",
+                "surface_items": [],
+                "candidate_deltas": [],
+                "baseline_state": "INCOMPLETE",
+            }
+            continue
         not_required_ids.append(brand["brand_id"])
         results[brand["brand_id"]] = {
             "brand_id": brand["brand_id"],
@@ -172,7 +185,7 @@ def main() -> int:
             "scan_status": NOT_REQUIRED_STATUS,
             "official_listing_url": "",
             "official_url_hints": brand["official_url_hints"],
-            "notes": "39-brand Gemini daily quota was already satisfied or the run ended before this brand. No no-change assertion is made.",
+            "notes": "39-brand Gemini daily quota was already satisfied or this brand was not needed to fill the quota. No no-change assertion is made.",
             "surface_items": [],
             "candidate_deltas": [],
             "baseline_state": "NOT_SCANNED_NO_CHANGE_NOT_ASSERTED",
