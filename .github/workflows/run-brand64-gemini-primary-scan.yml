@@ -1,18 +1,17 @@
-name: Run Brand64 Gemini primary scan
+name: Run Brand64 free official-site scan
 
 on:
   schedule:
-    # 05:30 JST every day (20:30 UTC previous day)
+    # 05:30 JST every day. This workflow never invokes a paid AI/search API.
     - cron: "30 20 * * *"
   workflow_dispatch:
   push:
     branches: [main]
     paths:
-      - scripts/run_brand64_gemini_primary_scan.py
-      - scripts/run_brand64_gemini_primary_scan_39.py
-      - tests/test_brand64_gemini_primary_scan.py
+      - scripts/run_brand64_free_direct_scan.py
+      - tests/test_brand64_free_direct_scan.py
+      - config/brand64-free-direct-sources.json
       - config/brand64-active-brands.json
-      - docs/BRAND64_GEMINI_PRIMARY_SCAN_SETUP.md
       - .github/workflows/run-brand64-gemini-primary-scan.yml
 
 permissions:
@@ -24,84 +23,76 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  gemini-scan:
+  direct-scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 15
     env:
-      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.6-flash' }}
       TZ: Asia/Tokyo
       GH_TOKEN: ${{ github.token }}
-
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Restore the last successful Gemini baseline
+      - name: Verify free collector and preservation rules
+        run: python -m unittest discover -s tests -p test_brand64_free_direct_scan.py -v
+
+      - name: Restore the latest direct baseline, including partial runs
         shell: bash
         run: |
-          previous_run=$(gh api --method GET "repos/${GITHUB_REPOSITORY}/actions/workflows/run-brand64-gemini-primary-scan.yml/runs" -f status=success -f branch=main -f per_page=1 --jq '.workflow_runs[0].id // empty')
-          if [ -n "$previous_run" ]; then
-            artifact_name=$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${previous_run}/artifacts" --jq '[.artifacts[] | select(.expired == false) | select(.name | startswith("brand64-gemini-primary-scan-"))][0].name // empty')
+          mkdir -p data/brand-md-monitoring/direct-scans
+          baseline_tmp=$(mktemp -d)
+          for previous_run in $(gh api --method GET "repos/${GITHUB_REPOSITORY}/actions/workflows/run-brand64-gemini-primary-scan.yml/runs" -f status=completed -f branch=main -f per_page=10 --jq '.workflow_runs[].id'); do
+            artifact_name=$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${previous_run}/artifacts" --jq '[.artifacts[] | select(.expired == false) | select(.name | startswith("brand64-free-direct-"))][0].name // empty')
             if [ -n "$artifact_name" ]; then
-              gh run download "$previous_run" --name "$artifact_name" --dir data/brand-md-monitoring/gemini-primary-scans
+              gh run download "$previous_run" --name "$artifact_name" --dir "$baseline_tmp"
+              if [ -f "$baseline_tmp/known-products.json" ]; then
+                cp "$baseline_tmp/known-products.json" data/brand-md-monitoring/direct-scans/known-products.json
+                break
+              fi
             fi
-          fi
+          done
 
-      - name: Determine observation date
-        id: obs
-        shell: bash
-        run: echo "date=$(date +%F)" >> "$GITHUB_OUTPUT"
-
-      - name: Verify scanner completion and evidence handling
-        run: |
-          python -m unittest discover -s tests -p test_brand64_gemini_primary_scan.py -v
-          python -m py_compile scripts/run_brand64_gemini_primary_scan_39.py
-
-      - name: Run Phase A Gemini primary scan (39 confirmed brands required)
+      - name: Collect official pages without an AI API key
         id: scan
         continue-on-error: true
-        shell: bash
-        run: |
-          python scripts/run_brand64_gemini_primary_scan_39.py \
-            --date "${{ steps.obs.outputs.date }}" \
-            --batch-size 8 \
-            --required-confirmed 39
+        run: python scripts/run_brand64_free_direct_scan.py --output-root data/brand-md-monitoring/direct-scans
 
-      - name: Upload Gemini scan artifact
+      - name: Upload observed products and unresolved brands
         if: always() && steps.scan.outcome != 'skipped'
         uses: actions/upload-artifact@v4
         with:
-          name: brand64-gemini-primary-scan-${{ steps.obs.outputs.date }}
-          path: data/brand-md-monitoring/gemini-primary-scans/
-          if-no-files-found: warn
+          name: brand64-free-direct-${{ github.run_id }}-${{ github.run_attempt }}
+          path: data/brand-md-monitoring/direct-scans/
+          if-no-files-found: error
           retention-days: 30
 
-      - name: Preserve scan results on a handoff branch
+      - name: Preserve results for review
         if: always() && steps.scan.outcome != 'skipped'
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if [ -n "$(git status --porcelain -- data/brand-md-monitoring/gemini-primary-scans)" ]; then
-            scan_branch="brand64/gemini-${{ steps.obs.outputs.date }}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
-            git checkout -b "$scan_branch"
-            git add data/brand-md-monitoring/gemini-primary-scans
-            git commit -m "Brand64 Gemini primary scan ${{ steps.obs.outputs.date }}"
+          scan_branch="brand64/direct-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git checkout -b "$scan_branch"
+          git add data/brand-md-monitoring/direct-scans
+          if ! git diff --cached --quiet; then
+            git commit -m "Preserve free official-source observations for review"
             git push origin "HEAD:refs/heads/$scan_branch"
-            echo "Gemini results saved to $scan_branch. Phase B must validate the artifact before a normal pull request into main." >> "$GITHUB_STEP_SUMMARY"
-          else
-            echo "No Gemini scan artifact changes to save."
           fi
+          echo "Official observations: $scan_branch. AI API requests: 0. Human review required; partial coverage is not no-change." >> "$GITHUB_STEP_SUMMARY"
+          python - <<'PY'
+          import json, os, pathlib
+          p = pathlib.Path('data/brand-md-monitoring/direct-scans/latest.json')
+          if p.exists():
+              j = json.loads(p.read_text())
+              with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
+                  f.write(f"\nProduct cards: {j['product_count']} / brands with product cards: {j['product_observed_brand_count']} / unresolved brands: {len(j['unresolved_brand_ids'])}.\n")
+          PY
 
-      - name: Enforce scan completion state
+      - name: Keep insufficient coverage visible
         if: always() && steps.scan.outcome != 'success'
-        shell: bash
         run: |
-          echo "Gemini primary scan did not reach 39 officially confirmed brands. Artifact/status was preserved; day must not be marked no-change." >&2
+          echo "Direct collection has not reached 39 brands with verified product cards. Preserve observations and continue unresolved-source work; do not mark no-change." >&2
           exit 1
