@@ -171,6 +171,13 @@ class FlashPipelineTests(unittest.TestCase):
                 self.assertEqual(len(summary['brands']), 64)
                 self.assertEqual(len(summary['not_attempted_brand_ids']), 63)
 
+    def test_hosts_are_interleaved_without_dropping_brands(self):
+        ids=['A','B','C','D','E']
+        sources={b:{'entry_urls':['https://'+host+'/']} for b,host in zip(ids,['one.example','one.example','one.example','two.example','three.example'])}
+        order=pipeline.interleave_hosts(ids,sources)
+        self.assertEqual(order,['A','D','E','B','C'])
+        self.assertEqual(set(order),set(ids))
+
     def test_corrupt_baseline_is_not_silently_reset(self):
         with tempfile.TemporaryDirectory() as tmp:
             out = pathlib.Path(tmp)

@@ -4,6 +4,7 @@ Coverage is certified only for an explicitly audited source scope. Merely findin
 cards or exhausting an unrecognised pagination widget never certifies a brand.
 """
 import argparse
+from collections import deque
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import datetime as dt
 import json
@@ -191,6 +192,9 @@ class Pipeline:
         summary['first_observed_candidate_count'] = sum(e['delta_type'] == 'FIRST_OBSERVED_CANDIDATE' for e in events)
         summary['candidate_delta_count'] = len(events)
         scan.save(self.run_dir/'scan.json', {**summary, 'observations': self.rows, 'candidate_deltas': events})
+        scan.save(self.out/'feed.json', {'format': 'KC_BRAND64_OWNER_FLASH', 'schema_version': '1.0',
+                  'summary': summary, 'candidates': events,
+                  'deep_dive_pending_count': sum(v['status'] != 'COMPLETE' for v in self.queue.values())})
         scan.save(self.out/'latest.json', summary)
         scan.save(self.out/'flash-latest.json', {'observed_date': self.date, 'candidates': events,
                   'publication_status': 'PUBLISH_HOLD', 'human_review_required': True})
@@ -220,6 +224,20 @@ class Pipeline:
         # died after baseline persistence but before queue persistence.
         queue_deep(list(self.history.values()), self.queue, self.tier, self.sources, self.date)
         self.checkpoint()
+
+
+def interleave_hosts(selected, sources):
+    # Do not let four workers wait behind the same host's rate-limit lock.
+    groups = {}
+    for bid in selected:
+        entry = sources.get(bid, {}).get('entry_urls', [''])
+        host = scan.urlsplit(entry[0] if entry else '').hostname or bid
+        groups.setdefault(host, deque()).append(bid)
+    order = []
+    while any(groups.values()):
+        for queue in groups.values():
+            if queue: order.append(queue.popleft())
+    return order
 
 
 def run(argv=None):
@@ -260,6 +278,7 @@ def run(argv=None):
                         'surface_items': [], 'sources': [], 'errors': [{'url': u, 'reason': 'UNEXPECTED_COLLECTOR_ERROR: '+str(exc)[:300]} for u in urls],
                         'pending_page_urls': urls, 'successful_page_urls': [], 'attempted_page_urls': []}
         if args.stage == 'retry': selected = [b for b in selected if retryable_urls(pipe.rows.get(b, {}))]
+        selected = interleave_hosts(selected, sources)
         with ThreadPoolExecutor(max_workers=4) as pool:
             futures = [pool.submit(collect, bid) for bid in selected]
             for future in as_completed(futures): pipe.accept(future.result())
