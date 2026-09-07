@@ -114,13 +114,19 @@ def normalize_record(record, source_path, source_snapshot_date=None, manual=Fals
         or date_value(record.get('first_backfill_observation_date'))
         or date_value(record.get('last_verified_date'))
         or date_value(record.get('confirmed_at'))
+        or date_value(record.get('verification_date'))
         or date_value(source_snapshot_date)
     )
     snapshot_month = month_value(snapshot_date)
     evidence_date = date_value(record.get('source_date')) or first_date_in_text(record.get('notes'))
     evidence_month = month_value(evidence_date)
-    months = set(record.get('retrospective_months') or [])
-    if snapshot_month in TARGET_MONTHS:
+
+    # A manually researched retrospective row can be verified today while its
+    # official period evidence belongs to an older month. Explicit month tags are
+    # authoritative for that purpose and must not be polluted by verification month.
+    explicit_months = [month for month in (record.get('retrospective_months') or []) if month in TARGET_MONTHS]
+    months = set(explicit_months)
+    if not explicit_months and not spring and snapshot_month in TARGET_MONTHS:
         months.add(snapshot_month)
     if evidence_month in TARGET_MONTHS:
         months.add(evidence_month)
@@ -142,8 +148,12 @@ def normalize_record(record, source_path, source_snapshot_date=None, manual=Fals
         'evidence_level': 'OFFICIAL_RETROSPECTIVE_PRODUCT_PAGE',
         'scope_status': COUNTED_SCOPE_STATUS,
         'snapshot_date': snapshot_date,
+        'verification_date': date_value(record.get('verification_date')) or snapshot_date,
         'retrospective_months': sorted(months),
         'period_evidence_date': evidence_date,
+        'period_evidence_kind': record.get('period_evidence_kind') or '',
+        'period_evidence_value': record.get('period_evidence_value') or '',
+        'period_evidence_source': canonical_url(record.get('period_evidence_source') or '') or url,
         'material_composition': composition,
         'function_claims': functions,
         'confirmed_design': design,
@@ -165,8 +175,12 @@ def merge_one(known, incoming):
     evidence = {
         'source_path': incoming['source_path'],
         'snapshot_date': incoming.get('snapshot_date'),
+        'verification_date': incoming.get('verification_date'),
         'retrospective_months': incoming.get('retrospective_months', []),
         'period_evidence_date': incoming.get('period_evidence_date'),
+        'period_evidence_kind': incoming.get('period_evidence_kind'),
+        'period_evidence_value': incoming.get('period_evidence_value'),
+        'period_evidence_source': incoming.get('period_evidence_source'),
         'source_record_scope': incoming.get('source_record_scope'),
     }
     if before:
@@ -183,7 +197,7 @@ def merge_one(known, incoming):
         known[key] = merged
         return False
 
-    first_seen = incoming.get('snapshot_date') or dt.date.today().isoformat()
+    first_seen = incoming.get('verification_date') or incoming.get('snapshot_date') or dt.date.today().isoformat()
     known[key] = {
         'brand_id': incoming['brand_id'],
         'brand_name': incoming['brand_name'],
@@ -218,8 +232,12 @@ def collect_sources(repo_root: Path):
     data_root = repo_root/'data/brand-md-monitoring'
     sources = []
 
-    manual_path = data_root/'retrospective/manual-products.json'
-    if manual_path.exists():
+    manual_paths = []
+    legacy_manual = data_root/'retrospective/manual-products.json'
+    if legacy_manual.exists():
+        manual_paths.append(legacy_manual)
+    manual_paths.extend(path for path in sorted((data_root/'retrospective').glob('manual-*.json')) if path != legacy_manual)
+    for manual_path in manual_paths:
         payload = load_json(manual_path, {})
         for row in payload.get('records', []):
             sources.append((row, str(manual_path.relative_to(repo_root)), payload.get('source_snapshot_date'), True, False))
@@ -287,7 +305,7 @@ def merge_retrospective_sources(root: Path, repo_root: Path | None = None):
     known_path.write_text(json.dumps(known, ensure_ascii=False, separators=(',', ':'))+'\n')
     summary = {
         'format': 'KC_BRAND64_RETROSPECTIVE_UNIFIED_MERGE',
-        'schema_version': '1.0',
+        'schema_version': '1.1',
         'target_period': '2026-04/2026-09',
         'dedupe_key': 'brand_id|product_url',
         'source_record_count': len(source_rows),
