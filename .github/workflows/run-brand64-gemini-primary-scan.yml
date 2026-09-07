@@ -2,15 +2,17 @@ name: Run Brand64 free official-site scan
 
 on:
   schedule:
-    # 05:30 JST every day. This workflow never invokes a paid AI/search API.
+    # 05:30 JST daily. No paid AI/search API is invoked.
     - cron: "30 20 * * *"
   workflow_dispatch:
   push:
     branches: [main]
     paths:
       - scripts/run_brand64_free_direct_scan.py
+      - scripts/brand64_flash_pipeline.py
       - scripts/brand_direct_adapters.py
       - tests/test_brand64_free_direct_scan.py
+      - tests/test_brand64_flash_pipeline.py
       - config/brand64-free-direct-sources.json
       - config/brand64-active-brands.json
       - .github/workflows/run-brand64-gemini-primary-scan.yml
@@ -36,41 +38,94 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Verify free collector and preservation rules
-        run: python -m unittest discover -s tests -p test_brand64_free_direct_scan.py -v
+      - name: Verify collection, recovery, and preservation
+        run: |
+          python -m unittest discover -s tests -p test_brand64_free_direct_scan.py -v
+          python -m unittest discover -s tests -p test_brand64_flash_pipeline.py -v
 
-      - name: Restore the latest direct baseline, including partial runs
+      - name: Restore state from latest observations, including incomplete runs
         shell: bash
         run: |
           mkdir -p data/brand-md-monitoring/direct-scans
           baseline_tmp=$(mktemp -d)
-          for previous_run in $(gh api --method GET "repos/${GITHUB_REPOSITORY}/actions/workflows/run-brand64-gemini-primary-scan.yml/runs" -f status=completed -f branch=main -f per_page=10 --jq '.workflow_runs[].id'); do
-            artifact_name=$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${previous_run}/artifacts" --jq '[.artifacts[] | select(.expired == false) | select(.name | startswith("brand64-free-direct-"))][0].name // empty')
+          for previous_run in $(gh api --method GET "repos/${GITHUB_REPOSITORY}/actions/workflows/run-brand64-gemini-primary-scan.yml/runs" -f status=completed -f branch=main -f per_page=30 --jq '.workflow_runs[].id'); do
+            artifact_name=$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${previous_run}/artifacts" --jq '[.artifacts[] | select(.expired == false) | select(.name | startswith("brand64-free-direct-"))] | sort_by(.created_at, .id) | reverse | .[0].name // empty')
             if [ -n "$artifact_name" ]; then
-              gh run download "$previous_run" --name "$artifact_name" --dir "$baseline_tmp"
-              if [ -f "$baseline_tmp/known-products.json" ]; then
-                cp "$baseline_tmp/known-products.json" data/brand-md-monitoring/direct-scans/known-products.json
-                break
+              if gh run download "$previous_run" --name "$artifact_name" --dir "$baseline_tmp/$previous_run"; then
+                if [ -f "$baseline_tmp/$previous_run/known-products.json" ]; then
+                  for state_file in known-products.json coverage-state.json deep-dive-queue.json flash-history.json detail-results.json; do
+                    if [ -f "$baseline_tmp/$previous_run/$state_file" ]; then
+                      cp "$baseline_tmp/$previous_run/$state_file" "data/brand-md-monitoring/direct-scans/$state_file"
+                    fi
+                  done
+                  break
+                fi
               fi
             fi
           done
+          # Artifacts expire. Result branches are the durable fallback.
+          if [ ! -f data/brand-md-monitoring/direct-scans/known-products.json ]; then
+            scan_refs=$(git ls-remote --heads origin 'refs/heads/brand64/direct-*' | awk '{print $2}' | sort -Vr | sed -n '1,10p')
+            for scan_ref in $scan_refs; do
+              git fetch --depth=1 origin "$scan_ref"
+              if git cat-file -e FETCH_HEAD:data/brand-md-monitoring/direct-scans/known-products.json; then
+                for state_file in known-products.json coverage-state.json deep-dive-queue.json flash-history.json detail-results.json; do
+                  if git cat-file -e "FETCH_HEAD:data/brand-md-monitoring/direct-scans/$state_file" 2>/dev/null; then
+                    git show "FETCH_HEAD:data/brand-md-monitoring/direct-scans/$state_file" > "data/brand-md-monitoring/direct-scans/$state_file"
+                  fi
+                done
+                break
+              fi
+            done
+            if [ -n "$scan_refs" ] && [ ! -f data/brand-md-monitoring/direct-scans/known-products.json ]; then
+              echo "Previous observations exist but could not be restored. Refusing to reset first-seen history." >&2
+              exit 1
+            fi
+          fi
 
-      - name: Collect official pages without an AI API key
-        id: scan
+      - name: Collect and checkpoint flash observations for all brands
+        id: flash
         continue-on-error: true
-        run: python scripts/run_brand64_free_direct_scan.py --output-root data/brand-md-monitoring/direct-scans
+        run: python scripts/run_brand64_free_direct_scan.py --stage flash --budget-seconds 180 --max-pages 4
 
-      - name: Upload observed products and unresolved brands
-        if: always() && steps.scan.outcome != 'skipped'
+      - name: Make flash available before recovery or detail research
+        if: always() && steps.flash.outcome != 'skipped'
         uses: actions/upload-artifact@v4
         with:
-          name: brand64-free-direct-${{ github.run_id }}-${{ github.run_attempt }}
+          name: brand64-free-direct-${{ github.run_id }}-${{ github.run_attempt }}-flash
           path: data/brand-md-monitoring/direct-scans/
           if-no-files-found: error
           retention-days: 30
 
-      - name: Preserve results for review
-        if: always() && steps.scan.outcome != 'skipped'
+      - name: Recover pending pages and transient failures in the same daily run
+        id: retry
+        if: always() && steps.flash.outcome == 'success'
+        continue-on-error: true
+        run: python scripts/run_brand64_free_direct_scan.py --stage retry --budget-seconds 240 --max-pages 12
+
+      - name: Enrich selected products after flash has been saved
+        id: deep
+        if: always() && steps.flash.outcome == 'success'
+        continue-on-error: true
+        run: python scripts/run_brand64_free_direct_scan.py --stage deep --budget-seconds 90
+
+      - name: Check every brand for unresolved coverage
+        id: coverage
+        if: always() && steps.flash.outcome == 'success'
+        continue-on-error: true
+        run: python scripts/run_brand64_free_direct_scan.py --stage check
+
+      - name: Upload final observations and recovery state
+        if: always() && steps.flash.outcome != 'skipped'
+        uses: actions/upload-artifact@v4
+        with:
+          name: brand64-free-direct-${{ github.run_id }}-${{ github.run_attempt }}-final
+          path: data/brand-md-monitoring/direct-scans/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Preserve results and show the flash report
+        if: always() && steps.flash.outcome != 'skipped'
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
@@ -79,21 +134,16 @@ jobs:
           git checkout -b "$scan_branch"
           git add data/brand-md-monitoring/direct-scans
           if ! git diff --cached --quiet; then
-            git commit -m "Preserve free official-source observations for review"
+            git commit -m "Preserve flash observations, coverage gaps and selected research"
             git push origin "HEAD:refs/heads/$scan_branch"
           fi
-          echo "Official observations: $scan_branch. AI API requests: 0. Human review required; partial coverage is not no-change." >> "$GITHUB_STEP_SUMMARY"
-          python - <<'PY'
-          import json, os, pathlib
-          p = pathlib.Path('data/brand-md-monitoring/direct-scans/latest.json')
-          if p.exists():
-              j = json.loads(p.read_text())
-              with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
-                  f.write(f"\nProduct cards: {j['product_count']} / brands with product cards: {j['product_observed_brand_count']} / unresolved brands: {len(j['unresolved_brand_ids'])}.\n")
-          PY
+          echo "Observation records: $scan_branch. AI API requests: 0." >> "$GITHUB_STEP_SUMMARY"
+          if [ -f data/brand-md-monitoring/direct-scans/summary.md ]; then
+            cat data/brand-md-monitoring/direct-scans/summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
 
-      - name: Keep insufficient coverage visible
-        if: always() && steps.scan.outcome != 'success'
+      - name: Fail visibly when any collection stage or coverage is incomplete
+        if: always() && (steps.flash.outcome != 'success' || steps.retry.outcome != 'success' || steps.deep.outcome != 'success' || steps.coverage.outcome != 'success')
         run: |
-          echo "Direct collection has not reached 39 brands with verified product cards. Preserve observations and continue unresolved-source work; do not mark no-change." >&2
+          echo "Daily scope is incomplete. See each brand's gaps and saved flash; product count alone cannot pass this gate." >&2
           exit 1
