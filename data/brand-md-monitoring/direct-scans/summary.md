@@ -2,7 +2,7 @@
 観測日：2026-09-08
 
 登録範囲の確認完了：0/64ブランド。
-本日観測した商品：680件。MD用の蓄積として保持します。
+本日観測した商品：802件。MD用の蓄積として保持します。
 初回発見と発売日は区別します。未確認・未取得を「新商品なし」と判定しません。
 
 ## 本日初めて見つけた商品（発売日未確認）
@@ -34,7 +34,7 @@
 |VIS|未完了|37|0|
 |GLOBAL WORK|未完了|0|0|
 |LOWRYS FARM|未完了|0|0|
-|studio CLIP|未完了|0|0|
+|studio CLIP|未完了|0|1|
 |niko and ...|未完了|0|0|
 |earth music&ecology|未完了|0|0|
 |Green Parks|未完了|0|0|
@@ -46,16 +46,16 @@
 |coen|未完了|0|0|
 |DoCLASSE|未完了|0|0|
 |any SiS|未完了|0|0|
-|LEPSIM|未完了|51|0|
-|LAKOLE|未完了|22|0|
+|LEPSIM|未完了|67|0|
+|LAKOLE|未完了|44|0|
 |JEANASIS|未完了|0|0|
-|BAYFLOW|未完了|36|0|
+|BAYFLOW|未完了|57|0|
 |HARE|未完了|0|0|
 |Heather|未完了|0|0|
 |PAGEBOY|未完了|0|0|
 |A part by|未完了|0|0|
 |Elura|未完了|0|0|
-|mysty woman|未完了|0|0|
+|mysty woman|未完了|17|0|
 |Andemiu|未完了|0|0|
 |AMERICAN HOLIC|未完了|0|0|
 |YECCA VECCA|未完了|0|0|
@@ -73,7 +73,7 @@
 |green label relaxing|未完了|0|0|
 |Spick & Span|未完了|0|0|
 |IÉNA|未完了|0|0|
-|Te chichi|未完了|18|1|
+|Te chichi|未完了|64|0|
 |ANY|未完了|0|0|
 |MUJI Labo|未完了|11|1|
 |Mila Owen|未完了|28|0|
@@ -120,7 +120,8 @@
 - ValueError: Redirect/source host is not in the configured official source allowlist：https://www.dot-st.com/lowrysfarm/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
 
 ### studio CLIP
-入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.dot-st.com/studioclip/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01
 - ValueError: Redirect/source host is not in the configured official source allowlist：https://www.dot-st.com/studioclip/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01
 - HTTPError: HTTP Error 500: Internal Server Error：https://www.dot-st.com/studioclip/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
 
@@ -171,12 +172,10 @@
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://crosset.onward.co.jp/shop/anysis
 
 ### LEPSIM
-入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- HTTPError: HTTP Error 500: Internal Server Error：https://www.dot-st.com/lepsim/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### LAKOLE
-入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- HTTPError: HTTP Error 500: Internal Server Error：https://www.dot-st.com/lakole/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### JEANASIS
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -184,8 +183,7 @@
 - HTTPError: HTTP Error 500: Internal Server Error：https://www.dot-st.com/jeanasis/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
 
 ### BAYFLOW
-入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- HTTPError: HTTP Error 500: Internal Server Error：https://www.dot-st.com/bayflow/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### HARE
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -204,23 +202,22 @@
 
 ### A part by
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- TimeoutError: BUDGET_EXHAUSTED: resume from saved queue：https://www.dot-st.com/apartbylowrys/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01
-- TimeoutError: BUDGET_EXHAUSTED: resume from saved queue：https://www.dot-st.com/apartbylowrys/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
+- HTTPError: HTTP Error 500: Internal Server Error：https://www.dot-st.com/apartbylowrys/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01
+- HTTPError: HTTP Error 500: Internal Server Error：https://www.dot-st.com/apartbylowrys/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
 
 ### Elura
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- TimeoutError: BUDGET_EXHAUSTED: resume from saved queue：https://www.dot-st.com/elura/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01
-- TimeoutError: BUDGET_EXHAUSTED: resume from saved queue：https://www.dot-st.com/elura/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
+- HTTPError: HTTP Error 500: Internal Server Error：https://www.dot-st.com/elura/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01
+- HTTPError: HTTP Error 500: Internal Server Error：https://www.dot-st.com/elura/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
 
 ### mysty woman
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- TimeoutError: BUDGET_EXHAUSTED: resume from saved queue：https://www.dot-st.com/mystywoman/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01
-- TimeoutError: BUDGET_EXHAUSTED: resume from saved queue：https://www.dot-st.com/mystywoman/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
+- HTTPError: HTTP Error 500: Internal Server Error：https://www.dot-st.com/mystywoman/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01
 
 ### Andemiu
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- TimeoutError: BUDGET_EXHAUSTED: resume from saved queue：https://www.dot-st.com/andemiu/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01
-- TimeoutError: BUDGET_EXHAUSTED: resume from saved queue：https://www.dot-st.com/andemiu/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
+- HTTPError: HTTP Error 500: Internal Server Error：https://www.dot-st.com/andemiu/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01
+- HTTPError: HTTP Error 500: Internal Server Error：https://www.dot-st.com/andemiu/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
 
 ### AMERICAN HOLIC
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -289,8 +286,7 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://baycrews.jp/brand/detail/iena
 
 ### Te chichi
-未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd%3ACAN02&fl=bd%2CbdName%2Ccd%2Cname%2Cprice%2Cmkcode%2Cmaterial%2Cicon%2Cmcn2%2Cmcn3&start=200
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### ANY
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -298,8 +294,9 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 
 ### MUJI Labo
 取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3
+- https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2
+- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3
 
 ### Mila Owen
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
