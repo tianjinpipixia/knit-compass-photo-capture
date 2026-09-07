@@ -5,6 +5,7 @@ A fetched page is never proof of exhaustive brand coverage. Unavailable/unsuppor
 pages stay in the unresolved queue; old products are never deleted on absence.
 """
 import argparse
+import brand_direct_adapters as adapters
 from concurrent.futures import ThreadPoolExecutor
 import datetime as dt
 import gzip
@@ -100,7 +101,7 @@ class Fetcher:
             with urllib.request.build_opener(SafeRedirect()).open(req,timeout=15) as r:
                 data = r.read(MAX_BYTES+1)
                 if len(data)>MAX_BYTES: raise ValueError('Source exceeds size limit')
-                if 'html' not in r.headers.get('Content-Type',''): raise ValueError('Not an HTML source')
+                if not any(t in r.headers.get('Content-Type','') for t in ('html','json')): raise ValueError('Not an HTML/JSON source')
                 html = data.decode(r.headers.get_content_charset() or 'utf-8',errors='replace')
                 final_url = r.url
         sha = hashlib.sha256(data).hexdigest()
@@ -119,7 +120,7 @@ def jun_items(doc, source, meta):
         url = canonical(urljoin(source,link)); match = pattern.match(urlsplit(url).path)
         if not match or urlsplit(url).hostname!=urlsplit(source).hostname: continue
         name = n.cls('item-name'); brand = n.cls('brand-name'); price = n.cls('item-price'); tags = n.cls('item-tag')
-        if name is None or brand is None or norm(clean(brand.text())) != norm(meta['brand_name']): continue
+        if name is None or brand is None or not adapters.matches(clean(brand.text()),meta): continue
         if re.search(r'KIDS|キッズ|メンズ', name.text(), re.I): continue
         items[url] = {'product_name':clean(name.text()),'product_code':match[1], 'product_url':url,
             'display_price':clean(price.text()) if price else '',
@@ -182,17 +183,33 @@ def scan_brand(bid,meta,fetch):
          'scan_status':'UNRESOLVED','coverage_status':'PARTIAL_NOT_EXHAUSTIVE',
          'sources':[],'errors':[],'surface_items':[],'product_details':[]}
     unique={}
-    for url in meta.get('entry_urls',[])[:2]:
+    queue=list(meta.get('entry_urls',[])[:2]); seen=set(); row['pending_page_urls']=[]
+    while queue and len(seen)<4:
+        url=queue.pop(0)
+        if url in seen:continue
+        seen.add(url)
         try:
             html,evidence=fetch(url); row['sources'].append(evidence)
             doc=Document(html)
-            items=jun_items(doc,evidence['url'],meta) if meta.get('adapter')=='jun' else generic_items(doc,evidence['url'],meta)
+            items=jun_items(doc,evidence['url'],meta) if meta.get('adapter')=='jun' else adapters.extract(doc,evidence['url'],meta)
+            if meta.get('adapter')=='canshop':items=adapters.extract_json(html,evidence['url'],meta)
+            if not items:items=generic_items(doc,evidence['url'],meta)
+            for a in doc.root.walk():
+                if a.tag!='a' or not a.attrs.get('href'):continue
+                label=clean(a.text())
+                if a.attrs.get('rel')!='next' and not re.fullmatch(r'次へ|次のページ|NEXT|Next|次',label):continue
+                next_url=urljoin(evidence['url'],a.attrs['href'])
+                if urlsplit(next_url).hostname==urlsplit(evidence['url']).hostname and urlsplit(next_url).path==urlsplit(evidence['url']).path and next_url not in seen and next_url not in queue:
+                    queue.append(next_url)
             for item in items:
                 item['source_sha256']=evidence['sha256'];unique[item['product_url']]=item
             if not items:row['errors'].append({'url':url,'reason':'NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE'})
         except (OSError,ValueError,TimeoutError) as exc:
             row['errors'].append({'url':url,'reason':type(exc).__name__+': '+str(exc)[:300]})
-    row['surface_items']=list(unique.values())
+    row['pending_page_urls']=[u for u in queue if u not in seen]
+    verified=[i for i in unique.values() if i.get('scope_status')=='BRAND_AND_KNIT_PATH_MATCHED']
+    row['unverified_link_candidates']=[i for i in unique.values() if i.get('scope_status')!='BRAND_AND_KNIT_PATH_MATCHED']
+    row['surface_items']=verified or row['unverified_link_candidates']
     for url in meta.get('watch_product_urls',[])[:2]:
         try:
             html,evidence=fetch(url);row['sources'].append(evidence)
@@ -201,10 +218,12 @@ def scan_brand(bid,meta,fetch):
             row['product_details'].append(detail)
         except (OSError,ValueError,TimeoutError) as exc:
             row['errors'].append({'url':url,'reason':type(exc).__name__+': '+str(exc)[:300]})
-    if unique:row['scan_status']='PRODUCTS_OBSERVED' if meta.get('adapter')=='jun' else 'LINK_CANDIDATES_OBSERVED'
+    if verified:row['scan_status']='PRODUCTS_OBSERVED'
+    elif unique:row['scan_status']='LINK_CANDIDATES_OBSERVED'
     elif row['product_details']:row['scan_status']='WATCH_PRODUCT_ONLY'
     elif row['sources']:row['scan_status']='SOURCE_OBSERVED_EXTRACTION_PENDING'
     row['next_action']='Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.'
+    print(json.dumps({'brand_id':bid,'brand_name':meta['brand_name'],'status':row['scan_status'],'products':len(verified),'errors':len(row['errors'])},ensure_ascii=False),flush=True)
     return row
 
 
@@ -216,7 +235,7 @@ def update_baseline(rows, known, date):
             key=row['brand_id']+'|'+item['product_url']; before=known.get(key)
             record={**item,'brand_id':row['brand_id'],'brand_name':row['brand_name'],
                     'first_seen_date':before['first_seen_date'] if before else date,'last_seen_date':date,
-                    'sales_start_date':None,'publication_status':'PUBLISH_HOLD','human_review_required':True}
+                    'sales_start_date':before.get('sales_start_date') if before else None,'publication_status':'PUBLISH_HOLD','human_review_required':True}
             if before is None:
                 changes.append({**record,'delta_type':'FIRST_OBSERVED_CANDIDATE','is_new_release_confirmed':False})
             elif any(before.get(k)!=item.get(k) for k in ('display_price','status_labels','product_name')):
@@ -245,7 +264,7 @@ def main():
     known=json.loads(baseline_path.read_text()) if baseline_path.exists() else {}
     known,changes=update_baseline(rows,known,args.date);save(baseline_path,known)
     product_brands=[r['brand_id'] for r in rows if r['scan_status']=='PRODUCTS_OBSERVED']
-    summary={'format':'KC_BRAND64_FREE_DIRECT_SCAN','schema_version':'1.0','observed_date':args.date,'generated_at_utc':now(),
+    summary={'format':'KC_BRAND64_FREE_DIRECT_SCAN','schema_version':'1.1','observed_date':args.date,'generated_at_utc':now(),
         'collector':'DIRECT_HTTP_NO_AI_API','ai_api_request_count':0,'billing_enabled_by_this_job':False,
         'active_brand_count':len(active),'attempted_brand_count':len(rows),'http_request_count':fetch.count,
         'product_observed_brand_count':len(product_brands),
@@ -255,7 +274,8 @@ def main():
         'scan_status':'PARTIAL_COVERAGE','exhaustive_brand_count':0,
         'unresolved_brand_ids':[r['brand_id'] for r in rows if r['scan_status']!='PRODUCTS_OBSERVED'],
         'not_attempted_brand_ids':[b for b in active if b not in selected],
-        'coverage_rule':'Entry-page observation only; no claim of exhaustive coverage or no-change. First observed is not launch date.',
+        'pending_page_count':sum(len(r['pending_page_urls']) for r in rows),
+        'coverage_rule':'Up to four listing pages per brand; no claim of exhaustive coverage or no-change. First observed is not launch date.',
         'publication_status':'PUBLISH_HOLD','human_review_required':True,'sales_quantity_estimation':'FORBIDDEN'}
     artifact=out/args.date/stamp/'scan.json'
     save(artifact,{**summary,'brands':rows,'candidate_deltas':changes})
@@ -263,7 +283,17 @@ def main():
     report=['# 無料・公式サイト直接収集',f"観測日：{args.date}",'Gemini・Google検索API呼び出し：0回。掲載候補は未承認。全件巡回の完了とは扱いません。',
             f"対象 {len(rows)} ブランド／商品カード取得 {len(product_brands)} ブランド／商品 {summary['product_count']} 件",'',
             '|ブランド|状態|商品・リンク候補|エラー数|','|---|---|---:|---:|']
-    report.extend(f"|{r['brand_name']}|{r['scan_status']}|{len(r['surface_items'])}|{len(r['errors'])}|" for r in rows)
+    status_names={'PRODUCTS_OBSERVED':'商品掲載を確認（部分取得）','LINK_CANDIDATES_OBSERVED':'リンク候補・確認待ち','SOURCE_OBSERVED_EXTRACTION_PENDING':'ページ取得済み・解析待ち','WATCH_PRODUCT_ONLY':'個別商品のみ確認','UNRESOLVED':'ページ未取得'}
+    report.extend(f"|{r['brand_name']}|{status_names.get(r['scan_status'],r['scan_status'])}|{len(r['surface_items'])}|{len(r['errors'])}|" for r in rows)
+    report += ['','## 未取得・解析待ちの詳細']
+    for r in rows:
+        if r['errors'] or r['pending_page_urls']:
+            report += ['', '### '+r['brand_name']]
+            for e in r['errors']:
+                reason=e['reason']
+                label='取得制限（403）' if '403' in reason else '入口が見つからない（404）' if '404' in reason else '解析処理の追加が必要' if 'NO_SUPPORTED' in reason else reason
+                report.append('- '+label+'：'+e['url'])
+            if r['pending_page_urls']:report.append('- ページ取得上限により残件：'+str(len(r['pending_page_urls']))+'ページ')
     report += ['','未取得・未解析は変更なしと判定しません。過去の商品記録は保持します。詳細と取得元は同じフォルダの scan.json を参照。']
     (artifact.parent/'summary.md').write_text('\n'.join(report)+'\n')
     print(json.dumps(summary,ensure_ascii=False))
