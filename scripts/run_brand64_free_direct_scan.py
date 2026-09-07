@@ -191,6 +191,9 @@ def scan_brand(bid,meta,fetch):
         try:
             html,evidence=fetch(url); row['sources'].append(evidence)
             doc=Document(html)
+            if any(marker in html for marker in ('bm-verify=', '/_Incapsula_Resource', 'cf-chl-')):
+                row['errors'].append({'url':url,'reason':'SOURCE_ACCESS_CHALLENGE: verification page returned; no bypass attempted'})
+                continue
             items=jun_items(doc,evidence['url'],meta) if meta.get('adapter')=='jun' else adapters.extract(doc,evidence['url'],meta)
             if meta.get('adapter')=='canshop':items=adapters.extract_json(html,evidence['url'],meta)
             if not items:items=generic_items(doc,evidence['url'],meta)
@@ -222,6 +225,7 @@ def scan_brand(bid,meta,fetch):
     elif unique:row['scan_status']='LINK_CANDIDATES_OBSERVED'
     elif row['product_details']:row['scan_status']='WATCH_PRODUCT_ONLY'
     elif row['sources']:row['scan_status']='SOURCE_OBSERVED_EXTRACTION_PENDING'
+    if not unique and any('SOURCE_ACCESS_CHALLENGE' in e['reason'] or '403' in e['reason'] for e in row['errors']):row['scan_status']='SOURCE_ACCESS_LIMITED'
     row['next_action']='Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.'
     print(json.dumps({'brand_id':bid,'brand_name':meta['brand_name'],'status':row['scan_status'],'products':len(verified),'errors':len(row['errors'])},ensure_ascii=False),flush=True)
     return row
@@ -280,10 +284,11 @@ def main():
     artifact=out/args.date/stamp/'scan.json'
     save(artifact,{**summary,'brands':rows,'candidate_deltas':changes})
     save(out/'latest.json',{**summary,'artifact_path':str(artifact)})
+    save(artifact.parent/'brand-status.json',{'summary':summary,'brands':[{k:r[k] for k in ('brand_id','brand_name','scan_status','errors','pending_page_urls')} | {'product_count':len(r['surface_items']) if r['scan_status']=='PRODUCTS_OBSERVED' else 0,'link_candidate_count':len(r['unverified_link_candidates'])} for r in rows]})
     report=['# 無料・公式サイト直接収集',f"観測日：{args.date}",'Gemini・Google検索API呼び出し：0回。掲載候補は未承認。全件巡回の完了とは扱いません。',
             f"対象 {len(rows)} ブランド／商品カード取得 {len(product_brands)} ブランド／商品 {summary['product_count']} 件",'',
             '|ブランド|状態|商品・リンク候補|エラー数|','|---|---|---:|---:|']
-    status_names={'PRODUCTS_OBSERVED':'商品掲載を確認（部分取得）','LINK_CANDIDATES_OBSERVED':'リンク候補・確認待ち','SOURCE_OBSERVED_EXTRACTION_PENDING':'ページ取得済み・解析待ち','WATCH_PRODUCT_ONLY':'個別商品のみ確認','UNRESOLVED':'ページ未取得'}
+    status_names={'PRODUCTS_OBSERVED':'商品掲載を確認（部分取得）','LINK_CANDIDATES_OBSERVED':'リンク候補・確認待ち','SOURCE_OBSERVED_EXTRACTION_PENDING':'ページ取得済み・解析待ち','WATCH_PRODUCT_ONLY':'個別商品のみ確認','UNRESOLVED':'ページ未取得','SOURCE_ACCESS_LIMITED':'取得制限・確認画面'}
     report.extend(f"|{r['brand_name']}|{status_names.get(r['scan_status'],r['scan_status'])}|{len(r['surface_items'])}|{len(r['errors'])}|" for r in rows)
     report += ['','## 未取得・解析待ちの詳細']
     for r in rows:
@@ -291,7 +296,7 @@ def main():
             report += ['', '### '+r['brand_name']]
             for e in r['errors']:
                 reason=e['reason']
-                label='取得制限（403）' if '403' in reason else '入口が見つからない（404）' if '404' in reason else '解析処理の追加が必要' if 'NO_SUPPORTED' in reason else reason
+                label='取得制限（403）' if '403' in reason else '入口が見つからない（404）' if '404' in reason else 'アクセス確認画面が返されるため取得保留' if 'SOURCE_ACCESS_CHALLENGE' in reason else '解析処理の追加が必要' if 'NO_SUPPORTED' in reason else reason
                 report.append('- '+label+'：'+e['url'])
             if r['pending_page_urls']:report.append('- ページ取得上限により残件：'+str(len(r['pending_page_urls']))+'ページ')
     report += ['','未取得・未解析は変更なしと判定しません。過去の商品記録は保持します。詳細と取得元は同じフォルダの scan.json を参照。']
