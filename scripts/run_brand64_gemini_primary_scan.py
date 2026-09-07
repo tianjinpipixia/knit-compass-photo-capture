@@ -22,7 +22,7 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 CONFIG_PATH = pathlib.Path("config/brand64-active-brands.json")
 OUTPUT_ROOT = pathlib.Path("data/brand-md-monitoring/gemini-primary-scans")
-DEFAULT_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
+DEFAULT_MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.6-flash")
 SOURCE_LIMIT = {
     "SOURCE_ACCESS_LIMITED",
     "SOURCE_OFFLINE",
