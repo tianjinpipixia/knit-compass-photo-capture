@@ -252,3 +252,12 @@ Pull Requestとmainへのpushで、接続台帳、実ファイルRevision、CI�
 - [ ] `python scripts/validate_knit_image.py` が成功した
 - [ ] `python scripts/validate_operational_surfaces.py` が成功した
 - [ ] `python scripts/validate_product_link_completion_20260809.py` が成功した
+
+## Brand64速報・再取得・詳細確認（2026-09-07）
+
+定期処理は `config/system-registry.json` の `background_jobs.brand64_free_direct_scan` に登録。
+既存の毎朝05:30 JSTのワークフローから、速報→当日再取得→選定案件の詳細確認→全ブランドの確認範囲判定を順番に実行する。
+保存先は `data/brand-md-monitoring/direct-scans/`。速報と最終結果をActions artifact、終了時に `brand64/direct-<run>-<attempt>` ブランチへ保全する。
+正式V04への投影・会社DBへの接続は追加しない。詳細は `docs/BRAND64_FREE_DIRECT_SCAN.md`。
+
+追補：速報・最終結果の `feed.json` と復元用状態を `brand64/flash-feed` ブランチへ保存する。V04のSYSTEM_ADMIN専用 `/brand-flash` 画面が読み取り、ブランド商品調査から接続する。会社スプレッドシートへの接続はない。Photo Captureの補助ソースSHAを実ファイルと照合し、登録整合性を修復した。

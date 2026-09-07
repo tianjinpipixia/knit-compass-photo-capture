@@ -329,3 +329,15 @@ MD提案は月次掲載観測へ必ず紐付けます。観測に根拠付き販
 選択糸から `id`、`source`、`name`、`supplier`、`code`、`count`、`composition`、`structure`、`gauge`、`status` を表示用に引き継ぎます。編み条件は `gauge`、`knitStructure`、`knittingEnds`、`color` を別々に扱い、`knittingEnds` を糸の合糸数・撚り本数から推定しません。
 
 出力は `GENERATED_REFERENCE` 相当の検討用Canvas／PNGです。実編み、色、風合い、物性、Supplier仕様の根拠には昇格させません。生成処理はマスター、受信箱、IndexedDB、顧客共有スナップショットへ書き込まず、外部AI/APIへ糸情報を送信しません。
+
+## Brand64直接収集 v2：速報・確認範囲・詳細キュー
+
+- `known-products.json` のキー `brand_id|product_url` と `first_seen_date` を維持する。未取得日に既存商品を削除せず、初回発見を発売日へ転記しない。
+- `flash-history.json` は初回発見・観測項目変更・対象判定待ちを保持し、`flash-latest.json` は当日のイベントを速報として出力する。候補は公開保留。対象未判定リンクを確認済み商品件数へ含めない。
+- `coverage-state.json` はブランドIDごとに `observed_date`、`last_attempt_at_utc`、`successful_page_urls`、`attempted_page_urls`、`pending_page_urls`、`errors`、観測商品、取得元を保持。前日の残URLは成功するまで持ち越す。前日取得した商品を当日取得数に加算しない。
+- `deep-dive-queue.json` と `detail-results.json` は速報とは別。詳細未確認でも速報は保存する。既知商品への新たな自動確定・顧客公開は行わない。
+- `latest.json` schema 2.0 の `complete_brand_count` は当日・入口・新着/予約/ニット/カーディガンの範囲監査・残件なしを満たすブランド数。`product_observed_brand_count` は商品を取得したブランド数。両者を混同しない。39ブランドによる成功閾値は廃止。
+- 全64ブランドの `brands[].coverage.reasons` を保持する。未確認／未取得／未解析／範囲検証待ちは変更なしではない。範囲監査は実際の公式根拠がある場合のみ設定する。
+- 複数ファイルにまたがる完全なトランザクションではないため、速報履歴を商品台帳より先に原子的に保存し、再実行は既知キーで重複を防ぐ。破損JSONは空に置換せず処理を失敗させる。
+
+- `feed.json` (`KC_BRAND64_OWNER_FLASH` 1.0) は `summary`（上記2.0）、当日 `candidates`、`deep_dive_pending_count` を1ファイルで提供する。V04は形式・ブランドID重複・観測日を検証し、取得失敗時に0件へ置き換えない。`brand64/flash-feed` には既知台帳と回復用状態もまとめて1コミットで保存し、次回日次処理の復元元とする。公開済みの公式情報に限定し、顧客・会社・個人の非公開データを追加しない。
