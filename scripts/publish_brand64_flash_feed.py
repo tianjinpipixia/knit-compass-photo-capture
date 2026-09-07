@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Atomically publish the read-only owner feed and restart state to one Git branch."""
 import argparse
+import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import tempfile
 
@@ -10,6 +12,7 @@ from brand64_flash_pipeline import STATE_FILES
 
 BRANCH = 'brand64/flash-feed'
 PREFIX = 'data/brand-md-monitoring/direct-scans/'
+OBSERVED_DIR = 'observed-products'
 
 
 def git(*args, env=None, input=None, check=True):
@@ -17,8 +20,102 @@ def git(*args, env=None, input=None, check=True):
                           stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env)
 
 
+def build_observed_product_shards(root):
+    """Build compact per-brand observation files without promoting them to formal products."""
+    coverage = json.loads((root/'coverage-state.json').read_text())
+    latest = json.loads((root/'latest.json').read_text())
+    observed_date = latest.get('observed_date') or latest.get('observation_date')
+    if not observed_date:
+        raise ValueError('latest.json has no observation date')
+
+    output = root/OBSERVED_DIR
+    if output.exists():
+        shutil.rmtree(output)
+    output.mkdir(parents=True)
+
+    manifest_brands = []
+    generated = []
+    product_count = 0
+    for brand_id in sorted(coverage):
+        state = coverage[brand_id]
+        items = state.get('surface_items') or []
+        if not items:
+            continue
+        brand_name = state.get('brand_name') or brand_id
+        records = []
+        for item in items:
+            records.append({
+                'brand_id': brand_id,
+                'brand_name': brand_name,
+                'product_name': item.get('product_name') or '',
+                'product_url': item.get('product_url') or '',
+                'product_code': item.get('product_code') or '',
+                'display_price': item.get('display_price') or '',
+                'status_labels': item.get('status_labels') or [],
+                'source_url': item.get('source_url') or '',
+                'evidence_level': item.get('evidence_level') or '',
+                'scope_status': item.get('scope_status') or '',
+                'observed_date': observed_date,
+            })
+        file_name = f'{brand_id}.json'
+        relative = f'{OBSERVED_DIR}/{file_name}'
+        payload = {
+            'format': 'KC_BRAND64_OBSERVED_PRODUCTS_BRAND',
+            'schema_version': '1.0',
+            'observation_date': observed_date,
+            'brand_id': brand_id,
+            'brand_name': brand_name,
+            'product_count': len(records),
+            'publication_status': 'PUBLISH_HOLD',
+            'human_review_required': True,
+            'formal_product_registration': False,
+            'records': records,
+        }
+        (output/file_name).write_text(
+            json.dumps(payload, ensure_ascii=False, separators=(',', ':'))+'\n'
+        )
+        generated.append(relative)
+        manifest_brands.append({
+            'brand_id': brand_id,
+            'brand_name': brand_name,
+            'product_count': len(records),
+            'path': relative,
+        })
+        product_count += len(records)
+
+    expected_products = int(latest.get('product_count') or 0)
+    expected_brands = int(latest.get('product_observed_brand_count') or 0)
+    if product_count != expected_products:
+        raise ValueError(f'Observed product export mismatch: {product_count} != {expected_products}')
+    if len(manifest_brands) != expected_brands:
+        raise ValueError(f'Observed brand export mismatch: {len(manifest_brands)} != {expected_brands}')
+
+    manifest = {
+        'format': 'KC_BRAND64_OBSERVED_PRODUCTS_INDEX',
+        'schema_version': '1.0',
+        'observation_date': observed_date,
+        'active_brand_count': int(latest.get('active_brand_count') or 0),
+        'attempted_brand_count': int(latest.get('attempted_brand_count') or 0),
+        'product_observed_brand_count': expected_brands,
+        'observed_product_count': expected_products,
+        'coverage_status': latest.get('scan_status') or 'UNKNOWN',
+        'publication_status': 'PUBLISH_HOLD',
+        'human_review_required': True,
+        'formal_product_registration': False,
+        'sales_quantity_estimation': 'FORBIDDEN',
+        'first_seen_is_sales_start': False,
+        'brands': manifest_brands,
+    }
+    manifest_relative = f'{OBSERVED_DIR}/manifest.json'
+    (output/'manifest.json').write_text(
+        json.dumps(manifest, ensure_ascii=False, separators=(',', ':'))+'\n'
+    )
+    return [manifest_relative, *generated]
+
+
 def publish(root):
-    names = [*STATE_FILES, 'feed.json', 'latest.json', 'flash-latest.json', 'summary.md']
+    generated = build_observed_product_shards(root)
+    names = [*STATE_FILES, 'feed.json', 'latest.json', 'flash-latest.json', 'summary.md', *generated]
     for name in names:
         if not (root/name).is_file(): raise ValueError('Missing checkpoint: '+name)
     with tempfile.TemporaryDirectory() as directory:
@@ -36,9 +133,9 @@ def publish(root):
         tree = git('write-tree', env=env).stdout.strip()
         args = ['commit-tree', tree]
         if parent: args += ['-p', parent]
-        commit = git(*args, input='Update daily owner flash and recovery state\n').stdout.strip()
+        commit = git(*args, input='Update daily owner flash, recovery state and observed product index\n').stdout.strip()
         git('push', 'origin', commit+':refs/heads/'+BRANCH)
-        print('Published owner flash and recovery state: '+commit)
+        print('Published owner flash, recovery state and observed product index: '+commit)
 
 
 if __name__ == '__main__':
