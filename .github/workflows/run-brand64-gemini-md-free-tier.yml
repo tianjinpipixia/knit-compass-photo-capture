@@ -1,0 +1,108 @@
+name: Run Brand64 Gemini MD free-tier pass
+
+on:
+  schedule:
+    # 05:50 JST daily, after the 05:30 direct official-site collector.
+    - cron: "50 20 * * *"
+  workflow_dispatch:
+  push:
+    # One-time smoke trigger. This marker should not be modified after rollout.
+    paths:
+      - config/gemini-md-free-tier-smoke-trigger-20260907.txt
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: brand64-gemini-md-free-tier
+  cancel-in-progress: false
+
+jobs:
+  gemini-md:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      TZ: Asia/Tokyo
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_MD_MODEL: ${{ vars.GEMINI_MD_MODEL || 'gemini-2.5-flash-lite' }}
+      GH_TOKEN: ${{ github.token }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Restore today's direct official-source snapshot
+        shell: bash
+        run: |
+          git fetch --depth=1 origin brand64/flash-feed
+          mkdir -p data/brand-md-monitoring/direct-scans
+          for state_file in coverage-state.json feed.json latest.json flash-latest.json known-products.json; do
+            git show "FETCH_HEAD:data/brand-md-monitoring/direct-scans/$state_file" > "data/brand-md-monitoring/direct-scans/$state_file"
+          done
+          expected_date=$(date +%F)
+          actual_date=$(python - <<'PY'
+          import json
+          print(json.load(open('data/brand-md-monitoring/direct-scans/latest.json'))['observed_date'])
+          PY
+          )
+          if [ "$actual_date" != "$expected_date" ]; then
+            echo "Direct official-source snapshot is stale: $actual_date (expected $expected_date)" >&2
+            exit 1
+          fi
+
+      - name: Verify free-tier pacing and quota-stop behavior
+        run: python -m unittest discover -s tests -p test_brand64_gemini_md_free_tier.py -v
+
+      - name: Run Gemini MD pass with URL Context only
+        id: gemini
+        continue-on-error: true
+        run: |
+          python scripts/run_brand64_gemini_md_free_tier.py \
+            --date "$(date +%F)" \
+            --required-confirmed 39 \
+            --batch-size 13 \
+            --max-batches 5 \
+            --cooldown-seconds 65
+
+      - name: Upload Gemini MD artifact
+        if: always() && steps.gemini.outcome != 'skipped'
+        uses: actions/upload-artifact@v4
+        with:
+          name: brand64-gemini-md-${{ github.run_id }}-${{ github.run_attempt }}
+          path: data/brand-md-monitoring/gemini-md/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Preserve Gemini MD results on a handoff branch
+        if: always() && steps.gemini.outcome != 'skipped'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain -- data/brand-md-monitoring/gemini-md)" ]; then
+            branch="brand64/gemini-md-$(date +%F)-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+            git checkout -b "$branch"
+            git add data/brand-md-monitoring/gemini-md
+            git commit -m "Brand64 Gemini MD free-tier pass $(date +%F)"
+            git push origin "HEAD:refs/heads/$branch"
+            echo "Gemini MD artifact preserved on $branch" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Report quota-safe architecture
+        if: always()
+        run: |
+          echo "Gemini model: ${GEMINI_MD_MODEL}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Google Search grounding: disabled" >> "$GITHUB_STEP_SUMMARY"
+          echo "URL Context only; 13 brands/request; 65s pacing; one 429 retry then abort." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Enforce 39-brand completion
+        if: always() && steps.gemini.outcome != 'success'
+        run: |
+          echo "Gemini MD pass did not confirm 39 brands. Artifact was preserved; no no-change claim is allowed." >&2
+          exit 1

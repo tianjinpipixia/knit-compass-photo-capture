@@ -2,71 +2,74 @@
 
 ## Purpose
 
-This is the Phase A execution path for Knit Compass Brand64 daily monitoring.
-The Brand64 universe remains **64 active brands**, while Gemini daily completion requires **39 officially confirmed brands**. ChatGPT Phase B verifies only brands/items surfaced as candidate deltas from those confirmed Gemini scans.
+Knit Compass Brand64 uses a two-stage Phase A so the daily operation can stay inside the Gemini free tier while still preserving official-source evidence and Gemini's role in MD review.
+
+1. **Direct official-site collector** (05:30 JST): fetches configured official brand / official EC pages with no paid AI/search API, preserves product observations and unresolved gaps.
+2. **Gemini MD pass** (05:50 JST): Gemini inspects supplied official URLs with **URL Context only**, using the direct official-source snapshot as supporting evidence. Google Search grounding is disabled.
+
+The Brand64 universe remains **64 active brands**. Gemini daily completion requires **39 officially confirmed brands (`scan_status=OK`)**.
 
 ## Files
 
-- `.github/workflows/run-brand64-gemini-primary-scan.yml`
-- `scripts/run_brand64_gemini_primary_scan.py`
-- `scripts/run_brand64_gemini_primary_scan_39.py`
-- output: `data/brand-md-monitoring/gemini-primary-scans/YYYY/MM/brand64_gemini_primary_scan_YYYY-MM-DD_*.json`
-- pointer: `data/brand-md-monitoring/gemini-primary-scans/latest.json`
+Direct collection:
+- `.github/workflows/run-brand64-gemini-primary-scan.yml` (historical filename; now the free direct collector)
+- `scripts/run_brand64_free_direct_scan.py`
+- `scripts/brand64_flash_pipeline.py`
+- `config/brand64-free-direct-sources.json`
+- state/feed: `data/brand-md-monitoring/direct-scans/` and branch `brand64/flash-feed`
+
+Gemini free-tier MD pass:
+- `.github/workflows/run-brand64-gemini-md-free-tier.yml`
+- `scripts/run_brand64_gemini_md_free_tier.py`
+- `tests/test_brand64_gemini_md_free_tier.py`
+- output: `data/brand-md-monitoring/gemini-md/YYYY-MM-DD/gemini-md-*.json`
+- pointer: `data/brand-md-monitoring/gemini-md/latest.json`
 
 ## Required repository secret
 
-Add one GitHub Actions repository secret:
+- `GEMINI_API_KEY` — Gemini API key created in Google AI Studio.
 
-- name: `GEMINI_API_KEY`
-- value: Gemini API key created in Google AI Studio
+Optional repository variable:
+- `GEMINI_MD_MODEL` — defaults to stable `gemini-2.5-flash-lite`.
 
-GitHub path:
+Do not commit API keys to source control.
 
-`Settings` → `Secrets and variables` → `Actions` → `New repository secret`
+## Free-tier quota strategy
 
-Do not commit the API key to source control.
+The previous implementation could keep sending requests after HTTP 429 and also used Google Search grounding. The new Gemini pass is deliberately conservative:
 
-## Schedule
-
-The workflow runs daily at 05:30 Asia/Tokyo (20:30 UTC on the previous UTC day).
-This is intended to complete before the ChatGPT Brand64 daily verification task.
+- stable model default: `gemini-2.5-flash-lite`;
+- **Google Search grounding disabled**;
+- **URL Context only** using known official URLs;
+- 13 brands per request (below the URL Context 20-URL request limit);
+- up to 5 batches, normally 3 batches are enough for 39 brands if all succeed;
+- 65-second spacing between requests;
+- on HTTP 429, wait once and retry the same request once;
+- if the retry is also 429, abort the Gemini run immediately instead of burning the remaining daily quota;
+- the direct collector still preserves official observations even when Gemini is quota-limited.
 
 ## 39-brand completion rule
 
 - Active Brand64 master remains exactly 64 brands.
-- Gemini Phase A requires **39 brands with `scan_status=OK`** to complete the daily primary scan.
-- Priority brands are attempted first: PAL 10 brands, ZARA, SNIDEL, GLOBAL WORK, NATURAL BEAUTY BASIC, VIS, and ROPÉ PICNIC.
-- If an attempted brand is source-limited, Gemini continues through the remaining active set until 39 `OK` brands are accumulated or the 64-brand universe is exhausted.
-- Once 39 `OK` brands are reached, remaining unneeded brands are stored as `GEMINI_NOT_REQUIRED_TODAY`.
-- `GEMINI_NOT_REQUIRED_TODAY` is **not** equivalent to `difference none` and cannot be used as a no-change fact.
-- Attempted source-limited brands remain explicitly unresolved even when the daily 39-brand quota is achieved.
+- Priority order starts with PAL 10, ZARA, SNIDEL, GLOBAL WORK, NATURAL BEAUTY BASIC, VIS and ROPÉ PICNIC.
+- Then other active brands with strong same-day direct-source evidence are used to fill the 39-brand Gemini target.
+- Only Gemini rows with `scan_status=OK` count toward 39.
+- Source-limited / offline / not-found brands remain unresolved and are never interpreted as no-change.
+- Reaching 39 does not make the unreviewed remainder a no-change fact.
 
-## Operational boundaries
+## MD information collected
 
-- Known official URL hints are used for PAL, ZARA and SNIDEL. Other brands may use Gemini Google Search to locate an official brand / official EC women's-knit surface.
-- Missing/inaccessible brands are never interpreted as `difference none`.
-- Historical dates without an actual Gemini artifact remain unresolved; the workflow does not fabricate retroactive no-change observations.
-- The Gemini surface snapshot is lightweight. It records visible item name, official product URL, displayed price, and visible status labels only.
-- Product code, composition, function claims, colors and exact sales/reservation dates belong to ChatGPT Phase B official individual-product verification.
-- Sales quantity estimation is forbidden.
-- Publication remains `PUBLISH_HOLD` / `HUMAN_REVIEW_REQUIRED`.
+For `OK` brands Gemini may record current official MD signals such as:
+- NEW / PREORDER / SALE / PRICE;
+- COLOR / MATERIAL / FUNCTION / DESIGN;
+- RESTOCK / SOLD_OUT / RANKING / PROMOTION;
+- SEASON / CATEGORY and other useful current official signals.
 
-## Diff behavior
-
-For each `OK` brand that has a comparable previous Gemini snapshot, the runner may produce candidates such as:
-
-- `NEW_PRODUCT_CANDIDATE`
-- `PRICE_CHANGE_CANDIDATE`
-- `SALE_STATUS_CHANGE_CANDIDATE`
-- `RESERVATION_STATUS_CHANGE_CANDIDATE`
-- `LISTING_STATUS_CHANGE_CANDIDATE`
-- `LISTING_PRESENCE_CHANGE_CANDIDATE`
-
-A listing-presence change is only a Phase B verification candidate; absence from one listing surface is not treated as deletion or `SOURCE_OFFLINE`.
+Gemini output remains `PUBLISH_HOLD` / `HUMAN_REVIEW_REQUIRED`. Product codes, detailed compositions, exact launch dates and other product-level facts still require ChatGPT Phase B verification on official individual product pages when necessary. Sales quantity estimation is forbidden.
 
 ## Failure behavior
 
-If `GEMINI_API_KEY` is missing, the runner writes a `GEMINI_SCAN_MISSING` artifact and exits non-zero.
-If fewer than 39 brands reach `scan_status=OK`, the runner writes `GEMINI_SCAN_INCOMPLETE` and exits non-zero.
-If 39 brands reach `OK`, Gemini Phase A is successful even when some additional attempted brands are source-limited; those limited brands remain unresolved and are not treated as no-change.
-The GitHub Action uploads and preserves the status artifact so the daily state remains auditable.
+- Missing API key: `GEMINI_SCAN_MISSING`.
+- Fewer than 39 confirmed brands: `GEMINI_SCAN_INCOMPLETE`.
+- Repeated HTTP 429: artifact is preserved, then the run aborts without additional Gemini requests.
+- Historical dates without actual Gemini artifacts remain unresolved; current live results are never relabeled as historical no-change observations.
