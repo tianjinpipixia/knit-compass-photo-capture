@@ -1,12 +1,12 @@
 {
   "format": "KC_BRAND64_FREE_DIRECT_SCAN",
   "schema_version": "2.0",
-  "observed_date": "2026-09-07",
-  "generated_at_utc": "2026-09-07T08:22:59.509908+00:00",
+  "observed_date": "2026-09-08",
+  "generated_at_utc": "2026-09-07T20:38:32.054646+00:00",
   "active_brand_count": 64,
   "attempted_brand_count": 64,
-  "product_observed_brand_count": 38,
-  "product_count": 1319,
+  "product_observed_brand_count": 26,
+  "product_count": 680,
   "complete_brand_count": 0,
   "unresolved_brand_ids": [
     "BR-00001",
@@ -75,7 +75,7 @@
     "BR-00076"
   ],
   "not_attempted_brand_ids": [],
-  "pending_page_count": 1,
+  "pending_page_count": 2,
   "scan_status": "PARTIAL_COVERAGE",
   "ai_api_request_count": 0,
   "billing_enabled_by_this_job": false,
@@ -93,7 +93,7 @@
         ]
       },
       "product_count": 35,
-      "last_attempt_at_utc": "2026-09-07T08:21:41.958202+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:30.064007+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -108,7 +108,7 @@
         ]
       },
       "product_count": 34,
-      "last_attempt_at_utc": "2026-09-07T08:21:41.445896+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:29.394546+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -122,8 +122,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 23,
-      "last_attempt_at_utc": "2026-09-07T08:21:42.272185+00:00",
+      "product_count": 22,
+      "last_attempt_at_utc": "2026-09-07T20:35:31.674645+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -138,7 +138,7 @@
         ]
       },
       "product_count": 23,
-      "last_attempt_at_utc": "2026-09-07T08:21:44.871725+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:32.998841+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -153,7 +153,7 @@
         ]
       },
       "product_count": 37,
-      "last_attempt_at_utc": "2026-09-07T08:21:50.608272+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:39.460795+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -164,13 +164,24 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
+          "ENTRY_NOT_VERIFIED",
+          "FETCH_OR_EXTRACTION_FAILED",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 35,
-      "last_attempt_at_utc": "2026-09-07T08:21:45.404107+00:00",
+      "product_count": 0,
+      "last_attempt_at_utc": "2026-09-07T20:35:30.934939+00:00",
       "pending_page_urls": [],
-      "errors": [],
+      "errors": [
+        {
+          "url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+          "reason": "ValueError: Redirect/source host is not in the configured official source allowlist"
+        },
+        {
+          "url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+          "reason": "ValueError: Redirect/source host is not in the configured official source allowlist"
+        }
+      ],
       "unverified_link_candidate_count": 0
     },
     {
@@ -179,13 +190,24 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
+          "ENTRY_NOT_VERIFIED",
+          "FETCH_OR_EXTRACTION_FAILED",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 42,
-      "last_attempt_at_utc": "2026-09-07T08:21:52.033430+00:00",
+      "product_count": 0,
+      "last_attempt_at_utc": "2026-09-07T20:35:38.102443+00:00",
       "pending_page_urls": [],
-      "errors": [],
+      "errors": [
+        {
+          "url": "https://www.dot-st.com/lowrysfarm/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+          "reason": "ValueError: Redirect/source host is not in the configured official source allowlist"
+        },
+        {
+          "url": "https://www.dot-st.com/lowrysfarm/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+          "reason": "ValueError: Redirect/source host is not in the configured official source allowlist"
+        }
+      ],
       "unverified_link_candidate_count": 0
     },
     {
@@ -194,13 +216,24 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
+          "ENTRY_NOT_VERIFIED",
+          "FETCH_OR_EXTRACTION_FAILED",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 56,
-      "last_attempt_at_utc": "2026-09-07T08:21:56.568440+00:00",
+      "product_count": 0,
+      "last_attempt_at_utc": "2026-09-07T20:35:52.926837+00:00",
       "pending_page_urls": [],
-      "errors": [],
+      "errors": [
+        {
+          "url": "https://www.dot-st.com/studioclip/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+          "reason": "ValueError: Redirect/source host is not in the configured official source allowlist"
+        },
+        {
+          "url": "https://www.dot-st.com/studioclip/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+          "reason": "HTTPError: HTTP Error 500: Internal Server Error"
+        }
+      ],
       "unverified_link_candidate_count": 0
     },
     {
@@ -209,13 +242,24 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
+          "ENTRY_NOT_VERIFIED",
+          "FETCH_OR_EXTRACTION_FAILED",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 44,
-      "last_attempt_at_utc": "2026-09-07T08:22:01.576035+00:00",
+      "product_count": 0,
+      "last_attempt_at_utc": "2026-09-07T20:36:39.942780+00:00",
       "pending_page_urls": [],
-      "errors": [],
+      "errors": [
+        {
+          "url": "https://www.dot-st.com/nikoand/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+          "reason": "HTTPError: HTTP Error 500: Internal Server Error"
+        },
+        {
+          "url": "https://www.dot-st.com/nikoand/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+          "reason": "HTTPError: HTTP Error 500: Internal Server Error"
+        }
+      ],
       "unverified_link_candidate_count": 0
     },
     {
@@ -229,7 +273,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:46.363988+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:34.070021+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 1
@@ -245,7 +289,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:51.886471+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:40.176364+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 4
@@ -262,7 +306,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:43.671757+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:31.741040+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -288,7 +332,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:50.661665+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:38.731031+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -314,7 +358,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:54.226457+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:42.319630+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -340,7 +384,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:57.413128+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:45.821097+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -364,7 +408,7 @@
         ]
       },
       "product_count": 20,
-      "last_attempt_at_utc": "2026-09-07T08:21:48.008901+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:35.923330+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -381,7 +425,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:46.436337+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:34.313003+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -403,7 +447,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:48.125079+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:36.039348+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -425,7 +469,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:51.597988+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:40.096540+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -441,13 +485,20 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
+          "ENTRY_NOT_VERIFIED",
+          "FETCH_OR_EXTRACTION_FAILED",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 68,
-      "last_attempt_at_utc": "2026-09-07T08:22:03.068942+00:00",
+      "product_count": 51,
+      "last_attempt_at_utc": "2026-09-07T20:36:47.924333+00:00",
       "pending_page_urls": [],
-      "errors": [],
+      "errors": [
+        {
+          "url": "https://www.dot-st.com/lepsim/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+          "reason": "HTTPError: HTTP Error 500: Internal Server Error"
+        }
+      ],
       "unverified_link_candidate_count": 0
     },
     {
@@ -456,13 +507,20 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
+          "ENTRY_NOT_VERIFIED",
+          "FETCH_OR_EXTRACTION_FAILED",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 45,
-      "last_attempt_at_utc": "2026-09-07T08:22:08.062065+00:00",
+      "product_count": 22,
+      "last_attempt_at_utc": "2026-09-07T20:36:59.338973+00:00",
       "pending_page_urls": [],
-      "errors": [],
+      "errors": [
+        {
+          "url": "https://www.dot-st.com/lakole/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+          "reason": "HTTPError: HTTP Error 500: Internal Server Error"
+        }
+      ],
       "unverified_link_candidate_count": 0
     },
     {
@@ -471,13 +529,24 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
+          "ENTRY_NOT_VERIFIED",
+          "FETCH_OR_EXTRACTION_FAILED",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 46,
-      "last_attempt_at_utc": "2026-09-07T08:22:11.984701+00:00",
+      "product_count": 0,
+      "last_attempt_at_utc": "2026-09-07T20:37:09.972195+00:00",
       "pending_page_urls": [],
-      "errors": [],
+      "errors": [
+        {
+          "url": "https://www.dot-st.com/jeanasis/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+          "reason": "HTTPError: HTTP Error 500: Internal Server Error"
+        },
+        {
+          "url": "https://www.dot-st.com/jeanasis/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+          "reason": "HTTPError: HTTP Error 500: Internal Server Error"
+        }
+      ],
       "unverified_link_candidate_count": 0
     },
     {
@@ -486,13 +555,20 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
+          "ENTRY_NOT_VERIFIED",
+          "FETCH_OR_EXTRACTION_FAILED",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 57,
-      "last_attempt_at_utc": "2026-09-07T08:22:17.123828+00:00",
+      "product_count": 36,
+      "last_attempt_at_utc": "2026-09-07T20:37:59.072683+00:00",
       "pending_page_urls": [],
-      "errors": [],
+      "errors": [
+        {
+          "url": "https://www.dot-st.com/bayflow/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+          "reason": "HTTPError: HTTP Error 500: Internal Server Error"
+        }
+      ],
       "unverified_link_candidate_count": 0
     },
     {
@@ -501,13 +577,24 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
+          "ENTRY_NOT_VERIFIED",
+          "FETCH_OR_EXTRACTION_FAILED",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 43,
-      "last_attempt_at_utc": "2026-09-07T08:22:21.236778+00:00",
+      "product_count": 0,
+      "last_attempt_at_utc": "2026-09-07T20:38:09.884064+00:00",
       "pending_page_urls": [],
-      "errors": [],
+      "errors": [
+        {
+          "url": "https://www.dot-st.com/hare/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+          "reason": "HTTPError: HTTP Error 500: Internal Server Error"
+        },
+        {
+          "url": "https://www.dot-st.com/hare/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+          "reason": "HTTPError: HTTP Error 500: Internal Server Error"
+        }
+      ],
       "unverified_link_candidate_count": 0
     },
     {
@@ -516,13 +603,24 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
+          "ENTRY_NOT_VERIFIED",
+          "FETCH_OR_EXTRACTION_FAILED",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 57,
-      "last_attempt_at_utc": "2026-09-07T08:22:23.747703+00:00",
+      "product_count": 0,
+      "last_attempt_at_utc": "2026-09-07T20:38:20.687479+00:00",
       "pending_page_urls": [],
-      "errors": [],
+      "errors": [
+        {
+          "url": "https://www.dot-st.com/heather/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+          "reason": "HTTPError: HTTP Error 500: Internal Server Error"
+        },
+        {
+          "url": "https://www.dot-st.com/heather/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+          "reason": "HTTPError: HTTP Error 500: Internal Server Error"
+        }
+      ],
       "unverified_link_candidate_count": 0
     },
     {
@@ -531,13 +629,24 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
+          "ENTRY_NOT_VERIFIED",
+          "FETCH_OR_EXTRACTION_FAILED",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 29,
-      "last_attempt_at_utc": "2026-09-07T08:22:27.434380+00:00",
+      "product_count": 0,
+      "last_attempt_at_utc": "2026-09-07T20:38:31.743684+00:00",
       "pending_page_urls": [],
-      "errors": [],
+      "errors": [
+        {
+          "url": "https://www.dot-st.com/pageboy/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+          "reason": "HTTPError: HTTP Error 500: Internal Server Error"
+        },
+        {
+          "url": "https://www.dot-st.com/pageboy/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+          "reason": "HTTPError: HTTP Error 500: Internal Server Error"
+        }
+      ],
       "unverified_link_candidate_count": 0
     },
     {
@@ -546,13 +655,24 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
+          "ENTRY_NOT_VERIFIED",
+          "FETCH_OR_EXTRACTION_FAILED",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 49,
-      "last_attempt_at_utc": "2026-09-07T08:22:31.712328+00:00",
+      "product_count": 0,
+      "last_attempt_at_utc": "2026-09-07T20:38:31.799064+00:00",
       "pending_page_urls": [],
-      "errors": [],
+      "errors": [
+        {
+          "url": "https://www.dot-st.com/apartbylowrys/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+          "reason": "TimeoutError: BUDGET_EXHAUSTED: resume from saved queue"
+        },
+        {
+          "url": "https://www.dot-st.com/apartbylowrys/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+          "reason": "TimeoutError: BUDGET_EXHAUSTED: resume from saved queue"
+        }
+      ],
       "unverified_link_candidate_count": 0
     },
     {
@@ -561,13 +681,24 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
+          "ENTRY_NOT_VERIFIED",
+          "FETCH_OR_EXTRACTION_FAILED",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 34,
-      "last_attempt_at_utc": "2026-09-07T08:22:34.554628+00:00",
+      "product_count": 0,
+      "last_attempt_at_utc": "2026-09-07T20:38:31.949581+00:00",
       "pending_page_urls": [],
-      "errors": [],
+      "errors": [
+        {
+          "url": "https://www.dot-st.com/elura/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+          "reason": "TimeoutError: BUDGET_EXHAUSTED: resume from saved queue"
+        },
+        {
+          "url": "https://www.dot-st.com/elura/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+          "reason": "TimeoutError: BUDGET_EXHAUSTED: resume from saved queue"
+        }
+      ],
       "unverified_link_candidate_count": 0
     },
     {
@@ -576,13 +707,24 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
+          "ENTRY_NOT_VERIFIED",
+          "FETCH_OR_EXTRACTION_FAILED",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 40,
-      "last_attempt_at_utc": "2026-09-07T08:22:36.268849+00:00",
+      "product_count": 0,
+      "last_attempt_at_utc": "2026-09-07T20:38:32.000979+00:00",
       "pending_page_urls": [],
-      "errors": [],
+      "errors": [
+        {
+          "url": "https://www.dot-st.com/mystywoman/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+          "reason": "TimeoutError: BUDGET_EXHAUSTED: resume from saved queue"
+        },
+        {
+          "url": "https://www.dot-st.com/mystywoman/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+          "reason": "TimeoutError: BUDGET_EXHAUSTED: resume from saved queue"
+        }
+      ],
       "unverified_link_candidate_count": 0
     },
     {
@@ -591,13 +733,24 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
+          "ENTRY_NOT_VERIFIED",
+          "FETCH_OR_EXTRACTION_FAILED",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 52,
-      "last_attempt_at_utc": "2026-09-07T08:22:38.494091+00:00",
+      "product_count": 0,
+      "last_attempt_at_utc": "2026-09-07T20:38:31.852010+00:00",
       "pending_page_urls": [],
-      "errors": [],
+      "errors": [
+        {
+          "url": "https://www.dot-st.com/andemiu/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+          "reason": "TimeoutError: BUDGET_EXHAUSTED: resume from saved queue"
+        },
+        {
+          "url": "https://www.dot-st.com/andemiu/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+          "reason": "TimeoutError: BUDGET_EXHAUSTED: resume from saved queue"
+        }
+      ],
       "unverified_link_candidate_count": 0
     },
     {
@@ -612,7 +765,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:55.026836+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:43.272924+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -633,7 +786,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:58.595012+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:48.959213+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 2
@@ -650,7 +803,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:54.178957+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:42.480805+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -672,7 +825,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:58.006601+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:47.909997+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -694,7 +847,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:22:00.221161+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:54.515779+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -716,7 +869,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:22:03.620206+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:57.829407+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -738,7 +891,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:43.564089+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:33.128942+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -760,7 +913,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:22:00.402698+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:52.774401+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -786,7 +939,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:22:03.686124+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:56.140535+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -809,8 +962,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 18,
-      "last_attempt_at_utc": "2026-09-07T08:21:45.568390+00:00",
+      "product_count": 17,
+      "last_attempt_at_utc": "2026-09-07T20:35:33.300471+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -827,7 +980,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:47.576159+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:36.539721+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -849,7 +1002,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:50.951981+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:39.254101+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -871,7 +1024,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:43.970247+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:32.891533+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -893,7 +1046,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:47.640421+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:35.591989+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -915,7 +1068,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:54.473074+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:42.575525+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -937,7 +1090,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:57.879876+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:48.174996+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -953,12 +1106,15 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
+          "PAGES_PENDING",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 64,
-      "last_attempt_at_utc": "2026-09-07T08:22:47.952419+00:00",
-      "pending_page_urls": [],
+      "product_count": 18,
+      "last_attempt_at_utc": "2026-09-07T20:35:35.009488+00:00",
+      "pending_page_urls": [
+        "https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd%3ACAN02&fl=bd%2CbdName%2Ccd%2Cname%2Cprice%2Cmkcode%2Cmaterial%2Cicon%2Cmcn2%2Cmcn3&start=200"
+      ],
       "errors": [],
       "unverified_link_candidate_count": 0
     },
@@ -974,7 +1130,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:22:04.953978+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:36:42.150902+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -996,17 +1152,13 @@
         ]
       },
       "product_count": 11,
-      "last_attempt_at_utc": "2026-09-07T08:22:43.625354+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:39.176207+00:00",
       "pending_page_urls": [
-        "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2"
+        "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3"
       ],
       "errors": [
         {
           "url": "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2",
-          "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
-        },
-        {
-          "url": "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3",
           "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
         }
       ],
@@ -1022,7 +1174,7 @@
         ]
       },
       "product_count": 28,
-      "last_attempt_at_utc": "2026-09-07T08:21:52.699745+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:41.382984+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1036,8 +1188,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 28,
-      "last_attempt_at_utc": "2026-09-07T08:21:54.631341+00:00",
+      "product_count": 27,
+      "last_attempt_at_utc": "2026-09-07T20:35:43.964516+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1052,7 +1204,7 @@
         ]
       },
       "product_count": 34,
-      "last_attempt_at_utc": "2026-09-07T08:21:57.808942+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:50.973442+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1067,7 +1219,7 @@
         ]
       },
       "product_count": 24,
-      "last_attempt_at_utc": "2026-09-07T08:21:48.946673+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:37.112754+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1082,7 +1234,7 @@
         ]
       },
       "product_count": 15,
-      "last_attempt_at_utc": "2026-09-07T08:21:52.593072+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:40.702556+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1097,7 +1249,7 @@
         ]
       },
       "product_count": 24,
-      "last_attempt_at_utc": "2026-09-07T08:21:55.802153+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:44.090163+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1111,8 +1263,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 35,
-      "last_attempt_at_utc": "2026-09-07T08:21:59.194227+00:00",
+      "product_count": 36,
+      "last_attempt_at_utc": "2026-09-07T20:35:50.453542+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1127,7 +1279,7 @@
         ]
       },
       "product_count": 20,
-      "last_attempt_at_utc": "2026-09-07T08:22:01.905309+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:54.397441+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1142,7 +1294,7 @@
         ]
       },
       "product_count": 7,
-      "last_attempt_at_utc": "2026-09-07T08:22:03.906896+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:58.812849+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1157,7 +1309,7 @@
         ]
       },
       "product_count": 7,
-      "last_attempt_at_utc": "2026-09-07T08:22:06.015706+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:36:43.678667+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1172,7 +1324,7 @@
         ]
       },
       "product_count": 30,
-      "last_attempt_at_utc": "2026-09-07T08:22:07.231954+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:36:49.433741+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1186,8 +1338,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 29,
-      "last_attempt_at_utc": "2026-09-07T08:22:08.911073+00:00",
+      "product_count": 28,
+      "last_attempt_at_utc": "2026-09-07T20:37:00.791113+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1201,8 +1353,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 19,
-      "last_attempt_at_utc": "2026-09-07T08:22:12.841780+00:00",
+      "product_count": 17,
+      "last_attempt_at_utc": "2026-09-07T20:37:11.780525+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1219,7 +1371,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-09-07T08:21:47.771274+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:36.117328+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -1239,14 +1391,14 @@
         ]
       },
       "product_count": 57,
-      "last_attempt_at_utc": "2026-09-07T08:21:47.272847+00:00",
+      "last_attempt_at_utc": "2026-09-07T20:35:35.264568+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
     }
   ],
-  "stage": "check",
-  "artifact_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-09-07/20260907T082259509472Z-check/scan.json",
-  "first_observed_candidate_count": 62,
-  "candidate_delta_count": 107
+  "stage": "flash",
+  "artifact_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-09-08/20260907T203528862494Z-flash/scan.json",
+  "first_observed_candidate_count": 9,
+  "candidate_delta_count": 112
 }
