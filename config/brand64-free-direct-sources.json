@@ -1,24 +1,27 @@
 {
   "format": "KC_FREE_DIRECT_SOURCES",
-  "source": "Saved official entry URLs from 2026-08-21; live access is verified every run.",
+  "source": "2026-09-07 official navigation and response structure audit; selected women/category parameters retained in source evidence.",
   "brands": {
     "BR-00001": {
       "brand_name": "UNIQLO",
       "entry_urls": [
-        "https://www.uniqlo.com/jp/ja/women/tops/knit"
-      ]
+        "https://www.uniqlo.com/jp/ja/women/sweaters"
+      ],
+      "adapter": "fr"
     },
     "BR-00002": {
       "brand_name": "GU",
       "entry_urls": [
-        "https://www.gu-global.com/jp/ja/women/tops/knit"
-      ]
+        "https://www.gu-global.com/jp/ja/women/knit-and-cardigan"
+      ],
+      "adapter": "fr"
     },
     "BR-00003": {
       "brand_name": "MUJI",
       "entry_urls": [
         "https://www.muji.com/jp/ja/store/cmdty/section/T10031"
-      ]
+      ],
+      "adapter": "muji"
     },
     "BR-00004": {
       "brand_name": "ROPÉ PICNIC",
@@ -44,68 +47,101 @@
     "BR-00006": {
       "brand_name": "GLOBAL WORK",
       "entry_urls": [
-        "https://www.dot-st.com/globalwork/"
-      ]
+        "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
+      ],
+      "adapter": "dot",
+      "slug": "globalwork"
     },
     "BR-00007": {
       "brand_name": "LOWRYS FARM",
       "entry_urls": [
-        "https://www.dot-st.com/lowrysfarm/"
-      ]
+        "https://www.dot-st.com/lowrysfarm/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "https://www.dot-st.com/lowrysfarm/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
+      ],
+      "adapter": "dot",
+      "slug": "lowrysfarm"
     },
     "BR-00008": {
       "brand_name": "studio CLIP",
       "entry_urls": [
-        "https://www.dot-st.com/studioclip/"
-      ]
+        "https://www.dot-st.com/studioclip/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "https://www.dot-st.com/studioclip/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
+      ],
+      "adapter": "dot",
+      "slug": "studioclip"
     },
     "BR-00009": {
       "brand_name": "niko and ...",
       "entry_urls": [
-        "https://www.dot-st.com/nikoand/"
-      ]
+        "https://www.dot-st.com/nikoand/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "https://www.dot-st.com/nikoand/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
+      ],
+      "adapter": "dot",
+      "slug": "nikoand"
     },
     "BR-00010": {
       "brand_name": "earth music&ecology",
       "entry_urls": [
         "https://stripe-club.com/brand/earth1999/"
-      ]
+      ],
+      "adapter": "stripe",
+      "slug": "earth1999"
     },
     "BR-00011": {
       "brand_name": "Green Parks",
       "entry_urls": [
         "https://stripe-club.com/brand/greenparks/"
-      ]
+      ],
+      "adapter": "stripe",
+      "slug": "greenparks"
     },
     "BR-00012": {
       "brand_name": "OPAQUE.CLIP",
       "entry_urls": [
-        "https://store.world.co.jp/s/brand/opaque-clip/"
-      ]
+        "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/",
+        "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/"
+      ],
+      "adapter": "world",
+      "slug": "opaque-clip",
+      "women_category_entry": true
     },
     "BR-00013": {
       "brand_name": "index",
       "entry_urls": [
-        "https://store.world.co.jp/s/brand/index/category/WB/WB01/"
-      ]
+        "https://store.world.co.jp/s/brand/index/category/WB/WB01/",
+        "https://store.world.co.jp/s/brand/index/category/WB/WB02/"
+      ],
+      "adapter": "world",
+      "slug": "index",
+      "women_category_entry": true
     },
     "BR-00014": {
       "brand_name": "SHOO・LA・RUE",
       "entry_urls": [
-        "https://store.world.co.jp/s/brand/shoo-la-rue/"
-      ]
+        "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/",
+        "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/"
+      ],
+      "adapter": "world",
+      "slug": "shoo-la-rue",
+      "women_category_entry": true
     },
     "BR-00015": {
       "brand_name": "grove",
       "entry_urls": [
-        "https://store.world.co.jp/s/brand/grove/"
-      ]
+        "https://store.world.co.jp/s/brand/grove/category/WB/WB01/",
+        "https://store.world.co.jp/s/brand/grove/category/WB/WB02/"
+      ],
+      "adapter": "world",
+      "slug": "grove",
+      "women_category_entry": true
     },
     "BR-00016": {
       "brand_name": "ikka",
       "entry_urls": [
-        "https://tokyodesignchannel.com/c/ikka/ikka_ladies"
-      ]
+        "https://tokyodesignchannel.com/c/ikka/ikkaladies/ikkalknit/"
+      ],
+      "adapter": "ikka"
     },
     "BR-00017": {
       "brand_name": "coen",
@@ -122,97 +158,137 @@
     "BR-00019": {
       "brand_name": "any SiS",
       "entry_urls": [
-        "https://crosset.onward.co.jp/shop/anysis/"
+        "https://crosset.onward.co.jp/shop/anysis"
       ]
     },
     "BR-00021": {
       "brand_name": "LEPSIM",
       "entry_urls": [
-        "https://www.dot-st.com/lepsim/"
-      ]
+        "https://www.dot-st.com/lepsim/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "https://www.dot-st.com/lepsim/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
+      ],
+      "adapter": "dot",
+      "slug": "lepsim"
     },
     "BR-00022": {
       "brand_name": "LAKOLE",
       "entry_urls": [
-        "https://www.dot-st.com/lakole/"
-      ]
+        "https://www.dot-st.com/lakole/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "https://www.dot-st.com/lakole/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
+      ],
+      "adapter": "dot",
+      "slug": "lakole"
     },
     "BR-00023": {
       "brand_name": "JEANASIS",
       "entry_urls": [
-        "https://www.dot-st.com/jeanasis/"
-      ]
+        "https://www.dot-st.com/jeanasis/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "https://www.dot-st.com/jeanasis/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
+      ],
+      "adapter": "dot",
+      "slug": "jeanasis"
     },
     "BR-00024": {
       "brand_name": "BAYFLOW",
       "entry_urls": [
-        "https://www.dot-st.com/bayflow/"
-      ]
+        "https://www.dot-st.com/bayflow/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "https://www.dot-st.com/bayflow/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
+      ],
+      "adapter": "dot",
+      "slug": "bayflow"
     },
     "BR-00025": {
       "brand_name": "HARE",
       "entry_urls": [
-        "https://www.dot-st.com/hare/"
-      ]
+        "https://www.dot-st.com/hare/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "https://www.dot-st.com/hare/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
+      ],
+      "adapter": "dot",
+      "slug": "hare"
     },
     "BR-00027": {
       "brand_name": "Heather",
       "entry_urls": [
-        "https://www.dot-st.com/heather/"
-      ]
+        "https://www.dot-st.com/heather/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "https://www.dot-st.com/heather/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
+      ],
+      "adapter": "dot",
+      "slug": "heather"
     },
     "BR-00028": {
       "brand_name": "PAGEBOY",
       "entry_urls": [
-        "https://www.dot-st.com/pageboy/"
-      ]
+        "https://www.dot-st.com/pageboy/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "https://www.dot-st.com/pageboy/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
+      ],
+      "adapter": "dot",
+      "slug": "pageboy"
     },
     "BR-00030": {
       "brand_name": "A part by",
       "entry_urls": [
-        "https://www.dot-st.com/apartbylowrys/"
-      ]
+        "https://www.dot-st.com/apartbylowrys/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "https://www.dot-st.com/apartbylowrys/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
+      ],
+      "adapter": "dot",
+      "slug": "apartbylowrys"
     },
     "BR-00031": {
       "brand_name": "Elura",
       "entry_urls": [
-        "https://www.dot-st.com/elura/"
-      ]
+        "https://www.dot-st.com/elura/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "https://www.dot-st.com/elura/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
+      ],
+      "adapter": "dot",
+      "slug": "elura"
     },
     "BR-00032": {
       "brand_name": "mysty woman",
       "entry_urls": [
-        "https://www.dot-st.com/mystywoman/"
-      ]
+        "https://www.dot-st.com/mystywoman/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "https://www.dot-st.com/mystywoman/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
+      ],
+      "adapter": "dot",
+      "slug": "mystywoman"
     },
     "BR-00033": {
       "brand_name": "Andemiu",
       "entry_urls": [
-        "https://www.dot-st.com/andemiu/"
-      ]
+        "https://www.dot-st.com/andemiu/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "https://www.dot-st.com/andemiu/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
+      ],
+      "adapter": "dot",
+      "slug": "andemiu"
     },
     "BR-00035": {
       "brand_name": "AMERICAN HOLIC",
       "entry_urls": [
         "https://stripe-club.com/brand/american-holic/"
+      ],
+      "adapter": "stripe",
+      "slug": "american-holic",
+      "brand_aliases": [
+        "AMERICAN HOLIC"
       ]
     },
     "BR-00036": {
       "brand_name": "YECCA VECCA",
       "entry_urls": [
         "https://stripe-club.com/brand/yeccavecca/"
-      ]
+      ],
+      "adapter": "stripe",
+      "slug": "yeccavecca"
     },
     "BR-00039": {
       "brand_name": "23区",
       "entry_urls": [
-        "https://crosset.onward.co.jp/shop/23ku/"
+        "https://crosset.onward.co.jp/shop/23ku"
       ]
     },
     "BR-00040": {
       "brand_name": "ICB",
       "entry_urls": [
-        "https://crosset.onward.co.jp/shop/icb/"
+        "https://crosset.onward.co.jp/shop/icb"
       ]
     },
     "BR-00041": {
@@ -230,26 +306,35 @@
     "BR-00047": {
       "brand_name": "UNFILO",
       "entry_urls": [
-        "https://crosset.onward.co.jp/shop/unfilo/"
+        "https://crosset.onward.co.jp/shop/unfilo"
       ]
     },
     "BR-00049": {
       "brand_name": "INDIVI",
       "entry_urls": [
-        "https://store.world.co.jp/s/brand/indivi/"
-      ]
+        "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/",
+        "https://store.world.co.jp/s/brand/indivi/category/WB/WB02/"
+      ],
+      "adapter": "world",
+      "slug": "indivi",
+      "women_category_entry": true
     },
     "BR-00050": {
       "brand_name": "UNTITLED",
       "entry_urls": [
-        "https://store.world.co.jp/s/brand/untitled/"
-      ]
+        "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/",
+        "https://store.world.co.jp/s/brand/untitled/category/WB/WB02/"
+      ],
+      "adapter": "world",
+      "slug": "untitled",
+      "women_category_entry": true
     },
     "BR-00051": {
       "brand_name": "NATURAL BEAUTY BASIC",
       "entry_urls": [
         "https://mix.tokyo/pages/naturalbeautybasic"
-      ]
+      ],
+      "adapter": "shopify"
     },
     "BR-00052": {
       "brand_name": "SENSE OF PLACE",
@@ -290,26 +375,31 @@
     "BR-00058": {
       "brand_name": "Te chichi",
       "entry_urls": [
-        "https://www.canshop.jp/techichi/"
-      ]
+        "https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd:CAN02&fl=bd,bdName,cd,name,price,mkcode,material,icon,mcn2,mcn3"
+      ],
+      "adapter": "canshop"
     },
     "BR-00059": {
       "brand_name": "ANY",
       "entry_urls": [
-        "https://crosset.onward.co.jp/shop/any/"
+        "https://crosset.onward.co.jp/shop/anyfam"
       ]
     },
     "BR-00060": {
       "brand_name": "MUJI Labo",
       "entry_urls": [
         "https://www.muji.com/jp/ja/store/cmdty/section/T10013"
-      ]
+      ],
+      "adapter": "muji"
     },
     "BR-00062": {
       "brand_name": "Mila Owen",
       "entry_urls": [
-        "https://usagi-online.com/brand/milaowen/"
-      ]
+        "https://usagi-online.com/brand/milaowen/category/AB/AB01/",
+        "https://usagi-online.com/brand/milaowen/category/AB/AB05/"
+      ],
+      "adapter": "usagi",
+      "slug": "milaowen"
     },
     "BR-00063": {
       "brand_name": "ROPÉ",
@@ -327,67 +417,91 @@
         "https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/"
       ],
       "adapter": "jun",
-      "slug": "adam-et-rope-femme"
+      "slug": "adam-et-rope-femme",
+      "brand_aliases": [
+        "ADAM ET ROPÉ FEMME",
+        "ADAM ET ROPE' FEMME"
+      ]
     },
     "BR-00065": {
       "brand_name": "GALLARDAGALANTE",
       "entry_urls": [
-        "https://www.palcloset.jp/gallardagalante/"
-      ]
+        "https://www.palcloset.jp/display/display/?b=gallardagalante&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC"
+      ],
+      "adapter": "pal",
+      "slug": "gallardagalante"
     },
     "BR-00066": {
       "brand_name": "Whim Gazette",
       "entry_urls": [
-        "https://www.palcloset.jp/whimgazette/"
-      ]
+        "https://www.palcloset.jp/display/display/?b=whimgazette&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC"
+      ],
+      "adapter": "pal",
+      "slug": "whimgazette"
     },
     "BR-00067": {
       "brand_name": "LOUNGEDRESS",
       "entry_urls": [
-        "https://www.palcloset.jp/loungedress/"
-      ]
+        "https://www.palcloset.jp/display/display/?b=loungedress&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC"
+      ],
+      "adapter": "pal",
+      "slug": "loungedress"
     },
     "BR-00068": {
       "brand_name": "RIVE DROITE",
       "entry_urls": [
-        "https://www.palcloset.jp/rivedroite/"
-      ]
+        "https://www.palcloset.jp/display/display/?b=rivedroite&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC"
+      ],
+      "adapter": "pal",
+      "slug": "rivedroite"
     },
     "BR-00069": {
       "brand_name": "DOUDOU",
       "entry_urls": [
-        "https://www.palcloset.jp/doudou/"
-      ]
+        "https://www.palcloset.jp/display/display/?b=doudou&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC"
+      ],
+      "adapter": "pal",
+      "slug": "doudou"
     },
     "BR-00070": {
       "brand_name": "SHENERY",
       "entry_urls": [
-        "https://www.palcloset.jp/shenery/"
-      ]
+        "https://www.palcloset.jp/display/display/?b=shenery&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC"
+      ],
+      "adapter": "pal",
+      "slug": "shenery"
     },
     "BR-00071": {
       "brand_name": "un dix cors",
       "entry_urls": [
-        "https://www.palcloset.jp/croisiere/"
-      ]
+        "https://www.palcloset.jp/display/display/?b=croisiere&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC"
+      ],
+      "adapter": "pal",
+      "slug": "croisiere"
     },
     "BR-00072": {
       "brand_name": "La boutique BonBon",
       "entry_urls": [
-        "https://www.palcloset.jp/laboutiquebonbon/"
-      ]
+        "https://www.palcloset.jp/display/display/?b=laboutiquebonbon&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC"
+      ],
+      "adapter": "pal",
+      "slug": "laboutiquebonbon"
     },
     "BR-00073": {
       "brand_name": "natural couture",
       "entry_urls": [
-        "https://www.palcloset.jp/naturalcouture/"
-      ]
+        "https://www.palcloset.jp/display/display/?b=naturalcouture&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC"
+      ],
+      "adapter": "pal",
+      "slug": "naturalcouture"
     },
     "BR-00074": {
       "brand_name": "DISCOAT",
       "entry_urls": [
-        "https://www.palcloset.jp/discoat/"
-      ]
+        "https://www.palcloset.jp/display/display/?b=discoat&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC"
+      ],
+      "adapter": "pal",
+      "slug": "discoat"
     },
     "BR-00075": {
       "brand_name": "ZARA",
@@ -400,7 +514,9 @@
       "entry_urls": [
         "https://usagi-online.com/brand/snidel/category/AB/AB01/",
         "https://usagi-online.com/brand/snidel/category/AB/AB05/"
-      ]
+      ],
+      "adapter": "usagi",
+      "slug": "snidel"
     }
   }
 }
