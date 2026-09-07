@@ -85,7 +85,7 @@
 |green label relaxing|未完了|0|0|
 |Spick & Span|未完了|0|0|
 |IÉNA|未完了|0|0|
-|Te chichi|未完了|64|0|
+|Te chichi|未完了|64|1|
 |ANY|未完了|0|0|
 |MUJI Labo|未完了|12|1|
 |Mila Owen|未完了|28|0|
@@ -274,7 +274,8 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://baycrews.jp/brand/detail/iena
 
 ### Te chichi
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd%3ACAN02&fl=bd%2CbdName%2Ccd%2Cname%2Cprice%2Cmkcode%2Cmaterial%2Cicon%2Cmcn2%2Cmcn3&start=200
 
 ### ANY
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -282,9 +283,9 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 
 ### MUJI Labo
 取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2
-- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2
+- https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3
+- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2
 
 ### Mila Owen
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -296,44 +297,34 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### GALLARDAGALANTE
-取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- HTTPError: HTTP Error 405: Not Allowed：https://www.palcloset.jp/display/display/?b=gallardagalante&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### Whim Gazette
-取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- HTTPError: HTTP Error 405: Not Allowed：https://www.palcloset.jp/display/display/?b=whimgazette&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### LOUNGEDRESS
-取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- HTTPError: HTTP Error 405: Not Allowed：https://www.palcloset.jp/display/display/?b=loungedress&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### RIVE DROITE
-取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- HTTPError: HTTP Error 405: Not Allowed：https://www.palcloset.jp/display/display/?b=rivedroite&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### DOUDOU
-取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- HTTPError: HTTP Error 405: Not Allowed：https://www.palcloset.jp/display/display/?b=doudou&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### SHENERY
-取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- HTTPError: HTTP Error 405: Not Allowed：https://www.palcloset.jp/display/display/?b=shenery&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### un dix cors
-取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- HTTPError: HTTP Error 405: Not Allowed：https://www.palcloset.jp/display/display/?b=croisiere&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### La boutique BonBon
-取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- HTTPError: HTTP Error 405: Not Allowed：https://www.palcloset.jp/display/display/?b=laboutiquebonbon&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### natural couture
-取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- HTTPError: HTTP Error 405: Not Allowed：https://www.palcloset.jp/display/display/?b=naturalcouture&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### DISCOAT
-取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- HTTPError: HTTP Error 405: Not Allowed：https://www.palcloset.jp/display/display/?b=discoat&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### ZARA
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
