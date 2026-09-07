@@ -65,6 +65,13 @@ class FamilyAdapters(unittest.TestCase):
         self.assertEqual(len(scan.adapters.extract(scan.Document(html),'https://www.palcloset.jp/display/display/?sex=001',meta)),1)
         meta['brand_name']='DISCOAT'
         self.assertEqual(scan.adapters.extract(scan.Document(html),'https://www.palcloset.jp/display/display/?sex=001',meta),[])
+    def test_pal_listing_without_homepage_css_classes(self):
+        html='<a href="/display/item/GGZ123/?cl=0240"><p>GALLARDAGALANTE</p><div class="textOverflow"><p>ニット</p></div><p class="price">¥19,800</p></a>'
+        items=scan.adapters.extract(scan.Document(html),'https://www.palcloset.jp/display/display/?sex=001',{'adapter':'pal','brand_name':'GALLARDAGALANTE'})
+        self.assertEqual(len(items),1);self.assertEqual(items[0]['product_name'],'ニット')
+    def test_verification_page_is_an_access_limit_not_no_products(self):
+        row=scan.scan_brand('BR-00004',META,lambda url:('<meta content="URL=?bm-verify=test">',{'url':url,'sha256':'test'}))
+        self.assertEqual(row['scan_status'],'SOURCE_ACCESS_LIMITED');self.assertEqual(row['surface_items'],[])
     def test_usagi_color_links_do_not_duplicate_product(self):
         html='<div class="m-item"><p class="m-item-brand">SNIDEL</p><p class="m-item-category">ニット</p><p class="m-item-name">プルオーバー</p><p class="m-item-price">¥9,900</p><a href="/brand/snidel/item/SND123?clr_id=01"></a><a href="/brand/snidel/item/SND123?clr_id=02"></a></div>'
         items=scan.adapters.extract(scan.Document(html),'https://usagi-online.com/brand/snidel/category/AB/AB01/',{'adapter':'usagi','slug':'snidel','brand_name':'SNIDEL'})
