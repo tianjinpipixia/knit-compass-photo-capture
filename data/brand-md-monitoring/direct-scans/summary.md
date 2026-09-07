@@ -2,7 +2,7 @@
 観測日：2026-09-07
 
 登録範囲の確認完了：0/64ブランド。
-本日観測した商品：1273件。MD用の蓄積として保持します。
+本日観測した商品：1319件。MD用の蓄積として保持します。
 初回発見と発売日は区別します。未確認・未取得を「新商品なし」と判定しません。
 
 ## 本日初めて見つけた商品（発売日未確認）
@@ -25,6 +25,52 @@
 |Whim Gazette|スエードライクローゲージニット|¥18,480|[公式商品](https://www.palcloset.jp/display/item/WGZ1061105A0009/)|
 |DOUDOU|フリルニットトップス|¥10,890|[公式商品](https://www.palcloset.jp/display/item/DDZ1062105A0036/)|
 |LEPSIM|5ゲージハンドステッチVカーディガン|¥3,300|[公式商品](https://www.dot-st.com/lepsim/disp/item/595543/)|
+|Te chichi|ニットビッグトート《2026 SUMMER LOOK item》|¥3795.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4N9)|
+|Te chichi|【ﾏｼﾝｳｫｯｼｬﾌﾞﾙ】遮熱ポケット付きクルーネックカーディガン|¥2145.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4NO)|
+|Te chichi|【UVカット】ヘンリーネック5分袖配色リブニット|¥2695.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4PN)|
+|Te chichi|【接触冷感/ﾏｼﾝｳｫｯｼｬﾌﾞﾙ】レースヘム５分袖クルーカーディガン|¥2596.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4I3)|
+|Te chichi|ロゴジャガードニット|¥2156.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4LE)|
+|Te chichi|パールスリーブニット|¥3245.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4LB)|
+|Te chichi|エンブロイダリースリーブニット|¥3245.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4LC)|
+|Te chichi|【多機能】フレンチスリーブニット《2026 SUMMER LOOK item》|¥2145.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4LD)|
+|Te chichi|メッシュミドルカーディガン|¥2079.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4I2)|
+|Te chichi|ラメメランジリブニット|¥2475.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4E9)|
+|Te chichi|【マシンウォッシャブル】ラメシアー前後2WAY5分袖カーディガン|¥2475.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4F3)|
+|Te chichi|【調温】14G総針ハーフスリーブニットジャケット|¥3795.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4E7)|
+|Te chichi|【調温】ハーフスリーブニットポロ|¥2970.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4EB)|
+|Te chichi|【調温】ペプラムハーフスリーブニット|¥2970.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4GY)|
+|Te chichi|カットレースVネックカーディガン《2026 SUMMER LOOK item》|¥2695.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4HV)|
+|Te chichi|ハイツイストペーパータッチカーディガン|¥3245.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4I4)|
+|Te chichi|シャギーバルーンスリーブニット|¥2079.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4E8)|
+|Te chichi|【接触冷感/UVカット/抗菌防臭】14G綿ポリVネックカーディガン|¥2475.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4GX)|
+|Te chichi|14G天竺ハーフスリーブニットプルオーバー|¥2475.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4E6)|
+|Te chichi|【WEB限定カラーあり】ペーパータッチヤーン2wayメッシュニット|¥2970.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4EA)|
+|Te chichi|メッシュスキッパーポロニット|¥3245.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4EC)|
+|Te chichi|【接触冷感/UVカット/抗菌防臭】14G綿ポリクルーカーディガン《新色追加》|¥2200.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A4B5)|
+|Te chichi|カットソークルーネックカーディガン|¥2970.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A47F)|
+|Te chichi|Vネックニットベスト|¥1760.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A44V)|
+|Te chichi|コクーンVネックカーディガン|¥1980.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A44U)|
+|Te chichi|コンパクトクルーネックニット【AOYAMA FASHION ASSOCIATION × Té chichi】|¥3300.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A44T)|
+|Te chichi|総針ポケット付きVネックベスト《2026 spring catalog item》|¥2376.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A41S)|
+|Te chichi|2WAYカシュクールVネックカーディガン|¥2750.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A41T)|
+|Te chichi|パールビジューニットライトジャケット《2026 spring catalog item》|¥3960.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A41U)|
+|Te chichi|配色レイヤードカーディガン|¥3850.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A3Y9)|
+|Te chichi|メランジ衿ニットジャケット|¥2772.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A3YT)|
+|Te chichi|ミラノリブ配色ラインカーディガン|¥3850.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A3ZN)|
+|Te chichi|前後2WAYペプラムカーディガン|¥3300.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A3ZO)|
+|Te chichi|ポケット付きニットベスト|¥2376.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A43K)|
+|Te chichi|ポケット付きクルーネックカーディガン|¥2475.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A3WJ)|
+|Te chichi|前後2WAYスウェットライクニット|¥2750.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A3VL)|
+|Te chichi|ボーダーボックスシルエットプルオーバー|¥2475.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A3YC)|
+|Te chichi|総針衿付きジャケットカーディガン《2026 spring catalog item》|¥3300.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A42G)|
+|Te chichi|【Atelier ChouChou】コードレースフレアスリーブトップス|¥3300.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A3VX)|
+|Te chichi|【Atelier ChouChou】クロシェライクレースニット|¥3300.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A3YB)|
+|Te chichi|レースカフスリブニット|¥3168.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A3VK)|
+|Te chichi|チャーム付きワッフルニットプルオーバー|¥3300.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A3WE)|
+|Te chichi|ラガーニット《2026 spring catalog item》|¥3300.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A3YA)|
+|Te chichi|リブVネックカーディガン《2026 spring catalog item》|¥2475.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A3WH)|
+|Te chichi|ツイードニットベスト|¥3168.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A3WI)|
+|Te chichi|ミラノリブポケットクルーカーディガン|¥3960.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A3YS)|
 
 ## ブランド・婦人対象の判定待ちリンク
 
@@ -86,7 +132,7 @@
 |green label relaxing|未完了|0|0|
 |Spick & Span|未完了|0|0|
 |IÉNA|未完了|0|0|
-|Te chichi|未完了|18|1|
+|Te chichi|未完了|64|0|
 |ANY|未完了|0|0|
 |MUJI Labo|未完了|11|1|
 |Mila Owen|未完了|28|0|
@@ -275,8 +321,7 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://baycrews.jp/brand/detail/iena
 
 ### Te chichi
-未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd%3ACAN02&fl=bd%2CbdName%2Ccd%2Cname%2Cprice%2Cmkcode%2Cmaterial%2Cicon%2Cmcn2%2Cmcn3&start=200
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### ANY
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -284,8 +329,9 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 
 ### MUJI Labo
 取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3
+- https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2
+- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3
 
 ### Mila Owen
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -333,5 +379,5 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 ### SNIDEL
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
-深掘り待ち：12件。速報は詳細調査の完了を待たず保存します。
+深掘り待ち：57件。速報は詳細調査の完了を待たず保存します。
 詳細・混率・発売日等の不明点は未確認。正式マスター・顧客公開は確認後。
