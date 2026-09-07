@@ -1,11 +1,26 @@
 {
-  "latest_attempted_scan_date": "2026-09-05",
-  "gemini_execution_status": "GEMINI_SCAN_MISSING",
-  "artifact_path": "data/brand-md-monitoring/gemini-primary-scans/2026/09/brand64_gemini_primary_scan_2026-09-05_20260905T142122522115Z.json",
+  "latest_attempted_scan_date": "2026-09-07",
+  "gemini_execution_status": "GEMINI_SCAN_INCOMPLETE",
+  "artifact_path": "data/brand-md-monitoring/gemini-primary-scans/2026/09/brand64_gemini_primary_scan_2026-09-07_20260907T052247705104Z.json",
   "expected_brand_count": 64,
   "returned_brand_count": 0,
   "candidate_brand_count": 0,
   "errors": [
-    "GEMINI_API_KEY repository secret is not configured."
-  ]
+    "HTTPError batch 1: 404 {\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n",
+    "HTTPError batch 2: 404 {\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n",
+    "HTTPError batch 3: 404 {\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n",
+    "HTTPError batch 4: 404 {\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n",
+    "HTTPError batch 5: 404 {\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n",
+    "HTTPError batch 6: 404 {\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n",
+    "HTTPError batch 7: 404 {\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n",
+    "HTTPError batch 8: 404 {\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"
+  ],
+  "active_brand_count": 64,
+  "required_confirmed_brand_count": 39,
+  "confirmed_brand_count": 0,
+  "attempted_brand_count": 64,
+  "not_required_brand_count": 0,
+  "source_limited_brand_count": 64,
+  "candidate_delta_count": 0,
+  "phase_b_rule": "ChatGPT verifies only candidate_deltas from OK Gemini brands; non-scanned and source-limited brands are not treated as no-change."
 }
