@@ -87,7 +87,8 @@ def extract(doc,source,meta):
             url=urljoin(source,a.attrs['href']);amount=price(text(cls(n,'m-item-price')));status=labels(cls(n,'m-item-icon'))
         elif adapter=='pal':
             if n.tag!='a' or '/display/item/' not in n.attrs.get('href',''):continue
-            brand=text(cls(n,'brand'));name=text(cls(n,'title'))
+            brand=text(cls(n,'brand')) or next((text(p) for p in n.walk() if p.tag=='p' and matches(text(p),meta)), '')
+            name=text(cls(n,'title')) or text(cls(n,'textOverflow'))
             if not matches(brand,meta) or not knit(name):continue
             # Gender code 001 is the official レディース filter.
             if parse_qs(urlsplit(source).query).get('sex')!=['001']:continue
@@ -135,7 +136,7 @@ def extract(doc,source,meta):
         elif adapter=='ikka':
             if not n.has_class('fs-c-productListItem'):continue
             if '/ikkaladies/ikkalknit/' not in source:continue
-            a=next((a for a in n.walk() if a.tag=='a' and re.search(r'/c/ikka/\d+$',a.attrs.get('href',''))),None)
+            a=next((a for a in n.walk() if a.tag=='a' and re.search(r'/c/ikka/(?:ikkaladies/ikkalknit/)?\d+/?$',a.attrs.get('href',''))),None)
             if not a:continue
             name=text(cls(n,'fs-c-productName__name'))
             if not name or OTHER.search(name):continue
