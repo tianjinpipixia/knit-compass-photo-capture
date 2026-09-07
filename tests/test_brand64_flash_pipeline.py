@@ -182,10 +182,12 @@ class FlashPipelineTests(unittest.TestCase):
     def test_observed_product_export_preserves_count_without_formal_promotion(self):
         with tempfile.TemporaryDirectory() as tmp:
             out = pathlib.Path(tmp)
+            old_date = (scan.dt.date.fromisoformat(DATE)-scan.dt.timedelta(days=1)).isoformat()
             coverage = {
                 'BR-00004': {
                     'brand_id': 'BR-00004',
                     'brand_name': 'ROPÉ PICNIC',
+                    'observed_date': DATE,
                     'surface_items': [
                         {'product_name': '冷感ニット', 'product_url': URL+'GDM66000', 'product_code': 'GDM66000',
                          'display_price': '¥4,994', 'status_labels': ['NEW'], 'source_url': URL,
@@ -193,6 +195,15 @@ class FlashPipelineTests(unittest.TestCase):
                         {'product_name': 'UVカーディガン', 'product_url': URL+'GDK00001', 'product_code': 'GDK00001',
                          'display_price': '¥5,489', 'status_labels': [], 'source_url': URL,
                          'evidence_level': 'OFFICIAL_LISTING_CARD', 'scope_status': 'BRAND_AND_KNIT_PATH_MATCHED'},
+                        {'product_name': '判定待ちリンク', 'product_url': URL+'WAIT', 'scope_status': 'PRODUCT_SCOPE_REVIEW_REQUIRED'},
+                    ],
+                },
+                'BR-OLD': {
+                    'brand_id': 'BR-OLD',
+                    'brand_name': 'OLD',
+                    'observed_date': old_date,
+                    'surface_items': [
+                        {'product_name': '昨日の商品', 'product_url': URL+'OLD', 'scope_status': 'BRAND_AND_KNIT_PATH_MATCHED'},
                     ],
                 },
             }
@@ -215,12 +226,20 @@ class FlashPipelineTests(unittest.TestCase):
             self.assertEqual(brand['product_count'], 2)
             self.assertFalse(brand['formal_product_registration'])
             self.assertIsNone(brand['records'][0].get('sales_start_date'))
+            self.assertFalse((out/'observed-products/BR-OLD.json').exists())
+            self.assertNotIn('WAIT', json.dumps(brand, ensure_ascii=False))
 
     def test_observed_product_export_refuses_count_mismatch(self):
         with tempfile.TemporaryDirectory() as tmp:
             out = pathlib.Path(tmp)
             (out/'coverage-state.json').write_text(json.dumps({
-                'BR-00004': {'brand_name': 'ROPÉ PICNIC', 'surface_items': [{'product_name': '冷感ニット'}]},
+                'BR-00004': {
+                    'brand_name': 'ROPÉ PICNIC',
+                    'observed_date': DATE,
+                    'surface_items': [
+                        {'product_name': '冷感ニット', 'scope_status': 'BRAND_AND_KNIT_PATH_MATCHED'},
+                    ],
+                },
             }))
             (out/'latest.json').write_text(json.dumps({
                 'observed_date': DATE,

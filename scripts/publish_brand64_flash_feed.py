@@ -13,6 +13,7 @@ from brand64_flash_pipeline import STATE_FILES
 BRANCH = 'brand64/flash-feed'
 PREFIX = 'data/brand-md-monitoring/direct-scans/'
 OBSERVED_DIR = 'observed-products'
+COUNTED_SCOPE_STATUS = 'BRAND_AND_KNIT_PATH_MATCHED'
 
 
 def git(*args, env=None, input=None, check=True):
@@ -21,7 +22,14 @@ def git(*args, env=None, input=None, check=True):
 
 
 def build_observed_product_shards(root):
-    """Build compact per-brand observation files without promoting them to formal products."""
+    """Build compact per-brand observation files without promoting them to formal products.
+
+    The exported rows must use exactly the same counting boundary as
+    brand64_flash_pipeline.build_summary(): current observation date only and
+    scope_status == BRAND_AND_KNIT_PATH_MATCHED. Link candidates and stale rows
+    stay in durable recovery/history state but are not part of the displayed MD
+    observation count.
+    """
     coverage = json.loads((root/'coverage-state.json').read_text())
     latest = json.loads((root/'latest.json').read_text())
     observed_date = latest.get('observed_date') or latest.get('observation_date')
@@ -38,7 +46,12 @@ def build_observed_product_shards(root):
     product_count = 0
     for brand_id in sorted(coverage):
         state = coverage[brand_id]
-        items = state.get('surface_items') or []
+        if state.get('observed_date') != observed_date:
+            continue
+        items = [
+            item for item in (state.get('surface_items') or [])
+            if item.get('scope_status') == COUNTED_SCOPE_STATUS
+        ]
         if not items:
             continue
         brand_name = state.get('brand_name') or brand_id
