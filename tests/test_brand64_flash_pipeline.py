@@ -7,6 +7,7 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]/'scripts'))
 import brand64_flash_pipeline as pipeline
+import publish_brand64_flash_feed as publisher
 import run_brand64_free_direct_scan as scan
 
 URL = 'https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/'
@@ -177,6 +178,60 @@ class FlashPipelineTests(unittest.TestCase):
         order=pipeline.interleave_hosts(ids,sources)
         self.assertEqual(order,['A','D','E','B','C'])
         self.assertEqual(set(order),set(ids))
+
+    def test_observed_product_export_preserves_count_without_formal_promotion(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = pathlib.Path(tmp)
+            coverage = {
+                'BR-00004': {
+                    'brand_id': 'BR-00004',
+                    'brand_name': 'ROPÉ PICNIC',
+                    'surface_items': [
+                        {'product_name': '冷感ニット', 'product_url': URL+'GDM66000', 'product_code': 'GDM66000',
+                         'display_price': '¥4,994', 'status_labels': ['NEW'], 'source_url': URL,
+                         'evidence_level': 'OFFICIAL_LISTING_CARD', 'scope_status': 'BRAND_AND_KNIT_PATH_MATCHED'},
+                        {'product_name': 'UVカーディガン', 'product_url': URL+'GDK00001', 'product_code': 'GDK00001',
+                         'display_price': '¥5,489', 'status_labels': [], 'source_url': URL,
+                         'evidence_level': 'OFFICIAL_LISTING_CARD', 'scope_status': 'BRAND_AND_KNIT_PATH_MATCHED'},
+                    ],
+                },
+            }
+            (out/'coverage-state.json').write_text(json.dumps(coverage))
+            (out/'latest.json').write_text(json.dumps({
+                'observed_date': DATE,
+                'active_brand_count': 64,
+                'attempted_brand_count': 64,
+                'product_observed_brand_count': 1,
+                'product_count': 2,
+                'scan_status': 'PARTIAL_COVERAGE',
+            }))
+            generated = publisher.build_observed_product_shards(out)
+            self.assertIn('observed-products/manifest.json', generated)
+            manifest = json.loads((out/'observed-products/manifest.json').read_text())
+            brand = json.loads((out/'observed-products/BR-00004.json').read_text())
+            self.assertEqual(manifest['observed_product_count'], 2)
+            self.assertEqual(manifest['product_observed_brand_count'], 1)
+            self.assertFalse(manifest['formal_product_registration'])
+            self.assertEqual(brand['product_count'], 2)
+            self.assertFalse(brand['formal_product_registration'])
+            self.assertIsNone(brand['records'][0].get('sales_start_date'))
+
+    def test_observed_product_export_refuses_count_mismatch(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = pathlib.Path(tmp)
+            (out/'coverage-state.json').write_text(json.dumps({
+                'BR-00004': {'brand_name': 'ROPÉ PICNIC', 'surface_items': [{'product_name': '冷感ニット'}]},
+            }))
+            (out/'latest.json').write_text(json.dumps({
+                'observed_date': DATE,
+                'active_brand_count': 64,
+                'attempted_brand_count': 64,
+                'product_observed_brand_count': 1,
+                'product_count': 2,
+                'scan_status': 'PARTIAL_COVERAGE',
+            }))
+            with self.assertRaisesRegex(ValueError, 'Observed product export mismatch'):
+                publisher.build_observed_product_shards(out)
 
     def test_corrupt_baseline_is_not_silently_reset(self):
         with tempfile.TemporaryDirectory() as tmp:
