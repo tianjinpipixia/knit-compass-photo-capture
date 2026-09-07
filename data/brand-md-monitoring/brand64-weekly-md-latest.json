@@ -1,20 +1,36 @@
 {
   "format": "KC_BRAND64_WEEKLY_MD_LATEST_POINTER",
-  "schema_version": "1.0",
-  "period_start": "2026-08-24",
-  "period_end": "2026-08-30",
+  "schema_version": "1.1",
+  "period_start": "2026-08-31",
+  "period_end": "2026-09-06",
   "active_brand_source": "config/brand64-active-brands.json",
   "active_brand_count": 64,
-  "weekly_report_path": "data/brand-md-monitoring/weekly/2026-08-24_2026-08-30-brand64-weekly-md.md",
+  "weekly_report_path": "data/brand-md-monitoring/weekly/2026-08-31_2026-09-06-brand64-weekly-md.md",
   "daily_source_paths": [
-    "data/brand-md-monitoring/2026-08-24-brand64-daily.json",
-    "data/brand-md-monitoring/2026-08-25-brand64-daily.json",
-    "data/brand-md-monitoring/2026-08-26-brand64-daily.json",
-    "data/brand-md-monitoring/2026-08-27-brand64-daily.json",
-    "data/brand-md-monitoring/2026-08-28-brand64-daily.json",
-    "data/brand-md-monitoring/2026-08-29-brand64-daily.json",
-    "data/brand-md-monitoring/2026-08-30-brand64-daily.json"
+    "data/brand-md-monitoring/2026-08-31-brand64-daily.json"
   ],
+  "known_missing_primary_observation_dates": [
+    "2026-09-01",
+    "2026-09-02",
+    "2026-09-03",
+    "2026-09-04",
+    "2026-09-05"
+  ],
+  "manual_supplement_date": "2026-09-06",
+  "manual_supplement_scope": [
+    "PAL10",
+    "ZARA",
+    "SNIDEL",
+    "PLST",
+    "FRAY I.D",
+    "H&M",
+    "COS",
+    "MANGO",
+    "NOLLEY'S",
+    "BEAUTY&YOUTH"
+  ],
+  "primary_coverage_status": "PARTIAL_PRIMARY_COVERAGE",
+  "manual_supplement_is_primary_scan_substitute": false,
   "external_signal_source": "config/md-external-signal-brands.json",
   "inactive_legacy_policy": "EXCLUDE_FROM_ACTIVE_AGGREGATION_KEEP_HISTORY_ONLY",
   "sales_quantity_policy": "NO_ESTIMATION",
