@@ -9,6 +9,7 @@ import subprocess
 import tempfile
 
 from brand64_flash_pipeline import STATE_FILES
+from merge_brand64_retrospective_sources import merge_retrospective_sources
 
 BRANCH = 'brand64/flash-feed'
 PREFIX = 'data/brand-md-monitoring/direct-scans/'
@@ -37,6 +38,15 @@ def compact_record(brand_id, brand_name, item, observed_date=None):
         'observed_date': observed_date or item.get('last_seen_date') or '',
         'first_seen_date': item.get('first_seen_date'),
         'last_seen_date': item.get('last_seen_date'),
+        'material_composition': item.get('material_composition') or '',
+        'function_claims': item.get('function_claims') or [],
+        'confirmed_design': item.get('confirmed_design') or '',
+        'season_release': item.get('season_release') or '',
+        'regular_price_jpy': item.get('regular_price_jpy'),
+        'sale_price_jpy': item.get('sale_price_jpy'),
+        'retrospective_months': item.get('retrospective_months') or [],
+        'retrospective_sources': item.get('retrospective_sources') or [],
+        'retrospective_only': bool(item.get('retrospective_only')),
     }
 
 
@@ -45,7 +55,7 @@ def write_brand_shard(output, directory, brand_id, brand_name, records, observat
     relative = f'{directory}/{file_name}'
     payload = {
         'format': 'KC_BRAND64_CUMULATIVE_PRODUCTS_BRAND' if cumulative else 'KC_BRAND64_OBSERVED_PRODUCTS_BRAND',
-        'schema_version': '1.0',
+        'schema_version': '1.1' if cumulative else '1.0',
         'observation_date': observation_date,
         'brand_id': brand_id,
         'brand_name': brand_name,
@@ -113,7 +123,7 @@ def build_observed_product_shards(root):
 
 
 def build_cumulative_product_shards(root):
-    """Build the deduplicated cumulative Brand64 observation pool from durable known-products."""
+    """Build one deduplicated pool from daily observations plus unified retrospective evidence."""
     known = json.loads((root/'known-products.json').read_text())
     latest = json.loads((root/'latest.json').read_text())
     observation_date = latest.get('observed_date') or latest.get('observation_date')
@@ -137,6 +147,8 @@ def build_cumulative_product_shards(root):
     manifest_brands = []
     generated = []
     cumulative_count = 0
+    retrospective_product_count = 0
+    months = {f'2026-{month:02d}': 0 for month in range(4, 10)}
     earliest_first_seen = None
     for brand_id in sorted(grouped):
         by_url = grouped[brand_id]
@@ -148,6 +160,12 @@ def build_cumulative_product_shards(root):
             first_seen = item.get('first_seen_date')
             if first_seen and (earliest_first_seen is None or first_seen < earliest_first_seen):
                 earliest_first_seen = first_seen
+            retrospective_months = item.get('retrospective_months') or []
+            if retrospective_months:
+                retrospective_product_count += 1
+                for month in retrospective_months:
+                    if month in months:
+                        months[month] += 1
             records.append(compact_record(brand_id, brand_name, item))
         relative = write_brand_shard(output, CUMULATIVE_DIR, brand_id, brand_name, records, observation_date, cumulative=True)
         generated.append(relative)
@@ -155,7 +173,7 @@ def build_cumulative_product_shards(root):
         cumulative_count += len(records)
 
     manifest = {
-        'format': 'KC_BRAND64_CUMULATIVE_PRODUCTS_INDEX', 'schema_version': '1.0',
+        'format': 'KC_BRAND64_CUMULATIVE_PRODUCTS_INDEX', 'schema_version': '1.1',
         'observation_date': observation_date,
         'cumulative_from_date': earliest_first_seen,
         'active_brand_count': int(latest.get('active_brand_count') or 0),
@@ -164,6 +182,9 @@ def build_cumulative_product_shards(root):
         'observed_product_count_today': int(latest.get('product_count') or 0),
         'cumulative_product_brand_count': len(manifest_brands),
         'cumulative_unique_product_count': cumulative_count,
+        'retrospective_product_count': retrospective_product_count,
+        'retrospective_evidence_counts_by_month': months,
+        'retrospective_target_period': '2026-04/2026-09',
         'dedupe_key': 'brand_id|product_url',
         'publication_status': 'PUBLISH_HOLD', 'human_review_required': True,
         'formal_product_registration': False, 'sales_quantity_estimation': 'FORBIDDEN',
@@ -175,10 +196,11 @@ def build_cumulative_product_shards(root):
 
 
 def publish(root):
+    merge_retrospective_sources(root)
     current_generated = build_observed_product_shards(root)
     cumulative_generated = build_cumulative_product_shards(root)
     generated = [*current_generated, *cumulative_generated]
-    names = [*STATE_FILES, 'feed.json', 'latest.json', 'flash-latest.json', 'summary.md', *generated]
+    names = [*STATE_FILES, 'feed.json', 'latest.json', 'flash-latest.json', 'summary.md', 'retrospective-merge-summary.json', *generated]
     for name in names:
         if not (root/name).is_file(): raise ValueError('Missing checkpoint: '+name)
     with tempfile.TemporaryDirectory() as directory:
@@ -195,9 +217,9 @@ def publish(root):
         tree = git('write-tree', env=env).stdout.strip()
         args = ['commit-tree', tree]
         if parent: args += ['-p', parent]
-        commit = git(*args, input='Update daily owner flash, current and cumulative observed product indexes\n').stdout.strip()
+        commit = git(*args, input='Update unified daily and retrospective Brand64 product pool\n').stdout.strip()
         git('push', 'origin', commit+':refs/heads/'+BRANCH)
-        print('Published owner flash, current and cumulative observed product indexes: '+commit)
+        print('Published unified daily and retrospective Brand64 product pool: '+commit)
 
 
 if __name__ == '__main__':
