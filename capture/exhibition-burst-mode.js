@@ -3,7 +3,7 @@
 
   const SESSION_KEY = "kc_photo_capture_simple_supplier_session_v1";
   const LEGACY_MODE_KEY = "kc_photo_capture_simple_mode_v1";
-  const BUILD = "2.1.46-independent.17-single-mode";
+  const BUILD = "2.1.46-independent.18-draft-resave";
   const byId = id => document.getElementById(id);
   const clean = value => String(value == null ? "" : value).trim();
   let queued = false;
@@ -221,7 +221,8 @@
     const source = byId("kcSaveDraft");
     if (!form || pendingSave || !source || source.disabled) return;
 
-    if (!clean(form.elements.supplier?.value) || !photoCount()) {
+    const isExistingDraft = Boolean(clean(form.elements.record_id?.value));
+    if (!isExistingDraft && (!clean(form.elements.supplier?.value) || !photoCount())) {
       const missingSupplier = !clean(form.elements.supplier?.value);
       setText(
         byId("kcEditorMessage"),
