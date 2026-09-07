@@ -1,0 +1,41 @@
+{
+  "format": "KC_BRAND64_MD_OBSERVATION_POOL",
+  "schema_version": "1.0",
+  "observation_date": "2026-09-07",
+  "source": "DIRECT_OFFICIAL_SITE_COLLECTION",
+  "active_brand_count": 64,
+  "attempted_brand_count": 64,
+  "product_observed_brand_count": 38,
+  "observed_product_count": 1319,
+  "coverage_status": "PARTIAL_COVERAGE",
+  "complete_registered_scope_brand_count": 0,
+  "pending_page_count": 1,
+  "formal_product_registration_count_from_pool": 0,
+  "formal_product_delta_inflation": "FORBIDDEN",
+  "publication_status": "PUBLISH_HOLD",
+  "human_review_required": true,
+  "sales_quantity_estimation": "FORBIDDEN",
+  "first_seen_policy": "OBSERVATION_DATE_IS_NOT_SALES_START_DATE",
+  "dedupe_policy": "PRODUCT_ID_OR_PRODUCT_CODE_OR_CANONICAL_OFFICIAL_URL_WHEN_AVAILABLE",
+  "md_use": [
+    "brand product volume baseline",
+    "price band observation",
+    "new/preorder/sale/listing-state candidate extraction",
+    "color/material/function/design signal extraction",
+    "brand-by-brand MD comparison"
+  ],
+  "priority_brand_examples": {
+    "UNIQLO": 35,
+    "GU": 34,
+    "MUJI": 23,
+    "ROPE_PICNIC": 23,
+    "VIS": 37,
+    "GLOBAL_WORK": 35,
+    "LOWRYS_FARM": 42,
+    "studio_CLIP": 56,
+    "niko_and": 44,
+    "ikka": 20
+  },
+  "source_artifact": "brand64/flash-feed:data/brand-md-monitoring/direct-scans/latest.json",
+  "note": "The 1,319 rows are an official-site MD observation pool, not 1,319 formally verified new products. Formal product candidates and connected deltas remain separately governed by individual-page verification and Human Review."
+}
