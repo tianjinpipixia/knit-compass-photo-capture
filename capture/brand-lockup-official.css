@@ -1,0 +1,52 @@
+/* KNIT COMPASS official brand lockup
+   Official mark + KNIT COMPASS + GUIDE YOUR KNIT BUSINESS.
+   Keep the symbol artwork unchanged; typography is composed in the UI. */
+
+.kc-v04-header {
+  background: #0D1B2A;
+  border-bottom-color: #C8A165;
+}
+
+.kc-v04-logo strong,
+.kc-v04-logo small {
+  font-family: Montserrat, Arial, sans-serif;
+}
+
+.kc-v04-logo strong {
+  font-weight: 700;
+}
+
+.kc-v04-logo small {
+  display: block;
+  color: rgba(255, 255, 255, .86);
+}
+
+@media (max-width: 720px) {
+  body.kc-simple-capture-mode .kc-v04-logo {
+    gap: 11px;
+  }
+
+  body.kc-simple-capture-mode .kc-v04-logo img {
+    width: 44px;
+    height: 44px;
+  }
+
+  body.kc-simple-capture-mode .kc-v04-logo span {
+    display: grid;
+    gap: 3px;
+  }
+
+  body.kc-simple-capture-mode .kc-v04-logo strong {
+    font-size: 15px;
+    letter-spacing: .16em;
+    line-height: 1.05;
+  }
+
+  body.kc-simple-capture-mode .kc-v04-logo small {
+    display: block !important;
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    line-height: 1.1;
+  }
+}
