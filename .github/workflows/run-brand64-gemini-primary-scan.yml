@@ -100,6 +100,30 @@ jobs:
             fi
           fi
 
+      - name: Validate and repair restored JSON UTF-8 encoding
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path('data/brand-md-monitoring/direct-scans')
+          names = ['known-products.json','coverage-state.json','deep-dive-queue.json','flash-history.json','detail-results.json']
+          for name in names:
+              path = root / name
+              if not path.exists():
+                  continue
+              raw = path.read_bytes()
+              repaired = False
+              try:
+                  text = raw.decode('utf-8')
+              except UnicodeDecodeError:
+                  text = raw.decode('utf-8', errors='replace')
+                  repaired = True
+              data = json.loads(text)
+              if repaired:
+                  path.write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
+                  print(f'Repaired UTF-8 state: {name}')
+          PY
+
       - name: Refresh cumulative feed from saved retrospective evidence
         id: retro_feed
         continue-on-error: true
