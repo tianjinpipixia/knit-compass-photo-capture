@@ -11,6 +11,7 @@ on:
       - scripts/brand64_flash_pipeline.py
       - scripts/publish_brand64_flash_feed.py
       - scripts/merge_brand64_retrospective_sources.py
+      - scripts/restore_brand64_valid_state.py
       - scripts/brand_direct_adapters.py
       - tests/test_brand64_free_direct_scan.py
       - tests/test_brand64_flash_pipeline.py
@@ -51,78 +52,11 @@ jobs:
           python -m unittest discover -s tests -p test_brand64_flash_pipeline.py -v
           python -m unittest discover -s tests -p test_brand64_retrospective_unification.py -v
           python -m unittest discover -s tests -p test_brand64_retrospective_month_evidence.py -v
+          python -m py_compile scripts/restore_brand64_valid_state.py
 
-      - name: Restore state from latest observations, including incomplete runs
-        shell: bash
-        run: |
-          mkdir -p data/brand-md-monitoring/direct-scans
-          feed_ref=$(git ls-remote --heads origin refs/heads/brand64/flash-feed)
-          if [ -n "$feed_ref" ]; then
-            git fetch --depth=1 origin brand64/flash-feed
-            for state_file in known-products.json coverage-state.json deep-dive-queue.json flash-history.json detail-results.json; do
-              git show "FETCH_HEAD:data/brand-md-monitoring/direct-scans/$state_file" > "data/brand-md-monitoring/direct-scans/$state_file"
-            done
-          fi
-          baseline_tmp=$(mktemp -d)
-          if [ ! -f data/brand-md-monitoring/direct-scans/known-products.json ]; then
-            for previous_run in $(gh api --method GET "repos/${GITHUB_REPOSITORY}/actions/workflows/run-brand64-gemini-primary-scan.yml/runs" -f status=completed -f branch=main -f per_page=30 --jq '.workflow_runs[].id'); do
-              artifact_name=$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${previous_run}/artifacts" --jq '[.artifacts[] | select(.expired == false) | select(.name | startswith("brand64-free-direct-"))] | sort_by(.created_at, .id) | reverse | .[0].name // empty')
-              if [ -n "$artifact_name" ]; then
-                if gh run download "$previous_run" --name "$artifact_name" --dir "$baseline_tmp/$previous_run"; then
-                  if [ -f "$baseline_tmp/$previous_run/known-products.json" ]; then
-                    for state_file in known-products.json coverage-state.json deep-dive-queue.json flash-history.json detail-results.json; do
-                      if [ -f "$baseline_tmp/$previous_run/$state_file" ]; then
-                        cp "$baseline_tmp/$previous_run/$state_file" "data/brand-md-monitoring/direct-scans/$state_file"
-                      fi
-                    done
-                    break
-                  fi
-                fi
-              fi
-            done
-          fi
-          if [ ! -f data/brand-md-monitoring/direct-scans/known-products.json ]; then
-            scan_refs=$(git ls-remote --heads origin 'refs/heads/brand64/direct-*' | awk '{print $2}' | sort -Vr | sed -n '1,10p')
-            for scan_ref in $scan_refs; do
-              git fetch --depth=1 origin "$scan_ref"
-              if git cat-file -e FETCH_HEAD:data/brand-md-monitoring/direct-scans/known-products.json; then
-                for state_file in known-products.json coverage-state.json deep-dive-queue.json flash-history.json detail-results.json; do
-                  if git cat-file -e "FETCH_HEAD:data/brand-md-monitoring/direct-scans/$state_file" 2>/dev/null; then
-                    git show "FETCH_HEAD:data/brand-md-monitoring/direct-scans/$state_file" > "data/brand-md-monitoring/direct-scans/$state_file"
-                  fi
-                done
-                break
-              fi
-            done
-            if [ -n "$scan_refs" ] && [ ! -f data/brand-md-monitoring/direct-scans/known-products.json ]; then
-              echo "Previous observations exist but could not be restored. Refusing to reset first-seen history." >&2
-              exit 1
-            fi
-          fi
-
-      - name: Validate and repair restored JSON UTF-8 encoding
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          root = Path('data/brand-md-monitoring/direct-scans')
-          names = ['known-products.json','coverage-state.json','deep-dive-queue.json','flash-history.json','detail-results.json']
-          for name in names:
-              path = root / name
-              if not path.exists():
-                  continue
-              raw = path.read_bytes()
-              repaired = False
-              try:
-                  text = raw.decode('utf-8')
-              except UnicodeDecodeError:
-                  text = raw.decode('utf-8', errors='replace')
-                  repaired = True
-              data = json.loads(text)
-              if repaired:
-                  path.write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
-                  print(f'Repaired UTF-8 state: {name}')
-          PY
+      - name: Restore newest strict-valid Brand64 state
+        id: restore
+        run: python scripts/restore_brand64_valid_state.py
 
       - name: Refresh cumulative feed from saved retrospective evidence
         id: retro_feed
@@ -207,7 +141,7 @@ jobs:
           fi
 
       - name: Fail visibly when collection or cumulative publication is incomplete
-        if: always() && (steps.retro_feed.outcome != 'success' || steps.flash.outcome != 'success' || steps.retry.outcome != 'success' || steps.deep.outcome != 'success' || steps.coverage.outcome != 'success' || steps.feed_final.outcome != 'success')
+        if: always() && (steps.restore.outcome != 'success' || steps.retro_feed.outcome != 'success' || steps.flash.outcome != 'success' || steps.retry.outcome != 'success' || steps.deep.outcome != 'success' || steps.coverage.outcome != 'success' || steps.feed_final.outcome != 'success')
         run: |
-          echo "Daily scope is incomplete. Retrospective cumulative publication and daily coverage are checked independently." >&2
+          echo "Daily scope is incomplete. Strict baseline restore, retrospective publication, and daily coverage are checked independently." >&2
           exit 1
