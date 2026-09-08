@@ -3,6 +3,8 @@ name: Validate Brand64 flash and recovery
 on:
   pull_request:
     paths:
+      - config/brand64-identity-resolutions.json
+      - config/brand64-free-direct-sources.json
       - scripts/brand64_identity_guard.py
       - tests/test_brand64_identity_guard.py
       - scripts/brand64_canonical_store.py
