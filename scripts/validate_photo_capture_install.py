@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT_BUILD = "2.1.43-independent.1"
 CAPTURE_BUILD = "2.1.44-independent.15-basic-photo"
+CAPTURE_SHELL_BUILD = "2.1.44-independent.16-brand-lockup"
 
 
 def fail(message: str) -> None:
@@ -45,7 +46,7 @@ def main() -> None:
         fail("stable Knit Compass PWA identity changed")
     if manifest.get("id") != "./" or manifest.get("start_url") != "./brand-intelligence/" or manifest.get("scope") != "./":
         fail("stable V04 PWA id/start_url/scope is missing")
-    if capture_manifest.get("start_url") != f"./?build={CAPTURE_BUILD}" or capture_manifest.get("scope") != "./":
+    if capture_manifest.get("start_url") != f"./?build={CAPTURE_SHELL_BUILD}" or capture_manifest.get("scope") != "./":
         fail("independent Photo Capture PWA start URL is stale")
 
     expected = {"icon-192.png": (192, 192), "icon-512.png": (512, 512), "icon-maskable-512.png": (512, 512)}
@@ -68,7 +69,7 @@ def main() -> None:
         f"v04-visual-alignment.css?v={CAPTURE_BUILD}",
         f"exhibition-burst-mode.js?v={CAPTURE_BUILD}",
         "mobile-compact-20260827.js?v=3-v04-ui",
-        f"sw-register.js?v={CAPTURE_BUILD}",
+        f"sw-register.js?v={CAPTURE_SHELL_BUILD}",
     ):
         require(capture_index, token, "direct Photo Capture asset")
     require(capture_index, 'body data-surface="mobile"', "mobile capture surface")
@@ -163,12 +164,12 @@ def main() -> None:
         "./status/",
     ):
         require(worker, token, "root service-worker shell")
-    require(capture_worker, "kc-photo-capture-independent-v19-v2144-basic-photo", "capture service-worker cache")
+    require(capture_worker, "kc-photo-capture-independent-v20-v2144-brand-lockup", "capture service-worker cache")
     require(capture_worker, "../exhibition-supplier-master.js", "capture Supplier master cache")
     require(capture_worker, "../knit-compass-ui.css", "capture UI cache")
     require(capture_worker, "./v04-visual-alignment.css", "capture V04 UI cache")
     require(capture_register, f"./sw.js?v=${{SW_VERSION}}", "capture service-worker registration")
-    require(capture_register, CAPTURE_BUILD, "capture service-worker version")
+    require(capture_register, CAPTURE_SHELL_BUILD, "capture service-worker version")
     for token in (CONTRACT_BUILD, "controllerchange", "location.reload()", "RELOAD_MARKER"):
         require(refresh, token, "stale-cache refresh")
 

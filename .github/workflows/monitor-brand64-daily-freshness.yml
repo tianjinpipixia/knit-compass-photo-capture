@@ -52,5 +52,10 @@ jobs:
         run: python -m unittest tests/test_brand64_retrospective_baseline.py -v
       - name: Validate tiered brand MD analysis framework
         run: python scripts/validate_brand_md_analysis_framework.py
-      - name: Require a current active 64-brand observation and matching proposals
-        run: python scripts/validate_brand64_daily_freshness.py --max-age-days 1
+      - name: Verify freshness of the canonical product snapshot
+        shell: bash
+        run: |
+          git fetch --depth=1 origin brand64/flash-feed
+          mkdir -p .canonical-freshness
+          git archive FETCH_HEAD data/brand-md-monitoring/direct-scans/cumulative-products | tar -x -C .canonical-freshness
+          python scripts/check_brand64_canonical_freshness.py --root .canonical-freshness/data/brand-md-monitoring/direct-scans --max-age-days 1
