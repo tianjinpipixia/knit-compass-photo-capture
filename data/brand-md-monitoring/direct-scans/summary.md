@@ -121,8 +121,8 @@
 |Green Parks|未完了|0|0|
 |OPAQUE.CLIP|未完了|0|0|
 |index|未完了|0|0|
-|SHOO・LA・RUE|未完了|4|1|
-|grove|未完了|54|1|
+|SHOO・LA・RUE|未完了|4|2|
+|grove|未完了|54|2|
 |ikka|未完了|20|0|
 |coen|未完了|0|0|
 |DoCLASSE|未完了|0|0|
@@ -154,7 +154,7 @@
 |green label relaxing|未完了|0|0|
 |Spick & Span|未完了|0|0|
 |IÉNA|未完了|0|0|
-|Te chichi|未完了|64|1|
+|Te chichi|未完了|64|0|
 |ANY|未完了|0|0|
 |MUJI Labo|未完了|12|1|
 |Mila Owen|未完了|31|0|
@@ -220,17 +220,19 @@
 
 ### SHOO・LA・RUE
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2
+- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/
+- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2
 
 ### grove
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2
+- https://store.world.co.jp/s/brand/grove/category/WB/WB01/
+- https://store.world.co.jp/s/brand/grove/category/WB/WB02/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB02/
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2
 
 ### ikka
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -347,8 +349,7 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://baycrews.jp/brand/detail/iena
 
 ### Te chichi
-未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd%3ACAN02&fl=bd%2CbdName%2Ccd%2Cname%2Cprice%2Cmkcode%2Cmaterial%2Cicon%2Cmcn2%2Cmcn3&start=200
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### ANY
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -356,9 +357,9 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 
 ### MUJI Labo
 取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3
-- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3
+- https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2
+- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3
 
 ### Mila Owen
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
