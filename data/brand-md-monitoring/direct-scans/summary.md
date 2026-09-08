@@ -2,7 +2,7 @@
 観測日：2026-09-09
 
 登録範囲の確認完了：0/64ブランド。
-本日観測した商品：1303件。MD用の蓄積として保持します。
+本日観測した商品：1349件。MD用の蓄積として保持します。
 初回発見と発売日は区別します。未確認・未取得を「新商品なし」と判定しません。
 
 ## 本日初めて見つけた商品（発売日未確認）
@@ -99,8 +99,8 @@
 |Green Parks|未完了|0|0|
 |OPAQUE.CLIP|未完了|0|0|
 |index|未完了|0|0|
-|SHOO・LA・RUE|未完了|0|1|
-|grove|未完了|0|1|
+|SHOO・LA・RUE|未完了|0|2|
+|grove|未完了|0|2|
 |ikka|未完了|20|0|
 |coen|未完了|0|0|
 |DoCLASSE|未完了|0|0|
@@ -132,9 +132,9 @@
 |green label relaxing|未完了|0|0|
 |Spick & Span|未完了|0|0|
 |IÉNA|未完了|0|0|
-|Te chichi|未完了|18|1|
+|Te chichi|未完了|64|0|
 |ANY|未完了|0|0|
-|MUJI Labo|未完了|12|1|
+|MUJI Labo|未完了|12|0|
 |Mila Owen|未完了|31|0|
 |ROPÉ|未完了|27|0|
 |ADAM ET ROPÉ|未完了|34|0|
@@ -199,15 +199,19 @@
 
 ### SHOO・LA・RUE
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2
+- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/
+- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2
 
 ### grove
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2
+- https://store.world.co.jp/s/brand/grove/category/WB/WB01/
+- https://store.world.co.jp/s/brand/grove/category/WB/WB02/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB02/
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2
 
 ### ikka
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -325,16 +329,15 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://baycrews.jp/brand/detail/iena
 
 ### Te chichi
-未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd%3ACAN02&fl=bd%2CbdName%2Ccd%2Cname%2Cprice%2Cmkcode%2Cmaterial%2Cicon%2Cmcn2%2Cmcn3&start=200
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### ANY
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://crosset.onward.co.jp/shop/anyfam
 
 ### MUJI Labo
-未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3
+取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3
 
 ### Mila Owen
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
