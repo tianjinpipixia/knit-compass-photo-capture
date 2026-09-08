@@ -97,6 +97,7 @@ def build_summary(active, sources, rows, date):
     incomplete = [r['brand_id'] for r in statuses if r['coverage']['status'] != 'COMPLETE_REGISTERED_SCOPE']
     missing = [b for b in active if rows.get(b, {}).get('observed_date') != date]
     return {'format': 'KC_BRAND64_FREE_DIRECT_SCAN', 'schema_version': '2.0',
+            'collector': 'CHATGPT_OFFICIAL_DIRECT', 'collection_method': 'DIRECT_HTTP_NO_AI_API',
             'observed_date': date, 'generated_at_utc': scan.now(),
             'active_brand_count': len(active), 'attempted_brand_count': len(active)-len(missing),
             'product_observed_brand_count': sum(r['product_count'] > 0 for r in statuses),
@@ -169,6 +170,9 @@ def markdown(summary, events, deep_queue):
 class Pipeline:
     def __init__(self, out, active, sources, tier, date, stage):
         self.out, self.active, self.sources, self.tier, self.date, self.stage = out, active, sources, tier, date, stage
+        # If the durable product baseline is missing, the first successful run is
+        # a recovery baseline. Its products must not be reported as newly found.
+        self.baseline_initialization = not (out/'known-products.json').exists()
         self.known = read(out/'known-products.json', {})
         self.rows = read(out/'coverage-state.json', {})
         self.queue = read(out/'deep-dive-queue.json', {})
@@ -179,6 +183,10 @@ class Pipeline:
         self.run_dir.mkdir(parents=True, exist_ok=True)
 
     def checkpoint(self):
+        for row in self.rows.values():
+            if row.get('observed_date') == self.date:
+                row['collector'] = 'CHATGPT_OFFICIAL_DIRECT'
+                row['collection_method'] = 'DIRECT_HTTP_NO_AI_API'
         summary = build_summary(self.active, self.sources, self.rows, self.date)
         summary['stage'] = self.stage
         summary['artifact_path'] = str(self.run_dir/'scan.json')
@@ -189,14 +197,18 @@ class Pipeline:
                             ('detail-results.json', self.details)]:
             scan.save(self.out/name, value)
         events = [e for e in self.history.values() if e['observed_date'] == self.date]
+        candidates = [e for e in events if e['delta_type'] != 'BASELINE_INITIALIZATION']
         summary['first_observed_candidate_count'] = sum(e['delta_type'] == 'FIRST_OBSERVED_CANDIDATE' for e in events)
-        summary['candidate_delta_count'] = len(events)
+        summary['candidate_delta_count'] = len(candidates)
+        summary['baseline_initialization_count'] = sum(e['delta_type'] == 'BASELINE_INITIALIZATION' for e in events)
         scan.save(self.run_dir/'scan.json', {**summary, 'observations': self.rows, 'candidate_deltas': events})
         scan.save(self.out/'feed.json', {'format': 'KC_BRAND64_OWNER_FLASH', 'schema_version': '1.0',
-                  'summary': summary, 'candidates': events,
+                  'summary': summary, 'candidates': candidates,
                   'deep_dive_pending_count': sum(v['status'] != 'COMPLETE' for v in self.queue.values())})
         scan.save(self.out/'latest.json', summary)
-        scan.save(self.out/'flash-latest.json', {'observed_date': self.date, 'candidates': events,
+        scan.save(self.out/'flash-latest.json', {'observed_date': self.date,
+                  'collector': 'CHATGPT_OFFICIAL_DIRECT', 'collection_method': 'DIRECT_HTTP_NO_AI_API',
+                  'candidates': candidates,
                   'publication_status': 'PUBLISH_HOLD', 'human_review_required': True})
         text = markdown(summary, events, self.queue)
         (self.out/'summary.md').write_text(text)
@@ -206,7 +218,9 @@ class Pipeline:
     def accept(self, row):
         bid = row['brand_id']
         self.rows[bid] = merge_row(self.rows.get(bid), row, self.date)
-        self.known, changes = scan.update_baseline([row], self.known, self.date)
+        self.known, changes = scan.update_baseline(
+            [row], self.known, self.date,
+            baseline_initialization=self.baseline_initialization)
         for item in row.get('unverified_link_candidates', []):
             identity = 'UNVERIFIED|'+bid+'|'+item['product_url']
             self.history.setdefault(identity, {**item, 'brand_id': bid, 'brand_name': row['brand_name'],
