@@ -70,17 +70,14 @@ def write_brand_shard(output, directory, brand_id, brand_name, records, observat
 
 
 def build_observed_product_shards(root):
-    """Build compact current-day per-brand observation files without formal promotion."""
     coverage = json.loads((root/'coverage-state.json').read_text())
     latest = json.loads((root/'latest.json').read_text())
     observed_date = latest.get('observed_date') or latest.get('observation_date')
     if not observed_date:
         raise ValueError('latest.json has no observation date')
-
     output = root/OBSERVED_DIR
     if output.exists(): shutil.rmtree(output)
     output.mkdir(parents=True)
-
     manifest_brands = []
     generated = []
     product_count = 0
@@ -97,14 +94,12 @@ def build_observed_product_shards(root):
         generated.append(relative)
         manifest_brands.append({'brand_id': brand_id, 'brand_name': brand_name, 'product_count': len(records), 'path': relative})
         product_count += len(records)
-
     expected_products = int(latest.get('product_count') or 0)
     expected_brands = int(latest.get('product_observed_brand_count') or 0)
     if product_count != expected_products:
         raise ValueError(f'Observed product export mismatch: {product_count} != {expected_products}')
     if len(manifest_brands) != expected_brands:
         raise ValueError(f'Observed brand export mismatch: {len(manifest_brands)} != {expected_brands}')
-
     manifest = {
         'format': 'KC_BRAND64_OBSERVED_PRODUCTS_INDEX', 'schema_version': '1.0',
         'observation_date': observed_date,
@@ -123,17 +118,14 @@ def build_observed_product_shards(root):
 
 
 def build_cumulative_product_shards(root):
-    """Build one deduplicated pool from daily observations plus unified retrospective evidence."""
     known = json.loads((root/'known-products.json').read_text())
     latest = json.loads((root/'latest.json').read_text())
     observation_date = latest.get('observed_date') or latest.get('observation_date')
     if not observation_date:
         raise ValueError('latest.json has no observation date')
-
     output = root/CUMULATIVE_DIR
     if output.exists(): shutil.rmtree(output)
     output.mkdir(parents=True)
-
     grouped = {}
     for record in known.values():
         if not isinstance(record, dict):
@@ -143,7 +135,6 @@ def build_cumulative_product_shards(root):
         if not brand_id or not product_url or record.get('scope_status') != COUNTED_SCOPE_STATUS:
             continue
         grouped.setdefault(brand_id, {})[product_url] = record
-
     manifest_brands = []
     generated = []
     cumulative_count = 0
@@ -171,7 +162,6 @@ def build_cumulative_product_shards(root):
         generated.append(relative)
         manifest_brands.append({'brand_id': brand_id, 'brand_name': brand_name, 'product_count': len(records), 'path': relative})
         cumulative_count += len(records)
-
     manifest = {
         'format': 'KC_BRAND64_CUMULATIVE_PRODUCTS_INDEX', 'schema_version': '1.1',
         'observation_date': observation_date,
@@ -196,7 +186,13 @@ def build_cumulative_product_shards(root):
 
 
 def publish(root):
-    merge_retrospective_sources(root)
+    repo_root = Path.cwd().resolve()
+    retro_dir = repo_root/'data/brand-md-monitoring/retrospective'
+    expected_manual_files = list(retro_dir.glob('manual*.json')) if retro_dir.exists() else []
+    merge_summary = merge_retrospective_sources(root, repo_root)
+    if expected_manual_files and int(merge_summary.get('source_record_count') or 0) == 0:
+        raise ValueError(f'Retrospective files exist ({len(expected_manual_files)}) but source_record_count is 0')
+    print('Retrospective source records:', merge_summary.get('source_record_count'), 'months:', merge_summary.get('evidence_counts_by_month'))
     current_generated = build_observed_product_shards(root)
     cumulative_generated = build_cumulative_product_shards(root)
     generated = [*current_generated, *cumulative_generated]
