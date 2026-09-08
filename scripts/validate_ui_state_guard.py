@@ -124,7 +124,7 @@ def main() -> None:
         "knit-compass-ui.css?v=2.1.44-independent.1",
         "v04-visual-alignment.css?v=2.1.44-independent.15-basic-photo",
         "mobile-compact-20260827.js?v=3-v04-ui",
-        "sw-register.js?v=2.1.44-independent.15-basic-photo",
+        "sw-register.js?v=2.1.44-independent.16-brand-lockup",
     ):
         require(capture_index, token, "direct capture cache key")
 
