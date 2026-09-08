@@ -186,7 +186,8 @@ def product_detail(html, url, meta):
 
 
 def scan_brand(bid,meta,fetch, *, page_urls=None, max_pages=4, include_details=False):
-    row={'brand_id':bid,'brand_name':meta['brand_name'],'collector':'DIRECT_HTTP_NO_AI_API',
+    row={'brand_id':bid,'brand_name':meta['brand_name'],'collector':'CHATGPT_OFFICIAL_DIRECT',
+         'collection_method':'DIRECT_HTTP_NO_AI_API',
          'scan_status':'UNRESOLVED','coverage_status':'PARTIAL_NOT_EXHAUSTIVE',
          'sources':[],'errors':[],'surface_items':[],'product_details':[]}
     unique={}
@@ -250,7 +251,7 @@ def scan_brand(bid,meta,fetch, *, page_urls=None, max_pages=4, include_details=F
     return row
 
 
-def update_baseline(rows, known, date):
+def update_baseline(rows, known, date, *, baseline_initialization=False):
     known=json.loads(json.dumps(known)); changes=[]
     for row in rows:
         for item in row['surface_items']:
@@ -260,7 +261,9 @@ def update_baseline(rows, known, date):
                     'first_seen_date':before['first_seen_date'] if before else date,'last_seen_date':date,
                     'sales_start_date':before.get('sales_start_date') if before else None,'publication_status':'PUBLISH_HOLD','human_review_required':True}
             if before is None:
-                changes.append({**record,'delta_type':'FIRST_OBSERVED_CANDIDATE','is_new_release_confirmed':False})
+                changes.append({**record,
+                    'delta_type':'BASELINE_INITIALIZATION' if baseline_initialization else 'FIRST_OBSERVED_CANDIDATE',
+                    'is_new_release_confirmed':False})
             elif any(before.get(k)!=item.get(k) for k in ('display_price','status_labels','product_name')):
                 changes.append({**record,'delta_type':'OBSERVED_FIELD_CHANGE','previous_values':{k:before.get(k) for k in ('display_price','status_labels','product_name')}})
             known[key]=record

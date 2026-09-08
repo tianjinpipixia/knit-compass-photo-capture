@@ -69,6 +69,7 @@ class FlashPipelineTests(unittest.TestCase):
         active = {str(i): str(i) for i in range(64)}
         rows = {bid: {'observed_date': DATE, 'surface_items': [{'scope_status': 'BRAND_AND_KNIT_PATH_MATCHED'}], 'successful_page_urls': [URL]} for bid in active}
         summary = pipeline.build_summary(active, {bid: META for bid in active}, rows, DATE)
+        self.assertEqual(summary['collector'], 'CHATGPT_OFFICIAL_DIRECT')
         self.assertEqual(summary['product_observed_brand_count'], 64)
         self.assertEqual(summary['complete_brand_count'], 0)
         self.assertEqual(len(summary['unresolved_brand_ids']), 64)
@@ -85,6 +86,9 @@ class FlashPipelineTests(unittest.TestCase):
     def test_partial_checkpoint_restores_flash_baseline_and_deep_queue(self):
         with tempfile.TemporaryDirectory() as tmp:
             out = pathlib.Path(tmp)
+            # An explicit empty baseline means collection is initialized and a
+            # newly observed product may be emitted as a candidate.
+            (out/'known-products.json').write_text('{}')
             p = pipeline.Pipeline(out, {'B': 'ROPÉ PICNIC', 'C': 'Other'}, {'B': META}, ['B'], DATE, 'flash')
             row = scan.scan_brand('B', META, lambda u: (card(), {'url': u, 'sha256': 'fixture'}))
             p.accept(row)
@@ -151,6 +155,7 @@ class FlashPipelineTests(unittest.TestCase):
 
     def test_entrypoint_stages_persist_and_deep_failure_does_not_lose_flash(self):
         with tempfile.TemporaryDirectory() as tmp:
+            (pathlib.Path(tmp)/'known-products.json').write_text('{}')
             def stub_fetch(url):
                 if url.rstrip('/').split('/')[-1].startswith('GDM'):
                     raise ValueError('Detail unavailable')
@@ -171,6 +176,20 @@ class FlashPipelineTests(unittest.TestCase):
                 summary = json.loads((pathlib.Path(tmp)/'latest.json').read_text())
                 self.assertEqual(len(summary['brands']), 64)
                 self.assertEqual(len(summary['not_attempted_brand_ids']), 63)
+
+    def test_missing_baseline_initializes_without_false_new_product_candidates(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = pathlib.Path(tmp)
+            p = pipeline.Pipeline(out, {'B': 'ROPÉ PICNIC'}, {'B': META}, ['B'], DATE, 'flash')
+            row = scan.scan_brand('B', META, lambda u: (card(), {'url': u, 'sha256': 'fixture'}))
+            p.accept(row)
+            report = json.loads((out/'latest.json').read_text())
+            feed = json.loads((out/'feed.json').read_text())
+            self.assertEqual(report['baseline_initialization_count'], 1)
+            self.assertEqual(report['first_observed_candidate_count'], 0)
+            self.assertEqual(report['candidate_delta_count'], 0)
+            self.assertEqual(feed['candidates'], [])
+            self.assertEqual(next(iter(p.history.values()))['delta_type'], 'BASELINE_INITIALIZATION')
 
     def test_hosts_are_interleaved_without_dropping_brands(self):
         ids=['A','B','C','D','E']
