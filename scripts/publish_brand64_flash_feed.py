@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Atomically publish the read-only owner feed and restart state to one Git branch."""
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -8,6 +9,7 @@ import shutil
 import subprocess
 import tempfile
 
+from brand64_canonical_store import CANONICAL, normalize_identities, read_pool, seed_working_state, attach_details
 from brand64_flash_pipeline import STATE_FILES
 from merge_brand64_retrospective_sources import merge_retrospective_sources
 
@@ -25,6 +27,7 @@ def git(*args, env=None, input=None, check=True):
 
 def compact_record(brand_id, brand_name, item, observed_date=None):
     return {
+        **item,
         'brand_id': brand_id,
         'brand_name': brand_name,
         'product_name': item.get('product_name') or '',
@@ -76,8 +79,7 @@ def build_observed_product_shards(root):
     if not observed_date:
         raise ValueError('latest.json has no observation date')
     output = root/OBSERVED_DIR
-    if output.exists(): shutil.rmtree(output)
-    output.mkdir(parents=True)
+    output.mkdir(parents=True, exist_ok=True)
     manifest_brands = []
     generated = []
     product_count = 0
@@ -118,14 +120,16 @@ def build_observed_product_shards(root):
 
 
 def build_cumulative_product_shards(root):
-    known = json.loads((root/'known-products.json').read_text())
+    previous = read_pool(root) or {}
+    known = seed_working_state(root)
+    details_path = root/'detail-results.json'
+    attach_details(known, json.loads(details_path.read_text()) if details_path.exists() else {})
     latest = json.loads((root/'latest.json').read_text())
     observation_date = latest.get('observed_date') or latest.get('observation_date')
     if not observation_date:
         raise ValueError('latest.json has no observation date')
     output = root/CUMULATIVE_DIR
-    if output.exists(): shutil.rmtree(output)
-    output.mkdir(parents=True)
+    output.mkdir(parents=True, exist_ok=True)
     grouped = {}
     for record in known.values():
         if not isinstance(record, dict):
@@ -160,10 +164,11 @@ def build_cumulative_product_shards(root):
             records.append(compact_record(brand_id, brand_name, item))
         relative = write_brand_shard(output, CUMULATIVE_DIR, brand_id, brand_name, records, observation_date, cumulative=True)
         generated.append(relative)
-        manifest_brands.append({'brand_id': brand_id, 'brand_name': brand_name, 'product_count': len(records), 'path': relative})
+        manifest_brands.append({'brand_id': brand_id, 'brand_name': brand_name, 'product_count': len(records), 'path': relative, 'sha256': hashlib.sha256((root/relative).read_bytes()).hexdigest()})
         cumulative_count += len(records)
     manifest = {
-        'format': 'KC_BRAND64_CUMULATIVE_PRODUCTS_INDEX', 'schema_version': '1.1',
+        'format': 'KC_BRAND64_CUMULATIVE_PRODUCTS_INDEX', 'schema_version': '1.2',
+        'canonical_source': CANONICAL,
         'observation_date': observation_date,
         'cumulative_from_date': earliest_first_seen,
         'active_brand_count': int(latest.get('active_brand_count') or 0),
@@ -180,13 +185,45 @@ def build_cumulative_product_shards(root):
         'formal_product_registration': False, 'sales_quantity_estimation': 'FORBIDDEN',
         'first_seen_is_sales_start': False, 'brands': manifest_brands,
     }
+    catalogue = {**manifest, 'format': 'KC_BRAND64_CANONICAL_CATALOGUE',
+                 'records': [compact_record(bid, grouped[bid][url].get('brand_name') or bid, grouped[bid][url])
+                             for bid in sorted(grouped) for url in sorted(grouped[bid])],
+                 'daily_summary': latest}
+    feed_path = root/'feed.json'
+    daily_feed = json.loads(feed_path.read_text()) if feed_path.exists() else {}
+    catalogue['daily_events'] = [
+        {field: event.get(field) for field in ('brand_id', 'product_url', 'observed_date', 'delta_type', 'previous_values', 'is_new_release_confirmed')}
+        for event in daily_feed.get('candidates', [])]
+    catalogue_path = output/'catalogue.json'
+    catalogue_path.write_text(json.dumps(catalogue, ensure_ascii=False, separators=(',', ':'))+'\n')
+    generated.append(f'{CUMULATIVE_DIR}/catalogue.json')
+    manifest['catalogue'] = {'path': f'{CUMULATIVE_DIR}/catalogue.json',
+                             'sha256': hashlib.sha256(catalogue_path.read_bytes()).hexdigest(),
+                             'product_count': cumulative_count}
     manifest_relative = f'{CUMULATIVE_DIR}/manifest.json'
     (output/'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, separators=(',', ':'))+'\n')
+    exported = read_pool(root)
+    if not set(normalize_identities(previous)).issubset(exported):
+        raise ValueError('Refusing canonical product loss')
     return [manifest_relative, *generated]
 
 
 def publish(root):
     repo_root = Path.cwd().resolve()
+    # Pin the parent before reading and building. A concurrent publication makes
+    # the final non-force push fail instead of overwriting its products.
+    existing = git('ls-remote', '--heads', 'origin', 'refs/heads/'+BRANCH).stdout.strip()
+    parent = None
+    if existing:
+        git('fetch', '--depth=1', 'origin', BRANCH)
+        parent = git('rev-parse', 'FETCH_HEAD').stdout.strip()
+        paths = git('ls-tree', '-r', '--name-only', parent, '--', PREFIX+CUMULATIVE_DIR).stdout.splitlines()
+        for path in paths:
+            relative = Path(path).relative_to(PREFIX)
+            target = root/relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(git('show', parent+':'+path).stdout, encoding='utf-8')
+    seed_working_state(root)
     retro_dir = repo_root/'data/brand-md-monitoring/retrospective'
     expected_manual_files = list(retro_dir.glob('manual*.json')) if retro_dir.exists() else []
     merge_summary = merge_retrospective_sources(root, repo_root)
@@ -195,18 +232,13 @@ def publish(root):
     print('Retrospective source records:', merge_summary.get('source_record_count'), 'months:', merge_summary.get('evidence_counts_by_month'))
     current_generated = build_observed_product_shards(root)
     cumulative_generated = build_cumulative_product_shards(root)
-    generated = [*current_generated, *cumulative_generated]
+    generated = [*current_generated, *cumulative_generated, 'cumulative-products/review-queue.json']
     names = [*STATE_FILES, 'feed.json', 'latest.json', 'flash-latest.json', 'summary.md', 'retrospective-merge-summary.json', *generated]
     for name in names:
         if not (root/name).is_file(): raise ValueError('Missing checkpoint: '+name)
     with tempfile.TemporaryDirectory() as directory:
         env = {**os.environ, 'GIT_INDEX_FILE': str(Path(directory)/'index')}
-        existing = git('ls-remote', '--heads', 'origin', 'refs/heads/'+BRANCH).stdout.strip()
-        parent = None
-        if existing:
-            git('fetch', '--depth=1', 'origin', BRANCH)
-            parent = git('rev-parse', 'FETCH_HEAD').stdout.strip()
-        git('read-tree', '--empty', env=env)
+        git('read-tree', parent if parent else '--empty', env=env)
         for name in names:
             blob = git('hash-object', '-w', str(root/name)).stdout.strip()
             git('update-index', '--add', '--cacheinfo', '100644', blob, PREFIX+name, env=env)

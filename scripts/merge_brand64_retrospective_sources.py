@@ -13,7 +13,7 @@ import datetime as dt
 import json
 from pathlib import Path
 import re
-from urllib.parse import urlsplit, urlunsplit
+from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
 
 COUNTED_SCOPE_STATUS = 'BRAND_AND_KNIT_PATH_MATCHED'
 TARGET_MONTHS = {f'2026-{month:02d}' for month in range(4, 10)}
@@ -41,7 +41,8 @@ def canonical_url(value: str) -> str:
     if not value.startswith(('https://', 'http://')):
         return ''
     parts = urlsplit(value)
-    return urlunsplit((parts.scheme, parts.netloc.lower(), parts.path.rstrip('/') or '/', '', ''))
+    query = [(k, v) for k, v in parse_qsl(parts.query, keep_blank_values=True) if not k.startswith('utm_') and k not in {'srsltid', 'fbclid', 'gclid', 'cc', 'color'}]
+    return urlunsplit((parts.scheme, parts.netloc.lower(), parts.path.rstrip('/') or '/', urlencode(query), ''))
 
 
 def date_value(value):
@@ -93,8 +94,8 @@ def brand_name(record):
 def source_is_official(record, manual=False, spring=False):
     if manual or spring:
         return True
-    text = ' '.join(str(record.get(key) or '') for key in ('source_type', 'source_status', 'source_kind', 'evidence_note'))
-    return any(marker in text for marker in OFFICIAL_MARKERS)
+    text = ' '.join(str(record.get(key) or '') for key in ('source_type', 'source_status', 'source_kind', 'evidence_note', 'source', 'evidence_level'))
+    return any(marker in text.upper() for marker in OFFICIAL_MARKERS)
 
 
 def normalize_record(record, source_path, source_snapshot_date=None, manual=False, spring=False):
@@ -118,7 +119,7 @@ def normalize_record(record, source_path, source_snapshot_date=None, manual=Fals
         or date_value(source_snapshot_date)
     )
     snapshot_month = month_value(snapshot_date)
-    evidence_date = date_value(record.get('source_date')) or first_date_in_text(record.get('notes'))
+    evidence_date = date_value(record.get('period_evidence_date')) or date_value(record.get('source_date')) or first_date_in_text(record.get('notes'))
     evidence_month = month_value(evidence_date)
 
     # A manually researched retrospective row can be verified today while its
@@ -137,6 +138,10 @@ def normalize_record(record, source_path, source_snapshot_date=None, manual=Fals
     status = record.get('release_status') or record.get('launch_status') or record.get('sales_status') or ''
 
     return {
+        'first_seen_date': date_value(record.get('first_seen_date')),
+        'last_seen_date': date_value(record.get('last_seen_date')),
+        'legacy_record': record.get('legacy_record'),
+        'source_provenance': record.get('source_provenance') or [],
         'brand_id': bid,
         'brand_name': brand_name(record) or bid,
         'product_name': record.get('product_name') or '',
@@ -182,6 +187,8 @@ def merge_one(known, incoming):
         'period_evidence_value': incoming.get('period_evidence_value'),
         'period_evidence_source': incoming.get('period_evidence_source'),
         'source_record_scope': incoming.get('source_record_scope'),
+        'legacy_record': incoming.get('legacy_record'),
+        'source_provenance': incoming.get('source_provenance') or [],
     }
     if before:
         merged = dict(before)
@@ -194,10 +201,14 @@ def merge_one(known, incoming):
         existing_evidence = merged.get('retrospective_evidence') or []
         if evidence not in existing_evidence:
             merged['retrospective_evidence'] = [*existing_evidence, evidence]
+        merged['source_provenance'] = [*merged.get('source_provenance', [])]
+        for provenance in incoming.get('source_provenance') or []:
+            if provenance not in merged['source_provenance']:
+                merged['source_provenance'].append(provenance)
         known[key] = merged
         return False
 
-    first_seen = incoming.get('verification_date') or incoming.get('snapshot_date') or dt.date.today().isoformat()
+    first_seen = incoming.get('first_seen_date') or incoming.get('verification_date') or incoming.get('snapshot_date') or dt.date.today().isoformat()
     known[key] = {
         'brand_id': incoming['brand_id'],
         'brand_name': incoming['brand_name'],
@@ -210,7 +221,7 @@ def merge_one(known, incoming):
         'evidence_level': incoming['evidence_level'],
         'scope_status': COUNTED_SCOPE_STATUS,
         'first_seen_date': first_seen,
-        'last_seen_date': first_seen,
+        'last_seen_date': incoming.get('last_seen_date') or first_seen,
         'sales_start_date': None,
         'publication_status': 'PUBLISH_HOLD',
         'human_review_required': True,
@@ -224,6 +235,7 @@ def merge_one(known, incoming):
         'retrospective_sources': [incoming['source_path']],
         'retrospective_evidence': [evidence],
         'retrospective_only': True,
+        'source_provenance': incoming.get('source_provenance') or [],
     }
     return True
 
@@ -255,6 +267,10 @@ def collect_sources(repo_root: Path):
         snapshot = date_match.group(1) if date_match else None
         for row in read_jsonl(path):
             sources.append((row, str(path.relative_to(repo_root)), snapshot, False, False))
+    for path in sorted((data_root/'retrospective/imports').glob('*.json')):
+        payload = load_json(path, {})
+        for row in payload.get('records', []):
+            sources.append((row, str(path.relative_to(repo_root)), None, False, False))
     return sources
 
 
@@ -267,7 +283,8 @@ def active_brand_ids(repo_root: Path):
 def merge_retrospective_sources(root: Path, repo_root: Path | None = None):
     repo_root = repo_root or root.parents[2]
     known_path = root/'known-products.json'
-    known = load_json(known_path, {})
+    from brand64_canonical_store import seed_working_state
+    known = seed_working_state(root)
     active = active_brand_ids(repo_root)
     source_rows = collect_sources(repo_root)
 
@@ -279,17 +296,22 @@ def merge_retrospective_sources(root: Path, repo_root: Path | None = None):
     scope_review = 0
     months = {month: 0 for month in sorted(TARGET_MONTHS)}
     unique_keys = set()
+    review_rows = []
+    identity_index = {v.get('brand_id','')+'|'+canonical_url(v.get('product_url','')): key for key, v in known.items()}
 
     for row, path, snapshot, manual, spring in source_rows:
         normalized = normalize_record(row, path, snapshot, manual=manual, spring=spring)
         if not normalized:
             skipped_invalid += 1
+            review_rows.append({'reason': 'INVALID_OR_NONOFFICIAL', 'source_path': path, 'record': row})
             continue
         if normalized.get('scope_review_only'):
             scope_review += 1
+            review_rows.append({'reason': 'SCOPE_REVIEW_REQUIRED', 'source_path': path, 'record': row})
             continue
         if active and normalized['brand_id'] not in active:
             skipped_inactive += 1
+            review_rows.append({'reason': 'INACTIVE_BRAND', 'source_path': path, 'record': row})
             continue
         accepted += 1
         key = normalized['brand_id']+'|'+normalized['product_url']
@@ -297,11 +319,22 @@ def merge_retrospective_sources(root: Path, repo_root: Path | None = None):
         for month in normalized.get('retrospective_months', []):
             if month in months:
                 months[month] += 1
+        prior_key = identity_index.get(key)
+        if prior_key:
+            normalized['product_url'] = known[prior_key]['product_url']
         if merge_one(known, normalized):
+            identity_index[key] = normalized['brand_id']+'|'+normalized['product_url']
             created += 1
         else:
             enriched += 1
 
+    review_path = root/'cumulative-products/review-queue.json'
+    review_path.parent.mkdir(parents=True, exist_ok=True)
+    previous_review = load_json(review_path, {}).get('records', [])
+    for record in review_rows:
+        if record not in previous_review:
+            previous_review.append(record)
+    review_path.write_text(json.dumps({'format': 'KC_BRAND64_CANONICAL_REVIEW_QUEUE', 'role': 'NONCOUNTED_EVIDENCE', 'human_review_required': True, 'records': previous_review}, ensure_ascii=False, separators=(',', ':'))+'\n')
     known_path.write_text(json.dumps(known, ensure_ascii=False, separators=(',', ':'))+'\n')
     summary = {
         'format': 'KC_BRAND64_RETROSPECTIVE_UNIFIED_MERGE',

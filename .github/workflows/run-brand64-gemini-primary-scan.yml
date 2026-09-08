@@ -9,6 +9,7 @@ on:
     paths:
       - scripts/run_brand64_free_direct_scan.py
       - scripts/brand64_flash_pipeline.py
+      - scripts/brand64_canonical_store.py
       - scripts/publish_brand64_flash_feed.py
       - scripts/merge_brand64_retrospective_sources.py
       - scripts/restore_brand64_valid_state.py
@@ -17,6 +18,7 @@ on:
       - tests/test_brand64_flash_pipeline.py
       - tests/test_brand64_retrospective_unification.py
       - tests/test_brand64_retrospective_month_evidence.py
+      - data/brand-md-monitoring/retrospective/**/*.json
       - data/brand-md-monitoring/retrospective/*.json
       - data/brand-md-monitoring/2026-spring-retrospective-baselines.json
       - data/brand-md-monitoring/2026-08-*-product-baseline-snapshots.jsonl
@@ -52,6 +54,7 @@ jobs:
           python -m unittest discover -s tests -p test_brand64_flash_pipeline.py -v
           python -m unittest discover -s tests -p test_brand64_retrospective_unification.py -v
           python -m unittest discover -s tests -p test_brand64_retrospective_month_evidence.py -v
+          python -m unittest discover -s tests -p test_brand64_canonical_store.py -v
           python -m py_compile scripts/restore_brand64_valid_state.py
 
       - name: Restore newest strict-valid Brand64 state
