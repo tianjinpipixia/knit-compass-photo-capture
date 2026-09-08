@@ -2,7 +2,7 @@
 観測日：2026-09-08
 
 登録範囲の確認完了：0/64ブランド。
-本日観測した商品：1327件。MD用の蓄積として保持します。
+本日観測した商品：1381件。MD用の蓄積として保持します。
 初回発見と発売日は区別します。未確認・未取得を「新商品なし」と判定しません。
 
 ## 本日初めて見つけた商品（発売日未確認）
@@ -37,6 +37,60 @@
 |SHOO・LA・RUE|SHOO・LA・RUE 【あったか/洗濯機可/S-LL】インせず着られる モックネック ニットソートップス|¥3,489|[公式商品](https://store.world.co.jp/brand/shoo-la-rue/item/BRC6225F0103)|
 |SHOO・LA・RUE|SHOO・LA・RUE ニットリブコーデュロイトップス|¥2,989|[公式商品](https://store.world.co.jp/brand/shoo-la-rue/item/BRC6225F0079)|
 |Elura|【先行予約】もっちりVジップカーディガン|¥7,700|[公式商品](https://www.dot-st.com/elura/disp/item/1071374/)|
+|grove|grove 【人気シリーズに新型登場】袖口シアーやわらかドライタッチニット|¥4,979|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826F0021)|
+|grove|grove 新色追加！【シリーズ累計36万枚/UVカット・洗濯機OK】やわらかドライタッチ 五分袖ニット|¥3,979|[公式商品](https://store.world.co.jp/brand/grove/item/BR76899A0276)|
+|grove|grove 【1枚で着映え】ドット刺しゅうニットプルオーバー|¥4,479|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826Z0021)|
+|grove|grove 予約 【毛玉軽減・洗濯機OK】grove大人気 ガーターボートネックニット|¥4,479|[公式商品](https://store.world.co.jp/brand/grove/item/BR76899A0290)|
+|grove|grove 【涼しく二の腕カバー】フロントシアーフレアニット|¥4,479|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826Z0020)|
+|grove|grove 【大人気アイテム5分袖で登場！】スカーフ柄ボウタイ五分袖ニットプルオーバ―|¥4,979|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826Z0008)|
+|grove|grove 【肩回りカバー】一枚で叶う、レイヤードニット|¥4,479|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826Z0019)|
+|grove|grove 軽やかな着心地、ブークレニットベスト|¥4,479|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826Z0026)|
+|grove|grove 【シリーズ累計36万枚！やわらかドライタッチ】夏にうれしい多機能ロングニット|¥3,979|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826Z0001)|
+|grove|grove 【シリーズ累計36万枚／UVカット・洗濯機OK】やわらかドライタッチレースドッキングニット|¥4,979|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826F0013)|
+|grove|grove 【UVカット・洗濯機◎】Tシャツ感覚で着られるコットン混ニット|¥4,479|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826F0011)|
+|grove|grove 【夏に嬉しい機能付き】やわらかドライタッチレイヤードライクニット|¥4,397|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825Z0012)|
+|grove|grove 新色追加！【シリーズ累計36万枚/名品ニット】やわらかドライタッチ 袖メッシュ編みニット|¥3,979|[公式商品](https://store.world.co.jp/brand/grove/item/BR76899A0275)|
+|grove|grove 【シリーズ累計36万枚！名品ニット】やわらかドライタッチ ドルマンニット|¥3,979|[公式商品](https://store.world.co.jp/brand/grove/item/BR76899A0288)|
+|grove|grove 高評価！【シリーズ累計36万枚！名品ニット】やわらかドライタッチ スカラップスリーブニット|¥3,979|[公式商品](https://store.world.co.jp/brand/grove/item/BR76899A0289)|
+|grove|grove 【貴島明日香さん着用・大人のリラックススタイル】テープヤーン ボートネックニット|¥3,286|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826S0114)|
+|grove|grove 【洗濯機OK・UVカット】マルチボーダーニットプルオーバー|¥1,591|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826S0134)|
+|grove|grove バイカラー ヘンリーネックリブニット|¥2,239|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826S0112)|
+|grove|grove リリヤーンケーブル ニットベスト|¥2,687|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826S0038)|
+|grove|grove 高評価！【洗濯機OK】ベーシックニット【毛玉軽減】|¥1,790|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826S0005)|
+|grove|grove 毎日着たくなる、もちもち畦編みニット|¥1,790|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826S0037)|
+|grove|grove バイカラーハイネックニット|¥2,239|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826S0063)|
+|grove|grove 【体型カバー/UV】一枚でコーデが決まる、配色フレアニットプルオーバー|¥3,286|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826S0135)|
+|grove|grove ディテールで差がつく 大人のスカーフ柄ボウタイニット|¥2,987|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826S0073)|
+|grove|grove 【おうちで洗える】顔周りすっきり、ボートネックニット|¥2,239|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826S0050)|
+|grove|grove シアーフリルリブニットプルオーバー|¥2,239|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826S0053)|
+|grove|grove 人気デザインが夏verで登場！【体型カバー】裾レイヤードニット|¥2,239|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826S0177)|
+|grove|grove 一枚で着映える大人の袖コンシャスニット|¥4,479|[公式商品](https://store.world.co.jp/brand/grove/item/BR76899A0284)|
+|grove|grove 【洗濯機OK】レイヤードにもおすすめ、軽やかクロップドニット|¥3,135|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826S0125)|
+|grove|grove ラフさときれいめを両立する、大人のスウェットライクVネックニット|¥2,489|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826S0083)|
+|grove|grove ラグランスリーブ肩釦ニット|¥2,387|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826S0036)|
+|grove|grove 【S~LL】洗えるガータードルマンニット|¥2,197|[公式商品](https://store.world.co.jp/brand/grove/item/BR76899A0177)|
+|grove|grove 涼やか体型カバー 配色シアーニットプルオーバー|¥2,400|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825Z0061)|
+|grove|grove 【嬉しい機能付き】やわらかドライタッチシアーフレアスリーブニット|¥1,650|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825Z0006)|
+|grove|grove 【嬉しい機能付き】やわらかドライタッチフレンチスリーブニット|¥1,650|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825Z0007)|
+|grove|grove 華やぐラメモールで秋先取り 衿付きプルオーバーニット|¥3,300|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825Z0070)|
+|grove|grove 涼しくて華やか1枚で差の付く ケープフリルニット|¥3,300|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825Z0068)|
+|grove|grove 夏の余韻と秋の気配をつなぐ ラメフェザーニットベスト|¥2,900|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825Z0065)|
+|grove|grove 【ひんやり/UVカット】大人の可愛さ セーラーカラーニット|¥3,077|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825Z0031)|
+|grove|grove 【洗える】ふんわりウール混オーバーサイズニット|¥2,800|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825F0010)|
+|grove|grove 【最終お値下げ！！】ラメフェザーヤーン オープンカラーニット|¥2,000|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825F0034)|
+|grove|grove サイドジップカラーニットプルオーバー|¥4,301|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825F0116)|
+|grove|grove ボーダーブークレーニット|¥3,700|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825F0115)|
+|grove|grove 【SETITEM】ケーブルニットビスチェ|¥2,000|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825F0055)|
+|grove|grove 【アンサンブル対応】バイカラー切替ニット|¥2,300|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825F0053)|
+|grove|grove 袖口配色リブニット|¥2,500|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825F0117)|
+|grove|grove ふんわり包み込む ケーブルボートネックニット|¥4,301|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825F0110)|
+|grove|grove 華やぎ冬ニット ミニスパンコールフェザーニット|¥3,300|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825F0113)|
+|grove|grove 異素材ビッグカラーニット|¥3,500|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825F0070)|
+|grove|grove ラメモールヤーンプルオーバーニット|¥3,300|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825F0103)|
+|grove|grove 袖レース編みラグランスリーブニット|¥2,197|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825F0091)|
+|grove|grove 【毛玉軽減】配色ラインランダムリブニット|¥3,000|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825F0054)|
+|grove|grove 【洗える】バックリブ切替ニット|¥3,000|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825F0024)|
+|grove|grove 【洗える】レイヤードにもおすすめ！サイド釦ニット|¥2,473|[公式商品](https://store.world.co.jp/brand/grove/item/BR76825F0023)|
 
 ## ブランド・婦人対象の判定待ちリンク
 
@@ -60,7 +114,7 @@
 |OPAQUE.CLIP|未完了|0|0|
 |index|未完了|0|0|
 |SHOO・LA・RUE|未完了|4|1|
-|grove|未完了|0|0|
+|grove|未完了|54|1|
 |ikka|未完了|20|0|
 |coen|未完了|0|0|
 |DoCLASSE|未完了|0|0|
@@ -92,7 +146,7 @@
 |green label relaxing|未完了|0|0|
 |Spick & Span|未完了|0|0|
 |IÉNA|未完了|0|0|
-|Te chichi|未完了|64|0|
+|Te chichi|未完了|64|1|
 |ANY|未完了|0|0|
 |MUJI Labo|未完了|12|1|
 |Mila Owen|未完了|28|0|
@@ -158,13 +212,14 @@
 
 ### SHOO・LA・RUE
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/
+- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/
 
 ### grove
-入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB01/
+入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB02/
 
 ### ikka
@@ -282,7 +337,8 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://baycrews.jp/brand/detail/iena
 
 ### Te chichi
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd%3ACAN02&fl=bd%2CbdName%2Ccd%2Cname%2Cprice%2Cmkcode%2Cmaterial%2Cicon%2Cmcn2%2Cmcn3&start=200
 
 ### ANY
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -290,9 +346,9 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 
 ### MUJI Labo
 取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2
-- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2
+- https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3
+- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2
 
 ### Mila Owen
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -340,5 +396,5 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 ### SNIDEL
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
-深掘り待ち：63件。速報は詳細調査の完了を待たず保存します。
+深掘り待ち：69件。速報は詳細調査の完了を待たず保存します。
 詳細・混率・発売日等の不明点は未確認。正式マスター・顧客公開は確認後。
