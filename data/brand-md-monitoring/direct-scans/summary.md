@@ -2,7 +2,7 @@
 観測日：2026-09-09
 
 登録範囲の確認完了：0/64ブランド。
-本日観測した商品：1349件。MD用の蓄積として保持します。
+本日観測した商品：1386件。MD用の蓄積として保持します。
 初回発見と発売日は区別します。未確認・未取得を「新商品なし」と判定しません。
 
 ## 本日初めて見つけた商品（発売日未確認）
@@ -77,6 +77,43 @@
 |BAYFLOW|メッシュジップニットパーカー|¥3,991|[公式商品](https://www.dot-st.com/bayflow/disp/item/807117/)|
 |HARE|【WEB先行予約】グラデショートニットプルオーバー|¥9,900|[公式商品](https://www.dot-st.com/hare/disp/item/788804/)|
 |HARE|【WEB先行予約】スソフリルスクエアネックニット|¥8,910|[公式商品](https://www.dot-st.com/hare/disp/item/1079906/)|
+|組曲|スウェットニット カーディガン|¥6,490|[公式商品](https://crosset.onward.co.jp/items/KRWXLS0252)|
+|組曲|チュールヤーンファンシーニット ジャケット|¥8,470|[公式商品](https://crosset.onward.co.jp/items/KRWXLS0253)|
+|組曲|オーガンスウェット ニット|¥5,500|[公式商品](https://crosset.onward.co.jp/items/KRWXLS0150)|
+|組曲|オーガンスキッパー ニット|¥5,995|[公式商品](https://crosset.onward.co.jp/items/KRWXLS0151)|
+|組曲|へアリーヤーン フレア ニット|¥6,930|[公式商品](https://crosset.onward.co.jp/items/KRWXGW0653)|
+|組曲|へアリーヤーンボートネック ニット|¥8,910|[公式商品](https://crosset.onward.co.jp/items/KRWXGW0654)|
+|組曲|【WEB限定】レースフリルスタンド ニット|¥13,970|[公式商品](https://crosset.onward.co.jp/items/KRWXGW0960)|
+|組曲|ラメリブドルマン ニット|¥6,490|[公式商品](https://crosset.onward.co.jp/items/KRWXGW0557)|
+|組曲|フラッフィーファーＶネック ニット|¥9,570|[公式商品](https://crosset.onward.co.jp/items/KRWXGW0552)|
+|組曲|【加藤ローサさん着用】スムースストレッチニットアップ|¥14,388|[公式商品](https://crosset.onward.co.jp/items/OPWXGW0554)|
+|組曲|襟付きニットアップ|¥14,982|[公式商品](https://crosset.onward.co.jp/items/OPWXGW0555)|
+|組曲|【加藤ローサさん着用】ウールカシミヤミックスボートネック ニット|¥9,779|[公式商品](https://crosset.onward.co.jp/items/KRWXGW0550)|
+|組曲|レースモチーフニットプルオーバー|¥7,480|[公式商品](https://crosset.onward.co.jp/items/KRWXGW6471)|
+|組曲|【WEB限定】プレーティングニットアウタージレ|¥16,940|[公式商品](https://crosset.onward.co.jp/items/VRWXGW0940)|
+|組曲|キーネックニット ワンピース|¥14,960|[公式商品](https://crosset.onward.co.jp/items/OPWXGW6470)|
+|組曲|ニューシックニット カーディガン|¥6,600|[公式商品](https://crosset.onward.co.jp/items/KRWXGW6467)|
+|組曲|シックフレアニットワンピース|¥13,244|[公式商品](https://crosset.onward.co.jp/items/OPWXGW6463)|
+|組曲|【加藤ローサさん着用 / 襟取り外し可】スパンコールヤーン 5分袖ニット|¥8,382|[公式商品](https://crosset.onward.co.jp/items/KRWXGW6455)|
+|組曲|プレーティングニットアウター ジャケット|¥12,551|[公式商品](https://crosset.onward.co.jp/items/JKWXGW0459)|
+|組曲|【加藤ローサさん着用 / 前後着用可】スパンコールヤーン カーディガン|¥10,164|[公式商品](https://crosset.onward.co.jp/items/KRWXGW0456)|
+|組曲|【加藤ローサさん着用】コットンカシミヤMIX刺繍入りニット|¥7,700|[公式商品](https://crosset.onward.co.jp/items/KRWXGW6454)|
+|組曲|【前後着用可 / 加藤ローサさん着用】スムースストレッチタートル ニット|¥6,600|[公式商品](https://crosset.onward.co.jp/items/KRWXGW0452)|
+|組曲|ストレッチクリアパフ袖 ニット|¥6,490|[公式商品](https://crosset.onward.co.jp/items/KRWXGA0352)|
+|組曲|ストレッチクリアドッキング ニットプルオーバー|¥6,985|[公式商品](https://crosset.onward.co.jp/items/KRWXGA0353)|
+|組曲|クルミボタン5分袖ニット|¥6,930|[公式商品](https://crosset.onward.co.jp/items/KRWXGA0350)|
+|組曲|Hunter Tee ニット|¥4,455|[公式商品](https://crosset.onward.co.jp/items/KRWXGA0354)|
+|組曲|レーシージャージーニットライク カットソー|¥4,950|[公式商品](https://crosset.onward.co.jp/items/KKWXGM6639)|
+|組曲|ドライタッチ 5分袖カーディガン|¥6,930|[公式商品](https://crosset.onward.co.jp/items/KRWXGM0550)|
+|組曲|シアーパフ袖 ニット|¥7,700|[公式商品](https://crosset.onward.co.jp/items/KRWXGM0551)|
+|組曲|5分袖ニットＴシャツ|¥6,237|[公式商品](https://crosset.onward.co.jp/items/KRWXGM0450)|
+|組曲|【WEB限定】チュールニット ブルゾン|¥11,165|[公式商品](https://crosset.onward.co.jp/items/KRWXGM0936)|
+|組曲|透かし柄 ニットプルオーバー|¥7,700|[公式商品](https://crosset.onward.co.jp/items/KRWXGS0354)|
+|組曲|フラワーメタルドルマン ニット|¥7,700|[公式商品](https://crosset.onward.co.jp/items/KRWXGM0352)|
+|組曲|ハートボタン ニットカーディガン|¥10,472|[公式商品](https://crosset.onward.co.jp/items/KRWXGS0250)|
+|組曲|スウェットライクニットプルオーバー|¥5,995|[公式商品](https://crosset.onward.co.jp/items/KRWXGS0253)|
+|組曲|ELENAリラクシーニットワンピース|¥9,460|[公式商品](https://crosset.onward.co.jp/items/OPWXCW0453)|
+|組曲|【6色展開・UVケア】モダンタートルニット|¥6,930|[公式商品](https://crosset.onward.co.jp/items/KRWXCA0352)|
 
 ## ブランド・婦人対象の判定待ちリンク
 
@@ -121,7 +158,7 @@
 |23区|未完了|0|0|
 |ICB|未完了|0|0|
 |自由区|未完了|0|0|
-|組曲|未完了|56|0|
+|組曲|未完了|93|0|
 |UNFILO|未完了|0|0|
 |INDIVI|未完了|0|0|
 |UNTITLED|未完了|0|0|
@@ -281,11 +318,10 @@
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://crosset.onward.co.jp/shop/jiyuku?du=2
 
 ### 組曲
-入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - HTTPError: HTTP Error 302: The HTTP server returned a redirect error that would lead to an infinite loop.
 The last 30x error message was:
 Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
-- ValueError: Source exceeds size limit：https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17
 
 ### UNFILO
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -385,5 +421,5 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 ### SNIDEL
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
-深掘り待ち：74件。速報は詳細調査の完了を待たず保存します。
+深掘り待ち：75件。速報は詳細調査の完了を待たず保存します。
 詳細・混率・発売日等の不明点は未確認。正式マスター・顧客公開は確認後。
