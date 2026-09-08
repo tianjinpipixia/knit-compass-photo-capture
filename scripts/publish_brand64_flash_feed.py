@@ -12,6 +12,7 @@ import tempfile
 from brand64_canonical_store import CANONICAL, normalize_identities, read_pool, seed_working_state, attach_details
 from brand64_flash_pipeline import STATE_FILES
 from merge_brand64_retrospective_sources import merge_retrospective_sources
+from brand64_identity_guard import persist_reconciled
 
 BRANCH = 'brand64/flash-feed'
 PREFIX = 'data/brand-md-monitoring/direct-scans/'
@@ -119,9 +120,12 @@ def build_observed_product_shards(root):
     return [manifest_relative, *generated]
 
 
-def build_cumulative_product_shards(root):
+def build_cumulative_product_shards(root, active=None):
     previous = read_pool(root) or {}
     known = seed_working_state(root)
+    review = []
+    if active is not None:
+        known, review = persist_reconciled(root, known, active)
     details_path = root/'detail-results.json'
     attach_details(known, json.loads(details_path.read_text()) if details_path.exists() else {})
     latest = json.loads((root/'latest.json').read_text())
@@ -185,6 +189,8 @@ def build_cumulative_product_shards(root):
         'formal_product_registration': False, 'sales_quantity_estimation': 'FORBIDDEN',
         'first_seen_is_sales_start': False, 'brands': manifest_brands,
     }
+    identity_review = {r['identity_key']: r for r in review if r.get('reason') == 'BRAND_IDENTITY_CONFLICT'}
+    manifest['identity_review_product_count'] = len(identity_review)
     catalogue = {**manifest, 'format': 'KC_BRAND64_CANONICAL_CATALOGUE',
                  'records': [compact_record(bid, grouped[bid][url].get('brand_name') or bid, grouped[bid][url])
                              for bid in sorted(grouped) for url in sorted(grouped[bid])],
@@ -203,8 +209,10 @@ def build_cumulative_product_shards(root):
     manifest_relative = f'{CUMULATIVE_DIR}/manifest.json'
     (output/'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, separators=(',', ':'))+'\n')
     exported = read_pool(root)
-    if not set(normalize_identities(previous)).issubset(exported):
-        raise ValueError('Refusing canonical product loss')
+    for key, row in normalize_identities(previous).items():
+        if key not in exported and not any(r.get('identity_key') == key and r.get('record') == row
+                                           for r in review if r.get('reason') == 'BRAND_IDENTITY_CONFLICT'):
+            raise ValueError('Refusing canonical product loss without exact retained review evidence')
     return [manifest_relative, *generated]
 
 
@@ -231,7 +239,8 @@ def publish(root):
         raise ValueError(f'Retrospective files exist ({len(expected_manual_files)}) but source_record_count is 0')
     print('Retrospective source records:', merge_summary.get('source_record_count'), 'months:', merge_summary.get('evidence_counts_by_month'))
     current_generated = build_observed_product_shards(root)
-    cumulative_generated = build_cumulative_product_shards(root)
+    active = json.loads((repo_root/'config/brand64-active-brands.json').read_text())['active_brands']
+    cumulative_generated = build_cumulative_product_shards(root, active)
     generated = [*current_generated, *cumulative_generated, 'cumulative-products/review-queue.json']
     names = [*STATE_FILES, 'feed.json', 'latest.json', 'flash-latest.json', 'summary.md', 'retrospective-merge-summary.json', *generated]
     for name in names:

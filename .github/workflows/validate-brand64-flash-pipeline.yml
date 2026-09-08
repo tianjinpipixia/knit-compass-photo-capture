@@ -3,6 +3,8 @@ name: Validate Brand64 flash and recovery
 on:
   pull_request:
     paths:
+      - scripts/brand64_identity_guard.py
+      - tests/test_brand64_identity_guard.py
       - scripts/brand64_canonical_store.py
       - scripts/publish_brand64_flash_feed.py
       - scripts/merge_brand64_retrospective_sources.py
