@@ -190,7 +190,8 @@ def build_cumulative_product_shards(root, active=None):
         'first_seen_is_sales_start': False, 'brands': manifest_brands,
     }
     identity_review = {r['identity_key']: r for r in review if r.get('reason') == 'BRAND_IDENTITY_CONFLICT'}
-    manifest['identity_review_product_count'] = len(identity_review)
+    manifest['identity_review_product_count'] = sum(r.get('review_status') != 'RESOLVED' for r in identity_review.values())
+    manifest['identity_resolved_product_count'] = sum(r.get('review_status') == 'RESOLVED' for r in identity_review.values())
     catalogue = {**manifest, 'format': 'KC_BRAND64_CANONICAL_CATALOGUE',
                  'records': [compact_record(bid, grouped[bid][url].get('brand_name') or bid, grouped[bid][url])
                              for bid in sorted(grouped) for url in sorted(grouped[bid])],
