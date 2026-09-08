@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kc-photo-capture-independent-v19-v2144-basic-photo';
+const CACHE_NAME = 'kc-photo-capture-independent-v20-v2144-brand-lockup';
 const APP_SHELL = [
   './',
   './index.html',
@@ -6,6 +6,7 @@ const APP_SHELL = [
   './sw-register.js',
   './layout-priority.js',
   './exhibition-burst-mode.css',
+  './brand-lockup-official.css',
   './exhibition-burst-mode.js',
   './mobile-compact-20260827.css',
   './v04-visual-alignment.css',
