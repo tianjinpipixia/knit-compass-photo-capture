@@ -14,6 +14,8 @@ import shutil
 import subprocess
 import tempfile
 
+from brand64_canonical_store import read_pool, preserve
+
 ROOT = Path("data/brand-md-monitoring/direct-scans")
 STATE_FILES = [
     "known-products.json",
@@ -22,6 +24,7 @@ STATE_FILES = [
     "flash-history.json",
     "detail-results.json",
 ]
+SNAPSHOT_FILES = [*STATE_FILES, "latest.json", "feed.json", "flash-latest.json", "summary.md"]
 MIN_KNOWN_PRODUCTS = 500
 
 
@@ -40,7 +43,20 @@ def strict_json(path: Path):
 
 
 def validate_candidate(directory: Path, label: str) -> bool:
+    canonical = read_pool(directory)
     known_path = directory / "known-products.json"
+    if canonical is not None:
+        if not canonical:
+            raise ValueError("Refusing empty canonical snapshot")
+        try:
+            checkpoint = strict_json(known_path) if known_path.exists() else {}
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            checkpoint = {}
+        # The canonical records win over conflicting restart state during restore.
+        checkpoint = preserve(checkpoint if isinstance(checkpoint, dict) else {}, canonical)
+        for key, row in canonical.items():
+            checkpoint[key] = {**checkpoint.get(key, {}), **row}
+        known_path.write_text(json.dumps(checkpoint, ensure_ascii=False) + "\n")
     if not known_path.is_file():
         print(f"REJECT {label}: known-products.json missing")
         return False
@@ -73,12 +89,12 @@ def validate_candidate(directory: Path, label: str) -> bool:
 
 def copy_state(source: Path, label: str) -> None:
     ROOT.mkdir(parents=True, exist_ok=True)
-    for name in STATE_FILES:
+    for name in SNAPSHOT_FILES:
         src = source / name
         if src.is_file():
             shutil.copy2(src, ROOT / name)
-        else:
-            (ROOT / name).unlink(missing_ok=True)
+    if (source / "cumulative-products").exists():
+        shutil.copytree(source / "cumulative-products", ROOT / "cumulative-products", dirs_exist_ok=True)
     print(f"RESTORED_SOURCE={label}")
 
 
@@ -86,7 +102,9 @@ def extract_ref(ref: str, directory: Path) -> bool:
     directory.mkdir(parents=True, exist_ok=True)
     run("git", "fetch", "--depth=1", "origin", ref)
     found = False
-    for name in STATE_FILES:
+    canonical_paths = run("git", "ls-tree", "-r", "--name-only", "FETCH_HEAD", "--", "data/brand-md-monitoring/direct-scans/cumulative-products").stdout.splitlines()
+    names = SNAPSHOT_FILES + [str(Path(p).relative_to(ROOT)) for p in canonical_paths]
+    for name in names:
         probe = run(
             "git", "cat-file", "-e",
             f"FETCH_HEAD:data/brand-md-monitoring/direct-scans/{name}",
@@ -98,6 +116,7 @@ def extract_ref(ref: str, directory: Path) -> bool:
             "git", "show",
             f"FETCH_HEAD:data/brand-md-monitoring/direct-scans/{name}",
         ).stdout
+        (directory / name).parent.mkdir(parents=True, exist_ok=True)
         (directory / name).write_bytes(content)
         found = True
     return found

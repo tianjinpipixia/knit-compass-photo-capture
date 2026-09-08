@@ -253,10 +253,14 @@ def scan_brand(bid,meta,fetch, *, page_urls=None, max_pages=4, include_details=F
 
 def update_baseline(rows, known, date, *, baseline_initialization=False):
     known=json.loads(json.dumps(known)); changes=[]
+    identity_index = {row.get('brand_id','')+'|'+canonical(row.get('product_url','')).rstrip('/'): key for key,row in known.items()}
     for row in rows:
         for item in row['surface_items']:
             if item.get('scope_status')!='BRAND_AND_KNIT_PATH_MATCHED': continue
-            key=row['brand_id']+'|'+item['product_url']; before=known.get(key)
+            identity=row['brand_id']+'|'+canonical(item['product_url']).rstrip('/')
+            key=identity_index.get(identity, row['brand_id']+'|'+item['product_url']); before=known.get(key)
+            if before: item={**item, 'product_url':before['product_url']}
+            identity_index[identity]=key
             record={**(before or {}),**item,'brand_id':row['brand_id'],'brand_name':row['brand_name'],
                     'first_seen_date':before['first_seen_date'] if before else date,'last_seen_date':date,
                     'sales_start_date':before.get('sales_start_date') if before else None,'publication_status':'PUBLISH_HOLD','human_review_required':True}
