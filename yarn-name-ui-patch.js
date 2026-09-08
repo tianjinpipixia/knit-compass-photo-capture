@@ -1,7 +1,7 @@
 (function knitCompassYarnNameOnlyUiPatch() {
   "use strict";
 
-  const BUILD = "2026-09-08-yarn-name-only-1";
+  const BUILD = "2026-09-08-yarn-name-only-2";
   let queued = false;
 
   function clean(value) {
@@ -28,20 +28,14 @@
     const app = document.getElementById("app");
     if (!app) return;
 
-    // Preserve the existing yarn_name data key and stored data; unify only the visible input wording.
+    // Preserve the existing yarn_name data key and stored data; unify only the visible field wording.
     replaceExactText(app, "糸名・素材名", "糸名");
-    replaceExactText(app, "1. メーカー・素材", "1. メーカー・糸");
 
     const yarnInput = app.querySelector('input[name="yarn_name"]');
     if (yarnInput) {
       if (yarnInput.placeholder === "素材名または糸名を入力") yarnInput.placeholder = "糸名を入力";
       yarnInput.setAttribute("aria-label", "糸名");
       yarnInput.dataset.yarnNameUi = BUILD;
-    }
-
-    const lead = app.querySelector(".kc-brand .kc-lead");
-    if (lead && lead.textContent.includes("素材名は任意です。")) {
-      lead.textContent = lead.textContent.replace("素材名は任意です。", "糸名は任意です。");
     }
   }
 
