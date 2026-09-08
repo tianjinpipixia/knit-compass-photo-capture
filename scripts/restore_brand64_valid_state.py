@@ -29,6 +29,10 @@ def run(*args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
     return subprocess.run(args, check=check, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 
+def run_bytes(*args: str, check: bool = True) -> subprocess.CompletedProcess[bytes]:
+    return subprocess.run(args, check=check, text=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+
 def strict_json(path: Path):
     raw = path.read_bytes()
     text = raw.decode("utf-8")
@@ -90,11 +94,11 @@ def extract_ref(ref: str, directory: Path) -> bool:
         )
         if probe.returncode != 0:
             continue
-        content = run(
+        content = run_bytes(
             "git", "show",
             f"FETCH_HEAD:data/brand-md-monitoring/direct-scans/{name}",
         ).stdout
-        (directory / name).write_bytes(content.encode("utf-8", errors="strict"))
+        (directory / name).write_bytes(content)
         found = True
     return found
 
@@ -108,7 +112,7 @@ def try_flash(tmp: Path) -> bool:
         if extract_ref("brand64/flash-feed", directory) and validate_candidate(directory, "brand64/flash-feed"):
             copy_state(directory, "brand64/flash-feed")
             return True
-    except (subprocess.CalledProcessError, UnicodeEncodeError) as exc:
+    except subprocess.CalledProcessError as exc:
         print(f"REJECT brand64/flash-feed: extraction failed: {exc}")
     return False
 
@@ -141,7 +145,12 @@ def try_artifacts(tmp: Path) -> bool:
             if download.returncode != 0:
                 continue
             candidates = [directory, *[p.parent for p in directory.rglob("known-products.json")]]
+            seen = set()
             for candidate in candidates:
+                candidate = candidate.resolve()
+                if candidate in seen:
+                    continue
+                seen.add(candidate)
                 if validate_candidate(candidate, f"artifact:{run_id}:{artifact_name}"):
                     copy_state(candidate, f"artifact:{run_id}:{artifact_name}")
                     return True
@@ -160,7 +169,7 @@ def try_direct_branches(tmp: Path) -> bool:
             if validate_candidate(directory, branch):
                 copy_state(directory, branch)
                 return True
-        except (subprocess.CalledProcessError, UnicodeEncodeError) as exc:
+        except subprocess.CalledProcessError as exc:
             print(f"REJECT {branch}: extraction failed: {exc}")
     return False
 
@@ -170,7 +179,6 @@ def main() -> int:
     with tempfile.TemporaryDirectory() as work:
         tmp = Path(work)
         if try_flash(tmp) or try_artifacts(tmp) or try_direct_branches(tmp):
-            # Final strict check on exactly what downstream code will read.
             if not validate_candidate(ROOT, "restored-working-state"):
                 raise SystemExit("Restored state failed final validation")
             return 0
