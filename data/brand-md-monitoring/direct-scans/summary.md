@@ -2,7 +2,7 @@
 観測日：2026-09-09
 
 登録範囲の確認完了：0/64ブランド。
-本日観測した商品：56件。MD用の蓄積として保持します。
+本日観測した商品：1303件。MD用の蓄積として保持します。
 初回発見と発売日は区別します。未確認・未取得を「新商品なし」と判定しません。
 
 ## 本日初めて見つけた商品（発売日未確認）
@@ -65,311 +65,322 @@
 |組曲|アトランダムビジューボタンカーディガン|¥8,976|[公式商品](https://crosset.onward.co.jp/items/KRWXLS6153)|
 |組曲|【Flower Collection】COUCOUニット カーディガン|¥7,788|[公式商品](https://crosset.onward.co.jp/items/KRWXLS0251)|
 |組曲|【加藤ローサさん着用・新色追加・前後着用可】スムースストレッチロールネック ニット|¥11,000|[公式商品](https://crosset.onward.co.jp/items/KRWXGW0451)|
+|UNIQLO|WOMEN, S-XL メリノペプラムカーディガン|¥12,900|[公式商品](https://www.uniqlo.com/jp/ja/products/E489100-000/00)|
+|GLOBAL WORK|リネン混ニットVネックカーディガン半袖/147722|¥1,995|[公式商品](https://www.dot-st.com/globalwork/disp/item/147722/)|
+|SNIDEL|【HIGH QUALITY】ウールミンクショートボレロ|¥11,440|[公式商品](https://usagi-online.com/brand/snidel/item/SND0126F0205)|
+|MUJI Labo|婦人 強撚コットンニット長袖プルオーバー S 〜 XL|3,990 円|[公式商品](https://www.muji.com/jp/ja/store/cmdty/detail/4547315584093)|
+|MUJI Labo|婦人 和紙混長袖クルーネックセーター S 〜 XL|3,990 円|[公式商品](https://www.muji.com/jp/ja/store/cmdty/detail/4548076095293)|
+|studio CLIP|【daily CLIP】3ゲージフリンジカーディガン|¥3,494|[公式商品](https://www.dot-st.com/studioclip/disp/item/629970/)|
+|niko and ...|シアーワッフルカーディガン|¥2,500|[公式商品](https://www.dot-st.com/nikoand/disp/item/656805/)|
+|LEPSIM|ラメファーZIPニットベスト|¥6,600|[公式商品](https://www.dot-st.com/lepsim/disp/item/1061828/)|
+|SHENERY|2WAYペプラムニット|¥15,400|[公式商品](https://www.palcloset.jp/display/item/SNZ1062205A0005/)|
+|BAYFLOW|メッシュジップニットパーカー|¥3,991|[公式商品](https://www.dot-st.com/bayflow/disp/item/807117/)|
+|HARE|【WEB先行予約】グラデショートニットプルオーバー|¥9,900|[公式商品](https://www.dot-st.com/hare/disp/item/788804/)|
+|HARE|【WEB先行予約】スソフリルスクエアネックニット|¥8,910|[公式商品](https://www.dot-st.com/hare/disp/item/1079906/)|
 
 ## ブランド・婦人対象の判定待ちリンク
 
+- Green Parks：[候補商品](https://stripe-club.com/brand/greenparks/item/1006F26G0017?areaid=eb06100) Green Parks natural clean フレンチスリーブシャギーニットプルオーバー
 
 ## ブランド別の確認状況
 
 |ブランド|確認|本日観測商品|残ページ|
 |---|---|---:|---:|
-|UNIQLO|未完了|0|0|
-|GU|未完了|0|0|
-|MUJI|未完了|0|0|
-|ROPÉ PICNIC|未完了|0|0|
-|VIS|未完了|0|0|
-|GLOBAL WORK|未完了|0|0|
-|LOWRYS FARM|未完了|0|0|
-|studio CLIP|未完了|0|0|
-|niko and ...|未完了|0|0|
+|UNIQLO|未完了|36|0|
+|GU|未完了|34|0|
+|MUJI|未完了|22|0|
+|ROPÉ PICNIC|未完了|23|0|
+|VIS|未完了|37|0|
+|GLOBAL WORK|未完了|34|0|
+|LOWRYS FARM|未完了|42|0|
+|studio CLIP|未完了|58|0|
+|niko and ...|未完了|31|0|
 |earth music&ecology|未完了|0|0|
 |Green Parks|未完了|0|0|
 |OPAQUE.CLIP|未完了|0|0|
 |index|未完了|0|0|
-|SHOO・LA・RUE|未完了|0|2|
-|grove|未完了|0|2|
-|ikka|未完了|0|0|
+|SHOO・LA・RUE|未完了|0|1|
+|grove|未完了|0|1|
+|ikka|未完了|20|0|
 |coen|未完了|0|0|
 |DoCLASSE|未完了|0|0|
 |any SiS|未完了|0|0|
-|LEPSIM|未完了|0|0|
-|LAKOLE|未完了|0|0|
-|JEANASIS|未完了|0|0|
-|BAYFLOW|未完了|0|0|
-|HARE|未完了|0|0|
-|Heather|未完了|0|0|
-|PAGEBOY|未完了|0|0|
-|A part by|未完了|0|0|
-|Elura|未完了|0|0|
-|mysty woman|未完了|0|0|
-|Andemiu|未完了|0|0|
+|LEPSIM|未完了|66|0|
+|LAKOLE|未完了|43|0|
+|JEANASIS|未完了|42|0|
+|BAYFLOW|未完了|56|0|
+|HARE|未完了|44|0|
+|Heather|未完了|57|0|
+|PAGEBOY|未完了|29|0|
+|A part by|未完了|48|0|
+|Elura|未完了|32|0|
+|mysty woman|未完了|40|0|
+|Andemiu|未完了|52|0|
 |AMERICAN HOLIC|未完了|0|0|
 |YECCA VECCA|未完了|0|0|
 |23区|未完了|0|0|
 |ICB|未完了|0|0|
 |自由区|未完了|0|0|
-|組曲|未完了|56|2|
+|組曲|未完了|56|0|
 |UNFILO|未完了|0|0|
 |INDIVI|未完了|0|0|
 |UNTITLED|未完了|0|0|
-|NATURAL BEAUTY BASIC|未完了|0|0|
+|NATURAL BEAUTY BASIC|未完了|17|0|
 |SENSE OF PLACE|未完了|0|0|
 |B.C STOCK|未完了|0|0|
 |SLOBE IENA|未完了|0|0|
 |green label relaxing|未完了|0|0|
 |Spick & Span|未完了|0|0|
 |IÉNA|未完了|0|0|
-|Te chichi|未完了|0|0|
+|Te chichi|未完了|18|1|
 |ANY|未完了|0|0|
-|MUJI Labo|未完了|0|1|
-|Mila Owen|未完了|0|0|
-|ROPÉ|未完了|0|0|
-|ADAM ET ROPÉ|未完了|0|0|
-|GALLARDAGALANTE|未完了|0|0|
-|Whim Gazette|未完了|0|0|
-|LOUNGEDRESS|未完了|0|0|
-|RIVE DROITE|未完了|0|0|
-|DOUDOU|未完了|0|0|
-|SHENERY|未完了|0|0|
-|un dix cors|未完了|0|0|
-|La boutique BonBon|未完了|0|0|
-|natural couture|未完了|0|0|
-|DISCOAT|未完了|0|0|
+|MUJI Labo|未完了|12|1|
+|Mila Owen|未完了|31|0|
+|ROPÉ|未完了|27|0|
+|ADAM ET ROPÉ|未完了|34|0|
+|GALLARDAGALANTE|未完了|24|0|
+|Whim Gazette|未完了|15|0|
+|LOUNGEDRESS|未完了|24|0|
+|RIVE DROITE|未完了|35|0|
+|DOUDOU|未完了|20|0|
+|SHENERY|未完了|8|0|
+|un dix cors|未完了|7|0|
+|La boutique BonBon|未完了|30|0|
+|natural couture|未完了|28|0|
+|DISCOAT|未完了|13|0|
 |ZARA|未完了|0|0|
-|SNIDEL|未完了|0|0|
+|SNIDEL|未完了|58|0|
 
 ## 未確認箇所・再取得対象
 
 ### UNIQLO
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### GU
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### MUJI
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### ROPÉ PICNIC
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### VIS
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### GLOBAL WORK
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### LOWRYS FARM
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### studio CLIP
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### niko and ...
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### earth music&ecology
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち／ブランド・婦人対象の判定待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://stripe-club.com/brand/earth1999/
 
 ### Green Parks
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち／ブランド・婦人対象の判定待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち／ブランド・婦人対象の判定待ち
 
 ### OPAQUE.CLIP
-当日未確認／入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/
 
 ### index
-当日未確認／入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/index/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/index/category/WB/WB02/
 
 ### SHOO・LA・RUE
-当日未確認／入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/
-- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/
+入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2
 
 ### grove
-当日未確認／入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/grove/category/WB/WB01/
-- https://store.world.co.jp/s/brand/grove/category/WB/WB02/
+入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2
 
 ### ikka
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### coen
-当日未確認／入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - HTTPError: HTTP Error 403: Forbidden：https://www.coen.co.jp/
 
 ### DoCLASSE
-当日未確認／入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.doclasse.com/
 
 ### any SiS
-当日未確認／入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://crosset.onward.co.jp/shop/anysis
 
 ### LEPSIM
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### LAKOLE
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### JEANASIS
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### BAYFLOW
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### HARE
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### Heather
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### PAGEBOY
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### A part by
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### Elura
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### mysty woman
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### Andemiu
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### AMERICAN HOLIC
-当日未確認／入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://stripe-club.com/brand/american-holic/
 
 ### YECCA VECCA
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち／ブランド・婦人対象の判定待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち／ブランド・婦人対象の判定待ち
 
 ### 23区
-当日未確認／入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://crosset.onward.co.jp/shop/23ku
 
 ### ICB
-当日未確認／入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://crosset.onward.co.jp/shop/icb
 
 ### 自由区
-当日未確認／入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://crosset.onward.co.jp/shop/jiyuku?du=2
 
 ### 組曲
-入口の取得・解析未完了／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://crosset.onward.co.jp/shop/kumikyoku?du=1
-- https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- HTTPError: HTTP Error 302: The HTTP server returned a redirect error that would lead to an infinite loop.
+The last 30x error message was:
+Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
+- ValueError: Source exceeds size limit：https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17
 
 ### UNFILO
-当日未確認／入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://crosset.onward.co.jp/shop/unfilo
 
 ### INDIVI
-当日未確認／入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/indivi/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/indivi/category/WB/WB02/
 
 ### UNTITLED
-当日未確認／入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/untitled/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/untitled/category/WB/WB02/
 
 ### NATURAL BEAUTY BASIC
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### SENSE OF PLACE
-当日未確認／入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.urban-research.jp/shop/label/sense-of-place/
 
 ### B.C STOCK
-当日未確認／入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://baycrews.jp/brand/detail/bcstock
 
 ### SLOBE IENA
-当日未確認／入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://baycrews.jp/brand/detail/slobe
 
 ### green label relaxing
-当日未確認／入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - ValueError: Redirect/source host is not in the configured official source allowlist：https://store.united-arrows.co.jp/brand/glr/
 
 ### Spick & Span
-当日未確認／入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://baycrews.jp/brand/detail/spickandspan
 
 ### IÉNA
-当日未確認／入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://baycrews.jp/brand/detail/iena
 
 ### Te chichi
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd%3ACAN02&fl=bd%2CbdName%2Ccd%2Cname%2Cprice%2Cmkcode%2Cmaterial%2Cicon%2Cmcn2%2Cmcn3&start=200
 
 ### ANY
-当日未確認／入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://crosset.onward.co.jp/shop/anyfam
 
 ### MUJI Labo
-当日未確認／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2
-- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2
-- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3
 
 ### Mila Owen
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### ROPÉ
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### ADAM ET ROPÉ
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### GALLARDAGALANTE
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### Whim Gazette
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### LOUNGEDRESS
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### RIVE DROITE
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### DOUDOU
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### SHENERY
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### un dix cors
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### La boutique BonBon
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### natural couture
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### DISCOAT
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### ZARA
-当日未確認／入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - SOURCE_ACCESS_CHALLENGE: verification page returned; no bypass attempted：https://www.zara.com/jp/ja/woman-knitwear-l1152.html
 
 ### SNIDEL
-当日未確認／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
-深掘り待ち：71件。速報は詳細調査の完了を待たず保存します。
+深掘り待ち：74件。速報は詳細調査の完了を待たず保存します。
 詳細・混率・発売日等の不明点は未確認。正式マスター・顧客公開は確認後。
