@@ -7,7 +7,7 @@
     "collector": "CHATGPT_OFFICIAL_DIRECT",
     "collection_method": "DIRECT_HTTP_NO_AI_API",
     "observed_date": "2026-09-08",
-    "generated_at_utc": "2026-09-08T02:16:25.813139+00:00",
+    "generated_at_utc": "2026-09-08T02:16:46.059624+00:00",
     "active_brand_count": 64,
     "attempted_brand_count": 64,
     "product_observed_brand_count": 40,
@@ -320,21 +320,22 @@
           ]
         },
         "product_count": 4,
-        "last_attempt_at_utc": "2026-09-08T02:15:37.287139+00:00",
+        "last_attempt_at_utc": "2026-09-08T02:16:29.702955+00:00",
         "pending_page_urls": [
-          "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2"
+          "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/",
+          "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/"
         ],
         "errors": [
-          {
-            "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2",
-            "reason": "HTTPError: HTTP Error 403: Forbidden"
-          },
           {
             "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           },
           {
             "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
@@ -353,13 +354,17 @@
           ]
         },
         "product_count": 54,
-        "last_attempt_at_utc": "2026-09-08T02:15:42.045505+00:00",
+        "last_attempt_at_utc": "2026-09-08T02:16:31.060455+00:00",
         "pending_page_urls": [
-          "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2"
+          "https://store.world.co.jp/s/brand/grove/category/WB/WB02/"
         ],
         "errors": [
           {
             "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB02/",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
@@ -964,15 +969,12 @@
         "coverage": {
           "status": "INCOMPLETE",
           "reasons": [
-            "PAGES_PENDING",
             "SOURCE_SCOPE_AUDIT_REQUIRED"
           ]
         },
         "product_count": 64,
-        "last_attempt_at_utc": "2026-09-08T02:15:26.870704+00:00",
-        "pending_page_urls": [
-          "https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd%3ACAN02&fl=bd%2CbdName%2Ccd%2Cname%2Cprice%2Cmkcode%2Cmaterial%2Cicon%2Cmcn2%2Cmcn3&start=200"
-        ],
+        "last_attempt_at_utc": "2026-09-08T02:16:34.843086+00:00",
+        "pending_page_urls": [],
         "errors": [],
         "unverified_link_candidate_count": 0
       },
@@ -1010,17 +1012,17 @@
           ]
         },
         "product_count": 12,
-        "last_attempt_at_utc": "2026-09-08T02:15:33.297566+00:00",
+        "last_attempt_at_utc": "2026-09-08T02:16:30.406017+00:00",
         "pending_page_urls": [
-          "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3"
+          "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2"
         ],
         "errors": [
           {
-            "url": "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3",
+            "url": "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2",
             "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
           },
           {
-            "url": "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2",
+            "url": "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3",
             "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
           }
         ],
@@ -1259,8 +1261,8 @@
         "unverified_link_candidate_count": 0
       }
     ],
-    "stage": "flash",
-    "artifact_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-09-08/20260908T021518203184Z-flash/scan.json",
+    "stage": "check",
+    "artifact_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-09-08/20260908T021646059256Z-check/scan.json",
     "first_observed_candidate_count": 82,
     "candidate_delta_count": 298,
     "baseline_initialization_count": 0
