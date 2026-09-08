@@ -1,7 +1,7 @@
 (function knitCompassYarnNameOnlyUiPatch() {
   "use strict";
 
-  const BUILD = "2026-09-08-yarn-name-only-2";
+  const BUILD = "2026-09-08-yarn-name-only-3";
   let queued = false;
 
   function clean(value) {
@@ -24,12 +24,27 @@
     });
   }
 
+  function replaceTextFragment(root, from, to) {
+    if (!root) return;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const matches = [];
+    let node;
+    while ((node = walker.nextNode())) {
+      if ((node.nodeValue || "").includes(from)) matches.push(node);
+    }
+    matches.forEach(textNode => {
+      textNode.nodeValue = (textNode.nodeValue || "").replace(from, to);
+    });
+  }
+
   function patch() {
     const app = document.getElementById("app");
     if (!app) return;
 
-    // Preserve the existing yarn_name data key and stored data; unify only the visible field wording.
+    // Preserve the existing yarn_name data key and stored data; unify only the visible Photo Capture wording.
     replaceExactText(app, "糸名・素材名", "糸名");
+    replaceExactText(app, "1. メーカー・素材", "1. メーカー・糸");
+    replaceTextFragment(app, "素材名は任意です。", "糸名は任意です。");
 
     const yarnInput = app.querySelector('input[name="yarn_name"]');
     if (yarnInput) {
