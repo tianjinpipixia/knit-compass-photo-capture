@@ -13,6 +13,7 @@ class IdentityGuardTest(unittest.TestCase):
                    'scope_status': 'BRAND_AND_KNIT_PATH_MATCHED', 'first_seen_date': '2026-08-03'}
             (root/'known-products.json').write_text(json.dumps({'BR-00069|'+row['product_url']: row}))
             (root/'latest.json').write_text(json.dumps({'observed_date': '2026-09-09'}))
+            (root/'feed.json').write_text(json.dumps({'summary': {'observed_date': '2026-09-09'}, 'candidates': []}))
             build_cumulative_product_shards(root)
             previous = next(iter(read_pool(root).values()))
             build_cumulative_product_shards(root, {'BR-00069': 'DOUDOU'})
