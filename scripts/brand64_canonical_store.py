@@ -123,4 +123,12 @@ def attach_details(known, details):
             row['official_detail'] = detail
         if not row.get('material_composition') and detail.get('composition'):
             row['material_composition'] = detail['composition']
+        for field in ('function_claims', 'confirmed_design', 'colors'):
+            if not row.get(field) and detail.get(field):
+                row[field] = detail[field]
+        if not row.get('regular_price_jpy'):
+            prices = {offer.get('price') for offer in detail.get('offers', [])
+                      if isinstance(offer, dict) and isinstance(offer.get('price'), (int, float))}
+            if len(prices) == 1:
+                row['regular_price_jpy'] = prices.pop()
     return known
