@@ -192,21 +192,13 @@ def build_cumulative_product_shards(root, active=None):
     identity_review = {r['identity_key']: r for r in review if r.get('reason') == 'BRAND_IDENTITY_CONFLICT'}
     manifest['identity_review_product_count'] = sum(r.get('review_status') != 'RESOLVED' for r in identity_review.values())
     manifest['identity_resolved_product_count'] = sum(r.get('review_status') == 'RESOLVED' for r in identity_review.values())
-    catalogue = {**manifest, 'format': 'KC_BRAND64_CANONICAL_CATALOGUE',
-                 'records': [compact_record(bid, grouped[bid][url].get('brand_name') or bid, grouped[bid][url])
-                             for bid in sorted(grouped) for url in sorted(grouped[bid])],
-                 'daily_summary': latest}
-    feed_path = root/'feed.json'
-    daily_feed = json.loads(feed_path.read_text()) if feed_path.exists() else {}
-    catalogue['daily_events'] = [
-        {field: event.get(field) for field in ('brand_id', 'product_url', 'observed_date', 'delta_type', 'previous_values', 'is_new_release_confirmed')}
-        for event in daily_feed.get('candidates', [])]
+    # The manifest plus checksummed brand shards are the sole product source.
+    # Do not also publish an all-products catalogue: it duplicates every row,
+    # is easy for consumers to mistake for a second source, and grows without
+    # bound. V04 and other views must derive from the manifest's brand paths.
     catalogue_path = output/'catalogue.json'
-    catalogue_path.write_text(json.dumps(catalogue, ensure_ascii=False, separators=(',', ':'))+'\n')
-    generated.append(f'{CUMULATIVE_DIR}/catalogue.json')
-    manifest['catalogue'] = {'path': f'{CUMULATIVE_DIR}/catalogue.json',
-                             'sha256': hashlib.sha256(catalogue_path.read_bytes()).hexdigest(),
-                             'product_count': cumulative_count}
+    if catalogue_path.exists():
+        catalogue_path.unlink()
     manifest_relative = f'{CUMULATIVE_DIR}/manifest.json'
     (output/'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, separators=(',', ':'))+'\n')
     exported = read_pool(root)
@@ -252,6 +244,7 @@ def publish(root):
         for name in names:
             blob = git('hash-object', '-w', str(root/name)).stdout.strip()
             git('update-index', '--add', '--cacheinfo', '100644', blob, PREFIX+name, env=env)
+        git('update-index', '--force-remove', PREFIX+CUMULATIVE_DIR+'/catalogue.json', env=env, check=False)
         tree = git('write-tree', env=env).stdout.strip()
         args = ['commit-tree', tree]
         if parent: args += ['-p', parent]
