@@ -2,7 +2,7 @@
 観測日：2026-09-09
 
 登録範囲の確認完了：0/64ブランド。
-本日観測した商品：1838件。MD用の蓄積として保持します。
+本日観測した商品：1429件。MD用の蓄積として保持します。
 初回発見と発売日は区別します。未確認・未取得を「新商品なし」と判定しません。
 
 ## 本日初めて見つけた商品（発売日未確認）
@@ -79,17 +79,8 @@
 |HARE|【WEB先行予約】スソフリルスクエアネックニット|¥8,910|[公式商品](https://www.dot-st.com/hare/disp/item/1079906/)|
 |mysty woman|ラメシャギーニットカーディガン|¥3,850|[公式商品](https://www.dot-st.com/mystywoman/disp/item/607531/)|
 |PAGEBOY|【再入荷】スカシリーフニットボレロ|¥ 6,990|[公式商品](https://www.dot-st.com/pageboy/disp/item/414159/)|
-|SHOO・LA・RUE|SHOO・LA・RUE/DRESKIP ◆【S-LL】さりげないラメで大人上品に クルーネックニット|¥1,744|[公式商品](https://store.world.co.jp/brand/shoo-la-rue/item/BR74124F0147)|
-|SHOO・LA・RUE|SHOO・LA・RUE/DRESKIP ◆カジュアルにもきれいめにも ガーター編み 7分袖ドルマンニット|¥2,391|[公式商品](https://store.world.co.jp/brand/shoo-la-rue/item/BR74125S0075)|
-|SHOO・LA・RUE|SHOO・LA・RUE/DRESKIP ◆【二の腕カバー】さりげないラメが上品見え リブドルマンニット|¥2,442|[公式商品](https://store.world.co.jp/brand/shoo-la-rue/item/BR74125S0157)|
-|SHOO・LA・RUE|SHOO・LA・RUE/DRESKIP ◆【高レビュー/洗える/S-LL】季節の変わり目から活躍 5分袖ニット|¥2,092|[公式商品](https://store.world.co.jp/brand/shoo-la-rue/item/BR74125S0076)|
-|SHOO・LA・RUE|SHOO・LA・RUE/DRESKIP ◆ペプラムニットトップス|¥1,744|[公式商品](https://store.world.co.jp/brand/shoo-la-rue/item/BR74125S0143)|
-|SHOO・LA・RUE|SHOO・LA・RUE/DRESKIP ◆肩レースが差をつける デザインニット|¥2,244|[公式商品](https://store.world.co.jp/brand/shoo-la-rue/item/BR74125S0114)|
-|SHOO・LA・RUE|SHOO・LA・RUE/DRESKIP ◆【洗える】大人の上品コーデに お袖ビジュー釦付きリブドルマンニット|¥1,744|[公式商品](https://store.world.co.jp/brand/shoo-la-rue/item/BR74125S0009)|
-|INDIVI|INDIVI 【上品な光沢感】エクストラファインウールVネックニット|¥14,300|[公式商品](https://store.world.co.jp/brand/indivi/item/BR12726F0037)|
-|INDIVI|INDIVI 予約 【SETUP可／華やか】袖ファー切替ニット風ボトルネックトップス|¥15,400|[公式商品](https://store.world.co.jp/brand/indivi/item/BR12726F0151)|
-|grove|grove 【毛玉軽減】ミニケーブルニット|¥4,479|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826F0005)|
-|grove|grove 予約 【毛玉軽減】ダイヤ柄ボリュームスリーブニット|¥3,979|[公式商品](https://store.world.co.jp/brand/grove/item/BR76826F0006)|
+|LOWRYS FARM|【mojojojo】ホソケーブルカーディガン|¥5,990|[公式商品](https://www.dot-st.com/lowrysfarm/disp/item/1044126/)|
+|LEPSIM|《un STANDARD by LEPSIM》メッシュフェザークルーカーディガン|¥6,050|[公式商品](https://www.dot-st.com/lepsim/disp/item/1070214/)|
 
 ## ブランド・婦人対象の判定待ちリンク
 
@@ -105,20 +96,20 @@
 |ROPÉ PICNIC|未完了|23|0|
 |VIS|未完了|37|0|
 |GLOBAL WORK|未完了|34|0|
-|LOWRYS FARM|未完了|42|0|
+|LOWRYS FARM|未完了|43|0|
 |studio CLIP|未完了|58|0|
 |niko and ...|未完了|43|0|
 |earth music&ecology|未完了|0|0|
 |Green Parks|未完了|0|0|
-|OPAQUE.CLIP|未完了|154|0|
-|index|未完了|68|0|
-|SHOO・LA・RUE|未完了|152|0|
-|grove|未完了|47|0|
+|OPAQUE.CLIP|未完了|60|2|
+|index|未完了|0|0|
+|SHOO・LA・RUE|未完了|0|1|
+|grove|未完了|0|1|
 |ikka|未完了|20|0|
 |coen|未完了|0|0|
 |DoCLASSE|未完了|0|0|
 |any SiS|未完了|0|0|
-|LEPSIM|未完了|67|0|
+|LEPSIM|未完了|68|0|
 |LAKOLE|未完了|43|0|
 |JEANASIS|未完了|44|0|
 |BAYFLOW|未完了|57|0|
@@ -134,9 +125,9 @@
 |23区|未完了|0|0|
 |ICB|未完了|0|0|
 |自由区|未完了|0|0|
-|組曲|未完了|56|2|
+|組曲|未完了|56|1|
 |UNFILO|未完了|0|0|
-|INDIVI|未完了|50|0|
+|INDIVI|未完了|0|0|
 |UNTITLED|未完了|0|0|
 |NATURAL BEAUTY BASIC|未完了|17|0|
 |SENSE OF PLACE|未完了|0|0|
@@ -145,9 +136,9 @@
 |green label relaxing|未完了|0|0|
 |Spick & Span|未完了|0|0|
 |IÉNA|未完了|0|0|
-|Te chichi|未完了|64|0|
+|Te chichi|未完了|64|1|
 |ANY|未完了|0|0|
-|MUJI Labo|未完了|12|0|
+|MUJI Labo|未完了|12|1|
 |Mila Owen|未完了|31|0|
 |ROPÉ|未完了|27|0|
 |ADAM ET ROPÉ|未完了|34|0|
@@ -201,23 +192,32 @@
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち／ブランド・婦人対象の判定待ち
 
 ### OPAQUE.CLIP
-入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/
-- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2
+入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2
+- https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/
 
 ### index
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://store.world.co.jp/s/brand/index/category/WB/WB02/
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/index/category/WB/WB01/
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/index/category/WB/WB02/
 
 ### SHOO・LA・RUE
-取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2
-- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3
+入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/
 
 ### grove
-入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://store.world.co.jp/s/brand/grove/category/WB/WB02/
-- HTTPError: HTTP Error 404: Not Found：https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2
+入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB01/
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB02/
 
 ### ikka
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -288,20 +288,21 @@
 
 ### 組曲
 取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30
-- https://crosset.onward.co.jp/shop/kumikyoku?du=1
+- https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17
+- ValueError: Source exceeds size limit：https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17
 - ValueError: Source exceeds size limit：https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30
 - HTTPError: HTTP Error 302: The HTTP server returned a redirect error that would lead to an infinite loop.
 The last 30x error message was:
 Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
-- ValueError: Source exceeds size limit：https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17
 
 ### UNFILO
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://crosset.onward.co.jp/shop/unfilo
 
 ### INDIVI
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/indivi/category/WB/WB01/
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/indivi/category/WB/WB02/
 
 ### UNTITLED
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -336,14 +337,16 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://baycrews.jp/brand/detail/iena
 
 ### Te chichi
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd%3ACAN02&fl=bd%2CbdName%2Ccd%2Cname%2Cprice%2Cmkcode%2Cmaterial%2Cicon%2Cmcn2%2Cmcn3&start=200
 
 ### ANY
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://crosset.onward.co.jp/shop/anyfam
 
 ### MUJI Labo
-取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3
 
 ### Mila Owen
@@ -387,7 +390,7 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 
 ### ZARA
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.zara.com/jp/ja/woman-knitwear-l1152.html
+- SOURCE_ACCESS_CHALLENGE: verification page returned; no bypass attempted：https://www.zara.com/jp/ja/woman-knitwear-l1152.html
 
 ### SNIDEL
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
