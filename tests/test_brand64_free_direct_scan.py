@@ -26,6 +26,17 @@ class Tests(unittest.TestCase):
         self.assertEqual(detail['product_name'], 'ウールミンクショートボレロ')
         self.assertEqual(detail['offers'][0]['price'], 11440)
 
+    def test_product_group_ignores_related_product_offers(self):
+        html='''<script type="application/ld+json">{
+          "@type":"ProductGroup","name":"対象ニット",
+          "brand":{"name":"SNIDEL"},"url":"https://example.com/target",
+          "hasVariant":[{"@type":"Product","offers":{"@type":"Offer","price":11440}}],
+          "isRelatedTo":{"@type":"Product","name":"関連商品",
+            "offers":{"@type":"Offer","price":999}}
+        }</script>'''
+        detail=scan.product_detail(html,'https://example.com/target',{'brand_name':'SNIDEL'})
+        self.assertEqual([offer['price'] for offer in detail['offers']], [11440])
+
     def test_jun_dedupes_colors_and_excludes_kids_and_other_brands(self):
         html=card()+card(color='09')+card('rope-picnic-kids','ROPÉ PICNIC KIDS')+card('vis','VIS')
         items=scan.jun_items(scan.Document(html),META['entry_urls'][0],META)
