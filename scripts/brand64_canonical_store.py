@@ -126,9 +126,12 @@ def attach_details(known, details):
         for field in ('function_claims', 'confirmed_design', 'colors'):
             if not row.get(field) and detail.get(field):
                 row[field] = detail[field]
-        if not row.get('regular_price_jpy'):
+        # JSON-LD Offer.price is the price observed now; it is not necessarily
+        # the list price.  Preserve it without promoting a discounted price to
+        # a permanent regular price.
+        if not row.get('observed_price_jpy'):
             prices = {offer.get('price') for offer in detail.get('offers', [])
                       if isinstance(offer, dict) and isinstance(offer.get('price'), (int, float))}
             if len(prices) == 1:
-                row['regular_price_jpy'] = prices.pop()
+                row['observed_price_jpy'] = prices.pop()
     return known
