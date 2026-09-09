@@ -172,8 +172,15 @@ def product_detail(html, url, meta):
             brand=obj.get('brand') or {}; brand=brand.get('name','') if isinstance(brand,dict) else str(brand)
             if norm(brand)!=norm(meta['brand_name']): continue
             # ProductGroup pages (used by USAGI/SNIDEL) keep colour variants and
-            # their Offers below hasVariant rather than at the group root.
-            offers=[o for o in objects(obj) if o.get('@type')=='Offer']
+            # their Offers below hasVariant rather than at the group root.  Do
+            # not recurse through the whole product object: related/accessory
+            # products may carry unrelated offers.
+            offer_branches=[obj.get('offers')]
+            variants=obj.get('hasVariant') or []
+            if isinstance(variants,dict): variants=[variants]
+            offer_branches.extend(v.get('offers') for v in variants if isinstance(v,dict))
+            offers=[o for branch in offer_branches for o in objects(branch)
+                    if o.get('@type')=='Offer']
             target=canonical(url).rstrip('/')
             group_matches=canonical(obj.get('url','')).rstrip('/')==target
             offers=[o for o in offers if group_matches or not o.get('url') or canonical(o.get('url','')).rstrip('/')==target]
