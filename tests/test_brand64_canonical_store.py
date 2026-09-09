@@ -34,11 +34,18 @@ class CanonicalStoreTests(unittest.TestCase):
             (root/'latest.json').write_text(json.dumps({'observed_date': '2026-09-08'}))
             (root/'detail-results.json').write_text(json.dumps({key: {
                 'product_url': url, 'source_url': url, 'composition': 'Cotton 100%',
+                'function_claims': ['machine washable'], 'colors': ['navy'],
+                'confirmed_design': {'neck': 'crew'},
+                'offers': [{'price': 4990}],
                 'evidence_level': 'OFFICIAL_PRODUCT_JSONLD', 'publication_status': 'PUBLISH_HOLD',
                 'human_review_required': True, 'retrieved_at_utc': '2026-09-08T01:00:00Z'}}))
             build_cumulative_product_shards(root)
             before = read_pool(root)
             self.assertEqual(before[key]['official_detail']['composition'], 'Cotton 100%')
+            self.assertEqual(before[key]['function_claims'], ['machine washable'])
+            self.assertEqual(before[key]['colors'], ['navy'])
+            self.assertEqual(before[key]['confirmed_design']['neck'], 'crew')
+            self.assertEqual(before[key]['regular_price_jpy'], 4990)
             (root/'known-products.json').write_text('{}')
             (root/'detail-results.json').write_text('{}')
             build_cumulative_product_shards(root)
