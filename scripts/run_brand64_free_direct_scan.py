@@ -168,11 +168,15 @@ def product_detail(html, url, meta):
         try: data=json.loads(''.join(x for x in n.children if isinstance(x,str)))
         except (ValueError,TypeError): continue
         for obj in objects(data):
-            if obj.get('@type')!='Product': continue
+            if obj.get('@type') not in {'Product', 'ProductGroup'}: continue
             brand=obj.get('brand') or {}; brand=brand.get('name','') if isinstance(brand,dict) else str(brand)
             if norm(brand)!=norm(meta['brand_name']): continue
-            offers=obj.get('offers') or []; offers=offers if isinstance(offers,list) else [offers]
-            offers=[o for o in offers if isinstance(o,dict) and canonical(o.get('url',''))==canonical(url)]
+            # ProductGroup pages (used by USAGI/SNIDEL) keep colour variants and
+            # their Offers below hasVariant rather than at the group root.
+            offers=[o for o in objects(obj) if o.get('@type')=='Offer']
+            target=canonical(url).rstrip('/')
+            group_matches=canonical(obj.get('url','')).rstrip('/')==target
+            offers=[o for o in offers if group_matches or not o.get('url') or canonical(o.get('url','')).rstrip('/')==target]
             if not offers: continue
             result={'product_name':clean(obj.get('name')), 'product_url':canonical(url),
                     'description':clean(obj.get('description')), 'offers':offers,
