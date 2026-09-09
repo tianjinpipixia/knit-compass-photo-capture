@@ -1,6 +1,7 @@
 import sys, pathlib, unittest, copy, tempfile, json
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]/'scripts'))
 from brand64_identity_guard import reconcile_identities, apply_identity_resolutions
+from brand64_canonical_store import read_pool
 from publish_brand64_flash_feed import build_cumulative_product_shards
 
 class IdentityGuardTest(unittest.TestCase):
@@ -13,7 +14,7 @@ class IdentityGuardTest(unittest.TestCase):
             (root/'known-products.json').write_text(json.dumps({'BR-00069|'+row['product_url']: row}))
             (root/'latest.json').write_text(json.dumps({'observed_date': '2026-09-09'}))
             build_cumulative_product_shards(root)
-            previous = json.loads((root/'cumulative-products/catalogue.json').read_text())['records'][0]
+            previous = next(iter(read_pool(root).values()))
             build_cumulative_product_shards(root, {'BR-00069': 'DOUDOU'})
             manifest = json.loads((root/'cumulative-products/manifest.json').read_text())
             self.assertEqual(manifest['cumulative_unique_product_count'], 0)
