@@ -37,7 +37,8 @@ class CanonicalStoreTests(unittest.TestCase):
                 'product_url': url, 'source_url': url, 'composition': 'Cotton 100%',
                 'function_claims': ['machine washable'], 'colors': ['navy'],
                 'confirmed_design': {'neck': 'crew'},
-                'offers': [{'price': '4,990'}],
+                'offers': [{'price': '4,990', 'priceCurrency': 'JPY'},
+                           {'price': 19.99, 'priceCurrency': 'USD'}],
                 'evidence_level': 'OFFICIAL_PRODUCT_JSONLD', 'publication_status': 'PUBLISH_HOLD',
                 'human_review_required': True, 'retrieved_at_utc': '2026-09-08T01:00:00Z'}}))
             build_cumulative_product_shards(root)
