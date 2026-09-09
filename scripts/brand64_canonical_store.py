@@ -1,6 +1,7 @@
 """Lossless, validated canonical Brand64 records; all other stores are inputs/views."""
 import hashlib
 import json
+import re
 from pathlib import Path
 
 REPOSITORY = 'tianjinpipixia/knit-compass-photo-capture'
@@ -123,4 +124,30 @@ def attach_details(known, details):
             row['official_detail'] = detail
         if not row.get('material_composition') and detail.get('composition'):
             row['material_composition'] = detail['composition']
+        for field in ('function_claims', 'confirmed_design', 'colors'):
+            if not row.get(field) and detail.get(field):
+                row[field] = detail[field]
+        # JSON-LD Offer.price is the price observed now; it is not necessarily
+        # the list price.  Preserve it without promoting a discounted price to
+        # a permanent regular price.
+        if not row.get('observed_price_jpy'):
+            def observed_price(offer):
+                price = offer.get('price') if isinstance(offer, dict) else None
+                currency = str(offer.get('priceCurrency') or '').strip().upper() if isinstance(offer, dict) else ''
+                if currency and currency != 'JPY':
+                    return None
+                if isinstance(price, bool):
+                    return None
+                if isinstance(price, (int, float)):
+                    return price
+                if isinstance(price, str):
+                    normalized = price.strip().replace(',', '')
+                    if re.fullmatch(r'\d+(?:\.\d+)?', normalized):
+                        value = float(normalized)
+                        return int(value) if value.is_integer() else value
+                return None
+            prices = {price for offer in detail.get('offers', [])
+                      if (price := observed_price(offer)) is not None}
+            if len(prices) == 1:
+                row['observed_price_jpy'] = prices.pop()
     return known

@@ -40,6 +40,7 @@ class CumulativeObservedProductExportTests(unittest.TestCase):
                 'attempted_brand_count': 64, 'product_observed_brand_count': 2,
                 'product_count': 2,
             }))
+            (root/'feed.json').write_text(json.dumps({'summary': {'observed_date': '2026-09-08'}, 'candidates': []}))
             generated = publisher.build_cumulative_product_shards(root)
             self.assertIn('cumulative-products/manifest.json', generated)
             manifest = json.loads((root/'cumulative-products/manifest.json').read_text())

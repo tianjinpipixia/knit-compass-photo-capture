@@ -13,6 +13,41 @@ URL='https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/GDM66000'
 def card(slug='rope-picnic',brand='ROPÉ PICNIC',color='08'):
     return f'<div class="content-cassette"><p class="brand-name">{brand}</p><p class="item-name">サイドスリットニット</p><p class="item-price">&yen;5,489</p><p class="item-tag"><span>予約</span></p><a class="content-cassette__link" href="/{slug}/product/tops/knit-sweater/GDM66000?cc={color}"></a></div>'
 class Tests(unittest.TestCase):
+    def test_product_group_detail_collects_variant_offers(self):
+        html = '''<script type="application/ld+json">{
+          "@type":"ProductGroup","name":"ウールミンクショートボレロ",
+          "url":"https://usagi-online.com/brand/snidel/item/SND0126F0205",
+          "brand":{"name":"SNIDEL"},
+          "hasVariant":[{"@type":"Product","offers":{"@type":"Offer","price":11440,"priceCurrency":"JPY"}}]
+        }</script>'''
+        detail = scan.product_detail(html,
+            'https://usagi-online.com/brand/snidel/item/SND0126F0205',
+            {'brand_name':'SNIDEL'})
+        self.assertEqual(detail['product_name'], 'ウールミンクショートボレロ')
+        self.assertEqual(detail['offers'][0]['price'], 11440)
+
+    def test_product_group_ignores_related_product_offers(self):
+        html='''<script type="application/ld+json">{
+          "@type":"ProductGroup","name":"対象ニット",
+          "brand":{"name":"SNIDEL"},"url":"https://example.com/target",
+          "hasVariant":[{"@type":"Product","offers":{"@type":"Offer","price":11440}}],
+          "isRelatedTo":{"@type":"Product","name":"関連商品",
+            "offers":{"@type":"Offer","price":999}}
+        }</script>'''
+        detail=scan.product_detail(html,'https://example.com/target',{'brand_name':'SNIDEL'})
+        self.assertEqual([offer['price'] for offer in detail['offers']], [11440])
+
+    def test_product_detail_rejects_url_less_offer_from_other_graph_product(self):
+        html='''<script type="application/ld+json">{"@graph":[
+          {"@type":"Product","name":"別の商品","brand":{"name":"SNIDEL"},
+           "url":"https://example.com/other","offers":{"@type":"Offer","price":999}},
+          {"@type":"Product","name":"対象ニット","brand":{"name":"SNIDEL"},
+           "url":"https://example.com/target","offers":{"@type":"Offer","price":11440}}
+        ]}</script>'''
+        detail=scan.product_detail(html,'https://example.com/target',{'brand_name':'SNIDEL'})
+        self.assertEqual(detail['product_name'], '対象ニット')
+        self.assertEqual([offer['price'] for offer in detail['offers']], [11440])
+
     def test_jun_dedupes_colors_and_excludes_kids_and_other_brands(self):
         html=card()+card(color='09')+card('rope-picnic-kids','ROPÉ PICNIC KIDS')+card('vis','VIS')
         items=scan.jun_items(scan.Document(html),META['entry_urls'][0],META)
