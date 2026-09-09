@@ -128,10 +128,17 @@ def build_cumulative_product_shards(root, active=None):
         known, review = persist_reconciled(root, known, active)
     details_path = root/'detail-results.json'
     attach_details(known, json.loads(details_path.read_text()) if details_path.exists() else {})
-    latest = json.loads((root/'latest.json').read_text())
+    latest_path = root/'latest.json'
+    feed_path = root/'feed.json'
+    if not latest_path.is_file() or not feed_path.is_file():
+        raise ValueError('latest.json and feed.json are required for an atomic canonical snapshot')
+    latest = json.loads(latest_path.read_text())
+    feed = json.loads(feed_path.read_text())
     observation_date = latest.get('observed_date') or latest.get('observation_date')
     if not observation_date:
         raise ValueError('latest.json has no observation date')
+    if (feed.get('summary') or {}).get('observed_date') != observation_date:
+        raise ValueError('feed.json observation date does not match latest.json')
     output = root/CUMULATIVE_DIR
     output.mkdir(parents=True, exist_ok=True)
     grouped = {}
@@ -171,7 +178,7 @@ def build_cumulative_product_shards(root, active=None):
         manifest_brands.append({'brand_id': brand_id, 'brand_name': brand_name, 'product_count': len(records), 'path': relative, 'sha256': hashlib.sha256((root/relative).read_bytes()).hexdigest()})
         cumulative_count += len(records)
     manifest = {
-        'format': 'KC_BRAND64_CUMULATIVE_PRODUCTS_INDEX', 'schema_version': '1.2',
+        'format': 'KC_BRAND64_CUMULATIVE_PRODUCTS_INDEX', 'schema_version': '1.3',
         'canonical_source': CANONICAL,
         'observation_date': observation_date,
         'cumulative_from_date': earliest_first_seen,
@@ -188,6 +195,10 @@ def build_cumulative_product_shards(root, active=None):
         'publication_status': 'PUBLISH_HOLD', 'human_review_required': True,
         'formal_product_registration': False, 'sales_quantity_estimation': 'FORBIDDEN',
         'first_seen_is_sales_start': False, 'brands': manifest_brands,
+        'daily_sources': {
+            'latest': {'path': 'latest.json', 'sha256': hashlib.sha256(latest_path.read_bytes()).hexdigest()},
+            'feed': {'path': 'feed.json', 'sha256': hashlib.sha256(feed_path.read_bytes()).hexdigest()},
+        },
     }
     identity_review = {r['identity_key']: r for r in review if r.get('reason') == 'BRAND_IDENTITY_CONFLICT'}
     manifest['identity_review_product_count'] = sum(r.get('review_status') != 'RESOLVED' for r in identity_review.values())
