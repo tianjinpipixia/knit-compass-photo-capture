@@ -32,6 +32,7 @@ class CanonicalStoreTests(unittest.TestCase):
                    'retrospective_evidence': [{'period': '2026-04', 'url': url}]}
             (root/'known-products.json').write_text(json.dumps({key: row}))
             (root/'latest.json').write_text(json.dumps({'observed_date': '2026-09-08'}))
+            (root/'feed.json').write_text(json.dumps({'summary': {'observed_date': '2026-09-08'}, 'candidates': []}))
             (root/'detail-results.json').write_text(json.dumps({key: {
                 'product_url': url, 'source_url': url, 'composition': 'Cotton 100%',
                 'function_claims': ['machine washable'], 'colors': ['navy'],
