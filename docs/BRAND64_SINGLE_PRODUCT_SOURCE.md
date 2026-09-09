@@ -1,6 +1,6 @@
 # Brand64の商品正本と入力・表示の契約
 
-商品正本は、このリポジトリの `brand64/flash-feed` ブランチにある `data/brand-md-monitoring/direct-scans/cumulative-products/` だけです。mainは収集・統合プログラム、設定、履歴入力の正本です。商品件数はmanifestとブランド別の実商品行から算出します。catalogue.jsonは同じコミットの全商品投影であり、manifestのSHA-256で検証します。
+商品正本は、このリポジトリの `brand64/flash-feed` ブランチにある `data/brand-md-monitoring/direct-scans/cumulative-products/manifest.json` と、manifestが列挙するチェックサム付き `BR-xxxxx.json` だけです。mainは収集・統合プログラム、設定、履歴入力の正本です。商品件数はmanifestとブランド別の実商品行から算出します。全商品を重複保持する `catalogue.json` は廃止し、V04を含む表示側はmanifestのブランド別シャードから派生させます。
 
 公式サイト巡回 → 検証済み累積から再構成した作業state → 公式の過去資料/importsとの統合 → cumulative-products → V04の読み取り専用adapter、という順序です。`observed-products`、feed、flash、latestは日次表示・処理進捗です。deltaは変更イベントであり独立商品台帳ではありません。
 
