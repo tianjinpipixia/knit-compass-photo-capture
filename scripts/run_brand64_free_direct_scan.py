@@ -183,7 +183,8 @@ def product_detail(html, url, meta):
                     if o.get('@type')=='Offer']
             target=canonical(url).rstrip('/')
             group_matches=canonical(obj.get('url','')).rstrip('/')==target
-            offers=[o for o in offers if group_matches or not o.get('url') or canonical(o.get('url','')).rstrip('/')==target]
+            offers=[o for o in offers if group_matches or
+                    (o.get('url') and canonical(o.get('url','')).rstrip('/')==target)]
             if not offers: continue
             result={'product_name':clean(obj.get('name')), 'product_url':canonical(url),
                     'description':clean(obj.get('description')), 'offers':offers,
