@@ -37,6 +37,17 @@ class Tests(unittest.TestCase):
         detail=scan.product_detail(html,'https://example.com/target',{'brand_name':'SNIDEL'})
         self.assertEqual([offer['price'] for offer in detail['offers']], [11440])
 
+    def test_product_detail_rejects_url_less_offer_from_other_graph_product(self):
+        html='''<script type="application/ld+json">{"@graph":[
+          {"@type":"Product","name":"別の商品","brand":{"name":"SNIDEL"},
+           "url":"https://example.com/other","offers":{"@type":"Offer","price":999}},
+          {"@type":"Product","name":"対象ニット","brand":{"name":"SNIDEL"},
+           "url":"https://example.com/target","offers":{"@type":"Offer","price":11440}}
+        ]}</script>'''
+        detail=scan.product_detail(html,'https://example.com/target',{'brand_name':'SNIDEL'})
+        self.assertEqual(detail['product_name'], '対象ニット')
+        self.assertEqual([offer['price'] for offer in detail['offers']], [11440])
+
     def test_jun_dedupes_colors_and_excludes_kids_and_other_brands(self):
         html=card()+card(color='09')+card('rope-picnic-kids','ROPÉ PICNIC KIDS')+card('vis','VIS')
         items=scan.jun_items(scan.Document(html),META['entry_urls'][0],META)
