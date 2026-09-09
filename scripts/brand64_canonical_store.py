@@ -133,6 +133,9 @@ def attach_details(known, details):
         if not row.get('observed_price_jpy'):
             def observed_price(offer):
                 price = offer.get('price') if isinstance(offer, dict) else None
+                currency = str(offer.get('priceCurrency') or '').strip().upper() if isinstance(offer, dict) else ''
+                if currency and currency != 'JPY':
+                    return None
                 if isinstance(price, bool):
                     return None
                 if isinstance(price, (int, float)):
