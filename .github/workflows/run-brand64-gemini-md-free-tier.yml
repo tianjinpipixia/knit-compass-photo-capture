@@ -1,9 +1,9 @@
-name: Run Brand64 Gemini MD free-tier pass
+name: Run Brand64 Gemini MD analysis
 
 on:
-  schedule:
-    # 05:50 JST daily, after the 05:30 direct official-site collector.
-    - cron: "50 20 * * *"
+  workflow_run:
+    workflows: ["Run Brand64 free official-site scan"]
+    types: [completed]
   workflow_dispatch:
   push:
     # Smoke trigger marker; changed only when a real rollout validation is needed.
@@ -15,7 +15,7 @@ permissions:
   actions: read
 
 concurrency:
-  group: brand64-gemini-md-free-tier
+  group: brand64-gemini-md-analysis
   cancel-in-progress: false
 
 jobs:
@@ -27,6 +27,8 @@ jobs:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       GEMINI_MD_MODEL: ${{ vars.GEMINI_MD_MODEL || 'gemini-3.5-flash-lite' }}
       GH_TOKEN: ${{ github.token }}
+      UPSTREAM_COLLECTION_RUN_ID: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || '' }}
+      UPSTREAM_COLLECTION_CONCLUSION: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.conclusion || 'manual' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -37,27 +39,24 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Restore today's direct official-source snapshot
+      - name: Restore and verify the exact official collection snapshot
         shell: bash
         run: |
           git fetch --depth=1 origin brand64/flash-feed
           mkdir -p data/brand-md-monitoring/direct-scans
-          for state_file in coverage-state.json feed.json latest.json flash-latest.json known-products.json; do
+          for state_file in coverage-state.json feed.json latest.json flash-latest.json known-products.json snapshot-binding.json; do
             git show "FETCH_HEAD:data/brand-md-monitoring/direct-scans/$state_file" > "data/brand-md-monitoring/direct-scans/$state_file"
           done
+          git checkout FETCH_HEAD -- data/brand-md-monitoring/direct-scans/cumulative-products
           expected_date=$(date +%F)
-          actual_date=$(python - <<'PY'
-          import json
-          print(json.load(open('data/brand-md-monitoring/direct-scans/latest.json'))['observed_date'])
-          PY
-          )
-          if [ "$actual_date" != "$expected_date" ]; then
-            echo "Direct official-source snapshot is stale: $actual_date (expected $expected_date)" >&2
-            exit 1
-          fi
+          python scripts/brand64_daily_pipeline_binding.py verify \
+            --date "$expected_date" \
+            --expected-collection-run-id "$UPSTREAM_COLLECTION_RUN_ID"
 
-      - name: Verify free-tier pacing and quota-stop behavior
-        run: python -m unittest discover -s tests -p test_brand64_gemini_md_free_tier.py -v
+      - name: Verify free-tier pacing, quota-stop behavior, and pipeline binding
+        run: |
+          python -m unittest discover -s tests -p test_brand64_gemini_md_free_tier.py -v
+          python -m unittest discover -s tests -p test_brand64_daily_pipeline_binding.py -v
 
       - name: Run Gemini MD pass with URL Context only
         id: gemini
@@ -69,6 +68,20 @@ jobs:
             --batch-size 13 \
             --max-batches 5 \
             --cooldown-seconds 65
+
+      - name: Stamp Gemini result with its exact canonical input generation
+        id: stamp
+        if: always() && steps.gemini.outcome != 'skipped'
+        shell: bash
+        run: |
+          if [ -f data/brand-md-monitoring/gemini-md/latest.json ]; then
+            python scripts/brand64_daily_pipeline_binding.py stamp-gemini \
+              --analysis-run-id "$GITHUB_RUN_ID" \
+              --analysis-run-attempt "$GITHUB_RUN_ATTEMPT" \
+              --expected-collection-run-id "$UPSTREAM_COLLECTION_RUN_ID"
+          else
+            echo "Gemini did not produce an artifact to bind; collection snapshot remains valid and independent." >> "$GITHUB_STEP_SUMMARY"
+          fi
 
       - name: Upload Gemini MD artifact
         if: always() && steps.gemini.outcome != 'skipped'
@@ -89,20 +102,24 @@ jobs:
             branch="brand64/gemini-md-$(date +%F)-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
             git checkout -b "$branch"
             git add data/brand-md-monitoring/gemini-md
-            git commit -m "Brand64 Gemini MD free-tier pass $(date +%F)"
+            git commit -m "Brand64 Gemini MD analysis $(date +%F)"
             git push origin "HEAD:refs/heads/$branch"
             echo "Gemini MD artifact preserved on $branch" >> "$GITHUB_STEP_SUMMARY"
           fi
 
-      - name: Report quota-safe architecture
+      - name: Report daily pipeline architecture
         if: always()
         run: |
+          echo "Pipeline stage: MD_ANALYSIS / analyzer=GEMINI_PRIMARY" >> "$GITHUB_STEP_SUMMARY"
+          echo "Upstream collection run: ${UPSTREAM_COLLECTION_RUN_ID:-manual} / conclusion=${UPSTREAM_COLLECTION_CONCLUSION}" >> "$GITHUB_STEP_SUMMARY"
           echo "Gemini model: ${GEMINI_MD_MODEL}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Input rule: only the SHA-256-bound CHATGPT_OFFICIAL_DIRECT canonical generation is analyzable." >> "$GITHUB_STEP_SUMMARY"
           echo "Google Search grounding: disabled" >> "$GITHUB_STEP_SUMMARY"
           echo "URL Context only; 13 brands/request; 65s pacing; one 429 retry then abort." >> "$GITHUB_STEP_SUMMARY"
+          echo "Gemini success is never counted as official collection completion." >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Enforce 39-brand completion
+      - name: Enforce 39-brand analysis completion
         if: always() && steps.gemini.outcome != 'success'
         run: |
-          echo "Gemini MD pass did not confirm 39 brands. Artifact was preserved; no no-change claim is allowed." >&2
+          echo "Gemini MD analysis did not confirm 39 brands. Any produced artifact was preserved and bound to its source snapshot; official collection remains independently usable." >&2
           exit 1
