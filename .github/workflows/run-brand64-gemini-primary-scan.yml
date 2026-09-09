@@ -10,12 +10,14 @@ on:
       - scripts/run_brand64_free_direct_scan.py
       - scripts/brand64_flash_pipeline.py
       - scripts/brand64_canonical_store.py
+      - scripts/brand64_daily_pipeline_binding.py
       - scripts/publish_brand64_flash_feed.py
       - scripts/merge_brand64_retrospective_sources.py
       - scripts/restore_brand64_valid_state.py
       - scripts/brand_direct_adapters.py
       - tests/test_brand64_free_direct_scan.py
       - tests/test_brand64_flash_pipeline.py
+      - tests/test_brand64_daily_pipeline_binding.py
       - tests/test_brand64_retrospective_unification.py
       - tests/test_brand64_retrospective_month_evidence.py
       - data/brand-md-monitoring/retrospective/**/*.json
@@ -32,7 +34,7 @@ permissions:
   actions: read
 
 concurrency:
-  group: brand64-gemini-primary-scan
+  group: brand64-official-direct-scan
   cancel-in-progress: false
 
 jobs:
@@ -48,14 +50,15 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Verify collection, recovery, preservation, and retrospective unification
+      - name: Verify collection, recovery, preservation, snapshot binding, and retrospective unification
         run: |
           python -m unittest discover -s tests -p test_brand64_free_direct_scan.py -v
           python -m unittest discover -s tests -p test_brand64_flash_pipeline.py -v
+          python -m unittest discover -s tests -p test_brand64_daily_pipeline_binding.py -v
           python -m unittest discover -s tests -p test_brand64_retrospective_unification.py -v
           python -m unittest discover -s tests -p test_brand64_retrospective_month_evidence.py -v
           python -m unittest discover -s tests -p test_brand64_canonical_store.py -v
-          python -m py_compile scripts/restore_brand64_valid_state.py
+          python -m py_compile scripts/restore_brand64_valid_state.py scripts/brand64_daily_pipeline_binding.py
 
       - name: Restore newest strict-valid Brand64 state
         id: restore
@@ -116,6 +119,17 @@ jobs:
         continue-on-error: true
         run: python scripts/publish_brand64_flash_feed.py
 
+      - name: Bind validated canonical snapshot to this collection run
+        id: bind_snapshot
+        if: always() && steps.feed_final.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python scripts/brand64_daily_pipeline_binding.py create-publish \
+            --date "$(date +%F)" \
+            --collection-run-id "$GITHUB_RUN_ID" \
+            --collection-run-attempt "$GITHUB_RUN_ATTEMPT" \
+            --collector-source-sha "$GITHUB_SHA"
+
       - name: Upload final observations and recovery state
         if: always() && steps.flash.outcome != 'skipped'
         uses: actions/upload-artifact@v4
@@ -138,13 +152,21 @@ jobs:
             git commit -m "Preserve flash observations, coverage gaps and selected research"
             git push origin "HEAD:refs/heads/$scan_branch"
           fi
+          echo "Pipeline stage: OFFICIAL_COLLECTION / collector=CHATGPT_OFFICIAL_DIRECT" >> "$GITHUB_STEP_SUMMARY"
           echo "Observation records: $scan_branch. AI API requests: 0." >> "$GITHUB_STEP_SUMMARY"
+          if [ -f data/brand-md-monitoring/direct-scans/snapshot-binding.json ]; then
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          p=json.load(open('data/brand-md-monitoring/direct-scans/snapshot-binding.json'))
+          print(f"Canonical snapshot: {p['canonical_unique_product_count']} products / manifest {p['canonical_manifest_sha256'][:12]}… / collection run {p['collection_run_id']}")
+          PY
+          fi
           if [ -f data/brand-md-monitoring/direct-scans/summary.md ]; then
             cat data/brand-md-monitoring/direct-scans/summary.md >> "$GITHUB_STEP_SUMMARY"
           fi
 
       - name: Fail visibly when collection or cumulative publication is incomplete
-        if: always() && (steps.restore.outcome != 'success' || steps.retro_feed.outcome != 'success' || steps.flash.outcome != 'success' || steps.retry.outcome != 'success' || steps.deep.outcome != 'success' || steps.coverage.outcome != 'success' || steps.feed_final.outcome != 'success')
+        if: always() && (steps.restore.outcome != 'success' || steps.retro_feed.outcome != 'success' || steps.flash.outcome != 'success' || steps.retry.outcome != 'success' || steps.deep.outcome != 'success' || steps.coverage.outcome != 'success' || steps.feed_final.outcome != 'success' || steps.bind_snapshot.outcome != 'success')
         run: |
-          echo "Daily scope is incomplete. Strict baseline restore, retrospective publication, and daily coverage are checked independently." >&2
+          echo "Daily scope is incomplete. Collection coverage and canonical snapshot integrity are checked independently. A valid snapshot may still be PARTIAL_COVERAGE; Gemini is never counted as collection." >&2
           exit 1
