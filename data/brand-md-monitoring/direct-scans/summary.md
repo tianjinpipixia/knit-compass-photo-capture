@@ -1,132 +1,53 @@
 # 新商品速報・巡回確認
-観測日：2026-09-10
+観測日：2026-09-11
 
 登録範囲の確認完了：0/64ブランド。
-本日観測した商品：1749件。MD用の蓄積として保持します。
+本日観測した商品：1602件。MD用の蓄積として保持します。
 初回発見と発売日は区別します。未確認・未取得を「新商品なし」と判定しません。
 
 ## 本日初めて見つけた商品（発売日未確認）
 
 |ブランド|商品|掲載価格|取得元|
 |---|---|---|---|
-|MUJI|婦人 ＵＶカットライトニットＶネックカーディガン XL|2,990 円|[公式商品](https://www.muji.com/jp/ja/store/cmdty/detail/4548076989103)|
-|RIVE DROITE|ヘアリーヤーンメランジニット|¥26,400|[公式商品](https://www.palcloset.jp/display/item/RDZ1062305A0003/)|
-|INDIVI|INDIVI 予約 【フォックス＆カシミヤ】軽くて暖かいプレミアム ヘアリーニット|¥28,600|[公式商品](https://store.world.co.jp/brand/indivi/item/BR12726F0046)|
-|INDIVI|INDIVI 【カシミヤ混／顔まわりスッキリ】Vネックプルオーバーニット|¥16,500|[公式商品](https://store.world.co.jp/brand/indivi/item/BR12726F0045)|
-|INDIVI|INDIVI 予約 【SETUP可／袖口裏 配色】ウーリーWフェイスニット|¥15,400|[公式商品](https://store.world.co.jp/brand/indivi/item/BR12726F0047)|
-|INDIVI|INDIVI 予約 【カシミヤ混／柔らかな風合い】ハイネックプルオーバーニット|¥16,500|[公式商品](https://store.world.co.jp/brand/indivi/item/BR12726F0044)|
-|INDIVI|INDIVI 予約 【カシミヤ混／軽量／体型カバー】クルーネックニット|¥16,500|[公式商品](https://store.world.co.jp/brand/indivi/item/BR12726F0002)|
-|INDIVI|INDIVI 予約 【カシミヤ混／ふんわり】煌めきジャカード柄ニット|¥17,600|[公式商品](https://store.world.co.jp/brand/indivi/item/BR12726F0003)|
-|INDIVI|INDIVI 予約 【体型カバー／後ろボタン】ジャカードペプラムニット|¥17,600|[公式商品](https://store.world.co.jp/brand/indivi/item/BR12726F0043)|
-|INDIVI|INDIVI 予約 【ヘアリー／上品】スパンコールヤーンふんわりニット|¥16,500|[公式商品](https://store.world.co.jp/brand/indivi/item/BR12726F0163)|
-|INDIVI|INDIVI 予約 【ウール混／クロップド丈】畦編みスキッパー衿ニット|¥17,600|[公式商品](https://store.world.co.jp/brand/indivi/item/BR12726F0042)|
-|INDIVI|INDIVI 予約 【ふんわり華やか】マルチラメ ファンシーヤーンニット|¥15,400|[公式商品](https://store.world.co.jp/brand/indivi/item/BR12726F0172)|
-|INDIVI|INDIVI 予約 【SETUP可／ウール混】ダブルジャカード アシメヘムニット|¥16,500|[公式商品](https://store.world.co.jp/brand/indivi/item/BR12726F0041)|
-|INDIVI|INDIVI 予約 【ウール混】ビッグアーガイル柄ニット|¥16,500|[公式商品](https://store.world.co.jp/brand/indivi/item/BR12726F0040)|
-|INDIVI|INDIVI 予約 【上品な光沢感】エクストラファインウール クルーネックニット|¥15,400|[公式商品](https://store.world.co.jp/brand/indivi/item/BR12726F0038)|
-|LEPSIM|洗えるゆるニットビーニー|¥2,490|[公式商品](https://www.dot-st.com/lepsim/disp/item/1053610/)|
-|LEPSIM|《パフエアシリーズ》スタンドネックカーディガン|¥7,700|[公式商品](https://www.dot-st.com/lepsim/disp/item/1068675/)|
-|ADAM ET ROPÉ|【サステナブル】パフスリーブニットコンビカーディガン|¥16,500|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK26110)|
-|ADAM ET ROPÉ|レース編みシャツカーディガン|¥18,700|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK26180)|
-|ADAM ET ROPÉ|【WEB限定】コンパクトニットジャケット|¥15,950|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK56570)|
-|ADAM ET ROPÉ|【WEB限定】ジャカードフェザーカーディガン|¥14,960|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK56610)|
-|UNTITLED|UNTITLED 【5色展開/手洗い可】ローシルクウールニットベスト|¥19,800|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0032)|
-|UNTITLED|UNTITLED 【アンサンブル可/きれいめ/通勤】コンパクト5分袖ニット|¥15,400|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326Z0007)|
-|UNTITLED|UNTITLED 【アンサンブル可/品のある透け感】Tシャツ風ニットトップス|¥16,500|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326Z0008)|
-|UNTITLED|UNTITLED 【顔周りすっきり/体型カバー】ドライタッチVネックニットプルオーバー|¥19,800|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0093)|
-|UNTITLED|UNTITLED 【一枚で着映え】レースドッキングニットプルオーバー|¥19,800|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0092)|
-|UNTITLED|UNTITLED ウールカシミヤVネックニット|¥22,000|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0051)|
-|UNTITLED|UNTITLED ベーシックリブニット|¥17,600|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0048)|
-|UNTITLED|UNTITLED 前後2WAYミックスツィードニット|¥26,400|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0053)|
-|UNTITLED|UNTITLED 予約 ウールカシミヤハイネックニット|¥22,000|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0050)|
-|UNTITLED|UNTITLED カシミヤリラックスニット|¥44,000|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0054)|
-|UNTITLED|UNTITLED 予約 【アンサンブル可/上品映え】モールラインクルーネックニット|¥18,700|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0042)|
-|UNTITLED|UNTITLED 予約 リラックスウール混ニット|¥22,000|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0141)|
-|UNTITLED|UNTITLED 予約 ウールカシミヤデザインニット|¥22,000|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0049)|
-|UNTITLED|UNTITLED 予約 【きれいめカジュアル】スウェットライクニットプルオーバー|¥19,800|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0034)|
-|UNTITLED|UNTITLED ベーシックVネックニット|¥16,500|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0047)|
-|UNTITLED|UNTITLED 【きれいに体型カバー/8色展開】Aラインシルエットニットプルオーバー|¥16,500|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0045)|
-|UNTITLED|UNTITLED ベーシッククルーネックニット|¥16,500|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0046)|
-|UNTITLED|UNTITLED コクーンシルエットウールニット|¥24,200|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0142)|
-|UNTITLED|UNTITLED ハイネックボリュームニット|¥22,000|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0055)|
-|UNTITLED|UNTITLED 予約 ハイネックウールニット|¥22,000|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0052)|
-|UNTITLED|UNTITLED 【大人の抜け感/8色展開】ボリュームスリーブニットプルオーバー|¥15,400|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0044)|
-|UNTITLED|UNTITLED 予約 【アンサンブル可/手洗い可】杢調プルオーバーニット|¥20,900|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0043)|
-|UNTITLED|UNTITLED 【薄手ニット/オンオフ使える】ファインゲージニットプルオーバー|¥16,500|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326F0033)|
-|UNTITLED|UNTITLED 【11色展開/体型カバー】前後2WAYフレンチスリーブニット|¥15,400|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326S0034)|
-|UNTITLED|UNTITLED 【TRADITIONAL WEATHERWEAR】ニットベスト|¥20,900|[公式商品](https://store.world.co.jp/brand/untitled/item/BRG7726S0023)|
-|UNTITLED|UNTITLED 【TORRAZZO DONNA】ドッキングニットトップス|¥17,600|[公式商品](https://store.world.co.jp/brand/untitled/item/BRG7725F0067)|
-|UNTITLED|UNTITLED 【セットアップ可/ストレッチ性】ドライタッチニットプルオーバー|¥10,780|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326Z0006)|
-|UNTITLED|UNTITLED ミレニアムウールVネックニット|¥15,400|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15399A0272)|
-|UNTITLED|UNTITLED 【洗える/ゆったり】クルーネックドライニット|¥14,080|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326S0240)|
-|UNTITLED|UNTITLED ◆メッシュ柄ボーダーニット|¥8,250|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326S0294)|
-|UNTITLED|UNTITLED ◆【洗える/ゆったり】ボーダーボートネックニット|¥10,560|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326S0189)|
-|UNTITLED|UNTITLED 【アンサンブル可/Tシャツ風/ゆったり】リラックスニットトップス|¥12,320|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326S0227)|
-|UNTITLED|UNTITLED 【古畑星夏さん着用/8色展開/程よい透け感】ドライタッチボートネックニット|¥7,040|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326S0014)|
-|UNTITLED|UNTITLED 【洗える】ミラノリブニット|¥7,920|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326S0042)|
-|UNTITLED|UNTITLED 【アンサンブル可/洗える】ウォームスパンニット|¥5,280|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326S0016)|
-|UNTITLED|UNTITLED ◆【洗える/カジュアルフォーマル】2WAYレース襟ニットプルオーバー|¥11,000|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326S0067)|
-|UNTITLED|UNTITLED ◆シアーメッシュニット|¥10,560|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326S0295)|
-|UNTITLED|UNTITLED ◆【アンサンブル可/洗える】配色ハイゲージニットトップス|¥9,240|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326S0013)|
-|UNTITLED|UNTITLED ◆【ゆったり/洗える】クロップドニットプルオーバー|¥8,800|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326S0012)|
-|UNTITLED|UNTITLED 【洗える／ゆるシルエット／清涼感】Vネックプルオーバーニット|¥8,250|[公式商品](https://store.world.co.jp/brand/untitled/item/BR50426S0023)|
-|UNTITLED|UNTITLED 【洗える】エレガンススリーブニット|¥14,080|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326S0033)|
-|UNTITLED|UNTITLED 【洗える/清涼感】袖スリットニットプルオーバー|¥11,550|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326S0188)|
-|UNTITLED|UNTITLED ◆【アンサンブル可/洗える】シアーVネックニット|¥11,220|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326S0162)|
-|UNTITLED|UNTITLED ◆【アンサンブル可/洗える】ワイドリブニット|¥7,700|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326S0161)|
-|UNTITLED|UNTITLED ◆【洗える/光沢感】ファンシーヤーンニット|¥9,900|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15326S0018)|
-|UNTITLED|UNTITLED 【アンサンブル可/薄手/洗える】5分袖クルーニット|¥6,160|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15325Z0035)|
-|UNTITLED|UNTITLED 【洗える】モックネックミラノリブニット|¥13,860|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15325F0095)|
-|UNTITLED|UNTITLED 【8色展開/洗える】ウールカシミヤ ハイネックニット|¥16,720|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15325F0097)|
-|UNTITLED|UNTITLED 【洗える/ウール100%】Vネックウールニット|¥9,900|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15325F0092)|
-|UNTITLED|UNTITLED 【8色展開/体型カバー】魅せる"タイムレスニット"|¥9,900|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15325F0079)|
-|UNTITLED|UNTITLED 【洗える】スポンディッシュ ボトルネックニット|¥11,440|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15325F0153)|
-|UNTITLED|UNTITLED 【洗える】スポンディッシュ ケーブル柄ニット|¥12,320|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15325F0152)|
-|un dix cors|デニム襟ニットジッププルオーバー|¥6,600|[公式商品](https://www.palcloset.jp/display/item/UOZ1062205A0004/)|
-|un dix cors|袖シアーリブニットプルオーバー|¥4,840|[公式商品](https://www.palcloset.jp/display/item/UOZ1062205A0010/)|
-|La boutique BonBon|カラーネップフーディニット|¥16,940|[公式商品](https://www.palcloset.jp/display/item/LBZ1062305A0004/)|
-|La boutique BonBon|ヘアリーウールカシミヤ混メタルボタンカーディガン|¥29,700|[公式商品](https://www.palcloset.jp/display/item/LBZ1062405A0006/)|
-|La boutique BonBon|ウールファーペプラムカーディガン|¥22,000|[公式商品](https://www.palcloset.jp/display/item/LBZ1062305A0007/)|
-|La boutique BonBon|スパンコールラメケーブルVネックニット|¥14,850|[公式商品](https://www.palcloset.jp/display/item/LBZ1062305A0010/)|
-|HARE|【WEB先行予約】フードスカーフツキニットカーディガン|¥9,900|[公式商品](https://www.dot-st.com/hare/disp/item/1081488/)|
-|PAGEBOY|【PBLIM】ニュースペーパーニット【WEB先行予約】|¥7,990|[公式商品](https://www.dot-st.com/pageboy/disp/item/1094944/)|
-|PAGEBOY|【PBLIM】ニュアンスガラニット【WEB先行予約】|¥8,990|[公式商品](https://www.dot-st.com/pageboy/disp/item/1089496/)|
-|PAGEBOY|【PBLIM】チャイナポロニット【WEB先行予約】|¥8,990|[公式商品](https://www.dot-st.com/pageboy/disp/item/1082027/)|
-|PAGEBOY|【WEB先行予約】グロスシャギーカーディガン|¥6,990|[公式商品](https://www.dot-st.com/pageboy/disp/item/1089568/)|
-|PAGEBOY|【WEB先行予約】アーガイルシャギーカーディガン|¥6,990|[公式商品](https://www.dot-st.com/pageboy/disp/item/1089061/)|
-|PAGEBOY|【WEB先行予約】シャツドッキングチビモールカーディガン|¥7,150|[公式商品](https://www.dot-st.com/pageboy/disp/item/1080846/)|
-|Elura|【先行予約】ヤクライクニットパーカー|¥5,390|[公式商品](https://www.dot-st.com/elura/disp/item/1046770/)|
-|Elura|【先行予約】ラクーンリッチVネックカーディガン|¥13,200|[公式商品](https://www.dot-st.com/elura/disp/item/865974/)|
-|Elura|【先行予約】ラクーンリッチニット|¥12,100|[公式商品](https://www.dot-st.com/elura/disp/item/865969/)|
-|mysty woman|ツイードライククルーネックカーディガン|¥4,125|[公式商品](https://www.dot-st.com/mystywoman/disp/item/587463/)|
-|GLOBAL WORK|【Harry Potter(ハリー・ポッター)】シャギーニットベスト/1048589|¥4,490|[公式商品](https://www.dot-st.com/globalwork/disp/item/1048589/)|
-|GLOBAL WORK|【Harry Potter(ハリー・ポッター)】ジャガードVネックカーディガン/1048591|¥5,990|[公式商品](https://www.dot-st.com/globalwork/disp/item/1048591/)|
-|earth music&ecology|earth music&ecology フリルトリムニットカーディガン|未確認|[公式商品](https://stripe-club.com/brand/earth1999/item/1001M26G0061)|
-|earth music&ecology|earth music&ecology レイヤード風Vネックニットカーディガン|未確認|[公式商品](https://stripe-club.com/brand/earth1999/item/1001M26G0044)|
-|SENSE OF PLACE|『洗濯可』ローゲージスラブニット|¥6,050|[公式商品](https://www.urban-research.jp/shop/g/gAA26330-2021013/)|
-|SENSE OF PLACE|レイヤードポロニット|¥6,050|[公式商品](https://www.urban-research.jp/shop/g/gAA26430-2021128/)|
-|SENSE OF PLACE|『洗濯可』マルチリブニットフーディー|¥6,600|[公式商品](https://www.urban-research.jp/shop/g/gAA26330-2021011/)|
-|SENSE OF PLACE|『洗濯可』フサフサハーフスリーブニット|¥5,500|[公式商品](https://www.urban-research.jp/shop/g/gAA26330-2022004/)|
-|SENSE OF PLACE|『洗濯可』ビックボタンニットジャケット|¥8,250 / ¥4,125|[公式商品](https://www.urban-research.jp/shop/g/gAA26130-2072002/)|
-|SENSE OF PLACE|『洗濯可』メタルボタンハイショクニットポロシャツ|¥4,950 / ¥2,475|[公式商品](https://www.urban-research.jp/shop/g/gAA26230-2022161/)|
-|Green Parks|Green Parks effortless casual アーガイル五分袖ニットプルオーバー|未確認|[公式商品](https://stripe-club.com/brand/greenparks/item/1006G26G0017)|
-|Green Parks|Green Parks natural clean 5分袖ニットプルオーバー|未確認|[公式商品](https://stripe-club.com/brand/greenparks/item/1006F26G0020)|
-|Green Parks|Green Parks effortless casual Vネックざっくりカーディガン|未確認|[公式商品](https://stripe-club.com/brand/greenparks/item/1006G26F0049)|
-|Whim Gazette|【Drawing Numbers】ソフトウールVネックイージーニット|¥35,200|[公式商品](https://www.palcloset.jp/display/item/DNZ1062305A0006/)|
-|Whim Gazette|【Drawing Numbers】スリットVネックホールニット|¥31,900|[公式商品](https://www.palcloset.jp/display/item/DNZ1062305A0007/)|
-|Whim Gazette|【Drawing Numbers】ホールサイドスリットニット|¥31,900|[公式商品](https://www.palcloset.jp/display/item/DNZ1062305A0004/)|
-|Whim Gazette|【Drawing Numbers】ファー加工裾ラウンドニット|¥38,500|[公式商品](https://www.palcloset.jp/display/item/DNZ1062305A0008/)|
-|YECCA VECCA|YECCA VECCA 金釦ラッフル5分袖カーディガン|未確認|[公式商品](https://stripe-club.com/brand/yeccavecca/item/1007A26F0010)|
-|YECCA VECCA|YECCA VECCA 【2点SET】ラッフルキャミセットニット|未確認|[公式商品](https://stripe-club.com/brand/yeccavecca/item/1007A26F0009)|
-|Heather|【Heather×PEACH JOHN】チュニックニットカーディガン|¥7,700|[公式商品](https://www.dot-st.com/heather/disp/item/1052084/)|
-|Heather|【Heather×PEACH JOHN】パターンメッシュカーディガン|¥6,930|[公式商品](https://www.dot-st.com/heather/disp/item/1052565/)|
+|UNIQLO|WOMEN, S-XL カシミヤハイネックセーターノースリーブ|¥12,900|[公式商品](https://www.uniqlo.com/jp/ja/products/E489003-000/00)|
+|NATURAL BEAUTY BASIC|フリルトリムカーディガン|¥8,998|[公式商品](https://mix.tokyo/products/0176275851)|
+|Te chichi|畦フェザーミックスニットカーディガン《2026 AUTUMN LOOK item》|¥6600.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A5EO)|
+|Te chichi|カシミヤ混パール釦2WAYニット|¥7150.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A5F6)|
+|GLOBAL WORK|スウェットライクデニムカーディガン/1054904|¥5,490|[公式商品](https://www.dot-st.com/globalwork/disp/item/1054904/)|
+|GLOBAL WORK|インレイ編みラグランプルオーバー/一部店舗限定/1063239|¥4,990|[公式商品](https://www.dot-st.com/globalwork/disp/item/1063239/)|
+|GLOBAL WORK|モヘヤタッチ花柄カーディガン/1080241|¥4,990|[公式商品](https://www.dot-st.com/globalwork/disp/item/1080241/)|
+|earth music&ecology|earth music&ecology 【予約】ナポレオンニットカーディガン|未確認|[公式商品](https://stripe-club.com/brand/earth1999/item/1001M26H0065)|
+|earth music&ecology|earth music&ecology プリーツレイヤーケーブルニットカーディガン|未確認|[公式商品](https://stripe-club.com/brand/earth1999/item/1001M26B0054)|
+|SENSE OF PLACE|『別注』CHAMPION×SENSE OF PLACE スウェットカーディガン|¥11,000 / ¥6,990|[公式商品](https://www.urban-research.jp/shop/g/gCA26110-2012002/)|
+|GALLARDAGALANTE|【9/17(木)12:00～予約開始】【MAMIコラボ】カシュクール2WAYニット|¥28,600|[公式商品](https://www.palcloset.jp/display/item/GGZ1062305A0011/)|
+|LOWRYS FARM|【LFM(U)】スウェットライクニットヘンリー【先行予約】|¥6,990|[公式商品](https://www.dot-st.com/lowrysfarm/disp/item/1063414/)|
+|Green Parks|Green Parks effortless casual 衿ドッキング5分袖ニットプルオーバー|未確認|[公式商品](https://stripe-club.com/brand/greenparks/item/1006G26F0018)|
+|Whim Gazette|【Drawing Numbers】カシミヤ2wayクロップドニット|¥55,000|[公式商品](https://www.palcloset.jp/display/item/DNZ1062305A0005/)|
+|studio CLIP|《先行予約/natural by clip》3Gウール混ブークレカーディガン|¥6,490|[公式商品](https://www.dot-st.com/studioclip/disp/item/1075649/)|
+|studio CLIP|3ゲージダブルフロントクロシェ風カーディガン|¥4,990|[公式商品](https://www.dot-st.com/studioclip/disp/item/1052729/)|
+|studio CLIP|ダブルフロント布帛切り替えカーディガン|¥5,790|[公式商品](https://www.dot-st.com/studioclip/disp/item/1068069/)|
+|niko and ...|フードレイヤーダブルZIPカーディガン|¥6,600|[公式商品](https://www.dot-st.com/nikoand/disp/item/808371/)|
+|niko and ...|クロシェフードニットベスト|¥5,500|[公式商品](https://www.dot-st.com/nikoand/disp/item/638315/)|
+|RIVE DROITE|ペーパーヤーンレース衿ニット|¥5,500|[公式商品](https://www.palcloset.jp/display/item/RDZ1061205A0005/)|
+|DOUDOU|フロントボタンスクエアニットタンク|¥8,690|[公式商品](https://www.palcloset.jp/display/item/DDZ1061305A0001/)|
+|UNTITLED|UNTITLED 【セットアップ可/ゆったり】ウール混ラメニット|¥14,520|[公式商品](https://store.world.co.jp/brand/untitled/item/BR15325F0019)|
+|La boutique BonBon|スクエアネックファーヤーントリムニット|¥15,730|[公式商品](https://www.palcloset.jp/display/item/LBZ1062305A0009/)|
+|BAYFLOW|≪予約≫ミックスシャギーニットプルオーバー|¥5,990|[公式商品](https://www.dot-st.com/bayflow/disp/item/1074745/)|
+|BAYFLOW|≪予約≫[選べる9色/モッチリソフトな肌触り]コンフォートブークレニットプルオーバー|¥4,990|[公式商品](https://www.dot-st.com/bayflow/disp/item/1066505/)|
+|BAYFLOW|≪予約≫ポップコーンマーブルニット|¥6,490|[公式商品](https://www.dot-st.com/bayflow/disp/item/1052298/)|
+|HARE|タイトスキッパーニット|¥7,920|[公式商品](https://www.dot-st.com/hare/disp/item/1069625/)|
+|Heather|【予約】袖レースピタニット|¥6,930|[公式商品](https://www.dot-st.com/heather/disp/item/1096362/)|
+|PAGEBOY|【PBLIM】フェザーボーダーカーディガン【WEB先行予約】|¥7,990|[公式商品](https://www.dot-st.com/pageboy/disp/item/1097583/)|
+|PAGEBOY|【PBLIM】フラワーシシュウカーディガン【WEB先行予約】|¥8,990|[公式商品](https://www.dot-st.com/pageboy/disp/item/1082691/)|
+|PAGEBOY|【WEB先行予約】リブニットソードレープトップス|¥5,990|[公式商品](https://www.dot-st.com/pageboy/disp/item/1080719/)|
+|Elura|【先行予約】マルチボーダーハイゲージカーディガン|¥7,700|[公式商品](https://www.dot-st.com/elura/disp/item/1090232/)|
+|Elura|【先行予約】ラメシャギーカーディガン|¥7,700|[公式商品](https://www.dot-st.com/elura/disp/item/1085674/)|
+|Elura|【先行予約】ポケットファーカーディガン|¥8,800|[公式商品](https://www.dot-st.com/elura/disp/item/1078740/)|
+|Elura|【先行予約】ウールコン袖レースニット|¥7,700|[公式商品](https://www.dot-st.com/elura/disp/item/1078734/)|
+|Elura|【先行予約】ウールコンボウタイニット|¥7,700|[公式商品](https://www.dot-st.com/elura/disp/item/1078733/)|
 
 ## ブランド・婦人対象の判定待ちリンク
 
-- earth music&ecology：[候補商品](https://stripe-club.com/brand/earth1999/item/1001M26G0061?areaid=eb01100) earth music&ecology フリルトリムニットカーディガン
-- Green Parks：[候補商品](https://stripe-club.com/brand/greenparks/item/1006F26G0020?areaid=eb06100) Green Parks natural clean 5分袖ニットプルオーバー
-- UNTITLED：[候補商品](https://store.world.co.jp/s/brand/untitled/item/knit/?link_id=153_F_knit) ニット
-- UNTITLED：[候補商品](https://store.world.co.jp/s/brand/untitled/item/cardigan/?link_id=153_F_cardigan) カーディガン
 
 ## ブランド別の確認状況
 
@@ -134,66 +55,66 @@
 |---|---|---:|---:|
 |UNIQLO|未完了|35|0|
 |GU|未完了|34|0|
-|MUJI|未完了|23|0|
+|MUJI|未完了|22|0|
 |ROPÉ PICNIC|未完了|23|0|
 |VIS|未完了|37|0|
-|GLOBAL WORK|未完了|31|0|
+|GLOBAL WORK|未完了|33|0|
 |LOWRYS FARM|未完了|42|0|
-|studio CLIP|未完了|55|0|
-|niko and ...|未完了|44|0|
-|earth music&ecology|未完了|2|0|
+|studio CLIP|未完了|54|0|
+|niko and ...|未完了|46|0|
+|earth music&ecology|未完了|3|0|
 |Green Parks|未完了|3|0|
-|OPAQUE.CLIP|未完了|119|2|
-|index|未完了|68|0|
+|OPAQUE.CLIP|未完了|60|3|
+|index|未完了|59|1|
 |SHOO・LA・RUE|未完了|61|2|
-|grove|未完了|47|2|
+|grove|未完了|0|1|
 |ikka|未完了|20|0|
 |coen|未完了|0|0|
 |DoCLASSE|未完了|0|0|
 |any SiS|未完了|0|0|
 |LEPSIM|未完了|67|0|
 |LAKOLE|未完了|42|0|
-|JEANASIS|未完了|44|0|
-|BAYFLOW|未完了|56|0|
+|JEANASIS|未完了|45|0|
+|BAYFLOW|未完了|54|0|
 |HARE|未完了|43|0|
 |Heather|未完了|58|0|
-|PAGEBOY|未完了|32|0|
-|A part by|未完了|46|0|
-|Elura|未完了|33|0|
-|mysty woman|未完了|42|0|
+|PAGEBOY|未完了|33|0|
+|A part by|未完了|44|0|
+|Elura|未完了|37|0|
+|mysty woman|未完了|41|0|
 |Andemiu|未完了|53|0|
 |AMERICAN HOLIC|未完了|0|0|
 |YECCA VECCA|未完了|2|0|
 |23区|未完了|0|0|
 |ICB|未完了|0|0|
 |自由区|未完了|0|0|
-|組曲|未完了|0|2|
+|組曲|未完了|0|1|
 |UNFILO|未完了|0|0|
 |INDIVI|未完了|62|0|
-|UNTITLED|未完了|54|2|
-|NATURAL BEAUTY BASIC|未完了|17|0|
+|UNTITLED|未完了|54|1|
+|NATURAL BEAUTY BASIC|未完了|19|0|
 |SENSE OF PLACE|未完了|6|0|
 |B.C STOCK|未完了|0|0|
 |SLOBE IENA|未完了|0|0|
 |green label relaxing|未完了|0|0|
 |Spick & Span|未完了|0|0|
 |IÉNA|未完了|0|0|
-|Te chichi|未完了|69|1|
+|Te chichi|未完了|33|2|
 |ANY|未完了|0|0|
 |MUJI Labo|未完了|11|1|
 |Mila Owen|未完了|31|0|
 |ROPÉ|未完了|27|0|
 |ADAM ET ROPÉ|未完了|35|0|
-|GALLARDAGALANTE|未完了|25|0|
-|Whim Gazette|未完了|19|0|
+|GALLARDAGALANTE|未完了|26|0|
+|Whim Gazette|未完了|17|0|
 |LOUNGEDRESS|未完了|24|0|
-|RIVE DROITE|未完了|37|0|
-|DOUDOU|未完了|20|0|
+|RIVE DROITE|未完了|38|0|
+|DOUDOU|未完了|21|0|
 |SHENERY|未完了|8|0|
 |un dix cors|未完了|9|0|
-|La boutique BonBon|未完了|34|0|
-|natural couture|未完了|28|0|
-|DISCOAT|未完了|13|0|
+|La boutique BonBon|未完了|35|0|
+|natural couture|未完了|27|0|
+|DISCOAT|未完了|10|0|
 |ZARA|未完了|0|0|
 |SNIDEL|未完了|58|0|
 
@@ -227,41 +148,33 @@
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### earth music&ecology
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち／ブランド・婦人対象の判定待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### Green Parks
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち／ブランド・婦人対象の判定待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### OPAQUE.CLIP
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/
-- https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=3
+- https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2
+- https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=3
+- https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2
+- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/
 
 ### index
-入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/index/category/WB/WB01/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/index/category/WB/WB02/
+入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2
+- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://store.world.co.jp/s/brand/index/category/WB/WB02/
 
 ### SHOO・LA・RUE
-取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/
-- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2
+- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2
 
 ### grove
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/grove/category/WB/WB01/
-- https://store.world.co.jp/s/brand/grove/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB01/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2
+- https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2
+- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://store.world.co.jp/s/brand/grove/category/WB/WB01/
+- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://store.world.co.jp/s/brand/grove/category/WB/WB02/
 
 ### ikka
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -316,7 +229,7 @@
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://stripe-club.com/brand/american-holic/
 
 ### YECCA VECCA
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち／ブランド・婦人対象の判定待ち
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### 23区
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -332,30 +245,20 @@
 
 ### 組曲
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30
-- https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17
+- https://crosset.onward.co.jp/shop/kumikyoku?du=1
 - ValueError: Source exceeds size limit：https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30
 - ValueError: Source exceeds size limit：https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17
-- HTTPError: HTTP Error 302: The HTTP server returned a redirect error that would lead to an infinite loop.
-The last 30x error message was:
-Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 
 ### UNFILO
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://crosset.onward.co.jp/shop/unfilo
 
 ### INDIVI
-取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/indivi/category/WB/WB01/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/indivi/category/WB/WB02/
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### UNTITLED
-取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち／ブランド・婦人対象の判定待ち
-- https://store.world.co.jp/s/brand/untitled/category/WB/WB01/
-- https://store.world.co.jp/s/brand/untitled/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/untitled/category/WB/WB01/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/untitled/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち／ブランド・婦人対象の判定待ち
+- https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2
 
 ### NATURAL BEAUTY BASIC
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -385,7 +288,8 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 
 ### Te chichi
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd%3ACAN02&fl=bd%2CbdName%2Ccd%2Cname%2Cprice%2Cmkcode%2Cmaterial%2Cicon%2Cmcn2%2Cmcn3&start=500
+- https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd%3ACAN02&fl=bd%2CbdName%2Ccd%2Cname%2Cprice%2Cmkcode%2Cmaterial%2Cicon%2Cmcn2%2Cmcn3&start=100
+- https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd%3ACAN02&fl=bd%2CbdName%2Ccd%2Cname%2Cprice%2Cmkcode%2Cmaterial%2Cicon%2Cmcn2%2Cmcn3&start=600
 
 ### ANY
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -393,9 +297,8 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 
 ### MUJI Labo
 取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2
+- https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2
-- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3
 
 ### Mila Owen
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -443,5 +346,5 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 ### SNIDEL
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
-深掘り待ち：84件。速報は詳細調査の完了を待たず保存します。
+深掘り待ち：91件。速報は詳細調査の完了を待たず保存します。
 詳細・混率・発売日等の不明点は未確認。正式マスター・顧客公開は確認後。
