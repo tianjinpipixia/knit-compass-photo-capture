@@ -14,36 +14,27 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Fetch selected official category pages and show bounded card evidence
+      - name: Measure selected official category responses
         shell: bash
         run: |
           python - <<'PY'
           import re, urllib.request
           urls={
-            'slobe':'https://baycrews.jp/item/list/slobe/category/cutsew/ladys?q_mccate=231&q_sstock=1',
-            'glr':'https://store.united-arrows.co.jp/brand/glr/category/01/0105/?lm=10W1',
-            'anysis':'https://crosset.onward.co.jp/items?bc=007&gc=2&scc=1004&pp=12',
-            'unfilo':'https://crosset.onward.co.jp/items?bc=105&gc=2&scc=1004&pp=12',
+            'anysis-pp1':'https://crosset.onward.co.jp/items?bc=007&gc=2&scc=1004&pp=1',
+            'anysis-pp4':'https://crosset.onward.co.jp/items?bc=007&gc=2&scc=1004&pp=4',
+            'unfilo-pp1':'https://crosset.onward.co.jp/items?bc=105&gc=2&scc=1004&pp=1',
+            'unfilo-pp4':'https://crosset.onward.co.jp/items?bc=105&gc=2&scc=1004&pp=4',
           }
           for name,url in urls.items():
             print('\n###',name,url)
             req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 KnitCompass/0.4','Accept-Language':'ja-JP,ja;q=0.9'})
             try:
               with urllib.request.urlopen(req,timeout=20) as r:
-                body=r.read(8_000_000).decode(r.headers.get_content_charset() or 'utf-8','replace')
-                print('final',r.geturl(),'bytes',len(body.encode()))
+                body=r.read(8_000_001)
+                text=body.decode(r.headers.get_content_charset() or 'utf-8','replace')
+                print('final',r.geturl(),'bytes',len(body),'name_links',text.count('c-item-card__name-link'))
+                m=re.search(r'c-item-card__name[^>]*>([^<]+)',text)
+                if m: print('first_name',re.sub(r'\s+',' ',m.group(1)).strip())
             except Exception as e:
-              print('ERROR',type(e).__name__,str(e)[:240]); continue
-            patterns={
-              'slobe':r'/item/detail/slobe/cutsew/[^\"\'<>? ]+',
-              'glr':r'/brand/glr/item/[^\"\'<>? ]+',
-              'anysis':r'(?:/products?/|/items?/)[A-Za-z0-9_-]{5,}',
-              'unfilo':r'(?:/products?/|/items?/)[A-Za-z0-9_-]{5,}',
-            }
-            hits=list(re.finditer(patterns[name],body,re.I))
-            print('hits',len(hits))
-            for m in hits[:5]:
-              s=max(0,m.start()-700); e=min(len(body),m.end()+900)
-              snippet=re.sub(r'\s+',' ',body[s:e])
-              print('SNIP',snippet[:1700])
+              print('ERROR',type(e).__name__,str(e)[:240])
           PY
