@@ -1,0 +1,81 @@
+name: Apply Brand64 Onward recovery patch
+on:
+  push:
+    branches: [fix/brand64-key-source-categories-20260910]
+    paths: ['.github/workflows/apply-brand64-onward-recovery-patch.yml']
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/brand64-key-source-categories-20260910
+      - name: Apply bounded first-party Onward recovery
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          adapter=pathlib.Path('scripts/brand_direct_adapters.py')
+          text=adapter.read_text()
+          old="OTHER = re.compile(r'キッズ|メンズ|\\bKIDS\\b|\\bMEN\\b|ニット帽|キャップ|ストール|バッグ|スカート|ワンピース|パンツ', re.I)"
+          new="OTHER = re.compile(r'キッズ|メンズ|\\bKIDS\\b|\\bMEN\\b|ニット帽|ニットキャップ|ビーニー|帽子|ハンチング|ベレー|イヤーマフ|マフラー|キャップ|ストール|バッグ|スカート|ワンピース|パンツ', re.I)"
+          assert old in text
+          text=text.replace(old,new,1)
+          anchor="""        elif adapter=='urbanresearch':\n"""
+          onward="""        elif adapter=='onward':
+            params=parse_qs(urlsplit(source).query)
+            category_codes=set((params.get('scc') or [''])[0].split('.'))
+            if urlsplit(source).hostname!='crosset.onward.co.jp':continue
+            if params.get('gc')!=['2'] or params.get('bc')!=[meta.get('onward_brand_code','')]:continue
+            if not category_codes.intersection({'1004','1005','1007'}):continue
+            if n.tag!='a' or not n.has_class('c-item-card__name-link'):continue
+            href=n.attrs.get('href','')
+            if not re.search(r'/items/[A-Za-z0-9_-]+',href):continue
+            name=text(cls(n,'c-item-card__name')) or text(n)
+            if not name or OTHER.search(name):continue
+            if '1007' in category_codes and not knit(name):continue
+            card=parent_with(n,lambda p: cls(p,'c-item-card__price') is not None,8)
+            if not card:continue
+            amount=price(text(cls(card,'c-item-card__price')) or text(card))
+            if not amount:continue
+            url=urljoin(source,href);status=labels(cls(card,'c-item-card__badge-upper'))
+"""
+          assert anchor in text and "adapter=='onward'" not in text
+          text=text.replace(anchor,onward+anchor,1)
+          adapter.write_text(text)
+
+          collector=pathlib.Path('scripts/run_brand64_free_direct_scan.py')
+          text=collector.read_text()
+          assert 'MAX_BYTES = 4_000_000' in text and 'HOST_MAX_BYTES' not in text
+          text=text.replace('MAX_BYTES = 4_000_000',"MAX_BYTES = 4_000_000\nHOST_MAX_BYTES = {'crosset.onward.co.jp': 8_500_000}",1)
+          old="""            with urllib.request.build_opener(SafeRedirect()).open(req,timeout=15) as r:
+                data = r.read(MAX_BYTES+1)
+                if len(data)>MAX_BYTES: raise ValueError('Source exceeds size limit')
+"""
+          new="""            with urllib.request.build_opener(SafeRedirect()).open(req,timeout=15) as r:
+                limit = HOST_MAX_BYTES.get(host, MAX_BYTES)
+                data = r.read(limit+1)
+                if len(data)>limit: raise ValueError('Source exceeds size limit')
+"""
+          assert old in text
+          collector.write_text(text.replace(old,new,1))
+
+          cfg=pathlib.Path('config/brand64-free-direct-sources.json')
+          data=json.loads(cfg.read_text())
+          codes={'BR-00019':'007','BR-00039':'002','BR-00040':'004','BR-00041':'005','BR-00042':'003','BR-00047':'105'}
+          for bid,code in codes.items():
+            meta=data['brands'][bid]
+            meta['entry_urls']=[f'https://crosset.onward.co.jp/items?bc={code}&gc=2&scc={scc}&pp=12' for scc in ('1004','1005','1007')]
+            meta['adapter']='onward'
+            meta['onward_brand_code']=code
+            meta['source_change_note']='2026-09-10: Official Onward WOMEN category URLs verified. 1004=knit/sweater, 1005=cardigan, 1007=vest; vest cards require knit wording. Coverage remains incomplete until pagination/surface audit.'
+          cfg.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/brand_direct_adapters.py scripts/run_brand64_free_direct_scan.py config/brand64-free-direct-sources.json
+          git commit -m "Recover Onward women knit category cards"
+          git push origin HEAD:fix/brand64-key-source-categories-20260910
