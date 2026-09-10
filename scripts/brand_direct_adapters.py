@@ -73,7 +73,13 @@ def fr_state(doc,source,meta):
 
 
 def extract(doc,source,meta):
-    adapter=meta.get('adapter'); items={}
+    adapter=meta.get('adapter')
+    # SENSE OF PLACE currently renders useful official listing cards on its
+    # brand page without a configured adapter. Keep this narrow to that exact
+    # first-party host/brand rather than treating all generic links as verified.
+    if not adapter and urlsplit(source).hostname=='www.urban-research.jp' and meta.get('brand_name')=='SENSE OF PLACE':
+        adapter='urbanresearch'
+    items={}
     if adapter=='fr':return fr_state(doc,source,meta)
     for n in doc.root.walk():
         name=brand=amount=code='';url='';status=[]
@@ -127,12 +133,24 @@ def extract(doc,source,meta):
             if n.tag!='a' or '/brand/'+meta['slug']+'/item/' not in n.attrs.get('href',''):continue
             name=text(n)
             if not knit(name) or len(name)>350:continue
-            # Brand-specific women's labels (not the shared shopping site header).
+            # The current brand-specific Stripe cards do not always render a
+            # visible price. Brand + item path + card text still establish the
+            # product identity/scope; retain blank price for later enrichment.
+            if '/brand/'+meta['slug']+'/' not in urlsplit(source).path:continue
             if not any(norm(x) in norm(name) for x in [meta['brand_name']]+meta.get('brand_aliases',[])):continue
             url=urljoin(source,n.attrs['href'])
             card=parent_with(n,lambda p:p.tag=='li',4)
             amount=price(text(card) if card else name);status=labels(card) if card else []
             name=name.split('¥')[0].strip()
+        elif adapter=='urbanresearch':
+            if not n.has_class('block-thumbnail-t--goods'):continue
+            brand=text(cls(n,'block-thumbnail-t--goods-label'))
+            name=text(cls(n,'block-thumbnail-t--goods-name'))
+            if not matches(brand,meta) or not knit(name):continue
+            a=next((a for a in n.walk() if a.tag=='a' and re.search(r'^/shop/g/g[A-Za-z0-9-]+/',a.attrs.get('href',''))),None)
+            if not a:continue
+            url=urljoin(source,a.attrs['href'])
+            amount=price(text(cls(n,'block-thumbnail-t--price-infos')) or text(n));status=labels(n)
         elif adapter=='ikka':
             if not n.has_class('fs-c-productListItem'):continue
             if '/ikkaladies/ikkalknit/' not in source:continue
@@ -142,7 +160,7 @@ def extract(doc,source,meta):
             if not name or OTHER.search(name):continue
             url=urljoin(source,a.attrs['href']);amount=price(text(cls(n,'fs-c-productPrice')));status=labels(cls(n,'fs-c-productMarks'))
         else:continue
-        if not url or not name or not amount or OTHER.search(name):continue
+        if not url or not name or (not amount and adapter not in {'stripe'} ) or OTHER.search(name):continue
         if urlsplit(url).hostname!=urlsplit(source).hostname:continue
         url=canonical(url);code=urlsplit(url).path.rstrip('/').split('/')[-1]
         items[url]=record(name,url,amount,status,source,code)
