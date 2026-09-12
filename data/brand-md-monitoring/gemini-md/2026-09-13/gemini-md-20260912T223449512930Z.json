@@ -1,0 +1,2207 @@
+{
+  "format": "KC_BRAND64_GEMINI_MD_FREE_TIER",
+  "schema_version": "1.0",
+  "observation_date": "2026-09-13",
+  "generated_at_utc": "2026-09-12T22:34:49Z",
+  "gemini_model": "gemini-3.5-flash-lite",
+  "gemini_execution_status": "SUCCESS",
+  "free_tier_strategy": {
+    "google_search_grounding": false,
+    "url_context_only": true,
+    "batch_size": 13,
+    "max_batches": 5,
+    "cooldown_seconds": 65,
+    "retry_429_once": true,
+    "abort_after_second_429": true
+  },
+  "active_brand_count": 64,
+  "required_confirmed_brand_count": 39,
+  "attempted_brand_count": 52,
+  "confirmed_brand_count": 41,
+  "md_signal_brand_count": 41,
+  "md_signal_count": 199,
+  "quota_exhausted": false,
+  "direct_snapshot": {
+    "observed_date": "2026-09-13",
+    "attempted_brand_count": 64,
+    "product_observed_brand_count": 41,
+    "product_count": 1273
+  },
+  "errors": [],
+  "batches": [
+    {
+      "batch_index": 1,
+      "brand_ids": [
+        "BR-00065",
+        "BR-00066",
+        "BR-00067",
+        "BR-00068",
+        "BR-00069",
+        "BR-00070",
+        "BR-00071",
+        "BR-00072",
+        "BR-00073",
+        "BR-00074",
+        "BR-00075",
+        "BR-00076",
+        "BR-00006"
+      ],
+      "confirmed_in_batch": 12,
+      "usage_metadata": {
+        "promptTokenCount": 8827,
+        "candidatesTokenCount": 6251,
+        "totalTokenCount": 15078,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 8827
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "url_context_metadata": null
+    },
+    {
+      "batch_index": 2,
+      "brand_ids": [
+        "BR-00051",
+        "BR-00005",
+        "BR-00004",
+        "BR-00021",
+        "BR-00027",
+        "BR-00008",
+        "BR-00024",
+        "BR-00033",
+        "BR-00058",
+        "BR-00030",
+        "BR-00009",
+        "BR-00023",
+        "BR-00025"
+      ],
+      "confirmed_in_batch": 13,
+      "usage_metadata": {
+        "promptTokenCount": 9181,
+        "candidatesTokenCount": 7924,
+        "totalTokenCount": 17105,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 9181
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "url_context_metadata": null
+    },
+    {
+      "batch_index": 3,
+      "brand_ids": [
+        "BR-00007",
+        "BR-00032",
+        "BR-00022",
+        "BR-00031",
+        "BR-00064",
+        "BR-00001",
+        "BR-00028",
+        "BR-00062",
+        "BR-00063",
+        "BR-00003",
+        "BR-00016",
+        "BR-00060",
+        "BR-00011"
+      ],
+      "confirmed_in_batch": 3,
+      "usage_metadata": {
+        "promptTokenCount": 9199,
+        "candidatesTokenCount": 4600,
+        "totalTokenCount": 13799,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 9199
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "url_context_metadata": null
+    },
+    {
+      "batch_index": 4,
+      "brand_ids": [
+        "BR-00052",
+        "BR-00010",
+        "BR-00036",
+        "BR-00018",
+        "BR-00019",
+        "BR-00035",
+        "BR-00039",
+        "BR-00040",
+        "BR-00041",
+        "BR-00047",
+        "BR-00053",
+        "BR-00054",
+        "BR-00056"
+      ],
+      "confirmed_in_batch": 13,
+      "usage_metadata": {
+        "promptTokenCount": 1982,
+        "candidatesTokenCount": 6162,
+        "totalTokenCount": 254476,
+        "cachedContentTokenCount": 97952,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1982
+          }
+        ],
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 97952
+          }
+        ],
+        "toolUsePromptTokenCount": 246332,
+        "toolUsePromptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 246332
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "url_context_metadata": {
+        "urlMetadata": [
+          {
+            "retrievedUrl": "https://www.urban-research.jp/shop/label/sense-of-place/",
+            "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+          },
+          {
+            "retrievedUrl": "https://stripe-club.com/brand/earth1999/",
+            "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+          },
+          {
+            "retrievedUrl": "https://stripe-club.com/brand/yeccavecca/",
+            "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+          },
+          {
+            "retrievedUrl": "https://www.doclasse.com/",
+            "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+          },
+          {
+            "retrievedUrl": "https://crosset.onward.co.jp/shop/anysis",
+            "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+          },
+          {
+            "retrievedUrl": "https://stripe-club.com/brand/american-holic/",
+            "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+          },
+          {
+            "retrievedUrl": "https://crosset.onward.co.jp/shop/23ku",
+            "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+          },
+          {
+            "retrievedUrl": "https://crosset.onward.co.jp/shop/icb",
+            "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+          },
+          {
+            "retrievedUrl": "https://crosset.onward.co.jp/shop/jiyuku",
+            "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+          },
+          {
+            "retrievedUrl": "https://crosset.onward.co.jp/shop/unfilo",
+            "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+          },
+          {
+            "retrievedUrl": "https://baycrews.jp/brand/detail/bcstock",
+            "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+          },
+          {
+            "retrievedUrl": "https://baycrews.jp/brand/detail/slobe",
+            "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+          },
+          {
+            "retrievedUrl": "https://baycrews.jp/brand/detail/spickandspan",
+            "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+          }
+        ]
+      }
+    }
+  ],
+  "brands": [
+    {
+      "brand_id": "BR-00065",
+      "brand_name": "GALLARDAGALANTE",
+      "scan_status": "OK",
+      "official_url": "https://www.palcloset.jp/display/display/?b=gallardagalante&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC",
+      "notes": "Palcloset official page for GALLARDAGALANTE women's knitwear",
+      "md_signals": [
+        {
+          "signal_type": "PREORDER",
+          "product_name": "【9/17(木)12:00～予約開始】【MAMIコラボ】カシュクール2WAYニット",
+          "product_url": "https://www.palcloset.jp/display/item/GGZ1062305A0011/",
+          "observed_text": "【9/17(木)12:00～予約開始】【MAMIコラボ】カシュクール2WAYニット",
+          "value": "¥28,600"
+        },
+        {
+          "signal_type": "RESTOCK",
+          "product_name": "【HERITANOVUM】サイドオープンカーディガン",
+          "product_url": "https://www.palcloset.jp/display/item/GGH1062205A0001/",
+          "observed_text": "再入荷",
+          "value": "¥31,900"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "3WAYニットビスチェ",
+          "product_url": "https://www.palcloset.jp/display/item/GGZ1062105A0004/",
+          "observed_text": "NEW",
+          "value": "¥26,400"
+        },
+        {
+          "signal_type": "SALE",
+          "product_name": "【手洗い可】オフショルニット",
+          "product_url": "https://www.palcloset.jp/display/item/GGZ1061205A0001/",
+          "observed_text": "SALE",
+          "value": "¥6,270"
+        },
+        {
+          "signal_type": "SALE",
+          "product_name": "【手洗い可】メッシュラメアメスリニット",
+          "product_url": "https://www.palcloset.jp/display/item/GGZ1061305A0006/",
+          "observed_text": "SALE",
+          "value": "¥5,280"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00066",
+      "brand_name": "Whim Gazette",
+      "scan_status": "OK",
+      "official_url": "https://www.palcloset.jp/display/display/?b=whimgazette&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC",
+      "notes": "Palcloset official page for Whim Gazette women's knitwear",
+      "md_signals": [
+        {
+          "signal_type": "NEW",
+          "product_name": "【Drawing Numbers】ソフトウールVネックイージーニット",
+          "product_url": "https://www.palcloset.jp/display/item/DNZ1062305A0006/",
+          "observed_text": "NEW",
+          "value": "¥35,200"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "【Drawing Numbers】スリットVネックホールニット",
+          "product_url": "https://www.palcloset.jp/display/item/DNZ1062305A0007/",
+          "observed_text": "予約",
+          "value": "¥31,900"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "＜8/20インスタLIVEご紹介アイテム＞【GEMINI】レイヤードニット",
+          "product_url": "https://www.palcloset.jp/display/item/WGG1062105A0001/",
+          "observed_text": "NEW",
+          "value": "¥40,700"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "カシミヤ混ファークルーネックニットプルオーバー",
+          "product_url": "https://www.palcloset.jp/display/item/WGZ1062205A0009/",
+          "observed_text": "予約",
+          "value": "¥35,200"
+        },
+        {
+          "signal_type": "RESTOCK",
+          "product_name": "オフショルVネックニットプルオーバー",
+          "product_url": "https://www.palcloset.jp/display/item/WGZ1062205A0008/",
+          "observed_text": "再入荷",
+          "value": "¥30,800"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00067",
+      "brand_name": "LOUNGEDRESS",
+      "scan_status": "OK",
+      "official_url": "https://www.palcloset.jp/display/display/?b=loungedress&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC",
+      "notes": "Palcloset official page for LOUNGEDRESS women's knitwear",
+      "md_signals": [
+        {
+          "signal_type": "NEW",
+          "product_name": "《洗える》オフショルニット",
+          "product_url": "https://www.palcloset.jp/display/item/LDZ1062305A0009/",
+          "observed_text": "NEW",
+          "value": "¥18,700"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "《前後着用可》ハンド2WAYニット",
+          "product_url": "https://www.palcloset.jp/display/item/LDZ1062305A0011/",
+          "observed_text": "予約",
+          "value": "¥28,600"
+        },
+        {
+          "signal_type": "COLOR",
+          "product_name": "《新色登場》ファーカシミヤVニット",
+          "product_url": "https://www.palcloset.jp/display/item/LDZ1062205A0002/",
+          "observed_text": "《新色登場》",
+          "value": "¥29,700"
+        },
+        {
+          "signal_type": "RESTOCK",
+          "product_name": "《着映えトップス》ドレープニット",
+          "product_url": "https://www.palcloset.jp/display/item/LDZ1062205A0005/",
+          "observed_text": "再入荷",
+          "value": "¥18,700"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "フルーツビジューニット",
+          "product_url": "https://www.palcloset.jp/display/item/LDZ1062205A0006/",
+          "observed_text": "NEW",
+          "value": "¥26,400"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00068",
+      "brand_name": "RIVE DROITE",
+      "scan_status": "OK",
+      "official_url": "https://www.palcloset.jp/display/display/?b=rivedroite&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC",
+      "notes": "Palcloset official page for RIVE DROITE women's knitwear",
+      "md_signals": [
+        {
+          "signal_type": "NEW",
+          "product_name": "ウール100NEWボトルネックニット",
+          "product_url": "https://www.palcloset.jp/display/item/RDZ1062405A0002/",
+          "observed_text": "NEW",
+          "value": "¥15,950"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "ヘアリーヤーンメランジニット",
+          "product_url": "https://www.palcloset.jp/display/item/RDZ1062305A0003/",
+          "observed_text": "NEW",
+          "value": "¥26,400"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "ヘアリーウール片畦Vネックニット",
+          "product_url": "https://www.palcloset.jp/display/item/RDZ1062205A0004/",
+          "observed_text": "NEW",
+          "value": "¥23,100"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "メランジラメフェザーニット",
+          "product_url": "https://www.palcloset.jp/display/item/RDZ1062305A0008/",
+          "observed_text": "NEW",
+          "value": "¥14,850"
+        },
+        {
+          "signal_type": "PROMOTION",
+          "product_name": "【WEB限定】スラブヤーン刺繍ニット",
+          "product_url": "https://www.palcloset.jp/display/item/RDZ1062105A0006/",
+          "observed_text": "WEB限定",
+          "value": "¥15,400"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00069",
+      "brand_name": "DOUDOU",
+      "scan_status": "OK",
+      "official_url": "https://www.palcloset.jp/display/display/?b=doudou&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC",
+      "notes": "Palcloset official page for DOUDOU women's knitwear",
+      "md_signals": [
+        {
+          "signal_type": "RESTOCK",
+          "product_name": "ヘンリーネックリブニット",
+          "product_url": "https://www.palcloset.jp/display/item/DDZ1061105A0001/",
+          "observed_text": "再入荷",
+          "value": "¥8,800"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "スクエアニットロングスリーブプルオーバー",
+          "product_url": "https://www.palcloset.jp/display/item/DDZ1061105A0015/",
+          "observed_text": "NEW",
+          "value": "¥8,690"
+        },
+        {
+          "signal_type": "PROMOTION",
+          "product_name": "【WEB限定】Vネックワイドプルオーバーニット",
+          "product_url": "https://www.palcloset.jp/display/item/DDZ1062105A0004/",
+          "observed_text": "WEB限定",
+          "value": "¥7,590"
+        },
+        {
+          "signal_type": "PROMOTION",
+          "product_name": "【WEB限定】レースキャミ＋ニットセット",
+          "product_url": "https://www.palcloset.jp/display/item/DDZ1062105A0009/",
+          "observed_text": "WEB限定",
+          "value": "¥13,200"
+        },
+        {
+          "signal_type": "RESTOCK",
+          "product_name": "【WEB限定】フリンジミラノリブニットノースリーブ",
+          "product_url": "https://www.palcloset.jp/display/item/DDZ1062105A0020/",
+          "observed_text": "再入荷",
+          "value": "¥12,100"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00070",
+      "brand_name": "SHENERY",
+      "scan_status": "OK",
+      "official_url": "https://www.palcloset.jp/display/display/?b=shenery&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC",
+      "notes": "Palcloset official page for SHENERY women's knitwear",
+      "md_signals": [
+        {
+          "signal_type": "RESTOCK",
+          "product_name": "シアーギャザーニット",
+          "product_url": "https://www.palcloset.jp/display/item/SNZ1062105A0002/",
+          "observed_text": "再入荷",
+          "value": "¥16,500"
+        },
+        {
+          "signal_type": "RESTOCK",
+          "product_name": "刺繍ビジューニットプルオーバー",
+          "product_url": "https://www.palcloset.jp/display/item/SNZ1062205A0002/",
+          "observed_text": "再入荷",
+          "value": "¥22,000"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "2WAYペプラムニット",
+          "product_url": "https://www.palcloset.jp/display/item/SNZ1062205A0005/",
+          "observed_text": "NEW",
+          "value": "¥15,400"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "ファーカシミヤ2WAYヘンリーニット",
+          "product_url": "https://www.palcloset.jp/display/item/SNZ1062205A0001/",
+          "observed_text": "NEW",
+          "value": "¥29,700"
+        },
+        {
+          "signal_type": "SALE",
+          "product_name": "ヘンリーネックレイヤードニット",
+          "product_url": "https://www.palcloset.jp/display/item/SNZ1061205A0003/",
+          "observed_text": "SALE",
+          "value": "¥6,160"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00071",
+      "brand_name": "un dix cors",
+      "scan_status": "OK",
+      "official_url": "https://www.palcloset.jp/display/display/?b=croisiere&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC",
+      "notes": "Palcloset official page for un dix cors women's knitwear",
+      "md_signals": [
+        {
+          "signal_type": "NEW",
+          "product_name": "デニム襟ニットジッププルオーバー",
+          "product_url": "https://www.palcloset.jp/display/item/UOZ1062205A0004/",
+          "observed_text": "NEW",
+          "value": "¥6,600"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "袖シアーリブニットプルオーバー",
+          "product_url": "https://www.palcloset.jp/display/item/UOZ1062205A0010/",
+          "observed_text": "NEW",
+          "value": "¥4,840"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "シャギーニットベスト",
+          "product_url": "https://www.palcloset.jp/display/item/UOZ1062205A0002/",
+          "observed_text": "NEW",
+          "value": "¥4,950"
+        },
+        {
+          "signal_type": "SALE",
+          "product_name": "圧縮起毛ワイドネックニット",
+          "product_url": "https://www.palcloset.jp/display/item/UOZ1052505A0002/",
+          "observed_text": "SALE",
+          "value": "¥3,960"
+        },
+        {
+          "signal_type": "SALE",
+          "product_name": "UVドルマンニットプルオーバー",
+          "product_url": "https://www.palcloset.jp/display/item/UOZ1061405A0002/",
+          "observed_text": "SALE",
+          "value": "¥2,200"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00072",
+      "brand_name": "La boutique BonBon",
+      "scan_status": "OK",
+      "official_url": "https://www.palcloset.jp/display/display/?b=laboutiquebonbon&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC",
+      "notes": "Palcloset official page for La boutique BonBon women's knitwear",
+      "md_signals": [
+        {
+          "signal_type": "NEW",
+          "product_name": "カラーネップフーディニット",
+          "product_url": "https://www.palcloset.jp/display/item/LBZ1062305A0004/",
+          "observed_text": "NEW",
+          "value": "¥16,940"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "ヘアリーウールカシミヤ混メタルボタンカーディガン",
+          "product_url": "https://www.palcloset.jp/display/item/LBZ1062405A0006/",
+          "observed_text": "NEW",
+          "value": "¥29,700"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "ウールファーペプラムカーディガン",
+          "product_url": "https://www.palcloset.jp/display/item/LBZ1062305A0007/",
+          "observed_text": "NEW",
+          "value": "¥22,000"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "スパンコールラメケーブルVネックニット",
+          "product_url": "https://www.palcloset.jp/display/item/LBZ1062305A0010/",
+          "observed_text": "NEW",
+          "value": "¥14,850"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "スクエアネックファーヤーントリムニット",
+          "product_url": "https://www.palcloset.jp/display/item/LBZ1062305A0009/",
+          "observed_text": "NEW",
+          "value": "¥15,730"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00073",
+      "brand_name": "natural couture",
+      "scan_status": "OK",
+      "official_url": "https://www.palcloset.jp/display/display/?b=naturalcouture&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC",
+      "notes": "Palcloset official page for natural couture women's knitwear",
+      "md_signals": [
+        {
+          "signal_type": "NEW",
+          "product_name": "もしゃもしゃフラワーライクショートニット",
+          "product_url": "https://www.palcloset.jp/display/item/0362050590/",
+          "observed_text": "NEW",
+          "value": "¥6,600"
+        },
+        {
+          "signal_type": "RESTOCK",
+          "product_name": "ラメペプラムニット",
+          "product_url": "https://www.palcloset.jp/display/item/0362050380/",
+          "observed_text": "再入荷",
+          "value": "¥5,940"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "スタンドネック袖口釦ゆるニット",
+          "product_url": "https://www.palcloset.jp/display/item/0362050310/",
+          "observed_text": "NEW",
+          "value": "¥5,390"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "透かし編みボートネックプルオーバー",
+          "product_url": "https://www.palcloset.jp/display/item/0362050650/",
+          "observed_text": "NEW",
+          "value": "¥5,390"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "袖リボンマルチWAYニット",
+          "product_url": "https://www.palcloset.jp/display/item/0362050700/",
+          "observed_text": "NEW",
+          "value": "¥6,930"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00074",
+      "brand_name": "DISCOAT",
+      "scan_status": "OK",
+      "official_url": "https://www.palcloset.jp/display/display/?b=discoat&c=1104,1105&sex=001&SearchItem.SORT_KEY=NEWARRIVAL_DESC",
+      "notes": "Palcloset official page for DISCOAT women's knitwear",
+      "md_signals": [
+        {
+          "signal_type": "NEW",
+          "product_name": "袖口レイヤード風クルーネックニット",
+          "product_url": "https://www.palcloset.jp/display/item/DCZ1062205A0011/",
+          "observed_text": "NEW",
+          "value": "¥4,950"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "【ニット総選挙】 ループロゴニット",
+          "product_url": "https://www.palcloset.jp/display/item/DCZ1062305A0001/",
+          "observed_text": "予約",
+          "value": "¥6,600"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "【ニット総選挙】シャツレイヤード風ニット《WEB限定カラーあり》",
+          "product_url": "https://www.palcloset.jp/display/item/DCZ1062205A0025/",
+          "observed_text": "予約",
+          "value": "¥7,700"
+        },
+        {
+          "signal_type": "PROMOTION",
+          "product_name": "【ニット総選挙/Noka】レースタイVネックニット《WEB限定》",
+          "product_url": "https://www.palcloset.jp/display/item/DCN1062305A0007/",
+          "observed_text": "WEB限定",
+          "value": "¥6,930"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "フリルティアードニット",
+          "product_url": "https://www.palcloset.jp/display/item/DCZ1062205A0105/",
+          "observed_text": "NEW",
+          "value": "¥6,600"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00075",
+      "brand_name": "ZARA",
+      "scan_status": "SOURCE_ACCESS_LIMITED",
+      "official_url": "https://www.zara.com/jp/ja/woman-knitwear-l1152.html",
+      "notes": "Direct access status limited",
+      "md_signals": [],
+      "direct_status": "SOURCE_ACCESS_LIMITED",
+      "direct_item_count_in_prompt": 0
+    },
+    {
+      "brand_id": "BR-00076",
+      "brand_name": "SNIDEL",
+      "scan_status": "OK",
+      "official_url": "https://usagi-online.com/brand/snidel/category/AB/AB01/",
+      "notes": "Usagi Online official page for SNIDEL women's knitwear",
+      "md_signals": [
+        {
+          "signal_type": "RESTOCK",
+          "product_name": "【ベストセラー/多色展開】フリルニットプルオーバー",
+          "product_url": "https://usagi-online.com/brand/snidel/item/SND0126F0183",
+          "observed_text": "再入荷",
+          "value": "¥13,640"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "【adidas Originals】ESS KNT CRW/エッセンシャルズ ニットクルー",
+          "product_url": "https://usagi-online.com/brand/snidel/item/SND0126F0225",
+          "observed_text": "NEW",
+          "value": "¥9,900"
+        },
+        {
+          "signal_type": "OTHER",
+          "product_name": "ペプラムニットジャケット",
+          "product_url": "https://usagi-online.com/brand/snidel/item/SND0126F0056",
+          "observed_text": "ペプラムニットジャケット",
+          "value": "¥19,800"
+        },
+        {
+          "signal_type": "PROMOTION",
+          "product_name": "【WEB限定/Heart collection】モチーフニット",
+          "product_url": "https://usagi-online.com/brand/snidel/item/SND0124S0238",
+          "observed_text": "WEB限定",
+          "value": "¥12,760"
+        },
+        {
+          "signal_type": "OTHER",
+          "product_name": "レーストリミングニットプルオーバー",
+          "product_url": "https://usagi-online.com/brand/snidel/item/SND0126F0188",
+          "observed_text": "レーストリミングニットプルオーバー",
+          "value": "¥17,600"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00006",
+      "brand_name": "GLOBAL WORK",
+      "scan_status": "OK",
+      "official_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+      "notes": "Dot-st official page for GLOBAL WORK knit items",
+      "md_signals": [
+        {
+          "signal_type": "PREORDER",
+          "product_name": "スウェットライクデニムカーディガン/1054904",
+          "product_url": "https://www.dot-st.com/globalwork/disp/item/1054904/",
+          "observed_text": "予約",
+          "value": "¥5,490"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "インレイ編みラグランプルオーバー/一部店舗限定/1063239",
+          "product_url": "https://www.dot-st.com/globalwork/disp/item/1063239/",
+          "observed_text": "予約",
+          "value": "¥4,990"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "【Harry Potter(ハリー・ポッター)】シャギーニットベスト/1048589",
+          "product_url": "https://www.dot-st.com/globalwork/disp/item/1048589/",
+          "observed_text": "NEW",
+          "value": "¥4,490"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "【玉井詩織さん着用】スウェットライクVネックカーディガン/670342",
+          "product_url": "https://www.dot-st.com/globalwork/disp/item/670342/",
+          "observed_text": "NEW",
+          "value": "¥ 4,490"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "メルティクルー金ボタンカーディガン/759457",
+          "product_url": "https://www.dot-st.com/globalwork/disp/item/759457/",
+          "observed_text": "予約",
+          "value": "¥4,990"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00051",
+      "brand_name": "NATURAL BEAUTY BASIC",
+      "scan_status": "OK",
+      "official_url": "https://mix.tokyo/pages/naturalbeautybasic",
+      "notes": "Observed New items and pricing on official site",
+      "md_signals": [
+        {
+          "signal_type": "NEW",
+          "product_name": "シアーフレアカフスリブニット",
+          "product_url": "https://mix.tokyo/products/0176270900",
+          "observed_text": "NEW label and price displayed",
+          "value": "¥7,491"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "シルクブレンドカーディガン",
+          "product_url": "https://mix.tokyo/products/0176275810",
+          "observed_text": "NEW label and price displayed",
+          "value": "¥7,997"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "フラワーボタンニットジャケット",
+          "product_url": "https://mix.tokyo/products/0176275850",
+          "observed_text": "NEW label and price displayed",
+          "value": "¥8,998"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "配色ニットアップミニ",
+          "product_url": "https://mix.tokyo/products/0176247940",
+          "observed_text": "NEW label and price displayed",
+          "value": "¥14,993"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "フリルトリムカーディガン",
+          "product_url": "https://mix.tokyo/products/0176275851",
+          "observed_text": "NEW label and price displayed",
+          "value": "¥8,998"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00005",
+      "brand_name": "VIS",
+      "scan_status": "OK",
+      "official_url": "https://www.junonline.jp/vis/product/tops/knit-sweater/",
+      "notes": "Observed preorder, new, and 2026 autumn items",
+      "md_signals": [
+        {
+          "signal_type": "PREORDER",
+          "product_name": "【MARY QUANT×VIS】袖デイジーボタンVネックリブニット",
+          "product_url": "https://www.junonline.jp/vis/product/tops/knit-sweater/BVM76330",
+          "observed_text": "予約 and 2026秋冬新作 labels",
+          "value": "¥6,930"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "クロスウエストニットプルオーバー",
+          "product_url": "https://www.junonline.jp/vis/product/tops/knit-sweater/BVM46450",
+          "observed_text": "予約 and 2026秋冬新作 labels",
+          "value": "¥6,589"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "フェザーフリルオフショルダーニットプルオーバー",
+          "product_url": "https://www.junonline.jp/vis/product/tops/knit-sweater/BVM46150",
+          "observed_text": "予約 and 2026秋冬新作 labels",
+          "value": "¥5,929"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "レースレイヤード風リブニット",
+          "product_url": "https://www.junonline.jp/vis/product/tops/knit-sweater/BVM46170",
+          "observed_text": "予約 and 2026秋冬新作 labels",
+          "value": "¥6,589"
+        },
+        {
+          "signal_type": "FUNCTION",
+          "product_name": "ボーダー＆無地スリーブ釦プチハイネックリブニット/静電気防止・着丈が選べる",
+          "product_url": "https://www.junonline.jp/vis/product/tops/knit-sweater/BVM66060",
+          "observed_text": "静電気防止・着丈が選べる function feature",
+          "value": "¥4,389"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00004",
+      "brand_name": "ROPÉ PICNIC",
+      "scan_status": "OK",
+      "official_url": "https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/",
+      "notes": "Observed promotion and preorder items",
+      "md_signals": [
+        {
+          "signal_type": "PROMOTION",
+          "product_name": "【WEB限定】サイドスリットニットハイネックプルオーバー/イージーケア",
+          "product_url": "https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/GDM66000",
+          "observed_text": "2BUY10%OFF promotion label",
+          "value": "¥5,489"
+        },
+        {
+          "signal_type": "PROMOTION",
+          "product_name": "【WEB限定カラー】マシュマロ袖パールドルマンニット",
+          "product_url": "https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/GDM56080",
+          "observed_text": "2BUY10%OFF promotion label",
+          "value": "¥5,489"
+        },
+        {
+          "signal_type": "PROMOTION",
+          "product_name": "【WEB限定カラー】マシュマロニットVネックプルオーバー",
+          "product_url": "https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/GDM56090",
+          "observed_text": "2BUY10%OFF promotion label",
+          "value": "¥5,489"
+        },
+        {
+          "signal_type": "PROMOTION",
+          "product_name": "アンチピリングプチハイネックニット",
+          "product_url": "https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/GDM56150",
+          "observed_text": "2BUY10%OFF promotion label",
+          "value": "¥4,994"
+        },
+        {
+          "signal_type": "PROMOTION",
+          "product_name": "アンチピリング天竺タートルネックニットプルオーバー/リンクコーデ",
+          "product_url": "https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/GDM56160",
+          "observed_text": "2BUY10%OFF promotion label",
+          "value": "¥4,994"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00021",
+      "brand_name": "LEPSIM",
+      "scan_status": "OK",
+      "official_url": "https://www.dot-st.com/lepsim/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+      "notes": "Observed new knit series items",
+      "md_signals": [
+        {
+          "signal_type": "NEW",
+          "product_name": "《満たされニットシリーズ》バイカラーポケ付きカーディガン",
+          "product_url": "https://www.dot-st.com/lepsim/disp/item/1055909/",
+          "observed_text": "NEW label",
+          "value": "¥6,600"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "《満たされニットシリーズ》配色リブベスト",
+          "product_url": "https://www.dot-st.com/lepsim/disp/item/826772/",
+          "observed_text": "NEW label",
+          "value": "¥6,600"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "《満たされニットシリーズ》2WAYオフショルカーディガン",
+          "product_url": "https://www.dot-st.com/lepsim/disp/item/826764/",
+          "observed_text": "NEW label",
+          "value": "¥6,989"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "洗えるゆるニットビーニー",
+          "product_url": "https://www.dot-st.com/lepsim/disp/item/1053610/",
+          "observed_text": "NEW label",
+          "value": "¥2,490"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "ラメファーZIPニットベスト",
+          "product_url": "https://www.dot-st.com/lepsim/disp/item/1061828/",
+          "observed_text": "NEW label",
+          "value": "¥6,600"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00027",
+      "brand_name": "Heather",
+      "scan_status": "OK",
+      "official_url": "https://www.dot-st.com/heather/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+      "notes": "Observed reservation and new knit items",
+      "md_signals": [
+        {
+          "signal_type": "PREORDER",
+          "product_name": "【予約】タイ付きペプラムニット",
+          "product_url": "https://www.dot-st.com/heather/disp/item/1084510/",
+          "observed_text": "予約 label",
+          "value": "¥7,150"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "【予約】ペプラムビジューニット",
+          "product_url": "https://www.dot-st.com/heather/disp/item/1077818/",
+          "observed_text": "予約 label",
+          "value": "¥8,800"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "【予約】袖レースピタニット",
+          "product_url": "https://www.dot-st.com/heather/disp/item/1096362/",
+          "observed_text": "予約 label",
+          "value": "¥6,930"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "【Heather×PEACH JOHN】チュニックニットカーディガン",
+          "product_url": "https://www.dot-st.com/heather/disp/item/1052084/",
+          "observed_text": "NEW label",
+          "value": "¥7,700"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "アーガイルカーディガン/キャミ2P",
+          "product_url": "https://www.dot-st.com/heather/disp/item/1063913/",
+          "observed_text": "NEW label",
+          "value": "¥7,700"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00008",
+      "brand_name": "studio CLIP",
+      "scan_status": "OK",
+      "official_url": "https://www.dot-st.com/studioclip/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+      "notes": "Observed advance reservation and new items",
+      "md_signals": [
+        {
+          "signal_type": "PREORDER",
+          "product_name": "《先行予約/natural by clip》3Gウール混ブークレカーディガン",
+          "product_url": "https://www.dot-st.com/studioclip/disp/item/1075649/",
+          "observed_text": "先行予約 label",
+          "value": "¥6,490"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "3ゲージダブルフロントクロシェ風カーディガン",
+          "product_url": "https://www.dot-st.com/studioclip/disp/item/1052729/",
+          "observed_text": "NEW label",
+          "value": "¥4,990"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "《先行予約/natural by clip》2Gハンド風ニットジャケット",
+          "product_url": "https://www.dot-st.com/studioclip/disp/item/1075635/",
+          "observed_text": "先行予約 label",
+          "value": "¥8,690"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "【daily CLIP】シャギーニットFパールトート",
+          "product_url": "https://www.dot-st.com/studioclip/disp/item/1081956/",
+          "observed_text": "NEW label",
+          "value": "¥6,600"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "【2026AW新色追加】12ゲージボーダーレイヤーカーディガン",
+          "product_url": "https://www.dot-st.com/studioclip/disp/item/639090/",
+          "observed_text": "2026AW新色追加 label",
+          "value": "¥4,990"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00024",
+      "brand_name": "BAYFLOW",
+      "scan_status": "OK",
+      "official_url": "https://www.dot-st.com/bayflow/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+      "notes": "Observed new and reservation knit items",
+      "md_signals": [
+        {
+          "signal_type": "NEW",
+          "product_name": "[取り外してアレンジ可能♪]レースヘムスウェットライクニット",
+          "product_url": "https://www.dot-st.com/bayflow/disp/item/807120/",
+          "observed_text": "NEW label",
+          "value": "¥6,990"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "≪予約≫ミックスシャギーニットプルオーバー",
+          "product_url": "https://www.dot-st.com/bayflow/disp/item/1074745/",
+          "observed_text": "≪予約≫ label",
+          "value": "¥5,990"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "≪予約≫[選べる9色/モッチリソフトな肌触り]コンフォートブークレニットプルオーバー",
+          "product_url": "https://www.dot-st.com/bayflow/disp/item/1066505/",
+          "observed_text": "≪予約≫ label",
+          "value": "¥4,990"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "≪予約≫ポップコーンマーブルニット",
+          "product_url": "https://www.dot-st.com/bayflow/disp/item/1052298/",
+          "observed_text": "予約 label",
+          "value": "¥6,490"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "≪予約≫【HEREIAM】ワッフル2WAYニット",
+          "product_url": "https://www.dot-st.com/bayflow/disp/item/825734/",
+          "observed_text": "予約 label",
+          "value": "¥9,900"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00033",
+      "brand_name": "Andemiu",
+      "scan_status": "OK",
+      "official_url": "https://www.dot-st.com/andemiu/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+      "notes": "Observed new and advance reservation knit items",
+      "md_signals": [
+        {
+          "signal_type": "NEW",
+          "product_name": "ポロエリニット",
+          "product_url": "https://www.dot-st.com/andemiu/disp/item/1074943/",
+          "observed_text": "NEW label",
+          "value": "¥9,350"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "2WAYドッキングカーディガン",
+          "product_url": "https://www.dot-st.com/andemiu/disp/item/1074940/",
+          "observed_text": "NEW label",
+          "value": "¥10,450"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "レースキリカエVネックカーディガン",
+          "product_url": "https://www.dot-st.com/andemiu/disp/item/1074929/",
+          "observed_text": "NEW label",
+          "value": "¥10,450"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "ボタンリブニット",
+          "product_url": "https://www.dot-st.com/andemiu/disp/item/1074951/",
+          "observed_text": "NEW label",
+          "value": "¥8,800"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "【先行予約】ボカシアニマル柄カーディガン",
+          "product_url": "https://www.dot-st.com/andemiu/disp/item/1084592/",
+          "observed_text": "【先行予約】 label",
+          "value": "¥9,900"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00058",
+      "brand_name": "Te chichi",
+      "scan_status": "OK",
+      "official_url": "https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd:CAN02&fl=bd,bdName,cd,name,price,mkcode,material,icon,mcn2,mcn3",
+      "notes": "Observed reserve and new items with function details",
+      "md_signals": [
+        {
+          "signal_type": "PREORDER",
+          "product_name": "畦フェザーミックスニットカーディガン《2026 AUTUMN LOOK item》",
+          "product_url": "https://www.canshop.jp/ap/item/i/A1CAN000A5EO",
+          "observed_text": "reserve status and 2026 AUTUMN LOOK item",
+          "value": "¥6600.0"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "カシミヤ混パール釦2WAYニット",
+          "product_url": "https://www.canshop.jp/ap/item/i/A1CAN000A5F6",
+          "observed_text": "reserve status",
+          "value": "¥7150.0"
+        },
+        {
+          "signal_type": "FUNCTION",
+          "product_name": "【マシンウォッシャブル】裾レース前後2WAYカーディガン",
+          "product_url": "https://www.canshop.jp/ap/item/i/A1CAN000A56I",
+          "observed_text": "マシンウォッシャブル function and new status",
+          "value": "¥6930.0"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "チュールドッキングニットプルオーバー",
+          "product_url": "https://www.canshop.jp/ap/item/i/A1CAN000A58K",
+          "observed_text": "new status",
+          "value": "¥6930.0"
+        },
+        {
+          "signal_type": "FUNCTION",
+          "product_name": "【帯電防止/マシンウォッシャブル】前後2WAYドルマンプルオーバー",
+          "product_url": "https://www.canshop.jp/ap/item/i/A1CAN000A59W",
+          "observed_text": "帯電防止/マシンウォッシャブル functions",
+          "value": "¥4400.0"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00030",
+      "brand_name": "A part by",
+      "scan_status": "OK",
+      "official_url": "https://www.dot-st.com/apartbylowrys/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+      "notes": "Observed new and popular knit items",
+      "md_signals": [
+        {
+          "signal_type": "NEW",
+          "product_name": "【店舗人気】ブークレペプラムニットカーディガン",
+          "product_url": "https://www.dot-st.com/apartbylowrys/disp/item/644835/",
+          "observed_text": "NEW label and 店舗人気",
+          "value": "¥8,800"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "ブークレフリルニットカーディガン",
+          "product_url": "https://www.dot-st.com/apartbylowrys/disp/item/1056963/",
+          "observed_text": "NEW label",
+          "value": "¥9,350"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "レースドレープニットプルオーバー",
+          "product_url": "https://www.dot-st.com/apartbylowrys/disp/item/1056915/",
+          "observed_text": "NEW label",
+          "value": "¥8,250"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "Babyアルパカヘンリ－ニット",
+          "product_url": "https://www.dot-st.com/apartbylowrys/disp/item/1056927/",
+          "observed_text": "NEW label",
+          "value": "¥8,800"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "【名品シリーズ】アイレットアミペプラムカーディガン",
+          "product_url": "https://www.dot-st.com/apartbylowrys/disp/item/1049327/",
+          "observed_text": "NEW label",
+          "value": "¥9,350"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00009",
+      "brand_name": "niko and ...",
+      "scan_status": "OK",
+      "official_url": "https://www.dot-st.com/nikoand/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+      "notes": "Observed new and reservation items",
+      "md_signals": [
+        {
+          "signal_type": "NEW",
+          "product_name": "フードレイヤーダブルZIPカーディガン",
+          "product_url": "https://www.dot-st.com/nikoand/disp/item/808371/",
+          "observed_text": "NEW label",
+          "value": "¥6,600"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "クロシェフードニットベスト",
+          "product_url": "https://www.dot-st.com/nikoand/disp/item/638315/",
+          "observed_text": "NEW label",
+          "value": "¥5,500"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "ミリタリーニットベスト",
+          "product_url": "https://www.dot-st.com/nikoand/disp/item/1057473/",
+          "observed_text": "NEW label",
+          "value": "¥5,500"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "2SETニットタンクチュニック",
+          "product_url": "https://www.dot-st.com/nikoand/disp/item/1071381/",
+          "observed_text": "NEW label",
+          "value": "¥6,600"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "キルトニット2WAYフードジャケット【先行予約】",
+          "product_url": "https://www.dot-st.com/nikoand/disp/item/1057471/",
+          "observed_text": "【先行予約】 label",
+          "value": "¥12,500"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00023",
+      "brand_name": "JEANASIS",
+      "scan_status": "OK",
+      "official_url": "https://www.dot-st.com/jeanasis/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+      "notes": "Observed new and advance reservation knit items",
+      "md_signals": [
+        {
+          "signal_type": "NEW",
+          "product_name": "5Gクレイジーパターンカーディガン",
+          "product_url": "https://www.dot-st.com/jeanasis/disp/item/1081636/",
+          "observed_text": "NEW label",
+          "value": "¥7,700"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "クラッシュニットビーニー",
+          "product_url": "https://www.dot-st.com/jeanasis/disp/item/1068211/",
+          "observed_text": "NEW label",
+          "value": "¥3,300"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "【先行予約】12GドッキングカラーポロニットLS",
+          "product_url": "https://www.dot-st.com/jeanasis/disp/item/1089575/",
+          "observed_text": "【先行予約】 label",
+          "value": "¥7,190"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "【先行予約】14GナポレオンカーディガンLS",
+          "product_url": "https://www.dot-st.com/jeanasis/disp/item/1075999/",
+          "observed_text": "【先行予約】 label",
+          "value": "¥ 7,700"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "16Gレイヤードライククルーカーディガン",
+          "product_url": "https://www.dot-st.com/jeanasis/disp/item/1084790/",
+          "observed_text": "NEW label",
+          "value": "¥7,190"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00025",
+      "brand_name": "HARE",
+      "scan_status": "OK",
+      "official_url": "https://www.dot-st.com/hare/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+      "notes": "Observed web preorder and new knit items",
+      "md_signals": [
+        {
+          "signal_type": "NEW",
+          "product_name": "シアーレイヤードニットカーディガン",
+          "product_url": "https://www.dot-st.com/hare/disp/item/1069785/",
+          "observed_text": "NEW label",
+          "value": "¥12,980"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "ラメランダムリブニット",
+          "product_url": "https://www.dot-st.com/hare/disp/item/798957/",
+          "observed_text": "NEW label",
+          "value": "¥6,930"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "タイトスキッパーニット",
+          "product_url": "https://www.dot-st.com/hare/disp/item/1069625/",
+          "observed_text": "NEW label",
+          "value": "¥7,920"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "【WEB先行予約】フードスカーフツキニットカーディガン",
+          "product_url": "https://www.dot-st.com/hare/disp/item/1081488/",
+          "observed_text": "予約 label",
+          "value": "¥9,900"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "【WEB先行予約】スソフリルスクエアネックニット",
+          "product_url": "https://www.dot-st.com/hare/disp/item/1079906/",
+          "observed_text": "予約 label",
+          "value": "¥8,910"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00007",
+      "brand_name": "LOWRYS FARM",
+      "scan_status": "OK",
+      "official_url": "https://www.dot-st.com/lowrysfarm/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+      "notes": "Observed knit items including web advance reservations and new items.",
+      "md_signals": [
+        {
+          "signal_type": "PREORDER",
+          "product_name": "【WEB先行予約】ナポレオンニットジャケット",
+          "product_url": "https://www.dot-st.com/lowrysfarm/disp/item/1084421/",
+          "observed_text": "【WEB先行予約】ナポレオンニットジャケット",
+          "value": "¥8,800"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "【PeT】ニットファーT",
+          "product_url": "https://www.dot-st.com/lowrysfarm/disp/item/1047971/",
+          "observed_text": "【PeT】ニットファーT",
+          "value": "¥3,828"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "メランジポロニットカーディガンＬＳ",
+          "product_url": "https://www.dot-st.com/lowrysfarm/disp/item/1068560/",
+          "observed_text": "メランジポロニットカーディガンＬＳ",
+          "value": "¥5,990"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00032",
+      "brand_name": "mysty woman",
+      "scan_status": "OK",
+      "official_url": "https://www.dot-st.com/mystywoman/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+      "notes": "Observed multiple advance reservation knit items and new arrivals.",
+      "md_signals": [
+        {
+          "signal_type": "NEW",
+          "product_name": "ツイードライクカーディガン長袖",
+          "product_url": "https://www.dot-st.com/mystywoman/disp/item/1077985/",
+          "observed_text": "ツイードライクカーディガン長袖",
+          "value": "¥8,250"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "【先行予約】シャギーアンサンブルニット",
+          "product_url": "https://www.dot-st.com/mystywoman/disp/item/1087977/",
+          "observed_text": "【先行予約】シャギーアンサンブルニット",
+          "value": "¥9,350"
+        },
+        {
+          "signal_type": "PROMOTION",
+          "product_name": "【先行予約/WEB限定】アイスクリームクルーニット",
+          "product_url": "https://www.dot-st.com/mystywoman/disp/item/179604/",
+          "observed_text": "【先行予約/WEB限定】アイスクリームクルーニット",
+          "value": "¥5,500"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00022",
+      "brand_name": "LAKOLE",
+      "scan_status": "OK",
+      "official_url": "https://www.dot-st.com/lakole/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+      "notes": "Observed knit items, collaborations, and restocks.",
+      "md_signals": [
+        {
+          "signal_type": "PREORDER",
+          "product_name": "【WEB先行予約】シャツエリツキラガーニット",
+          "product_url": "https://www.dot-st.com/lakole/disp/item/1063784/",
+          "observed_text": "【WEB先行予約】シャツエリツキラガーニット",
+          "value": "¥4,990"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "[NBA]ニットマフラー",
+          "product_url": "https://www.dot-st.com/lakole/disp/item/1060209/",
+          "observed_text": "[NBA]ニットマフラー",
+          "value": "¥5,390"
+        },
+        {
+          "signal_type": "RESTOCK",
+          "product_name": "12ゲージリブニットポロカーディガン",
+          "product_url": "https://www.dot-st.com/lakole/disp/item/1052305/",
+          "observed_text": "12ゲージリブニットポロカーディガン",
+          "value": "¥3,690"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00031",
+      "brand_name": "Elura",
+      "scan_status": "SOURCE_ACCESS_LIMITED",
+      "official_url": "https://www.dot-st.com/elura/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+      "notes": "Observed advance reservation knit listings.",
+      "md_signals": [],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00064",
+      "brand_name": "ADAM ET ROPÉ",
+      "scan_status": "SOURCE_ACCESS_LIMITED",
+      "official_url": "https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/",
+      "notes": "Observed 2026 autumn/winter knitwear collections.",
+      "md_signals": [],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00001",
+      "brand_name": "UNIQLO",
+      "scan_status": "SOURCE_ACCESS_LIMITED",
+      "official_url": "https://www.uniqlo.com/jp/ja/women/sweaters",
+      "notes": "Observed women's sweaters and cardigans including bestsellers.",
+      "md_signals": [],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00028",
+      "brand_name": "PAGEBOY",
+      "scan_status": "SOURCE_ACCESS_LIMITED",
+      "official_url": "https://www.dot-st.com/pageboy/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+      "notes": "Observed knit items including shaggy cardigans and web advance preorders.",
+      "md_signals": [],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00062",
+      "brand_name": "Mila Owen",
+      "scan_status": "SOURCE_ACCESS_LIMITED",
+      "official_url": "https://usagi-online.com/brand/milaowen/category/AB/AB01/",
+      "notes": "Observed new knit tops and cardigans.",
+      "md_signals": [],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00063",
+      "brand_name": "ROPÉ",
+      "scan_status": "SOURCE_ACCESS_LIMITED",
+      "official_url": "https://www.junonline.jp/rope/product/tops/knit-sweater/",
+      "notes": "Observed 2026 autumn/winter knitwear including cashmere and fox blends.",
+      "md_signals": [],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00003",
+      "brand_name": "MUJI",
+      "scan_status": "SOURCE_ACCESS_LIMITED",
+      "official_url": "https://www.muji.com/jp/ja/store/cmdty/section/T10031",
+      "notes": "Observed women's knitwear and cardigans with sale and new labels.",
+      "md_signals": [],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00016",
+      "brand_name": "ikka",
+      "scan_status": "SOURCE_ACCESS_LIMITED",
+      "official_url": "https://tokyodesignchannel.com/c/ikka/ikkaladies/ikkalknit/",
+      "notes": "Observed knit sets and cardigans on sale.",
+      "md_signals": [],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00060",
+      "brand_name": "MUJI Labo",
+      "scan_status": "SOURCE_ACCESS_LIMITED",
+      "official_url": "https://www.muji.com/jp/ja/store/cmdty/section/T10013",
+      "notes": "Observed MUJI Labo women's sweaters and tops.",
+      "md_signals": [],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 8
+    },
+    {
+      "brand_id": "BR-00011",
+      "brand_name": "Green Parks",
+      "scan_status": "SOURCE_ACCESS_LIMITED",
+      "official_url": "https://stripe-club.com/brand/greenparks/",
+      "notes": "Observed Green Parks knit tops and cardigans.",
+      "md_signals": [],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 5
+    },
+    {
+      "brand_id": "BR-00052",
+      "brand_name": "SENSE OF PLACE",
+      "scan_status": "OK",
+      "official_url": "https://www.urban-research.jp/shop/label/sense-of-place/",
+      "notes": "SENSE OF PLACE official site observed for knitwear and MD signals.",
+      "md_signals": [
+        {
+          "signal_type": "NEW",
+          "product_name": "ストレッチヘンリーネックニット",
+          "product_url": "https://www.urban-research.jp/shop/g/gAA26430-1023103/",
+          "observed_text": "ストレッチヘンリーネックニット",
+          "value": "¥4,400"
+        },
+        {
+          "signal_type": "RANKING",
+          "product_name": "『洗濯可』フサフサハーフスリーブニット",
+          "product_url": "https://www.urban-research.jp/shop/g/gAA26330-2022004/",
+          "observed_text": "『洗濯可』フサフサハーフスリーブニット",
+          "value": "¥5,500"
+        },
+        {
+          "signal_type": "SALE",
+          "product_name": "『洗濯可』ビックボタンニットジャケット",
+          "product_url": "https://www.urban-research.jp/shop/g/gAA26130-2072002/",
+          "observed_text": "『洗濯可』ビックボタンニットジャケット",
+          "value": "¥4,125"
+        },
+        {
+          "signal_type": "SALE",
+          "product_name": "『別注』CHAMPION×SENSE OF PLACE スウェットカーディガン",
+          "product_url": "https://www.urban-research.jp/shop/g/gCA26110-2012002/",
+          "observed_text": "『別注』CHAMPION×SENSE OF PLACE スウェットカーディガン",
+          "value": "¥6,990"
+        },
+        {
+          "signal_type": "SALE",
+          "product_name": "『洗濯可』UVケアポケットシアーカーディガン",
+          "product_url": "https://www.urban-research.jp/shop/g/gAA26230-2022123/",
+          "observed_text": "『洗濯可』UVケアポケットシアーカーディガン",
+          "value": "¥2,612"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 5
+    },
+    {
+      "brand_id": "BR-00010",
+      "brand_name": "earth music&ecology",
+      "scan_status": "OK",
+      "official_url": "https://stripe-club.com/brand/earth1999/",
+      "notes": "earth music&ecology official site observed for knit and MD signals.",
+      "md_signals": [
+        {
+          "signal_type": "RANKING",
+          "product_name": "フリルトリムニットカーディガン",
+          "product_url": "https://stripe-club.com/brand/earth1999/item/1001M26G0061",
+          "observed_text": "フリルトリムニットカーディガン",
+          "value": "¥4,950"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "【予約】ナポレオンニットカーディガン",
+          "product_url": "https://stripe-club.com/brand/earth1999/item/1001M26H0065",
+          "observed_text": "【予約】ナポレオンニットカーディガン",
+          "value": ""
+        },
+        {
+          "signal_type": "RANKING",
+          "product_name": "イージータックワイドデニム",
+          "product_url": "https://stripe-club.com/brand/earth1999/item/1001M26F0012",
+          "observed_text": "イージータックワイドデニム",
+          "value": "¥2,990"
+        },
+        {
+          "signal_type": "RANKING",
+          "product_name": "レースデニムシャツ",
+          "product_url": "https://stripe-club.com/brand/earth1999/item/1001M26H0034",
+          "observed_text": "レースデニムシャツ",
+          "value": "¥6,600"
+        },
+        {
+          "signal_type": "RANKING",
+          "product_name": "マルチウェイチェックシャツワンピース",
+          "product_url": "https://stripe-club.com/brand/earth1999/item/1001M26H0042",
+          "observed_text": "マルチウェイチェックシャツワンピース",
+          "value": "¥9,350"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 2
+    },
+    {
+      "brand_id": "BR-00036",
+      "brand_name": "YECCA VECCA",
+      "scan_status": "OK",
+      "official_url": "https://stripe-club.com/brand/yeccavecca/",
+      "notes": "YECCA VECCA official site observed for knitwear and MD signals.",
+      "md_signals": [
+        {
+          "signal_type": "NEW",
+          "product_name": "金釦ラッフル5分袖カーディガン",
+          "product_url": "https://stripe-club.com/brand/yeccavecca/item/1007A26F0010",
+          "observed_text": "金釦ラッフル5分袖カーディガン",
+          "value": ""
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "【2点SET】ラッフルキャミセットニット",
+          "product_url": "https://stripe-club.com/brand/yeccavecca/item/1007A26F0009",
+          "observed_text": "【2点SET】ラッフルキャミセットニット",
+          "value": ""
+        },
+        {
+          "signal_type": "RANKING",
+          "product_name": "【追加生産】コクーンドレープワイドパンツ",
+          "product_url": "https://stripe-club.com/brand/yeccavecca/item/1007A26F0001",
+          "observed_text": "【追加生産】コクーンドレープワイドパンツ",
+          "value": "¥11,990"
+        },
+        {
+          "signal_type": "SALE",
+          "product_name": "袖口シアーポロカットソー",
+          "product_url": "https://stripe-club.com/brand/yeccavecca/item/1007A26F0002",
+          "observed_text": "袖口シアーポロカットソー",
+          "value": "¥6,930"
+        },
+        {
+          "signal_type": "SALE",
+          "product_name": "【接触冷感】カットマーメイドスカート",
+          "product_url": "https://stripe-club.com/brand/yeccavecca/item/1007A26F0003",
+          "observed_text": "【接触冷感】カットマーメイドスカート",
+          "value": "¥4,794"
+        }
+      ],
+      "direct_status": "PRODUCTS_OBSERVED",
+      "direct_item_count_in_prompt": 2
+    },
+    {
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "scan_status": "OK",
+      "official_url": "https://www.doclasse.com/",
+      "notes": "DoCLASSE official site observed for ladies category and campaign signals.",
+      "md_signals": [
+        {
+          "signal_type": "PROMOTION",
+          "product_name": "ダブ★トリ",
+          "product_url": "https://www.doclasse.com/",
+          "observed_text": "最大￥3,000オフの『ダブ★トリ』が奇跡の復活！9/14(月)まで",
+          "value": "最大￥3,000オフ"
+        },
+        {
+          "signal_type": "PROMOTION",
+          "product_name": "創業祭フェア",
+          "product_url": "https://www.doclasse.com/",
+          "observed_text": "創業祭フェア 9/14まで",
+          "value": "9/14まで"
+        },
+        {
+          "signal_type": "CATEGORY",
+          "product_name": "ニット・セーター",
+          "product_url": "https://www.doclasse.com/",
+          "observed_text": "全てのニット・セーター Vネック クルーネック ボートネック アンサンブル",
+          "value": ""
+        },
+        {
+          "signal_type": "CATEGORY",
+          "product_name": "カーディガン",
+          "product_url": "https://www.doclasse.com/",
+          "observed_text": "全てのカーディガン ショート ミディアム ロング パーカー",
+          "value": ""
+        },
+        {
+          "signal_type": "SEASON",
+          "product_name": "軽羽織",
+          "product_url": "https://www.doclasse.com/",
+          "observed_text": "今から秋本番まで長く使える軽羽織",
+          "value": ""
+        }
+      ],
+      "direct_status": "SOURCE_OBSERVED_EXTRACTION_PENDING",
+      "direct_item_count_in_prompt": 0
+    },
+    {
+      "brand_id": "BR-00019",
+      "brand_name": "any SiS",
+      "scan_status": "OK",
+      "official_url": "https://crosset.onward.co.jp/shop/anysis",
+      "notes": "any SiS official site observed for knitwear ranking and campaigns.",
+      "md_signals": [
+        {
+          "signal_type": "RANKING",
+          "product_name": "レースポイント プルオーバー",
+          "product_url": "https://crosset.onward.co.jp/shop/anysis",
+          "observed_text": "レースポイント プルオーバー",
+          "value": "¥5,990"
+        },
+        {
+          "signal_type": "RANKING",
+          "product_name": "フェザースリーブ ニット",
+          "product_url": "https://crosset.onward.co.jp/shop/anysis",
+          "observed_text": "フェザースリーブ ニット",
+          "value": "¥6,990"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "CICA加工 キャンディースリーブ ニット",
+          "product_url": "https://crosset.onward.co.jp/shop/anysis",
+          "observed_text": "予約商品 CICA加工 キャンディースリーブ ニット",
+          "value": "¥6,990"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "CICA加工 ドルマン ニット",
+          "product_url": "https://crosset.onward.co.jp/shop/anysis",
+          "observed_text": "予約商品 CICA加工 ドルマン ニット",
+          "value": "¥5,990"
+        },
+        {
+          "signal_type": "PROMOTION",
+          "product_name": "早得キャンペーン",
+          "product_url": "https://crosset.onward.co.jp/shop/anysis",
+          "observed_text": "予約商品がお得に！早得キャンペーン開催中",
+          "value": ""
+        }
+      ],
+      "direct_status": "SOURCE_OBSERVED_EXTRACTION_PENDING",
+      "direct_item_count_in_prompt": 0
+    },
+    {
+      "brand_id": "BR-00035",
+      "brand_name": "AMERICAN HOLIC",
+      "scan_status": "OK",
+      "official_url": "https://stripe-club.com/brand/american-holic/",
+      "notes": "AMERICAN HOLIC official site observed for collaboration and knit signals.",
+      "md_signals": [
+        {
+          "signal_type": "RANKING",
+          "product_name": "【うさぎのしっぽ】クルーネックニットカーディガン",
+          "product_url": "https://stripe-club.com/brand/american-holic/",
+          "observed_text": "【うさぎのしっぽ】クルーネックニットカーディガン",
+          "value": "¥4,990"
+        },
+        {
+          "signal_type": "RANKING",
+          "product_name": "【WEB限定】バイパチVネックルーズカーディガン",
+          "product_url": "https://stripe-club.com/brand/american-holic/",
+          "observed_text": "【WEB限定】バイパチVネックルーズカーディガン",
+          "value": "¥3,490"
+        },
+        {
+          "signal_type": "RANKING",
+          "product_name": "【WEB限定】イージーケアチェックシャツ",
+          "product_url": "https://stripe-club.com/brand/american-holic/",
+          "observed_text": "【WEB限定】イージーケアチェックシャツ",
+          "value": "¥3,140"
+        },
+        {
+          "signal_type": "RANKING",
+          "product_name": "【うさぎのしっぽ】リボンチャーム付きチェックシャツ",
+          "product_url": "https://stripe-club.com/brand/american-holic/",
+          "observed_text": "【うさぎのしっぽ】リボンチャーム付きチェックシャツ",
+          "value": "¥5,990"
+        },
+        {
+          "signal_type": "RANKING",
+          "product_name": "配色レイヤードスウェット",
+          "product_url": "https://stripe-club.com/brand/american-holic/",
+          "observed_text": "配色レイヤードスウェット",
+          "value": "¥3,990"
+        }
+      ],
+      "direct_status": "SOURCE_OBSERVED_EXTRACTION_PENDING",
+      "direct_item_count_in_prompt": 0
+    },
+    {
+      "brand_id": "BR-00039",
+      "brand_name": "23区",
+      "scan_status": "OK",
+      "official_url": "https://crosset.onward.co.jp/shop/23ku",
+      "notes": "23区 official site observed for switch knit and ranking signals.",
+      "md_signals": [
+        {
+          "signal_type": "RANKING",
+          "product_name": "ヴィスコースストレッチ レースコンビ ドルマン ニット",
+          "product_url": "https://crosset.onward.co.jp/shop/23ku",
+          "observed_text": "ヴィスコースストレッチ レースコンビ ドルマン ニット",
+          "value": "¥17,930"
+        },
+        {
+          "signal_type": "RANKING",
+          "product_name": "【Oggi掲載】ヴィスコースストレッチ ポロニット カーディガン",
+          "product_url": "https://crosset.onward.co.jp/shop/23ku",
+          "observed_text": "【Oggi掲載】ヴィスコースストレッチ ポロニット カーディガン",
+          "value": "¥16,940"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "【先行予約】ラクーンブレンドダブルフェイス ニット アウター",
+          "product_url": "https://crosset.onward.co.jp/shop/23ku",
+          "observed_text": "予約商品 【先行予約】ラクーンブレンドダブルフェイス ニット アウター",
+          "value": "¥31,900"
+        },
+        {
+          "signal_type": "NEW",
+          "product_name": "ウーステッドウール ボウタイ ニット",
+          "product_url": "https://crosset.onward.co.jp/shop/23ku",
+          "observed_text": "ウーステッドウール ボウタイ ニット",
+          "value": "¥16,940"
+        },
+        {
+          "signal_type": "SEASON",
+          "product_name": "スイッチニット",
+          "product_url": "https://crosset.onward.co.jp/shop/23ku",
+          "observed_text": "季節をまたいで愛せる“スイッチニット”",
+          "value": ""
+        }
+      ],
+      "direct_status": "SOURCE_OBSERVED_EXTRACTION_PENDING",
+      "direct_item_count_in_prompt": 0
+    },
+    {
+      "brand_id": "BR-00040",
+      "brand_name": "ICB",
+      "scan_status": "OK",
+      "official_url": "https://crosset.onward.co.jp/shop/icb",
+      "notes": "ICB official site observed for knit preorder and campaign signals.",
+      "md_signals": [
+        {
+          "signal_type": "PREORDER",
+          "product_name": "ヴィスコースワイド Vネックプルオーバー",
+          "product_url": "https://crosset.onward.co.jp/shop/icb",
+          "observed_text": "【8/14-9/23期間限定・受注生産】ヴィスコースワイド Vネックプルオーバー",
+          "value": "¥19,910"
+        },
+        {
+          "signal_type": "PROMOTION",
+          "product_name": "早得キャンペーン",
+          "product_url": "https://crosset.onward.co.jp/shop/icb",
+          "observed_text": "【＋15％ポイントアップ】早得キャンペーン開催中！",
+          "value": ""
+        },
+        {
+          "signal_type": "RANKING",
+          "product_name": "Fied ノーカラージャケット",
+          "product_url": "https://crosset.onward.co.jp/shop/icb",
+          "observed_text": "Fied ノーカラージャケット",
+          "value": "¥34,980"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "WoolRever ロングコート",
+          "product_url": "https://crosset.onward.co.jp/shop/icb",
+          "observed_text": "予約商品 【先行予約】WoolRever ロングコート",
+          "value": "¥69,960"
+        },
+        {
+          "signal_type": "CATEGORY",
+          "product_name": "ニット/セーター",
+          "product_url": "https://crosset.onward.co.jp/shop/icb",
+          "observed_text": "ニット/セーター （162） カーディガン （30）",
+          "value": ""
+        }
+      ],
+      "direct_status": "SOURCE_OBSERVED_EXTRACTION_PENDING",
+      "direct_item_count_in_prompt": 0
+    },
+    {
+      "brand_id": "BR-00041",
+      "brand_name": "自由区",
+      "scan_status": "OK",
+      "official_url": "https://crosset.onward.co.jp/shop/jiyuku?du=2",
+      "notes": "Jiyuku official site observed for category and knitwear counts.",
+      "md_signals": [
+        {
+          "signal_type": "CATEGORY",
+          "product_name": "ニット/セーター",
+          "product_url": "https://crosset.onward.co.jp/shop/jiyuku?du=2",
+          "observed_text": "ニット/セーター （210） カーディガン （56）",
+          "value": ""
+        },
+        {
+          "signal_type": "RECOMMENDED",
+          "product_name": "ドライレーヨンストレッチフロントボタン プルオーバー",
+          "product_url": "https://crosset.onward.co.jp/shop/jiyuku?du=2",
+          "observed_text": "【SHIHOさん着用・前後着用可・羽織りにも】ドライレーヨンストレッチフロントボタン プルオーバー",
+          "value": "¥20,900"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "TRギャバ裏起毛ワイド パンツ",
+          "product_url": "https://crosset.onward.co.jp/shop/jiyuku?du=2",
+          "observed_text": "予約商品 【SHIHOさん着用・新色追加】TRギャバ裏起毛ワイド パンツ",
+          "value": "¥22,000"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "ソフトコーデュロイ スカート",
+          "product_url": "https://crosset.onward.co.jp/shop/jiyuku?du=2",
+          "observed_text": "予約商品 【カタログ掲載・新色追加】ソフトコーデュロイ スカート",
+          "value": "¥19,910"
+        },
+        {
+          "signal_type": "PREORDER",
+          "product_name": "ライトダウンリバーシブルノーカラー ジャケット",
+          "product_url": "https://crosset.onward.co.jp/shop/jiyuku?du=2",
+          "observed_text": "予約商品 【カタログ掲載・昨年大好評・新色追加】ライトダウンリバーシブルノーカラー ジャケット",
+          "value": "¥28,930"
+        }
+      ],
+      "direct_status": "SOURCE_OBSERVED_EXTRACTION_PENDING",
+      "direct_item_count_in_prompt": 0
+    },
+    {
+      "brand_id": "BR-00047",
+      "brand_name": "UNFILO",
+      "scan_status": "OK",
+      "official_url": "https://crosset.onward.co.jp/shop/unfilo",
+      "notes": "UNFILO official site observed for knit and promotion signals.",
+      "md_signals": [
+        {
+          "signal_type": "RANKING",
+          "product_name": "BEAUTY FORM KNIT Vカーディガン",
+          "product_url": "https://crosset.onward.co.jp/shop/unfilo",
+          "observed_text": "BEAUTY FORM KNIT Vカーディガン",
+          "value": "¥8,990"
+        },
+        {
+          "signal_type": "RANKING",
+          "product_name": "【一部店舗限定】BEAUTY FORM KNIT ハーフスリーブ",
+          "product_url": "https://crosset.onward.co.jp/shop/unfilo",
+          "observed_text": "【一部店舗限定】BEAUTY FORM KNIT ハーフスリーブ",
+          "value": "¥6,990"
+        },
+        {
+          "signal_type": "RANKING",
+          "product_name": "マイビューティニット クルーネック",
+          "product_url": "https://crosset.onward.co.jp/shop/unfilo",
+          "observed_text": "マイビューティニット クルーネック",
+          "value": "¥8,990"
+        },
+        {
+          "signal_type": "RANKING",
+          "product_name": "ブライトヤーンニット ハーフスリーブ",
+          "product_url": "https://crosset.onward.co.jp/shop/unfilo",
+          "observed_text": "ブライトヤーンニット ハーフスリーブ",
+          "value": "¥6,990"
+        },
+        {
+          "signal_type": "PROMOTION",
+          "product_name": "26AW COLLECTION",
+          "product_url": "https://crosset.onward.co.jp/shop/unfilo",
+          "observed_text": "26AW COLLECTION 「期間限定15%OFF」",
+          "value": "15%OFF"
+        }
+      ],
+      "direct_status": "SOURCE_OBSERVED_EXTRACTION_PENDING",
+      "direct_item_count_in_prompt": 0
+    },
+    {
+      "brand_id": "BR-00053",
+      "brand_name": "B.C STOCK",
+      "scan_status": "OK",
+      "official_url": "https://baycrews.jp/brand/detail/bcstock",
+      "notes": "B.C STOCK official site observed for category structure.",
+      "md_signals": [
+        {
+          "signal_type": "CATEGORY",
+          "product_name": "ニット／セーター",
+          "product_url": "https://baycrews.jp/brand/detail/bcstock",
+          "observed_text": "ニット／セーター カーディガン アンサンブル ベスト",
+          "value": ""
+        },
+        {
+          "signal_type": "CATEGORY",
+          "product_name": "ブルゾン／アウター",
+          "product_url": "https://baycrews.jp/brand/detail/bcstock",
+          "observed_text": "ブルゾン／アウター デニムジャケット MA-1",
+          "value": ""
+        },
+        {
+          "signal_type": "CATEGORY",
+          "product_name": "ワンピース・ドレス",
+          "product_url": "https://baycrews.jp/brand/detail/bcstock",
+          "observed_text": "ワンピース・ドレス ワンピース シャツワンピース",
+          "value": ""
+        },
+        {
+          "signal_type": "CATEGORY",
+          "product_name": "パンツ",
+          "product_url": "https://baycrews.jp/brand/detail/bcstock",
+          "observed_text": "パンツ デニムパンツ・ジーンズ カーゴパンツ チノパンツ",
+          "value": ""
+        },
+        {
+          "signal_type": "PROMOTION",
+          "product_name": "SUMMER SALE",
+          "product_url": "https://baycrews.jp/brand/detail/bcstock",
+          "observed_text": "SUMMER SALE",
+          "value": ""
+        }
+      ],
+      "direct_status": "SOURCE_OBSERVED_EXTRACTION_PENDING",
+      "direct_item_count_in_prompt": 0
+    },
+    {
+      "brand_id": "BR-00054",
+      "brand_name": "SLOBE IENA",
+      "scan_status": "OK",
+      "official_url": "https://baycrews.jp/brand/detail/slobe",
+      "notes": "SLOBE IENA official site observed for category structure and items.",
+      "md_signals": [
+        {
+          "signal_type": "CATEGORY",
+          "product_name": "予約アイテム",
+          "product_url": "https://baycrews.jp/brand/detail/slobe",
+          "observed_text": "予約アイテム",
+          "value": ""
+        },
+        {
+          "signal_type": "CATEGORY",
+          "product_name": "別注アイテム",
+          "product_url": "https://baycrews.jp/brand/detail/slobe",
+          "observed_text": "別注アイテム",
+          "value": ""
+        },
+        {
+          "signal_type": "CATEGORY",
+          "product_name": "追加・再入荷アイテム",
+          "product_url": "https://baycrews.jp/brand/detail/slobe",
+          "observed_text": "追加・再入荷アイテム",
+          "value": ""
+        },
+        {
+          "signal_type": "CATEGORY",
+          "product_name": "トップス",
+          "product_url": "https://baycrews.jp/brand/detail/slobe",
+          "observed_text": "トップス Tシャツ／カットソー シャツ／ブラウス ニット／セーター カーディガン",
+          "value": ""
+        },
+        {
+          "signal_type": "SEASON",
+          "product_name": "2026AW",
+          "product_url": "https://baycrews.jp/brand/detail/slobe",
+          "observed_text": "2026AW_Levi's 2026AW_WEB限定",
+          "value": ""
+        }
+      ],
+      "direct_status": "SOURCE_OBSERVED_EXTRACTION_PENDING",
+      "direct_item_count_in_prompt": 0
+    },
+    {
+      "brand_id": "BR-00056",
+      "brand_name": "Spick & Span",
+      "scan_status": "OK",
+      "official_url": "https://baycrews.jp/brand/detail/spickandspan",
+      "notes": "Spick & Span official site observed for collaboration and category structure.",
+      "md_signals": [
+        {
+          "signal_type": "PROMOTION",
+          "product_name": "佐藤栞里さんコラボ商品",
+          "product_url": "https://baycrews.jp/brand/detail/spickandspan",
+          "observed_text": "佐藤栞里さんコラボ商品",
+          "value": ""
+        },
+        {
+          "signal_type": "SEASON",
+          "product_name": "気温差に効く軽羽織り",
+          "product_url": "https://baycrews.jp/brand/detail/spickandspan",
+          "observed_text": "気温差に効く軽羽織り",
+          "value": ""
+        },
+        {
+          "signal_type": "PROMOTION",
+          "product_name": "40th anniversary item",
+          "product_url": "https://baycrews.jp/brand/detail/spickandspan",
+          "observed_text": "40th anniversary item",
+          "value": ""
+        },
+        {
+          "signal_type": "CATEGORY",
+          "product_name": "予約アイテム",
+          "product_url": "https://baycrews.jp/brand/detail/spickandspan",
+          "observed_text": "予約アイテム",
+          "value": ""
+        },
+        {
+          "signal_type": "CATEGORY",
+          "product_name": "ニット／セーター",
+          "product_url": "https://baycrews.jp/brand/detail/spickandspan",
+          "observed_text": "ニット／セーター カーディガン アンサンブル",
+          "value": ""
+        }
+      ],
+      "direct_status": "SOURCE_OBSERVED_EXTRACTION_PENDING",
+      "direct_item_count_in_prompt": 0
+    }
+  ],
+  "publication_status": "PUBLISH_HOLD",
+  "human_review_required": true,
+  "sales_quantity_estimation": "FORBIDDEN",
+  "phase_b_rule": "ChatGPT verifies official individual product pages only for candidate/MD-signal brands; unconfirmed brands are not no-change.",
+  "analyzer": "GEMINI_PRIMARY",
+  "analysis_run_id": "34722920676",
+  "analysis_run_attempt": "1",
+  "analysis_input_snapshot": {
+    "observation_date": "2026-09-13",
+    "collector": "CHATGPT_OFFICIAL_DIRECT",
+    "collection_run_id": "34722812359",
+    "collection_run_attempt": "1",
+    "collector_source_sha": "8c7194c07325bb9403b9a619d2e9adadc1282ccd",
+    "canonical_manifest_sha256": "309ce6b2169a126faa81e10a52eeed6717fa45681f251e77c6256927c5830c31",
+    "canonical_unique_product_count": 2460,
+    "observed_product_count_today": 1273,
+    "scan_status": "PARTIAL_COVERAGE",
+    "snapshot_binding_sha256": "ad960ae823e3a1e21c08d77654606be6e2bbd44929de9dd7669f0ecce1939db2"
+  },
+  "pipeline_stage": "MD_ANALYSIS",
+  "pipeline_binding_status": "BOUND_TO_CANONICAL_SNAPSHOT"
+}
