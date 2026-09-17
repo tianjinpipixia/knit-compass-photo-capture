@@ -7,11 +7,11 @@
     "collector": "CHATGPT_OFFICIAL_DIRECT",
     "collection_method": "DIRECT_HTTP_NO_AI_API",
     "observed_date": "2026-09-18",
-    "generated_at_utc": "2026-09-17T22:59:06.029176+00:00",
+    "generated_at_utc": "2026-09-17T22:59:49.981874+00:00",
     "active_brand_count": 64,
     "attempted_brand_count": 64,
     "product_observed_brand_count": 46,
-    "product_count": 1490,
+    "product_count": 1609,
     "complete_brand_count": 0,
     "unresolved_brand_ids": [
       "BR-00001",
@@ -80,7 +80,7 @@
       "BR-00076"
     ],
     "not_attempted_brand_ids": [],
-    "pending_page_count": 14,
+    "pending_page_count": 6,
     "scan_status": "PARTIAL_COVERAGE",
     "ai_api_request_count": 0,
     "billing_enabled_by_this_job": false,
@@ -279,16 +279,23 @@
             "SOURCE_SCOPE_AUDIT_REQUIRED"
           ]
         },
-        "product_count": 60,
-        "last_attempt_at_utc": "2026-09-17T22:58:02.565150+00:00",
+        "product_count": 119,
+        "last_attempt_at_utc": "2026-09-17T22:59:28.729133+00:00",
         "pending_page_urls": [
-          "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2",
-          "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2"
+          "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/"
         ],
         "errors": [
           {
             "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/",
             "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2",
+            "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=3",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
         "unverified_link_candidate_count": 0
@@ -305,16 +312,19 @@
             "SOURCE_SCOPE_AUDIT_REQUIRED"
           ]
         },
-        "product_count": 59,
-        "last_attempt_at_utc": "2026-09-17T22:58:13.273425+00:00",
+        "product_count": 74,
+        "last_attempt_at_utc": "2026-09-17T22:59:27.224812+00:00",
         "pending_page_urls": [
-          "https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2",
-          "https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2"
+          "https://store.world.co.jp/s/brand/index/category/WB/WB02/"
         ],
         "errors": [
           {
             "url": "https://store.world.co.jp/s/brand/index/category/WB/WB02/",
             "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
         "unverified_link_candidate_count": 0
@@ -325,18 +335,27 @@
         "coverage": {
           "status": "INCOMPLETE",
           "reasons": [
-            "PAGES_PENDING",
+            "FETCH_OR_EXTRACTION_FAILED",
             "SOURCE_SCOPE_AUDIT_REQUIRED"
           ]
         },
         "product_count": 59,
-        "last_attempt_at_utc": "2026-09-17T22:58:20.667648+00:00",
-        "pending_page_urls": [
-          "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2",
-          "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2",
-          "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3"
+        "last_attempt_at_utc": "2026-09-17T22:59:36.162990+00:00",
+        "pending_page_urls": [],
+        "errors": [
+          {
+            "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          }
         ],
-        "errors": [],
         "unverified_link_candidate_count": 0
       },
       {
@@ -352,14 +371,18 @@
           ]
         },
         "product_count": 42,
-        "last_attempt_at_utc": "2026-09-17T22:58:23.363419+00:00",
+        "last_attempt_at_utc": "2026-09-17T22:59:31.613012+00:00",
         "pending_page_urls": [
-          "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2"
+          "https://store.world.co.jp/s/brand/grove/category/WB/WB02/"
         ],
         "errors": [
           {
             "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB02/",
             "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
         "unverified_link_candidate_count": 0
@@ -726,9 +749,10 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-09-17T22:58:34.744236+00:00",
+        "last_attempt_at_utc": "2026-09-17T22:59:22.223892+00:00",
         "pending_page_urls": [
-          "https://crosset.onward.co.jp/shop/kumikyoku?du=1"
+          "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30",
+          "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17"
         ],
         "errors": [
           {
@@ -738,6 +762,10 @@
           {
             "url": "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17",
             "reason": "ValueError: Source exceeds size limit"
+          },
+          {
+            "url": "https://crosset.onward.co.jp/shop/kumikyoku?du=1",
+            "reason": "HTTPError: HTTP Error 302: The HTTP server returned a redirect error that would lead to an infinite loop.\nThe last 30x error message was:\nMoved Temporarily"
           }
         ],
         "unverified_link_candidate_count": 0
@@ -770,16 +798,19 @@
         "coverage": {
           "status": "INCOMPLETE",
           "reasons": [
-            "PAGES_PENDING",
+            "FETCH_OR_EXTRACTION_FAILED",
             "SOURCE_SCOPE_AUDIT_REQUIRED"
           ]
         },
         "product_count": 60,
-        "last_attempt_at_utc": "2026-09-17T22:58:28.352846+00:00",
-        "pending_page_urls": [
-          "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2"
+        "last_attempt_at_utc": "2026-09-17T22:59:33.168337+00:00",
+        "pending_page_urls": [],
+        "errors": [
+          {
+            "url": "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          }
         ],
-        "errors": [],
         "unverified_link_candidate_count": 0
       },
       {
@@ -788,17 +819,20 @@
         "coverage": {
           "status": "INCOMPLETE",
           "reasons": [
-            "PAGES_PENDING",
+            "FETCH_OR_EXTRACTION_FAILED",
             "SOURCE_SCOPE_AUDIT_REQUIRED",
             "PRODUCT_SCOPE_REVIEW_REQUIRED"
           ]
         },
         "product_count": 54,
-        "last_attempt_at_utc": "2026-09-17T22:58:31.391485+00:00",
-        "pending_page_urls": [
-          "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2"
+        "last_attempt_at_utc": "2026-09-17T22:59:34.597918+00:00",
+        "pending_page_urls": [],
+        "errors": [
+          {
+            "url": "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          }
         ],
-        "errors": [],
         "unverified_link_candidate_count": 2
       },
       {
@@ -951,11 +985,10 @@
             "SOURCE_SCOPE_AUDIT_REQUIRED"
           ]
         },
-        "product_count": 23,
-        "last_attempt_at_utc": "2026-09-17T22:58:07.704037+00:00",
+        "product_count": 64,
+        "last_attempt_at_utc": "2026-09-17T22:59:25.772841+00:00",
         "pending_page_urls": [
-          "https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd%3ACAN02&fl=bd%2CbdName%2Ccd%2Cname%2Cprice%2Cmkcode%2Cmaterial%2Cicon%2Cmcn2%2Cmcn3&start=100",
-          "https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd%3ACAN02&fl=bd%2CbdName%2Ccd%2Cname%2Cprice%2Cmkcode%2Cmaterial%2Cicon%2Cmcn2%2Cmcn3&start=500"
+          "https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd%3ACAN02&fl=bd%2CbdName%2Ccd%2Cname%2Cprice%2Cmkcode%2Cmaterial%2Cicon%2Cmcn2%2Cmcn3&start=300"
         ],
         "errors": [],
         "unverified_link_candidate_count": 0
@@ -989,15 +1022,12 @@
           "status": "INCOMPLETE",
           "reasons": [
             "FETCH_OR_EXTRACTION_FAILED",
-            "PAGES_PENDING",
             "SOURCE_SCOPE_AUDIT_REQUIRED"
           ]
         },
-        "product_count": 12,
-        "last_attempt_at_utc": "2026-09-17T22:58:12.296914+00:00",
-        "pending_page_urls": [
-          "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2"
-        ],
+        "product_count": 16,
+        "last_attempt_at_utc": "2026-09-17T22:59:23.732438+00:00",
+        "pending_page_urls": [],
         "errors": [
           {
             "url": "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3",
@@ -1239,10 +1269,10 @@
         "unverified_link_candidate_count": 0
       }
     ],
-    "stage": "flash",
-    "artifact_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-09-18/20260917T225759557797Z-flash/scan.json",
+    "stage": "check",
+    "artifact_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-09-18/20260917T225949981251Z-check/scan.json",
     "first_observed_candidate_count": 32,
-    "candidate_delta_count": 254,
+    "candidate_delta_count": 256,
     "baseline_initialization_count": 0
   },
   "candidates": [
@@ -15577,7 +15607,306 @@
       },
       "discovered_at_utc": "2026-09-17T22:59:05.616726+00:00",
       "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "brand_id": "BR-00012",
+      "brand_name": "OPAQUE.CLIP",
+      "product_name": "OPAQUE.CLIP フラワーモチーフメッシュニット【洗濯機OK】",
+      "product_url": "https://store.world.co.jp/brand/opaque-clip/item/BR63726S0314",
+      "product_code": "BR63726S0314",
+      "display_price": "¥2,739",
+      "status_labels": [],
+      "source_url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "first_seen_date": "2026-09-08",
+      "last_seen_date": "2026-09-18",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "material_composition": "RY-65 POLY-35",
+      "function_claims": [
+        "洗濯機OK"
+      ],
+      "confirmed_design": "Mesh",
+      "season_release": "2026SS",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [
+        "2026-07"
+      ],
+      "retrospective_sources": [
+        "data/brand-md-monitoring/retrospective/imports/v04-static-products.json"
+      ],
+      "retrospective_evidence": [
+        {
+          "source_path": "data/brand-md-monitoring/retrospective/imports/v04-static-products.json",
+          "snapshot_date": null,
+          "verification_date": null,
+          "retrospective_months": [
+            "2026-07"
+          ],
+          "period_evidence_date": "2026-07-30",
+          "period_evidence_kind": "",
+          "period_evidence_value": "",
+          "period_evidence_source": "https://store.world.co.jp/brand/opaque-clip/item/BR63726S0314",
+          "source_record_scope": "OWNER_MASTER",
+          "legacy_record": {
+            "brand_id": "BR-00012",
+            "brand_name": "OPAQUE.CLIP",
+            "season": "2026SS",
+            "product_name": "フラワーモチーフメッシュニット【洗濯機OK】",
+            "product_code": "BR63726S0314",
+            "category": "Knit_Top",
+            "price": "JPY 5479;SALE JPY 3834",
+            "composition": "RY-65 POLY-35",
+            "function": "洗濯機OK",
+            "knit_structure": "Mesh",
+            "launch_status": "SALE;LISTED",
+            "product_url": "https://store.world.co.jp/brand/opaque-clip/item/BR63726S0314",
+            "source": "公式商品ページ | 原産国：中国",
+            "source_date": "2026-07-30",
+            "evidence_level": "A",
+            "data_quality_status": "OFFICIAL_PAGE_CONFIRMED",
+            "source_dataset": "official_product_review_2026-07-30.csv",
+            "record_scope": "OWNER_MASTER"
+          },
+          "source_provenance": [
+            {
+              "repository": "tianjinpipixia/knit-compass-v04-current",
+              "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+              "path": "public/brand_product_staging_trial_350_500_v1.csv",
+              "source_sha256": "a8e71577cf5c16aeab6b1428e8a21b2719cc1277a57dda04602b87902accf91f"
+            }
+          ]
+        },
+        {
+          "source_path": "data/brand-md-monitoring/retrospective/imports/v04-static-products.json",
+          "snapshot_date": "2026-07-30",
+          "verification_date": "2026-07-30",
+          "retrospective_months": [
+            "2026-07"
+          ],
+          "period_evidence_date": "2026-07-30",
+          "period_evidence_kind": "",
+          "period_evidence_value": "",
+          "period_evidence_source": "https://store.world.co.jp/brand/opaque-clip/item/BR63726S0314",
+          "source_record_scope": "OWNER_MASTER",
+          "legacy_record": {
+            "product_id": "OFFICIAL-BR63726S0314",
+            "brand_id": "BR-00012",
+            "brand_name": "OPAQUE.CLIP",
+            "season": "2026SS",
+            "product_name": "フラワーモチーフメッシュニット【洗濯機OK】",
+            "product_code": "BR63726S0314",
+            "category": "Knit_Top",
+            "price": "JPY 5479;SALE JPY 3834",
+            "composition": "RY-65 POLY-35",
+            "function": "洗濯機OK",
+            "knit_structure": "Mesh",
+            "launch_status": "SALE;LISTED",
+            "product_url": "https://store.world.co.jp/brand/opaque-clip/item/BR63726S0314",
+            "source": "公式商品ページ | 原産国：中国",
+            "source_date": "2026-07-30",
+            "evidence_level": "A",
+            "data_quality_status": "OFFICIAL_PAGE_CONFIRMED",
+            "source_dataset": "official_product_review_2026-07-30.csv",
+            "record_scope": "OWNER_MASTER",
+            "source_type": "CONNECTED_OWNER_PRODUCT_MASTER",
+            "last_verified_date": "2026-07-30"
+          },
+          "source_provenance": [
+            {
+              "repository": "tianjinpipixia/knit-compass-v04-current",
+              "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+              "path": "public/connected_brand_product_data_v1.js",
+              "source_sha256": "f37142e8ea47c221fd0c3fe939e2f99bca37c6294a99d938bf7de134b9b855d9"
+            }
+          ]
+        }
+      ],
+      "retrospective_only": true,
+      "source_provenance": [
+        {
+          "repository": "tianjinpipixia/knit-compass-v04-current",
+          "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+          "path": "public/brand_product_staging_trial_350_500_v1.csv",
+          "source_sha256": "a8e71577cf5c16aeab6b1428e8a21b2719cc1277a57dda04602b87902accf91f"
+        },
+        {
+          "repository": "tianjinpipixia/knit-compass-v04-current",
+          "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+          "path": "public/connected_brand_product_data_v1.js",
+          "source_sha256": "f37142e8ea47c221fd0c3fe939e2f99bca37c6294a99d938bf7de134b9b855d9"
+        }
+      ],
+      "source_url_aliases": [
+        "https://store.world.co.jp/brand/opaque-clip/item/BR63726S0314"
+      ],
+      "observed_date": "2026-09-18",
+      "source_sha256": "bfdf9eecf15ae09040378b3841d49238c66eddc64a74bc95036bc522ef817f9b",
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥2,739",
+        "status_labels": [
+          "SALE",
+          "LISTED"
+        ],
+        "product_name": "OPAQUE.CLIP フラワーモチーフメッシュニット【洗濯機OK】"
+      },
+      "discovered_at_utc": "2026-09-17T22:59:28.824350+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "brand_id": "BR-00012",
+      "brand_name": "OPAQUE.CLIP",
+      "product_name": "OPAQUE.CLIP ラメフレンチスリーブニット【洗濯機OK／抗ピル】",
+      "product_url": "https://store.world.co.jp/brand/opaque-clip/item/BR63726S0305",
+      "product_code": "BR63726S0305",
+      "display_price": "¥1,989",
+      "status_labels": [],
+      "source_url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "first_seen_date": "2026-09-08",
+      "last_seen_date": "2026-09-18",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "material_composition": "RY-70 POLY-21 NY-9",
+      "function_claims": [
+        "洗濯機OK",
+        "抗ピル"
+      ],
+      "confirmed_design": "Jersey",
+      "season_release": "2026SS",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [
+        "2026-07"
+      ],
+      "retrospective_sources": [
+        "data/brand-md-monitoring/retrospective/imports/v04-static-products.json"
+      ],
+      "retrospective_evidence": [
+        {
+          "source_path": "data/brand-md-monitoring/retrospective/imports/v04-static-products.json",
+          "snapshot_date": null,
+          "verification_date": null,
+          "retrospective_months": [
+            "2026-07"
+          ],
+          "period_evidence_date": "2026-07-30",
+          "period_evidence_kind": "",
+          "period_evidence_value": "",
+          "period_evidence_source": "https://store.world.co.jp/brand/opaque-clip/item/BR63726S0305",
+          "source_record_scope": "OWNER_MASTER",
+          "legacy_record": {
+            "brand_id": "BR-00012",
+            "brand_name": "OPAQUE.CLIP",
+            "season": "2026SS",
+            "product_name": "ラメフレンチスリーブニット【洗濯機OK・抗ピル】",
+            "product_code": "BR63726S0305",
+            "category": "Knit_Top",
+            "price": "JPY 3979;SALE JPY 2480",
+            "composition": "RY-70 POLY-21 NY-9",
+            "function": "洗濯機OK;抗ピル",
+            "knit_structure": "Jersey",
+            "launch_status": "SALE;LISTED",
+            "product_url": "https://store.world.co.jp/brand/opaque-clip/item/BR63726S0305",
+            "source": "公式商品ページ | 原産国：中国",
+            "source_date": "2026-07-30",
+            "evidence_level": "A",
+            "data_quality_status": "OFFICIAL_PAGE_CONFIRMED",
+            "source_dataset": "official_product_review_2026-07-30.csv",
+            "record_scope": "OWNER_MASTER"
+          },
+          "source_provenance": [
+            {
+              "repository": "tianjinpipixia/knit-compass-v04-current",
+              "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+              "path": "public/brand_product_staging_trial_350_500_v1.csv",
+              "source_sha256": "a8e71577cf5c16aeab6b1428e8a21b2719cc1277a57dda04602b87902accf91f"
+            }
+          ]
+        },
+        {
+          "source_path": "data/brand-md-monitoring/retrospective/imports/v04-static-products.json",
+          "snapshot_date": "2026-07-30",
+          "verification_date": "2026-07-30",
+          "retrospective_months": [
+            "2026-07"
+          ],
+          "period_evidence_date": "2026-07-30",
+          "period_evidence_kind": "",
+          "period_evidence_value": "",
+          "period_evidence_source": "https://store.world.co.jp/brand/opaque-clip/item/BR63726S0305",
+          "source_record_scope": "OWNER_MASTER",
+          "legacy_record": {
+            "product_id": "OFFICIAL-BR63726S0305",
+            "brand_id": "BR-00012",
+            "brand_name": "OPAQUE.CLIP",
+            "season": "2026SS",
+            "product_name": "ラメフレンチスリーブニット【洗濯機OK・抗ピル】",
+            "product_code": "BR63726S0305",
+            "category": "Knit_Top",
+            "price": "JPY 3979;SALE JPY 2480",
+            "composition": "RY-70 POLY-21 NY-9",
+            "function": "洗濯機OK;抗ピル",
+            "knit_structure": "Jersey",
+            "launch_status": "SALE;LISTED",
+            "product_url": "https://store.world.co.jp/brand/opaque-clip/item/BR63726S0305",
+            "source": "公式商品ページ | 原産国：中国",
+            "source_date": "2026-07-30",
+            "evidence_level": "A",
+            "data_quality_status": "OFFICIAL_PAGE_CONFIRMED",
+            "source_dataset": "official_product_review_2026-07-30.csv",
+            "record_scope": "OWNER_MASTER",
+            "source_type": "CONNECTED_OWNER_PRODUCT_MASTER",
+            "last_verified_date": "2026-07-30"
+          },
+          "source_provenance": [
+            {
+              "repository": "tianjinpipixia/knit-compass-v04-current",
+              "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+              "path": "public/connected_brand_product_data_v1.js",
+              "source_sha256": "f37142e8ea47c221fd0c3fe939e2f99bca37c6294a99d938bf7de134b9b855d9"
+            }
+          ]
+        }
+      ],
+      "retrospective_only": true,
+      "source_provenance": [
+        {
+          "repository": "tianjinpipixia/knit-compass-v04-current",
+          "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+          "path": "public/brand_product_staging_trial_350_500_v1.csv",
+          "source_sha256": "a8e71577cf5c16aeab6b1428e8a21b2719cc1277a57dda04602b87902accf91f"
+        },
+        {
+          "repository": "tianjinpipixia/knit-compass-v04-current",
+          "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+          "path": "public/connected_brand_product_data_v1.js",
+          "source_sha256": "f37142e8ea47c221fd0c3fe939e2f99bca37c6294a99d938bf7de134b9b855d9"
+        }
+      ],
+      "source_url_aliases": [
+        "https://store.world.co.jp/brand/opaque-clip/item/BR63726S0305"
+      ],
+      "observed_date": "2026-09-18",
+      "source_sha256": "bfdf9eecf15ae09040378b3841d49238c66eddc64a74bc95036bc522ef817f9b",
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥1,989",
+        "status_labels": [
+          "SALE",
+          "LISTED"
+        ],
+        "product_name": "OPAQUE.CLIP ラメフレンチスリーブニット【洗濯機OK／抗ピル】"
+      },
+      "discovered_at_utc": "2026-09-17T22:59:28.824494+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
     }
   ],
-  "deep_dive_pending_count": 129
+  "deep_dive_pending_count": 125
 }
