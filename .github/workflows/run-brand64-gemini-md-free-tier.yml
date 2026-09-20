@@ -2,7 +2,7 @@ name: Run Brand64 Gemini MD analysis
 
 on:
   workflow_run:
-    workflows: ["Run Brand64 free official-site scan"]
+    workflows: ["Run Brand64 official direct collection"]
     types: [completed]
   workflow_dispatch:
   push:
