@@ -140,16 +140,25 @@ def try_artifacts(tmp: Path) -> bool:
     repo = os.environ.get("GITHUB_REPOSITORY", "")
     if not repo or not shutil.which("gh"):
         return False
-    runs = run(
-        "gh", "api", "--method", "GET",
-        f"repos/{repo}/actions/workflows/run-brand64-gemini-primary-scan.yml/runs",
-        "-f", "status=completed", "-f", "branch=main", "-f", "per_page=30",
-        "--jq", ".workflow_runs[].id",
-        check=False,
-    )
-    if runs.returncode != 0:
+    run_ids = []
+    # Keep the legacy workflow ID during the artifact retention window so a
+    # filename clarification never makes a still-valid recovery snapshot invisible.
+    for workflow in (
+        "run-brand64-official-direct-scan.yml",
+        "run-brand64-gemini-primary-scan.yml",
+    ):
+        runs = run(
+            "gh", "api", "--method", "GET",
+            f"repos/{repo}/actions/workflows/{workflow}/runs",
+            "-f", "status=completed", "-f", "branch=main", "-f", "per_page=30",
+            "--jq", ".workflow_runs[].id",
+            check=False,
+        )
+        if runs.returncode == 0:
+            run_ids.extend(line.strip() for line in runs.stdout.splitlines() if line.strip())
+    if not run_ids:
         return False
-    for run_id in [line.strip() for line in runs.stdout.splitlines() if line.strip()]:
+    for run_id in dict.fromkeys(run_ids):
         artifacts = run(
             "gh", "api", f"repos/{repo}/actions/runs/{run_id}/artifacts",
             "--jq", '[.artifacts[] | select(.expired == false) | select(.name | startswith("brand64-free-direct-"))] | sort_by(.created_at, .id) | reverse | .[].name',

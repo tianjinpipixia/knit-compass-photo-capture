@@ -1,4 +1,4 @@
-# Brand64 Gemini Primary Scan Setup
+# Brand64 Official Collection and Gemini MD Analysis Setup
 
 ## Purpose
 
@@ -12,7 +12,7 @@ The Brand64 universe remains **64 active brands**. Gemini daily completion requi
 ## Files
 
 Direct collection:
-- `.github/workflows/run-brand64-gemini-primary-scan.yml` (historical filename; now the free direct collector)
+- `.github/workflows/run-brand64-official-direct-scan.yml`
 - `scripts/run_brand64_free_direct_scan.py`
 - `scripts/brand64_flash_pipeline.py`
 - `config/brand64-free-direct-sources.json`
@@ -30,7 +30,7 @@ Gemini free-tier MD pass:
 - `GEMINI_API_KEY` — Gemini API key created in Google AI Studio.
 
 Optional repository variable:
-- `GEMINI_MD_MODEL` — defaults to stable `gemini-2.5-flash-lite`.
+- `GEMINI_MD_MODEL` — defaults to stable `gemini-3.5-flash-lite`.
 
 Do not commit API keys to source control.
 
@@ -38,7 +38,7 @@ Do not commit API keys to source control.
 
 The previous implementation could keep sending requests after HTTP 429 and also used Google Search grounding. The new Gemini pass is deliberately conservative:
 
-- stable model default: `gemini-2.5-flash-lite`;
+- stable model default: `gemini-3.5-flash-lite`;
 - **Google Search grounding disabled**;
 - **URL Context only** using known official URLs;
 - 13 brands per request (below the URL Context 20-URL request limit);
@@ -73,3 +73,7 @@ Gemini output remains `PUBLISH_HOLD` / `HUMAN_REVIEW_REQUIRED`. Product codes, d
 - Fewer than 39 confirmed brands: `GEMINI_SCAN_INCOMPLETE`.
 - Repeated HTTP 429: artifact is preserved, then the run aborts without additional Gemini requests.
 - Historical dates without actual Gemini artifacts remain unresolved; current live results are never relabeled as historical no-change observations.
+
+## Current execution evidence
+
+The 2026-09-20 Gemini MD run completed successfully with `analyzer=GEMINI_PRIMARY`: 52 brands attempted, 51 confirmed, and 211 MD signals. It was bound to the same-day `CHATGPT_OFFICIAL_DIRECT` canonical collection snapshot. This analysis is not counted as official collection. Historical `GEMINI_SCAN_MISSING` records for 2026-09-01 through 2026-09-05 remain unchanged as audit history.

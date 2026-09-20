@@ -1,4 +1,4 @@
-name: Run Brand64 free official-site scan
+name: Run Brand64 official direct collection
 
 on:
   schedule:
@@ -27,7 +27,7 @@ on:
       - data/brand-md-monitoring/2026-08-*-initial-baseline.jsonl
       - config/brand64-free-direct-sources.json
       - config/brand64-active-brands.json
-      - .github/workflows/run-brand64-gemini-primary-scan.yml
+      - .github/workflows/run-brand64-official-direct-scan.yml
 
 permissions:
   contents: write
