@@ -142,7 +142,7 @@ def try_artifacts(tmp: Path) -> bool:
         return False
     runs = run(
         "gh", "api", "--method", "GET",
-        f"repos/{repo}/actions/workflows/run-brand64-gemini-primary-scan.yml/runs",
+        f"repos/{repo}/actions/workflows/run-brand64-official-direct-scan.yml/runs",
         "-f", "status=completed", "-f", "branch=main", "-f", "per_page=30",
         "--jq", ".workflow_runs[].id",
         check=False,
