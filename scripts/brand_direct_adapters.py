@@ -9,7 +9,7 @@ from urllib.parse import urlsplit, urljoin, urlunsplit, parse_qs
 import unicodedata
 
 KNIT = re.compile(r'ニット|セーター|カーディガン|編み|knit|cardigan|sweater', re.I)
-OTHER = re.compile(r'キッズ|メンズ|\bKIDS\b|\bMEN\b|ニット帽|キャップ|ストール|バッグ|スカート|ワンピース|パンツ', re.I)
+OTHER = re.compile(r'キッズ|メンズ|ユニセックス|\bKIDS\b|\bMEN\b|\bUNISEX\b|ニット帽|ビーニー|ワッチ|シュシュ|キャップ|ストール|バッグ|スカート|ワンピース|パンツ', re.I)
 
 def text(n): return re.sub(r'\s+', ' ', n.text()).strip() if n else ''
 def norm(t): return re.sub(r'[^\w]', '', unicodedata.normalize('NFKD',t).casefold())
@@ -29,6 +29,11 @@ def record(name,url,amount,status,source,code='',evidence='OFFICIAL_LISTING_CARD
             'display_price':amount,'status_labels':status,'source_url':source,
             'evidence_level':evidence,'scope_status':'BRAND_AND_KNIT_PATH_MATCHED'}
 def knit(name):return bool(KNIT.search(name)) and not OTHER.search(name)
+def excluded_by_meta_scope(name,meta):
+    if not meta.get('normal_line_only'):return False
+    folded=unicodedata.normalize('NFKC',name).casefold()
+    return any(unicodedata.normalize('NFKC',marker).casefold() in folded
+               for marker in meta.get('excluded_name_markers',[]))
 def parent_with(n, predicate, max_depth=5):
     for _ in range(max_depth):
         if predicate(n):return n
@@ -103,7 +108,7 @@ def extract(doc,source,meta):
             if n.tag!='a' or not re.search(r'^/'+re.escape(meta['slug'])+r'/disp/item/\d+/',n.attrs.get('href','')):continue
             if parse_qs(urlsplit(source).query).get('dispNo')!=['001001']:continue
             name=text(cls(n,'item-name'))
-            if not knit(name):continue
+            if not knit(name) or excluded_by_meta_scope(name,meta):continue
             url=urljoin(source,n.attrs['href']);amount=price(text(cls(n,'item-price')));status=labels(cls(n,'item-icon'))
         elif adapter=='shopify':
             if not n.has_class('product-item-meta'):continue
