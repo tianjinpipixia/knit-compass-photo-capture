@@ -135,4 +135,22 @@ class FamilyAdapters(unittest.TestCase):
         body=json.dumps({'response':{'docs':[{'bd':'CAN02','bdName':'Te chichi','cd':'A1CAN123','name':'ニット','price':4990,'salesAD':12345},{'bd':'OTHER','bdName':'Other','cd':'X','name':'ニット','price':9}]}})
         items=scan.adapters.extract_json(body,'https://www.canshop.jp/ise/select',{'adapter':'canshop','brand_name':'Te chichi'})
         self.assertEqual(len(items),1);self.assertNotIn('salesAD',items[0])
+    def test_global_work_regular_line_excludes_collabs_accessories_and_unisex(self):
+        source='https://www.dot-st.com/globalwork/disp/itemlist/?mode=&sort=01&groupNm=0&p=1&refineFlg=true&dispNo=001001&dispNoRadio=001001&goodsType=1'
+        def item(code,name):
+            return f'<a href="/globalwork/disp/item/{code}/"><p class="item-name">{name}</p><p class="item-price">¥4,990</p></a>'
+        html=''.join([
+            item('1','透かし編みVネックカーディガン'),
+            item('2','高山直子さんコラボ/Hugmeケーブルニット'),
+            item('3','NEW ERA/ニットワッチ'),
+            item('4','【BEVERLY HILLS POLO CLUB】クルーニット'),
+            item('5','【Harry Potter(ハリー・ポッター)】ニットベスト'),
+            item('6','ユルリブニットビーニー'),
+            item('7','モールニット《ユニセックス》'),
+        ])
+        meta={'adapter':'dot','slug':'globalwork','brand_name':'GLOBAL WORK',
+              'normal_line_only':True,
+              'excluded_name_markers':['コラボ','NEW ERA/','【BEVERLY HILLS POLO CLUB】','【Harry Potter']}
+        items=scan.adapters.extract(scan.Document(html),source,meta)
+        self.assertEqual([x['product_code'] for x in items],['1'])
 if __name__=='__main__':unittest.main()
