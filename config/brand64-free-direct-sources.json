@@ -386,7 +386,9 @@
       "entry_urls": [
         "https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd:CAN02&fl=bd,bdName,cd,name,price,mkcode,material,icon,mcn2,mcn3"
       ],
-      "adapter": "canshop"
+      "adapter": "canshop",
+      "max_pages_per_stage": 16,
+      "pagination_note": "2026-09-26: official JSON reports total rows; follow start offsets until numFound is exhausted within the bounded 16-page cap."
     },
     "BR-00059": {
       "brand_name": "ANY",
