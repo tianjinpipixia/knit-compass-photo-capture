@@ -18,7 +18,11 @@ BRANCH = 'brand64/flash-feed'
 PREFIX = 'data/brand-md-monitoring/direct-scans/'
 OBSERVED_DIR = 'observed-products'
 CUMULATIVE_DIR = 'cumulative-products'
-COUNTED_SCOPE_STATUS = 'BRAND_AND_KNIT_PATH_MATCHED'
+OBSERVED_COUNTED_SCOPE_STATUS = 'BRAND_AND_KNIT_PATH_MATCHED'
+CUMULATIVE_COUNTED_SCOPE_STATUSES = {
+    OBSERVED_COUNTED_SCOPE_STATUS,
+    'OFFICIAL_REGULAR_LINE_WOMENS_KNIT_CONFIRMED',
+}
 
 
 def git(*args, env=None, input=None, check=True):
@@ -88,7 +92,7 @@ def build_observed_product_shards(root):
         state = coverage[brand_id]
         if state.get('observed_date') != observed_date:
             continue
-        items = [item for item in (state.get('surface_items') or []) if item.get('scope_status') == COUNTED_SCOPE_STATUS]
+        items = [item for item in (state.get('surface_items') or []) if item.get('scope_status') == OBSERVED_COUNTED_SCOPE_STATUS]
         if not items:
             continue
         brand_name = state.get('brand_name') or brand_id
@@ -147,7 +151,7 @@ def build_cumulative_product_shards(root, active=None):
             continue
         brand_id = record.get('brand_id') or ''
         product_url = record.get('product_url') or ''
-        if not brand_id or not product_url or record.get('scope_status') != COUNTED_SCOPE_STATUS:
+        if not brand_id or not product_url or record.get('scope_status') not in CUMULATIVE_COUNTED_SCOPE_STATUSES:
             continue
         grouped.setdefault(brand_id, {})[product_url] = record
     manifest_brands = []
