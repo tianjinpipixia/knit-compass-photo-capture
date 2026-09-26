@@ -24,7 +24,7 @@ from urllib.parse import urljoin, urlsplit, urlunsplit, parse_qsl, urlencode
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 OUT = ROOT / 'data/brand-md-monitoring/direct-scans'
 UA = 'KnitCompassOfficialMonitor/1.0'
-OFFICIAL_HOSTS = {urlsplit(u).hostname for meta in json.loads((ROOT/'config/brand64-free-direct-sources.json').read_text())['brands'].values() for u in meta.get('entry_urls',[]) + meta.get('watch_product_urls',[])}
+OFFICIAL_HOSTS = {host for meta in json.loads((ROOT/'config/brand64-free-direct-sources.json').read_text())['brands'].values() for host in ([urlsplit(u).hostname for u in meta.get('entry_urls',[]) + meta.get('watch_product_urls',[])] + meta.get('official_redirect_hosts',[]))}
 MAX_BYTES = 4_000_000
 VOID = {'area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr'}
 
