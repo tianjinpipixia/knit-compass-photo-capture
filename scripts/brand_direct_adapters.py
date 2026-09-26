@@ -147,6 +147,31 @@ def extract(doc,source,meta):
             card=parent_with(n,lambda p:p.tag=='li',4)
             amount=price(text(card) if card else name);status=labels(card) if card else []
             name=name.split('¥')[0].strip()
+        elif adapter=='unitedarrows':
+            params=parse_qs(urlsplit(source).query)
+            if params.get('lm')!=['10W1'] or params.get('ca') not in (['0105'],['0108']):continue
+            if n.tag!='a' or not re.search(r'^/brand/glr/item/[A-Za-z0-9]+',n.attrs.get('href','')):continue
+            s=text(n)
+            if not matches('green label relaxing',meta) or not knit(s) or not price(s):continue
+            url=urljoin(source,n.attrs['href']);name=s.split('¥')[0].strip();amount=price(s);status=labels(n)
+        elif adapter=='onward':
+            if parse_qs(urlsplit(source).query).get('du')!=['2']:continue
+            if n.tag!='a' or not re.search(r'^/items/[A-Za-z0-9]+',n.attrs.get('href','')):continue
+            s=text(n)
+            if not s.startswith(meta['brand_name']+' ') or not knit(s) or not price(s):continue
+            url=urljoin(source,n.attrs['href']);name=s.split('¥')[0].replace(meta['brand_name'],'',1).strip();amount=price(s);status=labels(n)
+        elif adapter=='baycrews':
+            params=parse_qs(urlsplit(source).query)
+            if params.get('q_mtype')!=['1'] or params.get('q_mshop')!=[meta.get('shop_code')]:continue
+            if n.tag!='a' or not re.search(r'^/item/detail/'+re.escape(meta['slug'])+r'/[^/]+/[0-9]+',n.attrs.get('href','')):continue
+            card=parent_with(n,lambda p:bool(price(text(p))) and norm(meta['brand_name']) in norm(text(p)),6)
+            if not card:continue
+            s=text(card)
+            if not price(s):continue
+            url=urljoin(source,n.attrs['href']);prefix=s.split('¥')[0]
+            name=re.sub(r'^.*?'+re.escape(meta['brand_name']),'',prefix).strip()
+            if not name:continue
+            amount=price(s);status=labels(card)
         elif adapter=='urbanresearch':
             if not n.has_class('block-thumbnail-t--goods'):continue
             brand=text(cls(n,'block-thumbnail-t--goods-label'))
