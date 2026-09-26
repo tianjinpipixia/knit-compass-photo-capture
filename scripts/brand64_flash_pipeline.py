@@ -240,6 +240,12 @@ class Pipeline:
         self.checkpoint()
 
 
+def page_budget(meta, default):
+    """Allow audited JSON catalog sources to finish pagination in one stage."""
+    configured = int(meta.get('max_pages_per_stage', default))
+    return min(16, max(default, configured))
+
+
 def interleave_hosts(selected, sources):
     # Do not let four workers wait behind the same host's rate-limit lock.
     groups = {}
@@ -285,7 +291,7 @@ def run(argv=None):
             old = pipe.rows.get(bid, {})
             urls = list(dict.fromkeys(meta.get('entry_urls', [])+recovery_urls(old))) if args.stage == 'flash' else retryable_urls(old)
             try:
-                return scan.scan_brand(bid, meta, fetch, page_urls=urls, max_pages=args.max_pages)
+                return scan.scan_brand(bid, meta, fetch, page_urls=urls, max_pages=page_budget(meta, args.max_pages))
             except Exception as exc:
                 # Preserve this brand as failed without losing other brands' results.
                 return {'brand_id': bid, 'brand_name': active[bid], 'scan_status': 'UNRESOLVED',
