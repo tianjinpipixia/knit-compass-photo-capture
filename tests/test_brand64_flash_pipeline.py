@@ -36,6 +36,23 @@ class FlashPipelineTests(unittest.TestCase):
         # No assumption that the absence of a next link proves all new/preorder surfaces.
         self.assertEqual(pipeline.coverage(state, META, DATE)['status'], 'INCOMPLETE')
 
+    def test_source_page_budget_can_exhaust_techichi_catalog(self):
+        url = 'https://www.canshop.jp/ise/select?rows=100&fq=bd%3ACAN02'
+        meta = {'adapter': 'canshop', 'brand_name': 'Te chichi',
+                'entry_urls': [url], 'max_pages_per_stage': 16}
+        def json_fetch(source):
+            start = int(dict(scan.parse_qsl(scan.urlsplit(source).query)).get('start', 0))
+            docs = [{'bd': 'CAN02', 'bdName': 'Te chichi', 'cd': 'X'+str(start+i),
+                     'name': 'ニット', 'price': 4990} for i in range(min(100, 650-start))]
+            return json.dumps({'response': {'numFound': 650, 'start': start, 'docs': docs}}), {
+                'url': source, 'sha256': 'fixture'}
+        row = scan.scan_brand('B', meta, json_fetch,
+                              max_pages=pipeline.page_budget(meta, 2))
+        self.assertEqual(len(row['attempted_page_urls']), 7)
+        self.assertEqual(len(row['surface_items']), 650)
+        self.assertEqual(row['pending_page_urls'], [])
+        self.assertEqual(pipeline.page_budget({'max_pages_per_stage': 99}, 2), 16)
+
     def test_resume_survives_new_process_and_new_day(self):
         first = pipeline.merge_row(None, scan.scan_brand('B', META, fetch), DATE)
         old_date = (scan.dt.date.fromisoformat(DATE)-scan.dt.timedelta(days=1)).isoformat()
