@@ -1,39 +1,33 @@
 {
   "format": "KC_BRAND64_WEEKLY_MD_LATEST_POINTER",
-  "schema_version": "1.1",
-  "period_start": "2026-08-31",
-  "period_end": "2026-09-06",
+  "schema_version": "1.2",
+  "period_start": "2026-09-22",
+  "period_end": "2026-09-28",
   "active_brand_source": "config/brand64-active-brands.json",
   "active_brand_count": 64,
-  "weekly_report_path": "data/brand-md-monitoring/weekly/2026-08-31_2026-09-06-brand64-weekly-md.md",
-  "daily_source_paths": [
-    "data/brand-md-monitoring/2026-08-31-brand64-daily.json"
-  ],
+  "weekly_report_path": "data/brand-md-monitoring/weekly/2026-09-22_2026-09-28-brand64-weekly-md.md",
+  "direct_scan_ref": "refs/heads/brand64/flash-feed",
+  "direct_scan_latest_path": "data/brand-md-monitoring/direct-scans/latest.json",
   "known_missing_primary_observation_dates": [
-    "2026-09-01",
-    "2026-09-02",
-    "2026-09-03",
-    "2026-09-04",
-    "2026-09-05"
+    "2026-09-22",
+    "2026-09-23",
+    "2026-09-24",
+    "2026-09-27"
   ],
-  "manual_supplement_date": "2026-09-06",
-  "manual_supplement_scope": [
-    "PAL10",
-    "ZARA",
-    "SNIDEL",
-    "PLST",
-    "FRAY I.D",
-    "H&M",
-    "COS",
-    "MANGO",
-    "NOLLEY'S",
-    "BEAUTY&YOUTH"
+  "partial_observation_dates": [
+    "2026-09-25",
+    "2026-09-26",
+    "2026-09-28"
   ],
   "primary_coverage_status": "PARTIAL_PRIMARY_COVERAGE",
-  "manual_supplement_is_primary_scan_substitute": false,
+  "latest_attempted_brand_count": 64,
+  "latest_product_observed_brand_count": 40,
+  "latest_observed_product_count": 1201,
   "external_signal_source": "config/md-external-signal-brands.json",
   "inactive_legacy_policy": "EXCLUDE_FROM_ACTIVE_AGGREGATION_KEEP_HISTORY_ONLY",
   "sales_quantity_policy": "NO_ESTIMATION",
   "publication_status": "PUBLISH_HOLD",
-  "human_review_required": true
+  "human_review_required": true,
+  "monthly_draft_generated": false,
+  "monthly_draft_reason": "NOT_FIRST_WEEKLY_RUN_OF_MONTH"
 }
