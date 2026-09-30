@@ -100,8 +100,9 @@ def active_brands(config: Dict[str, Any]) -> List[Dict[str, Any]]:
         }
         for brand_id, name in active.items()
     ]
-    if len(rows) != 64:
-        raise ValueError(f"Expected 64 active brands, found {len(rows)}")
+    expected_count = config.get("active_brand_count")
+    if not isinstance(expected_count, int) or len(rows) != expected_count:
+        raise ValueError(f"Expected {expected_count} active brands, found {len(rows)}")
     return rows
 
 
