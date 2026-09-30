@@ -191,8 +191,8 @@ class FlashPipelineTests(unittest.TestCase):
                 with patch('builtins.print'):
                     self.assertEqual(pipeline.run(args+['--stage', 'check']), 1)
                 summary = json.loads((pathlib.Path(tmp)/'latest.json').read_text())
-                self.assertEqual(len(summary['brands']), 64)
-                self.assertEqual(len(summary['not_attempted_brand_ids']), 63)
+                self.assertEqual(len(summary['brands']), 65)
+                self.assertEqual(len(summary['not_attempted_brand_ids']), 64)
 
     def test_missing_baseline_initializes_without_false_new_product_candidates(self):
         with tempfile.TemporaryDirectory() as tmp:
