@@ -1,10 +1,10 @@
 {
   "format": "KC_BRAND64_ACTIVE_SET",
-  "schema_version": "1.2",
-  "updated_at": "2026-08-19T08:32:00+09:00",
-  "decision_source": "GitHub Issues #73 and #75 / owner decisions 2026-08-19",
-  "effective_from": "2026-08-19",
-  "active_brand_count": 64,
+  "schema_version": "1.3",
+  "updated_at": "2026-10-01T08:45:00+09:00",
+  "decision_source": "V04 scope KC40-20260930 / owner-approved scope effective 2026-09-30; Brand64 history preserved",
+  "effective_from": "2026-09-30",
+  "active_brand_count": 65,
   "active_brands": {
     "BR-00001": "UNIQLO",
     "BR-00002": "GU",
@@ -69,7 +69,8 @@
     "BR-00073": "natural couture",
     "BR-00074": "DISCOAT",
     "BR-00075": "ZARA",
-    "BR-00076": "SNIDEL"
+    "BR-00076": "SNIDEL",
+    "BR-00077": "JOURNAL STANDARD relume"
   },
   "inactive_legacy_count": 12,
   "inactive_legacy_brands": {
@@ -109,16 +110,46 @@
     "verified_at": "2026-08-18",
     "verified_via": "PAL CLOSET official brand pages",
     "brands": {
-      "BR-00065": {"brand_name": "GALLARDAGALANTE", "official_url": "https://www.palcloset.jp/gallardagalante/"},
-      "BR-00066": {"brand_name": "Whim Gazette", "official_url": "https://www.palcloset.jp/whimgazette/"},
-      "BR-00067": {"brand_name": "LOUNGEDRESS", "official_url": "https://www.palcloset.jp/loungedress/"},
-      "BR-00068": {"brand_name": "RIVE DROITE", "official_url": "https://www.palcloset.jp/rivedroite/"},
-      "BR-00069": {"brand_name": "DOUDOU", "official_url": "https://www.palcloset.jp/doudou/"},
-      "BR-00070": {"brand_name": "SHENERY", "official_url": "https://www.palcloset.jp/shenery/"},
-      "BR-00071": {"brand_name": "un dix cors", "official_url": "https://www.palcloset.jp/croisiere/"},
-      "BR-00072": {"brand_name": "La boutique BonBon", "official_url": "https://www.palcloset.jp/laboutiquebonbon/"},
-      "BR-00073": {"brand_name": "natural couture", "official_url": "https://www.palcloset.jp/naturalcouture/"},
-      "BR-00074": {"brand_name": "DISCOAT", "official_url": "https://www.palcloset.jp/discoat/"}
+      "BR-00065": {
+        "brand_name": "GALLARDAGALANTE",
+        "official_url": "https://www.palcloset.jp/gallardagalante/"
+      },
+      "BR-00066": {
+        "brand_name": "Whim Gazette",
+        "official_url": "https://www.palcloset.jp/whimgazette/"
+      },
+      "BR-00067": {
+        "brand_name": "LOUNGEDRESS",
+        "official_url": "https://www.palcloset.jp/loungedress/"
+      },
+      "BR-00068": {
+        "brand_name": "RIVE DROITE",
+        "official_url": "https://www.palcloset.jp/rivedroite/"
+      },
+      "BR-00069": {
+        "brand_name": "DOUDOU",
+        "official_url": "https://www.palcloset.jp/doudou/"
+      },
+      "BR-00070": {
+        "brand_name": "SHENERY",
+        "official_url": "https://www.palcloset.jp/shenery/"
+      },
+      "BR-00071": {
+        "brand_name": "un dix cors",
+        "official_url": "https://www.palcloset.jp/croisiere/"
+      },
+      "BR-00072": {
+        "brand_name": "La boutique BonBon",
+        "official_url": "https://www.palcloset.jp/laboutiquebonbon/"
+      },
+      "BR-00073": {
+        "brand_name": "natural couture",
+        "official_url": "https://www.palcloset.jp/naturalcouture/"
+      },
+      "BR-00074": {
+        "brand_name": "DISCOAT",
+        "official_url": "https://www.palcloset.jp/discoat/"
+      }
     }
   },
   "global_signal_brands": {
@@ -127,8 +158,19 @@
       "role": "GLOBAL_FAST_FASHION_LEADING_MD_SIGNAL",
       "official_url": "https://www.zara.com/jp/ja/woman-knitwear-l1152.html",
       "special_prices_url": "https://www.zara.com/jp/ja/woman-knitwear-special-prices-l1163.html",
-      "daily_entry_checks": ["THE_NEW", "WOMEN_KNIT", "SPECIAL_PRICES"],
-      "weekly_focus": ["new_shape", "surface_texture", "color", "price_band", "markdown_depth", "product_turnover"]
+      "daily_entry_checks": [
+        "THE_NEW",
+        "WOMEN_KNIT",
+        "SPECIAL_PRICES"
+      ],
+      "weekly_focus": [
+        "new_shape",
+        "surface_texture",
+        "color",
+        "price_band",
+        "markdown_depth",
+        "product_turnover"
+      ]
     }
   },
   "japan_signal_brands": {
@@ -138,12 +180,34 @@
       "official_url": "https://usagi-online.com/brand/snidel/",
       "knit_url": "https://usagi-online.com/brand/snidel/category/AB/AB01/",
       "cardigan_url": "https://usagi-online.com/brand/snidel/category/AB/AB05/",
-      "daily_entry_checks": ["NEW", "PREORDER", "SALE", "SOLD_OUT", "KNIT", "CARDIGAN"],
-      "weekly_focus": ["feminine_detail", "function_claim", "surface_texture", "color", "price_band", "preorder_to_launch"]
+      "daily_entry_checks": [
+        "NEW",
+        "PREORDER",
+        "SALE",
+        "SOLD_OUT",
+        "KNIT",
+        "CARDIGAN"
+      ],
+      "weekly_focus": [
+        "feminine_detail",
+        "function_claim",
+        "surface_texture",
+        "color",
+        "price_band",
+        "preorder_to_launch"
+      ]
     }
   },
   "rules": {
     "sales_quantity_estimation": "FORBIDDEN",
     "human_review_before_publication": true
+  },
+  "approved_scope_transition": {
+    "effective_from": "2026-09-30",
+    "added_to_active": {
+      "BR-00077": "JOURNAL STANDARD relume"
+    },
+    "historical_brand64_preserved": true,
+    "brand_id_reuse": "FORBIDDEN"
   }
 }

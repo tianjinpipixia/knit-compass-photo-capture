@@ -2,9 +2,9 @@
   "format": "KC_BRAND64_MD_MONITORING",
   "schema_version": "1.6",
   "updated_at": "2026-09-01T08:45:00+09:00",
-  "scope": "64 active brands / women's knit focus",
+  "scope": "65 active brands / women's knit focus; current approved scope KC40-20260930 (20 deep dive / 20 monitoring)",
   "active_brand_source": "config/brand64-active-brands.json",
-  "active_brand_count": 64,
+  "active_brand_count": 65,
   "analysis_framework_source": "config/brand-md-analysis-framework.json",
   "external_signal_source": "config/md-external-signal-brands.json",
   "external_signal_brand_count": 7,
@@ -15,13 +15,22 @@
       "BR-00002",
       "BR-00003",
       "BR-00004",
+      "BR-00005",
       "BR-00006",
+      "BR-00009",
       "BR-00012",
+      "BR-00014",
       "BR-00047",
       "BR-00051",
       "BR-00054",
+      "BR-00055",
       "BR-00058",
-      "BR-00076"
+      "BR-00065",
+      "BR-00074",
+      "BR-00075",
+      "BR-00076",
+      "BR-00064",
+      "BR-00077"
     ],
     "tier_a_mode": "FULL_MD_TIMELINE",
     "other_brand64_mode": "DIFF_ONLY_WITH_ESCALATION",
@@ -31,28 +40,64 @@
     "active_brand_count": 10,
     "brand_id_range": "BR-00065..BR-00074",
     "common_knit_entry_url": "https://www.palcloset.jp/display/display/?mode=zSearch&SearchItem.SORT_KEY=POPULARITY_DESC&b=&sex=&c=1104,1105&type=01",
-    "daily_entry_checks": ["new_arrival", "pre_order", "sale", "ranking"],
-    "weekly_extra_checks": ["popularity_rank_change"]
+    "daily_entry_checks": [
+      "new_arrival",
+      "pre_order",
+      "sale",
+      "ranking"
+    ],
+    "weekly_extra_checks": [
+      "popularity_rank_change"
+    ]
   },
   "global_signal_group": {
-    "brands": ["BR-00075"],
+    "brands": [
+      "BR-00075"
+    ],
     "role": "GLOBAL_FAST_FASHION_LEADING_MD_SIGNAL",
     "zara": {
       "official_knit_url": "https://www.zara.com/jp/ja/woman-knitwear-l1152.html",
       "special_prices_url": "https://www.zara.com/jp/ja/woman-knitwear-special-prices-l1163.html",
-      "daily_entry_checks": ["the_new", "women_knit", "special_prices"],
-      "weekly_extra_checks": ["new_shape", "surface_texture", "color", "price_band", "markdown_depth", "product_turnover"]
+      "daily_entry_checks": [
+        "the_new",
+        "women_knit",
+        "special_prices"
+      ],
+      "weekly_extra_checks": [
+        "new_shape",
+        "surface_texture",
+        "color",
+        "price_band",
+        "markdown_depth",
+        "product_turnover"
+      ]
     }
   },
   "japan_signal_group": {
-    "brands": ["BR-00076"],
+    "brands": [
+      "BR-00076"
+    ],
     "role": "JAPAN_FEMININE_DESIGN_FUNCTION_LEADING_MD_SIGNAL",
     "snidel": {
       "official_url": "https://usagi-online.com/brand/snidel/",
       "knit_url": "https://usagi-online.com/brand/snidel/category/AB/AB01/",
       "cardigan_url": "https://usagi-online.com/brand/snidel/category/AB/AB05/",
-      "daily_entry_checks": ["new", "preorder", "sale", "sold_out", "knit", "cardigan"],
-      "weekly_extra_checks": ["feminine_detail", "function_claim", "surface_texture", "color", "price_band", "preorder_to_launch"]
+      "daily_entry_checks": [
+        "new",
+        "preorder",
+        "sale",
+        "sold_out",
+        "knit",
+        "cardigan"
+      ],
+      "weekly_extra_checks": [
+        "feminine_detail",
+        "function_claim",
+        "surface_texture",
+        "color",
+        "price_band",
+        "preorder_to_launch"
+      ]
     }
   },
   "cadence": {
@@ -189,7 +234,10 @@
     "ledger_path": "data/brand-md-monitoring/2026-spring-retrospective-baselines.json",
     "report_path_pattern": "data/brand-md-monitoring/{observed_date}-retrospective-season-backfill-report.json",
     "v04_projection": "LEDGER_ROWS_INCLUDE_PRODUCT_ID_PRODUCT_URL_SOURCE_TYPE_AND_PUBLISH_HOLD_FIELDS",
-    "dedupe_keys": ["product_code", "official_url"],
+    "dedupe_keys": [
+      "product_code",
+      "official_url"
+    ],
     "source_offline_status": "SOURCE_OFFLINE",
     "publication_status": "PUBLISH_HOLD",
     "human_review_required": true,
@@ -201,7 +249,11 @@
     "separate_fact_and_inference": true,
     "sales_quantity_without_evidence": "NOT_AVAILABLE",
     "sales_quantity_estimation": "FORBIDDEN",
-    "dedupe_keys": ["brand", "product_code", "official_url"],
+    "dedupe_keys": [
+      "brand",
+      "product_code",
+      "official_url"
+    ],
     "preserve_first_seen_product_baseline": true,
     "preserve_sales_start_separately_from_first_seen": true,
     "preserve_new_color_and_promotion_dates": true,
@@ -215,5 +267,7 @@
   "gemini": {
     "status": "INSTRUCTION_READY_CONNECTION_REQUIRED",
     "instruction_document": "docs/BRAND64_DAILY_MD_MONITORING.md"
-  }
+  },
+  "current_approved_scope_id": "KC40-20260930",
+  "historical_brand64_preserved": true
 }

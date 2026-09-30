@@ -76,12 +76,18 @@ def main() -> None:
     assert len(base_entries) + len(wave2_entries) == 46
     assert "cn-yarn-glossary" in brand_index
 
-    # #81 framework must stay at 11 Tier-A brands including SNIDEL and owner model roles.
+    # The deep-dive framework must follow the current owner-approved monitoring scope.
     framework = load_json("config/brand-md-analysis-framework.json")
+    monitoring = load_json("config/brand64-md-monitoring.json")
     tier_a = framework["scan_strategy"]["tier_a_deep_dive"]
     brands = tier_a.get("brands", {})
-    assert tier_a.get("brand_count") == 11 == len(brands)
+    expected_tier_ids = monitoring.get("tiered_analysis", {}).get(
+        "tier_a_deep_dive_brand_ids", []
+    )
+    assert tier_a.get("brand_count") == len(brands) == len(expected_tier_ids)
+    assert list(brands) == expected_tier_ids
     assert brands.get("BR-00076") == "SNIDEL"
+    assert brands.get("BR-00077") == "JOURNAL STANDARD relume"
     fast = framework["cross_brand_relationships"]["fast_retailing_trend_to_life"]
     assert fast["trend_signal_brand"]["brand_name"] == "GU"
     assert fast["trend_signal_brand"]["role"] == "TREND"
@@ -110,7 +116,7 @@ def main() -> None:
 
     print(
         "V04 reflection guard: OK "
-        "(retired visible Sites labels absent, current yarn-search route, glossary 33+13, 25-item intake incl. Levita, 11 Tier-A incl. SNIDEL, latest MD pointer aligned)"
+        "(retired visible Sites labels absent, current yarn-search route, glossary 33+13, 25-item intake incl. Levita, owner-approved Tier-A scope incl. SNIDEL and JOURNAL STANDARD relume, latest MD pointer aligned)"
     )
 
 
