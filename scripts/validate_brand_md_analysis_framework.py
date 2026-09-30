@@ -16,13 +16,22 @@ EXPECTED_TIER_A = {
     "BR-00002": "GU",
     "BR-00003": "MUJI",
     "BR-00004": "ROPÉ PICNIC",
+    "BR-00005": "VIS",
     "BR-00006": "GLOBAL WORK",
+    "BR-00009": "niko and ...",
     "BR-00012": "OPAQUE.CLIP",
+    "BR-00014": "SHOO・LA・RUE",
     "BR-00047": "UNFILO",
     "BR-00051": "NATURAL BEAUTY BASIC",
     "BR-00054": "SLOBE IENA",
+    "BR-00055": "green label relaxing",
     "BR-00058": "Te chichi",
+    "BR-00065": "GALLARDAGALANTE",
+    "BR-00074": "DISCOAT",
+    "BR-00075": "ZARA",
     "BR-00076": "SNIDEL",
+    "BR-00064": "ADAM ET ROPÉ",
+    "BR-00077": "JOURNAL STANDARD relume"
 }
 
 REQUIRED_TIMELINE_FIELDS = {
@@ -53,7 +62,7 @@ def main() -> None:
     tier_a = framework.get("scan_strategy", {}).get("tier_a_deep_dive", {})
     tier_a_brands = tier_a.get("brands", {})
     assert tier_a.get("mode") == "FULL_MD_TIMELINE"
-    assert tier_a.get("brand_count") == 11 == len(tier_a_brands)
+    assert tier_a.get("brand_count") == len(EXPECTED_TIER_A) == len(tier_a_brands)
     assert tier_a_brands == EXPECTED_TIER_A
     for brand_id, brand_name in EXPECTED_TIER_A.items():
         assert active_brands.get(brand_id) == brand_name
@@ -124,7 +133,7 @@ def main() -> None:
 
     print(
         "brand MD analysis framework: OK "
-        "(11 Tier-A brands, Brand64 diff escalation, GU=TREND, UNIQLO=LIFE, explicit launch timeline)"
+        f"({len(EXPECTED_TIER_A)} Tier-A brands, Brand64 history preserved, GU=TREND, UNIQLO=LIFE, explicit launch timeline)"
     )
 
 
