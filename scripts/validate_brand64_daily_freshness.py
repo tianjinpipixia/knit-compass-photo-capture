@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the latest active 64-brand daily observation and freshness rules."""
+"""Validate the latest active-brand daily observation and freshness rules."""
 from __future__ import annotations
 
 import argparse
@@ -103,14 +103,15 @@ def validate_structured_daily(
     assert daily.get("format") == "KC_BRAND64_DAILY_OBSERVATION"
     assert daily.get("observed_date") == latest["observed_date"]
     assert daily.get("active_brand_source") == latest["active_brand_source"]
-    assert daily.get("active_brand_count") == 64
+    expected_count = len(active_brands)
+    assert daily.get("active_brand_count") == expected_count
 
     checked_ids = daily.get("checked_brand_ids", [])
-    assert len(checked_ids) == 64
-    assert len(set(checked_ids)) == 64
+    assert len(checked_ids) == expected_count
+    assert len(set(checked_ids)) == expected_count
     assert set(checked_ids) == set(active_brands)
     light_count = daily.get("light_check_count", daily.get("light_check_completed"))
-    assert light_count == 64
+    assert light_count == expected_count
 
     deep_ids = daily.get("deep_dive_brand_ids", [])
     assert len(deep_ids) == daily.get("deep_dive_brand_count", daily.get("deep_dive_completed", len(deep_ids)))
@@ -172,9 +173,9 @@ def main() -> None:
     assert active_config.get("format") == "KC_BRAND64_ACTIVE_SET"
     active_brands = active_config.get("active_brands", {})
     inactive_brands = active_config.get("inactive_legacy_brands", {})
-    assert active_config.get("active_brand_count") == 64 == len(active_brands)
+    assert active_config.get("active_brand_count") == len(active_brands)
     assert active_config.get("inactive_legacy_count") == len(EXPECTED_INACTIVE_IDS) == len(inactive_brands)
-    assert len(set(active_brands.values())) == 64
+    assert len(set(active_brands.values())) == len(active_brands)
     assert len(set(inactive_brands.values())) == len(EXPECTED_INACTIVE_IDS)
     assert not (set(active_brands) & set(inactive_brands))
     assert set(inactive_brands) == EXPECTED_INACTIVE_IDS
@@ -227,7 +228,7 @@ def main() -> None:
         assert item.get("weekly_checks")
 
     assert monitoring_config.get("format") == "KC_BRAND64_MD_MONITORING"
-    assert monitoring_config.get("active_brand_count") == 64
+    assert monitoring_config.get("active_brand_count") == len(active_brands)
     assert monitoring_config.get("external_signal_source") == "config/md-external-signal-brands.json"
     assert monitoring_config.get("external_signal_brand_count") == 7
     assert monitoring_config.get("japan_signal_group", {}).get("brands") == [EXPECTED_SNIDEL_ID]
@@ -279,7 +280,13 @@ def main() -> None:
         for brand_id, brand_name in removed_from_active.items():
             snapshot_active_brands[brand_id] = brand_name
         snapshot_inactive_ids -= set(removed_from_active)
-    assert len(snapshot_active_brands) == 64
+    approved_transition = active_config.get("approved_scope_transition", {})
+    if approved_transition:
+        approved_effective = date.fromisoformat(approved_transition["effective_from"])
+        if observed_date < approved_effective:
+            for brand_id in approved_transition.get("added_to_active", {}):
+                snapshot_active_brands.pop(brand_id, None)
+    assert len(snapshot_active_brands) in {64, len(active_brands)}
 
     assert latest.get("format") == "KC_BRAND64_MD_LATEST_POINTER"
     assert latest.get("active_brand_source") == "config/brand64-active-brands.json"
@@ -287,7 +294,7 @@ def main() -> None:
     assert latest.get("publication_status") == "PUBLISH_HOLD"
     assert proposals.get("format") == "KC_BRAND64_MATERIAL_PROPOSALS"
     assert proposals.get("observed_date") == latest.get("observed_date")
-    assert proposals.get("observed_brand_count") == 64
+    assert proposals.get("observed_brand_count") == len(snapshot_active_brands)
     assert proposals.get("active_brand_source") == latest.get("active_brand_source")
     assert proposals.get("sales_quantity_status") == "NOT_AVAILABLE"
     assert proposals.get("sales_quantity_estimation") == "FORBIDDEN"
@@ -322,8 +329,8 @@ def main() -> None:
         all_rows = primary_rows + overlay_rows
         active_rows = [row for row in all_rows if row_id(row) in snapshot_active_brands]
         active_ids = [row_id(row) for row in active_rows]
-        assert len(active_rows) == 64
-        assert len(set(active_ids)) == 64
+        assert len(active_rows) == len(snapshot_active_brands)
+        assert len(set(active_ids)) == len(snapshot_active_brands)
         assert set(active_ids) == set(snapshot_active_brands)
         for row in active_rows:
             brand_id = row_id(row)
@@ -417,7 +424,7 @@ def main() -> None:
     current_or_transition = "current" if observed_date >= effective_from else "pre-transition snapshot"
     print(
         f"brand64 active daily freshness: OK ({latest['observed_date']}, {current_or_transition}, "
-        f"64 active brands, 10 PAL additions, ZARA+SNIDEL configured, {len(inactive_brands)} legacy preserved, "
+        f"{len(active_brands)} active brands, 10 PAL additions, ZARA+SNIDEL+relume configured, {len(inactive_brands)} legacy preserved, "
         f"7 external weekly signals, {len(proposals.get('proposals', []))} proposals, no sales estimation)"
     )
 
