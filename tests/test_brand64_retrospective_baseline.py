@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from brand64_retrospective_baseline import SUMMARY_START, execute  # noqa: E402
+from brand64_retrospective_baseline import SUMMARY_START, execute, readiness  # noqa: E402
 
 
 def write_json(path: Path, value: object) -> None:
@@ -18,6 +18,33 @@ def write_json(path: Path, value: object) -> None:
 
 
 class RetrospectiveBaselineTest(unittest.TestCase):
+    def test_readiness_uses_exact_active_roster_without_relaxing_holds(self) -> None:
+        active = {f"BR-{number:05d}" for number in range(1, 66)}
+        policy = {"readiness": {"required_brand_count_source": "ACTIVE_ROSTER",
+                  "latest_observed_date_must_equal_run_date": True,
+                  "observation_gap_dates_must_be_empty": True}}
+        latest = {"observed_date": "2026-10-01"}
+        daily = {"observed_date": "2026-10-01", "light_check_count": 65, "checked_brand_ids": sorted(active)}
+        def check(value, latest_value=latest, roster=active, config=policy):
+            return readiness(latest=latest_value, daily=value, run_date="2026-10-01",
+                             policy=config, active_brand_ids=roster)
+        self.assertEqual(check(daily), (True, []))
+        for changed in [
+            {"light_check_count": 64},
+            {"checked_brand_ids": sorted(active)[:-1]},
+            {"checked_brand_ids": sorted(active) + ["BR-00001"]},
+            {"checked_brand_ids": sorted(active)[:-1] + ["BR-99999"]},
+            {"checked_brand_ids": None},
+            {"checked_brand_ids": [{}]},
+            {"observed_date": "2026-09-30"},
+            {"observation_gap_dates": ["2026-09-30"]},
+        ]:
+            with self.subTest(changed=changed):
+                self.assertFalse(check({**daily, **changed})[0])
+        self.assertFalse(check(daily, latest_value={"observed_date": "2026-09-30"})[0])
+        self.assertFalse(check(daily, roster=set())[0])
+        self.assertFalse(check(daily, config={"readiness": {"required_light_check_count": 64}})[0])
+
     def fixture(self, *, gaps: list[str] | None = None) -> Path:
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)
@@ -34,8 +61,7 @@ class RetrospectiveBaselineTest(unittest.TestCase):
                 ],
                 "readiness": {
                     "latest_observed_date_must_equal_run_date": True,
-                    "required_light_check_count": 2,
-                    "required_checked_brand_count": 2,
+                    "required_brand_count_source": "ACTIVE_ROSTER",
                     "observation_gap_dates_must_be_empty": True,
                 },
                 "priority_brand_ids": ["BR-00001", "BR-00002"],
