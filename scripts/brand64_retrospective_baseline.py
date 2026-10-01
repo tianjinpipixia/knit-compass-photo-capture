@@ -374,7 +374,7 @@ def ledger_metrics(records: list[dict[str, Any]], observed_date: str) -> dict[st
     }
 
 
-def summary_block(period: str, metrics: dict[str, Any], ledger_path: str, report_path: str) -> str:
+def summary_block(period: str, metrics: dict[str, Any], ledger_path: str, report_path: str, *, active_brand_count: int) -> str:
     return "\n".join([
         SUMMARY_START,
         "## 2026年春先遡及（当日差分とは別集計）",
@@ -382,7 +382,7 @@ def summary_block(period: str, metrics: dict[str, Any], ledger_path: str, report
         f"- 対象期間: `{period}`",
         f"- 当日春先遡及: **{metrics['retrospective_season_backfill_count']}件**",
         f"- 春先遡及累積: **{metrics['retrospective_season_backfill_cumulative_count']}件**",
-        "- 実行条件: 当日64ブランド確認完了、かつ未処理日なしの場合のみ",
+        f"- 実行条件: 当日{active_brand_count}ブランド確認完了、かつ未処理日なしの場合のみ",
         "- 区分: `RETROSPECTIVE_BASELINE`（当日新規・通常の遡及候補には加算しない）",
         "- 根拠: 公式個別商品ページのみ。不明項目は推測しない",
         "- 公開境界: `PUBLISH_HOLD / HUMAN_REVIEW_REQUIRED`",
@@ -580,7 +580,8 @@ def execute(
     write_json(paths.latest, latest)
     summary = summary_path.read_text(encoding="utf-8")
     summary_path.write_text(
-        replace_summary_block(summary, summary_block(period, metrics, policy["ledger_path"], report_path_text)),
+        replace_summary_block(summary, summary_block(period, metrics, policy["ledger_path"], report_path_text,
+                                                     active_brand_count=len(active))),
         encoding="utf-8",
     )
     return report

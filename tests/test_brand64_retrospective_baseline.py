@@ -154,6 +154,21 @@ class RetrospectiveBaselineTest(unittest.TestCase):
         self.assertEqual(latest["retrospective_season_backfill_count"], 0)
         self.assertEqual(report["retrospective_season_backfill_count"], 0)
 
+    def test_generated_summary_uses_the_actual_active_roster_count(self) -> None:
+        for count in (2, 65, 66):
+            with self.subTest(active_brand_count=count):
+                root = self.fixture()
+                active = {f"BR-{number:05d}": f"Brand {number}" for number in range(1, count + 1)}
+                write_json(root / "config/brand64-active-brands.json", {"active_brands": active})
+                daily_path = root / "data/brand-md-monitoring/2026-08-30-brand64-daily.json"
+                daily = json.loads(daily_path.read_text(encoding="utf-8"))
+                daily.update(light_check_count=count, checked_brand_ids=list(active))
+                write_json(daily_path, daily)
+                execute(root, run_date="2026-08-30", apply=True, strict=True)
+                summary = (root / "data/brand-md-monitoring/2026-08-30-brand64-summary.md").read_text(encoding="utf-8")
+                self.assertIn(f"当日{count}ブランド確認完了、かつ未処理日なしの場合のみ", summary)
+                self.assertNotIn("当日64ブランド確認完了", summary)
+
     def test_gate_rejects_same_size_brand_set_with_unknown_replacement(self) -> None:
         root = self.fixture()
         daily_path = root / "data/brand-md-monitoring/2026-08-30-brand64-daily.json"
