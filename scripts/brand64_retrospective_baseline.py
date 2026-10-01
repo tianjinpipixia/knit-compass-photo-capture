@@ -291,16 +291,21 @@ def readiness(
 ) -> tuple[bool, list[str]]:
     reasons: list[str] = []
     gate = policy.get("readiness", {})
+    expected_count = len(active_brand_ids)
+    if gate.get("required_brand_count_source") != "ACTIVE_ROSTER" or not expected_count:
+        reasons.append("READINESS_ROSTER_POLICY_INVALID")
     if gate.get("latest_observed_date_must_equal_run_date") and latest.get("observed_date") != run_date:
         reasons.append("LATEST_DATE_NOT_ADVANCED")
     if daily.get("observed_date") != run_date:
         reasons.append("DAILY_DATE_NOT_ADVANCED")
-    if daily.get("light_check_count", daily.get("light_check_completed")) != gate.get("required_light_check_count"):
+    light_count = daily.get("light_check_count", daily.get("light_check_completed"))
+    if type(light_count) is not int or light_count != expected_count:
         reasons.append("CURRENT_DAY_LIGHT_SCAN_INCOMPLETE")
-    checked_brand_ids = set(daily.get("checked_brand_ids", []))
-    if len(checked_brand_ids) != gate.get("required_checked_brand_count"):
-        reasons.append("CURRENT_DAY_BRAND_SET_INCOMPLETE")
-    elif checked_brand_ids != active_brand_ids:
+    checked = daily.get("checked_brand_ids", [])
+    valid_ids = isinstance(checked, list) and all(isinstance(item, str) and item for item in checked)
+    checked_brand_ids = set(checked) if valid_ids else set()
+    if (not valid_ids or len(checked) != expected_count
+            or len(checked_brand_ids) != expected_count or checked_brand_ids != active_brand_ids):
         reasons.append("CURRENT_DAY_BRAND_SET_INCOMPLETE")
     gaps = sorted(set(latest.get("observation_gap_dates", [])) | set(daily.get("observation_gap_dates", [])))
     if gate.get("observation_gap_dates_must_be_empty") and gaps:
