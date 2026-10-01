@@ -162,16 +162,25 @@ def extract(doc,source,meta):
             url=urljoin(source,n.attrs['href']);name=s.split('¥')[0].replace(meta['brand_name'],'',1).strip();amount=price(s);status=labels(n)
         elif adapter=='baycrews':
             params=parse_qs(urlsplit(source).query)
-            if params.get('q_mtype')!=['1'] or params.get('q_mshop')!=[meta.get('shop_code')]:continue
-            if n.tag!='a' or not re.search(r'^/item/detail/'+re.escape(meta['slug'])+r'/[^/]+/[0-9]+',n.attrs.get('href','')):continue
-            card=parent_with(n,lambda p:bool(price(text(p))) and norm(meta['brand_name']) in norm(text(p)),6)
+            selected_query=(urlsplit(source).path=='/item/list' and
+                            params.get('q_mtype')==['1'] and
+                            params.get('q_mshop')==[meta.get('shop_code')])
+            selected_path=(urlsplit(source).path==f"/item/list/{meta['slug']}/category/cutsew/ladys" and
+                           params.get('q_mtype',['1'])==['1'] and
+                           params.get('q_mshop',[meta.get('shop_code')])==[meta.get('shop_code')])
+            if not (selected_query or selected_path) or params.get('q_mccate') not in (['231'],['223']):continue
+            if n.tag!='a' or not n.attrs.get('href'):continue
+            candidate=urljoin(source,n.attrs['href']); parsed=urlsplit(candidate)
+            if parsed.scheme!='https' or parsed.hostname!=urlsplit(source).hostname:continue
+            if not re.fullmatch(r'/item/detail/'+re.escape(meta['slug'])+r'/[^/]+/[0-9]+/?',parsed.path):continue
+            # Bound fields to one product card. A list ancestor contains prices
+            # and brands from neighbours and cannot establish this item's scope.
+            card=parent_with(n,lambda p:p.tag=='li' and p.has_class('item'),6)
             if not card:continue
-            s=text(card)
-            if not price(s):continue
-            url=urljoin(source,n.attrs['href']);prefix=s.split('¥')[0]
-            name=re.sub(r'^.*?'+re.escape(meta['brand_name']),'',prefix).strip()
-            if not name:continue
-            amount=price(s);status=labels(card)
+            brand=text(cls(card,'brand'));name=text(cls(card,'itemName'))
+            if not matches(brand,meta) or not name:continue
+            url=candidate;amount=price(text(cls(card,'price')))
+            status=labels(cls(card,'status'))
         elif adapter=='urbanresearch':
             if not n.has_class('block-thumbnail-t--goods'):continue
             brand=text(cls(n,'block-thumbnail-t--goods-label'))
