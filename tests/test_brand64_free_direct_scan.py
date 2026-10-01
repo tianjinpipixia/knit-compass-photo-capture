@@ -85,6 +85,92 @@ class Tests(unittest.TestCase):
         self.assertNotIn('generativelanguage.googleapis.com',source)
         self.assertNotIn('GEMINI_API_KEY',source)
 class FamilyAdapters(unittest.TestCase):
+    def test_baycrews_saved_absolute_card_urls_and_color_deduplication(self):
+        import json
+        meta=json.loads((ROOT/'config/brand64-free-direct-sources.json').read_text())['brands']['BR-00077']
+        source=meta['entry_urls'][0]
+        html=(ROOT/'tests/fixtures/relume-listing-20261001.html').read_text()
+        items=scan.adapters.extract(scan.Document(html),source,meta)
+        self.assertEqual(len(items),1) # two colour cards for the same product
+        item=items[0]
+        self.assertEqual(item['product_code'],'26080462867030')
+        self.assertEqual(item['product_name'],'《WEB限定追加 / 新色》ダブルニットコントラストプルオーバー')
+        self.assertEqual(item['display_price'],'¥10,450')
+        self.assertNotIn('?',item['product_url'])
+        self.assertEqual(item['scope_status'],'BRAND_AND_KNIT_PATH_MATCHED')
+        relative=html.replace('https://baycrews.jp/item/detail/','/item/detail/')
+        self.assertEqual(scan.adapters.extract(scan.Document(relative),source,meta),items)
+        # The earlier official research used this equivalent, explicit women/category route.
+        path_source='https://baycrews.jp/item/list/js-relume/category/cutsew/ladys?q_mccate=231&qPage=0'
+        self.assertEqual(len(scan.adapters.extract(scan.Document(html),path_source,meta)),1)
+
+    def test_baycrews_requires_same_host_brand_gender_category_and_card_fields(self):
+        import json
+        meta=json.loads((ROOT/'config/brand64-free-direct-sources.json').read_text())['brands']['BR-00077']
+        source=meta['entry_urls'][0]
+        html=(ROOT/'tests/fixtures/relume-listing-20261001.html').read_text()
+        for bad in [html.replace('https://baycrews.jp/item/detail/','https://other.example/item/detail/'),
+                    html.replace('JOURNAL STANDARD relume','SLOBE IENA'),
+                    html.replace('class="itemName"','class="unrecognised"'),
+                    html.replace('class="price"','class="unrecognised"')]:
+            with self.subTest(bad=bad[:80]):
+                self.assertEqual(scan.adapters.extract(scan.Document(bad),source,meta),[])
+        for bad_source in [source.replace('q_mtype=1','q_mtype=2'),
+                           source.replace('q_mshop=0498','q_mshop=0000'),
+                           source.replace('q_mccate=231','q_mccate=999'),
+                           'https://baycrews.jp/item/list/js-relume/ladys',
+                           'https://baycrews.jp/item/list/js-relume/category/cutsew/ladys?q_mccate=231&q_mtype=2']:
+            self.assertEqual(scan.adapters.extract(scan.Document(html),bad_source,meta),[])
+        # A neighbouring brand/price must never establish fields for an empty card.
+        mixed=html.replace('JOURNAL STANDARD relume','SLOBE IENA')
+        mixed+='<li class="item"><a href="/item/detail/js-relume/cutsew/123"></a><div class="brand">JOURNAL STANDARD relume</div></li>'
+        self.assertEqual(scan.adapters.extract(scan.Document(mixed),source,meta),[])
+
+    def test_baycrews_empty_next_arrow_is_queued_without_changing_scope(self):
+        import json
+        meta=json.loads((ROOT/'config/brand64-free-direct-sources.json').read_text())['brands']['BR-00077']
+        source=meta['entry_urls'][0]
+        html=(ROOT/'tests/fixtures/relume-listing-20261001.html').read_text()
+        def fetch(url):
+            return html, {'url':url,'sha256':'fixture'}
+        row=scan.scan_brand('BR-00077',meta,fetch,page_urls=[source],max_pages=1)
+        self.assertEqual(len(row['surface_items']),1)
+        self.assertEqual(len(row['pending_page_urls']),1)
+        from urllib.parse import parse_qs,urlsplit
+        params=parse_qs(urlsplit(row['pending_page_urls'][0]).query)
+        self.assertEqual(params['qPage'],['1'])
+        self.assertEqual(params['q_mshop'],['0498'])
+        for bad in [html.replace('q_mshop=0498&amp;qPage=1','q_mshop=0000&amp;qPage=1'),
+                    html.replace('qPage=1','qPage=0'),
+                    html.replace('qPage=1','qPage=2'),
+                    html.replace('qPage=1','q_mtype=2&amp;qPage=1'),
+                    html.replace('https://baycrews.jp/item/list?','https://other.example/item/list?')]:
+            row=scan.scan_brand('BR-00077',meta,lambda url:(bad,{'url':url,'sha256':'fixture'}),page_urls=[source],max_pages=1)
+            self.assertEqual(row['pending_page_urls'],[])
+
+    def test_baycrews_observation_preserves_separate_reservation_dates(self):
+        import json
+        meta=json.loads((ROOT/'config/brand64-free-direct-sources.json').read_text())['brands']['BR-00077']
+        source=meta['entry_urls'][0]
+        html=(ROOT/'tests/fixtures/relume-listing-20261001.html').read_text()
+        items=scan.adapters.extract(scan.Document(html),source,meta)
+        row={'brand_id':'BR-00077','brand_name':meta['brand_name'],'surface_items':items}
+        known,deltas=scan.update_baseline([row],{},'2026-10-02')
+        self.assertIsNone(deltas[0]['sales_start_date'])
+        self.assertFalse(deltas[0]['is_new_release_confirmed'])
+        prior=next(iter(known.values()))
+        timing={'reservation_start_date':None,'reservation_start_label':'開始日未確認',
+                'expected_delivery_label':'10月上旬','expected_delivery_period':'2026-10',
+                'normal_sales_start_date':None,'reservation_timing_status':'DELIVERY_ONLY',
+                'reservation_status':'予約掲載確認','expected_delivery':'2026年10月上旬'}
+        prior.update(timing)
+        after,_=scan.update_baseline([row],known,'2026-10-03')
+        updated=next(iter(after.values()))
+        for key,value in timing.items():self.assertEqual(updated[key],value)
+        self.assertIsNone(updated['sales_start_date'])
+        self.assertEqual(updated['publication_status'],'PUBLISH_HOLD')
+        self.assertTrue(updated['human_review_required'])
+
     def test_fr_ignores_men_and_non_knit_recommendations(self):
         import json
         def p(name,gender,pid):

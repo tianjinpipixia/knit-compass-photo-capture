@@ -19,7 +19,7 @@ import time
 import unicodedata
 import urllib.error
 import urllib.request
-from urllib.parse import urljoin, urlsplit, urlunsplit, parse_qsl, urlencode
+from urllib.parse import urljoin, urlsplit, urlunsplit, parse_qsl, parse_qs, urlencode
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 OUT = ROOT / 'data/brand-md-monitoring/direct-scans'
@@ -222,8 +222,19 @@ def scan_brand(bid,meta,fetch, *, page_urls=None, max_pages=4, include_details=F
             for a in doc.root.walk():
                 if a.tag!='a' or not a.attrs.get('href'):continue
                 label=clean(a.text())
-                if 'next' not in a.attrs.get('rel','').split() and not re.fullmatch(r'次へ|次のページ|NEXT|Next|次',label):continue
+                baycrews_next=meta.get('adapter')=='baycrews' and a.has_class('next')
+                if 'next' not in a.attrs.get('rel','').split() and not re.fullmatch(r'次へ|次のページ|NEXT|Next|次',label) and not baycrews_next:continue
                 next_url=urljoin(evidence['url'],a.attrs['href'])
+                if meta.get('adapter')=='baycrews':
+                    # The storefront next arrow has no text/rel. Accept it only
+                    # when qPage advances and every scope filter is unchanged.
+                    current_params=parse_qs(urlsplit(evidence['url']).query)
+                    next_params=parse_qs(urlsplit(next_url).query)
+                    current_pages=current_params.pop('qPage',['0']);next_pages=next_params.pop('qPage',[])
+                    if len(current_pages)!=1 or len(next_pages)!=1:continue
+                    current_page=current_pages[0];next_page=next_pages[0]
+                    if (not current_page.isdigit() or not next_page.isdigit() or
+                        int(next_page)!=int(current_page)+1 or current_params!=next_params):continue
                 if urlsplit(next_url).hostname==urlsplit(evidence['url']).hostname and urlsplit(next_url).path==urlsplit(evidence['url']).path and next_url not in seen and next_url not in queue:
                     queue.append(next_url)
             if meta.get('adapter')=='canshop':
