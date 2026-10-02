@@ -3,12 +3,12 @@
   "schema_version": "2.0",
   "collector": "CHATGPT_OFFICIAL_DIRECT",
   "collection_method": "DIRECT_HTTP_NO_AI_API",
-  "observed_date": "2026-10-02",
-  "generated_at_utc": "2026-10-02T00:01:56.476199+00:00",
+  "observed_date": "2026-10-03",
+  "generated_at_utc": "2026-10-02T23:54:52.487700+00:00",
   "active_brand_count": 65,
   "attempted_brand_count": 65,
-  "product_observed_brand_count": 44,
-  "product_count": 1525,
+  "product_observed_brand_count": 40,
+  "product_count": 1206,
   "complete_brand_count": 0,
   "unresolved_brand_ids": [
     "BR-00001",
@@ -78,7 +78,7 @@
     "BR-00077"
   ],
   "not_attempted_brand_ids": [],
-  "pending_page_count": 8,
+  "pending_page_count": 18,
   "scan_status": "PARTIAL_COVERAGE",
   "ai_api_request_count": 0,
   "billing_enabled_by_this_job": false,
@@ -98,7 +98,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-01T23:59:39.061922+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:53:31.500474+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -120,7 +120,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-01T23:59:40.062589+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:53:32.439168+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -139,8 +139,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 31,
-      "last_attempt_at_utc": "2026-10-01T23:59:41.400718+00:00",
+      "product_count": 36,
+      "last_attempt_at_utc": "2026-10-02T23:53:38.628464+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -155,7 +155,7 @@
         ]
       },
       "product_count": 23,
-      "last_attempt_at_utc": "2026-10-01T23:59:46.080863+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:53:37.522703+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -170,7 +170,7 @@
         ]
       },
       "product_count": 39,
-      "last_attempt_at_utc": "2026-10-02T00:00:04.009301+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:53:51.796556+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -181,12 +181,16 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
+          "ENTRY_NOT_VERIFIED",
+          "PAGES_PENDING",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 36,
-      "last_attempt_at_utc": "2026-10-02T00:01:28.869833+00:00",
-      "pending_page_urls": [],
+      "product_count": 8,
+      "last_attempt_at_utc": "2026-10-02T23:53:36.511995+00:00",
+      "pending_page_urls": [
+        "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
+      ],
       "errors": [],
       "unverified_link_candidate_count": 0
     },
@@ -199,8 +203,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 46,
-      "last_attempt_at_utc": "2026-10-02T00:00:18.642909+00:00",
+      "product_count": 44,
+      "last_attempt_at_utc": "2026-10-02T23:54:08.303825+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -214,8 +218,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 51,
-      "last_attempt_at_utc": "2026-10-02T00:00:24.698254+00:00",
+      "product_count": 52,
+      "last_attempt_at_utc": "2026-10-02T23:54:14.816238+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -229,8 +233,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 31,
-      "last_attempt_at_utc": "2026-10-02T00:00:02.856924+00:00",
+      "product_count": 30,
+      "last_attempt_at_utc": "2026-10-02T23:53:56.182022+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -241,20 +245,13 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
-          "ENTRY_NOT_VERIFIED",
-          "FETCH_OR_EXTRACTION_FAILED",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 0,
-      "last_attempt_at_utc": "2026-10-01T23:59:53.024576+00:00",
+      "product_count": 5,
+      "last_attempt_at_utc": "2026-10-02T23:53:44.034852+00:00",
       "pending_page_urls": [],
-      "errors": [
-        {
-          "url": "https://stripe-club.com/brand/earth1999/",
-          "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
-        }
-      ],
+      "errors": [],
       "unverified_link_candidate_count": 0
     },
     {
@@ -266,8 +263,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 5,
-      "last_attempt_at_utc": "2026-10-02T00:00:11.516408+00:00",
+      "product_count": 6,
+      "last_attempt_at_utc": "2026-10-02T23:53:59.461546+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -284,26 +281,20 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 59,
-      "last_attempt_at_utc": "2026-10-02T00:01:26.493210+00:00",
+      "product_count": 0,
+      "last_attempt_at_utc": "2026-10-02T23:53:33.442203+00:00",
       "pending_page_urls": [
-        "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/"
+        "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2",
+        "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=3",
+        "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2"
       ],
       "errors": [
         {
+          "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/",
+          "reason": "HTTPError: HTTP Error 403: Forbidden"
+        },
+        {
           "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/",
-          "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
-        },
-        {
-          "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2",
-          "reason": "HTTPError: HTTP Error 403: Forbidden"
-        },
-        {
-          "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=3",
-          "reason": "HTTPError: HTTP Error 403: Forbidden"
-        },
-        {
-          "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
         }
       ],
@@ -321,22 +312,19 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 59,
-      "last_attempt_at_utc": "2026-10-02T00:01:35.503270+00:00",
+      "product_count": 0,
+      "last_attempt_at_utc": "2026-10-02T23:54:04.000563+00:00",
       "pending_page_urls": [
-        "https://store.world.co.jp/s/brand/index/category/WB/WB02/"
+        "https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2",
+        "https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2"
       ],
       "errors": [
         {
-          "url": "https://store.world.co.jp/s/brand/index/category/WB/WB02/",
-          "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
-        },
-        {
-          "url": "https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2",
+          "url": "https://store.world.co.jp/s/brand/index/category/WB/WB01/",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
         },
         {
-          "url": "https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2",
+          "url": "https://store.world.co.jp/s/brand/index/category/WB/WB02/",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
         }
       ],
@@ -348,24 +336,26 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
+          "ENTRY_NOT_VERIFIED",
           "FETCH_OR_EXTRACTION_FAILED",
+          "PAGES_PENDING",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 59,
-      "last_attempt_at_utc": "2026-10-02T00:01:38.405912+00:00",
-      "pending_page_urls": [],
+      "product_count": 0,
+      "last_attempt_at_utc": "2026-10-02T23:53:53.989228+00:00",
+      "pending_page_urls": [
+        "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2",
+        "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2",
+        "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3"
+      ],
       "errors": [
         {
-          "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2",
+          "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
         },
         {
-          "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2",
-          "reason": "HTTPError: HTTP Error 403: Forbidden"
-        },
-        {
-          "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3",
+          "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
         }
       ],
@@ -383,18 +373,18 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 53,
-      "last_attempt_at_utc": "2026-10-02T00:01:32.340214+00:00",
+      "product_count": 0,
+      "last_attempt_at_utc": "2026-10-02T23:54:09.459964+00:00",
       "pending_page_urls": [
-        "https://store.world.co.jp/s/brand/grove/category/WB/WB02/"
+        "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2"
       ],
       "errors": [
         {
-          "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB02/",
-          "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
+          "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB01/",
+          "reason": "HTTPError: HTTP Error 403: Forbidden"
         },
         {
-          "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2",
+          "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB02/",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
         }
       ],
@@ -410,7 +400,7 @@
         ]
       },
       "product_count": 20,
-      "last_attempt_at_utc": "2026-10-01T23:59:59.088145+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:53:50.720032+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -427,7 +417,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-01T23:59:55.380479+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:53:47.370892+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -449,7 +439,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-01T23:59:58.035258+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:53:49.703698+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -471,7 +461,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-02T00:00:05.216600+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:53:57.250826+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -490,8 +480,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 56,
-      "last_attempt_at_utc": "2026-10-02T00:00:28.365597+00:00",
+      "product_count": 57,
+      "last_attempt_at_utc": "2026-10-02T23:54:24.478430+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -505,8 +495,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 37,
-      "last_attempt_at_utc": "2026-10-02T00:00:35.846566+00:00",
+      "product_count": 36,
+      "last_attempt_at_utc": "2026-10-02T23:54:26.630233+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -521,7 +511,7 @@
         ]
       },
       "product_count": 28,
-      "last_attempt_at_utc": "2026-10-02T00:00:41.189606+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:31.891731+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -535,8 +525,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 48,
-      "last_attempt_at_utc": "2026-10-02T00:00:43.679668+00:00",
+      "product_count": 49,
+      "last_attempt_at_utc": "2026-10-02T23:54:33.924899+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -550,8 +540,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 45,
-      "last_attempt_at_utc": "2026-10-02T00:00:46.210144+00:00",
+      "product_count": 46,
+      "last_attempt_at_utc": "2026-10-02T23:54:35.123912+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -565,8 +555,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 53,
-      "last_attempt_at_utc": "2026-10-02T00:00:51.165349+00:00",
+      "product_count": 52,
+      "last_attempt_at_utc": "2026-10-02T23:54:36.165773+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -581,7 +571,7 @@
         ]
       },
       "product_count": 34,
-      "last_attempt_at_utc": "2026-10-02T00:00:52.462015+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:39.121590+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -595,8 +585,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 43,
-      "last_attempt_at_utc": "2026-10-02T00:00:54.456672+00:00",
+      "product_count": 44,
+      "last_attempt_at_utc": "2026-10-02T23:54:44.218681+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -611,7 +601,7 @@
         ]
       },
       "product_count": 34,
-      "last_attempt_at_utc": "2026-10-02T00:00:57.219882+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:45.310965+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -626,7 +616,7 @@
         ]
       },
       "product_count": 34,
-      "last_attempt_at_utc": "2026-10-02T00:00:59.807668+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:50.173878+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -640,8 +630,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 55,
-      "last_attempt_at_utc": "2026-10-02T00:01:02.476799+00:00",
+      "product_count": 56,
+      "last_attempt_at_utc": "2026-10-02T23:54:51.438253+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -658,7 +648,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-02T00:00:17.334866+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:06.204264+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -678,7 +668,7 @@
         ]
       },
       "product_count": 2,
-      "last_attempt_at_utc": "2026-10-02T00:00:25.824259+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:15.803736+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -695,7 +685,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-02T00:00:12.645302+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:02.881747+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -717,7 +707,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-02T00:00:34.581724+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:10.456536+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -739,7 +729,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-02T00:00:37.109701+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:16.889894+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -762,21 +752,17 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-02T00:01:30.032023+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:28.750769+00:00",
       "pending_page_urls": [
-        "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17"
+        "https://crosset.onward.co.jp/shop/kumikyoku?du=1"
       ],
       "errors": [
         {
-          "url": "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17",
+          "url": "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30",
           "reason": "ValueError: Source exceeds size limit"
         },
         {
-          "url": "https://crosset.onward.co.jp/shop/kumikyoku?du=1",
-          "reason": "HTTPError: HTTP Error 302: The HTTP server returned a redirect error that would lead to an infinite loop.\nThe last 30x error message was:\nMoved Temporarily"
-        },
-        {
-          "url": "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30",
+          "url": "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17",
           "reason": "ValueError: Source exceeds size limit"
         }
       ],
@@ -794,7 +780,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-01T23:59:43.765681+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:53:35.284017+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -814,16 +800,24 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
+          "ENTRY_NOT_VERIFIED",
           "FETCH_OR_EXTRACTION_FAILED",
+          "PAGES_PENDING",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 54,
-      "last_attempt_at_utc": "2026-10-02T00:01:33.475392+00:00",
-      "pending_page_urls": [],
+      "product_count": 0,
+      "last_attempt_at_utc": "2026-10-02T23:54:17.876780+00:00",
+      "pending_page_urls": [
+        "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2"
+      ],
       "errors": [
         {
-          "url": "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2",
+          "url": "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/",
+          "reason": "HTTPError: HTTP Error 403: Forbidden"
+        },
+        {
+          "url": "https://store.world.co.jp/s/brand/indivi/category/WB/WB02/",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
         }
       ],
@@ -842,10 +836,9 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-02T00:01:36.924599+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:22.260924+00:00",
       "pending_page_urls": [
-        "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/",
-        "https://store.world.co.jp/s/brand/untitled/category/WB/WB02/"
+        "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2"
       ],
       "errors": [
         {
@@ -854,10 +847,6 @@
         },
         {
           "url": "https://store.world.co.jp/s/brand/untitled/category/WB/WB02/",
-          "reason": "HTTPError: HTTP Error 403: Forbidden"
-        },
-        {
-          "url": "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
         }
       ],
@@ -872,8 +861,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 17,
-      "last_attempt_at_utc": "2026-10-01T23:59:45.017802+00:00",
+      "product_count": 16,
+      "last_attempt_at_utc": "2026-10-02T23:53:39.577788+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -887,8 +876,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 7,
-      "last_attempt_at_utc": "2026-10-01T23:59:56.816516+00:00",
+      "product_count": 11,
+      "last_attempt_at_utc": "2026-10-02T23:53:48.518670+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -905,7 +894,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-02T00:00:13.832389+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:05.108024+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -921,19 +910,17 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
-          "FETCH_OR_EXTRACTION_FAILED",
+          "PAGES_PENDING",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 61,
-      "last_attempt_at_utc": "2026-10-02T00:01:25.277763+00:00",
-      "pending_page_urls": [],
-      "errors": [
-        {
-          "url": "https://baycrews.jp/brand/detail/slobe",
-          "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
-        }
+      "product_count": 55,
+      "last_attempt_at_utc": "2026-10-02T23:53:41.625284+00:00",
+      "pending_page_urls": [
+        "https://baycrews.jp/brand/detail/slobe",
+        "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1"
       ],
+      "errors": [],
       "unverified_link_candidate_count": 0
     },
     {
@@ -949,23 +936,18 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-02T00:01:23.410009+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:53:40.651302+00:00",
       "pending_page_urls": [
-        "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0105",
-        "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0108"
+        "https://store.united-arrows.co.jp/brand/glr/"
       ],
       "errors": [
         {
           "url": "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0105",
-          "reason": "ValueError: Redirect/source host is not in the configured official source allowlist"
+          "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
         },
         {
           "url": "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0108",
-          "reason": "ValueError: Redirect/source host is not in the configured official source allowlist"
-        },
-        {
-          "url": "https://store.united-arrows.co.jp/brand/glr/",
-          "reason": "ValueError: Redirect/source host is not in the configured official source allowlist"
+          "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
         }
       ],
       "unverified_link_candidate_count": 0
@@ -982,7 +964,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-02T00:00:22.334300+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:11.665310+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -1004,7 +986,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-02T00:00:29.628624+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:20.009695+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -1024,7 +1006,7 @@
         ]
       },
       "product_count": 84,
-      "last_attempt_at_utc": "2026-10-02T00:00:01.690688+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:53:52.932150+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1041,7 +1023,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-02T00:00:48.674378+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:25.516415+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -1057,19 +1039,16 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
-          "FETCH_OR_EXTRACTION_FAILED",
+          "PAGES_PENDING",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 21,
-      "last_attempt_at_utc": "2026-10-02T00:01:27.739781+00:00",
-      "pending_page_urls": [],
-      "errors": [
-        {
-          "url": "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3",
-          "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
-        }
+      "product_count": 18,
+      "last_attempt_at_utc": "2026-10-02T23:53:55.140713+00:00",
+      "pending_page_urls": [
+        "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2"
       ],
+      "errors": [],
       "unverified_link_candidate_count": 0
     },
     {
@@ -1084,7 +1063,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-02T00:00:10.218546+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:53:58.282974+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -1108,7 +1087,7 @@
         ]
       },
       "product_count": 27,
-      "last_attempt_at_utc": "2026-10-02T00:00:32.096221+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:18.984772+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1122,8 +1101,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 34,
-      "last_attempt_at_utc": "2026-10-02T00:00:19.764086+00:00",
+      "product_count": 35,
+      "last_attempt_at_utc": "2026-10-02T23:54:12.745634+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1138,7 +1117,7 @@
         ]
       },
       "product_count": 17,
-      "last_attempt_at_utc": "2026-10-01T23:59:51.854728+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:53:46.160780+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1153,7 +1132,7 @@
         ]
       },
       "product_count": 19,
-      "last_attempt_at_utc": "2026-10-02T00:00:16.175483+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:07.189792+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1168,7 +1147,7 @@
         ]
       },
       "product_count": 18,
-      "last_attempt_at_utc": "2026-10-02T00:00:23.570039+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:13.822868+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1183,7 +1162,7 @@
         ]
       },
       "product_count": 23,
-      "last_attempt_at_utc": "2026-10-02T00:00:30.827786+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:21.236932+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1198,7 +1177,7 @@
         ]
       },
       "product_count": 24,
-      "last_attempt_at_utc": "2026-10-02T00:00:38.366894+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:23.452689+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1213,7 +1192,7 @@
         ]
       },
       "product_count": 7,
-      "last_attempt_at_utc": "2026-10-02T00:00:39.891750+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:27.665716+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1228,7 +1207,7 @@
         ]
       },
       "product_count": 7,
-      "last_attempt_at_utc": "2026-10-02T00:00:42.402037+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:54:29.778798+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1242,8 +1221,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 29,
-      "last_attempt_at_utc": "2026-10-02T00:00:44.895819+00:00",
+      "product_count": 30,
+      "last_attempt_at_utc": "2026-10-02T23:54:30.868964+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1257,8 +1236,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 20,
-      "last_attempt_at_utc": "2026-10-02T00:00:47.423776+00:00",
+      "product_count": 21,
+      "last_attempt_at_utc": "2026-10-02T23:54:32.899183+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1272,8 +1251,8 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 6,
-      "last_attempt_at_utc": "2026-10-02T00:00:06.510540+00:00",
+      "product_count": 9,
+      "last_attempt_at_utc": "2026-10-02T23:54:01.782798+00:00",
       "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1290,7 +1269,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-01T23:59:49.371552+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:53:43.015327+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -1312,7 +1291,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-01T23:59:54.167198+00:00",
+      "last_attempt_at_utc": "2026-10-02T23:53:45.208935+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -1332,19 +1311,22 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
+          "PAGES_PENDING",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 69,
-      "last_attempt_at_utc": "2026-10-02T00:01:31.169300+00:00",
-      "pending_page_urls": [],
+      "product_count": 50,
+      "last_attempt_at_utc": "2026-10-02T23:54:00.533265+00:00",
+      "pending_page_urls": [
+        "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1"
+      ],
       "errors": [],
       "unverified_link_candidate_count": 0
     }
   ],
-  "stage": "check",
-  "artifact_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-02/20261002T000156475489Z-check/scan.json",
-  "first_observed_candidate_count": 116,
-  "candidate_delta_count": 1120,
+  "stage": "flash",
+  "artifact_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-03/20261002T235330374409Z-flash/scan.json",
+  "first_observed_candidate_count": 75,
+  "candidate_delta_count": 493,
   "baseline_initialization_count": 0
 }
