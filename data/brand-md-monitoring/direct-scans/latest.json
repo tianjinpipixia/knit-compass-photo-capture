@@ -4,7 +4,7 @@
   "collector": "CHATGPT_OFFICIAL_DIRECT",
   "collection_method": "DIRECT_HTTP_NO_AI_API",
   "observed_date": "2026-10-02",
-  "generated_at_utc": "2026-10-02T00:01:03.720640+00:00",
+  "generated_at_utc": "2026-10-02T00:01:56.476199+00:00",
   "active_brand_count": 65,
   "attempted_brand_count": 65,
   "product_observed_brand_count": 44,
@@ -78,7 +78,7 @@
     "BR-00077"
   ],
   "not_attempted_brand_ids": [],
-  "pending_page_count": 18,
+  "pending_page_count": 8,
   "scan_status": "PARTIAL_COVERAGE",
   "ai_api_request_count": 0,
   "billing_enabled_by_this_job": false,
@@ -181,15 +181,12 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
-          "PAGES_PENDING",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
       "product_count": 36,
-      "last_attempt_at_utc": "2026-10-01T23:59:50.426068+00:00",
-      "pending_page_urls": [
-        "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
-      ],
+      "last_attempt_at_utc": "2026-10-02T00:01:28.869833+00:00",
+      "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
     },
@@ -288,13 +285,15 @@
         ]
       },
       "product_count": 59,
-      "last_attempt_at_utc": "2026-10-01T23:59:42.524386+00:00",
+      "last_attempt_at_utc": "2026-10-02T00:01:26.493210+00:00",
       "pending_page_urls": [
-        "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2",
-        "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=3",
-        "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2"
+        "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/"
       ],
       "errors": [
+        {
+          "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/",
+          "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
+        },
         {
           "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
@@ -306,10 +305,6 @@
         {
           "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
-        },
-        {
-          "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/",
-          "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
         }
       ],
       "unverified_link_candidate_count": 0
@@ -327,19 +322,22 @@
         ]
       },
       "product_count": 59,
-      "last_attempt_at_utc": "2026-10-02T00:00:14.947684+00:00",
+      "last_attempt_at_utc": "2026-10-02T00:01:35.503270+00:00",
       "pending_page_urls": [
-        "https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2",
-        "https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2"
+        "https://store.world.co.jp/s/brand/index/category/WB/WB02/"
       ],
       "errors": [
+        {
+          "url": "https://store.world.co.jp/s/brand/index/category/WB/WB02/",
+          "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
+        },
         {
           "url": "https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
         },
         {
-          "url": "https://store.world.co.jp/s/brand/index/category/WB/WB02/",
-          "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
+          "url": "https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2",
+          "reason": "HTTPError: HTTP Error 403: Forbidden"
         }
       ],
       "unverified_link_candidate_count": 0
@@ -351,17 +349,12 @@
         "status": "INCOMPLETE",
         "reasons": [
           "FETCH_OR_EXTRACTION_FAILED",
-          "PAGES_PENDING",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
       "product_count": 59,
-      "last_attempt_at_utc": "2026-10-02T00:00:09.069583+00:00",
-      "pending_page_urls": [
-        "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2",
-        "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2",
-        "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3"
-      ],
+      "last_attempt_at_utc": "2026-10-02T00:01:38.405912+00:00",
+      "pending_page_urls": [],
       "errors": [
         {
           "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2",
@@ -391,18 +384,18 @@
         ]
       },
       "product_count": 53,
-      "last_attempt_at_utc": "2026-10-02T00:00:21.023342+00:00",
+      "last_attempt_at_utc": "2026-10-02T00:01:32.340214+00:00",
       "pending_page_urls": [
-        "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2"
+        "https://store.world.co.jp/s/brand/grove/category/WB/WB02/"
       ],
       "errors": [
         {
-          "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2",
-          "reason": "HTTPError: HTTP Error 403: Forbidden"
-        },
-        {
           "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB02/",
           "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
+        },
+        {
+          "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2",
+          "reason": "HTTPError: HTTP Error 403: Forbidden"
         }
       ],
       "unverified_link_candidate_count": 0
@@ -769,21 +762,21 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-02T00:00:49.967301+00:00",
+      "last_attempt_at_utc": "2026-10-02T00:01:30.032023+00:00",
       "pending_page_urls": [
-        "https://crosset.onward.co.jp/shop/kumikyoku?du=1"
+        "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17"
       ],
       "errors": [
+        {
+          "url": "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17",
+          "reason": "ValueError: Source exceeds size limit"
+        },
         {
           "url": "https://crosset.onward.co.jp/shop/kumikyoku?du=1",
           "reason": "HTTPError: HTTP Error 302: The HTTP server returned a redirect error that would lead to an infinite loop.\nThe last 30x error message was:\nMoved Temporarily"
         },
         {
           "url": "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30",
-          "reason": "TimeoutError: The read operation timed out"
-        },
-        {
-          "url": "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17",
           "reason": "ValueError: Source exceeds size limit"
         }
       ],
@@ -822,15 +815,12 @@
         "status": "INCOMPLETE",
         "reasons": [
           "FETCH_OR_EXTRACTION_FAILED",
-          "PAGES_PENDING",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
       "product_count": 54,
-      "last_attempt_at_utc": "2026-10-02T00:00:26.991027+00:00",
-      "pending_page_urls": [
-        "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2"
-      ],
+      "last_attempt_at_utc": "2026-10-02T00:01:33.475392+00:00",
+      "pending_page_urls": [],
       "errors": [
         {
           "url": "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2",
@@ -852,21 +842,22 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-02T00:00:33.306618+00:00",
+      "last_attempt_at_utc": "2026-10-02T00:01:36.924599+00:00",
       "pending_page_urls": [
-        "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2"
+        "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/",
+        "https://store.world.co.jp/s/brand/untitled/category/WB/WB02/"
       ],
       "errors": [
-        {
-          "url": "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2",
-          "reason": "HTTPError: HTTP Error 403: Forbidden"
-        },
         {
           "url": "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
         },
         {
           "url": "https://store.world.co.jp/s/brand/untitled/category/WB/WB02/",
+          "reason": "HTTPError: HTTP Error 403: Forbidden"
+        },
+        {
+          "url": "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
         }
       ],
@@ -931,16 +922,12 @@
         "status": "INCOMPLETE",
         "reasons": [
           "FETCH_OR_EXTRACTION_FAILED",
-          "PAGES_PENDING",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
       "product_count": 61,
-      "last_attempt_at_utc": "2026-10-01T23:59:47.258740+00:00",
-      "pending_page_urls": [
-        "https://baycrews.jp/brand/detail/slobe",
-        "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1"
-      ],
+      "last_attempt_at_utc": "2026-10-02T00:01:25.277763+00:00",
+      "pending_page_urls": [],
       "errors": [
         {
           "url": "https://baycrews.jp/brand/detail/slobe",
@@ -962,21 +949,22 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-01T23:59:48.340761+00:00",
+      "last_attempt_at_utc": "2026-10-02T00:01:23.410009+00:00",
       "pending_page_urls": [
-        "https://store.united-arrows.co.jp/brand/glr/"
+        "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0105",
+        "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0108"
       ],
       "errors": [
-        {
-          "url": "https://store.united-arrows.co.jp/brand/glr/",
-          "reason": "ValueError: Redirect/source host is not in the configured official source allowlist"
-        },
         {
           "url": "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0105",
           "reason": "ValueError: Redirect/source host is not in the configured official source allowlist"
         },
         {
           "url": "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0108",
+          "reason": "ValueError: Redirect/source host is not in the configured official source allowlist"
+        },
+        {
+          "url": "https://store.united-arrows.co.jp/brand/glr/",
           "reason": "ValueError: Redirect/source host is not in the configured official source allowlist"
         }
       ],
@@ -1069,16 +1057,19 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
-          "PAGES_PENDING",
+          "FETCH_OR_EXTRACTION_FAILED",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
       "product_count": 21,
-      "last_attempt_at_utc": "2026-10-02T00:00:00.259859+00:00",
-      "pending_page_urls": [
-        "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3"
+      "last_attempt_at_utc": "2026-10-02T00:01:27.739781+00:00",
+      "pending_page_urls": [],
+      "errors": [
+        {
+          "url": "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3",
+          "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
+        }
       ],
-      "errors": [],
       "unverified_link_candidate_count": 0
     },
     {
@@ -1341,22 +1332,19 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
-          "PAGES_PENDING",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
       "product_count": 69,
-      "last_attempt_at_utc": "2026-10-02T00:00:07.592795+00:00",
-      "pending_page_urls": [
-        "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1"
-      ],
+      "last_attempt_at_utc": "2026-10-02T00:01:31.169300+00:00",
+      "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
     }
   ],
-  "stage": "flash",
-  "artifact_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-02/20261001T235937839799Z-flash/scan.json",
+  "stage": "check",
+  "artifact_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-02/20261002T000156475489Z-check/scan.json",
   "first_observed_candidate_count": 116,
-  "candidate_delta_count": 1099,
+  "candidate_delta_count": 1120,
   "baseline_initialization_count": 0
 }
