@@ -36,6 +36,8 @@
 
     <section class="section"><h2>システム別の接続状況</h2><div id="systems" class="grid"><div class="empty">接続台帳を読み込んでいます。</div></div></section>
 
+    <section class="section"><h2>Gemini MD稼働状況</h2><div class="card"><p>ChatGPT公式収集 → Gemini MD分析。最新attemptと直近SUCCESSは、各実行のサマリーで別々に確認できます。失敗後も直近SUCCESSを保持します。</p><p>旧gemini-primary-scansは廃止済み・監査専用です。現在の稼働判定には使用しません。MD結果はPUBLISH_HOLD／Human Review対象です。</p><a class="launch" href="https://github.com/tianjinpipixia/knit-compass-photo-capture/actions/workflows/run-brand64-gemini-md-free-tier.yml">現行Gemini MD実行・サマリーを確認</a></div></section>
+
     <section class="section"><h2>利用実績（このMac）</h2><div id="kcUsageSummary" class="grid"><div class="empty">利用実績を集計しています。</div></div><div class="links"><button class="launch" id="kcExportUsageMetrics" type="button">KPI用CSVを書き出す</button></div><p class="footer">検索語、入力内容、氏名は保存せず、日別・機能別の回数だけを端末内で集計します。</p></section>
 
     <section class="section"><h2>残る次段階</h2><div class="card"><ol><li>会社所有Google Apps Scriptの正式WebアプリURLを確定し、CSV受信箱を認証付き自動取込へ切り替える</li><li>Daily Web／Androidにも同じ受信箱・Human Review導線を展開する</li><li>本番公開版へrelease tagを付与する</li><li>定期エクスポートと復元テストを運用記録する</li></ol></div></section>
