@@ -95,6 +95,27 @@ def main() -> None:
     assert "launch_lag_days_when_dates_are_confirmed" in relationship.get("derived_outputs", [])
     assert "Do not label similarity as copying" in relationship.get("interpretation_rule", "")
 
+    design_review = framework.get("design_signal_validation", {})
+    assert "2027" in design_review.get("purpose", "")
+    assert design_review.get("target_signal_example") == "OPENWORK_KNIT"
+    axes = set(design_review.get("evidence_axes", []))
+    for required in {"cross_brand_adoption", "monthly_distribution", "knit_structure_type", "material_composition", "item_type", "price_and_brand_tier", "connection_to_existing_yarn_candidates"}:
+        assert required in axes
+    flow = design_review.get("evaluation_flow", [])
+    assert flow == [
+        "2026_official_market_deployment_evidence",
+        "cross_brand_adoption_count",
+        "monthly_distribution",
+        "knit_structure_classification",
+        "material_composition_map",
+        "2027_validity_review",
+        "target_md_month_and_yarn_candidate",
+    ]
+    design_rules = design_review.get("rules", {})
+    assert design_rules.get("single_product_never_confirms_2027_validity") is True
+    assert design_rules.get("openwork_must_be_separated_from_generic_sheer") is True
+    assert design_rules.get("human_review_required_for_2027_adoption") is True
+
     monthly_outputs = set(framework.get("monthly_md_outputs", []))
     for required in {
         "brand_month_timeline",
@@ -104,6 +125,7 @@ def main() -> None:
         "color_transition",
         "function_persistence",
         "cross_brand_relationship_findings",
+        "design_signal_2027_validity_review",
     }:
         assert required in monthly_outputs
 
@@ -116,10 +138,18 @@ def main() -> None:
     daily = monitoring.get("cadence", {}).get("daily", {})
     assert REQUIRED_TIMELINE_FIELDS <= set(daily.get("tier_a_timeline_fields", []))
     assert daily.get("sales_start_date_rule") == "NEVER_EQUATE_FIRST_SEEN_WITH_SALES_START_WITHOUT_EVIDENCE"
+    design_monitoring = monitoring.get("design_signal_review", {})
+    assert "2027" in design_monitoring.get("purpose", "")
+    openwork_policy = design_monitoring.get("openwork_policy", {})
+    assert openwork_policy.get("generic_sheer_is_not_openwork") is True
+    assert openwork_policy.get("classify_subtype") is True
+    assert openwork_policy.get("single_product_status") == "SIGNAL_ONLY"
     rules = monitoring.get("rules", {})
     assert rules.get("preserve_sales_start_separately_from_first_seen") is True
     assert rules.get("preserve_new_color_and_promotion_dates") is True
     assert rules.get("cross_brand_similarity_is_not_copying_claim") is True
+    assert rules.get("single_product_never_confirms_2027_design_validity") is True
+    assert rules.get("openwork_separate_from_generic_sheer") is True
 
     weekly = monitoring.get("cadence", {}).get("weekly", {})
     canonical = weekly.get("canonical_storage", {})
@@ -133,7 +163,7 @@ def main() -> None:
 
     print(
         "brand MD analysis framework: OK "
-        f"({len(EXPECTED_TIER_A)} Tier-A brands, Brand64 history preserved, GU=TREND, UNIQLO=LIFE, explicit launch timeline)"
+        f"({len(EXPECTED_TIER_A)} Tier-A brands, Brand64 history preserved, GU=TREND, UNIQLO=LIFE, explicit launch timeline, 2027 design-signal validation)"
     )
 
 

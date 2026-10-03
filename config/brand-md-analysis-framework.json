@@ -1,7 +1,7 @@
 {
   "format": "KC_BRAND_MD_ANALYSIS_FRAMEWORK",
-  "schema_version": "1.0",
-  "updated_at": "2026-08-20T13:15:00+09:00",
+  "schema_version": "1.1",
+  "updated_at": "2026-10-03T09:52:00+09:00",
   "scope": "Brand64 women's knit MD analysis with selective deep dives",
   "active_brand_source": "config/brand64-active-brands.json",
   "monitoring_source": "config/brand64-md-monitoring.json",
@@ -161,7 +161,8 @@
     "late_summer_to_autumn_translation",
     "cross_brand_relationship_findings",
     "material_development_implication",
-    "evidence_urls"
+    "evidence_urls",
+    "design_signal_2027_validity_review"
   ],
   "rules": {
     "official_sources_first": true,
@@ -170,5 +171,73 @@
     "customer_publication": "HOLD",
     "human_review_before_master": true,
     "keep_current_ui_unchanged": true
+  },
+  "design_signal_validation": {
+    "purpose": "Observed design/knit-structure detection is an input, not the conclusion. Use 2026 official market deployment evidence to judge whether a signal is worth carrying into 2027 SS MD.",
+    "target_signal_example": "OPENWORK_KNIT",
+    "openwork_taxonomy": [
+      {
+        "id": "eyelet",
+        "label_ja": "アイレット"
+      },
+      {
+        "id": "mesh",
+        "label_ja": "メッシュ"
+      },
+      {
+        "id": "crochet_like",
+        "label_ja": "クロシェ調"
+      },
+      {
+        "id": "lace_like",
+        "label_ja": "レース調"
+      },
+      {
+        "id": "needle_out",
+        "label_ja": "針抜き"
+      },
+      {
+        "id": "other_openwork",
+        "label_ja": "その他透かし編み"
+      }
+    ],
+    "evidence_axes": [
+      "cross_brand_adoption",
+      "monthly_distribution",
+      "continuity_restock_relaunch",
+      "knit_structure_type",
+      "material_composition",
+      "item_type",
+      "price_and_brand_tier",
+      "connection_to_existing_yarn_candidates"
+    ],
+    "evaluation_flow": [
+      "2026_official_market_deployment_evidence",
+      "cross_brand_adoption_count",
+      "monthly_distribution",
+      "knit_structure_classification",
+      "material_composition_map",
+      "2027_validity_review",
+      "target_md_month_and_yarn_candidate"
+    ],
+    "use_case_split": {
+      "spring_fancy": "Decorative/feminine spring expression; evaluate separately from ventilation-led summer basics.",
+      "early_summer_breathable_lightweight_basic": "Breathable/lightweight early-summer basic; evaluate separately from decorative spring fancy."
+    },
+    "statuses": [
+      "SIGNAL_ONLY",
+      "EVIDENCE_ACCUMULATING",
+      "CANDIDATE_FOR_2027_REVIEW",
+      "HUMAN_DECISION_PENDING"
+    ],
+    "rules": {
+      "single_product_never_confirms_2027_validity": true,
+      "openwork_must_be_separated_from_generic_sheer": true,
+      "require_cross_brand_context": true,
+      "require_month_context": true,
+      "first_seen_is_not_launch_or_sales_start": true,
+      "sales_quantity_estimation": "FORBIDDEN",
+      "human_review_required_for_2027_adoption": true
+    }
   }
 }

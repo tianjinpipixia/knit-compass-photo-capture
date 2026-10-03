@@ -1,7 +1,7 @@
 {
   "format": "KC_BRAND64_MD_MONITORING",
-  "schema_version": "1.6",
-  "updated_at": "2026-09-01T08:45:00+09:00",
+  "schema_version": "1.7",
+  "updated_at": "2026-10-03T09:52:00+09:00",
   "scope": "65 active brands / women's knit focus; current approved scope KC40-20260930 (20 deep dive / 20 monitoring)",
   "active_brand_source": "config/brand64-active-brands.json",
   "active_brand_count": 65,
@@ -143,7 +143,10 @@
         "group_relationship_comparison",
         "external_signal_comparison",
         "material_development_implication",
-        "next_checks"
+        "next_checks",
+        "design_signal_cross_brand_adoption",
+        "design_signal_monthly_distribution",
+        "design_signal_2027_validity_review"
       ],
       "external_signal_mode": "WEEKLY_LIGHT_SCAN_AND_COMPARISON",
       "canonical_storage": {
@@ -184,7 +187,8 @@
         "new_development_candidates",
         "sales_proposal_theme",
         "next_month_hypothesis",
-        "evidence_urls"
+        "evidence_urls",
+        "design_signal_2027_validity_review"
       ],
       "use_external_weekly_signals_as_context": true
     }
@@ -261,12 +265,27 @@
     "human_review_before_master": true,
     "customer_publication": "HOLD",
     "external_signals_do_not_change_brand64_count": true,
-    "cross_brand_similarity_is_not_copying_claim": true
+    "cross_brand_similarity_is_not_copying_claim": true,
+    "single_product_never_confirms_2027_design_validity": true,
+    "openwork_separate_from_generic_sheer": true
   },
   "gemini": {
     "status": "INSTRUCTION_READY_CONNECTION_REQUIRED",
     "instruction_document": "docs/BRAND64_DAILY_MD_MONITORING.md"
   },
   "current_approved_scope_id": "KC40-20260930",
-  "historical_brand64_preserved": true
+  "historical_brand64_preserved": true,
+  "design_signal_review": {
+    "purpose": "Convert repeated design/knit-structure observations into evidence for 2027 MD decisions; do not treat detection itself as adoption proof.",
+    "analysis_framework_section": "design_signal_validation",
+    "openwork_policy": {
+      "generic_sheer_is_not_openwork": true,
+      "classify_subtype": true,
+      "split_use_cases": [
+        "SPRING_FANCY",
+        "EARLY_SUMMER_BREATHABLE_LIGHTWEIGHT_BASIC"
+      ],
+      "single_product_status": "SIGNAL_ONLY"
+    }
+  }
 }
