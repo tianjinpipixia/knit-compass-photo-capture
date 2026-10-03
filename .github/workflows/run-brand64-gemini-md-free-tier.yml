@@ -60,8 +60,14 @@ jobs:
           python -m unittest discover -s tests -p test_brand64_gemini_md_status.py -v
 
       - name: Restore current MD history and last successful artifact
+        shell: bash
         run: |
-          git fetch --depth=1 origin '+refs/heads/brand64/gemini-md-*:refs/remotes/origin/brand64/gemini-md-*'
+          handoff_refs=$(git ls-remote --heads origin 'refs/heads/brand64/gemini-md-*')
+          if [ -n "$handoff_refs" ]; then
+            git fetch --depth=1 origin '+refs/heads/brand64/gemini-md-*:refs/remotes/origin/brand64/gemini-md-*'
+          else
+            echo "No remote MD handoff history; restoring artifacts from the checkout."
+          fi
           python scripts/brand64_gemini_md_status.py restore
 
       - name: Run Gemini MD pass with URL Context only

@@ -2,10 +2,12 @@
 """Current MD status only; legacy primary scans are audit-only."""
 import argparse
 import json
+import os
 import pathlib
 import subprocess
 
 MD_ROOT = pathlib.Path('data/brand-md-monitoring/gemini-md')
+ROOT = pathlib.Path(__file__).resolve().parents[1]
 FIELDS = ('gemini_execution_status', 'attempted_brand_count', 'confirmed_brand_count',
           'md_signal_count', 'md_signal_brand_count', 'required_confirmed_brand_count',
           'quota_exhausted', 'errors')
@@ -30,12 +32,15 @@ def make_pointer(records):
     return pointer
 
 
-def local_records(root):
+def local_records(root, repository_root=ROOT):
     records = []
     for path in root.glob('*/gemini-md-*.json'):
         artifact = json.loads(path.read_text())
         if artifact.get('format') == 'KC_BRAND64_GEMINI_MD_FREE_TIER':
-            records.append((str(path), artifact))
+            # The runner's default output root is absolute; pointers must survive
+            # checkout on another runner or machine (including custom output roots).
+            portable_path = pathlib.Path(os.path.relpath(path.resolve(), repository_root)).as_posix()
+            records.append((portable_path, artifact))
     return records
 
 

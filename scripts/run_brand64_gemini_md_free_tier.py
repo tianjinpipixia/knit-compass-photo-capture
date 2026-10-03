@@ -420,10 +420,7 @@ def main() -> int:
     # Recover from immutable current MD artifacts, never from legacy primary scans.
     sys.path.insert(0, str(ROOT / "scripts"))
     from brand64_gemini_md_status import local_records, make_pointer
-    latest.update(make_pointer(local_records(out_root)))
-    if status == "SUCCESS":
-        latest["latest_successful_scan_date"] = date
-        latest["latest_successful_artifact_path"] = str(artifact_path).replace("\\", "/")
+    latest.update(make_pointer(local_records(out_root, repository_root=ROOT)))
     save_json(out_root / "latest.json", latest)
     print(json.dumps(latest, ensure_ascii=False))
     return 0 if status == "SUCCESS" else 1
