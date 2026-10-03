@@ -2,7 +2,10 @@ import importlib.util
 import io
 import json
 import pathlib
+import shutil
 import unittest
+import tempfile
+import contextlib
 from unittest.mock import patch
 import urllib.error
 
@@ -35,6 +38,42 @@ class GeminiMdFreeTierTests(unittest.TestCase):
             with self.assertRaises(mod.QuotaExhausted):
                 mod.call_gemini('key', 'gemini-2.5-flash-lite', 'prompt', retry_429_seconds=0)
         self.assertEqual(sleep.call_count, 1)
+
+    def test_runner_success_then_503_retains_success_artifact(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = pathlib.Path(directory)
+            (root / 'scripts').mkdir()
+            shutil.copy(ROOT / 'scripts/brand64_gemini_md_status.py', root / 'scripts')
+            out_root = root / 'data/brand-md-monitoring/gemini-md'
+            argv = ['runner', '--date', '2026-10-02', '--required-confirmed', '1',
+                    '--cooldown-seconds', '0']
+            candidate = {'brand_id': 'B', 'brand_name': 'Brand', 'official_url': 'https://example.com'}
+            with patch.object(mod.sys, 'argv', argv), patch.dict(mod.os.environ, {'GEMINI_API_KEY': 'test'}), \
+                 patch.object(mod, 'ROOT', root), patch.object(mod, 'OUT_ROOT', out_root), \
+                 patch.object(mod, 'today_jst', return_value='2026-10-02'), \
+                 patch.object(mod, 'read_json', side_effect=[{'observed_date': '2026-10-02'}, {'brands': {}}, {}] * 2), \
+                 patch.object(mod, 'select_candidates', return_value=[candidate]), \
+                 patch.object(mod, 'prompt', return_value='prompt'), \
+                 patch.object(mod, 'validate_rows', return_value=[{'scan_status': 'OK', 'md_signals': []}]), \
+                 patch.object(mod, 'call_gemini', side_effect=[{'parsed': {}}, RuntimeError('HTTP 503 high load')]), \
+                 contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(mod.main(), 0)
+                before = json.loads((out_root / 'latest.json').read_text())
+                self.assertEqual(mod.main(), 1)
+            after = json.loads((out_root / 'latest.json').read_text())
+            self.assertEqual(after['gemini_execution_status'], 'GEMINI_SCAN_INCOMPLETE')
+            self.assertEqual(after['latest_successful_artifact_path'], before['artifact_path'])
+            self.assertEqual(after['latest_successful_scan_date'], '2026-10-02')
+            for pointer in (before, after):
+                for key in ('artifact_path', 'latest_successful_artifact_path'):
+                    self.assertFalse(pathlib.Path(pointer[key]).is_absolute())
+                    self.assertTrue(pointer[key].startswith('data/brand-md-monitoring/gemini-md/'))
+                    self.assertTrue((root / pointer[key]).is_file())
+            with tempfile.TemporaryDirectory() as relocated:
+                moved_root = pathlib.Path(relocated)
+                shutil.copytree(root / 'data', moved_root / 'data')
+                for key in ('artifact_path', 'latest_successful_artifact_path'):
+                    self.assertTrue((moved_root / after[key]).is_file())
 
     def test_priority_brands_sort_first(self):
         sources = {

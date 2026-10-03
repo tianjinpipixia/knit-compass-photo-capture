@@ -77,3 +77,34 @@ Gemini output remains `PUBLISH_HOLD` / `HUMAN_REVIEW_REQUIRED`. Product codes, d
 ## Current execution evidence
 
 The 2026-09-20 Gemini MD run completed successfully with `analyzer=GEMINI_PRIMARY`: 52 brands attempted, 51 confirmed, and 211 MD signals. It was bound to the same-day `CHATGPT_OFFICIAL_DIRECT` canonical collection snapshot. This analysis is not counted as official collection. Historical `GEMINI_SCAN_MISSING` records for 2026-09-01 through 2026-09-05 remain unchanged as audit history.
+
+## Current status and retained audit history
+
+Current pipeline: **CHATGPT_OFFICIAL_DIRECT → GEMINI_PRIMARY (MD_ANALYSIS)**.
+`data/brand-md-monitoring/gemini-primary-scans/` is **DEPRECATED / AUDIT_ONLY**.
+Its 2026-09-05 `GEMINI_SCAN_MISSING` pointer records the old execution only;
+it must never be used to judge current Gemini operation. Historical artifacts and
+errors remain intact. No old success is counted as official collection.
+
+Current status comes exclusively from `gemini-md/latest.json` and its referenced
+MD artifacts. On main this directory may be absent: runtime data is preserved on
+`brand64/gemini-md-<date>-<run-id>-<attempt>` handoff branches and Actions artifacts.
+Do not fall back to the deprecated pointer when current data is unavailable.
+The workflow restores current MD history from these branches before every run.
+`python scripts/brand64_gemini_md_status.py restore` performs the same restoration
+locally after fetching those refs; `summary` reports current state.
+
+- `artifact_path` / `latest_attempted_scan_date` / `gemini_execution_status`: latest attempt.
+- `latest_successful_artifact_path` / `latest_successful_scan_date` / `latest_successful_generated_at_utc`: most recent SUCCESS, retained after failure.
+- Actual `generated_at_utc` selects the newest attempt, including same-day runs.
+- No SUCCESS means the successful fields are absent, displayed as UNAVAILABLE.
+
+Actions summaries display both attempt and SUCCESS independently. A runner that
+exits before producing a new artifact is reported by the failed workflow; its
+restored historical artifact is never rebound to the new collection snapshot.
+HTTP 503/incomplete attempts preserve prior successful evidence. All MD results
+remain PUBLISH_HOLD / HUMAN_REVIEW_REQUIRED; collection binding is unchanged.
+
+Verified stored evidence: 2026-10-01 SUCCESS (52 attempted / 51 confirmed / 241
+signals); 2026-10-02 SUCCESS (52 / 50 / 250), followed by an incomplete 503 attempt
+(38 / 28 / 131). The latter does not erase the October 2 successful artifact.

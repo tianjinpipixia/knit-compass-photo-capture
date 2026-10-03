@@ -57,11 +57,24 @@ jobs:
         run: |
           python -m unittest discover -s tests -p test_brand64_gemini_md_free_tier.py -v
           python -m unittest discover -s tests -p test_brand64_daily_pipeline_binding.py -v
+          python -m unittest discover -s tests -p test_brand64_gemini_md_status.py -v
+
+      - name: Restore current MD history and last successful artifact
+        shell: bash
+        run: |
+          handoff_refs=$(git ls-remote --heads origin 'refs/heads/brand64/gemini-md-*')
+          if [ -n "$handoff_refs" ]; then
+            git fetch --depth=1 origin '+refs/heads/brand64/gemini-md-*:refs/remotes/origin/brand64/gemini-md-*'
+          else
+            echo "No remote MD handoff history; restoring artifacts from the checkout."
+          fi
+          python scripts/brand64_gemini_md_status.py restore
 
       - name: Run Gemini MD pass with URL Context only
         id: gemini
         continue-on-error: true
         run: |
+          touch /tmp/gemini-md-attempt-start
           python scripts/run_brand64_gemini_md_free_tier.py \
             --date "$(date +%F)" \
             --required-confirmed 39 \
@@ -74,7 +87,7 @@ jobs:
         if: always() && steps.gemini.outcome != 'skipped'
         shell: bash
         run: |
-          if [ -f data/brand-md-monitoring/gemini-md/latest.json ]; then
+          if [ data/brand-md-monitoring/gemini-md/latest.json -nt /tmp/gemini-md-attempt-start ]; then
             python scripts/brand64_daily_pipeline_binding.py stamp-gemini \
               --analysis-run-id "$GITHUB_RUN_ID" \
               --analysis-run-attempt "$GITHUB_RUN_ATTEMPT" \
@@ -110,6 +123,8 @@ jobs:
       - name: Report daily pipeline architecture
         if: always()
         run: |
+          echo "Current runner outcome: ${{ steps.gemini.outcome }} (if no new artifact, MD pointer remains historical)." >> "$GITHUB_STEP_SUMMARY"
+          python scripts/brand64_gemini_md_status.py summary >> "$GITHUB_STEP_SUMMARY"
           echo "Pipeline stage: MD_ANALYSIS / analyzer=GEMINI_PRIMARY" >> "$GITHUB_STEP_SUMMARY"
           echo "Upstream collection run: ${UPSTREAM_COLLECTION_RUN_ID:-manual} / conclusion=${UPSTREAM_COLLECTION_CONCLUSION}" >> "$GITHUB_STEP_SUMMARY"
           echo "Gemini model: ${GEMINI_MD_MODEL}" >> "$GITHUB_STEP_SUMMARY"
