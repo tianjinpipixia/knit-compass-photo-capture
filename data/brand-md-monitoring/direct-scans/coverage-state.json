@@ -625,24 +625,38 @@
       {
         "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=3",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
       }
     ],
     "surface_items": [],
     "product_details": [],
     "pending_page_urls": [
-      "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2",
-      "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=3",
-      "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2"
+      "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/",
+      "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/"
     ],
     "successful_page_urls": [],
     "attempted_page_urls": [
       "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/",
-      "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/"
+      "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/",
+      "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2",
+      "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2",
+      "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=3"
     ],
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-06T23:55:36.589596+00:00"
+    "last_attempt_at_utc": "2026-10-06T23:57:19.647312+00:00"
   },
   "BR-00054": {
     "brand_id": "BR-00054",
@@ -665,9 +679,28 @@
         "retrieved_at_utc": "2026-10-06T23:55:41.494454+00:00",
         "sha256": "5c373096fe0f2deada21598765c3f69d44f596658815cd50579ed7162f0d9cdf",
         "evidence_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-07/20261006T235533110060Z-flash/evidence/5c373096fe0f2deada21598765c3f69d44f596658815cd50579ed7162f0d9cdf.html.gz"
+      },
+      {
+        "requested_url": "https://baycrews.jp/brand/detail/slobe",
+        "url": "https://baycrews.jp/brand/detail/slobe",
+        "retrieved_at_utc": "2026-10-06T23:57:14.822204+00:00",
+        "sha256": "a4d027f0b5177a96b4f215b9e7a132385c996477195ae9f25649cf47df768044",
+        "evidence_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-07/20261006T235713097927Z-retry/evidence/a4d027f0b5177a96b4f215b9e7a132385c996477195ae9f25649cf47df768044.html.gz"
+      },
+      {
+        "requested_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
+        "url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
+        "retrieved_at_utc": "2026-10-06T23:57:16.463442+00:00",
+        "sha256": "310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf",
+        "evidence_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-07/20261006T235713097927Z-retry/evidence/310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf.html.gz"
       }
     ],
-    "errors": [],
+    "errors": [
+      {
+        "url": "https://baycrews.jp/brand/detail/slobe",
+        "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
+      }
+    ],
     "surface_items": [
       {
         "product_name": "《WEB限定カラーあり》echecs Vネックプルオーバー",
@@ -1014,10 +1047,10 @@
         "status_labels": [
           "予約"
         ],
-        "source_url": "https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0999",
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "1c18b600d0f5f05fe69d40f3b2c84129c155bad7e8c2524051abce215b5f9a96"
+        "source_sha256": "310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf"
       },
       {
         "product_name": "《WEB限定カラーあり/追加4》ダブルフェイスジャージースナップカーディガン",
@@ -1347,25 +1380,243 @@
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
         "source_sha256": "5c373096fe0f2deada21598765c3f69d44f596658815cd50579ed7162f0d9cdf"
+      },
+      {
+        "product_name": "Vネックボリュームスリーブニット",
+        "product_url": "https://baycrews.jp/item/detail/slobe/cutsew/26080912400040",
+        "product_code": "26080912400040",
+        "display_price": "¥13,200",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf"
+      },
+      {
+        "product_name": "アーガイルハンドニット",
+        "product_url": "https://baycrews.jp/item/detail/slobe/cutsew/26080912262030",
+        "product_code": "26080912262030",
+        "display_price": "¥25,300",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf"
+      },
+      {
+        "product_name": "《シリーズあり/追加》ウォッシャブルプレーンニット",
+        "product_url": "https://baycrews.jp/item/detail/slobe/cutsew/26080912243030",
+        "product_code": "26080912243030",
+        "display_price": "¥9,350",
+        "status_labels": [
+          "再入荷"
+        ],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf"
+      },
+      {
+        "product_name": "《WEB限定カラーあり/シリーズあり/追加予約》サガラ刺繍スウェットライクニット",
+        "product_url": "https://baycrews.jp/item/detail/slobe/cutsew/26080912013040",
+        "product_code": "26080912013040",
+        "display_price": "¥12,650",
+        "status_labels": [
+          "予約"
+        ],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf"
+      },
+      {
+        "product_name": "《予約》SUNNY STUDIO SLOBE別注 ポロニット Q8996",
+        "product_url": "https://baycrews.jp/item/detail/slobe/cutsew/26080913001240",
+        "product_code": "26080913001240",
+        "display_price": "¥19,800",
+        "status_labels": [
+          "予約"
+        ],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf"
+      },
+      {
+        "product_name": "《シリーズあり/予約》フォックスアルパカ 2wayプルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/slobe/cutsew/26080912267040",
+        "product_code": "26080912267040",
+        "display_price": "¥23,650",
+        "status_labels": [
+          "予約"
+        ],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf"
+      },
+      {
+        "product_name": "《シリーズあり》コットンキュプラハーフスリーブプルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/slobe/cutsew/26080912208010",
+        "product_code": "26080912208010",
+        "display_price": "¥11,550",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf"
+      },
+      {
+        "product_name": "柄編みハーフスリーブニット",
+        "product_url": "https://baycrews.jp/item/detail/slobe/cutsew/26080912264030",
+        "product_code": "26080912264030",
+        "display_price": "¥12,100",
+        "status_labels": [
+          "再入荷"
+        ],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf"
+      },
+      {
+        "product_name": "ワイドシルエットニットポロシャツ",
+        "product_url": "https://baycrews.jp/item/detail/slobe/cutsew/26080912000030",
+        "product_code": "26080912000030",
+        "display_price": "¥7,700",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf"
+      },
+      {
+        "product_name": "ハーフスリーブフリンジニット",
+        "product_url": "https://baycrews.jp/item/detail/slobe/cutsew/26080912250030",
+        "product_code": "26080912250030",
+        "display_price": "¥13,200",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf"
+      },
+      {
+        "product_name": "《WEB限定カラーあり/予約》ウォッシャブルスムースクルーネックプルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/slobe/cutsew/26080912276040",
+        "product_code": "26080912276040",
+        "display_price": "¥12,100",
+        "status_labels": [
+          "予約"
+        ],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf"
+      },
+      {
+        "product_name": "《予約》パールロゴニット",
+        "product_url": "https://baycrews.jp/item/detail/slobe/cutsew/26080912278040",
+        "product_code": "26080912278040",
+        "display_price": "¥14,300",
+        "status_labels": [
+          "予約"
+        ],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf"
+      },
+      {
+        "product_name": "《予約》3ゲージポップコーンニット",
+        "product_url": "https://baycrews.jp/item/detail/slobe/cutsew/26080912303040",
+        "product_code": "26080912303040",
+        "display_price": "¥13,200",
+        "status_labels": [
+          "予約"
+        ],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf"
+      },
+      {
+        "product_name": "《予約》スパンコールニット",
+        "product_url": "https://baycrews.jp/item/detail/slobe/cutsew/26080912600040",
+        "product_code": "26080912600040",
+        "display_price": "¥14,300",
+        "status_labels": [
+          "予約"
+        ],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf"
+      },
+      {
+        "product_name": "チャンキーニット",
+        "product_url": "https://baycrews.jp/item/detail/slobe/cutsew/26080912263030",
+        "product_code": "26080912263030",
+        "display_price": "¥13,200",
+        "status_labels": [
+          "再入荷"
+        ],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf"
+      },
+      {
+        "product_name": "《追加》畔オーバープルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/slobe/cutsew/26080912249030",
+        "product_code": "26080912249030",
+        "display_price": "¥13,200",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf"
+      },
+      {
+        "product_name": "KAYAノースリーブプルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/slobe/cutsew/26080912232020",
+        "product_code": "26080912232020",
+        "display_price": "¥11,000",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf"
+      },
+      {
+        "product_name": "《セットアップ対応可/追加2》コットンダブルフェイスプルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/slobe/cutsew/26080912217110",
+        "product_code": "26080912217110",
+        "display_price": "¥9,900",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "310c7f19e34a6f7700b23698a474397b54c57252ac039941915c0771b384beaf"
       }
     ],
     "product_details": [],
-    "pending_page_urls": [
-      "https://baycrews.jp/brand/detail/slobe",
-      "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1"
-    ],
+    "pending_page_urls": [],
     "successful_page_urls": [
       "https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0999",
-      "https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0999"
+      "https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0999",
+      "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1"
     ],
     "attempted_page_urls": [
       "https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0999",
-      "https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0999"
+      "https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0999",
+      "https://baycrews.jp/brand/detail/slobe",
+      "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1"
     ],
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-06T23:55:43.972686+00:00"
+    "last_attempt_at_utc": "2026-10-06T23:57:17.165265+00:00"
   },
   "BR-00004": {
     "brand_id": "BR-00004",
@@ -1708,6 +1959,13 @@
         "retrieved_at_utc": "2026-10-06T23:55:37.484303+00:00",
         "sha256": "2a230333669367e9deb17cad7b912c8373929a0f6bbb5b7b94ce7a337e18c152",
         "evidence_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-07/20261006T235533110060Z-flash/evidence/2a230333669367e9deb17cad7b912c8373929a0f6bbb5b7b94ce7a337e18c152.html.gz"
+      },
+      {
+        "requested_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "retrieved_at_utc": "2026-10-06T23:57:15.294789+00:00",
+        "sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739",
+        "evidence_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-07/20261006T235713097927Z-retry/evidence/d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739.html.gz"
       }
     ],
     "errors": [],
@@ -1718,10 +1976,10 @@
         "product_code": "670342",
         "display_price": "¥ 4,490",
         "status_labels": [],
-        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "2a230333669367e9deb17cad7b912c8373929a0f6bbb5b7b94ce7a337e18c152"
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
       },
       {
         "product_name": "メルティクルー金ボタンカーディガン/759457",
@@ -1731,10 +1989,10 @@
         "status_labels": [
           "NEW"
         ],
-        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "2a230333669367e9deb17cad7b912c8373929a0f6bbb5b7b94ce7a337e18c152"
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
       },
       {
         "product_name": "カシミヤタッチペプラムカーディガン/812956",
@@ -1770,10 +2028,10 @@
         "status_labels": [
           "NEW"
         ],
-        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "2a230333669367e9deb17cad7b912c8373929a0f6bbb5b7b94ce7a337e18c152"
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
       },
       {
         "product_name": "お手入れらくらくスウェットライクニット/襟カーディガン/826520",
@@ -1783,10 +2041,10 @@
         "status_labels": [
           "NEW"
         ],
-        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "2a230333669367e9deb17cad7b912c8373929a0f6bbb5b7b94ce7a337e18c152"
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
       },
       {
         "product_name": "FOXブレンドニットプルオーバー/670352",
@@ -1796,10 +2054,10 @@
         "status_labels": [
           "NEW"
         ],
-        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "2a230333669367e9deb17cad7b912c8373929a0f6bbb5b7b94ce7a337e18c152"
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
       },
       {
         "product_name": "FOXブレンド接結カーディガン/670351",
@@ -1809,28 +2067,313 @@
         "status_labels": [
           "NEW"
         ],
-        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "2a230333669367e9deb17cad7b912c8373929a0f6bbb5b7b94ce7a337e18c152"
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "シャギーゆるVネックカーディガン/1063341",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/1063341/",
+        "product_code": "1063341",
+        "display_price": "¥4,990",
+        "status_labels": [
+          "NEW"
+        ],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "アイレットカーディガン/1067228",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/1067228/",
+        "product_code": "1067228",
+        "display_price": "¥3,490",
+        "status_labels": [
+          "NEW"
+        ],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "カシミヤタッチレースVネックカーディガン/1048996",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/1048996/",
+        "product_code": "1048996",
+        "display_price": "¥5,490",
+        "status_labels": [
+          "NEW"
+        ],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "モヘヤタッチ花柄カーディガン/1080241",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/1080241/",
+        "product_code": "1080241",
+        "display_price": "¥4,990",
+        "status_labels": [
+          "NEW"
+        ],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "アーガイルニットVネックカーディガン/1069417",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/1069417/",
+        "product_code": "1069417",
+        "display_price": "¥4,990",
+        "status_labels": [],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "メルティクルーフリルカーディガン/1063334",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/1063334/",
+        "product_code": "1063334",
+        "display_price": "¥4,490",
+        "status_labels": [],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "スウェットライククルーカーディガン/724802",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/724802/",
+        "product_code": "724802",
+        "display_price": "¥4,490",
+        "status_labels": [],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "スウェットライクZIPカーディガン/642682",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/642682/",
+        "product_code": "642682",
+        "display_price": "¥4,990",
+        "status_labels": [],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "ドライタッチVネックカーディガン長袖/634143",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/634143/",
+        "product_code": "634143",
+        "display_price": "¥2,245",
+        "status_labels": [],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "スウェットライククルーカーディガン/632604",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/632604/",
+        "product_code": "632604",
+        "display_price": "¥2,693",
+        "status_labels": [
+          "再入荷"
+        ],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "ダンボールボタンカーディガン/1054554",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/1054554/",
+        "product_code": "1054554",
+        "display_price": "¥4,990",
+        "status_labels": [],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "シャーリングレースクルーカーディガン/1051186",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/1051186/",
+        "product_code": "1051186",
+        "display_price": "¥3,490",
+        "status_labels": [],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "クルーネックカーディガン/長袖/826491",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/826491/",
+        "product_code": "826491",
+        "display_price": "¥5,490",
+        "status_labels": [],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "UVプロテクトペプラムカーディガン/1046363",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/1046363/",
+        "product_code": "1046363",
+        "display_price": "¥2,393",
+        "status_labels": [],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "フリルニットカーディガン/1046531",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/1046531/",
+        "product_code": "1046531",
+        "display_price": "¥2,245",
+        "status_labels": [],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "【玉井詩織さん着用】2WAYシアーフリンンジカーディガン/1046061",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/1046061/",
+        "product_code": "1046061",
+        "display_price": "¥1,995",
+        "status_labels": [],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "ポケット付きニットクルー半袖カーディガン/1046102",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/1046102/",
+        "product_code": "1046102",
+        "display_price": "¥2,153",
+        "status_labels": [],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "洗えるリブシアーVネック長袖カーディガン/902751",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/902751/",
+        "product_code": "902751",
+        "display_price": "¥1,995",
+        "status_labels": [],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "シャーリングレース2WAYカーディガン/901573",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/901573/",
+        "product_code": "901573",
+        "display_price": "¥1,569",
+        "status_labels": [],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "リネン混ニット2WAYプルオーバー半袖/147712",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/147712/",
+        "product_code": "147712",
+        "display_price": "¥1,795",
+        "status_labels": [],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "リネン混シアークルーカーディガン/650272",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/650272/",
+        "product_code": "650272",
+        "display_price": "¥3,492",
+        "status_labels": [],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "UVカットカーディガン6分袖/647559",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/647559/",
+        "product_code": "647559",
+        "display_price": "¥1,218",
+        "status_labels": [],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "冷感リブカーディガン/一部店舗限定/658995",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/658995/",
+        "product_code": "658995",
+        "display_price": "¥2,990",
+        "status_labels": [],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "襟付きコンパクトカーディガン/658154",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/658154/",
+        "product_code": "658154",
+        "display_price": "¥2,494",
+        "status_labels": [],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+      },
+      {
+        "product_name": "サラサラDRY Vネックカーディガン長袖/655854",
+        "product_url": "https://www.dot-st.com/globalwork/disp/item/655854/",
+        "product_code": "655854",
+        "display_price": "¥2,494",
+        "status_labels": [],
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
       }
     ],
     "product_details": [],
-    "pending_page_urls": [
-      "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
-    ],
+    "pending_page_urls": [],
     "successful_page_urls": [
       "https://www.dot-st.com/globalwork/disp/itemlist/?mode=&sort=01&groupNm=0&p=1&refineFlg=true&dispNo=001001&dispNoRadio=001001&search_color_cd=&search_size_cd=&search_class_attribute=&search_function_tag=&search_range_price_min=&search_range_price_max=&search_refine_range_min=&search_refine_range_max=&search_price=&goodsType=1&search_campaign=&store_delv_yn=&gift_wrap_yn=&stock=0&pre_rl=",
-      "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01"
+      "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+      "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
     ],
     "attempted_page_urls": [
       "https://www.dot-st.com/globalwork/disp/itemlist/?mode=&sort=01&groupNm=0&p=1&refineFlg=true&dispNo=001001&dispNoRadio=001001&search_color_cd=&search_size_cd=&search_class_attribute=&search_function_tag=&search_range_price_min=&search_range_price_max=&search_refine_range_min=&search_refine_range_max=&search_price=&goodsType=1&search_campaign=&store_delv_yn=&gift_wrap_yn=&stock=0&pre_rl=",
-      "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01"
+      "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+      "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
     ],
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-06T23:55:37.887802+00:00"
+    "last_attempt_at_utc": "2026-10-06T23:57:15.912344+00:00"
   },
   "BR-00051": {
     "brand_id": "BR-00051",
@@ -3877,22 +4420,28 @@
       {
         "url": "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0108",
         "reason": "ValueError: Redirect/source host is not in the configured official source allowlist"
+      },
+      {
+        "url": "https://store.united-arrows.co.jp/brand/glr/",
+        "reason": "ValueError: Redirect/source host is not in the configured official source allowlist"
       }
     ],
     "surface_items": [],
     "product_details": [],
     "pending_page_urls": [
-      "https://store.united-arrows.co.jp/brand/glr/"
+      "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0105",
+      "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0108"
     ],
     "successful_page_urls": [],
     "attempted_page_urls": [
       "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0108",
-      "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0105"
+      "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0105",
+      "https://store.united-arrows.co.jp/brand/glr/"
     ],
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-06T23:55:45.166754+00:00"
+    "last_attempt_at_utc": "2026-10-06T23:57:14.615118+00:00"
   },
   "BR-00075": {
     "brand_id": "BR-00075",
@@ -4505,6 +5054,13 @@
         "retrieved_at_utc": "2026-10-06T23:55:49.944921+00:00",
         "sha256": "1ace95e4cf74c94be5a838035acd081b48bcc3182047ce2001a943a6a6eabebf",
         "evidence_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-07/20261006T235533110060Z-flash/evidence/1ace95e4cf74c94be5a838035acd081b48bcc3182047ce2001a943a6a6eabebf.html.gz"
+      },
+      {
+        "requested_url": "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3",
+        "url": "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3",
+        "retrieved_at_utc": "2026-10-06T23:57:17.738356+00:00",
+        "sha256": "572329da9d8401dac8bd246f23e1ec00e3949c974c8059d55464ad943a04df85",
+        "evidence_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-07/20261006T235713097927Z-retry/evidence/572329da9d8401dac8bd246f23e1ec00e3949c974c8059d55464ad943a04df85.html.gz"
       }
     ],
     "errors": [],
@@ -4846,24 +5402,37 @@
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
         "source_sha256": "1ace95e4cf74c94be5a838035acd081b48bcc3182047ce2001a943a6a6eabebf"
+      },
+      {
+        "product_name": "婦人 足なり直角 日本で編みたてたウール混ローゲージ靴下 23~25cm",
+        "product_url": "https://www.muji.com/jp/ja/store/cmdty/detail/4550723516594",
+        "product_code": "4550723516594",
+        "display_price": "1,990 円",
+        "status_labels": [
+          "NEW"
+        ],
+        "source_url": "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "572329da9d8401dac8bd246f23e1ec00e3949c974c8059d55464ad943a04df85"
       }
     ],
     "product_details": [],
-    "pending_page_urls": [
-      "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3"
-    ],
+    "pending_page_urls": [],
     "successful_page_urls": [
       "https://www.muji.com/jp/ja/store/cmdty/section/T10013",
-      "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2"
+      "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2",
+      "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3"
     ],
     "attempted_page_urls": [
       "https://www.muji.com/jp/ja/store/cmdty/section/T10013",
-      "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2"
+      "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=2",
+      "https://www.muji.com/jp/ja/store/cmdty/section/T10013?page=3"
     ],
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-06T23:55:57.456047+00:00"
+    "last_attempt_at_utc": "2026-10-06T23:57:20.801858+00:00"
   },
   "BR-00005": {
     "brand_id": "BR-00005",
@@ -5385,23 +5954,33 @@
       {
         "url": "https://store.world.co.jp/s/brand/index/category/WB/WB02/",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "url": "https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "url": "https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
       }
     ],
     "surface_items": [],
     "product_details": [],
     "pending_page_urls": [
-      "https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2",
-      "https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2"
+      "https://store.world.co.jp/s/brand/index/category/WB/WB01/",
+      "https://store.world.co.jp/s/brand/index/category/WB/WB02/"
     ],
     "successful_page_urls": [],
     "attempted_page_urls": [
       "https://store.world.co.jp/s/brand/index/category/WB/WB01/",
-      "https://store.world.co.jp/s/brand/index/category/WB/WB02/"
+      "https://store.world.co.jp/s/brand/index/category/WB/WB02/",
+      "https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2",
+      "https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2"
     ],
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-06T23:56:09.105167+00:00"
+    "last_attempt_at_utc": "2026-10-06T23:57:26.514718+00:00"
   },
   "BR-00053": {
     "brand_id": "BR-00053",
@@ -6499,24 +7078,38 @@
       {
         "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
       }
     ],
     "surface_items": [],
     "product_details": [],
     "pending_page_urls": [
-      "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2",
-      "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2",
-      "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3"
+      "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/",
+      "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/"
     ],
     "successful_page_urls": [],
     "attempted_page_urls": [
       "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/",
-      "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/"
+      "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/",
+      "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2",
+      "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3",
+      "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2"
     ],
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-06T23:56:01.488112+00:00"
+    "last_attempt_at_utc": "2026-10-06T23:57:29.504551+00:00"
   },
   "BR-00056": {
     "brand_id": "BR-00056",
@@ -7849,22 +8442,28 @@
       {
         "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB02/",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
       }
     ],
     "surface_items": [],
     "product_details": [],
     "pending_page_urls": [
-      "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2"
+      "https://store.world.co.jp/s/brand/grove/category/WB/WB01/",
+      "https://store.world.co.jp/s/brand/grove/category/WB/WB02/"
     ],
     "successful_page_urls": [],
     "attempted_page_urls": [
       "https://store.world.co.jp/s/brand/grove/category/WB/WB02/",
-      "https://store.world.co.jp/s/brand/grove/category/WB/WB01/"
+      "https://store.world.co.jp/s/brand/grove/category/WB/WB01/",
+      "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2"
     ],
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-06T23:56:17.957279+00:00"
+    "last_attempt_at_utc": "2026-10-06T23:57:23.089861+00:00"
   },
   "BR-00064": {
     "brand_id": "BR-00064",
@@ -8863,22 +9462,28 @@
       {
         "url": "https://store.world.co.jp/s/brand/indivi/category/WB/WB02/",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "url": "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
       }
     ],
     "surface_items": [],
     "product_details": [],
     "pending_page_urls": [
-      "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2"
+      "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/",
+      "https://store.world.co.jp/s/brand/indivi/category/WB/WB02/"
     ],
     "successful_page_urls": [],
     "attempted_page_urls": [
       "https://store.world.co.jp/s/brand/indivi/category/WB/WB02/",
-      "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/"
+      "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/",
+      "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2"
     ],
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-06T23:56:27.536106+00:00"
+    "last_attempt_at_utc": "2026-10-06T23:57:24.226895+00:00"
   },
   "BR-00009": {
     "brand_id": "BR-00009",
@@ -10388,22 +10993,28 @@
       {
         "url": "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17",
         "reason": "ValueError: Source exceeds size limit"
+      },
+      {
+        "url": "https://crosset.onward.co.jp/shop/kumikyoku?du=1",
+        "reason": "HTTPError: HTTP Error 302: The HTTP server returned a redirect error that would lead to an infinite loop.\nThe last 30x error message was:\nMoved Temporarily"
       }
     ],
     "surface_items": [],
     "product_details": [],
     "pending_page_urls": [
-      "https://crosset.onward.co.jp/shop/kumikyoku?du=1"
+      "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30",
+      "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17"
     ],
     "successful_page_urls": [],
     "attempted_page_urls": [
       "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30",
-      "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17"
+      "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17",
+      "https://crosset.onward.co.jp/shop/kumikyoku?du=1"
     ],
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-06T23:56:40.732516+00:00"
+    "last_attempt_at_utc": "2026-10-06T23:57:18.509850+00:00"
   },
   "BR-00050": {
     "brand_id": "BR-00050",
@@ -10421,22 +11032,28 @@
       {
         "url": "https://store.world.co.jp/s/brand/untitled/category/WB/WB02/",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "url": "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
       }
     ],
     "surface_items": [],
     "product_details": [],
     "pending_page_urls": [
-      "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2"
+      "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/",
+      "https://store.world.co.jp/s/brand/untitled/category/WB/WB02/"
     ],
     "successful_page_urls": [],
     "attempted_page_urls": [
       "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/",
-      "https://store.world.co.jp/s/brand/untitled/category/WB/WB02/"
+      "https://store.world.co.jp/s/brand/untitled/category/WB/WB02/",
+      "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2"
     ],
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-06T23:56:32.394234+00:00"
+    "last_attempt_at_utc": "2026-10-06T23:57:28.140203+00:00"
   },
   "BR-00070": {
     "brand_id": "BR-00070",
@@ -16793,6 +17410,13 @@
         "retrieved_at_utc": "2026-10-06T23:55:52.820760+00:00",
         "sha256": "5f5637c37fab6fd2cb20d7aff6a8b5371c27f3e81ec06d5a63be1af7e46b5ed2",
         "evidence_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-07/20261006T235533110060Z-flash/evidence/5f5637c37fab6fd2cb20d7aff6a8b5371c27f3e81ec06d5a63be1af7e46b5ed2.html.gz"
+      },
+      {
+        "requested_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "retrieved_at_utc": "2026-10-06T23:57:18.128417+00:00",
+        "sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c",
+        "evidence_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-07/20261006T235713097927Z-retry/evidence/fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c.html.gz"
       }
     ],
     "errors": [],
@@ -17118,10 +17742,10 @@
         "status_labels": [
           "予約"
         ],
-        "source_url": "https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0498",
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "8b4bd54577296ebbbfbfc14847b1bef708c32a7d198c51a19bdf0b514043d852"
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
       },
       {
         "product_name": "《一部WEB限定追加2》BiellaYarnワイドVネックカーディガン",
@@ -17471,23 +18095,284 @@
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
         "source_sha256": "5f5637c37fab6fd2cb20d7aff6a8b5371c27f3e81ec06d5a63be1af7e46b5ed2"
+      },
+      {
+        "product_name": "《予約》ハミルトンウォッシャブルクルーネックプルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/26080462863040",
+        "product_code": "26080462863040",
+        "display_price": "¥9,900",
+        "status_labels": [
+          "予約"
+        ],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "《予約》ウォッシャブルウールミックスVネックプルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/26080462846030",
+        "product_code": "26080462846030",
+        "display_price": "¥9,900",
+        "status_labels": [
+          "予約"
+        ],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "《一部WEB限定予約》シャギークルーネックプルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/26080462881040",
+        "product_code": "26080462881040",
+        "display_price": "¥10,450",
+        "status_labels": [
+          "予約"
+        ],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "《新色》ウォッシャブルニットポロシャツ",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/26080462890030",
+        "product_code": "26080462890030",
+        "display_price": "¥9,900",
+        "status_labels": [
+          "再入荷"
+        ],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "《追加4》接触冷感 / ウォッシャブルクールプルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/25080462900030",
+        "product_code": "25080462900030",
+        "display_price": "¥6,600",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "《一部WEB限定追加 / 新色》接触冷感 / ウォッシャブルクールプルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/26080462930020",
+        "product_code": "26080462930020",
+        "display_price": "¥6,600",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "《追加6》ウォッシャブルニットポロシャツ",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/26080462806120",
+        "product_code": "26080462806120",
+        "display_price": "¥9,900",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "《追加3》ウォッシャブルニットポロシャツ",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/25080462815220",
+        "product_code": "25080462815220",
+        "display_price": "¥9,900",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "《追加2》［2枚セット］3WAYレイヤードプルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/26080462829110",
+        "product_code": "26080462829110",
+        "display_price": "¥8,800",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "オープンワークレーシープルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/26080462844030",
+        "product_code": "26080462844030",
+        "display_price": "¥11,000",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "《追加2》接触冷感 / ウォッシャブルクールポンチョプルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/25080462835120",
+        "product_code": "25080462835120",
+        "display_price": "¥6,160",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "PEリネンハーフスリーブプルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/26080462835020",
+        "product_code": "26080462835020",
+        "display_price": "¥6,545",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "《追加4》接触冷感 / ウォッシャブルクールポンチョプルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/25080462835320",
+        "product_code": "25080462835320",
+        "display_price": "¥6,160",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "《追加5》接触冷感 / ウォッシャブルクールポンチョプルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/25080462868030",
+        "product_code": "25080462868030",
+        "display_price": "¥6,160",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "シアーニットポロシャツ",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/26080462825010",
+        "product_code": "26080462825010",
+        "display_price": "¥6,545",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "《追加6 / 新色》接触冷感 / ウォッシャブルクールポンチョプルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/26080462834010",
+        "product_code": "26080462834010",
+        "display_price": "¥6,160",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "《一部WEB限定追加7 / 新色》接触冷感/ウォッシャブルクールポンチョプルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/26080462834120",
+        "product_code": "26080462834120",
+        "display_price": "¥6,160",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "《追加8》接触冷感/ウォッシャブルクールポンチョプルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/26080462834220",
+        "product_code": "26080462834220",
+        "display_price": "¥6,160",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "2WAYメッシュニットノースリーブ",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/26080462702020",
+        "product_code": "26080462702020",
+        "display_price": "¥7,480",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "2WAYメッシュニットフレンチスリーブ",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/26080462703020",
+        "product_code": "26080462703020",
+        "display_price": "¥7,920",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "リネンミックスメッシュハーフスリーブプルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/26080462837020",
+        "product_code": "26080462837020",
+        "display_price": "¥6,314",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "【MULTI FUNC+】UVカット / 接触冷感 / ドライタッチVネックプルオーバー",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/26080462101020",
+        "product_code": "26080462101020",
+        "display_price": "¥6,160",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
+      },
+      {
+        "product_name": "《追加4》ウォッシャブルニットポロシャツ",
+        "product_url": "https://baycrews.jp/item/detail/js-relume/cutsew/25080462873030",
+        "product_code": "25080462873030",
+        "display_price": "¥9,900",
+        "status_labels": [],
+        "source_url": "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1",
+        "evidence_level": "OFFICIAL_LISTING_CARD",
+        "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+        "source_sha256": "fddb02387854bd9fc10840b733f439abeed34ba5513e1689ba0cdab99c576a0c"
       }
     ],
     "product_details": [],
-    "pending_page_urls": [
-      "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1"
-    ],
+    "pending_page_urls": [],
     "successful_page_urls": [
       "https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0498",
-      "https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0498"
+      "https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0498",
+      "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1"
     ],
     "attempted_page_urls": [
       "https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0498",
-      "https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0498"
+      "https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0498",
+      "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1"
     ],
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-06T23:56:04.128870+00:00"
+    "last_attempt_at_utc": "2026-10-06T23:57:21.943147+00:00"
   }
 }
