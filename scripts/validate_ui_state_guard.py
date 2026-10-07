@@ -13,6 +13,7 @@ CSS = ROOT / "app.css"
 INDEX = ROOT / "index.html"
 CAPTURE_INDEX = ROOT / "capture" / "index.html"
 MOBILE_COMPACT = ROOT / "capture" / "mobile-compact-20260827.js"
+SIMPLE_CAPTURE = ROOT / "capture" / "exhibition-burst-mode.js"
 NODE = require_node()
 
 
@@ -36,8 +37,9 @@ def main() -> None:
     index = INDEX.read_text(encoding="utf-8")
     capture_index = CAPTURE_INDEX.read_text(encoding="utf-8")
     mobile_compact = MOBILE_COMPACT.read_text(encoding="utf-8")
+    simple_capture = SIMPLE_CAPTURE.read_text(encoding="utf-8")
 
-    for script in (APP, MOBILE_COMPACT):
+    for script in (APP, MOBILE_COMPACT, SIMPLE_CAPTURE):
         result = subprocess.run([NODE, "--check", str(script)], capture_output=True, text=True)
         if result.returncode:
             fail(f"JavaScript syntax error in {script.name}: {result.stderr.strip()}")
@@ -124,12 +126,20 @@ def main() -> None:
         "knit-compass-ui.css?v=2.1.44-independent.1",
         "v04-visual-alignment.css?v=2.1.44-independent.15-basic-photo",
         "mobile-compact-20260827.js?v=3-v04-ui",
-        "sw-register.js?v=2.1.44-independent.16-brand-lockup",
+        "sw-register.js?v=2.1.47-independent.19-photo-first",
     ):
         require(capture_index, token, "direct capture cache key")
 
     for token in ("currentEmpty", "if (currentEmpty) return", "needsCompaction", "if (needsCompaction)"):
         require(mobile_compact, token, "idempotent mobile summary update")
+
+    for token in (
+        'const BUILD = "2.1.47-independent.19-photo-first"',
+        'const keepBasic = new Set(["supplier", "yarn_name"])',
+        'node.hidden = !showDetails',
+        'syncSimpleDetailVisibility(byId("kcCaptureForm"))',
+    ):
+        require(simple_capture, token, "photo-first simple capture")
 
     print("OK: Photo Capture 2.1.43 independent migration, DRAFT safety, data compatibility, and mobile action checks passed")
 

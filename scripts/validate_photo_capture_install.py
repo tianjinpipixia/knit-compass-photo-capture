@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT_BUILD = "2.1.43-independent.1"
 CAPTURE_BUILD = "2.1.44-independent.15-basic-photo"
-CAPTURE_SHELL_BUILD = "2.1.44-independent.16-brand-lockup"
+CAPTURE_SHELL_BUILD = "2.1.47-independent.19-photo-first"
 
 
 def fail(message: str) -> None:
@@ -39,6 +39,7 @@ def main() -> None:
     worker = (ROOT / "sw.js").read_text(encoding="utf-8")
     capture_worker = (ROOT / "capture" / "sw.js").read_text(encoding="utf-8")
     capture_register = (ROOT / "capture" / "sw-register.js").read_text(encoding="utf-8")
+    capture_simple = (ROOT / "capture" / "exhibition-burst-mode.js").read_text(encoding="utf-8")
     refresh = (ROOT / "sw-refresh-1.3.2.js").read_text(encoding="utf-8")
     supplier_master = (ROOT / "exhibition-supplier-master.js").read_text(encoding="utf-8")
 
@@ -73,6 +74,14 @@ def main() -> None:
     ):
         require(capture_index, token, "direct Photo Capture asset")
     require(capture_index, 'body data-surface="mobile"', "mobile capture surface")
+    for token in (
+        'const BUILD = "2.1.47-independent.19-photo-first"',
+        'const keepBasic = new Set(["supplier", "yarn_name"])',
+        'node.hidden = !showDetails',
+        'syncSimpleDetailVisibility(byId("kcCaptureForm"))',
+        '詳細（必要な時だけ）',
+    ):
+        require(capture_simple, token, "photo-first simple capture")
 
     for token in (
         'version: "2.1.43-independent.1"',
@@ -164,7 +173,7 @@ def main() -> None:
         "./status/",
     ):
         require(worker, token, "root service-worker shell")
-    require(capture_worker, "kc-photo-capture-independent-v20-v2144-brand-lockup", "capture service-worker cache")
+    require(capture_worker, "kc-photo-capture-independent-v21-v2147-photo-first", "capture service-worker cache")
     require(capture_worker, "../exhibition-supplier-master.js", "capture Supplier master cache")
     require(capture_worker, "../knit-compass-ui.css", "capture UI cache")
     require(capture_worker, "./v04-visual-alignment.css", "capture V04 UI cache")
