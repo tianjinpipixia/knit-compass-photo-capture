@@ -67,7 +67,7 @@ def main() -> None:
         "app.css?v=2.1.44-independent.1",
         "exhibition-supplier-master.js?v=2.1.44-independent.1",
         "knit-compass-ui.css?v=2.1.44-independent.1",
-        f"v04-visual-alignment.css?v={CAPTURE_BUILD}",
+        "v04-visual-alignment.css?v=20261008-header-match-1",
         f"exhibition-burst-mode.js?v={CAPTURE_BUILD}",
         "mobile-compact-20260827.js?v=3-v04-ui",
         f"sw-register.js?v={CAPTURE_SHELL_BUILD}",

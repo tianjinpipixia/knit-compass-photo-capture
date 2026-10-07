@@ -129,6 +129,12 @@
       <button type="button" class="ghost" data-simple-action="details">詳細（必要な時だけ）</button>`;
     photo.querySelector(".kc-section-heading").after(quick);
 
+    // Photo-first field flow: capture evidence before entering metadata.
+    const basic = byId("kcBasicTitle")?.closest(".kc-form-section");
+    if (basic && basic.parentElement === photo.parentElement) {
+      basic.before(photo);
+    }
+
     const actions = document.createElement("div");
     actions.id = "kcSimpleActions";
     actions.innerHTML = `
@@ -192,7 +198,7 @@
     document.body.classList.toggle("kc-simple-editing", Boolean(byId("kcEditor") && !byId("kcEditor").hidden));
     const photoTitle = byId("kcPhotoTitle");
     if (photoTitle?.firstChild?.nodeType === 3 && photoTitle.firstChild.textContent !== "2. 写真 ") {
-      photoTitle.firstChild.textContent = "2. 写真 ";
+      photoTitle.firstChild.textContent = "1. 写真 ";
     }
   }
 
@@ -202,7 +208,7 @@
       document.querySelector(".kc-brand .kc-lead"),
       "メーカーを一度入力したら固定。素材名は任意です。撮影して「保存・次の素材」で連続登録できます。"
     );
-    setText(byId("kcBasicTitle"), "1. メーカー・素材");
+    setText(byId("kcBasicTitle"), "2. メーカー・素材");
     updateLeadingLabelCopy();
   }
 
