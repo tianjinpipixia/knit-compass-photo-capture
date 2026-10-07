@@ -8,7 +8,7 @@
     return;
   }
 
-  const SW_VERSION = '2.1.44-independent.16-brand-lockup';
+  const SW_VERSION = '2.1.47-independent.19-photo-first';
   const RELOAD_MARKER = `kc_photo_capture_controller_${SW_VERSION}`;
   let reloading = false;
 
