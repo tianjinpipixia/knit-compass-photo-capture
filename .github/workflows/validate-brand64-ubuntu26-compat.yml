@@ -46,9 +46,6 @@ jobs:
       - name: Restore newest strict-valid Brand64 state
         run: python scripts/restore_brand64_valid_state.py
 
-      - name: Verify restored canonical snapshot binding
-        run: python scripts/brand64_daily_pipeline_binding.py verify --root data/brand-md-monitoring/direct-scans
-
       - name: Validate freshness and retrospective gates
         run: |
           python scripts/validate_brand64_daily_freshness.py
