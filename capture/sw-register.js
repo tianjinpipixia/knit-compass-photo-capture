@@ -8,7 +8,7 @@
     return;
   }
 
-  const SW_VERSION = '2.1.48-independent.1-header-photo-first';
+  const SW_VERSION = '2.1.49-independent.1-current-ui-only';
   const RELOAD_MARKER = `kc_photo_capture_controller_${SW_VERSION}`;
   let reloading = false;
 
