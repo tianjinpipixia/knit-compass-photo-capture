@@ -16,6 +16,7 @@ import time
 import run_brand64_free_direct_scan as scan
 
 REQUIRED_SURFACES = {'NEW', 'PREORDER', 'KNIT', 'CARDIGAN'}
+COVERAGE_INCOMPLETE_EXIT = 3  # Saved result is valid, but registered-scope coverage remains incomplete.
 FUNCTION = re.compile(r'冷感|遮熱|調温|吸水|速乾|抗菌|防臭|制電|抗ピル|抗起球|UV|UPF|PCM', re.I)
 STATE_FILES = ('known-products.json', 'coverage-state.json', 'deep-dive-queue.json',
                'flash-history.json', 'detail-results.json')
@@ -281,7 +282,7 @@ def run(argv=None):
     if args.stage == 'check':
         summary = pipe.checkpoint()
         print(json.dumps(summary, ensure_ascii=False))
-        return 0 if summary['complete_brand_count'] == len(active) else 1
+        return 0 if summary['complete_brand_count'] == len(active) else COVERAGE_INCOMPLETE_EXIT
     deadline = time.monotonic()+args.budget_seconds
     fetch = scan.Fetcher(pipe.run_dir/'evidence', deadline=deadline)
     pipe.checkpoint()  # All 64 brands are visible even before the first request.
