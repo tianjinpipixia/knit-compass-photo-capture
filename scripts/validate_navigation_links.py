@@ -105,6 +105,10 @@ for batch in (
     "2026-08-12-rope-picnic-gdm56050-batch5.json",
     "2026-08-13-american-holic-products-batch6.json",
     "2026-08-17-minghai-wool-silk-core-spun-batch7.json",
+    "2026-08-18-american-holic-products-batch8.json",
+    "2026-08-18-dinghong-mz100-25139-batch9.json",
+    "2026-08-19-winning-textile-levita-batch10.json",
+    "2026-10-07-qiyuan-qysmart-comfy-batch11.json",
 ):
     assert batch in owner_yarns
     assert (ROOT / "data/manual-intake" / batch).is_file()
@@ -112,8 +116,9 @@ for batch in (
 current_owner = (ROOT / "owner-yarns/current.html").read_text(encoding="utf-8")
 current_intake = (ROOT / "owner-yarns/intake-current.html").read_text(encoding="utf-8")
 assert "./intake-current.html" in current_owner
-assert "未反映25件・Human Review" in current_owner
+assert "未反映26件・Human Review" in current_owner
 assert "2026-08-19-winning-textile-levita-batch10.json" in current_intake
-assert "const EXPECTED_TOTAL=25" in current_intake
+assert "2026-10-07-qiyuan-qysmart-comfy-batch11.json" in current_intake
+assert "const EXPECTED_TOTAL=26" in current_intake
 
 print(f"navigation links: OK ({len(html_files)} HTML files; all local assets and registered entry destinations resolve)")
