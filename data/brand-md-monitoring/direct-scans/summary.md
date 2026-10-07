@@ -279,7 +279,7 @@
 |MUJI|未完了|37|0|
 |ROPÉ PICNIC|未完了|23|0|
 |VIS|未完了|39|0|
-|GLOBAL WORK|未完了|33|0|
+|GLOBAL WORK|未完了|33|1|
 |LOWRYS FARM|未完了|48|0|
 |studio CLIP|未完了|53|0|
 |niko and ...|未完了|32|0|
@@ -291,7 +291,7 @@
 |grove|未完了|0|1|
 |ikka|未完了|21|0|
 |coen|未完了|0|0|
-|DoCLASSE|未完了|172|3|
+|DoCLASSE|未完了|172|5|
 |any SiS|未完了|0|0|
 |LEPSIM|未完了|62|0|
 |LAKOLE|未完了|41|0|
@@ -306,10 +306,10 @@
 |Andemiu|未完了|59|0|
 |AMERICAN HOLIC|未完了|9|0|
 |YECCA VECCA|未完了|2|0|
-|23区|未完了|17|2|
+|23区|未完了|17|4|
 |ICB|未完了|0|0|
 |自由区|未完了|0|0|
-|組曲|未完了|17|2|
+|組曲|未完了|17|4|
 |UNFILO|未完了|0|0|
 |INDIVI|未完了|0|1|
 |UNTITLED|未完了|0|1|
@@ -361,7 +361,8 @@
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### GLOBAL WORK
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
 
 ### LOWRYS FARM
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -428,6 +429,8 @@
 - https://www.doclasse.com/item?brand_id=1&category_id=11&page=3
 - https://www.doclasse.com/item?brand_id=1&category_id=12&page=3
 - https://www.doclasse.com/item?brand_id=1&category_id=12&page=6
+- https://www.doclasse.com/item?brand_id=1&category_id=11&page=2
+- https://www.doclasse.com/item?brand_id=1&category_id=12&page=2
 
 ### any SiS
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -476,6 +479,8 @@
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1005
 
 ### ICB
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -489,6 +494,8 @@
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1005
 
 ### UNFILO
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
