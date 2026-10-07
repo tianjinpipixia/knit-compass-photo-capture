@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT_BUILD = "2.1.43-independent.1"
 CAPTURE_BUILD = "2.1.44-independent.15-basic-photo"
-CAPTURE_SHELL_BUILD = "2.1.48-independent.1-header-photo-first"
+CAPTURE_SHELL_BUILD = "2.1.49-independent.1-current-ui-only"
 
 
 def fail(message: str) -> None:
@@ -67,7 +67,7 @@ def main() -> None:
         "app.css?v=2.1.44-independent.1",
         "exhibition-supplier-master.js?v=2.1.44-independent.1",
         "knit-compass-ui.css?v=2.1.44-independent.1",
-        "v04-visual-alignment.css?v=20261008-header-match-1",
+        "v04-visual-alignment.css?v=20261008-current-ui-2",
         f"exhibition-burst-mode.js?v={CAPTURE_BUILD}",
         "mobile-compact-20260827.js?v=3-v04-ui",
         f"sw-register.js?v={CAPTURE_SHELL_BUILD}",
@@ -173,7 +173,7 @@ def main() -> None:
         "./status/",
     ):
         require(worker, token, "root service-worker shell")
-    require(capture_worker, "kc-photo-capture-independent-v21-v2148-header-photo-first", "capture service-worker cache")
+    require(capture_worker, "kc-photo-capture-independent-v21-v2149-current-ui-only", "capture service-worker cache")
     require(capture_worker, "../exhibition-supplier-master.js", "capture Supplier master cache")
     require(capture_worker, "../knit-compass-ui.css", "capture UI cache")
     require(capture_worker, "./v04-visual-alignment.css", "capture V04 UI cache")
