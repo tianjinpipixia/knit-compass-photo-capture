@@ -20,6 +20,70 @@ def card(code='33211', colour='030', gender='レディース', name='シルキ�
 
 
 class RecoveryTests(unittest.TestCase):
+    def two_source_rows(self):
+        new_url = 'https://www.doclasse.com/ladies/feature/newarrival'
+        meta = {**META, 'entry_urls': [URL, new_url]}
+        def fetch(url):
+            html = card(colour='030') if url == URL else card(colour='090') + card(
+                code='33509', name='シルキーダンボール・オーバーカーディガン',
+                category='レディース/カーディガン')
+            return html, {'url': url, 'sha256': 'category' if url == URL else 'new'}
+        return meta, fetch, new_url
+
+    def test_two_sources_merge_common_code_and_keep_colour_evidence_and_33509(self):
+        meta, fetch, new_url = self.two_source_rows()
+        row = scan.scan_brand('BR-00018', meta, fetch)
+        self.assertEqual({i['product_code'] for i in row['surface_items']}, {'33211', '33509'})
+        self.assertEqual(len(row['surface_items']), 2)
+        shared = next(i for i in row['surface_items'] if i['product_code'] == '33211')
+        self.assertEqual(shared['listing_evidence'], [
+            {'product_url': 'https://www.doclasse.com/item/detail/1_1_33211/030',
+             'source_url': URL, 'source_sha256': 'category'},
+            {'product_url': 'https://www.doclasse.com/item/detail/1_1_33211/090',
+             'source_url': new_url, 'source_sha256': 'new'}])
+        known, changes = scan.update_baseline([row], {}, scan.today())
+        self.assertEqual(len(known), 2)
+        self.assertEqual(len(changes), 2)
+
+    def test_retry_and_legacy_baseline_do_not_create_false_first_observation(self):
+        meta, fetch, new_url = self.two_source_rows()
+        category = scan.scan_brand('BR-00018', meta, fetch, page_urls=[URL])
+        new = scan.scan_brand('BR-00018', meta, fetch, page_urls=[new_url])
+        previous = pipeline.merge_row(None, category, scan.today())
+        merged = pipeline.merge_row(previous, new, scan.today())
+        self.assertEqual(len(merged['surface_items']), 2)
+        shared = next(i for i in merged['surface_items'] if i['product_code'] == '33211')
+        self.assertEqual(len(shared['listing_evidence']), 2)
+        known, _ = scan.update_baseline([category], {}, '2026-10-06')
+        # Existing URL-keyed records predating product_code are still recognised.
+        next(iter(known.values())).pop('product_code')
+        known, changes = scan.update_baseline([new], known, scan.today())
+        self.assertEqual(len(known), 2)
+        self.assertEqual([i['product_code'] for i in changes
+                          if i['delta_type'] == 'FIRST_OBSERVED_CANDIDATE'], ['33509'])
+        shared = next(i for i in known.values() if i.get('product_code') == '33211')
+        self.assertEqual(shared['first_seen_date'], '2026-10-06')
+        self.assertEqual(len(shared['listing_evidence']), 2)
+        known, changes = scan.update_baseline([new], known, scan.today())
+        self.assertEqual(changes, [])
+        self.assertEqual(len(known), 2)
+
+    def test_existing_colour_duplicates_are_consolidated_and_other_hosts_keep_url_identity(self):
+        meta, fetch, new_url = self.two_source_rows()
+        category = scan.scan_brand('BR-00018', meta, fetch, page_urls=[URL])
+        known, _ = scan.update_baseline([category], {}, '2026-10-06')
+        original = next(iter(known.values()))
+        duplicate = {**original, 'product_url': original['product_url'].replace('/030', '/090'),
+                     'first_seen_date': '2026-10-07'}
+        known['BR-00018|' + duplicate['product_url']] = duplicate
+        known, changes = scan.update_baseline([], known, scan.today())
+        self.assertEqual(len(known), 1)
+        self.assertEqual(next(iter(known.values()))['first_seen_date'], '2026-10-06')
+        self.assertEqual(changes, [])
+        for host in ('example.com', 'www.other.com'):
+            url = 'https://' + host + '/item/detail/1_1_33211/030'
+            self.assertEqual(scan.product_identity({'product_code': '33211', 'product_url': url}), url)
+
     def test_exact_women_newarrival_surface_uses_card_category_evidence(self):
         url = 'https://www.doclasse.com/ladies/feature/newarrival'
         html = card(code='33509', name='シルキーダンボール・オーバーカーディガン', category='レディース/カーディガン')
@@ -81,3 +145,4 @@ class RecoveryTests(unittest.TestCase):
 
 
 if __name__ == '__main__': unittest.main()
+
