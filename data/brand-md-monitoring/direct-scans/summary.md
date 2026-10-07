@@ -2,7 +2,7 @@
 観測日：2026-10-07
 
 登録範囲の確認完了：0/65ブランド。
-本日観測した商品：1471件。MD用の蓄積として保持します。
+本日観測した商品：1492件。MD用の蓄積として保持します。
 初回発見と発売日は区別します。未確認・未取得を「新商品なし」と判定しません。
 
 ## 本日初めて見つけた商品（発売日未確認）
@@ -193,6 +193,27 @@
 |DoCLASSE|モヘア混シャギー・２WAYプルオーバーニット|¥ 8,990 / ￥9,889|[公式商品](https://www.doclasse.com/item/detail/1_1_32514/050)|
 |DoCLASSE|ウール混・ドレープファネルネックニット|¥ 5,090 / ￥5,599|[公式商品](https://www.doclasse.com/item/detail/1_1_30363/030)|
 |DoCLASSE|スパンコールジャカード・ニットプルオーバー|¥ 6,990 / ￥7,689|[公式商品](https://www.doclasse.com/item/detail/1_1_32375/132)|
+|AMERICAN HOLIC|AMERICAN HOLIC 【バイパチ・シアバター配合】メタルニットカーディガン|¥ 3,990|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26H0019)|
+|AMERICAN HOLIC|AMERICAN HOLIC 配色ポンチョニットベスト|¥ 3,990|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26G0111)|
+|AMERICAN HOLIC|AMERICAN HOLIC 【予約】【WEB限定】【バイパチ】WZIPショート丈ニットカーディガン|¥ 4,490|[公式商品](https://stripe-club.com/brand/american-holic/item/100HS26G0017)|
+|AMERICAN HOLIC|AMERICAN HOLIC 【バイパチ・シアバター配合】配色ニットカーディガン|¥ 4,490|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26G0083)|
+|AMERICAN HOLIC|AMERICAN HOLIC 【WEB限定】ラメ入りVネックニットベスト|¥ 3,990|[公式商品](https://stripe-club.com/brand/american-holic/item/100HS26G0012)|
+|AMERICAN HOLIC|AMERICAN HOLIC 袖配色Vネックニットカーディガン|¥ 4,490|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26G0057)|
+|AMERICAN HOLIC|AMERICAN HOLIC 【バイパチ】襟付きニット|¥ 3,490|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26G0084)|
+|AMERICAN HOLIC|AMERICAN HOLIC 【予約】シャギーニットフラットパンプス|¥ 4,990|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26G0031)|
+|AMERICAN HOLIC|AMERICAN HOLIC 【予約】【RUSSELL】襟付きスキッパーニット|¥ 7,700|[公式商品](https://stripe-club.com/brand/american-holic/item/100HN26H0002)|
+|23区|ボイルドウールコンビ ジップデザイン ニット|¥22,990|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0557)|
+|23区|フェルティ キーネック ニットチュニック|¥25,960|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0558)|
+|23区|【先行予約】スーパーラムズムリネ オフタートル ニット|¥26,950|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0565)|
+|23区|【新色追加/見上愛さん着用】ピュアカシミヤ クルーネック カーディガン|¥29,920|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0450)|
+|23区|【先行予約】ブラッシュドリッチメランジ ボリュームスリーブ カーディガン|¥31,900|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0566)|
+|23区|【先行予約】フォックスカシミヤファー ゴールドボタン カーディガン|¥34,980|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0561)|
+|23区|【エステータ】アシンメトリーデザイン タックカーディガン|¥49,940|[公式商品](https://crosset.onward.co.jp/items/KRH6LW0948)|
+|組曲|【先行予約】シックニット フリル襟付きプルオーバー|¥13,970|[公式商品](https://crosset.onward.co.jp/items/KRWXLW0556)|
+|組曲|【先行予約・前後着用可】ウールカシミヤミックス ハイネックニット|¥13,970|[公式商品](https://crosset.onward.co.jp/items/KRWXLW0551)|
+|組曲|【先行予約】シックニット フラワープリント カーディガン|¥14,960|[公式商品](https://crosset.onward.co.jp/items/KRWXLW0554)|
+|組曲|【先行予約】シックニット カーディガン|¥12,980|[公式商品](https://crosset.onward.co.jp/items/KRWXLW0555)|
+|組曲|【先行予約】ウールカシミヤミックス カーディガン|¥19,910|[公式商品](https://crosset.onward.co.jp/items/KRWXLW0550)|
 
 ## ブランド・婦人対象の判定待ちリンク
 
@@ -206,7 +227,7 @@
 |MUJI|未完了|37|0|
 |ROPÉ PICNIC|未完了|23|0|
 |VIS|未完了|39|0|
-|GLOBAL WORK|未完了|33|0|
+|GLOBAL WORK|未完了|33|1|
 |LOWRYS FARM|未完了|48|0|
 |studio CLIP|未完了|53|0|
 |niko and ...|未完了|32|0|
@@ -218,7 +239,7 @@
 |grove|未完了|0|1|
 |ikka|未完了|21|0|
 |coen|未完了|0|0|
-|DoCLASSE|未完了|133|2|
+|DoCLASSE|未完了|133|3|
 |any SiS|未完了|0|0|
 |LEPSIM|未完了|62|0|
 |LAKOLE|未完了|41|0|
@@ -231,12 +252,12 @@
 |Elura|未完了|35|0|
 |mysty woman|未完了|34|0|
 |Andemiu|未完了|59|0|
-|AMERICAN HOLIC|未完了|0|0|
+|AMERICAN HOLIC|未完了|9|0|
 |YECCA VECCA|未完了|2|0|
-|23区|未完了|0|0|
+|23区|未完了|7|2|
 |ICB|未完了|0|0|
 |自由区|未完了|0|0|
-|組曲|未完了|0|1|
+|組曲|未完了|5|2|
 |UNFILO|未完了|0|0|
 |INDIVI|未完了|0|1|
 |UNTITLED|未完了|0|1|
@@ -288,7 +309,8 @@
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### GLOBAL WORK
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
 
 ### LOWRYS FARM
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -351,10 +373,10 @@
 - HTTPError: HTTP Error 403: Forbidden：https://www.coen.co.jp/
 
 ### DoCLASSE
-取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.doclasse.com/
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - https://www.doclasse.com/item?brand_id=1&category_id=12&page=4
-- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.doclasse.com/
+- https://www.doclasse.com/item?brand_id=1&category_id=11&page=2
+- https://www.doclasse.com/item?brand_id=1&category_id=12&page=2
 
 ### any SiS
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -394,15 +416,15 @@
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### AMERICAN HOLIC
-入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://stripe-club.com/brand/american-holic/
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### YECCA VECCA
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### 23区
-入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://crosset.onward.co.jp/shop/23ku
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1005
 
 ### ICB
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -413,13 +435,9 @@
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://crosset.onward.co.jp/shop/jiyuku?du=2
 
 ### 組曲
-入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://crosset.onward.co.jp/shop/kumikyoku?du=1
-- HTTPError: HTTP Error 302: The HTTP server returned a redirect error that would lead to an infinite loop.
-The last 30x error message was:
-Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
-- ValueError: Source exceeds size limit：https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30
-- ValueError: Source exceeds size limit：https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1005
 
 ### UNFILO
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
