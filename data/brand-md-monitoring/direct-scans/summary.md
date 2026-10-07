@@ -2,7 +2,7 @@
 観測日：2026-10-07
 
 登録範囲の確認完了：0/65ブランド。
-本日観測した商品：1338件。MD用の蓄積として保持します。
+本日観測した商品：1385件。MD用の蓄積として保持します。
 初回発見と発売日は区別します。未確認・未取得を「新商品なし」と判定しません。
 
 ## 本日初めて見つけた商品（発売日未確認）
@@ -69,6 +69,53 @@
 |Elura|【先行予約】ウールコンポンチョニット|¥6,600|[公式商品](https://www.dot-st.com/elura/disp/item/1085553/)|
 |Elura|【先行予約】ラクーンリッチ深Vカーディガン|¥13,200|[公式商品](https://www.dot-st.com/elura/disp/item/866016/)|
 |Elura|【先行予約】リバーシブルスタンドカーディガン|¥9,900|[公式商品](https://www.dot-st.com/elura/disp/item/1078527/)|
+|DoCLASSE|シルキーレーヨン・2WAYアンサンブルニット|¥ 7,990 / ￥8,789|[公式商品](https://www.doclasse.com/item/detail/1_1_33214/403)|
+|DoCLASSE|シルキーレーヨン・Vネックカーディガン|¥ 4,990 / ￥5,489|[公式商品](https://www.doclasse.com/item/detail/1_1_33208/094)|
+|DoCLASSE|ミラノリブ・着流しカーディガン|¥ 9,490 / ￥10,439|[公式商品](https://www.doclasse.com/item/detail/1_1_33203/030)|
+|DoCLASSE|ビジューネック・アンサンブルニット|¥ 7,990 / ￥8,789|[公式商品](https://www.doclasse.com/item/detail/1_1_32560/090)|
+|DoCLASSE|ネックビジュー・クルーカーディガン|¥ 5,990 / ￥6,589|[公式商品](https://www.doclasse.com/item/detail/1_1_33287/050)|
+|DoCLASSE|ダブルフェイスニット・オーバーカーディガン|¥ 10,700 / ￥11,770|[公式商品](https://www.doclasse.com/item/detail/1_1_33319/750)|
+|DoCLASSE|模様編み・シアーニットカーディガン|¥ 4,290 / ￥4,719|[公式商品](https://www.doclasse.com/item/detail/1_1_33171/490)|
+|DoCLASSE|テープヤーン・トリミングボレロ|¥ 8,990 / ￥9,889|[公式商品](https://www.doclasse.com/item/detail/1_1_33286/090)|
+|DoCLASSE|リネン混ニット・透かし編みカーディガン|¥ 5,790 / ￥6,369|[公式商品](https://www.doclasse.com/item/detail/1_1_32900/010)|
+|DoCLASSE|スパークリングニット・着流しカーディガン|¥ 3,990 / ￥4,389|[公式商品](https://www.doclasse.com/item/detail/1_1_32687/409)|
+|DoCLASSE|イタリア糸・アルパカ混ロングカーディガン|¥ 7,190 / ￥7,909|[公式商品](https://www.doclasse.com/item/detail/1_1_18565/030)|
+|DoCLASSE|モールニット・Vネックカーディガン|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_32308/270)|
+|DoCLASSE|モヘア混シャギー・Vネックカーディガン|¥ 6,890 / ￥7,579|[公式商品](https://www.doclasse.com/item/detail/1_1_32513/600)|
+|DoCLASSE|Nukle・テディロングフーディ|¥ 9,290 / ￥10,219|[公式商品](https://www.doclasse.com/item/detail/1_1_16318/036)|
+|DoCLASSE|ミンクタッチカシミヤ・カーディガン|¥ 34,900 / ￥38,390|[公式商品](https://www.doclasse.com/item/detail/1_1_32504/411)|
+|DoCLASSE|ビスコースニット・カーディガンジャケット|¥ 5,790 / ￥6,369|[公式商品](https://www.doclasse.com/item/detail/1_1_32651/011)|
+|DoCLASSE|ハイツイストレーヨン・スタンドボレロ|¥ 7,990 / ￥8,789|[公式商品](https://www.doclasse.com/item/detail/1_1_32962/010)|
+|DoCLASSE|スパークリングニット・ジップパーカー|¥ 4,990 / ￥5,489|[公式商品](https://www.doclasse.com/item/detail/1_1_32688/480)|
+|DoCLASSE|ウール混タム・Vネックカーディガン|¥ 3,990 / ￥4,389|[公式商品](https://www.doclasse.com/item/detail/1_1_32161/710)|
+|DoCLASSE|スパークリング鹿の子ニット・ジップパーカー|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_32897/500)|
+|DoCLASSE|UVスラブ・バック切替カーディガン|¥ 3,990 / ￥4,389|[公式商品](https://www.doclasse.com/item/detail/1_1_33028/505)|
+|DoCLASSE|シアードライニット・コンパクトボレロ|¥ 3,990 / ￥4,389|[公式商品](https://www.doclasse.com/item/detail/1_1_32899/516)|
+|DoCLASSE|総針編み・Vネックカーディガン|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_32635/420)|
+|DoCLASSE|スパークリングニット・ボタンレスカーディガン|¥ 1,990 / ￥2,189|[公式商品](https://www.doclasse.com/item/detail/1_1_12531/200)|
+|DoCLASSE|シルキーレーヨン・Vネックニット|¥ 3,490 / ￥3,839|[公式商品](https://www.doclasse.com/item/detail/1_1_33211/030)|
+|DoCLASSE|シルキーレーヨン・ボートネックニット|¥ 3,490 / ￥3,839|[公式商品](https://www.doclasse.com/item/detail/1_1_33209/192)|
+|DoCLASSE|パウダリーヤーン・ワイドチュニック|¥ 5,990 / ￥6,589|[公式商品](https://www.doclasse.com/item/detail/1_1_33204/090)|
+|DoCLASSE|パウダリーヤーン・ダブルカフスクルーネック|¥ 3,990 / ￥4,389|[公式商品](https://www.doclasse.com/item/detail/1_1_33201/409)|
+|DoCLASSE|パウダリーヤーン・袖ビジューチュニック|¥ 4,990 / ￥5,489|[公式商品](https://www.doclasse.com/item/detail/1_1_33206/300)|
+|DoCLASSE|カシミヤ混・袖レースセーター|¥ 8,990 / ￥9,889|[公式商品](https://www.doclasse.com/item/detail/1_1_33562/490)|
+|DoCLASSE|カシミヤ混・裾レースセーター|¥ 9,990 / ￥10,989|[公式商品](https://www.doclasse.com/item/detail/1_1_33563/411)|
+|DoCLASSE|パウダリーヤーン・ダブルカフスハイネック|¥ 3,990 / ￥4,389|[公式商品](https://www.doclasse.com/item/detail/1_1_33202/090)|
+|DoCLASSE|マシュマロウール100・クルーネック|¥ 9,990 / ￥10,989|[公式商品](https://www.doclasse.com/item/detail/1_1_33370/380)|
+|DoCLASSE|マシュマロウール100・リブタートル|¥ 9,990 / ￥10,989|[公式商品](https://www.doclasse.com/item/detail/1_1_33369/086)|
+|DoCLASSE|レイヤードデザイン・プルオーバーニット|¥ 5,990 / ￥6,589|[公式商品](https://www.doclasse.com/item/detail/1_1_33217/300)|
+|DoCLASSE|シルキーレーヨン・ハイネックニット|¥ 3,490 / ￥3,839|[公式商品](https://www.doclasse.com/item/detail/1_1_33210/030)|
+|DoCLASSE|ドライタッチレーヨン・ボーダートップス|¥ 3,990 / ￥4,389|[公式商品](https://www.doclasse.com/item/detail/1_1_33213/689)|
+|DoCLASSE|ウール混・パーツ使いハイネックセーター|¥ 5,490 / ￥6,039|[公式商品](https://www.doclasse.com/item/detail/1_1_31441/409)|
+|DoCLASSE|ストレッチニット・袖ボタンボートネック|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_32637/505)|
+|DoCLASSE|スーパーキッドモヘア・シアーニット|¥ 4,790 / ￥5,269|[公式商品](https://www.doclasse.com/item/detail/1_1_32381/504)|
+|DoCLASSE|ドライタッチレーヨン・5分袖ファネルトップス|¥ 4,990 / ￥5,489|[公式商品](https://www.doclasse.com/item/detail/1_1_33212/500)|
+|DoCLASSE|ハイネック＆ベスト・レイヤードセット|¥ 7,490 / ￥8,239|[公式商品](https://www.doclasse.com/item/detail/1_1_32354/011)|
+|DoCLASSE|シルクフィール・ボートネックニット|¥ 3,990 / ￥4,389|[公式商品](https://www.doclasse.com/item/detail/1_1_32168/094)|
+|DoCLASSE|パールビジュー・プルオーバーニット|¥ 3,490 / ￥3,839|[公式商品](https://www.doclasse.com/item/detail/1_1_32960/300)|
+|DoCLASSE|片畦編み・裾ボタンライン使いセーター|¥ 6,990 / ￥7,689|[公式商品](https://www.doclasse.com/item/detail/1_1_32527/050)|
+|DoCLASSE|スーパーキッドモヘア・シアーハイネックニット|¥ 6,990 / ￥7,689|[公式商品](https://www.doclasse.com/item/detail/1_1_32380/409)|
+|DoCLASSE|マシュマロウール100・ハイネック|¥ 9,990 / ￥10,989|[公式商品](https://www.doclasse.com/item/detail/1_1_31286/417)|
 
 ## ブランド・婦人対象の判定待ちリンク
 
@@ -82,19 +129,19 @@
 |MUJI|未完了|37|0|
 |ROPÉ PICNIC|未完了|23|0|
 |VIS|未完了|39|0|
-|GLOBAL WORK|未完了|33|0|
+|GLOBAL WORK|未完了|33|1|
 |LOWRYS FARM|未完了|48|0|
 |studio CLIP|未完了|53|0|
 |niko and ...|未完了|32|0|
 |earth music&ecology|未完了|2|0|
 |Green Parks|未完了|6|0|
-|OPAQUE.CLIP|未完了|0|2|
+|OPAQUE.CLIP|未完了|0|3|
 |index|未完了|0|2|
-|SHOO・LA・RUE|未完了|0|2|
-|grove|未完了|0|2|
+|SHOO・LA・RUE|未完了|0|3|
+|grove|未完了|0|1|
 |ikka|未完了|21|0|
 |coen|未完了|0|0|
-|DoCLASSE|未完了|0|0|
+|DoCLASSE|未完了|47|3|
 |any SiS|未完了|0|0|
 |LEPSIM|未完了|62|0|
 |LAKOLE|未完了|41|0|
@@ -112,15 +159,15 @@
 |23区|未完了|0|0|
 |ICB|未完了|0|0|
 |自由区|未完了|0|0|
-|組曲|未完了|0|2|
+|組曲|未完了|0|1|
 |UNFILO|未完了|0|0|
-|INDIVI|未完了|0|2|
-|UNTITLED|未完了|0|2|
+|INDIVI|未完了|0|1|
+|UNTITLED|未完了|0|1|
 |NATURAL BEAUTY BASIC|未完了|15|0|
 |SENSE OF PLACE|未完了|11|0|
 |B.C STOCK|未完了|0|0|
-|SLOBE IENA|未完了|73|2|
-|green label relaxing|未完了|0|2|
+|SLOBE IENA|未完了|73|1|
+|green label relaxing|未完了|0|1|
 |Spick & Span|未完了|0|0|
 |IÉNA|未完了|0|0|
 |Te chichi|未完了|88|0|
@@ -164,7 +211,8 @@
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### GLOBAL WORK
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
 
 ### LOWRYS FARM
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -183,40 +231,41 @@
 
 ### OPAQUE.CLIP
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/
-- https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/
+- https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2
+- https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=3
+- https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=3
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/
 
 ### index
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/index/category/WB/WB01/
-- https://store.world.co.jp/s/brand/index/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/index/category/WB/WB01/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/index/category/WB/WB02/
+- https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2
+- https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/index/category/WB/WB01/
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/index/category/WB/WB02/
 
 ### SHOO・LA・RUE
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/
-- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/
+- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2
+- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2
+- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/
 
 ### grove
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/grove/category/WB/WB01/
-- https://store.world.co.jp/s/brand/grove/category/WB/WB02/
+- https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2
 
 ### ikka
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -226,7 +275,10 @@
 - HTTPError: HTTP Error 403: Forbidden：https://www.coen.co.jp/
 
 ### DoCLASSE
-入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.doclasse.com/
+- https://www.doclasse.com/item?brand_id=1&category_id=11&page=2
+- https://www.doclasse.com/item?brand_id=1&category_id=12&page=2
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.doclasse.com/
 
 ### any SiS
@@ -287,13 +339,12 @@
 
 ### 組曲
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30
-- https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17
-- ValueError: Source exceeds size limit：https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30
-- ValueError: Source exceeds size limit：https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17
+- https://crosset.onward.co.jp/shop/kumikyoku?du=1
 - HTTPError: HTTP Error 302: The HTTP server returned a redirect error that would lead to an infinite loop.
 The last 30x error message was:
 Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
+- ValueError: Source exceeds size limit：https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30
+- ValueError: Source exceeds size limit：https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17
 
 ### UNFILO
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -302,19 +353,17 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 
 ### INDIVI
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/indivi/category/WB/WB01/
-- https://store.world.co.jp/s/brand/indivi/category/WB/WB02/
+- https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/indivi/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/indivi/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2
 
 ### UNTITLED
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/untitled/category/WB/WB01/
-- https://store.world.co.jp/s/brand/untitled/category/WB/WB02/
+- https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2
+- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/untitled/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/untitled/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2
 
 ### NATURAL BEAUTY BASIC
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -329,19 +378,17 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 
 ### SLOBE IENA
 取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0999
-- https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0999
+- https://baycrews.jp/brand/detail/slobe
+- HTTPError: HTTP Error 403: Forbidden：https://baycrews.jp/brand/detail/slobe
 - HTTPError: HTTP Error 403: Forbidden：https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0999
 - HTTPError: HTTP Error 403: Forbidden：https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0999
-- HTTPError: HTTP Error 403: Forbidden：https://baycrews.jp/brand/detail/slobe
 
 ### green label relaxing
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0105
-- https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0108
+- https://store.united-arrows.co.jp/brand/glr/
+- HTTPError: HTTP Error 403: Forbidden：https://store.united-arrows.co.jp/brand/glr/
 - HTTPError: HTTP Error 403: Forbidden：https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0105
 - HTTPError: HTTP Error 403: Forbidden：https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0108
-- HTTPError: HTTP Error 403: Forbidden：https://store.united-arrows.co.jp/brand/glr/
 
 ### Spick & Span
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -417,5 +464,5 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 - HTTPError: HTTP Error 403: Forbidden：https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0498
 - HTTPError: HTTP Error 403: Forbidden：https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0498
 
-深掘り待ち：378件。速報は詳細調査の完了を待たず保存します。
+深掘り待ち：379件。速報は詳細調査の完了を待たず保存します。
 詳細・混率・発売日等の不明点は未確認。正式マスター・顧客公開は確認後。
