@@ -124,7 +124,7 @@ def main() -> None:
         "app.css?v=2.1.44-independent.1",
         "exhibition-supplier-master.js?v=2.1.44-independent.1",
         "knit-compass-ui.css?v=2.1.44-independent.1",
-        "v04-visual-alignment.css?v=20261008-header-match-1",
+        "v04-visual-alignment.css?v=20261008-current-ui-2",
         "mobile-compact-20260827.js?v=3-v04-ui",
         "sw-register.js?v=2.1.47-independent.19-photo-first",
     ):
