@@ -180,6 +180,6 @@ for payload in by_code.values():
 human_review = HUMAN_REVIEW_PATH.read_text(encoding="utf-8")
 assert "normalizeStatus(payload?.[statusKey])==='confirmed'" in human_review
 assert "compositionConfirmed?payload.compositionRaw:''" in human_review
-assert "evidenceValue(payload.countValue,payload)" in human_review
+assert "evidenceValue(payload.countValue,payload,'verificationStatus','countValue')" in human_review
 
 print("mz100 research: OK (3 PENDING candidates, 5 evidence records, no master promotion, conflicts preserved)")

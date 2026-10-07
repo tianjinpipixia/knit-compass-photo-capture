@@ -1,7 +1,7 @@
 # Knit Compass 共通ID・データ項目定義
 
-更新日: 2026-08-09
-版: 1.2.0
+更新日: 2026-10-07
+版: 1.3.0
 
 ## 1. 基本原則
 
@@ -341,3 +341,29 @@ MD提案は月次掲載観測へ必ず紐付けます。観測に根拠付き販
 - 複数ファイルにまたがる完全なトランザクションではないため、速報履歴を商品台帳より先に原子的に保存し、再実行は既知キーで重複を防ぐ。破損JSONは空に置換せず処理を失敗させる。
 
 - `feed.json` (`KC_BRAND64_OWNER_FLASH` 1.0) は `summary`（上記2.0）、当日 `candidates`、`deep_dive_pending_count` を1ファイルで提供する。V04は形式・ブランドID重複・観測日を検証し、取得失敗時に0件へ置き換えない。`brand64/flash-feed` には既知台帳と回復用状態もまとめて1コミットで保存し、次回日次処理の復元元とする。公開済みの公式情報に限定し、顧客・会社・個人の非公開データを追加しない。
+
+
+## 15. Owner Yarn候補の項目別確認と証拠保持
+
+Human Reviewの `APPROVED` はレビュー・登録の完了であり、全項目の `confirmed` を意味しません。未確認の新規糸は `status: CANDIDATE` / `verificationStatus: candidate` で登録し、既存の確認済みレコードを候補入力で降格・消去しません。保留は受信箱をPENDINGのまま保持し、マスターも受信箱も書き換えません。
+
+番手・撚り本数・構造・加工等は `fieldEvidence.<payload項目名>` の `status: confirmed` と非空の `evidenceId` によって個別に反映できます。明示された未確認・矛盾状態は全体の確認状態より優先します。個別証拠がない従来入力は既存の全体確認条件を使います。`ai_candidate` は個別状態に関わらず確定仕様へ反映しません。
+
+機能・サステナブルは名称、許可された `verification_status`、`evidence_id` を持つオブジェクトを反映します。機能の `supplier_claim` は主張の記録であり試験確認ではありません。状態のない文字列・証拠参照のないオブジェクトは確定タグにせず、元入力として保持します。
+
+糸と素材レコードの `intakeEvidence` は承認した元payload全体をイベント版ごとに追記します。元notes、fieldEvidence、未確認仕様、主張、名称矛盾も保持します。同じhandoff・同じ版は証拠を重複追加せず、新しい版は既存版を消しません。
+
+QYSMART-COMFYは、40s/1基糸の `yarnComposition`（VIS80/PET10/functional10、原料名矛盾あり）と、完成生地の `fabricComposition`（基糸95%＋20D PU5%）を別レベルとして保持します。これらは `intakeEvidence` に残し、名前の矛盾が解消するまで糸の確定 `composition` や素材組成にコピーしません。アクリレートと改質アクリルの同一性、法定原料名、紡績方式、正確な染色方法は未確認です。
+
+素材の独立登録には `materialName`、`materialEvidenceId`、`materialVerificationStatus: confirmed` がすべて必要です。`commonIds.materialId` と糸名だけでは登録・ID解決しません。素材組成・機能は素材専用の `materialCompositionRaw` / `materialCompositionStatus`、`materialFunctionalProperties`、`materialSustainableAttributes` を使い、糸・生地の値を流用しません。独立確認のない素材を主対象にした承認は保存前に止まり、PENDINGを保持します。
+
+### 既承認データの調査方針（読取のみ）
+
+既存ブラウザのデータ・承認履歴はこの変更で自動走査、移行、削除、再承認しません。調査が必要な場合は、ユーザーが明示的に書き出した受信箱とマスターのコピーを読取り、captureId / sourceCaptureId / handoffId / eventVersion とID mapで突合します。候補payloadから確認済み糸・素材になった記録、文字列機能と欠落タグ、混率レベル混在を疑いとして列挙します。欠損履歴では影響を断定せず、修復や再承認は別途レビューを要します。
+
+機能・サステナブルの追加入力は既存項目とマージし、同じ名称またはコードの弱い根拠で既存の試験・資料確認を置き換えません。無関係な既存タグも消去しません。
+
+
+項目別のfieldEvidenceは、当該payload項目の値を実際に採用した場合だけ更新します。AI由来、空欄、未確認・矛盾する項目の根拠は既存確定値の根拠と置き換えず、intakeEvidenceに元入力として残します。旧形式でyarnStructureが空欄または未確認語だけの場合は、根拠条件を満たすbasicYarnFormをstructureの表示に使います。意味のある未確認yarnStructureから勝手にfallbackして確定させません。
+
+糸のnoteEntriesは元メモ全文を各一要素として保持し、notesはそれらを空行で結んだ表示値とします。同じ元メモの再送は一度だけ保持し、元メモ内の段落は分割・削除しません。旧レコードのnotesはそのまま一要素として保全します。元入力履歴から全文を完全一致で再構成できる場合だけ、その元メモ単位を利用します。

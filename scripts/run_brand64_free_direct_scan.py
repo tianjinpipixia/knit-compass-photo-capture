@@ -26,6 +26,19 @@ OUT = ROOT / 'data/brand-md-monitoring/direct-scans'
 UA = 'KnitCompassOfficialMonitor/1.0'
 OFFICIAL_HOSTS = {host for meta in json.loads((ROOT/'config/brand64-free-direct-sources.json').read_text())['brands'].values() for host in ([urlsplit(u).hostname for u in meta.get('entry_urls',[]) + meta.get('watch_product_urls',[])] + meta.get('official_redirect_hosts',[]))}
 MAX_BYTES = 4_000_000
+ONWARD_LISTING_BYTES = 8_000_000
+
+def source_byte_limit(url):
+    # Current Onward category HTML is ~7.5 MB even with ten cards. Give only
+    # verified women/brand/category listings a bounded exception, not all hosts.
+    p = urlsplit(url); q = parse_qs(p.query)
+    if (p.hostname == 'crosset.onward.co.jp' and p.path == '/items' and
+            q.get('bc') in (['002'], ['003']) and q.get('gc') == ['2'] and
+            q.get('du') == ['2'] and q.get('pp') == ['10'] and
+            q.get('scc') in (['1004'], ['1005'])):
+        return ONWARD_LISTING_BYTES
+    return MAX_BYTES
+
 VOID = {'area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr'}
 
 class Node:
@@ -106,8 +119,9 @@ class Fetcher:
             with self.guard: self.count += 1
             req = urllib.request.Request(url,headers={'User-Agent':UA,'Accept':'text/html'})
             with urllib.request.build_opener(SafeRedirect()).open(req,timeout=15) as r:
-                data = r.read(MAX_BYTES+1)
-                if len(data)>MAX_BYTES: raise ValueError('Source exceeds size limit')
+                byte_limit = min(source_byte_limit(url), source_byte_limit(r.url))
+                data = r.read(byte_limit+1)
+                if len(data)>byte_limit: raise ValueError('Source exceeds size limit')
                 if not any(t in r.headers.get('Content-Type','') for t in ('html','json')): raise ValueError('Not an HTML/JSON source')
                 html = data.decode(r.headers.get_content_charset() or 'utf-8',errors='replace')
                 final_url = r.url
@@ -223,8 +237,17 @@ def scan_brand(bid,meta,fetch, *, page_urls=None, max_pages=4, include_details=F
                 if a.tag!='a' or not a.attrs.get('href'):continue
                 label=clean(a.text())
                 baycrews_next=meta.get('adapter')=='baycrews' and a.has_class('next')
-                if 'next' not in a.attrs.get('rel','').split() and not re.fullmatch(r'次へ|次のページ|NEXT|Next|次',label) and not baycrews_next:continue
+                onward_next=meta.get('adapter')=='onward-listing' and a.has_class('c-pagination__next')
+                if 'next' not in a.attrs.get('rel','').split() and not re.fullmatch(r'次へ|次のページ|NEXT|Next|次',label) and not baycrews_next and not onward_next:continue
                 next_url=urljoin(evidence['url'],a.attrs['href'])
+                if meta.get('adapter') in {'doclasse', 'onward-listing'}:
+                    page_key = 'page' if meta['adapter']=='doclasse' else 'cp'
+                    current_params=parse_qs(urlsplit(evidence['url']).query)
+                    next_params=parse_qs(urlsplit(next_url).query)
+                    current_pages=current_params.pop(page_key,['1']);next_pages=next_params.pop(page_key,[])
+                    if len(current_pages)!=1 or len(next_pages)!=1:continue
+                    if (not current_pages[0].isdigit() or not next_pages[0].isdigit() or
+                        int(next_pages[0])!=int(current_pages[0])+1 or current_params!=next_params):continue
                 if meta.get('adapter')=='baycrews':
                     # The storefront next arrow has no text/rel. Accept it only
                     # when qPage advances and every scope filter is unchanged.

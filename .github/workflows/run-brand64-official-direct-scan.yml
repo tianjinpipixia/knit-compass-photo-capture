@@ -16,6 +16,8 @@ on:
       - scripts/restore_brand64_valid_state.py
       - scripts/brand_direct_adapters.py
       - tests/test_brand64_free_direct_scan.py
+      - tests/test_brand64_doclasse_recovery.py
+      - tests/test_brand64_onward_listing.py
       - tests/test_brand64_flash_pipeline.py
       - tests/test_brand64_daily_pipeline_binding.py
       - tests/test_brand64_retrospective_unification.py
@@ -39,20 +41,22 @@ concurrency:
 
 jobs:
   direct-scan:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 15
     env:
       TZ: Asia/Tokyo
       GH_TOKEN: ${{ github.token }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
       - name: Verify collection, recovery, preservation, snapshot binding, and retrospective unification
         run: |
           python -m unittest discover -s tests -p test_brand64_free_direct_scan.py -v
+          python -m unittest discover -s tests -p test_brand64_doclasse_recovery.py -v
+          python -m unittest discover -s tests -p test_brand64_onward_listing.py -v
           python -m unittest discover -s tests -p test_brand64_flash_pipeline.py -v
           python -m unittest discover -s tests -p test_brand64_daily_pipeline_binding.py -v
           python -m unittest discover -s tests -p test_brand64_retrospective_unification.py -v
@@ -78,8 +82,9 @@ jobs:
         run: python scripts/run_brand64_free_direct_scan.py --stage flash --budget-seconds 180 --max-pages 2
 
       - name: Make flash available before recovery or detail research
+        id: artifact_flash
         if: always() && steps.flash.outcome != 'skipped'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: brand64-free-direct-${{ github.run_id }}-${{ github.run_attempt }}-flash
           path: data/brand-md-monitoring/direct-scans/
@@ -129,15 +134,6 @@ jobs:
           echo "state=CHECK_ERROR" >> "$GITHUB_OUTPUT"
           exit "$rc"
 
-      - name: Record saved-result coverage hold
-        if: always() && steps.coverage.outputs.state == 'PARTIAL_COVERAGE'
-        run: |
-          echo "## Brand64 daily outcome" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Collection pipeline: SUCCESS (results saved)" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Coverage: PARTIAL_COVERAGE" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Publication: PUBLISH_HOLD" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Human Review Required: true" >> "$GITHUB_STEP_SUMMARY"
-
       - name: Refresh the owner screen with recovery and detail status
         id: feed_final
         if: always() && steps.flash.outcome == 'success'
@@ -156,8 +152,9 @@ jobs:
             --collector-source-sha "$GITHUB_SHA"
 
       - name: Upload final observations and recovery state
+        id: artifact_final
         if: always() && steps.flash.outcome != 'skipped'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: brand64-free-direct-${{ github.run_id }}-${{ github.run_attempt }}-final
           path: data/brand-md-monitoring/direct-scans/
@@ -165,6 +162,7 @@ jobs:
           retention-days: 30
 
       - name: Preserve results and show the flash report
+        id: preserve
         if: always() && steps.flash.outcome != 'skipped'
         shell: bash
         run: |
@@ -190,8 +188,17 @@ jobs:
             cat data/brand-md-monitoring/direct-scans/summary.md >> "$GITHUB_STEP_SUMMARY"
           fi
 
+      - name: Record saved-result coverage hold
+        if: always() && steps.coverage.outputs.state == 'PARTIAL_COVERAGE' && (steps.restore.outcome == 'success' && steps.retro_feed.outcome == 'success' && steps.flash.outcome == 'success' && steps.artifact_flash.outcome == 'success' && steps.feed_flash.outcome == 'success' && steps.retry.outcome == 'success' && steps.deep.outcome == 'success' && steps.coverage.outcome == 'success' && steps.feed_final.outcome == 'success' && steps.bind_snapshot.outcome == 'success' && steps.artifact_final.outcome == 'success' && steps.preserve.outcome == 'success')
+        run: |
+          echo "## Brand64 daily outcome" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Collection pipeline: SUCCESS (results saved)" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Coverage: PARTIAL_COVERAGE" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Publication: PUBLISH_HOLD" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Human Review Required: true" >> "$GITHUB_STEP_SUMMARY"
+
       - name: Fail visibly when the collection pipeline itself is broken
-        if: always() && (steps.restore.outcome != 'success' || steps.retro_feed.outcome != 'success' || steps.flash.outcome != 'success' || steps.retry.outcome != 'success' || steps.deep.outcome != 'success' || steps.coverage.outcome != 'success' || steps.feed_final.outcome != 'success' || steps.bind_snapshot.outcome != 'success')
+        if: always() && (steps.restore.outcome != 'success' || steps.retro_feed.outcome != 'success' || steps.flash.outcome != 'success' || steps.artifact_flash.outcome != 'success' || steps.feed_flash.outcome != 'success' || steps.retry.outcome != 'success' || steps.deep.outcome != 'success' || steps.coverage.outcome != 'success' || steps.feed_final.outcome != 'success' || steps.bind_snapshot.outcome != 'success' || steps.artifact_final.outcome != 'success' || steps.preserve.outcome != 'success')
         run: |
           echo "Brand64 collection/persistence pipeline failed. This is distinct from a saved PARTIAL_COVERAGE hold; inspect the failed operational step." >&2
           exit 1
