@@ -189,10 +189,20 @@ class FlashPipelineTests(unittest.TestCase):
                 queue = json.loads((pathlib.Path(tmp)/'deep-dive-queue.json').read_text())
                 self.assertTrue(any(q['status']=='REVIEW_REQUIRED' for q in queue.values()))
                 with patch('builtins.print'):
-                    self.assertEqual(pipeline.run(args+['--stage', 'check']), 1)
+                    self.assertEqual(pipeline.run(args+['--stage', 'check']), pipeline.COVERAGE_INCOMPLETE_EXIT)
                 summary = json.loads((pathlib.Path(tmp)/'latest.json').read_text())
                 self.assertEqual(len(summary['brands']), 65)
                 self.assertEqual(len(summary['not_attempted_brand_ids']), 64)
+                self.assertEqual(summary['scan_status'], 'PARTIAL_COVERAGE')
+                self.assertEqual(summary['publication_status'], 'PUBLISH_HOLD')
+                self.assertTrue(summary['human_review_required'])
+
+    def test_workflow_softens_only_the_expected_partial_coverage_exit(self):
+        workflow = (pathlib.Path(__file__).resolve().parents[1]/'.github/workflows/run-brand64-official-direct-scan.yml').read_text()
+        self.assertIn('if [ "$rc" -eq 3 ]; then', workflow)
+        self.assertIn('state=PARTIAL_COVERAGE', workflow)
+        self.assertIn('exit "$rc"', workflow)
+        self.assertIn("steps.coverage.outcome != 'success'", workflow)
 
     def test_missing_baseline_initializes_without_false_new_product_candidates(self):
         with tempfile.TemporaryDirectory() as tmp:
