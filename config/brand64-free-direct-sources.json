@@ -163,7 +163,8 @@
         "https://www.doclasse.com/item?brand_id=1&category_id=11",
         "https://www.doclasse.com/item?brand_id=1&category_id=12"
       ],
-      "adapter": "doclasse"
+      "adapter": "doclasse",
+      "superseded_entry_urls": ["https://www.doclasse.com/"]
     },
     "BR-00019": {
       "brand_name": "any SiS",
@@ -273,8 +274,10 @@
     "BR-00035": {
       "brand_name": "AMERICAN HOLIC",
       "entry_urls": [
-        "https://stripe-club.com/brand/american-holic/"
+        "https://stripe-club.com/brand/american-holic/search?so=NEW",
+        "https://stripe-club.com/brand/american-holic/search?rd=02&so=PROF"
       ],
+      "superseded_entry_urls": ["https://stripe-club.com/brand/american-holic/"],
       "adapter": "stripe",
       "slug": "american-holic",
       "brand_aliases": [
@@ -292,8 +295,12 @@
     "BR-00039": {
       "brand_name": "23区",
       "entry_urls": [
-        "https://crosset.onward.co.jp/shop/23ku"
-      ]
+        "https://crosset.onward.co.jp/items?bc=002&gc=2&pp=10&du=2&scc=1004",
+        "https://crosset.onward.co.jp/items?bc=002&gc=2&pp=10&du=2&scc=1005"
+      ],
+      "adapter": "onward-listing",
+      "brand_code": "002",
+      "superseded_entry_urls": ["https://crosset.onward.co.jp/shop/23ku"]
     },
     "BR-00040": {
       "brand_name": "ICB",
@@ -310,9 +317,17 @@
     "BR-00042": {
       "brand_name": "組曲",
       "entry_urls": [
-        "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30"
+        "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=10&du=2&scc=1004",
+        "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=10&du=2&scc=1005"
       ],
-      "source_change_note": "2026-09-09: Former shop entry loops through redirects. Use verified official brand 003 WOMEN listing; this does not certify all source surfaces."
+      "adapter": "onward-listing",
+      "brand_code": "003",
+      "superseded_entry_urls": [
+        "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30",
+        "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17",
+        "https://crosset.onward.co.jp/shop/kumikyoku?du=1"
+      ],
+      "source_change_note": "2026-10-07: verified women knit/cardigan category listings, ten cards per page; coverage audit remains required."
     },
     "BR-00047": {
       "brand_name": "UNFILO",

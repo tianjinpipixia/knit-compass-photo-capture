@@ -26,6 +26,24 @@ def read(path, fallback):
     return json.loads(path.read_text()) if path.exists() else fallback
 
 
+def archive_superseded_sources(row, meta, date):
+    """Retain explicitly replaced source failures outside the active queue."""
+    retired = set(meta.get('superseded_entry_urls', [])) - set(meta.get('entry_urls', []))
+    if not retired: return row
+    for url in retired:
+        errors = [e for e in row.get('errors', []) if e.get('url') == url]
+        pending = url in row.get('pending_page_urls', [])
+        if not errors and not pending: continue
+        archive = row.setdefault('superseded_sources', {}).setdefault(url, {
+            'superseded_at': date, 'replacement_entry_urls': meta.get('entry_urls', []),
+            'errors': [], 'was_pending': False})
+        archive['errors'].extend(e for e in errors if e not in archive['errors'])
+        archive['was_pending'] = archive['was_pending'] or pending
+    row['errors'] = [e for e in row.get('errors', []) if e.get('url') not in retired]
+    row['pending_page_urls'] = [u for u in row.get('pending_page_urls', []) if u not in retired]
+    return row
+
+
 def recovery_urls(row):
     return list(dict.fromkeys(row.get('pending_page_urls', []) +
                              [e['url'] for e in row.get('errors', []) if e.get('url')]))
@@ -50,6 +68,8 @@ def merge_row(previous, row, date):
     successful = set(row.get('successful_page_urls', []))
     attempted = set(row.get('attempted_page_urls', []))
     merged = {**row, 'observed_date': date, 'last_attempt_at_utc': scan.now()}
+    if previous and previous.get('superseded_sources'):
+        merged['superseded_sources'] = previous['superseded_sources']
     merged['successful_page_urls'] = list(dict.fromkeys(old.get('successful_page_urls', []) + list(successful)))
     merged['attempted_page_urls'] = list(dict.fromkeys(old.get('attempted_page_urls', []) + list(attempted)))
     merged['errors'] = [e for e in old.get('errors', []) if e.get('url') not in attempted] + row['errors']
@@ -179,6 +199,8 @@ class Pipeline:
         self.baseline_initialization = not (out/'known-products.json').exists()
         self.known = read(out/'known-products.json', {})
         self.rows = read(out/'coverage-state.json', {})
+        for bid, row in self.rows.items():
+            archive_superseded_sources(row, sources.get(bid, {}), date)
         self.queue = read(out/'deep-dive-queue.json', {})
         self.history = read(out/'flash-history.json', {})
         self.details = read(out/'detail-results.json', {})
