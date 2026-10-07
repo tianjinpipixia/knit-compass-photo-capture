@@ -224,7 +224,7 @@ html = PAGE.read_text(encoding="utf-8")
 for required in (
     "mz100-catalog-2000.json",
     "kc_v04_handoff_queue_v1",
-    "24件",
+    "26件",
     "GDM56050",
     "TWIN WIN",
     "AMERICAN HOLIC",
