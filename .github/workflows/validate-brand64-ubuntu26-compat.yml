@@ -1,0 +1,85 @@
+name: Validate Brand64 Ubuntu 26 compatibility
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/run-brand64-official-direct-scan.yml"
+      - ".github/workflows/monitor-brand64-daily-freshness.yml"
+      - ".github/workflows/validate-brand64-ubuntu26-compat.yml"
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  ubuntu26-compat:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 12
+    env:
+      TZ: Asia/Tokyo
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Show runner toolchain
+        shell: bash
+        run: |
+          cat /etc/os-release
+          python --version
+          git --version
+          gh --version
+          tar --version | head -n 1
+
+      - name: Run Brand64 direct-scan regression tests
+        run: |
+          python -m unittest discover -s tests -p test_brand64_free_direct_scan.py -v
+          python -m unittest discover -s tests -p test_brand64_flash_pipeline.py -v
+          python -m unittest discover -s tests -p test_brand64_daily_pipeline_binding.py -v
+          python -m unittest discover -s tests -p test_brand64_retrospective_unification.py -v
+          python -m unittest discover -s tests -p test_brand64_retrospective_month_evidence.py -v
+          python -m unittest discover -s tests -p test_brand64_canonical_store.py -v
+          python -m py_compile scripts/restore_brand64_valid_state.py scripts/brand64_daily_pipeline_binding.py
+
+      - name: Restore newest strict-valid Brand64 state
+        run: python scripts/restore_brand64_valid_state.py
+
+      - name: Verify restored canonical snapshot binding
+        run: python scripts/brand64_daily_pipeline_binding.py verify --root data/brand-md-monitoring/direct-scans
+
+      - name: Validate freshness and retrospective gates
+        run: |
+          python scripts/validate_brand64_daily_freshness.py
+          python -m unittest tests/test_brand64_retrospective_baseline.py -v
+          python scripts/validate_brand_md_analysis_framework.py
+
+      - name: Verify canonical product snapshot from published feed
+        shell: bash
+        run: |
+          git fetch --depth=1 origin brand64/flash-feed
+          mkdir -p .canonical-freshness
+          git archive FETCH_HEAD data/brand-md-monitoring/direct-scans/cumulative-products | tar -x -C .canonical-freshness
+          python scripts/check_brand64_canonical_freshness.py --root .canonical-freshness/data/brand-md-monitoring/direct-scans --max-age-days 1
+
+      - name: Build compatibility evidence
+        shell: bash
+        run: |
+          mkdir -p .compat
+          {
+            echo "runner=ubuntu-26.04"
+            python --version
+            git --version
+            gh --version | head -n 1
+            tar --version | head -n 1
+            git status --short
+          } > .compat/brand64-ubuntu26.txt
+
+      - name: Upload compatibility evidence
+        uses: actions/upload-artifact@v6
+        with:
+          name: brand64-ubuntu26-compat-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .compat/brand64-ubuntu26.txt
+          if-no-files-found: error
+          retention-days: 1
