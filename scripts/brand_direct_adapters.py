@@ -77,8 +77,44 @@ def fr_state(doc,source,meta):
     return list(result.values())
 
 
+def doclasse_items(doc, source, meta):
+    """Read only women's knit/category cards, never homepage recommendations."""
+    parsed = urlsplit(source)
+    params = parse_qs(parsed.query)
+    if (parsed.scheme != 'https' or parsed.hostname != 'www.doclasse.com' or
+            parsed.path != '/item' or not matches('DoCLASSE', meta) or
+            params.get('brand_id') != ['1'] or
+            params.get('category_id') not in (['11'], ['12'])):
+        return []
+    items = {}
+    for card in doc.root.walk():
+        if not card.has_class('item_archive__list'): continue
+        if card.attrs.get('data-ga_ec_goods_brand') != 'レディース': continue
+        category = card.attrs.get('data-ga_ec_goods_category', '')
+        if not KNIT.search(category) or OTHER.search(category): continue
+        name_node = cls(card, 'goodsNameWrapper')
+        link = next((n for n in name_node.walk() if n.tag == 'a' and
+                     n.has_class('goodsDetailLink')), None) if name_node else None
+        if not link: continue
+        name = text(link)
+        if not name or OTHER.search(name): continue
+        url = urljoin(source, link.attrs.get('href', ''))
+        target = urlsplit(url)
+        match = re.fullmatch(r'/item/detail/1_1_(\d+)/(\d+)', target.path)
+        if (target.scheme != 'https' or target.hostname != parsed.hostname or
+                not match or match[1] != card.attrs.get('data-ga_ec_goods_id')):
+            continue
+        amount = price(text(cls(card, 'price')))
+        if not amount: continue
+        # Colour paths stay in evidence; one displayed card per common goods ID.
+        items.setdefault(match[1], record(name, url, amount,
+                         labels(cls(card, 'iconList')), source, match[1]))
+    return list(items.values())
+
+
 def extract(doc,source,meta):
     adapter=meta.get('adapter')
+    if adapter == 'doclasse': return doclasse_items(doc, source, meta)
     # SENSE OF PLACE currently renders useful official listing cards on its
     # brand page without a configured adapter. Keep this narrow to that exact
     # first-party host/brand rather than treating all generic links as verified.

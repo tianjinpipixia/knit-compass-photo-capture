@@ -32,11 +32,15 @@ def recovery_urls(row):
 
 
 def retryable_urls(row):
-    urls = list(row.get('pending_page_urls', []))
+    # A saved pending page may have failed with a permanent/access error in
+    # flash. Keep it durable, but do not hammer it again in the same run.
+    blocked = {e.get('url') for e in row.get('errors', []) if
+               re.search(r'HTTP Error (?:403|429)|SOURCE_ACCESS_CHALLENGE|NO_SUPPORTED_PRODUCT_CARDS|Source exceeds size limit|redirect error', e['reason'])}
+    urls = [u for u in row.get('pending_page_urls', []) if u not in blocked]
     for error in row.get('errors', []):
         reason = error['reason']
         if re.search(r'Timeout|timed out|HTTP Error: 5\d\d|HTTPError: HTTP Error 5\d\d|Connection|URLError|OSError|BUDGET_EXHAUSTED', reason):
-            if error.get('url'): urls.append(error['url'])
+            if error.get('url') and error['url'] not in blocked: urls.append(error['url'])
     return list(dict.fromkeys(urls))
 
 
