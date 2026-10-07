@@ -566,7 +566,7 @@
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-07T11:57:28.837989+00:00"
+    "last_attempt_at_utc": "2026-10-07T11:59:23.647108+00:00"
   },
   "BR-00047": {
     "brand_id": "BR-00047",
@@ -638,6 +638,14 @@
     "sources": [],
     "errors": [
       {
+        "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
         "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
       },
@@ -648,22 +656,13 @@
       {
         "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
-      },
-      {
-        "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/",
-        "reason": "HTTPError: HTTP Error 403: Forbidden"
-      },
-      {
-        "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/",
-        "reason": "HTTPError: HTTP Error 403: Forbidden"
       }
     ],
     "surface_items": [],
     "product_details": [],
     "pending_page_urls": [
-      "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2",
-      "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=3",
-      "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2"
+      "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/",
+      "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/"
     ],
     "successful_page_urls": [],
     "attempted_page_urls": [
@@ -676,7 +675,7 @@
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-07T11:57:07.079520+00:00"
+    "last_attempt_at_utc": "2026-10-07T11:59:11.580114+00:00"
   },
   "BR-00054": {
     "brand_id": "BR-00054",
@@ -717,15 +716,15 @@
     ],
     "errors": [
       {
-        "url": "https://baycrews.jp/brand/detail/slobe",
-        "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
-      },
-      {
         "url": "https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0999",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
       },
       {
         "url": "https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0999",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "url": "https://baycrews.jp/brand/detail/slobe",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
       }
     ],
@@ -1630,7 +1629,8 @@
     ],
     "product_details": [],
     "pending_page_urls": [
-      "https://baycrews.jp/brand/detail/slobe"
+      "https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0999",
+      "https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0999"
     ],
     "successful_page_urls": [
       "https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0999",
@@ -1646,7 +1646,7 @@
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-07T11:57:14.291073+00:00"
+    "last_attempt_at_utc": "2026-10-07T11:59:07.391039+00:00"
   },
   "BR-00004": {
     "brand_id": "BR-00004",
@@ -2022,6 +2022,13 @@
         "retrieved_at_utc": "2026-10-07T11:57:09.558595+00:00",
         "sha256": "ec1bdba298b6aa522121934a2e79b797706bbcbf2931d154dbd8c247f8347638",
         "evidence_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-07/20261007T115703068049Z-flash/evidence/ec1bdba298b6aa522121934a2e79b797706bbcbf2931d154dbd8c247f8347638.html.gz"
+      },
+      {
+        "requested_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
+        "retrieved_at_utc": "2026-10-07T11:59:12.554831+00:00",
+        "sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510",
+        "evidence_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-07/20261007T115905884539Z-retry/evidence/e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510.html.gz"
       }
     ],
     "errors": [],
@@ -2032,10 +2039,10 @@
         "product_code": "670342",
         "display_price": "¥ 4,490",
         "status_labels": [],
-        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "ec1bdba298b6aa522121934a2e79b797706bbcbf2931d154dbd8c247f8347638"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "メルティクルー金ボタンカーディガン/759457",
@@ -2045,10 +2052,10 @@
         "status_labels": [
           "NEW"
         ],
-        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "ec1bdba298b6aa522121934a2e79b797706bbcbf2931d154dbd8c247f8347638"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "カシミヤタッチペプラムカーディガン/812956",
@@ -2084,10 +2091,10 @@
         "status_labels": [
           "NEW"
         ],
-        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "ec1bdba298b6aa522121934a2e79b797706bbcbf2931d154dbd8c247f8347638"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "お手入れらくらくスウェットライクニット/襟カーディガン/826520",
@@ -2097,10 +2104,10 @@
         "status_labels": [
           "NEW"
         ],
-        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "ec1bdba298b6aa522121934a2e79b797706bbcbf2931d154dbd8c247f8347638"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "FOXブレンドニットプルオーバー/670352",
@@ -2110,10 +2117,10 @@
         "status_labels": [
           "NEW"
         ],
-        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "ec1bdba298b6aa522121934a2e79b797706bbcbf2931d154dbd8c247f8347638"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "FOXブレンド接結カーディガン/670351",
@@ -2123,10 +2130,10 @@
         "status_labels": [
           "NEW"
         ],
-        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+        "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "ec1bdba298b6aa522121934a2e79b797706bbcbf2931d154dbd8c247f8347638"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "シャギーゆるVネックカーディガン/1063341",
@@ -2139,7 +2146,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "アイレットカーディガン/1067228",
@@ -2152,7 +2159,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "カシミヤタッチレースVネックカーディガン/1048996",
@@ -2165,7 +2172,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "モヘヤタッチ花柄カーディガン/1080241",
@@ -2178,7 +2185,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "アーガイルニットVネックカーディガン/1069417",
@@ -2189,7 +2196,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "メルティクルーフリルカーディガン/1063334",
@@ -2200,7 +2207,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "スウェットライククルーカーディガン/724802",
@@ -2211,7 +2218,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "スウェットライクZIPカーディガン/642682",
@@ -2222,7 +2229,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "ドライタッチVネックカーディガン長袖/634143",
@@ -2233,7 +2240,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "スウェットライククルーカーディガン/632604",
@@ -2246,7 +2253,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "ダンボールボタンカーディガン/1054554",
@@ -2257,7 +2264,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "シャーリングレースクルーカーディガン/1051186",
@@ -2268,7 +2275,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "クルーネックカーディガン/長袖/826491",
@@ -2279,7 +2286,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "UVプロテクトペプラムカーディガン/1046363",
@@ -2290,7 +2297,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "フリルニットカーディガン/1046531",
@@ -2301,7 +2308,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "【玉井詩織さん着用】2WAYシアーフリンンジカーディガン/1046061",
@@ -2312,7 +2319,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "ポケット付きニットクルー半袖カーディガン/1046102",
@@ -2323,7 +2330,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "洗えるリブシアーVネック長袖カーディガン/902751",
@@ -2334,7 +2341,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "シャーリングレース2WAYカーディガン/901573",
@@ -2345,7 +2352,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "リネン混ニット2WAYプルオーバー半袖/147712",
@@ -2356,7 +2363,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "リネン混シアークルーカーディガン/650272",
@@ -2367,7 +2374,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "UVカットカーディガン6分袖/647559",
@@ -2378,7 +2385,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "冷感リブカーディガン/一部店舗限定/658995",
@@ -2389,7 +2396,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "襟付きコンパクトカーディガン/658154",
@@ -2400,7 +2407,7 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       },
       {
         "product_name": "サラサラDRY Vネックカーディガン長袖/655854",
@@ -2411,13 +2418,11 @@
         "source_url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
         "evidence_level": "OFFICIAL_LISTING_CARD",
         "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
-        "source_sha256": "d929aea2c4edc8aa5294c9a8c9bd9b850c9ce078279c871ec525f577239cf739"
+        "source_sha256": "e851295290697ee3cffb49e8dd12d7c745fe496e0c4d410612886cff63ba2510"
       }
     ],
     "product_details": [],
-    "pending_page_urls": [
-      "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
-    ],
+    "pending_page_urls": [],
     "successful_page_urls": [
       "https://www.dot-st.com/globalwork/disp/itemlist/?mode=&sort=01&groupNm=0&p=1&refineFlg=true&dispNo=001001&dispNoRadio=001001&search_color_cd=&search_size_cd=&search_class_attribute=&search_function_tag=&search_range_price_min=&search_range_price_max=&search_refine_range_min=&search_refine_range_max=&search_price=&goodsType=1&search_campaign=&store_delv_yn=&gift_wrap_yn=&stock=0&pre_rl=",
       "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
@@ -2431,7 +2436,7 @@
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-07T11:57:11.513361+00:00"
+    "last_attempt_at_utc": "2026-10-07T11:59:13.038983+00:00"
   },
   "BR-00051": {
     "brand_id": "BR-00051",
@@ -4550,22 +4555,23 @@
     "sources": [],
     "errors": [
       {
-        "url": "https://store.united-arrows.co.jp/brand/glr/",
-        "reason": "ValueError: Redirect/source host is not in the configured official source allowlist"
-      },
-      {
         "url": "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0105",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
       },
       {
         "url": "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0108",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "url": "https://store.united-arrows.co.jp/brand/glr/",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
       }
     ],
     "surface_items": [],
     "product_details": [],
     "pending_page_urls": [
-      "https://store.united-arrows.co.jp/brand/glr/"
+      "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0105",
+      "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0108"
     ],
     "successful_page_urls": [],
     "attempted_page_urls": [
@@ -4576,7 +4582,7 @@
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-07T11:57:15.821726+00:00"
+    "last_attempt_at_utc": "2026-10-07T11:59:08.787688+00:00"
   },
   "BR-00075": {
     "brand_id": "BR-00075",
@@ -5611,7 +5617,7 @@
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-07T11:58:00.861292+00:00"
+    "last_attempt_at_utc": "2026-10-07T11:59:37.507844+00:00"
   },
   "BR-00005": {
     "brand_id": "BR-00005",
@@ -6143,27 +6149,27 @@
     "sources": [],
     "errors": [
       {
-        "url": "https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2",
-        "reason": "HTTPError: HTTP Error 403: Forbidden"
-      },
-      {
-        "url": "https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2",
-        "reason": "HTTPError: HTTP Error 403: Forbidden"
-      },
-      {
         "url": "https://store.world.co.jp/s/brand/index/category/WB/WB01/",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
       },
       {
         "url": "https://store.world.co.jp/s/brand/index/category/WB/WB02/",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "url": "https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "url": "https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
       }
     ],
     "surface_items": [],
     "product_details": [],
     "pending_page_urls": [
-      "https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2",
-      "https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2"
+      "https://store.world.co.jp/s/brand/index/category/WB/WB01/",
+      "https://store.world.co.jp/s/brand/index/category/WB/WB02/"
     ],
     "successful_page_urls": [],
     "attempted_page_urls": [
@@ -6175,7 +6181,7 @@
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-07T11:57:44.506262+00:00"
+    "last_attempt_at_utc": "2026-10-07T11:59:17.749175+00:00"
   },
   "BR-00053": {
     "brand_id": "BR-00053",
@@ -7356,6 +7362,14 @@
     "sources": [],
     "errors": [
       {
+        "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
         "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
       },
@@ -7366,22 +7380,13 @@
       {
         "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
-      },
-      {
-        "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/",
-        "reason": "HTTPError: HTTP Error 403: Forbidden"
-      },
-      {
-        "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/",
-        "reason": "HTTPError: HTTP Error 403: Forbidden"
       }
     ],
     "surface_items": [],
     "product_details": [],
     "pending_page_urls": [
-      "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2",
-      "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2",
-      "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3"
+      "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/",
+      "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/"
     ],
     "successful_page_urls": [],
     "attempted_page_urls": [
@@ -7394,7 +7399,7 @@
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-07T11:57:33.617318+00:00"
+    "last_attempt_at_utc": "2026-10-07T11:59:16.249377+00:00"
   },
   "BR-00056": {
     "brand_id": "BR-00056",
@@ -8801,22 +8806,23 @@
     "sources": [],
     "errors": [
       {
-        "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2",
-        "reason": "HTTPError: HTTP Error 403: Forbidden"
-      },
-      {
         "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB01/",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
       },
       {
         "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB02/",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
       }
     ],
     "surface_items": [],
     "product_details": [],
     "pending_page_urls": [
-      "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2"
+      "https://store.world.co.jp/s/brand/grove/category/WB/WB01/",
+      "https://store.world.co.jp/s/brand/grove/category/WB/WB02/"
     ],
     "successful_page_urls": [],
     "attempted_page_urls": [
@@ -8827,7 +8833,7 @@
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-07T11:57:54.783107+00:00"
+    "last_attempt_at_utc": "2026-10-07T11:59:19.264564+00:00"
   },
   "BR-00064": {
     "brand_id": "BR-00064",
@@ -9862,22 +9868,23 @@
     "sources": [],
     "errors": [
       {
-        "url": "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2",
-        "reason": "HTTPError: HTTP Error 403: Forbidden"
-      },
-      {
         "url": "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
       },
       {
         "url": "https://store.world.co.jp/s/brand/indivi/category/WB/WB02/",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "url": "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
       }
     ],
     "surface_items": [],
     "product_details": [],
     "pending_page_urls": [
-      "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2"
+      "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/",
+      "https://store.world.co.jp/s/brand/indivi/category/WB/WB02/"
     ],
     "successful_page_urls": [],
     "attempted_page_urls": [
@@ -9888,7 +9895,7 @@
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-07T11:58:08.144618+00:00"
+    "last_attempt_at_utc": "2026-10-07T11:59:20.755855+00:00"
   },
   "BR-00009": {
     "brand_id": "BR-00009",
@@ -11523,22 +11530,23 @@
     "sources": [],
     "errors": [
       {
-        "url": "https://crosset.onward.co.jp/shop/kumikyoku?du=1",
-        "reason": "HTTPError: HTTP Error 302: The HTTP server returned a redirect error that would lead to an infinite loop.\nThe last 30x error message was:\nMoved Temporarily"
-      },
-      {
         "url": "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30",
         "reason": "ValueError: Source exceeds size limit"
       },
       {
         "url": "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17",
         "reason": "ValueError: Source exceeds size limit"
+      },
+      {
+        "url": "https://crosset.onward.co.jp/shop/kumikyoku?du=1",
+        "reason": "HTTPError: HTTP Error 302: The HTTP server returned a redirect error that would lead to an infinite loop.\nThe last 30x error message was:\nMoved Temporarily"
       }
     ],
     "surface_items": [],
     "product_details": [],
     "pending_page_urls": [
-      "https://crosset.onward.co.jp/shop/kumikyoku?du=1"
+      "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30",
+      "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=30&du=2&cp=17"
     ],
     "successful_page_urls": [],
     "attempted_page_urls": [
@@ -11549,7 +11557,7 @@
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-07T11:58:15.721387+00:00"
+    "last_attempt_at_utc": "2026-10-07T11:59:10.208789+00:00"
   },
   "BR-00050": {
     "brand_id": "BR-00050",
@@ -11561,22 +11569,23 @@
     "sources": [],
     "errors": [
       {
-        "url": "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2",
-        "reason": "HTTPError: HTTP Error 403: Forbidden"
-      },
-      {
         "url": "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
       },
       {
         "url": "https://store.world.co.jp/s/brand/untitled/category/WB/WB02/",
         "reason": "HTTPError: HTTP Error 403: Forbidden"
+      },
+      {
+        "url": "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2",
+        "reason": "HTTPError: HTTP Error 403: Forbidden"
       }
     ],
     "surface_items": [],
     "product_details": [],
     "pending_page_urls": [
-      "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2"
+      "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/",
+      "https://store.world.co.jp/s/brand/untitled/category/WB/WB02/"
     ],
     "successful_page_urls": [],
     "attempted_page_urls": [
@@ -11587,7 +11596,7 @@
     "unverified_link_candidates": [],
     "next_action": "Verify remaining listing pages, new/preorder/sale surfaces and unresolved sources; never infer no-change.",
     "observed_date": "2026-10-07",
-    "last_attempt_at_utc": "2026-10-07T11:58:12.671770+00:00"
+    "last_attempt_at_utc": "2026-10-07T11:59:22.249225+00:00"
   },
   "BR-00070": {
     "brand_id": "BR-00070",
