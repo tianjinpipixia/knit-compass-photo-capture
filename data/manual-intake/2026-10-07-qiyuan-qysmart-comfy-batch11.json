@@ -18,7 +18,7 @@
       "sent_at": "2026-10-07T08:14:00Z",
       "review_status": "PENDING",
       "payload": {
-        "dataContractVersion": "1.1.1",
+        "dataContractVersion": "1.3.0",
         "captureId": "MANUAL-20261007-QIYUAN-QYSMART-COMFY-40S1",
         "priority": "HIGH",
         "targetType": "yarn",
@@ -55,9 +55,27 @@
         "compositionTotal": 100,
         "compositionStatus": "confirmed_with_naming_discrepancy",
         "functionalProperties": [
-          "調湿",
-          "吸湿発熱",
-          "消臭"
+          {
+            "name": "調湿",
+            "verification_status": "supplier_claim",
+            "evidence_id": "TMP-EV-KC-20261007-QIYUAN-QYSMART-COMFY-SWATCH",
+            "detail": "Exhibition swatch-card claim; performance testing unconfirmed.",
+            "test": ""
+          },
+          {
+            "name": "吸湿発熱",
+            "verification_status": "supplier_claim",
+            "evidence_id": "TMP-EV-KC-20261007-QIYUAN-QYSMART-COMFY-SWATCH",
+            "detail": "Exhibition swatch-card claim; performance testing unconfirmed.",
+            "test": ""
+          },
+          {
+            "name": "消臭",
+            "verification_status": "supplier_claim",
+            "evidence_id": "TMP-EV-KC-20261007-QIYUAN-QYSMART-COMFY-SWATCH",
+            "detail": "Exhibition swatch-card claim; performance testing unconfirmed.",
+            "test": ""
+          }
         ],
         "functionClaimStatus": "confirmed_visible_on_exhibition_swatch_card",
         "functionDetail": "Visible swatch-card claims: 調湿 / 吸湿発熱 / 消臭. The white undyed functional fibers create a mélange/heather visual effect; user evaluation is wool-like.",
@@ -84,8 +102,9 @@
             "evidenceId": "TMP-EV-KC-20261007-QIYUAN-QYSMART-COMFY-SWATCH"
           },
           "countDisplay": {
-            "status": "confirmed_visible_as_40s_1_on_user_photo_exhibition_swatch",
-            "evidenceId": "TMP-EV-KC-20261007-QIYUAN-QYSMART-COMFY-SWATCH"
+            "status": "confirmed",
+            "evidenceId": "TMP-EV-KC-20261007-QIYUAN-QYSMART-COMFY-SWATCH",
+            "detail": "confirmed_visible_as_40s_1_on_user_photo_exhibition_swatch"
           },
           "compositionRaw": {
             "status": "base_yarn_80_viscose_10_polyester_10_qysmart_and_fabric_95_base_yarn_plus_20D_PU5_visible_on_card; functional_fiber_naming_has_japanese_card_vs_supplier_discrepancy",
@@ -110,9 +129,62 @@
           "japaneseFiberLabel": {
             "status": "card_uses_acrylate_but_supplier_calls_modified_acrylic; legal_japanese_classification_unconfirmed",
             "evidenceId": "TMP-EV-KC-20261007-QIYUAN-QYSMART-COMFY-SWATCH"
+          },
+          "countValue": {
+            "status": "confirmed",
+            "evidenceId": "TMP-EV-KC-20261007-QIYUAN-QYSMART-COMFY-SWATCH",
+            "detail": "Visible base-yarn notation 40s/1 on card; count system not independently confirmed."
+          },
+          "plyCount": {
+            "status": "confirmed",
+            "evidenceId": "TMP-EV-KC-20261007-QIYUAN-QYSMART-COMFY-SWATCH",
+            "detail": "Visible base-yarn notation 40s/1 on card; count system not independently confirmed."
           }
         },
-        "notes": "2026-10-07 exhibition physical swatch confirmed by user. Card: QYSMARTCOMFY07; fabric style 氨纶汗布; width 155 cm; weight 141 gsm; base yarn 40s/1, 95% of finished fabric, plus 20D PU 5%. Base-yarn composition is 80% Viscose / 10% Polyester / 10% QYSMART-COMFY functional fiber. Card functions: 調湿・吸湿発熱・消臭. The card's Japanese component wording is アクリレート, while supplier explanation uses 改性腈纶 / modified acrylic; do not normalize the legal fiber name until supplier documentation or Japanese labeling basis is confirmed. Supplier explanation: normally three-bath dyeing, but this swatch is two-bath because the modified acrylic did not dye; its white residual fibers are used as a mélange/heather effect. User observes the resultant surface as wool-like. Keep exact dye classes, dyeing sequence, modified-acrylic dyeability mechanism and legal fiber classification under Human Review."
+        "notes": "2026-10-07 exhibition physical swatch confirmed by user. Card: QYSMARTCOMFY07; fabric style 氨纶汗布; width 155 cm; weight 141 gsm; base yarn 40s/1, 95% of finished fabric, plus 20D PU 5%. Base-yarn composition is 80% Viscose / 10% Polyester / 10% QYSMART-COMFY functional fiber. Card functions: 調湿・吸湿発熱・消臭. The card's Japanese component wording is アクリレート, while supplier explanation uses 改性腈纶 / modified acrylic; do not normalize the legal fiber name until supplier documentation or Japanese labeling basis is confirmed. Supplier explanation: normally three-bath dyeing, but this swatch is two-bath because the modified acrylic did not dye; its white residual fibers are used as a mélange/heather effect. User observes the resultant surface as wool-like. Keep exact dye classes, dyeing sequence, modified-acrylic dyeability mechanism and legal fiber classification under Human Review.",
+        "yarnComposition": {
+          "level": "base_yarn",
+          "components": [
+            {
+              "name": "Viscose",
+              "percent": 80
+            },
+            {
+              "name": "Polyester",
+              "percent": 10
+            },
+            {
+              "name": "QYSMART-COMFY functional fiber",
+              "percent": 10,
+              "verification_status": "conflicting",
+              "sourceNames": [
+                "アクリレート",
+                "改性腈纶 / modified acrylic"
+              ]
+            }
+          ],
+          "total": 100,
+          "verification_status": "confirmed_with_naming_discrepancy",
+          "evidence_id": "TMP-EV-KC-20261007-QIYUAN-QYSMART-COMFY-SWATCH"
+        },
+        "fabricComposition": {
+          "level": "finished_fabric",
+          "components": [
+            {
+              "name": "base yarn",
+              "percent": 95
+            },
+            {
+              "name": "PU",
+              "percent": 5,
+              "countDisplay": "20D"
+            }
+          ],
+          "total": 100,
+          "verification_status": "document_confirmed",
+          "evidence_id": "TMP-EV-KC-20261007-QIYUAN-QYSMART-COMFY-SWATCH"
+        },
+        "materialVerificationStatus": "unconfirmed"
       }
     }
   ]
