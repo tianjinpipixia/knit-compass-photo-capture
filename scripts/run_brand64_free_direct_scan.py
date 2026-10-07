@@ -238,10 +238,16 @@ def scan_brand(bid,meta,fetch, *, page_urls=None, max_pages=4, include_details=F
                 label=clean(a.text())
                 baycrews_next=meta.get('adapter')=='baycrews' and a.has_class('next')
                 onward_next=meta.get('adapter')=='onward-listing' and a.has_class('c-pagination__next')
-                if 'next' not in a.attrs.get('rel','').split() and not re.fullmatch(r'次へ|次のページ|NEXT|Next|次',label) and not baycrews_next and not onward_next:continue
+                source_parts=urlsplit(evidence['url'])
+                stripe_listing=(meta.get('adapter')=='stripe' and meta.get('slug')=='american-holic' and
+                    source_parts.scheme=='https' and source_parts.hostname=='stripe-club.com' and
+                    source_parts.path=='/brand/american-holic/search')
+                stripe_next=stripe_listing and (not label or label.isdigit())
+                if 'next' not in a.attrs.get('rel','').split() and not re.fullmatch(r'次へ|次のページ|NEXT|Next|次',label) and not baycrews_next and not onward_next and not stripe_next:continue
                 next_url=urljoin(evidence['url'],a.attrs['href'])
-                if meta.get('adapter') in {'doclasse', 'onward-listing'}:
-                    page_key = 'page' if meta['adapter']=='doclasse' else 'cp'
+                if stripe_listing and urlsplit(next_url).scheme!='https':continue
+                if meta.get('adapter') in {'doclasse', 'onward-listing'} or stripe_listing:
+                    page_key = 'cp' if meta['adapter']=='onward-listing' else 'page'
                     current_params=parse_qs(urlsplit(evidence['url']).query)
                     next_params=parse_qs(urlsplit(next_url).query)
                     current_pages=current_params.pop(page_key,['1']);next_pages=next_params.pop(page_key,[])
