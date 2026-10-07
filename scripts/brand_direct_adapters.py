@@ -112,9 +112,43 @@ def doclasse_items(doc, source, meta):
     return list(items.values())
 
 
+def onward_listing_items(doc, source, meta):
+    p = urlsplit(source); q = parse_qs(p.query)
+    if (p.scheme != 'https' or p.hostname != 'crosset.onward.co.jp' or
+            p.path != '/items' or q.get('bc') != [meta.get('brand_code')] or
+            meta.get('brand_code') not in {'002', '003'} or
+            q.get('gc') != ['2'] or q.get('du') != ['2'] or
+            q.get('scc') not in (['1004'], ['1005'])):
+        return []
+    items = {}
+    for card in doc.root.walk():
+        if not card.has_class('c-item-card'): continue
+        if not matches(text(cls(card, 'c-item-card__brand')), meta): continue
+        try: tracking = json.loads(card.attrs.get('data-web-tracking-item', ''))
+        except (ValueError, TypeError): continue
+        if not isinstance(tracking, dict): continue
+        if (tracking.get('brandCode') != meta['brand_code'] or
+                tracking.get('smallCategoryCode') != q['scc'][0] or
+                tracking.get('genderCode') not in ('', '2')): continue
+        link = cls(card, 'c-item-card__name-link')
+        if not link: continue
+        name = text(link)
+        if not name or OTHER.search(name): continue
+        url = urljoin(source, link.attrs.get('href', '')); target = urlsplit(url)
+        match = re.fullmatch(r'/items/([A-Za-z0-9]+)', target.path)
+        if (target.scheme != 'https' or target.hostname != p.hostname or
+                not match or match[1] != tracking.get('code')): continue
+        amount = price(text(cls(card, 'c-item-card__price')))
+        if not amount: continue
+        item = record(name, url, amount, labels(cls(card, 'c-item-card__badge-upper')), source, match[1])
+        items[item['product_url']] = item
+    return list(items.values())
+
+
 def extract(doc,source,meta):
     adapter=meta.get('adapter')
     if adapter == 'doclasse': return doclasse_items(doc, source, meta)
+    if adapter == 'onward-listing': return onward_listing_items(doc, source, meta)
     # SENSE OF PLACE currently renders useful official listing cards on its
     # brand page without a configured adapter. Keep this narrow to that exact
     # first-party host/brand rather than treating all generic links as verified.
