@@ -302,18 +302,11 @@ textarea {
   .kc-v04-header-inner {
     align-items: flex-start;
     flex-direction: column;
-    gap: 6px;
-    padding: 10px 0 8px;
+    gap: 8px;
+    padding: 16px 0 10px;
   }
-
-  .kc-v04-nav {
-    width: 100%;
-    justify-content: flex-start;
-  }
-
-  .kc-v04-nav a {
-    min-height: 38px;
-  }
+  .kc-v04-nav { width: 100%; justify-content: flex-start; padding-bottom: 2px; }
+  .kc-v04-nav a { min-height: 38px; }
 
   .kc-topbar {
     align-items: flex-start;
@@ -340,14 +333,13 @@ textarea {
   }
 
   .kc-v04-logo img {
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
+    width: 68px;
+    height: 68px;
+    border-radius: 16px;
   }
 
-  .kc-v04-logo strong {
-    font-size: 13px;
-  }
+  .kc-v04-logo strong { font-size: 18px; letter-spacing: .16em; }
+  .kc-v04-logo small { display: block; font-size: 8px; letter-spacing: .16em; }
 
   .kc-v04-nav {
     gap: 16px;
