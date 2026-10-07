@@ -1,5 +1,9 @@
 import json
 import pathlib
+import os
+import re
+import subprocess
+import textwrap
 import sys
 import tempfile
 import unittest
@@ -189,10 +193,106 @@ class FlashPipelineTests(unittest.TestCase):
                 queue = json.loads((pathlib.Path(tmp)/'deep-dive-queue.json').read_text())
                 self.assertTrue(any(q['status']=='REVIEW_REQUIRED' for q in queue.values()))
                 with patch('builtins.print'):
-                    self.assertEqual(pipeline.run(args+['--stage', 'check']), 1)
+                    self.assertEqual(pipeline.run(args+['--stage', 'check']), pipeline.COVERAGE_INCOMPLETE_EXIT)
                 summary = json.loads((pathlib.Path(tmp)/'latest.json').read_text())
                 self.assertEqual(len(summary['brands']), 65)
                 self.assertEqual(len(summary['not_attempted_brand_ids']), 64)
+                self.assertEqual(summary['scan_status'], 'PARTIAL_COVERAGE')
+                self.assertEqual(summary['publication_status'], 'PUBLISH_HOLD')
+                self.assertTrue(summary['human_review_required'])
+
+    def workflow_step(self, name):
+        workflow = (pathlib.Path(__file__).resolve().parents[1]/'.github/workflows/run-brand64-official-direct-scan.yml').read_text()
+        return workflow.split('      - name: '+name+'\n', 1)[1].split('      - name:', 1)[0]
+
+    def test_workflow_softens_only_the_expected_partial_coverage_exit(self):
+        step = self.workflow_step('Check every brand for unresolved coverage')
+        script = textwrap.dedent(step.split('        run: |\n', 1)[1])
+        # Execute the real workflow shell with a controllable collector exit.
+        for rc, expected, state in [(0, 0, 'COMPLETE_REGISTERED_SCOPE'),
+                                    (3, 0, 'PARTIAL_COVERAGE'),
+                                    (1, 1, 'CHECK_ERROR'), (2, 2, 'CHECK_ERROR'),
+                                    (4, 4, 'CHECK_ERROR'), (127, 127, 'CHECK_ERROR')]:
+            with self.subTest(rc=rc), tempfile.TemporaryDirectory() as tmp:
+                out = pathlib.Path(tmp)
+                stub = out/'python'
+                stub.write_text('#!/bin/sh\nexit '+str(rc)+'\n')
+                stub.chmod(0o755)
+                result = subprocess.run(['bash', '-e', '-o', 'pipefail', '-c', script],
+                    env={**os.environ, 'PATH': tmp+os.pathsep+os.environ['PATH'],
+                         'GITHUB_OUTPUT': str(out/'output')}, capture_output=True, text=True)
+                self.assertEqual(result.returncode, expected)
+                self.assertEqual((out/'output').read_text(), 'state='+state+'\n')
+                self.assertEqual('::warning' in result.stdout, rc == 3)
+
+    def test_check_complete_scope_keeps_publication_hold(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            (root/'config').mkdir()
+            audited = {**META, 'coverage_audit': {
+                'reviewed_at': DATE, 'evidence_url': URL, 'entry_urls': [URL],
+                'pagination_verified': True, 'surfaces': sorted(pipeline.REQUIRED_SURFACES)}}
+            for name, value in [
+                ('brand64-active-brands.json', {'active_brands': {'B': 'ROPÉ PICNIC'}}),
+                ('brand64-free-direct-sources.json', {'brands': {'B': audited}}),
+                ('brand64-md-monitoring.json', {'tiered_analysis': {'tier_a_deep_dive_brand_ids': []}})]:
+                (root/'config'/name).write_text(json.dumps(value))
+            out = root/'out'
+            out.mkdir()
+            (out/'coverage-state.json').write_text(json.dumps({'B': {
+                'observed_date': DATE, 'successful_page_urls': [URL],
+                'errors': [], 'pending_page_urls': [], 'surface_items': []}}))
+            with patch.object(scan, 'ROOT', root), patch('builtins.print'):
+                self.assertEqual(pipeline.run(['--stage', 'check', '--output-root', str(out)]), 0)
+            summary = json.loads((out/'latest.json').read_text())
+            self.assertEqual(summary['scan_status'], 'COMPLETE_REGISTERED_SCOPE')
+            self.assertEqual(summary['publication_status'], 'PUBLISH_HOLD')
+            self.assertTrue(summary['human_review_required'])
+
+    def test_check_corrupt_state_and_failed_checkpoint_do_not_return_soft_exit(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = pathlib.Path(tmp)
+            (out/'coverage-state.json').write_text('{broken')
+            with self.assertRaises(json.JSONDecodeError):
+                pipeline.run(['--stage', 'check', '--output-root', tmp])
+            (out/'coverage-state.json').unlink()
+            real_save = scan.save
+            for failed in [*pipeline.STATE_FILES, 'scan.json', 'feed.json', 'latest.json', 'flash-latest.json']:
+                def fail_save(path, value):
+                    if path.name == failed:
+                        raise OSError('checkpoint unavailable')
+                    return real_save(path, value)
+                with self.subTest(failed=failed), patch.object(scan, 'save', side_effect=fail_save):
+                    with self.assertRaises(OSError):
+                        pipeline.run(['--stage', 'check', '--output-root', tmp])
+            with patch.object(pathlib.Path, 'write_text', side_effect=OSError('summary unavailable')):
+                with self.assertRaises(OSError):
+                    pipeline.run(['--stage', 'check', '--output-root', tmp])
+
+    def test_workflow_operational_failures_block_saved_success_and_hard_fail(self):
+        steps = ['restore', 'retro_feed', 'flash', 'artifact_flash', 'feed_flash',
+                 'retry', 'deep', 'coverage', 'feed_final', 'bind_snapshot',
+                 'artifact_final', 'preserve']
+        summary = self.workflow_step('Record saved-result coverage hold')
+        final = self.workflow_step('Fail visibly when the collection pipeline itself is broken')
+        def condition(step, outcomes):
+            expression = next(line.strip()[4:] for line in step.splitlines() if line.strip().startswith('if: '))
+            expression = expression.replace('always()', 'True')
+            expression = expression.replace('steps.coverage.outputs.state', repr('PARTIAL_COVERAGE'))
+            expression = re.sub(r'steps\.(\w+)\.outcome', lambda m: repr(outcomes[m[1]]), expression)
+            return eval(expression.replace('&&', ' and ').replace('||', ' or '), {'__builtins__': {}})
+        success = dict.fromkeys(steps, 'success')
+        self.assertTrue(condition(summary, success))
+        self.assertFalse(condition(final, success))
+        for step in steps:
+            for outcome in ['failure', 'skipped', 'cancelled']:
+                with self.subTest(step=step, outcome=outcome):
+                    outcomes = {**success, step: outcome}
+                    self.assertFalse(condition(summary, outcomes))
+                    self.assertTrue(condition(final, outcomes))
+        self.assertIn('exit 1', final)
+        workflow = (pathlib.Path(__file__).resolve().parents[1]/'.github/workflows/run-brand64-official-direct-scan.yml').read_text()
+        self.assertLess(workflow.index('id: preserve'), workflow.index('name: Record saved-result coverage hold'))
 
     def test_missing_baseline_initializes_without_false_new_product_candidates(self):
         with tempfile.TemporaryDirectory() as tmp:

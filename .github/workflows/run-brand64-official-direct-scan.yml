@@ -82,6 +82,7 @@ jobs:
         run: python scripts/run_brand64_free_direct_scan.py --stage flash --budget-seconds 180 --max-pages 2
 
       - name: Make flash available before recovery or detail research
+        id: artifact_flash
         if: always() && steps.flash.outcome != 'skipped'
         uses: actions/upload-artifact@v6
         with:
@@ -115,7 +116,23 @@ jobs:
         id: coverage
         if: always() && steps.flash.outcome == 'success'
         continue-on-error: true
-        run: python scripts/run_brand64_free_direct_scan.py --stage check
+        shell: bash
+        run: |
+          set +e
+          python scripts/run_brand64_free_direct_scan.py --stage check
+          rc=$?
+          set -e
+          if [ "$rc" -eq 3 ]; then
+            echo "state=PARTIAL_COVERAGE" >> "$GITHUB_OUTPUT"
+            echo "::warning title=Brand64 coverage hold::Collection results were saved, but registered-scope coverage is incomplete. PUBLISH_HOLD and Human Review Required remain in force."
+            exit 0
+          fi
+          if [ "$rc" -eq 0 ]; then
+            echo "state=COMPLETE_REGISTERED_SCOPE" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "state=CHECK_ERROR" >> "$GITHUB_OUTPUT"
+          exit "$rc"
 
       - name: Refresh the owner screen with recovery and detail status
         id: feed_final
@@ -135,6 +152,7 @@ jobs:
             --collector-source-sha "$GITHUB_SHA"
 
       - name: Upload final observations and recovery state
+        id: artifact_final
         if: always() && steps.flash.outcome != 'skipped'
         uses: actions/upload-artifact@v6
         with:
@@ -144,6 +162,7 @@ jobs:
           retention-days: 30
 
       - name: Preserve results and show the flash report
+        id: preserve
         if: always() && steps.flash.outcome != 'skipped'
         shell: bash
         run: |
@@ -169,8 +188,17 @@ jobs:
             cat data/brand-md-monitoring/direct-scans/summary.md >> "$GITHUB_STEP_SUMMARY"
           fi
 
-      - name: Fail visibly when collection or cumulative publication is incomplete
-        if: always() && (steps.restore.outcome != 'success' || steps.retro_feed.outcome != 'success' || steps.flash.outcome != 'success' || steps.retry.outcome != 'success' || steps.deep.outcome != 'success' || steps.coverage.outcome != 'success' || steps.feed_final.outcome != 'success' || steps.bind_snapshot.outcome != 'success')
+      - name: Record saved-result coverage hold
+        if: always() && steps.coverage.outputs.state == 'PARTIAL_COVERAGE' && (steps.restore.outcome == 'success' && steps.retro_feed.outcome == 'success' && steps.flash.outcome == 'success' && steps.artifact_flash.outcome == 'success' && steps.feed_flash.outcome == 'success' && steps.retry.outcome == 'success' && steps.deep.outcome == 'success' && steps.coverage.outcome == 'success' && steps.feed_final.outcome == 'success' && steps.bind_snapshot.outcome == 'success' && steps.artifact_final.outcome == 'success' && steps.preserve.outcome == 'success')
         run: |
-          echo "Daily scope is incomplete. Collection coverage and canonical snapshot integrity are checked independently. A valid snapshot may still be PARTIAL_COVERAGE; Gemini is never counted as collection." >&2
+          echo "## Brand64 daily outcome" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Collection pipeline: SUCCESS (results saved)" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Coverage: PARTIAL_COVERAGE" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Publication: PUBLISH_HOLD" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Human Review Required: true" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Fail visibly when the collection pipeline itself is broken
+        if: always() && (steps.restore.outcome != 'success' || steps.retro_feed.outcome != 'success' || steps.flash.outcome != 'success' || steps.artifact_flash.outcome != 'success' || steps.feed_flash.outcome != 'success' || steps.retry.outcome != 'success' || steps.deep.outcome != 'success' || steps.coverage.outcome != 'success' || steps.feed_final.outcome != 'success' || steps.bind_snapshot.outcome != 'success' || steps.artifact_final.outcome != 'success' || steps.preserve.outcome != 'success')
+        run: |
+          echo "Brand64 collection/persistence pipeline failed. This is distinct from a saved PARTIAL_COVERAGE hold; inspect the failed operational step." >&2
           exit 1
