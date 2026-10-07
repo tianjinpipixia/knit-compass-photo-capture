@@ -33,7 +33,7 @@
 
   <div class="overlay" id="overlay"></div>
   <aside class="drawer" id="drawer" aria-label="Human Review受信箱">
-    <div class="drawer-head"><div><div style="font-size:9px;font-weight:900;letter-spacing:.12em">KC-HUMAN-REVIEW</div><h1>Human Review</h1><p>承認後だけ商品・糸・会社マスターへ確定反映します。</p></div><button class="close" id="closeInbox">閉じる</button></div>
+    <div class="drawer-head"><div><div style="font-size:9px;font-weight:900;letter-spacing:.12em">KC-HUMAN-REVIEW</div><h1>Human Review</h1><p>承認後だけ確認状態を保ってマスターへ登録します。</p></div><button class="close" id="closeInbox">閉じる</button></div>
     <section class="controls">
       <div class="control-grid"><div class="field"><label for="reviewer">確認者</label><input id="reviewer" value="Owner Human Review"></div><button class="btn secondary" id="importButton">受信箱JSONを取込</button></div>
       <input class="file" id="importFile" type="file" accept="application/json,.json">
@@ -153,13 +153,16 @@
       return normalizeStatus(payload?.[statusKey])==='confirmed'&&normalizeStatus(payload?.sourceType)!=='ai_candidate';
     }
 
-    function evidenceValue(value,payload,statusKey='verificationStatus'){
-      return isEvidenceBacked(payload,statusKey)?value:'';
+    function evidenceValue(value,payload,statusKey='verificationStatus',fieldKey=''){
+      if(normalizeStatus(payload?.sourceType)==='ai_candidate'||!hasMeaningfulValue(value)||isWeakStatus(value))return '';
+      const field=payload?.fieldEvidence?.[fieldKey];
+      const backed=field&&normalizeStatus(field.status)==='confirmed'&&hasMeaningfulValue(field.evidenceId);
+      return (field?backed:isEvidenceBacked(payload,statusKey))?value:'';
     }
 
     function evidenceItems(items,allowedStatuses){
       const allowed=new Set(allowedStatuses.map(normalizeStatus));
-      return(Array.isArray(items)?items:[]).filter(item=>allowed.has(normalizeStatus(item?.verification_status)));
+      return(Array.isArray(items)?items:[]).filter(item=>item&&typeof item==='object'&&hasMeaningfulValue(item.name||item.code)&&hasMeaningfulValue(item.evidence_id)&&allowed.has(normalizeStatus(item.verification_status)));
     }
 
     function mergeOrganizationProfile(existing,incoming){
@@ -207,10 +210,54 @@
     }
 
     function countSystemLabel(value){return({Nm:'毛番手 Nm',Ne:'綿番手 Ne',D:'デニール D',dtex:'dtex',tex:'tex',unknown:'未確認'})[value]||value||'未確認'}
-    function names(items){return(Array.isArray(items)?items:[]).map(item=>item.name||item.code).filter(Boolean)}
+    function names(items){return(Array.isArray(items)?items:[]).map(item=>typeof item==='string'?item:item?.name||item?.code).filter(Boolean)}
+
+    function materialEvidenceBacked(payload){
+      return hasMeaningfulValue(payload.materialName)&&hasMeaningfulValue(payload.materialEvidenceId)&&
+        isEvidenceBacked(payload,'materialVerificationStatus');
+    }
+
+    function mergeEvidenceItems(existing,incoming){
+      const result=[...(Array.isArray(existing)?existing:[])];
+      const rank=item=>({supplier_claim:1,confirmed:2,document_confirmed:2,test_confirmed:3})[normalizeStatus(item?.verification_status)]||0;
+      for(const item of incoming){
+        const index=result.findIndex(previous=>(item.code&&previous?.code===item.code)||(item.name&&previous?.name===item.name));
+        if(index<0)result.push(item);
+        else if(rank(item)>=rank(result[index]))result[index]={...result[index],...item};
+      }
+      return result;
+    }
+
+    function mergeFieldEvidence(existing,incoming,adoptedFields){
+      const result={...(existing||{})};
+      for(const [field,evidence]of Object.entries(incoming||{})){
+        if(hasMeaningfulValue(adoptedFields[field])&&normalizeStatus(evidence?.status)==='confirmed'&&hasMeaningfulValue(evidence?.evidenceId))
+          result[field]=evidence;
+      }
+      return result;
+    }
+
+    function mergeNoteEntries(existing,incoming){
+      const notes=existing?.notes||'';
+      const saved=Array.isArray(existing?.noteEntries)?existing.noteEntries:[];
+      const source=[...new Set((existing?.intakeEvidence||[]).map(entry=>entry.payload?.notes).filter(hasMeaningfulValue))];
+      const entries=saved.join('\n\n')===notes?[...saved]:source.join('\n\n')===notes?source:[notes].filter(hasMeaningfulValue);
+      if(hasMeaningfulValue(incoming)&&!entries.includes(incoming))entries.push(incoming);
+      return entries;
+    }
+
+    function intakeEvidence(existing,item){
+      const entries=[...(existing?.intakeEvidence||[])];
+      if(!entries.some(entry=>entry.handoffId===item.handoff_id&&entry.eventVersion===item.event_version))
+        entries.push({handoffId:item.handoff_id,eventVersion:item.event_version,captureId:item.capture_id,
+          payload:JSON.parse(JSON.stringify(item.payload||{}))});
+      return entries;
+    }
 
     function promote(item,overrideType,overrideId){
       const payload={...(item.payload||{}),captureId:item.capture_id};
+      if((overrideType==='material'||payload.targetType==='material')&&!materialEvidenceBacked(payload))
+        throw new Error('素材名・素材固有の根拠・独立した確認状態が不足しています。候補を保留してください。');
       const state=ensureState(loadState());
       const reviewer=$('reviewer').value.trim()||'Owner Human Review';
       const companies=companyRows(payload,state,overrideType==='organization'?overrideId:'');
@@ -220,12 +267,26 @@
       if(payload.yarnName||yarnCandidate){
         const id=resolveEntityId('yarn',yarnCandidate,overrideType==='yarn'?overrideId:'',state);ids.yarnId=id;
         const existing=state.yarns.find(row=>row.id===id);
-        const specificationsConfirmed=isEvidenceBacked(payload);
-        const compositionConfirmed=isEvidenceBacked(payload,'compositionStatus');
-        const incomingCountSystem=specificationsConfirmed&&(payload.countValue||payload.countDisplay)?countSystemLabel(payload.countSystem):'';
-        const incomingStructure=specificationsConfirmed?(isWeakStatus(payload.basicYarnForm)?payload.yarnStructure:firstMeaningful(payload.yarnStructure,payload.basicYarnForm)):'';
-        const backedFunctions=evidenceItems(payload.functionalProperties,['supplier_claim','document_confirmed','test_confirmed']);
-        const backedSustainable=evidenceItems(payload.sustainableAttributes,['confirmed','document_confirmed','test_confirmed']);
+        const compositionConfirmed=isEvidenceBacked(payload,'compositionStatus')&&hasMeaningfulValue(evidenceValue(payload.compositionRaw,payload,'compositionStatus','compositionRaw'));
+        const adoptedFields={
+          countSystem:evidenceValue(payload.countSystem,payload,'verificationStatus','countSystem'),
+          countValue:evidenceValue(payload.countValue,payload,'verificationStatus','countValue'),
+          countDisplay:evidenceValue(payload.countDisplay,payload,'verificationStatus','countDisplay'),
+          plyCount:evidenceValue(payload.plyCount,payload,'verificationStatus','plyCount'),
+          basicYarnForm:evidenceValue(payload.basicYarnForm,payload,'verificationStatus','basicYarnForm'),
+          yarnStructure:evidenceValue(payload.yarnStructure,payload,'verificationStatus','yarnStructure'),
+          spinningMethod:evidenceValue(payload.spinningMethod,payload,'verificationStatus','spinningMethod'),
+          processingMethod:evidenceValue(payload.processingMethod,payload,'verificationStatus','processingMethod'),
+          gauge:evidenceValue(payload.gauge,payload,'verificationStatus','gauge'),
+          compositionRaw:compositionConfirmed?payload.compositionRaw:'',
+          compositionTotal:compositionConfirmed?payload.compositionTotal:null
+        };
+        const incomingCountSystem=adoptedFields.countSystem?countSystemLabel(adoptedFields.countSystem):'';
+        const incomingStructure=firstMeaningful(adoptedFields.yarnStructure,
+          !hasMeaningfulValue(payload.yarnStructure)||isWeakStatus(payload.yarnStructure)?adoptedFields.basicYarnForm:'');
+        const noteEntries=mergeNoteEntries(existing,payload.notes);
+        const backedFunctions=evidenceItems(normalizeStatus(payload.sourceType)==='ai_candidate'?[]:payload.functionalProperties,['supplier_claim','document_confirmed','test_confirmed']);
+        const backedSustainable=evidenceItems(normalizeStatus(payload.sourceType)==='ai_candidate'?[]:payload.sustainableAttributes,['confirmed','document_confirmed','test_confirmed']);
         upsert(state.yarns,{
           id,commonId:id,
           sourceTargetId:preferIncoming(yarnCandidate||payload.targetId,existing?.sourceTargetId,''),sourceCaptureId:item.capture_id,
@@ -234,17 +295,20 @@
           manufacturerOrganizationId:preferIncoming(companies.yarn_manufacturer,existing?.manufacturerOrganizationId,''),
           sellerOrganizationId:preferIncoming(companies.seller,existing?.sellerOrganizationId,''),
           name:preferIncoming(payload.yarnName,existing?.name,'糸名未確認'),code:preferIncoming(payload.yarnCode,existing?.code,''),
-          countSystem:preferIncoming(incomingCountSystem,existing?.countSystem,''),countValue:preferIncoming(evidenceValue(payload.countValue,payload),existing?.countValue,''),
-          plyCount:preferIncoming(evidenceValue(payload.plyCount,payload),existing?.plyCount,''),displayCount:preferIncoming(evidenceValue(payload.countDisplay,payload),existing?.displayCount,''),
-          structure:preferIncoming(incomingStructure,existing?.structure,'未確認'),basicYarnForm:preferStatus(evidenceValue(payload.basicYarnForm,payload),existing?.basicYarnForm,'unconfirmed'),
-          spinningMethod:preferStatus(evidenceValue(payload.spinningMethod,payload),existing?.spinningMethod,''),processingMethod:preferIncoming(evidenceValue(payload.processingMethod,payload),existing?.processingMethod,''),
+          countSystem:preferIncoming(incomingCountSystem,existing?.countSystem,''),countValue:preferIncoming(adoptedFields.countValue,existing?.countValue,''),
+          plyCount:preferIncoming(adoptedFields.plyCount,existing?.plyCount,''),displayCount:preferIncoming(adoptedFields.countDisplay,existing?.displayCount,''),
+          structure:preferIncoming(incomingStructure,existing?.structure,'未確認'),basicYarnForm:preferStatus(adoptedFields.basicYarnForm,existing?.basicYarnForm,'unconfirmed'),
+          spinningMethod:preferStatus(adoptedFields.spinningMethod,existing?.spinningMethod,''),processingMethod:preferIncoming(adoptedFields.processingMethod,existing?.processingMethod,''),
           composition:preferIncoming(compositionConfirmed?payload.compositionRaw:'',existing?.composition,''),compositionTotal:preferIncoming(compositionConfirmed?payload.compositionTotal:null,existing?.compositionTotal,null),
           compositionStatus:preferStatus(compositionConfirmed?payload.compositionStatus:'',existing?.compositionStatus,'unconfirmed'),
-          gauge:preferIncoming(evidenceValue(payload.gauge,payload),existing?.gauge,''),
-          functions:preferIncoming(names(backedFunctions),existing?.functions,[]),functionalProperties:preferIncoming(backedFunctions,existing?.functionalProperties,[]),
-          sustainableAttributes:preferIncoming(backedSustainable,existing?.sustainableAttributes,[]),status:'CONFIRMED',verificationStatus:'confirmed',
-          sourceUrl:preferIncoming(payload.sourceUrl,existing?.sourceUrl,''),notes:preferIncoming(payload.notes,existing?.notes,''),evidenceId:preferIncoming(payload.evidenceId,existing?.evidenceId,''),
-          evidenceSourceType:preferIncoming(payload.sourceType,existing?.evidenceSourceType,''),fieldEvidence:preferIncoming(payload.fieldEvidence,existing?.fieldEvidence,{}),
+          gauge:preferIncoming(adoptedFields.gauge,existing?.gauge,''),
+          functions:[...new Set([...(existing?.functions||[]),...names(backedFunctions)])],functionalProperties:mergeEvidenceItems(existing?.functionalProperties,backedFunctions),
+          sustainableAttributes:mergeEvidenceItems(existing?.sustainableAttributes,backedSustainable),
+          status:preferIncoming(isEvidenceBacked(payload)?'CONFIRMED':'',existing?.status,'CANDIDATE'),
+          verificationStatus:preferStatus(isEvidenceBacked(payload)?'confirmed':'candidate',existing?.verificationStatus,'candidate'),
+          intakeEvidence:intakeEvidence(existing,item),
+          sourceUrl:preferIncoming(payload.sourceUrl,existing?.sourceUrl,''),noteEntries,notes:noteEntries.join('\n\n'),evidenceId:preferIncoming(payload.evidenceId,existing?.evidenceId,''),
+          evidenceSourceType:preferIncoming(payload.sourceType,existing?.evidenceSourceType,''),fieldEvidence:mergeFieldEvidence(existing?.fieldEvidence,payload.fieldEvidence,adoptedFields),
           reviewedAt:now(),reviewedBy:reviewer,created_at:existing?.created_at||now(),updated_at:now()
         });
       }
@@ -270,10 +334,10 @@
       }
 
       const materialCandidate=payload.commonIds?.materialId||(payload.targetType==='material'?payload.targetId:'');
-      if(payload.materialName||materialCandidate){
+      if(materialEvidenceBacked(payload)&&(payload.materialName||materialCandidate)){
         const id=resolveEntityId('material',materialCandidate,overrideType==='material'?overrideId:'',state);ids.materialId=id;
         const existing=state.materials.find(row=>row.id===id);
-        upsert(state.materials,{id,commonId:id,name:preferIncoming(firstMeaningful(payload.materialName,payload.yarnName),existing?.name,'素材名未確認'),composition:preferIncoming(payload.compositionRaw,existing?.composition,''),functionalProperties:preferIncoming(payload.functionalProperties,existing?.functionalProperties,[]),sustainableAttributes:preferIncoming(payload.sustainableAttributes,existing?.sustainableAttributes,[]),sourceCaptureId:item.capture_id,verificationStatus:'confirmed',created_at:existing?.created_at||now(),updated_at:now()});
+        upsert(state.materials,{id,commonId:id,name:preferIncoming(payload.materialName,existing?.name,'素材名未確認'),composition:preferIncoming(payload.materialCompositionStatus==='confirmed'?payload.materialCompositionRaw:'',existing?.composition,''),functionalProperties:mergeEvidenceItems(existing?.functionalProperties,evidenceItems(payload.materialFunctionalProperties,['supplier_claim','document_confirmed','test_confirmed'])),sustainableAttributes:mergeEvidenceItems(existing?.sustainableAttributes,evidenceItems(payload.materialSustainableAttributes,['confirmed','document_confirmed','test_confirmed'])),intakeEvidence:intakeEvidence(existing,item),evidenceId:payload.materialEvidenceId,sourceCaptureId:item.capture_id,verificationStatus:'confirmed',created_at:existing?.created_at||now(),updated_at:now()});
       }
 
       const researchCandidate=payload.commonIds?.researchId||(payload.targetType==='research'?payload.targetId:'');
@@ -292,25 +356,32 @@
         resolveOrganizationProfiles(state);
       }
       ids.organizationIds=companies;
+      state.photoCaptureImports=state.photoCaptureImports.filter(entry=>!(entry.handoffId===item.handoff_id&&entry.eventVersion===item.event_version));
       state.photoCaptureImports.unshift({handoffId:item.handoff_id,captureId:item.capture_id,eventVersion:item.event_version,masterIds:ids,approvedAt:now(),approvedBy:reviewer});
       state.photoCaptureImports=state.photoCaptureImports.slice(0,500);
-      state.auditLog.unshift({id:makeId('AUDIT'),at:now(),action:'APPROVE_AND_PROMOTE',entityType:'photo_capture_handoff',entityId:item.handoff_id,summary:`Photo Capture ${item.capture_id} を商品・糸・会社マスターへ確定反映`});
+      state.auditLog.unshift({id:makeId('AUDIT'),at:now(),action:'APPROVE_AND_PROMOTE',entityType:'photo_capture_handoff',entityId:item.handoff_id,summary:`Photo Capture ${item.capture_id} を確認状態を保ってマスターへ登録`});
       state.auditLog=state.auditLog.slice(0,500);
       return{ids,state};
     }
 
     function typeOptions(selected){return TYPE_OPTIONS.map(([value,label])=>`<option value="${value}" ${value===selected?'selected':''}>${label}</option>`).join('')}
     function itemTitle(payload){return payload.yarnName||payload.productName||payload.sourceOrganizationName||payload.materialName||'名称未入力'}
-    function detailText(payload){return[`対象ID: ${payload.targetId||'未発行'}`,`混率: ${payload.compositionRaw||'未入力'}`,`機能性: ${names(payload.functionalProperties).join('、')||'未入力'}`,`サステナブル: ${names(payload.sustainableAttributes).join('、')||'未入力'}`,`メーカー: ${payload.manufacturerName||'未入力'}`,`販売会社: ${payload.sellerName||'未入力'}`,`根拠: ${payload.sourceUrl||payload.evidenceId||'未入力'}`,`メモ: ${payload.notes||'未入力'}`].join('\n')}
+    function detailText(payload){return[`対象ID: ${payload.targetId||'未発行'}`,`混率: ${payload.compositionRaw||'未入力'}`,`機能性: ${names(payload.functionalProperties).join('、')||'未入力'}`,`サステナブル: ${names(payload.sustainableAttributes).join('、')||'未入力'}`,`メーカー: ${payload.manufacturerName||'未入力'}`,`販売会社: ${payload.sellerName||'未入力'}`,`根拠: ${payload.sourceUrl||payload.evidenceId||'未入力'}`,`メモ: ${payload.notes||'未入力'}`,`確認状態: ${payload.verificationStatus||'unconfirmed'}`,`項目別の根拠・候補（未確認を含む）:\n${JSON.stringify(payload,null,2)}`].join('\n')}
 
     function render(){
       const queue=loadQueue().sort((a,b)=>String(b.sent_at).localeCompare(String(a.sent_at)));
       const pending=queue.filter(item=>item.review_status==='PENDING').length,approved=queue.filter(item=>item.review_status==='APPROVED').length,rejected=queue.filter(item=>item.review_status==='REJECTED').length;
       $('pendingBadge').textContent=pending;$('pendingCount').textContent=pending;$('approvedCount').textContent=approved;$('rejectedCount').textContent=rejected;
-      $('inboxList').innerHTML=queue.length?queue.map(item=>{const payload=item.payload||{},status=item.review_status||'PENDING';return`<article class="item ${status.toLowerCase()}"><div class="item-head"><div><span class="status ${status}">${status}</span><h2>${esc(itemTitle(payload))}</h2><div class="meta">${esc(item.capture_id)} / v${esc(item.event_version||1)} / ${esc(item.sent_at||'')}</div></div></div><div class="summary"><div><strong>混率</strong> ${esc(payload.compositionRaw||'未入力')}</div><div class="tag-row">${[...names(payload.functionalProperties),...names(payload.sustainableAttributes)].slice(0,8).map(value=>`<span class="tag">${esc(value)}</span>`).join('')}</div></div>${status==='PENDING'?`<div class="review-grid"><div class="field"><label>確定対象</label><select data-type="${esc(item.handoff_id)}">${typeOptions(payload.targetType||'yarn')}</select></div><div class="field"><label>正式ID（空欄は自動採番）</label><input data-final-id="${esc(item.handoff_id)}" placeholder="YN-00000001 等"></div></div><div class="item-actions"><button class="btn" data-approve="${esc(item.handoff_id)}" ${busyHandoffs.has(item.handoff_id)?'disabled aria-disabled="true"':''}>${busyHandoffs.has(item.handoff_id)?'処理中…':'承認してマスター反映'}</button><button class="btn danger" data-reject="${esc(item.handoff_id)}" ${busyHandoffs.has(item.handoff_id)?'disabled aria-disabled="true"':''}>却下</button><button class="btn secondary" data-detail="${esc(item.handoff_id)}">詳細</button></div>`:`<div class="item-actions"><button class="btn secondary" data-detail="${esc(item.handoff_id)}">詳細</button></div><div class="meta">確認者: ${esc(item.reviewed_by||'—')} / ${esc(item.reviewed_at||'—')}${item.rejection_reason?` / 理由: ${esc(item.rejection_reason)}`:''}</div>`}<div class="details" id="detail-${esc(item.handoff_id)}">${esc(detailText(payload))}</div></article>`}).join(''):'<div class="empty">Photo Captureからの承認待ちはありません。</div>';
+      $('inboxList').innerHTML=queue.length?queue.map(item=>{const payload=item.payload||{},status=item.review_status||'PENDING';return`<article class="item ${status.toLowerCase()}"><div class="item-head"><div><span class="status ${status}">${status}</span><h2>${esc(itemTitle(payload))}</h2><div class="meta">${esc(item.capture_id)} / v${esc(item.event_version||1)} / ${esc(item.sent_at||'')}</div></div></div><div class="summary"><div><strong>混率</strong> ${esc(payload.compositionRaw||'未入力')}</div><div class="tag-row">${[...names(payload.functionalProperties),...names(payload.sustainableAttributes)].slice(0,8).map(value=>`<span class="tag">${esc(value)}（主張・確認状態は詳細参照）</span>`).join('')}</div></div>${status==='PENDING'?`<div class="review-grid"><div class="field"><label>確定対象</label><select data-type="${esc(item.handoff_id)}">${typeOptions(payload.targetType||'yarn')}</select></div><div class="field"><label>正式ID（空欄は自動採番）</label><input data-final-id="${esc(item.handoff_id)}" placeholder="YN-00000001 等"></div></div><div class="item-actions"><button class="btn" data-approve="${esc(item.handoff_id)}" ${busyHandoffs.has(item.handoff_id)?'disabled aria-disabled="true"':''}>${busyHandoffs.has(item.handoff_id)?'処理中…':'確認状態を保って登録'}</button><button class="btn secondary" data-hold="${esc(item.handoff_id)}">保留</button><button class="btn danger" data-reject="${esc(item.handoff_id)}" ${busyHandoffs.has(item.handoff_id)?'disabled aria-disabled="true"':''}>却下</button><button class="btn secondary" data-detail="${esc(item.handoff_id)}">詳細</button></div>`:`<div class="item-actions"><button class="btn secondary" data-detail="${esc(item.handoff_id)}">詳細</button></div><div class="meta">確認者: ${esc(item.reviewed_by||'—')} / ${esc(item.reviewed_at||'—')}${item.rejection_reason?` / 理由: ${esc(item.rejection_reason)}`:''}</div>`}<div class="details" id="detail-${esc(item.handoff_id)}">${esc(detailText(payload))}</div></article>`}).join(''):'<div class="empty">Photo Captureからの承認待ちはありません。</div>';
       document.querySelectorAll('[data-detail]').forEach(button=>button.addEventListener('click',()=>document.getElementById(`detail-${button.dataset.detail}`).classList.toggle('open')));
+      document.querySelectorAll('[data-hold]').forEach(button=>button.addEventListener('click',()=>hold(button.dataset.hold)));
       document.querySelectorAll('[data-approve]').forEach(button=>button.addEventListener('click',()=>approve(button.dataset.approve)));
       document.querySelectorAll('[data-reject]').forEach(button=>button.addEventListener('click',()=>reject(button.dataset.reject)));
+    }
+
+    function hold(handoffId){
+      const item=loadQueue().find(row=>row.handoff_id===handoffId);
+      if(item?.review_status==='PENDING')setMessage('候補をPENDINGのまま保留しました。マスター・受信箱は変更していません。');
     }
 
     function approve(handoffId){
@@ -318,7 +389,9 @@
       const queue=loadQueue(),item=queue.find(row=>row.handoff_id===handoffId);if(!item||item.review_status!=='PENDING')return;
       const type=document.querySelector(`[data-type="${CSS.escape(handoffId)}"]`).value;
       const finalIdValue=document.querySelector(`[data-final-id="${CSS.escape(handoffId)}"]`).value.trim();
-      const ok=confirm(`この候補をHuman Review承認し、商品・糸・会社マスターへ確定反映します。
+      const ok=confirm(`この候補をHuman Review承認し、確認状態を保ってマスターへ登録します。
+
+未確認の項目は確定せず、元の候補・根拠を保存します。素材は独立した確認がある場合だけ登録します。
 
 対象: ${TYPE_OPTIONS.find(row=>row[0]===type)?.[1]||type}
 正式ID: ${finalIdValue||'自動採番'}
