@@ -273,6 +273,7 @@
 
     nextContext = null;
     document.body.classList.remove("kc-simple-show-details");
+    syncSimpleDetailVisibility(form);
     updateControls();
   });
 
