@@ -3,7 +3,7 @@
 
   const SESSION_KEY = "kc_photo_capture_simple_supplier_session_v1";
   const LEGACY_MODE_KEY = "kc_photo_capture_simple_mode_v1";
-  const BUILD = "2.1.46-independent.18-draft-resave";
+  const BUILD = "2.1.47-independent.19-photo-first";
   const byId = id => document.getElementById(id);
   const clean = value => String(value == null ? "" : value).trim();
   let queued = false;
@@ -91,6 +91,14 @@
     form.querySelector(".kc-policy")?.classList.add("kc-simple-hidden-section");
   }
 
+  function syncSimpleDetailVisibility(form) {
+    if (!form) return;
+    const showDetails = document.body.classList.contains("kc-simple-show-details");
+    form.querySelectorAll(".kc-simple-hidden-section, .kc-simple-hidden-field, .kc-simple-photo-original").forEach(node => {
+      node.hidden = !showDetails;
+    });
+  }
+
   function buildForm(form) {
     hideSimpleBasicFields(form);
     if (byId("kcSimpleQuickPhoto")) return;
@@ -128,6 +136,7 @@
       <button type="button" class="secondary" id="kcSimpleNextSupplier" data-simple-action="save">保存・終了</button>
       <button type="button" class="ghost" id="kcSimpleChangeSupplier" data-simple-action="save-change-supplier" title="現在の素材を保存してメーカーを変更">メーカー変更</button>`;
     originalActions.before(actions);
+    syncSimpleDetailVisibility(form);
   }
 
   function photoCount() {
@@ -201,7 +210,10 @@
     forceSingleMode();
     buildHistoryButton();
     const form = byId("kcCaptureForm");
-    if (form) buildForm(form);
+    if (form) {
+      buildForm(form);
+      syncSimpleDetailVisibility(form);
+    }
     updatePreview();
     updateControls();
     updateCopy();
@@ -301,6 +313,7 @@
         break;
       case "details":
         document.body.classList.toggle("kc-simple-show-details");
+        syncSimpleDetailVisibility(byId("kcCaptureForm"));
         updateControls();
         break;
       case "save":
