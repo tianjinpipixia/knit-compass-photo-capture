@@ -136,7 +136,7 @@ def main() -> None:
     for token in (
         'const BUILD = "2.1.47-independent.19-photo-first"',
         'const keepBasic = new Set(["supplier", "yarn_name"])',
-        'node.hidden = !showDetails',
+        'if (node.hidden !== shouldHide) node.hidden = shouldHide;',
         'syncSimpleDetailVisibility(byId("kcCaptureForm"))',
     ):
         require(simple_capture, token, "photo-first simple capture")
