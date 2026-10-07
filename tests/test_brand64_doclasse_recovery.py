@@ -20,6 +20,19 @@ def card(code='33211', colour='030', gender='レディース', name='シルキ�
 
 
 class RecoveryTests(unittest.TestCase):
+    def test_exact_women_newarrival_surface_uses_card_category_evidence(self):
+        url = 'https://www.doclasse.com/ladies/feature/newarrival'
+        html = card(code='33509', name='シルキーダンボール・オーバーカーディガン', category='レディース/カーディガン')
+        items = scan.adapters.extract(scan.Document(html), url, META)
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]['source_url'], url)
+        self.assertEqual(items[0]['product_code'], '33509')
+        self.assertEqual(scan.adapters.extract(scan.Document(card(category='レディース/セットアップ')), url, META), [])
+        self.assertEqual(scan.adapters.extract(scan.Document(card(gender='メンズ')), url, META), [])
+        for other in [url+'?brand_id=2', url.replace('/ladies/', '/mens/'),
+                      url.replace('www.doclasse.com', 'example.com'), url.replace('https:', 'http:')]:
+            self.assertEqual(scan.adapters.extract(scan.Document(html), other, META), [])
+
     def test_womens_category_card_and_colour_deduplication(self):
         items = scan.adapters.extract(scan.Document(card()+card(colour='090')), URL, META)
         self.assertEqual(len(items), 1)
