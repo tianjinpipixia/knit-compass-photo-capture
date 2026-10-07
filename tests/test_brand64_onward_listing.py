@@ -23,6 +23,21 @@ def card(brand='組曲', code='KRWXLW0556', category='1004', gender='', brand_co
 
 
 class OnwardListingTests(unittest.TestCase):
+    def test_stripe_pagination_requires_one_page_and_unchanged_scope(self):
+        url = 'https://stripe-club.com/brand/american-holic/search?so=NEW'
+        meta = {'adapter': 'stripe', 'slug': 'american-holic', 'brand_name': 'AMERICAN HOLIC', 'entry_urls': [url]}
+        html = '<a href="/brand/american-holic/item/KNIT">AMERICAN HOLIC ニット</a>'
+        links = [url+'&page=2', url+'&page=9', url.replace('so=NEW', 'rd=02')+'&page=2',
+                 url.replace('stripe-club.com', 'example.com')+'&page=2',
+                 url.replace('/search?', '/other?')+'&page=2']
+        def fetch(u):
+            return html+''.join(f'<a href="{link}"><svg></svg></a>' for link in links), {'url': u, 'sha256': 'fixture'}
+        row = scan.scan_brand('B', meta, fetch, max_pages=1)
+        self.assertEqual(row['pending_page_urls'], [url+'&page=2'])
+        row = scan.scan_brand('B', meta, fetch, max_pages=2)
+        self.assertEqual(row['attempted_page_urls'], [url, url+'&page=2'])
+        self.assertEqual(row['pending_page_urls'], [])
+
     def test_stripe_search_entries_reuse_existing_brand_and_knit_guard(self):
         url = 'https://stripe-club.com/brand/american-holic/search?so=NEW'
         meta = {'adapter': 'stripe', 'slug': 'american-holic', 'brand_name': 'AMERICAN HOLIC'}
