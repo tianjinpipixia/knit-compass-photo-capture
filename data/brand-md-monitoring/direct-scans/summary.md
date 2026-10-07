@@ -2,7 +2,7 @@
 観測日：2026-10-07
 
 登録範囲の確認完了：0/65ブランド。
-本日観測した商品：1589件。MD用の蓄積として保持します。
+本日観測した商品：1641件。MD用の蓄積として保持します。
 初回発見と発売日は区別します。未確認・未取得を「新商品なし」と判定しません。
 
 ## 本日初めて見つけた商品（発売日未確認）
@@ -296,6 +296,52 @@
 |DoCLASSE|シルクニット・総針クルーネック|¥ 6,990 / ￥7,689|[公式商品](https://www.doclasse.com/item/detail/1_1_16919/273)|
 |DoCLASSE|ドライシアーニット・ハイネックノースリトップス|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_31542/130)|
 |DoCLASSE|ハイネックアンサンブル・シルクフィール|¥ 4,990 / ￥5,489|[公式商品](https://www.doclasse.com/item/detail/1_1_18965/050)|
+|AMERICAN HOLIC|AMERICAN HOLIC 【WHERE'S WALLY?】配色レイヤードニットポロ|¥ 4,990 / ¥ 3,990|[公式商品](https://stripe-club.com/brand/american-holic/item/100HN26G0007)|
+|AMERICAN HOLIC|AMERICAN HOLIC 【バイパチ】ペプラムリブニットカーディガン|¥ 3,990|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26G0064)|
+|AMERICAN HOLIC|AMERICAN HOLIC 表面感ルーズニット|¥ 4,490|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26G0067)|
+|AMERICAN HOLIC|AMERICAN HOLIC 【バイパチ】金ボタンニットカーディガン|¥ 3,990|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26G0056)|
+|AMERICAN HOLIC|AMERICAN HOLIC 【うさぎのしっぽ】クルーネックニットカーディガン|¥ 4,990|[公式商品](https://stripe-club.com/brand/american-holic/item/100HB26G0002)|
+|AMERICAN HOLIC|AMERICAN HOLIC 【バイパチ】レイヤード風ニットカーディガン|¥ 4,490|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26G0065)|
+|AMERICAN HOLIC|AMERICAN HOLIC 裾レースドッキングクルーネックニット|¥ 4,490|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26G0098)|
+|AMERICAN HOLIC|AMERICAN HOLIC 【バイパチ】アーガイルニットカーディガン|¥ 3,990|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26G0063)|
+|AMERICAN HOLIC|AMERICAN HOLIC 【WEB限定】バイパチVネックルーズカーディガン|¥ 3,490|[公式商品](https://stripe-club.com/brand/american-holic/item/100HS26G0003)|
+|AMERICAN HOLIC|AMERICAN HOLIC 【選べる丈】シアーベロア刺繍カーディガン|¥ 3,990|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26G0072)|
+|AMERICAN HOLIC|AMERICAN HOLIC 【接触冷感】シャギーニットベスト|¥ 3,990 / ¥ 2,990|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26F0087)|
+|AMERICAN HOLIC|AMERICAN HOLIC 【選べる丈】シアーベロアカーディガン|¥ 3,990 / ¥ 2,792|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26G0071)|
+|AMERICAN HOLIC|AMERICAN HOLIC クロシェジップアップニットカーディガン|¥ 3,990 / ¥ 2,792|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26F0085)|
+|AMERICAN HOLIC|AMERICAN HOLIC 【接触冷感】ポンチョニットカーディガン|¥ 3,490 / ¥ 1,744|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26F0092)|
+|23区|【R(アール)】ファー ポロニット|¥37,950|[公式商品](https://crosset.onward.co.jp/items/KRRGLW0944)|
+|23区|【R(アール)】マイクロンメリノウール ニットコート|¥75,900|[公式商品](https://crosset.onward.co.jp/items/KRRGLW0940)|
+|23区|【R(アール)】マイクロンメリノウール クルーネックニット|¥29,920|[公式商品](https://crosset.onward.co.jp/items/KRRGLW0941)|
+|23区|【R(アール)】マイクロンメリノウール ハイネック ニット|¥39,930|[公式商品](https://crosset.onward.co.jp/items/KRRGLW0942)|
+|23区|【APPLAUDIR】ファインコンパクトラメ ボレロ カーディガン|¥21,890|[公式商品](https://crosset.onward.co.jp/items/KRAPLA0926)|
+|23区|レーシーメッシュニット 五分袖 カーディガン|¥16,940|[公式商品](https://crosset.onward.co.jp/items/KRWOLM0653)|
+|23区|シャイニーシアー ドルマンスリーブ 2WAY カーディガン|¥15,950|[公式商品](https://crosset.onward.co.jp/items/KRWOLM0654)|
+|DoCLASSE|レーシーニット・ボートネックチュニック|¥ 2,490 / ￥2,739|[公式商品](https://www.doclasse.com/item/detail/1_1_16129/680)|
+|DoCLASSE|UVニット・スカラッププルオーバー|¥ 1,990 / ￥2,189|[公式商品](https://www.doclasse.com/item/detail/1_1_30951/101)|
+|DoCLASSE|UVニット・スカラップVネック|¥ 1,990 / ￥2,189|[公式商品](https://www.doclasse.com/item/detail/1_1_30954/090)|
+|DoCLASSE|スカラップ衿・バイカラーポロニット|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_30617/101)|
+|DoCLASSE|ハイツイスト天竺・5分袖裏配色ニット|¥ 2,790 / ￥3,069|[公式商品](https://www.doclasse.com/item/detail/1_1_30613/322)|
+|DoCLASSE|リボンヤーン・ジャカードトップス|¥ 6,990 / ￥7,689|[公式商品](https://www.doclasse.com/item/detail/1_1_30551/134)|
+|DoCLASSE|ハイゲージニット・ハイネックプルオーバー|¥ 3,490 / ￥3,839|[公式商品](https://www.doclasse.com/item/detail/1_1_30544/086)|
+|DoCLASSE|ハイツイストニット・柄編みハイネック|¥ 2,790 / ￥3,069|[公式商品](https://www.doclasse.com/item/detail/1_1_12529/059)|
+|DoCLASSE|ハイゲージシアーニット・配色衿トップス|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_12709/480)|
+|DoCLASSE|デザインポケット・シアーTニット|¥ 4,190 / ￥4,609|[公式商品](https://www.doclasse.com/item/detail/1_1_12794/101)|
+|DoCLASSE|総針リブ・ボレロレイヤード風プルオーバー|¥ 5,290 / ￥5,819|[公式商品](https://www.doclasse.com/item/detail/1_1_12708/710)|
+|DoCLASSE|ハイツイストニット・ボートネック|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_16967/270)|
+|DoCLASSE|プリーツ衿・ニットプルオーバー|¥ 3,490 / ￥3,839|[公式商品](https://www.doclasse.com/item/detail/1_1_12103/673)|
+|DoCLASSE|UVニット・総針フレアスリーブトップス|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_16478/201)|
+|DoCLASSE|リボンヤーン・ショートスリーブニット|¥ 4,390 / ￥4,829|[公式商品](https://www.doclasse.com/item/detail/1_1_16475/200)|
+|DoCLASSE|総針編み・スクエアカラーニット|¥ 2,490 / ￥2,739|[公式商品](https://www.doclasse.com/item/detail/1_1_16479/201)|
+|DoCLASSE|アセテートコットン・ボトルネックTニット|¥ 3,290 / ￥3,619|[公式商品](https://www.doclasse.com/item/detail/1_1_15894/515)|
+|DoCLASSE|シルキーコットン・袖フリルトップス|¥ 3,990 / ￥4,389|[公式商品](https://www.doclasse.com/item/detail/1_1_17421/323)|
+|DoCLASSE|バックスリット・畦編みプルオーバー|¥ 4,090 / ￥4,499|[公式商品](https://www.doclasse.com/item/detail/1_1_16279/011)|
+|DoCLASSE|シルクフィール・ペプラムニットトップス|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_16158/264)|
+|DoCLASSE|イタリア糸・コットン混ケーブルニット|¥ 4,990 / ￥5,489|[公式商品](https://www.doclasse.com/item/detail/1_1_17049/202)|
+|DoCLASSE|ミックスニット・ボタン使いボートネック|¥ 2,490 / ￥2,739|[公式商品](https://www.doclasse.com/item/detail/1_1_15289/260)|
+|DoCLASSE|UVニット・フレンチ袖プルオーバー|¥ 2,490 / ￥2,739|[公式商品](https://www.doclasse.com/item/detail/1_1_12542/320)|
+|DoCLASSE|イタリア糸・アルパカ混ブークレセーター|¥ 4,890 / ￥5,379|[公式商品](https://www.doclasse.com/item/detail/1_1_18563/070)|
+|DoCLASSE|ランダムリブ・ドルマンプルオーバー|¥ 1,990 / ￥2,189|[公式商品](https://www.doclasse.com/item/detail/1_1_18596/600)|
 
 ## ブランド・婦人対象の判定待ちリンク
 
@@ -309,7 +355,7 @@
 |MUJI|未完了|37|0|
 |ROPÉ PICNIC|未完了|23|0|
 |VIS|未完了|39|0|
-|GLOBAL WORK|未完了|33|1|
+|GLOBAL WORK|未完了|33|0|
 |LOWRYS FARM|未完了|48|0|
 |studio CLIP|未完了|53|0|
 |niko and ...|未完了|32|0|
@@ -321,7 +367,7 @@
 |grove|未完了|0|1|
 |ikka|未完了|21|0|
 |coen|未完了|0|0|
-|DoCLASSE|未完了|195|4|
+|DoCLASSE|未完了|220|4|
 |any SiS|未完了|0|0|
 |LEPSIM|未完了|62|0|
 |LAKOLE|未完了|41|0|
@@ -334,12 +380,12 @@
 |Elura|未完了|35|0|
 |mysty woman|未完了|34|0|
 |Andemiu|未完了|59|0|
-|AMERICAN HOLIC|未完了|9|1|
+|AMERICAN HOLIC|未完了|23|1|
 |YECCA VECCA|未完了|2|0|
-|23区|未完了|24|6|
+|23区|未完了|31|6|
 |ICB|未完了|0|0|
 |自由区|未完了|0|0|
-|組曲|未完了|23|6|
+|組曲|未完了|29|6|
 |UNFILO|未完了|0|0|
 |INDIVI|未完了|0|1|
 |UNTITLED|未完了|0|1|
@@ -391,8 +437,7 @@
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### GLOBAL WORK
-未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### LOWRYS FARM
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -456,10 +501,10 @@
 
 ### DoCLASSE
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.doclasse.com/item?brand_id=1&category_id=12&page=2
-- https://www.doclasse.com/item?brand_id=1&category_id=12&page=4
-- https://www.doclasse.com/item?brand_id=1&category_id=12&page=7
-- https://www.doclasse.com/item?brand_id=1&category_id=11&page=2
+- https://www.doclasse.com/item?brand_id=1&category_id=12&page=3
+- https://www.doclasse.com/item?brand_id=1&category_id=12&page=5
+- https://www.doclasse.com/item?brand_id=1&category_id=12&page=8
+- https://www.doclasse.com/item?brand_id=1&category_id=11&page=3
 
 ### any SiS
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -500,19 +545,19 @@
 
 ### AMERICAN HOLIC
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://stripe-club.com/brand/american-holic/search?so=NEW&page=2
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=6
 
 ### YECCA VECCA
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### 23区
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://crosset.onward.co.jp/items?cp=5&pp=10&gc=2&bc=002&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=5&pp=10&gc=2&bc=002&du=2&scc=1005
-- https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=002&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=002&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=002&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=002&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1005
 
 ### ICB
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -524,12 +569,12 @@
 
 ### 組曲
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://crosset.onward.co.jp/items?cp=5&pp=10&gc=2&bc=003&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=5&pp=10&gc=2&bc=003&du=2&scc=1005
-- https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=003&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=003&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1005
 
 ### UNFILO
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -649,5 +694,5 @@
 - HTTPError: HTTP Error 403: Forbidden：https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0498
 - HTTPError: HTTP Error 403: Forbidden：https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0498
 
-深掘り待ち：380件。速報は詳細調査の完了を待たず保存します。
+深掘り待ち：386件。速報は詳細調査の完了を待たず保存します。
 詳細・混率・発売日等の不明点は未確認。正式マスター・顧客公開は確認後。
