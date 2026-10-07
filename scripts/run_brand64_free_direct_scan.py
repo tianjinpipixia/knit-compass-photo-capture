@@ -225,6 +225,13 @@ def scan_brand(bid,meta,fetch, *, page_urls=None, max_pages=4, include_details=F
                 baycrews_next=meta.get('adapter')=='baycrews' and a.has_class('next')
                 if 'next' not in a.attrs.get('rel','').split() and not re.fullmatch(r'次へ|次のページ|NEXT|Next|次',label) and not baycrews_next:continue
                 next_url=urljoin(evidence['url'],a.attrs['href'])
+                if meta.get('adapter')=='doclasse':
+                    current_params=parse_qs(urlsplit(evidence['url']).query)
+                    next_params=parse_qs(urlsplit(next_url).query)
+                    current_pages=current_params.pop('page',['1']);next_pages=next_params.pop('page',[])
+                    if len(current_pages)!=1 or len(next_pages)!=1:continue
+                    if (not current_pages[0].isdigit() or not next_pages[0].isdigit() or
+                        int(next_pages[0])!=int(current_pages[0])+1 or current_params!=next_params):continue
                 if meta.get('adapter')=='baycrews':
                     # The storefront next arrow has no text/rel. Accept it only
                     # when qPage advances and every scope filter is unchanged.
