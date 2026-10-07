@@ -2,7 +2,7 @@
 観測日：2026-10-07
 
 登録範囲の確認完了：0/65ブランド。
-本日観測した商品：1492件。MD用の蓄積として保持します。
+本日観測した商品：1553件。MD用の蓄積として保持します。
 初回発見と発売日は区別します。未確認・未取得を「新商品なし」と判定しません。
 
 ## 本日初めて見つけた商品（発売日未確認）
@@ -214,6 +214,58 @@
 |組曲|【先行予約】シックニット フラワープリント カーディガン|¥14,960|[公式商品](https://crosset.onward.co.jp/items/KRWXLW0554)|
 |組曲|【先行予約】シックニット カーディガン|¥12,980|[公式商品](https://crosset.onward.co.jp/items/KRWXLW0555)|
 |組曲|【先行予約】ウールカシミヤミックス カーディガン|¥19,910|[公式商品](https://crosset.onward.co.jp/items/KRWXLW0550)|
+|23区|【先行予約】ブラッシュドリッチメランジ クルーネック ニット|¥25,960|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0567)|
+|23区|【先行予約】ウールラメアゼ ドルマン ニット|¥17,930|[公式商品](https://crosset.onward.co.jp/items/KRWOLW6568)|
+|23区|【先行予約】リバースステッチボーダー ニット|¥21,890|[公式商品](https://crosset.onward.co.jp/items/KRWOLW6569)|
+|23区|ファーカラー 2WAY カーディガン|¥29,920|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0468)|
+|23区|ピュアカシミヤ カラーコンビ カーディガン|¥32,890|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0460)|
+|23区|【先行予約】レースレイヤード Vネック ニット|¥25,960|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0564)|
+|23区|【エステータ】アシンメトリーデザイン ハイネックニット|¥43,890|[公式商品](https://crosset.onward.co.jp/items/KRH6LW0949)|
+|23区|【GOLD LABEL/先行予約】フォックスカシミヤルレックス Vネック ニット|¥49,940|[公式商品](https://crosset.onward.co.jp/items/KRV8LW0951)|
+|23区|【一部予約/見上愛さん着用/WEB&一部店舗限定カラーあり】カシミヤブレンド ジャケットライク カーディガン|¥29,920|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0550)|
+|23区|【先行予約/Oggi掲載】フォックスカシミヤファー Vネック カーディガン|¥35,970|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0560)|
+|組曲|【先行予約・WEB&一部店舗限定】ウールカシミヤミックス ロールネックニット|¥14,960|[公式商品](https://crosset.onward.co.jp/items/KRWXLW6590)|
+|組曲|【先行予約】きらめきファー 襟付きニット|¥15,950|[公式商品](https://crosset.onward.co.jp/items/KRWXLW0552)|
+|組曲|【先行予約】きらめきファー ニットジャケット|¥19,910|[公式商品](https://crosset.onward.co.jp/items/KRWXLW0553)|
+|DoCLASSE|フラワー刺繍・デザインニット|¥ 7,090 / ￥7,799|[公式商品](https://www.doclasse.com/item/detail/1_1_31442/011)|
+|DoCLASSE|モールニット・ハイネックトップス|¥ 1,990 / ￥2,189|[公式商品](https://www.doclasse.com/item/detail/1_1_32307/270)|
+|DoCLASSE|総針ニット・スクエアネックインナー|¥ 4,490 / ￥4,939|[公式商品](https://www.doclasse.com/item/detail/1_1_31625/480)|
+|DoCLASSE|ウール混・スパンコールラメセーター|¥ 5,190 / ￥5,709|[公式商品](https://www.doclasse.com/item/detail/1_1_31299/814)|
+|DoCLASSE|スフレウール・ノーシームタートル|¥ 8,990 / ￥9,889|[公式商品](https://www.doclasse.com/item/detail/1_1_32533/409)|
+|DoCLASSE|ストレッチウール・ボーダーロングニット|¥ 3,990 / ￥4,389|[公式商品](https://www.doclasse.com/item/detail/1_1_32528/011)|
+|DoCLASSE|カシミヤ混・シアークルーネック|¥ 3,390 / ￥3,729|[公式商品](https://www.doclasse.com/item/detail/1_1_30284/560)|
+|DoCLASSE|フラワーモチーフ・アルパカ混セーター|¥ 8,990 / ￥9,889|[公式商品](https://www.doclasse.com/item/detail/1_1_32286/010)|
+|DoCLASSE|ミンクタッチカシミヤ・セーター|¥ 29,900 / ￥32,890|[公式商品](https://www.doclasse.com/item/detail/1_1_32503/011)|
+|DoCLASSE|ラメ糸スパンコールニット・片畦クルーネック|¥ 5,990 / ￥6,589|[公式商品](https://www.doclasse.com/item/detail/1_1_32511/500)|
+|DoCLASSE|ビジュー衿・総針編みプルオーバー|¥ 5,290 / ￥5,819|[公式商品](https://www.doclasse.com/item/detail/1_1_30048/720)|
+|DoCLASSE|総針編み・つけ衿プルオーバー|¥ 5,490 / ￥6,039|[公式商品](https://www.doclasse.com/item/detail/1_1_31130/035)|
+|DoCLASSE|カリアッジ・ハイネックプルオーバー|¥ 7,990 / ￥8,789|[公式商品](https://www.doclasse.com/item/detail/1_1_16953/132)|
+|DoCLASSE|ウール混フラッフィー・Vネックチュニック|¥ 7,990 / ￥8,789|[公式商品](https://www.doclasse.com/item/detail/1_1_16916/051)|
+|DoCLASSE|Nukle・テディプルオーバー|¥ 8,690 / ￥9,559|[公式商品](https://www.doclasse.com/item/detail/1_1_16360/482)|
+|DoCLASSE|シルクフィール・エッセンシャルハイネック|¥ 1,990 / ￥2,189|[公式商品](https://www.doclasse.com/item/detail/1_1_30039/101)|
+|DoCLASSE|イタリア糸・カシミヤ混ワイドタートル|¥ 5,990 / ￥6,589|[公式商品](https://www.doclasse.com/item/detail/1_1_16896/011)|
+|DoCLASSE|シアーカフス・ウール混プルオーバー|¥ 3,690 / ￥4,059|[公式商品](https://www.doclasse.com/item/detail/1_1_31295/090)|
+|DoCLASSE|スーパーファインメリノ・シアータートルネック|¥ 25,000 / ￥27,500|[公式商品](https://www.doclasse.com/item/detail/1_1_14517/010)|
+|DoCLASSE|スリットカフス・ハイネックニット|¥ 3,090 / ￥3,399|[公式商品](https://www.doclasse.com/item/detail/1_1_30036/711)|
+|DoCLASSE|エアーカシミヤ・クルーネック／ショート丈|¥ 13,190 / ￥14,509|[公式商品](https://www.doclasse.com/item/detail/1_1_31138/011)|
+|DoCLASSE|UVドライタッチニット・フレンチトップス|¥ 2,490 / ￥2,739|[公式商品](https://www.doclasse.com/item/detail/1_1_31812/410)|
+|DoCLASSE|フリルスリーブ・プルオーバーニット|¥ 3,490 / ￥3,839|[公式商品](https://www.doclasse.com/item/detail/1_1_17258/011)|
+|DoCLASSE|Nukle・スフレボタンデザイントップス|¥ 6,790 / ￥7,469|[公式商品](https://www.doclasse.com/item/detail/1_1_13121/320)|
+|DoCLASSE|総針編み・アイレットセーター|¥ 6,990 / ￥7,689|[公式商品](https://www.doclasse.com/item/detail/1_1_30362/090)|
+|DoCLASSE|シフォン衿・総針編みハイネック|¥ 3,990 / ￥4,389|[公式商品](https://www.doclasse.com/item/detail/1_1_30046/020)|
+|DoCLASSE|コットン混ニット・カットワークプルオーバー|¥ 6,890 / ￥7,579|[公式商品](https://www.doclasse.com/item/detail/1_1_30550/010)|
+|DoCLASSE|リブ編み・ハイネックセーター|¥ 3,990 / ￥4,389|[公式商品](https://www.doclasse.com/item/detail/1_1_16948/050)|
+|DoCLASSE|プレミアムカシミヤ・切替ハイネックセーター|¥ 16,390 / ￥18,029|[公式商品](https://www.doclasse.com/item/detail/1_1_16909/200)|
+|DoCLASSE|エアーカシミヤ・クルーネック|¥ 10,900 / ￥11,990|[公式商品](https://www.doclasse.com/item/detail/1_1_31215/011)|
+|DoCLASSE|ドライタッチニット・ボートネック|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_31243/372)|
+|DoCLASSE|総針ニット・クルーネックインナー|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_31626/090)|
+|DoCLASSE|ワイドリブ・ブレードニットジャケット|¥ 16,900 / ￥18,590|[公式商品](https://www.doclasse.com/item/detail/1_1_30350/090)|
+|DoCLASSE|ウールカシミヤ・ボートネックニット|¥ 7,990 / ￥8,789|[公式商品](https://www.doclasse.com/item/detail/1_1_31158/720)|
+|DoCLASSE|ウールカシミヤ・ハイネックチュニック|¥ 7,900 / ￥8,690|[公式商品](https://www.doclasse.com/item/detail/1_1_31157/030)|
+|DoCLASSE|柄編みボーダー・クルーネック半袖ニット|¥ 5,490 / ￥6,039|[公式商品](https://www.doclasse.com/item/detail/1_1_30600/500)|
+|DoCLASSE|レース使い・ミックスコットンニット|¥ 7,990 / ￥8,789|[公式商品](https://www.doclasse.com/item/detail/1_1_12793/510)|
+|DoCLASSE|和紙ブレンド・フレンチ袖ロングニット|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_31711/121)|
+|DoCLASSE|総針ニット・ハイネックインナー|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_31627/041)|
 
 ## ブランド・婦人対象の判定待ちリンク
 
@@ -227,7 +279,7 @@
 |MUJI|未完了|37|0|
 |ROPÉ PICNIC|未完了|23|0|
 |VIS|未完了|39|0|
-|GLOBAL WORK|未完了|33|1|
+|GLOBAL WORK|未完了|33|0|
 |LOWRYS FARM|未完了|48|0|
 |studio CLIP|未完了|53|0|
 |niko and ...|未完了|32|0|
@@ -239,7 +291,7 @@
 |grove|未完了|0|1|
 |ikka|未完了|21|0|
 |coen|未完了|0|0|
-|DoCLASSE|未完了|133|3|
+|DoCLASSE|未完了|172|3|
 |any SiS|未完了|0|0|
 |LEPSIM|未完了|62|0|
 |LAKOLE|未完了|41|0|
@@ -254,10 +306,10 @@
 |Andemiu|未完了|59|0|
 |AMERICAN HOLIC|未完了|9|0|
 |YECCA VECCA|未完了|2|0|
-|23区|未完了|7|2|
+|23区|未完了|17|2|
 |ICB|未完了|0|0|
 |自由区|未完了|0|0|
-|組曲|未完了|5|2|
+|組曲|未完了|17|2|
 |UNFILO|未完了|0|0|
 |INDIVI|未完了|0|1|
 |UNTITLED|未完了|0|1|
@@ -309,8 +361,7 @@
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### GLOBAL WORK
-未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### LOWRYS FARM
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -374,9 +425,9 @@
 
 ### DoCLASSE
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.doclasse.com/item?brand_id=1&category_id=12&page=4
-- https://www.doclasse.com/item?brand_id=1&category_id=11&page=2
-- https://www.doclasse.com/item?brand_id=1&category_id=12&page=2
+- https://www.doclasse.com/item?brand_id=1&category_id=11&page=3
+- https://www.doclasse.com/item?brand_id=1&category_id=12&page=3
+- https://www.doclasse.com/item?brand_id=1&category_id=12&page=6
 
 ### any SiS
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -423,8 +474,8 @@
 
 ### 23区
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1005
 
 ### ICB
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -436,8 +487,8 @@
 
 ### 組曲
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1005
 
 ### UNFILO
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
