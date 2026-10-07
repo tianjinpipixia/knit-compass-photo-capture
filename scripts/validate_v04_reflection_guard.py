@@ -29,17 +29,17 @@ def main() -> None:
     assert "中国糸名・素材名辞典" in brand_index
     assert "../owner-yarns/current.html" in brand_index
     assert "../owner-yarns/intake-current.html" in brand_index
-    assert "25件（Winning Textile Levita含む）" in brand_index
+    assert "26件（Winning Textile Levita・QYSMART-COMFY含む）" in brand_index
     assert "./v04-reflection-status.html" in brand_index
     assert "../owner-yarns/\" target=\"_top\">糸検索" not in brand_index
 
     # V04 yarn-search wrapper prevents the old 24-item intake tab from becoming the current route.
     assert "./index.html" in owner_current
     assert "./intake-current.html" in owner_current
-    assert "未反映25件・Human Review" in owner_current
-    assert "Winning Textile Levita含む" in owner_current
+    assert "未反映26件・Human Review" in owner_current
+    assert "Winning Textile Levita、青岛绮源 QYSMART-COMFY含む" in owner_current
 
-    # Current intake must include every historical batch plus Winning Levita batch10.
+    # Current intake must include every historical batch plus Winning Levita batch10 and QYSMART-COMFY batch11.
     expected_batches = [
         "2026-08-08-weijie-hesheng-batch1.json",
         "2026-08-08-weihai-yaxin-chengyun-batch2.json",
@@ -51,8 +51,9 @@ def main() -> None:
         "2026-08-18-american-holic-products-batch8.json",
         "2026-08-18-dinghong-mz100-25139-batch9.json",
         "2026-08-19-winning-textile-levita-batch10.json",
+        "2026-10-07-qiyuan-qysmart-comfy-batch11.json",
     ]
-    assert "const EXPECTED_TOTAL=25" in intake
+    assert "const EXPECTED_TOTAL=26" in intake
     assert "kc_v04_handoff_queue_v1" in intake
     for filename in expected_batches:
         assert filename in intake, f"current V04 intake missing {filename}"
@@ -65,6 +66,17 @@ def main() -> None:
     assert payload.get("yarnName") == "Levita / 利维纱"
     assert payload.get("countDisplay") == "1/40 Nm"
     assert payload.get("compositionRaw") == "78% Viscose / 22% Polyester"
+
+    qysmart = load_json("data/manual-intake/2026-10-07-qiyuan-qysmart-comfy-batch11.json")
+    qysmart_items = qysmart.get("items", [])
+    assert len(qysmart_items) == 1
+    assert qysmart_items[0].get("review_status") == "PENDING"
+    qysmart_payload = qysmart_items[0].get("payload", {})
+    assert qysmart_payload.get("yarnName") == "QYSMART-COMFY"
+    assert qysmart_payload.get("countDisplay") == "40s/1"
+    assert "Viscose 80%" in qysmart_payload.get("compositionRaw", "")
+    assert "two-bath" in qysmart_payload.get("processingMethod", "")
+    assert "mélange" in qysmart_payload.get("processingMethod", "")
 
     # #82 glossary remains reachable and retains the reviewed 33 + 13 = 46 dictionary composition.
     glossary = load_json("brand-intelligence/data/cn-yarn-glossary.json")
@@ -109,6 +121,7 @@ def main() -> None:
         "cn-yarn-glossary.json",
         "cn-yarn-glossary-wave2.json",
         "2026-08-19-winning-textile-levita-batch10.json",
+        "2026-10-07-qiyuan-qysmart-comfy-batch11.json",
         "brand-md-analysis-framework.json",
         "brand-md-monitoring/latest.json",
     ):
@@ -116,7 +129,7 @@ def main() -> None:
 
     print(
         "V04 reflection guard: OK "
-        "(retired visible Sites labels absent, current yarn-search route, glossary 33+13, 25-item intake incl. Levita, owner-approved Tier-A scope incl. SNIDEL and JOURNAL STANDARD relume, latest MD pointer aligned)"
+        "(retired visible Sites labels absent, current yarn-search route, glossary 33+13, 26-item intake incl. Levita and QYSMART-COMFY, owner-approved Tier-A scope incl. SNIDEL and JOURNAL STANDARD relume, latest MD pointer aligned)"
     )
 
 

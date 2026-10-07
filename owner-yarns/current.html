@@ -20,11 +20,11 @@
       const doc=frame.contentDocument;if(!doc)return;
       const glossary=[...doc.querySelectorAll('a')].find(a=>a.getAttribute('href')?.includes('cn-yarn-glossary'));if(glossary)glossary.textContent='中国糸名・素材名辞典';
       const stats=[...doc.querySelectorAll('.hero-stats div')];
-      const human=stats.find(node=>node.querySelector('span')?.textContent?.includes('Human Review候補'));if(human?.querySelector('strong'))human.querySelector('strong').textContent='25件';
+      const human=stats.find(node=>node.querySelector('span')?.textContent?.includes('Human Review候補'));if(human?.querySelector('strong'))human.querySelector('strong').textContent='26件';
       const intakeTab=[...doc.querySelectorAll('[data-tab]')].find(node=>node.dataset.tab==='intake');
-      if(intakeTab){intakeTab.textContent='未反映25件・Human Review';intakeTab.addEventListener('click',event=>{event.preventDefault();event.stopImmediatePropagation();location.href='./intake-current.html'},{capture:true})}
-      const legacyImport=doc.getElementById('importAll');if(legacyImport){legacyImport.textContent='25件の現行取込を開く';legacyImport.addEventListener('click',event=>{event.preventDefault();event.stopImmediatePropagation();location.href='./intake-current.html'},{capture:true})}
-      const intakeHeading=[...doc.querySelectorAll('[data-panel="intake"] .section-head p')][0];if(intakeHeading)intakeHeading.textContent='現行取込は10バッチ・合計25件（Winning Textile Levita含む）です。';
+      if(intakeTab){intakeTab.textContent='未反映26件・Human Review';intakeTab.addEventListener('click',event=>{event.preventDefault();event.stopImmediatePropagation();location.href='./intake-current.html'},{capture:true})}
+      const legacyImport=doc.getElementById('importAll');if(legacyImport){legacyImport.textContent='26件の現行取込を開く';legacyImport.addEventListener('click',event=>{event.preventDefault();event.stopImmediatePropagation();location.href='./intake-current.html'},{capture:true})}
+      const intakeHeading=[...doc.querySelectorAll('[data-panel="intake"] .section-head p')][0];if(intakeHeading)intakeHeading.textContent='現行取込は11バッチ・合計26件（Winning Textile Levita、青岛绮源 QYSMART-COMFY含む）です。';
     }catch(error){console.warn('owner-yarns current wrapper patch skipped',error)}
   }
   frame.addEventListener('load',patch);

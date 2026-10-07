@@ -15,7 +15,7 @@
 <main class="shell">
   <section class="hero"><div style="font-size:9px;font-weight:900;letter-spacing:.12em">KC-V04-REFLECTION-GUARD</div><h1>V04反映確認</h1><p>GitHub mainに入った変更が、V04の実際の導線・Human Review・MD設定へ接続されているかを確認します。</p></section>
   <section class="grid" id="grid"><article class="card"><div><h2>確認中</h2><p>反映状態を読み込んでいます。</p></div><span class="status">CHECK</span></article></section>
-  <div class="links"><a class="btn" href="./">V04へ戻る</a><a class="btn" href="../owner-yarns/intake-current.html">未反映25件の取込</a><a class="btn" href="../market-intelligence/">マーケット情報</a></div>
+  <div class="links"><a class="btn" href="./">V04へ戻る</a><a class="btn" href="../owner-yarns/intake-current.html">未反映26件の取込</a><a class="btn" href="../market-intelligence/">マーケット情報</a></div>
   <p class="foot">表示はread-only確認です。Human Review・正式マスター・顧客公開を自動変更しません。</p>
 </main>
 <script>
@@ -28,10 +28,11 @@
   async function run(){
     const rows=[];
     try{
-      const [glossary,wave2,levita,framework,latest]=await Promise.all([
+      const [glossary,wave2,levita,qysmart,framework,latest]=await Promise.all([
         fetchJson('./data/cn-yarn-glossary.json'),
         fetchJson('./data/cn-yarn-glossary-wave2.json'),
         fetchJson('../data/manual-intake/2026-08-19-winning-textile-levita-batch10.json'),
+        fetchJson('../data/manual-intake/2026-10-07-qiyuan-qysmart-comfy-batch11.json'),
         fetchJson('../config/brand-md-analysis-framework.json'),
         fetchJson('../data/brand-md-monitoring/latest.json')
       ]);
@@ -41,7 +42,11 @@
       rows.push(card('#82 中国糸名・素材名辞典',base===33&&wave===13&&dictionaryTotal===46,`基礎 ${base}語＋Wave2 ${wave}語＝辞典 ${dictionaryTotal}語。V04では技術カード3件を加えて表示します。`));
       const levitaItems=Array.isArray(levita.items)?levita.items:[];
       const levitaPending=levitaItems.length===1&&levitaItems[0]?.review_status==='PENDING';
-      rows.push(card('#80 Winning Textile Levita',levitaPending,`batch10 ${levitaItems.length}件／${levitaItems[0]?.review_status||'未確認'}。現行25件取込からHuman Review受信箱へ接続します。`));
+      rows.push(card('#80 Winning Textile Levita',levitaPending,`batch10 ${levitaItems.length}件／${levitaItems[0]?.review_status||'未確認'}。現行26件取込からHuman Review受信箱へ接続します。`));
+      const qysmartItems=Array.isArray(qysmart.items)?qysmart.items:[];
+      const qysmartPayload=qysmartItems[0]?.payload||{};
+      const qysmartPending=qysmartItems.length===1&&qysmartItems[0]?.review_status==='PENDING'&&qysmartPayload.yarnName==='QYSMART-COMFY';
+      rows.push(card('青岛绮源 QYSMART-COMFY',qysmartPending,`batch11 ${qysmartItems.length}件／${qysmartItems[0]?.review_status||'未確認'}。40s/1・VIS80/P10/機能繊維10、通常3浴→今回2浴、改質アクリル白残しメランジをHuman Reviewへ接続します。`));
       const tierBrands=framework?.scan_strategy?.tier_a_deep_dive?.brands||{};
       const tierIds=Object.keys(tierBrands);
       const tierCount=tierIds.length;
