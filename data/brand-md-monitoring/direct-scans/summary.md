@@ -2,7 +2,7 @@
 観測日：2026-10-07
 
 登録範囲の確認完了：0/65ブランド。
-本日観測した商品：1385件。MD用の蓄積として保持します。
+本日観測した商品：1471件。MD用の蓄積として保持します。
 初回発見と発売日は区別します。未確認・未取得を「新商品なし」と判定しません。
 
 ## 本日初めて見つけた商品（発売日未確認）
@@ -116,6 +116,83 @@
 |DoCLASSE|片畦編み・裾ボタンライン使いセーター|¥ 6,990 / ￥7,689|[公式商品](https://www.doclasse.com/item/detail/1_1_32527/050)|
 |DoCLASSE|スーパーキッドモヘア・シアーハイネックニット|¥ 6,990 / ￥7,689|[公式商品](https://www.doclasse.com/item/detail/1_1_32380/409)|
 |DoCLASSE|マシュマロウール100・ハイネック|¥ 9,990 / ￥10,989|[公式商品](https://www.doclasse.com/item/detail/1_1_31286/417)|
+|DoCLASSE|Nukle・テディパーカー|¥ 7,990 / ￥8,789|[公式商品](https://www.doclasse.com/item/detail/1_1_16320/717)|
+|DoCLASSE|Nukle・テディショールカーディガン|¥ 10,090 / ￥11,099|[公式商品](https://www.doclasse.com/item/detail/1_1_13116/130)|
+|DoCLASSE|パイルニット・アルパカ混カーディガン|¥ 5,490 / ￥6,039|[公式商品](https://www.doclasse.com/item/detail/1_1_32529/480)|
+|DoCLASSE|シルクフィール・ハイネック＆カーディガン|¥ 4,590 / ￥5,049|[公式商品](https://www.doclasse.com/item/detail/1_1_30041/196)|
+|DoCLASSE|シルクニット・細リブロングカーディガン|¥ 9,990 / ￥10,989|[公式商品](https://www.doclasse.com/item/detail/1_1_16917/273)|
+|DoCLASSE|UVニット・コンパクトカーディガン|¥ 4,990 / ￥5,489|[公式商品](https://www.doclasse.com/item/detail/1_1_31819/490)|
+|DoCLASSE|シアーニット・ボレロカーディガン|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_31820/720)|
+|DoCLASSE|畦編み・衿付きカーデジャケット|¥ 9,990 / ￥10,989|[公式商品](https://www.doclasse.com/item/detail/1_1_31815/010)|
+|DoCLASSE|ライトシアー・ベルト付きロングカーディガン|¥ 2,490 / ￥2,739|[公式商品](https://www.doclasse.com/item/detail/1_1_31622/673)|
+|DoCLASSE|UVニット・ボタンレスロングカーディガン|¥ 1,990 / ￥2,189|[公式商品](https://www.doclasse.com/item/detail/1_1_31530/200)|
+|DoCLASSE|ベビーアルパカ・Vネックロングカーディガン|¥ 24,900 / ￥27,390|[公式商品](https://www.doclasse.com/item/detail/1_1_16890/011)|
+|DoCLASSE|アイレットニット・カーディガン|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_12538/120)|
+|DoCLASSE|シルクフィール・配色カフスカーディガン|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_12512/011)|
+|DoCLASSE|天竺編み・針抜きデザインカーディガン|¥ 5,190 / ￥5,709|[公式商品](https://www.doclasse.com/item/detail/1_1_16945/012)|
+|DoCLASSE|ベビーアルパカ・リブ切替トッパーカーディガン|¥ 24,900 / ￥27,390|[公式商品](https://www.doclasse.com/item/detail/1_1_16891/011)|
+|DoCLASSE|ワッフルニット・配色ラインカーディガン|¥ 5,490 / ￥6,039|[公式商品](https://www.doclasse.com/item/detail/1_1_12100/090)|
+|DoCLASSE|イタリア糸・カシミヤ混リボンプルオーバー|¥ 17,900 / ￥19,690|[公式商品](https://www.doclasse.com/item/detail/1_1_16910/090)|
+|DoCLASSE|片畦編み・Vネックパフ袖セーター|¥ 4,990 / ￥5,489|[公式商品](https://www.doclasse.com/item/detail/1_1_16956/270)|
+|DoCLASSE|カシミヤ混・裾レースVネックニット|¥ 8,990 / ￥9,889|[公式商品](https://www.doclasse.com/item/detail/1_1_32305/750)|
+|DoCLASSE|ブークレニット・ベルスリーブプルオーバー|¥ 6,490 / ￥7,139|[公式商品](https://www.doclasse.com/item/detail/1_1_33374/090)|
+|DoCLASSE|コットンニット・片畦コンビプルオーバー|¥ 7,990 / ￥8,789|[公式商品](https://www.doclasse.com/item/detail/1_1_32975/480)|
+|DoCLASSE|ミラノリブ・ボックスボーダートップス|¥ 6,990 / ￥7,689|[公式商品](https://www.doclasse.com/item/detail/1_1_32972/372)|
+|DoCLASSE|ハイゲージニット・バックスリットタートル|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_32348/023)|
+|DoCLASSE|ウール混・ネックビジューセーター|¥ 9,990 / ￥10,989|[公式商品](https://www.doclasse.com/item/detail/1_1_32562/030)|
+|DoCLASSE|ウール混・ドロップショルダーセーター|¥ 3,990 / ￥4,389|[公式商品](https://www.doclasse.com/item/detail/1_1_32508/493)|
+|DoCLASSE|ラメトリム・サマーニット／ノースリーブ|¥ 3,490 / ￥3,839|[公式商品](https://www.doclasse.com/item/detail/1_1_32959/090)|
+|DoCLASSE|ドライニット・ローゲージポロトップス|¥ 6,790 / ￥7,469|[公式商品](https://www.doclasse.com/item/detail/1_1_33170/680)|
+|DoCLASSE|ラメトリム・サマーニット／ハーフスリーブ|¥ 3,990 / ￥4,389|[公式商品](https://www.doclasse.com/item/detail/1_1_32958/090)|
+|DoCLASSE|UVクールニット・Vネックトップス|¥ 2,790 / ￥3,069|[公式商品](https://www.doclasse.com/item/detail/1_1_32667/030)|
+|DoCLASSE|総針編み・オーバーポロニット|¥ 5,990 / ￥6,589|[公式商品](https://www.doclasse.com/item/detail/1_1_32973/050)|
+|DoCLASSE|スパークリングニット・ポロシャツ|¥ 4,990 / ￥5,489|[公式商品](https://www.doclasse.com/item/detail/1_1_32896/030)|
+|DoCLASSE|スパークリングニット・ミディカーディガン|¥ 2,790 / ￥3,069|[公式商品](https://www.doclasse.com/item/detail/1_1_17180/321)|
+|DoCLASSE|スパークリングニット・サイドスリットカーディガン|¥ 1,990 / ￥2,189|[公式商品](https://www.doclasse.com/item/detail/1_1_16627/322)|
+|DoCLASSE|ハイカウントコットン・トッパーカーディガン|¥ 4,790 / ￥5,269|[公式商品](https://www.doclasse.com/item/detail/1_1_16761/270)|
+|DoCLASSE|シアーニット・インナー付きアンサンブル|¥ 3,990 / ￥4,389|[公式商品](https://www.doclasse.com/item/detail/1_1_12707/010)|
+|DoCLASSE|ウール混・裏配色ニットパーカー|¥ 4,990 / ￥5,489|[公式商品](https://www.doclasse.com/item/detail/1_1_18571/490)|
+|DoCLASSE|コットンガーゼニット・カーディガン/ボーダー|¥ 5,990 / ￥6,589|[公式商品](https://www.doclasse.com/item/detail/1_1_18063/200)|
+|DoCLASSE|エアリーアルパカ・Vネックカーディガン|¥ 65,000 / ￥71,500|[公式商品](https://www.doclasse.com/item/detail/1_1_14714/680)|
+|DoCLASSE|ピュアウール・ノルディックカーディガン|¥ 31,000 / ￥34,100|[公式商品](https://www.doclasse.com/item/detail/1_1_14715/130)|
+|DoCLASSE|ハイカウントメリノ・レオパードカーディガン|¥ 22,500 / ￥24,750|[公式商品](https://www.doclasse.com/item/detail/1_1_14713/987)|
+|DoCLASSE|スーパーファインメリノ・コンパクトカーディガン|¥ 25,200 / ￥27,720|[公式商品](https://www.doclasse.com/item/detail/1_1_14712/300)|
+|DoCLASSE|シルクカシミヤ・Vネックロングカーディガン|¥ 28,800 / ￥31,680|[公式商品](https://www.doclasse.com/item/detail/1_1_14711/073)|
+|DoCLASSE|ウルトラファインメリノ・マントカーディガン|¥ 38,000 / ￥41,800|[公式商品](https://www.doclasse.com/item/detail/1_1_14710/090)|
+|DoCLASSE|スーリーアルパカ・Vネックカーディガン|¥ 65,000 / ￥71,500|[公式商品](https://www.doclasse.com/item/detail/1_1_14518/090)|
+|DoCLASSE|ハイゲージニット・透かし編みカーディガン|¥ 14,000 / ￥15,400|[公式商品](https://www.doclasse.com/item/detail/1_1_14829/090)|
+|DoCLASSE|ドレープウール・深Vネックセーター|¥ 17,400 / ￥19,140|[公式商品](https://www.doclasse.com/item/detail/1_1_14831/010)|
+|DoCLASSE|ストレッチニット・Vネックカーディガン|¥ 27,000 / ￥29,700|[公式商品](https://www.doclasse.com/item/detail/1_1_14828/480)|
+|DoCLASSE|綿シルクニット・クルーカーディガン|¥ 32,000 / ￥35,200|[公式商品](https://www.doclasse.com/item/detail/1_1_14597/090)|
+|DoCLASSE|綿シルクニット・ボーダーカーディガン|¥ 16,000 / ￥17,600|[公式商品](https://www.doclasse.com/item/detail/1_1_14598/086)|
+|DoCLASSE|アルパカミックス・カーディガン|¥ 23,400 / ￥25,740|[公式商品](https://www.doclasse.com/item/detail/1_1_14474/050)|
+|DoCLASSE|シルクカシミヤ・クロップドカーディガン|¥ 26,000 / ￥28,600|[公式商品](https://www.doclasse.com/item/detail/1_1_14333/130)|
+|DoCLASSE|キッドモヘア・エアリーカーディガン|¥ 34,000 / ￥37,400|[公式商品](https://www.doclasse.com/item/detail/1_1_14334/300)|
+|DoCLASSE|ロイヤルアルパカ・ケーブル編みロングカーディガン|¥ 39,000 / ￥42,900|[公式商品](https://www.doclasse.com/item/detail/1_1_14335/070)|
+|DoCLASSE|スーパーファインメリノ・クルーカーディガン|¥ 35,400 / ￥38,940|[公式商品](https://www.doclasse.com/item/detail/1_1_14323/090)|
+|DoCLASSE|UVカット・前後２WAY総針編みプルオーバー|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_32692/410)|
+|DoCLASSE|総針ニット・インナークルータンク|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_32957/011)|
+|DoCLASSE|総針編み・バックマントプルオーバー|¥ 5,490 / ￥6,039|[公式商品](https://www.doclasse.com/item/detail/1_1_32682/090)|
+|DoCLASSE|カシミヤ混・ハイネックニット|¥ 5,790 / ￥6,369|[公式商品](https://www.doclasse.com/item/detail/1_1_32306/050)|
+|DoCLASSE|アルパカ混・シアープルオーバー|¥ 3,590 / ￥3,949|[公式商品](https://www.doclasse.com/item/detail/1_1_32642/510)|
+|DoCLASSE|ウール混タム・タートルネックロングニット|¥ 4,990 / ￥5,489|[公式商品](https://www.doclasse.com/item/detail/1_1_32156/030)|
+|DoCLASSE|シルクフィール・フレアハイネックニット|¥ 3,990 / ￥4,389|[公式商品](https://www.doclasse.com/item/detail/1_1_32167/409)|
+|DoCLASSE|ドライタッチニット・ペプラムトップス|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_31707/090)|
+|DoCLASSE|ウール混ニット・プチフリルセーター|¥ 3,690 / ￥4,059|[公式商品](https://www.doclasse.com/item/detail/1_1_32526/090)|
+|DoCLASSE|ストレッチニット・リブ配色クルーネック|¥ 2,490 / ￥2,739|[公式商品](https://www.doclasse.com/item/detail/1_1_32638/149)|
+|DoCLASSE|コットン混・配色Vネックセーター|¥ 6,990 / ￥7,689|[公式商品](https://www.doclasse.com/item/detail/1_1_32671/480)|
+|DoCLASSE|総針ニット・前後2WAYプルオーバー|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_32350/023)|
+|DoCLASSE|ウール混タム・クロップドタートルネックニット|¥ 4,990 / ￥5,489|[公式商品](https://www.doclasse.com/item/detail/1_1_32159/090)|
+|DoCLASSE|ストレッチガーター・ボートネックニット|¥ 1,990 / ￥2,189|[公式商品](https://www.doclasse.com/item/detail/1_1_16450/320)|
+|DoCLASSE|構築ニット・裾メッシュペプラムトップス|¥ 2,990 / ￥3,289|[公式商品](https://www.doclasse.com/item/detail/1_1_32277/011)|
+|DoCLASSE|マシュマロウール100・タートルネック|¥ 6,390 / ￥7,029|[公式商品](https://www.doclasse.com/item/detail/1_1_12178/417)|
+|DoCLASSE|ウール混タム・ボートネックニット|¥ 3,490 / ￥3,839|[公式商品](https://www.doclasse.com/item/detail/1_1_32157/710)|
+|DoCLASSE|ウール混フラッフィー・ハイネックセーター|¥ 5,090 / ￥5,599|[公式商品](https://www.doclasse.com/item/detail/1_1_16913/101)|
+|DoCLASSE|ウール混タム・ハイネックニット|¥ 3,990 / ￥4,389|[公式商品](https://www.doclasse.com/item/detail/1_1_32158/030)|
+|DoCLASSE|イタリア糸・カシミヤ混ケーブルワンピ|¥ 7,090 / ￥7,799|[公式商品](https://www.doclasse.com/item/detail/1_1_18559/130)|
+|DoCLASSE|モヘア混シャギー・２WAYプルオーバーニット|¥ 8,990 / ￥9,889|[公式商品](https://www.doclasse.com/item/detail/1_1_32514/050)|
+|DoCLASSE|ウール混・ドレープファネルネックニット|¥ 5,090 / ￥5,599|[公式商品](https://www.doclasse.com/item/detail/1_1_30363/030)|
+|DoCLASSE|スパンコールジャカード・ニットプルオーバー|¥ 6,990 / ￥7,689|[公式商品](https://www.doclasse.com/item/detail/1_1_32375/132)|
 
 ## ブランド・婦人対象の判定待ちリンク
 
@@ -129,7 +206,7 @@
 |MUJI|未完了|37|0|
 |ROPÉ PICNIC|未完了|23|0|
 |VIS|未完了|39|0|
-|GLOBAL WORK|未完了|33|1|
+|GLOBAL WORK|未完了|33|0|
 |LOWRYS FARM|未完了|48|0|
 |studio CLIP|未完了|53|0|
 |niko and ...|未完了|32|0|
@@ -141,7 +218,7 @@
 |grove|未完了|0|1|
 |ikka|未完了|21|0|
 |coen|未完了|0|0|
-|DoCLASSE|未完了|47|3|
+|DoCLASSE|未完了|133|2|
 |any SiS|未完了|0|0|
 |LEPSIM|未完了|62|0|
 |LAKOLE|未完了|41|0|
@@ -211,8 +288,7 @@
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### GLOBAL WORK
-未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### LOWRYS FARM
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -277,8 +353,7 @@
 ### DoCLASSE
 取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - https://www.doclasse.com/
-- https://www.doclasse.com/item?brand_id=1&category_id=11&page=2
-- https://www.doclasse.com/item?brand_id=1&category_id=12&page=2
+- https://www.doclasse.com/item?brand_id=1&category_id=12&page=4
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.doclasse.com/
 
 ### any SiS
@@ -464,5 +539,5 @@ Moved Temporarily：https://crosset.onward.co.jp/shop/kumikyoku?du=1
 - HTTPError: HTTP Error 403: Forbidden：https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0498
 - HTTPError: HTTP Error 403: Forbidden：https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0498
 
-深掘り待ち：379件。速報は詳細調査の完了を待たず保存します。
+深掘り待ち：380件。速報は詳細調査の完了を待たず保存します。
 詳細・混率・発売日等の不明点は未確認。正式マスター・顧客公開は確認後。
