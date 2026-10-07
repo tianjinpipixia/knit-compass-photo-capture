@@ -1,24 +1,30 @@
 {
-  "gemini_execution_status": "GEMINI_SCAN_INCOMPLETE",
-  "attempted_brand_count": 38,
-  "confirmed_brand_count": 28,
-  "md_signal_count": 131,
-  "md_signal_brand_count": 28,
+  "latest_attempted_scan_date": "2026-10-07",
+  "gemini_execution_status": "SUCCESS",
+  "artifact_path": "data/brand-md-monitoring/gemini-md/2026-10-07/gemini-md-20261007T123251744089Z.json",
   "required_confirmed_brand_count": 39,
+  "confirmed_brand_count": 45,
+  "attempted_brand_count": 51,
+  "md_signal_brand_count": 45,
+  "md_signal_count": 225,
   "quota_exhausted": false,
   "errors": [
-    "RuntimeError: HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
-    "RuntimeError: HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n"
+    "RuntimeError: Gemini response did not finish normally: MAX_TOKENS"
   ],
-  "latest_attempted_scan_date": "2026-10-02",
-  "generated_at_utc": "2026-10-02T00:11:10Z",
-  "artifact_path": "data/brand-md-monitoring/gemini-md/2026-10-02/gemini-md-20261002T001110888354Z.json",
+  "generated_at_utc": "2026-10-07T12:32:51Z",
   "role": "CURRENT_GEMINI_MD_STATUS",
   "analyzer": "GEMINI_PRIMARY",
   "pipeline_stage": "MD_ANALYSIS",
   "publication_status": "PUBLISH_HOLD",
   "human_review_required": true,
-  "latest_successful_scan_date": "2026-10-02",
-  "latest_successful_artifact_path": "data/brand-md-monitoring/gemini-md/2026-10-02/gemini-md-20261001T205624919195Z.json",
-  "latest_successful_generated_at_utc": "2026-10-01T20:56:24Z"
+  "latest_successful_scan_date": "2026-10-07",
+  "latest_successful_artifact_path": "data/brand-md-monitoring/gemini-md/2026-10-07/gemini-md-20261007T123251744089Z.json",
+  "latest_successful_generated_at_utc": "2026-10-07T12:32:51Z",
+  "analysis_run_id": "37620901553",
+  "analysis_run_attempt": "1",
+  "source_collector": "CHATGPT_OFFICIAL_DIRECT",
+  "source_collection_run_id": "37620381937",
+  "analysis_input_snapshot_sha256": "0ab7b42b5d21496eafb891a8319a47205bb7427ebc0f0812fcc99b35673151b8",
+  "analysis_input_manifest_sha256": "7e7409a9bb2fa3529b0389b22d24b55b6a2de566e4c1e57af98408f3a00e44ff",
+  "pipeline_binding_status": "BOUND_TO_CANONICAL_SNAPSHOT"
 }
