@@ -81,10 +81,11 @@ def doclasse_items(doc, source, meta):
     """Read only women's knit/category cards, never homepage recommendations."""
     parsed = urlsplit(source)
     params = parse_qs(parsed.query)
+    category_source=(parsed.path == '/item' and params.get('brand_id') == ['1'] and
+                     params.get('category_id') in (['11'], ['12']))
+    new_source=(parsed.path == '/ladies/feature/newarrival' and not parsed.query)
     if (parsed.scheme != 'https' or parsed.hostname != 'www.doclasse.com' or
-            parsed.path != '/item' or not matches('DoCLASSE', meta) or
-            params.get('brand_id') != ['1'] or
-            params.get('category_id') not in (['11'], ['12'])):
+            not matches('DoCLASSE', meta) or not (category_source or new_source)):
         return []
     items = {}
     for card in doc.root.walk():
