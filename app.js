@@ -1519,9 +1519,10 @@
             <span id="kcConnectivityDetail">端末保存と外部取込ZIPの書き出しを利用できます。</span>
           </div>
           <div class="kc-search" role="search">
-            <label>全体検索
-              <input id="kcSearchAll" type="search" placeholder="Capture ID、Supplier、糸名、略称、番手">
+            <label>登録済み写真を検索
+              <input id="kcSearchAll" type="search" placeholder="Supplier・糸名・略称・Capture ID・番手">
             </label>
+            <details class="kc-search-details"><summary>詳細条件で絞り込む</summary>
             <label>Supplier検索
               <input id="kcSearchSupplier" type="search" list="kcSupplierSearchOptions" autocomplete="off" placeholder="選択または入力">
             </label>
@@ -1534,6 +1535,7 @@
             <label>シーズン検索
               <select id="kcSearchSeason"><option value="">すべて</option>${SEASONS.map((season) => `<option>${season}</option>`).join("")}</select>
             </label>
+            </details>
             <div class="kc-search-actions"><button type="button" class="secondary" id="kcClearSearch">検索をクリア</button></div>
             <datalist id="kcSupplierSearchOptions"></datalist>
             <datalist id="kcYarnNameSearchOptions"></datalist>
