@@ -7,11 +7,11 @@
     "collector": "CHATGPT_OFFICIAL_DIRECT",
     "collection_method": "DIRECT_HTTP_NO_AI_API",
     "observed_date": "2026-10-11",
-    "generated_at_utc": "2026-10-10T23:43:04.851241+00:00",
+    "generated_at_utc": "2026-10-10T23:44:19.361748+00:00",
     "active_brand_count": 65,
     "attempted_brand_count": 65,
     "product_observed_brand_count": 23,
-    "product_count": 520,
+    "product_count": 660,
     "complete_brand_count": 0,
     "unresolved_brand_ids": [
       "BR-00001",
@@ -81,7 +81,7 @@
       "BR-00077"
     ],
     "not_attempted_brand_ids": [],
-    "pending_page_count": 40,
+    "pending_page_count": 44,
     "scan_status": "PARTIAL_COVERAGE",
     "ai_api_request_count": 0,
     "billing_enabled_by_this_job": false,
@@ -145,7 +145,7 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-10T23:41:54.015443+00:00",
+        "last_attempt_at_utc": "2026-10-10T23:43:41.873672+00:00",
         "pending_page_urls": [],
         "errors": [
           {
@@ -198,9 +198,10 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-10T23:41:32.229237+00:00",
+        "last_attempt_at_utc": "2026-10-10T23:43:28.040800+00:00",
         "pending_page_urls": [
-          "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
+          "https://www.dot-st.com/globalwork/disp/itemlist/?mode=&sort=01&groupNm=0&p=1&refineFlg=true&dispNo=001001&dispNoRadio=001001&search_color_cd=&search_size_cd=&search_class_attribute=&search_function_tag=&search_range_price_min=&search_range_price_max=&search_refine_range_min=&search_refine_range_max=&search_price=&goodsType=1&search_campaign=&store_delv_yn=&gift_wrap_yn=&stock=0&pre_rl=",
+          "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01"
         ],
         "errors": [
           {
@@ -209,6 +210,10 @@
           },
           {
             "url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
@@ -342,11 +347,10 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-10T23:41:33.809213+00:00",
+        "last_attempt_at_utc": "2026-10-10T23:43:30.934387+00:00",
         "pending_page_urls": [
-          "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2",
-          "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=3",
-          "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2"
+          "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/",
+          "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/"
         ],
         "errors": [
           {
@@ -355,6 +359,18 @@
           },
           {
             "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=3",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
@@ -373,10 +389,10 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-10T23:42:11.846151+00:00",
+        "last_attempt_at_utc": "2026-10-10T23:43:48.157719+00:00",
         "pending_page_urls": [
-          "https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2",
-          "https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2"
+          "https://store.world.co.jp/s/brand/index/category/WB/WB01/",
+          "https://store.world.co.jp/s/brand/index/category/WB/WB02/"
         ],
         "errors": [
           {
@@ -385,6 +401,14 @@
           },
           {
             "url": "https://store.world.co.jp/s/brand/index/category/WB/WB02/",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
@@ -403,11 +427,10 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-10T23:41:56.820686+00:00",
+        "last_attempt_at_utc": "2026-10-10T23:43:45.095788+00:00",
         "pending_page_urls": [
-          "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2",
-          "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2",
-          "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3"
+          "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/",
+          "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/"
         ],
         "errors": [
           {
@@ -416,6 +439,18 @@
           },
           {
             "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
@@ -434,9 +469,10 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-10T23:42:23.251772+00:00",
+        "last_attempt_at_utc": "2026-10-10T23:43:49.578349+00:00",
         "pending_page_urls": [
-          "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2"
+          "https://store.world.co.jp/s/brand/grove/category/WB/WB01/",
+          "https://store.world.co.jp/s/brand/grove/category/WB/WB02/"
         ],
         "errors": [
           {
@@ -445,6 +481,10 @@
           },
           {
             "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB02/",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
@@ -497,15 +537,15 @@
             "SOURCE_SCOPE_AUDIT_REQUIRED"
           ]
         },
-        "product_count": 44,
-        "last_attempt_at_utc": "2026-10-10T23:42:07.103731+00:00",
+        "product_count": 131,
+        "last_attempt_at_utc": "2026-10-10T23:43:53.285330+00:00",
         "pending_page_urls": [
-          "https://www.doclasse.com/item?brand_id=1&category_id=12&page=5",
-          "https://www.doclasse.com/item?brand_id=1&category_id=11&page=2",
-          "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
-          "https://www.doclasse.com/item?brand_id=1&category_id=12&page=7",
           "https://www.doclasse.com/item?brand_id=1&category_id=11&page=4",
-          "https://www.doclasse.com/item?brand_id=1&category_id=12&page=4"
+          "https://www.doclasse.com/item?brand_id=1&category_id=12&page=4",
+          "https://www.doclasse.com/item?brand_id=1&category_id=12&page=6",
+          "https://www.doclasse.com/item?brand_id=1&category_id=11&page=3",
+          "https://www.doclasse.com/item?brand_id=1&category_id=12&page=3",
+          "https://www.doclasse.com/item?brand_id=1&category_id=12&page=8"
         ],
         "errors": [],
         "unverified_link_candidate_count": 0
@@ -828,14 +868,14 @@
             "SOURCE_SCOPE_AUDIT_REQUIRED"
           ]
         },
-        "product_count": 12,
-        "last_attempt_at_utc": "2026-10-10T23:42:21.883813+00:00",
+        "product_count": 30,
+        "last_attempt_at_utc": "2026-10-10T23:43:35.413295+00:00",
         "pending_page_urls": [
-          "https://stripe-club.com/brand/american-holic/search?so=NEW&page=2",
-          "https://stripe-club.com/brand/american-holic/search?so=NEW&page=8",
-          "https://stripe-club.com/brand/american-holic/search?so=NEW&page=6",
-          "https://stripe-club.com/brand/american-holic/search?so=NEW&page=13",
-          "https://stripe-club.com/brand/american-holic/search?so=NEW&page=4"
+          "https://stripe-club.com/brand/american-holic/search?so=NEW&page=4",
+          "https://stripe-club.com/brand/american-holic/search?so=NEW&page=3",
+          "https://stripe-club.com/brand/american-holic/search?so=NEW&page=9",
+          "https://stripe-club.com/brand/american-holic/search?so=NEW&page=7",
+          "https://stripe-club.com/brand/american-holic/search?so=NEW&page=14"
         ],
         "errors": [],
         "unverified_link_candidate_count": 0
@@ -865,17 +905,17 @@
             "SOURCE_SCOPE_AUDIT_REQUIRED"
           ]
         },
-        "product_count": 7,
-        "last_attempt_at_utc": "2026-10-10T23:42:25.948937+00:00",
+        "product_count": 24,
+        "last_attempt_at_utc": "2026-10-10T23:43:43.316277+00:00",
         "pending_page_urls": [
-          "https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=002&du=2&scc=1004",
-          "https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=002&du=2&scc=1005",
-          "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=002&du=2&scc=1004",
-          "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=002&du=2&scc=1005",
           "https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1004",
           "https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1005",
           "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1004",
-          "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1005"
+          "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1005",
+          "https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=002&du=2&scc=1004",
+          "https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=002&du=2&scc=1005",
+          "https://crosset.onward.co.jp/items?cp=10&pp=10&gc=2&bc=002&du=2&scc=1004",
+          "https://crosset.onward.co.jp/items?cp=10&pp=10&gc=2&bc=002&du=2&scc=1005"
         ],
         "errors": [],
         "unverified_link_candidate_count": 0
@@ -934,16 +974,16 @@
             "SOURCE_SCOPE_AUDIT_REQUIRED"
           ]
         },
-        "product_count": 8,
-        "last_attempt_at_utc": "2026-10-10T23:42:52.134259+00:00",
+        "product_count": 26,
+        "last_attempt_at_utc": "2026-10-10T23:43:56.628324+00:00",
         "pending_page_urls": [
-          "https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1004",
-          "https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1005",
-          "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=003&du=2&scc=1004",
-          "https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1004",
           "https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1005",
           "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1004",
-          "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1005"
+          "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1005",
+          "https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=003&du=2&scc=1004",
+          "https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=003&du=2&scc=1005",
+          "https://crosset.onward.co.jp/items?cp=10&pp=10&gc=2&bc=003&du=2&scc=1004",
+          "https://crosset.onward.co.jp/items?cp=5&pp=10&gc=2&bc=003&du=2&scc=1004"
         ],
         "errors": [],
         "unverified_link_candidate_count": 0
@@ -987,9 +1027,10 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-10T23:42:34.130252+00:00",
+        "last_attempt_at_utc": "2026-10-10T23:43:51.049586+00:00",
         "pending_page_urls": [
-          "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2"
+          "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/",
+          "https://store.world.co.jp/s/brand/indivi/category/WB/WB02/"
         ],
         "errors": [
           {
@@ -998,6 +1039,10 @@
           },
           {
             "url": "https://store.world.co.jp/s/brand/indivi/category/WB/WB02/",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
@@ -1016,9 +1061,10 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-10T23:42:40.963834+00:00",
+        "last_attempt_at_utc": "2026-10-10T23:43:54.685494+00:00",
         "pending_page_urls": [
-          "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2"
+          "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/",
+          "https://store.world.co.jp/s/brand/untitled/category/WB/WB02/"
         ],
         "errors": [
           {
@@ -1027,6 +1073,10 @@
           },
           {
             "url": "https://store.world.co.jp/s/brand/untitled/category/WB/WB02/",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
@@ -1104,9 +1154,10 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-10T23:41:39.517428+00:00",
+        "last_attempt_at_utc": "2026-10-10T23:43:26.650283+00:00",
         "pending_page_urls": [
-          "https://baycrews.jp/brand/detail/slobe"
+          "https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0999",
+          "https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0999"
         ],
         "errors": [
           {
@@ -1115,6 +1166,10 @@
           },
           {
             "url": "https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0999",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://baycrews.jp/brand/detail/slobe",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
@@ -1133,9 +1188,10 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-10T23:41:41.087009+00:00",
+        "last_attempt_at_utc": "2026-10-10T23:43:29.558858+00:00",
         "pending_page_urls": [
-          "https://store.united-arrows.co.jp/brand/glr/"
+          "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0105",
+          "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0108"
         ],
         "errors": [
           {
@@ -1144,6 +1200,10 @@
           },
           {
             "url": "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0108",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.united-arrows.co.jp/brand/glr/",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
@@ -1242,7 +1302,7 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-10T23:42:19.152010+00:00",
+        "last_attempt_at_utc": "2026-10-10T23:43:58.012762+00:00",
         "pending_page_urls": [],
         "errors": [
           {
@@ -1533,10 +1593,10 @@
         "unverified_link_candidate_count": 0
       }
     ],
-    "stage": "flash",
-    "artifact_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-11/20261010T234127839303Z-flash/scan.json",
-    "first_observed_candidate_count": 5,
-    "candidate_delta_count": 68,
+    "stage": "check",
+    "artifact_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-11/20261010T234419361206Z-check/scan.json",
+    "first_observed_candidate_count": 19,
+    "candidate_delta_count": 92,
     "baseline_initialization_count": 0
   },
   "candidates": [
@@ -8528,6 +8588,796 @@
         "product_name": "前後２WAY袖口レースリブニット"
       },
       "discovered_at_utc": "2026-10-10T23:42:55.097838+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "AMERICAN HOLIC シアー配色ニットカーディガン",
+      "product_url": "https://stripe-club.com/brand/american-holic/item/100HA26D0191",
+      "product_code": "100HA26D0191",
+      "display_price": "¥ 3,490 / ¥ 1,744",
+      "status_labels": [
+        "SALE"
+      ],
+      "source_url": "https://stripe-club.com/brand/american-holic/search?so=NEW&page=13",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "ef71e67d8746280b60705e40fc2f4dd772feb871d7fd7e7f0bdfd46999cbf610",
+      "brand_id": "BR-00035",
+      "brand_name": "AMERICAN HOLIC",
+      "first_seen_date": "2026-10-11",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-11",
+      "discovered_at_utc": "2026-10-10T23:43:35.527633+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "AMERICAN HOLIC 【マルチ機能】リブ半袖カーディガン",
+      "product_url": "https://stripe-club.com/brand/american-holic/item/100HA26D0034",
+      "product_code": "100HA26D0034",
+      "display_price": "¥ 2,990 / ¥ 1,494",
+      "status_labels": [
+        "SALE"
+      ],
+      "source_url": "https://stripe-club.com/brand/american-holic/search?so=NEW&page=13",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "ef71e67d8746280b60705e40fc2f4dd772feb871d7fd7e7f0bdfd46999cbf610",
+      "brand_id": "BR-00035",
+      "brand_name": "AMERICAN HOLIC",
+      "first_seen_date": "2026-10-11",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-11",
+      "discovered_at_utc": "2026-10-10T23:43:35.527653+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "エンブロイダリー レースコンビ ニット",
+      "product_url": "https://crosset.onward.co.jp/items/KRWOLW0471",
+      "product_code": "KRWOLW0471",
+      "display_price": "¥24,970",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=002&du=2&scc=1004",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "fde845d1bcdc173fa9ff2be3c5cf36382e2825c46b52a43941c45542aecdc511",
+      "brand_id": "BR-00039",
+      "brand_name": "23区",
+      "first_seen_date": "2026-10-11",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-11",
+      "discovered_at_utc": "2026-10-10T23:43:43.438119+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "【CLASSY.掲載】レースコンビ ニット ビスチェ",
+      "product_url": "https://crosset.onward.co.jp/items/KRWOLW0469",
+      "product_code": "KRWOLW0469",
+      "display_price": "¥17,930",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=002&du=2&scc=1004",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "fde845d1bcdc173fa9ff2be3c5cf36382e2825c46b52a43941c45542aecdc511",
+      "brand_id": "BR-00039",
+      "brand_name": "23区",
+      "first_seen_date": "2026-10-11",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-11",
+      "discovered_at_utc": "2026-10-10T23:43:43.438144+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "【一部予約】レーストリム パフスリーブ ニット",
+      "product_url": "https://crosset.onward.co.jp/items/KRWOLW0472",
+      "product_code": "KRWOLW0472",
+      "display_price": "¥24,970",
+      "status_labels": [
+        "予約"
+      ],
+      "source_url": "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=002&du=2&scc=1004",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "fde845d1bcdc173fa9ff2be3c5cf36382e2825c46b52a43941c45542aecdc511",
+      "brand_id": "BR-00039",
+      "brand_name": "23区",
+      "first_seen_date": "2026-10-11",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-11",
+      "discovered_at_utc": "2026-10-10T23:43:43.438149+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "ラメシェニールファンシー クルーネック ニット",
+      "product_url": "https://crosset.onward.co.jp/items/KRWOLW0475",
+      "product_code": "KRWOLW0475",
+      "display_price": "¥25,960",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=002&du=2&scc=1004",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "fde845d1bcdc173fa9ff2be3c5cf36382e2825c46b52a43941c45542aecdc511",
+      "brand_id": "BR-00039",
+      "brand_name": "23区",
+      "first_seen_date": "2026-10-11",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-11",
+      "discovered_at_utc": "2026-10-10T23:43:43.438153+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "プレミアムビオコットン ポケット カーディガン",
+      "product_url": "https://crosset.onward.co.jp/items/KRWOLS0350",
+      "product_code": "KRWOLS0350",
+      "display_price": "¥18,920 / ¥15,070",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=002&du=2&scc=1005",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "469fe69bd3b57274cfa9136e73cd88f266749a5e01d3f0c64b03f29e18f12931",
+      "brand_id": "BR-00039",
+      "brand_name": "23区",
+      "first_seen_date": "2026-10-11",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-11",
+      "discovered_at_utc": "2026-10-10T23:43:43.438157+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "プレミアムビオコットン ポケット ボーダー カーディガン",
+      "product_url": "https://crosset.onward.co.jp/items/KRWOLS0351",
+      "product_code": "KRWOLS0351",
+      "display_price": "¥19,910 / ¥11,880",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=002&du=2&scc=1005",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "469fe69bd3b57274cfa9136e73cd88f266749a5e01d3f0c64b03f29e18f12931",
+      "brand_id": "BR-00039",
+      "brand_name": "23区",
+      "first_seen_date": "2026-10-11",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-11",
+      "discovered_at_utc": "2026-10-10T23:43:43.438160+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "ラッセルレース ニット カーディガン",
+      "product_url": "https://crosset.onward.co.jp/items/KRWOLS0359",
+      "product_code": "KRWOLS0359",
+      "display_price": "¥29,920 / ¥20,900",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=002&du=2&scc=1005",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "469fe69bd3b57274cfa9136e73cd88f266749a5e01d3f0c64b03f29e18f12931",
+      "brand_id": "BR-00039",
+      "brand_name": "23区",
+      "first_seen_date": "2026-10-11",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-11",
+      "discovered_at_utc": "2026-10-10T23:43:43.438164+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "【APPLAUDIR】コンパクト ラメカーディガン",
+      "product_url": "https://crosset.onward.co.jp/items/KRAPLS0725",
+      "product_code": "KRAPLS0725",
+      "display_price": "¥19,910 / ¥13,860",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=002&du=2&scc=1005",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "469fe69bd3b57274cfa9136e73cd88f266749a5e01d3f0c64b03f29e18f12931",
+      "brand_id": "BR-00039",
+      "brand_name": "23区",
+      "first_seen_date": "2026-10-11",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-11",
+      "discovered_at_utc": "2026-10-10T23:43:43.438167+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "バイカラーダブルフェイス ニット カーディガン",
+      "product_url": "https://crosset.onward.co.jp/items/KRWOLS0256",
+      "product_code": "KRWOLS0256",
+      "display_price": "¥20,900 / ¥14,630",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=002&du=2&scc=1005",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "469fe69bd3b57274cfa9136e73cd88f266749a5e01d3f0c64b03f29e18f12931",
+      "brand_id": "BR-00039",
+      "brand_name": "23区",
+      "first_seen_date": "2026-10-11",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-11",
+      "discovered_at_utc": "2026-10-10T23:43:43.438169+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "ファンシーツィーディー ポケットデザイン カーディガン",
+      "product_url": "https://crosset.onward.co.jp/items/KRWOLS0257",
+      "product_code": "KRWOLS0257",
+      "display_price": "¥29,920 / ¥17,930",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=002&du=2&scc=1005",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "469fe69bd3b57274cfa9136e73cd88f266749a5e01d3f0c64b03f29e18f12931",
+      "brand_id": "BR-00039",
+      "brand_name": "23区",
+      "first_seen_date": "2026-10-11",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-11",
+      "discovered_at_utc": "2026-10-10T23:43:43.438173+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "ウルトラファインメリノ・クルーネック",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_31141/050",
+      "product_code": "31141",
+      "display_price": "¥ 11,900 / ￥13,090",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=5",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "bea17682d3a313cd68e371317969e39eb83e2da2637067754185f8e01cc2172f",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-11",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-11",
+      "discovered_at_utc": "2026-10-10T23:43:53.412189+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "総針編み・Vネックボタンカーディガン",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_31016/134",
+      "product_code": "31016",
+      "display_price": "¥ 5,950 / ￥6,545",
+      "status_labels": [
+        "SALE"
+      ],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=11&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "9d0dd718af9d4ed59e6f96b1323dbfc055621f77684cbe1f4f7528887399ce24",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-11",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-11",
+      "discovered_at_utc": "2026-10-10T23:43:53.412213+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "【前後着用】スムースストレッチ 5分袖ニット",
+      "product_url": "https://crosset.onward.co.jp/items/KRWXLW0452",
+      "product_code": "KRWXLW0452",
+      "display_price": "¥11,000",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1004",
+      "source_sha256": "065a0d6807383f011dd27f830b605fc9acc9a085b4a3be84c26cc09c55b6f1e8",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_brand_code": "003",
+      "source_gender_scope": "WOMEN",
+      "retrieved_at_utc": "2026-09-08T21:17:42.347395+00:00",
+      "brand_id": "BR-00042",
+      "brand_name": "組曲",
+      "first_seen_date": "2026-09-09",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://crosset.onward.co.jp/items/KRWXLW0452"
+      ],
+      "observed_date": "2026-10-11",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥11,000",
+        "status_labels": [
+          "予約商品"
+        ],
+        "product_name": "【前後着用】スムースストレッチ 5分袖ニット"
+      },
+      "discovered_at_utc": "2026-10-10T23:43:56.752189+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "【WEB限定】スムースストレッチ フレアニット",
+      "product_url": "https://crosset.onward.co.jp/items/KRWXLW0453",
+      "product_code": "KRWXLW0453",
+      "display_price": "¥12,980",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1004",
+      "source_sha256": "065a0d6807383f011dd27f830b605fc9acc9a085b4a3be84c26cc09c55b6f1e8",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_brand_code": "003",
+      "source_gender_scope": "WOMEN",
+      "retrieved_at_utc": "2026-09-08T21:17:42.347395+00:00",
+      "brand_id": "BR-00042",
+      "brand_name": "組曲",
+      "first_seen_date": "2026-09-09",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://crosset.onward.co.jp/items/KRWXLW0453"
+      ],
+      "observed_date": "2026-10-11",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥12,980",
+        "status_labels": [
+          "予約商品"
+        ],
+        "product_name": "【WEB限定】スムースストレッチ フレアニット"
+      },
+      "discovered_at_utc": "2026-10-10T23:43:56.752281+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "スパンコールヤーン 半袖ニット",
+      "product_url": "https://crosset.onward.co.jp/items/KRWXLW0462",
+      "product_code": "KRWXLW0462",
+      "display_price": "¥14,960",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1004",
+      "source_sha256": "065a0d6807383f011dd27f830b605fc9acc9a085b4a3be84c26cc09c55b6f1e8",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_brand_code": "003",
+      "source_gender_scope": "WOMEN",
+      "retrieved_at_utc": "2026-09-08T21:17:48.714972+00:00",
+      "brand_id": "BR-00042",
+      "brand_name": "組曲",
+      "first_seen_date": "2026-09-09",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://crosset.onward.co.jp/items/KRWXLW0462"
+      ],
+      "observed_date": "2026-10-11",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥14,960",
+        "status_labels": [
+          "予約商品"
+        ],
+        "product_name": "スパンコールヤーン 半袖ニット"
+      },
+      "discovered_at_utc": "2026-10-10T23:43:56.752315+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "【WEB＆一部店舗限定】エンブロイダリーブルーム 半袖ニット",
+      "product_url": "https://crosset.onward.co.jp/items/KRWXLW0463",
+      "product_code": "KRWXLW0463",
+      "display_price": "¥14,960",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1004",
+      "source_sha256": "065a0d6807383f011dd27f830b605fc9acc9a085b4a3be84c26cc09c55b6f1e8",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_brand_code": "003",
+      "source_gender_scope": "WOMEN",
+      "retrieved_at_utc": "2026-09-08T21:17:48.714972+00:00",
+      "brand_id": "BR-00042",
+      "brand_name": "組曲",
+      "first_seen_date": "2026-09-09",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://crosset.onward.co.jp/items/KRWXLW0463"
+      ],
+      "observed_date": "2026-10-11",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥14,960",
+        "status_labels": [
+          "予約商品"
+        ],
+        "product_name": "【WEB＆一部店舗限定】エンブロイダリーブルーム 半袖ニット"
+      },
+      "discovered_at_utc": "2026-10-10T23:43:56.752342+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "シアー ニット５分袖 プルオーバー",
+      "product_url": "https://crosset.onward.co.jp/items/KRWXLM6457",
+      "product_code": "KRWXLM6457",
+      "display_price": "¥9,900 / ¥5,940",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=003&du=2&scc=1004",
+      "source_sha256": "8c96b38933521c416689bac6aea6640c0159590b073867bda13eff7dec0383b8",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_brand_code": "003",
+      "source_gender_scope": "WOMEN",
+      "retrieved_at_utc": "2026-09-08T21:18:16.120759+00:00",
+      "brand_id": "BR-00042",
+      "brand_name": "組曲",
+      "first_seen_date": "2026-09-09",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://crosset.onward.co.jp/items/KRWXLM6457"
+      ],
+      "observed_date": "2026-10-11",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥5,940",
+        "status_labels": [],
+        "product_name": "シアー ニット５分袖 プルオーバー"
+      },
+      "discovered_at_utc": "2026-10-10T23:43:56.752367+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "シアーポロ ニット",
+      "product_url": "https://crosset.onward.co.jp/items/KRWXLM0452",
+      "product_code": "KRWXLM0452",
+      "display_price": "¥11,000 / ¥7,700",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=003&du=2&scc=1004",
+      "source_sha256": "8c96b38933521c416689bac6aea6640c0159590b073867bda13eff7dec0383b8",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_brand_code": "003",
+      "source_gender_scope": "WOMEN",
+      "retrieved_at_utc": "2026-09-08T21:18:16.120759+00:00",
+      "brand_id": "BR-00042",
+      "brand_name": "組曲",
+      "first_seen_date": "2026-09-09",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://crosset.onward.co.jp/items/KRWXLM0452"
+      ],
+      "observed_date": "2026-10-11",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥7,700",
+        "status_labels": [],
+        "product_name": "シアーポロ ニット"
+      },
+      "discovered_at_utc": "2026-10-10T23:43:56.752391+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "シアー ニットT",
+      "product_url": "https://crosset.onward.co.jp/items/KRWXLM0453",
+      "product_code": "KRWXLM0453",
+      "display_price": "¥9,900 / ¥5,940",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=003&du=2&scc=1004",
+      "source_sha256": "8c96b38933521c416689bac6aea6640c0159590b073867bda13eff7dec0383b8",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_brand_code": "003",
+      "source_gender_scope": "WOMEN",
+      "retrieved_at_utc": "2026-09-08T21:18:16.120759+00:00",
+      "brand_id": "BR-00042",
+      "brand_name": "組曲",
+      "first_seen_date": "2026-09-09",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://crosset.onward.co.jp/items/KRWXLM0453"
+      ],
+      "observed_date": "2026-10-11",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥5,940",
+        "status_labels": [],
+        "product_name": "シアー ニットT"
+      },
+      "discovered_at_utc": "2026-10-10T23:43:56.752427+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "【美人LABコラボ】ブリングニット タートルネックプルオーバー",
+      "product_url": "https://crosset.onward.co.jp/items/KRWXLW0457",
+      "product_code": "KRWXLW0457",
+      "display_price": "¥9,900",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1004",
+      "source_sha256": "aa642c3a6606b7c52b5bb72e23e67c5dc38e50c8880447545aeec6978639e5ce",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_brand_code": "003",
+      "source_gender_scope": "WOMEN",
+      "retrieved_at_utc": "2026-09-08T21:17:35.619476+00:00",
+      "brand_id": "BR-00042",
+      "brand_name": "組曲",
+      "first_seen_date": "2026-09-09",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://crosset.onward.co.jp/items/KRWXLW0457"
+      ],
+      "observed_date": "2026-10-11",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥9,900",
+        "status_labels": [
+          "NEW"
+        ],
+        "product_name": "【美人LABコラボ】ブリングニット タートルネックプルオーバー"
+      },
+      "discovered_at_utc": "2026-10-10T23:43:56.752450+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "【美人LABコラボ】ブリングニット ドルマンスリーブプルオーバー",
+      "product_url": "https://crosset.onward.co.jp/items/KRWXLW0458",
+      "product_code": "KRWXLW0458",
+      "display_price": "¥9,900",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1004",
+      "source_sha256": "aa642c3a6606b7c52b5bb72e23e67c5dc38e50c8880447545aeec6978639e5ce",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_brand_code": "003",
+      "source_gender_scope": "WOMEN",
+      "retrieved_at_utc": "2026-09-08T21:17:35.619476+00:00",
+      "brand_id": "BR-00042",
+      "brand_name": "組曲",
+      "first_seen_date": "2026-09-09",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://crosset.onward.co.jp/items/KRWXLW0458"
+      ],
+      "observed_date": "2026-10-11",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥9,900",
+        "status_labels": [
+          "NEW"
+        ],
+        "product_name": "【美人LABコラボ】ブリングニット ドルマンスリーブプルオーバー"
+      },
+      "discovered_at_utc": "2026-10-10T23:43:56.752473+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "【WEB限定】スポンディッシュニット 襟付きペプラムカーディガン",
+      "product_url": "https://crosset.onward.co.jp/items/KRWXLW0468",
+      "product_code": "KRWXLW0468",
+      "display_price": "¥16,940",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1004",
+      "source_sha256": "aa642c3a6606b7c52b5bb72e23e67c5dc38e50c8880447545aeec6978639e5ce",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_brand_code": "003",
+      "source_gender_scope": "WOMEN",
+      "retrieved_at_utc": "2026-09-08T21:17:35.619476+00:00",
+      "brand_id": "BR-00042",
+      "brand_name": "組曲",
+      "first_seen_date": "2026-09-09",
+      "last_seen_date": "2026-10-11",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://crosset.onward.co.jp/items/KRWXLW0468"
+      ],
+      "observed_date": "2026-10-11",
+      "material_composition": "[本体]ポリエステル:100%[衿]ポリエステル:100%",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "official_detail": {
+        "product_name": "【先行予約・WEB限定】スポンディッシュニット 襟付きペプラムカーディガン, レッド系, 2",
+        "product_url": "https://crosset.onward.co.jp/items/KRWXLW0468",
+        "description": "<h4>襟付きで華やぐ、ペプラムニットカーディガン</h4><br><h5>■デザイン</h5>・素材を活かした立体的なペプラムシルエットが華やかなニットカーディガン。<br>・さりげなく異素材のフリルを施した襟がきれいめ感と大人可愛さを加えたデザインです。<br>・襟は取り外し可能な仕様で、ノーカラーの状態でも完成度が高く、美しい首元を演出します。<br>・カーディガンとして羽織るのはもちろん、フロントボタンをとめてプルオーバー風にも着用いただけます。<br>・フェミニンなディテールにスポーティなエッセンスが調和した1枚で、いつものボトムスにあわせるワンツーコーデに旬なスタイリングが完成します。<br>・何を着たら良いのかわからない時期の救世主。シーンに合わせて、雰囲気をがらりと変えて着こなせるのも魅力です。<br><br><h5>■素材</h5>・糸の中心が空洞になった特殊な糸を使用しているため、軽やかな着心地とさらっとした肌触りが特徴です。<br>・フォルムをつくる適度なハリ感と上品な光沢感があり、体のラインを拾いすぎない絶妙な生地の厚さもポイント。<br>・オールシーズンお使いいただける素材感で、ご家庭で手洗いできるお手入れのしやすさも魅力です。<br><br>▼同シリーズアイテム<br><a href=\"https://crosset.onward.co.jp/items/OPWXLW0467\" target=\"_blank\">ニットスカートセット(品番: OPWXLW0467)</a><br><br><b>【スタッフコメント】</b><br>▼身長160cm｜着用サイズ2(通常着用サイズM)<br>ふんわりとしたペプラムシルエットが気になるウエスト回りを自然にカバーしてくれます。襟の取り外しができるので、甘めに着たい日は襟付きで、すっきり見せたい日はノーカラーでと、印象を変えて楽しめます。軽やかでやわらかな着心地なので、お仕事やお出かけなど長時間の着用でも快適に過ごせます。<br><br>============================<br>洗濯方法：手洗い可<br>裏地：なし<br>伸縮性：あり<br>透け感：なし<br>============================<br><br><b>【注意事項】</b><br>※撮影時の照明の関係により、色味が若干異なって見える場合がございます。商品の色味はハンガー吊り画像をご参照ください。<br>※画像はサンプルを使用しているため、実際にお届けする商品と色味やサイズ等の仕様に変更がある場合がございます。<br><br><b>▼気になるアイテムは『お気に入り登録』がおすすめ▼</b><br>お好きなカラー＆サイズを選んでハートマークをクリック！<br>再入荷通知や、ラスト1点の通知、セールの通知も受け取ることができます。",
+        "offers": [
+          {
+            "@type": "Offer",
+            "url": "https://crosset.onward.co.jp/items/KRWXLW0468?cc=010",
+            "price": 16940,
+            "priceCurrency": "JPY",
+            "availability": "https://schema.org/PreOrder",
+            "itemCondition": "NewCondition"
+          }
+        ],
+        "evidence_level": "OFFICIAL_PRODUCT_JSONLD",
+        "source_url": "https://crosset.onward.co.jp/items/KRWXLW0468",
+        "composition": "[本体]ポリエステル:100%[衿]ポリエステル:100%",
+        "composition_variants": [
+          "[本体]ポリエステル:100%[衿]ポリエステル:100%"
+        ],
+        "retrieved_at_utc": "2026-09-08T22:06:24.847517+00:00",
+        "source_sha256": "33525d0c58f0e8a1b79c2c5cf2f9df0464cc0509acdd12ed99446a69292226c3",
+        "publication_status": "PUBLISH_HOLD",
+        "human_review_required": true
+      },
+      "observed_price_jpy": 16940,
+      "regular_price_jpy": null,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥16,940",
+        "status_labels": [
+          "予約商品"
+        ],
+        "product_name": "【WEB限定】スポンディッシュニット 襟付きペプラムカーディガン"
+      },
+      "discovered_at_utc": "2026-10-10T23:43:56.752496+00:00",
       "research_status": "FLASH_UNCONFIRMED_DETAILS"
     }
   ],
