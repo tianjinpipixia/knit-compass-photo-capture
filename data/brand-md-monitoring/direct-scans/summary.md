@@ -1,33 +1,15 @@
 # 新商品速報・巡回確認
-観測日：2026-10-11
+観測日：2026-10-12
 
 登録範囲の確認完了：0/65ブランド。
-本日観測した商品：660件。MD用の蓄積として保持します。
+本日観測した商品：524件。MD用の蓄積として保持します。
 初回発見と発売日は区別します。未確認・未取得を「新商品なし」と判定しません。
 
 ## 本日初めて見つけた商品（発売日未確認）
 
 |ブランド|商品|掲載価格|取得元|
 |---|---|---|---|
-|Green Parks|Green Parks effortless casual ここち配色リングドットカーディガン|未確認|[公式商品](https://stripe-club.com/brand/greenparks/item/1006G26H0022)|
-|AMERICAN HOLIC|AMERICAN HOLIC 【WEB限定】バイパチサイドスリットニットプルオーバー|¥ 3,490|[公式商品](https://stripe-club.com/brand/american-holic/item/100HS26H0008)|
-|AMERICAN HOLIC|AMERICAN HOLIC 【WEB限定】Wフェイスラグランニットコーディガン|¥ 5,990|[公式商品](https://stripe-club.com/brand/american-holic/item/100HS26H0007)|
-|AMERICAN HOLIC|AMERICAN HOLIC 【WEB限定】【2点SET】ドットカーディガン＋ペプラムインナー|¥ 4,990|[公式商品](https://stripe-club.com/brand/american-holic/item/100HS26G0016)|
-|AMERICAN HOLIC|AMERICAN HOLIC 【予約】アソートコードフェアリーニット|¥ 3,990|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26H0107)|
-|AMERICAN HOLIC|AMERICAN HOLIC シアー配色ニットカーディガン|¥ 3,490 / ¥ 1,744|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26D0191)|
-|AMERICAN HOLIC|AMERICAN HOLIC 【マルチ機能】リブ半袖カーディガン|¥ 2,990 / ¥ 1,494|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26D0034)|
-|23区|エンブロイダリー レースコンビ ニット|¥24,970|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0471)|
-|23区|【CLASSY.掲載】レースコンビ ニット ビスチェ|¥17,930|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0469)|
-|23区|【一部予約】レーストリム パフスリーブ ニット|¥24,970|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0472)|
-|23区|ラメシェニールファンシー クルーネック ニット|¥25,960|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0475)|
-|23区|プレミアムビオコットン ポケット カーディガン|¥18,920 / ¥15,070|[公式商品](https://crosset.onward.co.jp/items/KRWOLS0350)|
-|23区|プレミアムビオコットン ポケット ボーダー カーディガン|¥19,910 / ¥11,880|[公式商品](https://crosset.onward.co.jp/items/KRWOLS0351)|
-|23区|ラッセルレース ニット カーディガン|¥29,920 / ¥20,900|[公式商品](https://crosset.onward.co.jp/items/KRWOLS0359)|
-|23区|【APPLAUDIR】コンパクト ラメカーディガン|¥19,910 / ¥13,860|[公式商品](https://crosset.onward.co.jp/items/KRAPLS0725)|
-|23区|バイカラーダブルフェイス ニット カーディガン|¥20,900 / ¥14,630|[公式商品](https://crosset.onward.co.jp/items/KRWOLS0256)|
-|23区|ファンシーツィーディー ポケットデザイン カーディガン|¥29,920 / ¥17,930|[公式商品](https://crosset.onward.co.jp/items/KRWOLS0257)|
-|DoCLASSE|ウルトラファインメリノ・クルーネック|¥ 11,900 / ￥13,090|[公式商品](https://www.doclasse.com/item/detail/1_1_31141/050)|
-|DoCLASSE|総針編み・Vネックボタンカーディガン|¥ 5,950 / ￥6,545|[公式商品](https://www.doclasse.com/item/detail/1_1_31016/134)|
+|GALLARDAGALANTE|【10/23(金)12:00～予約開始】【AYUMIコラボ】モヘアシルクボートニットプルオーバー|¥28,600|[公式商品](https://www.palcloset.jp/display/item/GGZ1062405A0004/)|
 
 ## ブランド・婦人対象の判定待ちリンク
 
@@ -41,19 +23,19 @@
 |MUJI|未完了|0|0|
 |ROPÉ PICNIC|未完了|23|0|
 |VIS|未完了|39|0|
-|GLOBAL WORK|未完了|0|2|
+|GLOBAL WORK|未完了|0|1|
 |LOWRYS FARM|未完了|0|0|
 |studio CLIP|未完了|0|0|
 |niko and ...|未完了|0|0|
-|earth music&ecology|未完了|0|0|
+|earth music&ecology|未完了|1|0|
 |Green Parks|未完了|6|0|
-|OPAQUE.CLIP|未完了|0|2|
+|OPAQUE.CLIP|未完了|0|3|
 |index|未完了|0|2|
-|SHOO・LA・RUE|未完了|0|2|
-|grove|未完了|0|2|
+|SHOO・LA・RUE|未完了|0|3|
+|grove|未完了|0|1|
 |ikka|未完了|20|0|
 |coen|未完了|0|0|
-|DoCLASSE|未完了|131|6|
+|DoCLASSE|未完了|44|8|
 |any SiS|未完了|0|0|
 |LEPSIM|未完了|0|0|
 |LAKOLE|未完了|0|0|
@@ -66,20 +48,20 @@
 |Elura|未完了|0|0|
 |mysty woman|未完了|0|0|
 |Andemiu|未完了|0|0|
-|AMERICAN HOLIC|未完了|30|5|
+|AMERICAN HOLIC|未完了|12|6|
 |YECCA VECCA|未完了|2|0|
-|23区|未完了|24|8|
+|23区|未完了|7|8|
 |ICB|未完了|0|0|
 |自由区|未完了|0|0|
-|組曲|未完了|26|7|
+|組曲|未完了|8|7|
 |UNFILO|未完了|0|0|
-|INDIVI|未完了|0|2|
-|UNTITLED|未完了|0|2|
+|INDIVI|未完了|0|1|
+|UNTITLED|未完了|0|1|
 |NATURAL BEAUTY BASIC|未完了|15|0|
 |SENSE OF PLACE|未完了|0|0|
 |B.C STOCK|未完了|0|0|
-|SLOBE IENA|未完了|0|2|
-|green label relaxing|未完了|0|2|
+|SLOBE IENA|未完了|0|1|
+|green label relaxing|未完了|0|1|
 |Spick & Span|未完了|0|0|
 |IÉNA|未完了|0|0|
 |Te chichi|未完了|94|0|
@@ -88,15 +70,15 @@
 |Mila Owen|未完了|0|0|
 |ROPÉ|未完了|27|0|
 |ADAM ET ROPÉ|未完了|33|0|
-|GALLARDAGALANTE|未完了|19|0|
+|GALLARDAGALANTE|未完了|20|0|
 |Whim Gazette|未完了|23|0|
 |LOUNGEDRESS|未完了|17|0|
 |RIVE DROITE|未完了|26|0|
-|DOUDOU|未完了|26|0|
+|DOUDOU|未完了|27|0|
 |SHENERY|未完了|7|0|
 |un dix cors|未完了|7|0|
-|La boutique BonBon|未完了|33|0|
-|natural couture|未完了|21|0|
+|La boutique BonBon|未完了|32|0|
+|natural couture|未完了|23|0|
 |DISCOAT|未完了|11|0|
 |ZARA|未完了|0|0|
 |SNIDEL|未完了|0|0|
@@ -124,11 +106,9 @@
 
 ### GLOBAL WORK
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.dot-st.com/globalwork/disp/itemlist/?mode=&sort=01&groupNm=0&p=1&refineFlg=true&dispNo=001001&dispNoRadio=001001&search_color_cd=&search_size_cd=&search_class_attribute=&search_function_tag=&search_range_price_min=&search_range_price_max=&search_refine_range_min=&search_refine_range_max=&search_price=&goodsType=1&search_campaign=&store_delv_yn=&gift_wrap_yn=&stock=0&pre_rl=
-- https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01
+- https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
 - HTTPError: HTTP Error 403: Forbidden：https://www.dot-st.com/globalwork/disp/itemlist/?mode=&sort=01&groupNm=0&p=1&refineFlg=true&dispNo=001001&dispNoRadio=001001&search_color_cd=&search_size_cd=&search_class_attribute=&search_function_tag=&search_range_price_min=&search_range_price_max=&search_refine_range_min=&search_refine_range_max=&search_price=&goodsType=1&search_campaign=&store_delv_yn=&gift_wrap_yn=&stock=0&pre_rl=
 - HTTPError: HTTP Error 403: Forbidden：https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01
-- HTTPError: HTTP Error 403: Forbidden：https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
 
 ### LOWRYS FARM
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -146,48 +126,39 @@
 - HTTPError: HTTP Error 403: Forbidden：https://www.dot-st.com/nikoand/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
 
 ### earth music&ecology
-入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://stripe-club.com/brand/earth1999/
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### Green Parks
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### OPAQUE.CLIP
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/
-- https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/
+- https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2
+- https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=3
+- https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=3
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2
 
 ### index
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/index/category/WB/WB01/
-- https://store.world.co.jp/s/brand/index/category/WB/WB02/
+- https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2
+- https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/index/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/index/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2
 
 ### SHOO・LA・RUE
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/
-- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/
+- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2
+- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2
+- https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3
 
 ### grove
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/grove/category/WB/WB01/
-- https://store.world.co.jp/s/brand/grove/category/WB/WB02/
+- https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2
 
 ### ikka
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -204,6 +175,8 @@
 - https://www.doclasse.com/item?brand_id=1&category_id=11&page=3
 - https://www.doclasse.com/item?brand_id=1&category_id=12&page=3
 - https://www.doclasse.com/item?brand_id=1&category_id=12&page=8
+- https://www.doclasse.com/item?brand_id=1&category_id=11&page=2
+- https://www.doclasse.com/item?brand_id=1&category_id=12&page=2
 
 ### any SiS
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -271,6 +244,7 @@
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=9
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=7
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=14
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=2
 
 ### YECCA VECCA
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -311,19 +285,15 @@
 
 ### INDIVI
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/indivi/category/WB/WB01/
-- https://store.world.co.jp/s/brand/indivi/category/WB/WB02/
+- https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/indivi/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/indivi/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2
 
 ### UNTITLED
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.world.co.jp/s/brand/untitled/category/WB/WB01/
-- https://store.world.co.jp/s/brand/untitled/category/WB/WB02/
+- https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/untitled/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/untitled/category/WB/WB02/
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2
 
 ### NATURAL BEAUTY BASIC
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -338,19 +308,15 @@
 
 ### SLOBE IENA
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0999
-- https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0999
+- https://baycrews.jp/brand/detail/slobe
 - HTTPError: HTTP Error 403: Forbidden：https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0999
 - HTTPError: HTTP Error 403: Forbidden：https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0999
-- HTTPError: HTTP Error 403: Forbidden：https://baycrews.jp/brand/detail/slobe
 
 ### green label relaxing
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0105
-- https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0108
+- https://store.united-arrows.co.jp/brand/glr/
 - HTTPError: HTTP Error 403: Forbidden：https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0105
 - HTTPError: HTTP Error 403: Forbidden：https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0108
-- HTTPError: HTTP Error 403: Forbidden：https://store.united-arrows.co.jp/brand/glr/
 
 ### Spick & Span
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -426,5 +392,5 @@
 - HTTPError: HTTP Error 403: Forbidden：https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0498
 - HTTPError: HTTP Error 403: Forbidden：https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0498
 
-深掘り待ち：411件。速報は詳細調査の完了を待たず保存します。
+深掘り待ち：412件。速報は詳細調査の完了を待たず保存します。
 詳細・混率・発売日等の不明点は未確認。正式マスター・顧客公開は確認後。
