@@ -1,0 +1,47 @@
+{
+  "format": "KC_SPRING_SOURCE_RECHECK",
+  "checked_at": "2026-10-12T06:26:57Z",
+  "source_commit": "2cce10ddd0884b224746a72680926c3e7bf09a91",
+  "publication_status": "PUBLISH_HOLD",
+  "human_review_required": true,
+  "terminal_cells_added": 0,
+  "findings": [
+    {
+      "brand_id": "BR-00035",
+      "brand_name": "AMERICAN HOLIC",
+      "month": "2026-05",
+      "status": "PARTIAL",
+      "feature_url": "https://stripe-club.com/cts1/stc/2605/topstop8/",
+      "product_urls": [
+        "https://stripe-club.com/brand/american-holic/item/100HS26G0003",
+        "https://stripe-club.com/brand/american-holic/item/100HA26G0083"
+      ],
+      "product_codes": [
+        "0H002191600",
+        "0H002214600"
+      ],
+      "result": "INDIVIDUAL_WOMEN_KNIT_CONFIRMED_CURRENT__MAY_IDENTITY_AND_MONTH_UNPROVEN",
+      "observed_fact": "特集から個別商品2件を取得。ブランド・婦人ニット・メーカー品番を確認したが、現行ページは10月の販売情報で5月の同一商品・掲載日時を確定できない。URL中の2605は月証拠にしない。"
+    },
+    {
+      "brand_id": "BR-00053",
+      "brand_name": "B.C STOCK",
+      "month": "2026-03",
+      "status": "PARTIAL",
+      "feature_url": "https://baycrews.jp/blog/detail/100006047",
+      "product_url": "https://baycrews.jp/item/detail/bcstock/cutsew/26080700614010",
+      "product_code": "26080700614010",
+      "result": "CURRENT_BLOG_HAS_DIFFERENT_KNIT__INDIVIDUAL_PRODUCT_HTTP_404",
+      "observed_fact": "現在の2026-03-03記事は配色ニットカーディガンと3月中旬入荷予定を掲載。元記録の襟付きスキッパーニットとは異なる。個別商品ページは2回の取得で404。検索索引には公式商品のキャッシュがあるが、ライブ個別ページ確認に代えない。"
+    },
+    {
+      "brand_id": "BR-00052",
+      "brand_name": "SENSE OF PLACE",
+      "month": "2026-04",
+      "status": "PARTIAL",
+      "feature_url": "https://www.urban-research.jp/shop/styling/detail.aspx?ismodesmartphone=off&stylingid=26528480&shopname=SENSE+OF+PLACE+%E3%82%A4%E3%82%AA%E3%83%B3%E3%83%A2%E3%83%BC%E3%83%AB%E5%B2%A1%E5%B1%B1",
+      "result": "SOURCE_RETRIEVAL_UNAVAILABLE__INDIVIDUAL_PRODUCT_NOT_RECONFIRMED",
+      "observed_fact": "SENSE OF PLACEの既存4月スナップは取得ツールで本文を再取得できなかった。KBF証拠の除外は維持。サイト全体のオフラインや当月商品なしを意味しない。"
+    }
+  ]
+}

@@ -59,8 +59,25 @@ jobs:
         with:
           python-version: "3.12"
       - name: Validate spring month evidence and counts
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PUSH_BEFORE_SHA: ${{ github.event.before }}
         run: |
-          python scripts/validate_spring_backfill_coverage.py
+          if [[ "$EVENT_NAME" == "pull_request" ]]; then
+            PREVIOUS_REF="$PR_BASE_SHA"
+          elif [[ "$EVENT_NAME" == "push" ]]; then
+            PREVIOUS_REF="$PUSH_BEFORE_SHA"
+          else
+            PREVIOUS_REF=""
+          fi
+          if [[ "$EVENT_NAME" == "pull_request" || "$EVENT_NAME" == "push" ]]; then
+            [[ "$PREVIOUS_REF" =~ ^[0-9a-f]{40}$ ]]
+            git fetch --no-tags --depth=1 origin "$PREVIOUS_REF"
+            python scripts/validate_spring_backfill_coverage.py --previous-ref "$PREVIOUS_REF"
+          else
+            python scripts/validate_spring_backfill_coverage.py
+          fi
           python -m unittest discover -s tests -p 'test_spring_backfill_coverage_integrity.py' -v
           python -m unittest discover -s tests -p 'test_onward_spring_month_evidence.py' -v
           python -m unittest discover -s tests -p 'test_brand64_policy_compatibility.py' -v
