@@ -19,7 +19,11 @@ def test_spring_coverage_cannot_claim_complete_while_pending():
     coverage = load("data/brand-md-monitoring/2026-spring-backfill-coverage.json")
     assert coverage["approved_brand_count"] == 40
     assert coverage["summary"]["total_brand_month_cells"] == 240
-    assert coverage["summary"]["fully_completed_brands"] == 0
+    config = load("config/brand64-md-monitoring.json")
+    terminal = set(config["retrospective_season_backfill"]["completion_gate"]["terminal_month_statuses"])
+    completed = sum(all(cell["status"] in terminal for cell in brand["months"].values())
+                    for brand in coverage["brand_month_coverage"])
+    assert coverage["summary"]["fully_completed_brands"] == completed
     assert coverage["summary"]["status"] == "INCOMPLETE"
     assert coverage["correction"]["previously_reported_retrospective_count_422"] == "NOT_SUPPORTED_BY_CANONICAL_LEDGER"
 
