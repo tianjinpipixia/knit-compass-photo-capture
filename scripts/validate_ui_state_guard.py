@@ -6,6 +6,7 @@ import subprocess
 from pathlib import Path
 
 from tooling import require_node
+from validate_photo_capture_install import CAPTURE_SHELL_BUILD
 
 ROOT = Path(__file__).resolve().parents[1]
 APP = ROOT / "app.js"
@@ -126,7 +127,7 @@ def main() -> None:
         "knit-compass-ui.css?v=2.1.44-independent.1",
         "v04-visual-alignment.css?v=20261008-current-ui-2",
         "mobile-compact-20260827.js?v=3-v04-ui",
-        "sw-register.js?v=2.1.47-independent.19-photo-first",
+        f"sw-register.js?v={CAPTURE_SHELL_BUILD}",
     ):
         require(capture_index, token, "direct capture cache key")
 
