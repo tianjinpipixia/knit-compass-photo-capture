@@ -9,12 +9,19 @@ from datetime import datetime, timezone
 from hashlib import sha256
 import json
 from pathlib import Path
+import re
+import subprocess
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 
 TERMINAL_STATUSES = frozenset({'VERIFIED_PRODUCTS', 'VERIFIED_NO_PRODUCTS'})
 NONTERMINAL_STATUSES = frozenset({'PENDING', 'PARTIAL', 'SOURCE_ACCESS_LIMITED',
                                 'SOURCE_OFFLINE_UNVERIFIED'})
+APPROVED_ROSTER_BLOB = '727f77fb590ddf639a704b00da188c0ec071d730'
+APPROVED_ROSTER_DIGEST = '38495c66a573cf72573bc3897054451835ec2d465d6ee012429506255708c56c'
+INITIAL_INVENTORY_ROWS = 277
+INITIAL_INVENTORY_DIGEST = 'e5336c1542c53d05d4177fedef488926c0d58eb8f76fb882c2b7c4ff8a5c25bc'
+COVERAGE_PATH = 'data/brand-md-monitoring/2026-spring-backfill-coverage.json'
 
 
 def validate_status_policy(gate):
@@ -34,6 +41,9 @@ def validate_roster(brands, roster):
     assert roster['format'] == 'KC_SPRING_APPROVED_ROSTER'
     assert roster['scope_id'] == 'KC40-20260930' and roster['status'] == 'LOCKED_OWNER_APPROVED'
     approved = roster['records']
+    assert roster['source_blob_sha'] == APPROVED_ROSTER_BLOB, 'approved roster source blob mismatch'
+    assert evidence_digest(sorted(approved, key=lambda b: b['brand_id'])) == APPROVED_ROSTER_DIGEST, \
+        'approved roster contents changed from owner-approved scope'
     assert len(approved) == roster['target_brand_count'] == 40
     assert len({b['brand_id'] for b in approved}) == 40
     fields = ('brand_id', 'brand_name', 'research_tier')
@@ -42,13 +52,23 @@ def validate_roster(brands, roster):
     assert dict(Counter(b['research_tier'] for b in brands)) == roster['tier_counts']
 
 
-def validate_evidence_preservation(brands, inventory, original_audit):
+def evidence_counter(brands):
+    return Counter((b['brand_id'], month, evidence_digest(e)) for b in brands
+                   for month, cell in b['months'].items() for e in cell.get('evidence', []))
+
+
+def validate_evidence_preservation(brands, inventory, original_audit, previous_coverage):
     assert inventory['format'] == 'KC_SPRING_EVIDENCE_INVENTORY'
     assert len(inventory['entries']) == inventory['evidence_rows']
+    assert evidence_digest(inventory['entries'][:INITIAL_INVENTORY_ROWS]) == INITIAL_INVENTORY_DIGEST, \
+        'initial evidence inventory rewritten'
     saved = Counter((r['brand_id'], r['month'], r['evidence_sha256']) for r in inventory['entries'])
-    current = Counter((b['brand_id'], month, evidence_digest(e)) for b in brands
-                      for month, cell in b['months'].items() for e in cell.get('evidence', []))
+    current = evidence_counter(brands)
     assert not saved - current, 'preserved evidence deleted or rewritten'
+    assert saved == current, 'new evidence must be registered in the preservation inventory'
+    if previous_coverage is not None:
+        previous = evidence_counter(previous_coverage['brand_month_coverage'])
+        assert not previous - current, 'previous-commit evidence deleted or rewritten'
     original = Counter((c['brand_id'], c['month'], a['url'], a['source_kind'])
                        for c in original_audit['cells'] for a in c['evidence_audit'])
     assert sum(original.values()) == original_audit['scope']['evidence_rows']
@@ -114,7 +134,8 @@ def url_key(value):
                       urlencode(sorted(query)), ''))
 
 
-def validate(coverage, config, ledger, *, approved_roster, evidence_inventory, original_audit, now=None):
+def validate(coverage, config, ledger, *, approved_roster, evidence_inventory, original_audit,
+             previous_coverage=None, now=None):
     now = now or datetime.now(timezone.utc)
     policy = config['retrospective_season_backfill']
     months = policy['completion_gate']['required_months']
@@ -126,7 +147,7 @@ def validate(coverage, config, ledger, *, approved_roster, evidence_inventory, o
     assert len(brands) == coverage['approved_brand_count'] == policy['completion_gate']['required_brands']
     assert len({b['brand_id'] for b in brands}) == len(brands)
     validate_roster(brands, approved_roster)
-    validate_evidence_preservation(brands, evidence_inventory, original_audit)
+    validate_evidence_preservation(brands, evidence_inventory, original_audit, previous_coverage)
     official_urls = {b['brand_id']: b['source_url'] for b in approved_roster['records']}
     assert coverage['publication_status'] == 'PUBLISH_HOLD'
     assert coverage['human_review_required'] is True
@@ -210,16 +231,26 @@ def validate(coverage, config, ledger, *, approved_roster, evidence_inventory, o
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
+    parser.add_argument('--previous-ref', help='Trusted PR base or push-before commit SHA for history preservation')
     args = parser.parse_args()
     def read(path):
         return json.loads((args.root / path).read_text(encoding='utf-8'))
     config = read('config/brand64-md-monitoring.json')
     policy = config['retrospective_season_backfill']
+    previous_coverage = None
+    if args.previous_ref:
+        assert re.fullmatch(r'[0-9a-f]{40}', args.previous_ref), 'previous-ref must be a full commit SHA'
+        previous_coverage = json.loads(subprocess.run(
+            ['git', 'show', f'{args.previous_ref}:{COVERAGE_PATH}'], cwd=args.root,
+            check=True, capture_output=True, text=True).stdout)
     result = validate(read(policy['coverage_status_path']), config, read(policy['ledger_path']),
                       approved_roster=read(policy['approved_roster_path']),
                       evidence_inventory=read(policy['evidence_inventory_path']),
-                      original_audit=read(policy['original_integrity_audit_path']))
-    print(json.dumps({'status': 'PASS', **result}, ensure_ascii=False, indent=2))
+                      original_audit=read(policy['original_integrity_audit_path']),
+                      previous_coverage=previous_coverage)
+    print(json.dumps({'status': 'PASS',
+                      'history_preservation': 'PREVIOUS_COMMIT_CHECKED' if previous_coverage else 'SNAPSHOT_ONLY',
+                      **result}, ensure_ascii=False, indent=2))
 
 
 if __name__ == '__main__':
