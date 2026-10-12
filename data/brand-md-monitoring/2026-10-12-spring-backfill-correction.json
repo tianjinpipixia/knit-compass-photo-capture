@@ -1,0 +1,40 @@
+{
+  "format": "KC_2026_SPRING_BACKFILL_CORRECTION",
+  "schema_version": "1.0",
+  "observed_date": "2026-10-12",
+  "reason": "User requested proper completion of unfinished spring-product retrospective coverage.",
+  "findings": {
+    "canonical_spring_ledger_record_count": 2,
+    "canonical_ledger_brand_count": 1,
+    "canonical_ledger_brands": [
+      "BR-00051"
+    ],
+    "previously_reported_422": "RETRACTED_AS_CANONICAL_SPRING_COUNT",
+    "previously_reported_monthly_47_67_57": "REQUIRES_SOURCE_LINEAGE_BEFORE_USE_AS_MONTHLY_SPRING_COVERAGE",
+    "root_cause": "Existing policy only allowed a tiny retrospective batch after daily/gap work, while other candidate pools were later summarized as if they were canonical spring coverage."
+  },
+  "corrective_actions": [
+    "Make spring backfill an independent track that is not blocked by unresolved daily observation gaps.",
+    "Use approved KC40 scope, deep-dive brands first, then monitoring brands.",
+    "Track January through June separately; May-June are early-summer context and not merged with spring-core without labeling.",
+    "Require month-level official evidence before assigning a product to a month.",
+    "Keep access-limited and offline-unverified cells incomplete.",
+    "Never use candidate-pool or generic retrospective counts as the canonical spring-backfill count."
+  ],
+  "current_state": {
+    "approved_brand_count": 40,
+    "month_window": [
+      "2026-01",
+      "2026-02",
+      "2026-03",
+      "2026-04",
+      "2026-05",
+      "2026-06"
+    ],
+    "completed_brand_count": 0,
+    "canonical_product_count": 2,
+    "status": "BACKFILL_REOPENED"
+  },
+  "publication_status": "PUBLISH_HOLD",
+  "human_review_required": true
+}
