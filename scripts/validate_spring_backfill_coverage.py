@@ -4,10 +4,99 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter
+from calendar import monthrange
 from datetime import datetime, timezone
+from hashlib import sha256
 import json
 from pathlib import Path
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+
+
+TERMINAL_STATUSES = frozenset({'VERIFIED_PRODUCTS', 'VERIFIED_NO_PRODUCTS'})
+NONTERMINAL_STATUSES = frozenset({'PENDING', 'PARTIAL', 'SOURCE_ACCESS_LIMITED',
+                                'SOURCE_OFFLINE_UNVERIFIED'})
+
+
+def validate_status_policy(gate):
+    for key, expected in (('terminal_month_statuses', TERMINAL_STATUSES),
+                          ('nonterminal_month_statuses', NONTERMINAL_STATUSES)):
+        values = gate[key]
+        assert isinstance(values, list) and len(values) == len(expected) and set(values) == expected, \
+            f'completion status policy mismatch: {key}'
+
+
+def evidence_digest(evidence):
+    return sha256(json.dumps(evidence, ensure_ascii=False, sort_keys=True,
+                            separators=(',', ':')).encode('utf-8')).hexdigest()
+
+
+def validate_roster(brands, roster):
+    assert roster['format'] == 'KC_SPRING_APPROVED_ROSTER'
+    assert roster['scope_id'] == 'KC40-20260930' and roster['status'] == 'LOCKED_OWNER_APPROVED'
+    approved = roster['records']
+    assert len(approved) == roster['target_brand_count'] == 40
+    assert len({b['brand_id'] for b in approved}) == 40
+    fields = ('brand_id', 'brand_name', 'research_tier')
+    assert {tuple(b[k] for k in fields) for b in brands} == {tuple(b[k] for k in fields) for b in approved}, \
+        'approved roster ID/name/tier mismatch'
+    assert dict(Counter(b['research_tier'] for b in brands)) == roster['tier_counts']
+
+
+def validate_evidence_preservation(brands, inventory, original_audit):
+    assert inventory['format'] == 'KC_SPRING_EVIDENCE_INVENTORY'
+    assert len(inventory['entries']) == inventory['evidence_rows']
+    saved = Counter((r['brand_id'], r['month'], r['evidence_sha256']) for r in inventory['entries'])
+    current = Counter((b['brand_id'], month, evidence_digest(e)) for b in brands
+                      for month, cell in b['months'].items() for e in cell.get('evidence', []))
+    assert not saved - current, 'preserved evidence deleted or rewritten'
+    original = Counter((c['brand_id'], c['month'], a['url'], a['source_kind'])
+                       for c in original_audit['cells'] for a in c['evidence_audit'])
+    assert sum(original.values()) == original_audit['scope']['evidence_rows']
+    sources = Counter((b['brand_id'], month, e['url'], e['source_kind']) for b in brands
+                      for month, cell in b['months'].items() for e in cell.get('evidence', []))
+    assert not original - sources, 'original audit evidence inventory missing'
+
+
+def validate_evidence_audit(cell):
+    evidence = cell.get('evidence', [])
+    audit = cell.get('evidence_audit', [])
+    assert len(audit) == len(evidence), 'evidence/audit row count mismatch'
+    assert {a['evidence_index'] for a in audit} == set(range(len(evidence))), 'evidence audit indices mismatch'
+    for item in audit:
+        row = evidence[item['evidence_index']]
+        assert item['url'] == row['url'] and item['source_kind'] == row['source_kind'], 'evidence/audit source mismatch'
+        assert item['status'] in {'QUALIFYING_PRODUCT', 'REJECTED', 'SUPPLEMENTARY_UNVERIFIED'}
+
+
+def validate_no_products(cell, brand, month, official_url, now):
+    evidence = cell.get('no_products_evidence')
+    assert isinstance(evidence, list) and evidence and all(isinstance(e, dict) for e in evidence), \
+        'no-products evidence must be a nonempty structured list'
+    check = cell.get('last_checked_at')
+    assert check and timestamp(check) <= now, 'no-products requires an actual check time'
+    assert cell.get('unresolved_reason') is None, 'no-products cannot retain unresolved access or scope issues'
+    year, month_number = map(int, month.split('-'))
+    start, end = f'{month}-01', f'{month}-{monthrange(year, month_number)[1]:02d}'
+    expected_host = urlsplit(official_url).hostname
+    for item in evidence:
+        assert item.get('brand_id') == brand['brand_id'] and item.get('brand_name') == brand['brand_name'], 'no-products brand mismatch'
+        assert item.get('source_kind') == 'OFFICIAL_MONTH_ARCHIVE', 'no-products requires an official monthly archive'
+        assert item.get('product_scope') == 'WOMEN_KNIT' and item.get('month') == month, 'no-products scope/month mismatch'
+        assert item.get('period_start') == start and item.get('period_end') == end, 'no-products must cover the whole month'
+        url_key(item.get('url', ''))
+        assert urlsplit(item['url']).hostname == expected_host, 'no-products source is not the approved official host'
+        assert item.get('source_status') == 'ONLINE' and item.get('inspection_scope') == 'COMPLETE_MONTH', 'no-products access or completeness not established'
+        assert item.get('result') == 'NO_WOMEN_KNIT_PRODUCTS' and item.get('qualifying_product_count') == 0, 'no-products result mismatch'
+        assert item.get('checked_at') and timestamp(item['checked_at']) <= timestamp(check) <= now, 'no-products evidence check time missing or future'
+        assert timestamp(item['checked_at']).date().isoformat() >= end, 'no-products checked before the month ended'
+        assert isinstance(item.get('observed_fact'), str) and item['observed_fact'].strip(), 'no-products observed fact required'
+        assert url_key(item['url']) in {url_key(e['url']) for e in cell.get('evidence', [])}, 'no-products original source lineage missing'
+        indices = {i for i, e in enumerate(cell.get('evidence', []))
+                   if url_key(e['url']) == url_key(item['url']) and e['source_kind'] == item['source_kind']}
+        assert any(a['evidence_index'] in indices and a.get('live_content_retrieved') is True
+                   and a.get('brand_verification') == 'MATCH_CONFIRMED'
+                   and a.get('month_verification') == 'COMPLETE_MONTH_ARCHIVE_CONFIRMED'
+                   for a in cell.get('evidence_audit', [])), 'no-products archive retrieval/brand/month audit missing'
 
 
 def timestamp(value):
@@ -25,16 +114,20 @@ def url_key(value):
                       urlencode(sorted(query)), ''))
 
 
-def validate(coverage, config, ledger, *, now=None):
+def validate(coverage, config, ledger, *, approved_roster, evidence_inventory, original_audit, now=None):
     now = now or datetime.now(timezone.utc)
     policy = config['retrospective_season_backfill']
     months = policy['completion_gate']['required_months']
-    terminal = set(policy['completion_gate']['terminal_month_statuses'])
-    allowed = terminal | set(policy['completion_gate']['nonterminal_month_statuses'])
+    validate_status_policy(policy['completion_gate'])
+    terminal = TERMINAL_STATUSES
+    allowed = terminal | NONTERMINAL_STATUSES
     source_kinds = set(policy['accepted_source_kinds'])
     brands = coverage['brand_month_coverage']
     assert len(brands) == coverage['approved_brand_count'] == policy['completion_gate']['required_brands']
     assert len({b['brand_id'] for b in brands}) == len(brands)
+    validate_roster(brands, approved_roster)
+    validate_evidence_preservation(brands, evidence_inventory, original_audit)
+    official_urls = {b['brand_id']: b['source_url'] for b in approved_roster['records']}
     assert coverage['publication_status'] == 'PUBLISH_HOLD'
     assert coverage['human_review_required'] is True
     assert timestamp(coverage['last_updated_at']) <= now, 'future update time'
@@ -53,6 +146,7 @@ def validate(coverage, config, ledger, *, now=None):
             status_counts[cell['status']] += 1
             observed[cell['status']] += 1
             evidence = cell.get('evidence', [])
+            validate_evidence_audit(cell)
             assert cell['official_pages_checked'] == len({url_key(e['url']) for e in evidence}), 'page count must deduplicate URLs'
             check = cell.get('last_checked_at')
             if check:
@@ -83,7 +177,8 @@ def validate(coverage, config, ledger, *, now=None):
             if cell['status'] == 'VERIFIED_PRODUCTS':
                 assert products and cell['unresolved_reason'] is None, 'terminal product cell lacks qualifying evidence'
             elif cell['status'] == 'VERIFIED_NO_PRODUCTS':
-                assert not products and cell.get('no_products_evidence'), 'no-products claim requires explicit research evidence'
+                assert not products, 'no-products claim conflicts with qualifying products'
+                validate_no_products(cell, brand, month, official_urls[brand['brand_id']], now)
             else:
                 assert cell['unresolved_reason'], 'nonterminal reason required'
             product_count += len(products)
@@ -120,9 +215,13 @@ def main():
         return json.loads((args.root / path).read_text(encoding='utf-8'))
     config = read('config/brand64-md-monitoring.json')
     policy = config['retrospective_season_backfill']
-    result = validate(read(policy['coverage_status_path']), config, read(policy['ledger_path']))
+    result = validate(read(policy['coverage_status_path']), config, read(policy['ledger_path']),
+                      approved_roster=read(policy['approved_roster_path']),
+                      evidence_inventory=read(policy['evidence_inventory_path']),
+                      original_audit=read(policy['original_integrity_audit_path']))
     print(json.dumps({'status': 'PASS', **result}, ensure_ascii=False, indent=2))
 
 
 if __name__ == '__main__':
     main()
+

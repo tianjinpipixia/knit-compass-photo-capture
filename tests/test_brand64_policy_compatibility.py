@@ -49,5 +49,25 @@ class PolicyCompatibilityTests(unittest.TestCase):
             validate_archived_period('2026-04-30/2026-01-01', '2026-01-01/2026-06-30')
 
 
+    def test_nonterminal_statuses_cannot_be_promoted(self):
+        for status in ('PARTIAL', 'PENDING', 'SOURCE_ACCESS_LIMITED', 'SOURCE_OFFLINE_UNVERIFIED'):
+            with self.subTest(status=status):
+                config = copy.deepcopy(self.config)
+                config['retrospective_season_backfill']['completion_gate']['terminal_month_statuses'].append(status)
+                with self.assertRaisesRegex(AssertionError, 'status policy'):
+                    validate_retrospective_policy(config, self.active)
+
+    def test_nonterminal_vocabulary_cannot_be_reduced(self):
+        self.config['retrospective_season_backfill']['completion_gate']['nonterminal_month_statuses'].remove('PARTIAL')
+        with self.assertRaisesRegex(AssertionError, 'status policy'):
+            validate_retrospective_policy(self.config, self.active)
+
+    def test_duplicate_status_policy_rejected(self):
+        self.config['retrospective_season_backfill']['completion_gate']['terminal_month_statuses'].append('VERIFIED_PRODUCTS')
+        with self.assertRaisesRegex(AssertionError, 'status policy'):
+            validate_retrospective_policy(self.config, self.active)
+
+
 if __name__ == '__main__':
     unittest.main()
+
