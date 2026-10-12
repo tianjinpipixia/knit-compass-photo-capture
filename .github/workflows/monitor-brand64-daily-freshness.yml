@@ -56,6 +56,7 @@ jobs:
         run: |
           python scripts/validate_spring_backfill_coverage.py
           python -m unittest discover -s tests -p 'test_spring_backfill_coverage_integrity.py' -v
+          python -m unittest discover -s tests -p 'test_onward_spring_month_evidence.py' -v
           python -m unittest discover -s tests -p 'test_brand64_policy_compatibility.py' -v
       - name: Validate saved observation integrity
         run: python scripts/validate_brand64_daily_freshness.py
