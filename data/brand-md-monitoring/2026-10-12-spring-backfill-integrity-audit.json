@@ -1,16 +1,16 @@
 {
   "format": "KC_SPRING_BACKFILL_INTEGRITY_AUDIT",
   "schema_version": "1.0",
-  "audited_at": "2026-10-12T05:42:43.755Z",
-  "source_commit": "2502d984974a2989d081f719c643e6e96ac29163",
-  "source_tree": "36527788826fb602f4882e1a83136bf44c659b80",
+  "audited_at": "2026-10-12T05:45:47.362Z",
+  "source_commit": "eb15c14ca758197507185bc75ef8670d41dfb3e8",
+  "source_tree": "bad9d4a854390ea4205beb4f603859b4cb2d8027",
   "policy_path": "config/brand64-md-monitoring.json",
   "coverage_path": "data/brand-md-monitoring/2026-spring-backfill-coverage.json",
   "scope": {
     "brands": 40,
     "months": 6,
     "cells": 240,
-    "evidence_rows": 253
+    "evidence_rows": 260
   },
   "review_findings": [
     {
@@ -46,20 +46,20 @@
   ],
   "summary_before": {
     "total_brand_month_cells": 240,
-    "terminal_brand_month_cells": 152,
-    "pending_brand_month_cells": 88,
-    "fully_completed_brands": 22,
+    "terminal_brand_month_cells": 159,
+    "pending_brand_month_cells": 81,
+    "fully_completed_brands": 23,
     "status": "INCOMPLETE",
     "season_evidence_only_brands": 4,
-    "month_verified_brands": 27,
+    "month_verified_brands": 28,
     "note": "Season-level official evidence is stored separately and does not close any month cell."
   },
   "summary_after": {
     "total_brand_month_cells": 240,
     "terminal_brand_month_cells": 6,
     "pending_brand_month_cells": 234,
-    "partial_brand_month_cells": 183,
-    "not_started_brand_month_cells": 51,
+    "partial_brand_month_cells": 189,
+    "not_started_brand_month_cells": 45,
     "fully_completed_brands": 1,
     "status": "INCOMPLETE",
     "season_evidence_only_brands": 6,
@@ -69,49 +69,49 @@
       "2026-01": {
         "total_brand_month_cells": 40,
         "terminal_brand_month_cells": 1,
-        "partial_brand_month_cells": 35,
-        "not_started_brand_month_cells": 4,
+        "partial_brand_month_cells": 36,
+        "not_started_brand_month_cells": 3,
         "verified_product_count": 1
       },
       "2026-02": {
         "total_brand_month_cells": 40,
         "terminal_brand_month_cells": 1,
-        "partial_brand_month_cells": 35,
-        "not_started_brand_month_cells": 4,
+        "partial_brand_month_cells": 36,
+        "not_started_brand_month_cells": 3,
         "verified_product_count": 1
       },
       "2026-03": {
         "total_brand_month_cells": 40,
         "terminal_brand_month_cells": 1,
-        "partial_brand_month_cells": 35,
-        "not_started_brand_month_cells": 4,
+        "partial_brand_month_cells": 36,
+        "not_started_brand_month_cells": 3,
         "verified_product_count": 3
       },
       "2026-04": {
         "total_brand_month_cells": 40,
         "terminal_brand_month_cells": 1,
-        "partial_brand_month_cells": 26,
-        "not_started_brand_month_cells": 13,
+        "partial_brand_month_cells": 27,
+        "not_started_brand_month_cells": 12,
         "verified_product_count": 1
       },
       "2026-05": {
         "total_brand_month_cells": 40,
         "terminal_brand_month_cells": 1,
-        "partial_brand_month_cells": 26,
-        "not_started_brand_month_cells": 13,
+        "partial_brand_month_cells": 27,
+        "not_started_brand_month_cells": 12,
         "verified_product_count": 1
       },
       "2026-06": {
         "total_brand_month_cells": 40,
         "terminal_brand_month_cells": 1,
-        "partial_brand_month_cells": 26,
-        "not_started_brand_month_cells": 13,
+        "partial_brand_month_cells": 27,
+        "not_started_brand_month_cells": 12,
         "verified_product_count": 2
       }
     },
     "note": "Terminal cells require qualifying official individual women-knit product and explicit month evidence. pending_brand_month_cells counts all nonterminal cells; not_started_brand_month_cells counts PENDING only. Product-month observations are not canonical ledger rows or launch counts."
   },
-  "invalid_original_check_times": 189,
+  "invalid_original_check_times": 195,
   "live_product_pages_attempted": 30,
   "live_product_checks": [
     {
@@ -296,7 +296,7 @@
     }
   ],
   "limitations": [
-    "All 253 rows evaluated against gates; newly added LOWRYS FARM and LEPSIM dated-review claims not live reconfirmed, retained as PARTIAL.",
+    "All 260 rows evaluated against source, count and chronology gates. Latest concurrent additions without reconfirmed primary evidence remain PARTIAL.",
     "Missing dates in retrieved text are unresolved, not proof that the dates never existed.",
     "The two canonical ledger records are preserved; a 2026SS label alone assigns neither record to a month.",
     "DoCLASSE dated reviews prove existence in the month, not launch dates or completeness of the month's product population."
@@ -5329,21 +5329,41 @@
       "brand_name": "studio CLIP",
       "month": "2026-01",
       "before": {
-        "status": "PENDING",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": null
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 1,
+        "official_pages_checked": 1,
+        "last_checked_at": "2026-10-12T23:05:00+09:00"
       },
       "after": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
-      "chronology": null,
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://www.dot-st.com/studioclip/disp/item/592172/",
+          "source_kind": "OFFICIAL_PRODUCT_PAGE_REVIEW",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "CLAIMED_MONTH_DATE_NOT_RECONFIRMED"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
+      "chronology": {
+        "brand": "BR-00008",
+        "month": "2026-01",
+        "recorded": "2026-10-12T23:05:00+09:00",
+        "commit": "72f2bb5fd9c681faa3f9307b1afe602b3a59e662",
+        "introduced_at": "2026-10-12T05:39:12Z"
+      },
       "needs": [
-        "MONTH_RESEARCH_NOT_STARTED"
+        "OFFICIAL_INDIVIDUAL_PRODUCT_AND_MONTH_RECONFIRMATION",
+        "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
     {
@@ -5351,21 +5371,41 @@
       "brand_name": "studio CLIP",
       "month": "2026-02",
       "before": {
-        "status": "PENDING",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": null
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 1,
+        "official_pages_checked": 1,
+        "last_checked_at": "2026-10-12T23:05:00+09:00"
       },
       "after": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
-      "chronology": null,
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://www.dot-st.com/studioclip/disp/item/592172/",
+          "source_kind": "OFFICIAL_PRODUCT_PAGE_REVIEW",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "CLAIMED_MONTH_DATE_NOT_RECONFIRMED"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
+      "chronology": {
+        "brand": "BR-00008",
+        "month": "2026-02",
+        "recorded": "2026-10-12T23:05:00+09:00",
+        "commit": "72f2bb5fd9c681faa3f9307b1afe602b3a59e662",
+        "introduced_at": "2026-10-12T05:39:12Z"
+      },
       "needs": [
-        "MONTH_RESEARCH_NOT_STARTED"
+        "OFFICIAL_INDIVIDUAL_PRODUCT_AND_MONTH_RECONFIRMATION",
+        "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
     {
@@ -5373,21 +5413,41 @@
       "brand_name": "studio CLIP",
       "month": "2026-03",
       "before": {
-        "status": "PENDING",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": null
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 1,
+        "official_pages_checked": 1,
+        "last_checked_at": "2026-10-12T23:05:00+09:00"
       },
       "after": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
-      "chronology": null,
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://www.dot-st.com/studioclip/disp/item/592172/",
+          "source_kind": "OFFICIAL_PRODUCT_PAGE_REVIEW",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "CLAIMED_MONTH_DATE_NOT_RECONFIRMED"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
+      "chronology": {
+        "brand": "BR-00008",
+        "month": "2026-03",
+        "recorded": "2026-10-12T23:05:00+09:00",
+        "commit": "72f2bb5fd9c681faa3f9307b1afe602b3a59e662",
+        "introduced_at": "2026-10-12T05:39:12Z"
+      },
       "needs": [
-        "MONTH_RESEARCH_NOT_STARTED"
+        "OFFICIAL_INDIVIDUAL_PRODUCT_AND_MONTH_RECONFIRMATION",
+        "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
     {
@@ -5395,21 +5455,41 @@
       "brand_name": "studio CLIP",
       "month": "2026-04",
       "before": {
-        "status": "PENDING",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": null
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 1,
+        "official_pages_checked": 1,
+        "last_checked_at": "2026-10-12T23:05:00+09:00"
       },
       "after": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
-      "chronology": null,
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://www.dot-st.com/studioclip/disp/item/592172/",
+          "source_kind": "OFFICIAL_PRODUCT_PAGE_REVIEW",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "CLAIMED_MONTH_DATE_NOT_RECONFIRMED"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
+      "chronology": {
+        "brand": "BR-00008",
+        "month": "2026-04",
+        "recorded": "2026-10-12T23:05:00+09:00",
+        "commit": "72f2bb5fd9c681faa3f9307b1afe602b3a59e662",
+        "introduced_at": "2026-10-12T05:39:12Z"
+      },
       "needs": [
-        "MONTH_RESEARCH_NOT_STARTED"
+        "OFFICIAL_INDIVIDUAL_PRODUCT_AND_MONTH_RECONFIRMATION",
+        "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
     {
@@ -5417,21 +5497,41 @@
       "brand_name": "studio CLIP",
       "month": "2026-05",
       "before": {
-        "status": "PENDING",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": null
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 1,
+        "official_pages_checked": 1,
+        "last_checked_at": "2026-10-12T23:05:00+09:00"
       },
       "after": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
-      "chronology": null,
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://www.dot-st.com/studioclip/disp/item/654168/",
+          "source_kind": "OFFICIAL_PRODUCT_PAGE_REVIEW",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "CLAIMED_MONTH_DATE_NOT_RECONFIRMED"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
+      "chronology": {
+        "brand": "BR-00008",
+        "month": "2026-05",
+        "recorded": "2026-10-12T23:05:00+09:00",
+        "commit": "72f2bb5fd9c681faa3f9307b1afe602b3a59e662",
+        "introduced_at": "2026-10-12T05:39:12Z"
+      },
       "needs": [
-        "MONTH_RESEARCH_NOT_STARTED"
+        "OFFICIAL_INDIVIDUAL_PRODUCT_AND_MONTH_RECONFIRMATION",
+        "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
     {
@@ -5439,21 +5539,41 @@
       "brand_name": "studio CLIP",
       "month": "2026-06",
       "before": {
-        "status": "PENDING",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": null
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 1,
+        "official_pages_checked": 1,
+        "last_checked_at": "2026-10-12T23:05:00+09:00"
       },
       "after": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
-      "chronology": null,
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://www.dot-st.com/studioclip/disp/item/590140/",
+          "source_kind": "OFFICIAL_PRODUCT_PAGE_REVIEW",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "CLAIMED_MONTH_DATE_NOT_RECONFIRMED"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
+      "chronology": {
+        "brand": "BR-00008",
+        "month": "2026-06",
+        "recorded": "2026-10-12T23:05:00+09:00",
+        "commit": "72f2bb5fd9c681faa3f9307b1afe602b3a59e662",
+        "introduced_at": "2026-10-12T05:39:12Z"
+      },
       "needs": [
-        "MONTH_RESEARCH_NOT_STARTED"
+        "OFFICIAL_INDIVIDUAL_PRODUCT_AND_MONTH_RECONFIRMATION",
+        "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
     {
@@ -7323,27 +7443,40 @@
       "brand_name": "LEPSIM",
       "month": "2026-04",
       "before": {
-        "status": "PARTIAL",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": "2026-10-12T22:20:00+09:00"
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 1,
+        "official_pages_checked": 1,
+        "last_checked_at": "2026-10-12T23:25:00+09:00"
       },
       "after": {
         "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://www.dot-st.com/lepsim/disp/item/240859/",
+          "source_kind": "OFFICIAL_PRODUCT_PAGE_REVIEW",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "CLAIMED_MONTH_DATE_NOT_RECONFIRMED"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
       "chronology": {
         "brand": "BR-00021",
         "month": "2026-04",
-        "recorded": "2026-10-12T22:20:00+09:00",
-        "commit": "ba40b0edf98912af44bfe19bef1d169e545ce291",
-        "introduced_at": "2026-10-12T05:37:12Z"
+        "recorded": "2026-10-12T23:25:00+09:00",
+        "commit": "eb15c14ca758197507185bc75ef8670d41dfb3e8",
+        "introduced_at": "2026-10-12T05:45:45Z"
       },
       "needs": [
-        "RECONFIRM_OFFICIAL_PRODUCT_BRAND_WOMEN_KNIT_AND_DATED_REVIEW",
+        "OFFICIAL_INDIVIDUAL_PRODUCT_AND_MONTH_RECONFIRMATION",
         "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
@@ -10456,7 +10589,7 @@
     },
     {
       "code": "FUTURE_RECORDED_TIMES",
-      "action": "189 impossible original times retained; 183 unknown cells null; six DoCLASSE actual rechecks preserved"
+      "action": "195 impossible original times retained; 189 unknown cells null; six actual DoCLASSE rechecks preserved"
     },
     {
       "code": "DOCLASSE_QUALIFYING_RECHECK",
@@ -10495,7 +10628,7 @@
       "passed": 3,
       "total": 3
     },
-    "original_evidence_rows": "253_UNCHANGED",
+    "original_evidence_rows": "260_UNCHANGED",
     "canonical_ledger": "UNCHANGED_2_RECORDS",
     "publication_status": "PUBLISH_HOLD",
     "human_review_required": true,
@@ -10508,7 +10641,7 @@
   },
   "concurrent_main_updates": {
     "initial_source_commit": "4ced8f689741304475b8fa4b014ff7e14267ac0e",
-    "incorporated_source_commit": "2502d984974a2989d081f719c643e6e96ac29163",
+    "incorporated_source_commit": "eb15c14ca758197507185bc75ef8670d41dfb3e8",
     "additional_commits": [
       {
         "sha": "a0fe75e32d90aa290c136f126a1cce4fa1966a35",
@@ -10551,7 +10684,7 @@
         "date": "2026-10-12T05:37:12Z"
       }
     ],
-    "additional_cells": 48
+    "additional_cells": 55
   },
   "publication_request": {
     "requested_at": "2026-10-12T05:35:23.054Z",
