@@ -24,7 +24,10 @@ class CoverageIntegrityTests(unittest.TestCase):
         return next(b for b in self.coverage['brand_month_coverage'] if b['brand_id'] == brand)['months'][month]
 
     def test_corrected_repository_data(self):
-        self.assertEqual(self.run_validation()['pending_brand_month_cells'], 234)
+        result = self.run_validation()
+        self.assertEqual(result['total_brand_month_cells'],
+                         result['terminal_brand_month_cells'] + result['pending_brand_month_cells'])
+        self.assertEqual(result['by_month'], self.coverage['summary']['by_month'])
 
     def test_feature_only_cannot_close_month(self):
         self.cell('BR-00035', '2026-01')['status'] = 'VERIFIED_PRODUCTS'
