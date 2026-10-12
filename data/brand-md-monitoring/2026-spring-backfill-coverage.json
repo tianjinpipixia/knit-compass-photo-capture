@@ -8171,9 +8171,9 @@
         "2026-01": {
           "status": "PARTIAL",
           "verified_product_count": 0,
-          "official_pages_checked": 1,
-          "last_checked_at": null,
-          "unresolved_reason": "OFFICIAL_INDIVIDUAL_WOMEN_KNIT_PRODUCT_AND_MONTH_EVIDENCE_NOT_RECONFIRMED",
+          "official_pages_checked": 2,
+          "last_checked_at": "2026-10-12T06:51:00Z",
+          "unresolved_reason": "JANUARY_DATE_AND_MATCHING_STYLED_PRODUCT_NOT_RECONFIRMED",
           "evidence": [
             {
               "source_kind": "OFFICIAL_STRIPE_FEATURE",
@@ -8188,6 +8188,16 @@
               "published_date": "2026-01",
               "observed_fact": "同公式特集のカーディガン部門に配色ニットカーディガン等を掲載。",
               "sales_start_date_proven": false
+            },
+            {
+              "source_kind": "OFFICIAL_PRODUCT_PAGE",
+              "product_code": "0H001140700",
+              "product_name": "バイカラークルーネックニットプルオーバー",
+              "url": "https://stripe-club.com/brand/american-holic/item/100HA26A0006",
+              "published_date": null,
+              "observed_fact": "個別ページの婦人ニット・メーカー品番を確認した。公式ページの検索索引には1月の着用コメントがあるが、開いた本文では日時入りコメントを再取得できず、日付と同一着用品の対応を確認できないため月別件数に加算しない。",
+              "sales_start_date_proven": false,
+              "checked_at": "2026-10-12T06:51:00Z"
             }
           ],
           "verified_product_evidence": [],
@@ -8215,14 +8225,32 @@
               "live_content_retrieved": false,
               "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
               "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+            },
+            {
+              "evidence_index": 2,
+              "url": "https://stripe-club.com/brand/american-holic/item/100HA26A0006",
+              "source_kind": "OFFICIAL_PRODUCT_PAGE",
+              "status": "SUPPLEMENTARY_UNVERIFIED",
+              "reasons": [
+                "DATED_OFFICIAL_STAFF_CONTENT_NOT_RECONFIRMED"
+              ],
+              "live_content_retrieved": true,
+              "brand_verification": "MATCH_CONFIRMED",
+              "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
             }
           ],
           "check_time_audit": {
-            "status": "INVALID_ORIGINAL_TIME_ACTUAL_CHECK_UNKNOWN",
+            "status": "RECHECKED_INVALID_ORIGINAL_TIME",
             "original_last_checked_at": "2026-10-12T18:55:00+09:00",
             "first_recorded_commit": "4ced8f689741304475b8fa4b014ff7e14267ac0e",
             "first_recorded_at": "2026-10-12T01:51:50Z"
-          }
+          },
+          "source_recheck": {
+            "checked_at": "2026-10-12T06:51:00Z",
+            "result": "PARTIAL",
+            "report_path": "data/brand-md-monitoring/2026-10-12-spring-qualifying-source-recheck.json"
+          },
+          "current_individual_product_candidates_not_month_verified": 1
         },
         "2026-02": {
           "status": "PARTIAL",
@@ -8746,11 +8774,11 @@
           }
         },
         "2026-02": {
-          "status": "PARTIAL",
-          "verified_product_count": 0,
-          "official_pages_checked": 2,
-          "last_checked_at": null,
-          "unresolved_reason": "OFFICIAL_INDIVIDUAL_WOMEN_KNIT_PRODUCT_AND_MONTH_EVIDENCE_NOT_RECONFIRMED",
+          "status": "VERIFIED_PRODUCTS",
+          "verified_product_count": 1,
+          "official_pages_checked": 4,
+          "last_checked_at": "2026-10-12T06:51:00Z",
+          "unresolved_reason": null,
           "evidence": [
             {
               "source_kind": "OFFICIAL_STYLING_PAGE",
@@ -8765,9 +8793,53 @@
               "published_date": "2026-02-18",
               "observed_fact": "SENSE OF PLACE公式スタッフスタイリングでスタッズ付きニットを掲載。",
               "sales_start_date_proven": false
+            },
+            {
+              "source_kind": "OFFICIAL_STAFF_STYLING",
+              "url": "https://www.urban-research.jp/shop/styling/detail.aspx?stylingId=26351809",
+              "published_date": "2026-02-26",
+              "observed_fact": "2月26日の公式着用記録がGRAYの同一品番へ直接リンク。個別ページのブランド・品番・ニット分類・WOMENを確認。",
+              "sales_start_date_proven": false,
+              "checked_at": "2026-10-12T06:51:00Z"
+            },
+            {
+              "source_kind": "OFFICIAL_PRODUCT_PAGE",
+              "url": "https://www.urban-research.jp/shop/g/gAA26130-2022011/?goods=1315113",
+              "product_code": "AA26130-2022011",
+              "product_name": "『洗濯可』フリルトリムニットカーディガン",
+              "published_date": "2026-02-26",
+              "observed_fact": "個別ページでブランド・品番・ニットを確認。対象月の公式記録がこの商品へ直接リンクする。発売日としては扱わない。",
+              "sales_start_date_proven": false,
+              "checked_at": "2026-10-12T06:51:00Z"
             }
           ],
-          "verified_product_evidence": [],
+          "verified_product_evidence": [
+            {
+              "product_code": "AA26130-2022011",
+              "product_name": "『洗濯可』フリルトリムニットカーディガン",
+              "url": "https://www.urban-research.jp/shop/g/gAA26130-2022011/?goods=1315113",
+              "source_kind": "OFFICIAL_PRODUCT_PAGE",
+              "brand_id": "BR-00052",
+              "brand_name": "SENSE OF PLACE",
+              "product_scope": "WOMEN_KNIT",
+              "published_date": "2026-02-26",
+              "period_evidence": {
+                "kind": "OFFICIAL_DATED_STYLING_DIRECT_PRODUCT_LINK",
+                "value": "2026-02-26",
+                "source_url": "https://www.urban-research.jp/shop/styling/detail.aspx?stylingId=26351809",
+                "original_evidence_index": 2,
+                "proves": "PRODUCT_LISTED_IN_MONTH",
+                "sales_start_date_proven": false
+              },
+              "checked_at": "2026-10-12T06:51:00Z",
+              "brand_verified": true,
+              "knit_verified": true,
+              "gender_verified": true,
+              "gender_evidence": "OFFICIAL_PRODUCT_TYPE_WOMEN",
+              "month_verified": true,
+              "original_evidence_index": 3
+            }
+          ],
           "evidence_audit": [
             {
               "evidence_index": 0,
@@ -8792,21 +8864,48 @@
               "live_content_retrieved": false,
               "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
               "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+            },
+            {
+              "evidence_index": 2,
+              "url": "https://www.urban-research.jp/shop/styling/detail.aspx?stylingId=26351809",
+              "source_kind": "OFFICIAL_STAFF_STYLING",
+              "status": "SUPPLEMENTARY_UNVERIFIED",
+              "reasons": [
+                "NON_INDIVIDUAL_PERIOD_SOURCE_ONLY"
+              ],
+              "live_content_retrieved": true,
+              "brand_verification": "MATCH_CONFIRMED",
+              "month_verification": "DATED_DIRECT_PRODUCT_LINK_CONFIRMED"
+            },
+            {
+              "evidence_index": 3,
+              "url": "https://www.urban-research.jp/shop/g/gAA26130-2022011/?goods=1315113",
+              "source_kind": "OFFICIAL_PRODUCT_PAGE",
+              "status": "QUALIFYING_PRODUCT",
+              "reasons": [],
+              "live_content_retrieved": true,
+              "brand_verification": "MATCH_CONFIRMED",
+              "month_verification": "DATED_DIRECT_PRODUCT_LINK_CONFIRMED"
             }
           ],
           "check_time_audit": {
-            "status": "INVALID_ORIGINAL_TIME_ACTUAL_CHECK_UNKNOWN",
+            "status": "RECHECKED_INVALID_ORIGINAL_TIME",
             "original_last_checked_at": "2026-10-12T17:50:00+09:00",
             "first_recorded_commit": "efc407d40052770ef9f203725b9108f32febf551",
             "first_recorded_at": "2026-10-12T01:46:03Z"
+          },
+          "source_recheck": {
+            "checked_at": "2026-10-12T06:51:00Z",
+            "result": "VERIFIED_PRODUCTS",
+            "report_path": "data/brand-md-monitoring/2026-10-12-spring-qualifying-source-recheck.json"
           }
         },
         "2026-03": {
-          "status": "PARTIAL",
-          "verified_product_count": 0,
-          "official_pages_checked": 2,
-          "last_checked_at": null,
-          "unresolved_reason": "OFFICIAL_INDIVIDUAL_WOMEN_KNIT_PRODUCT_AND_MONTH_EVIDENCE_NOT_RECONFIRMED",
+          "status": "VERIFIED_PRODUCTS",
+          "verified_product_count": 1,
+          "official_pages_checked": 4,
+          "last_checked_at": "2026-10-12T06:51:00Z",
+          "unresolved_reason": null,
           "evidence": [
             {
               "source_kind": "OFFICIAL_STYLING_PAGE",
@@ -8821,9 +8920,53 @@
               "published_date": "2026-03-12",
               "observed_fact": "SENSE OF PLACE公式スタイリングで2wayリボンヤーンループニットベストを掲載。",
               "sales_start_date_proven": false
+            },
+            {
+              "source_kind": "OFFICIAL_STAFF_STYLING",
+              "url": "https://www.urban-research.jp/shop/styling/detail.aspx?stylingId=26413573",
+              "published_date": "2026-03-15",
+              "observed_fact": "3月15日の公式着用記録がNAVYの同一品番へ直接リンク。個別ページのブランド・品番・ニット分類・WOMENを確認。2月と同一商品だが別月の存在証拠であり、正規台帳の新商品数には加算しない。",
+              "sales_start_date_proven": false,
+              "checked_at": "2026-10-12T06:51:00Z"
+            },
+            {
+              "source_kind": "OFFICIAL_PRODUCT_PAGE",
+              "url": "https://www.urban-research.jp/shop/g/gAA26130-2022011/",
+              "product_code": "AA26130-2022011",
+              "product_name": "『洗濯可』フリルトリムニットカーディガン",
+              "published_date": "2026-03-15",
+              "observed_fact": "個別ページでブランド・品番・ニットを確認。対象月の公式記録がこの商品へ直接リンクする。発売日としては扱わない。",
+              "sales_start_date_proven": false,
+              "checked_at": "2026-10-12T06:51:00Z"
             }
           ],
-          "verified_product_evidence": [],
+          "verified_product_evidence": [
+            {
+              "product_code": "AA26130-2022011",
+              "product_name": "『洗濯可』フリルトリムニットカーディガン",
+              "url": "https://www.urban-research.jp/shop/g/gAA26130-2022011/",
+              "source_kind": "OFFICIAL_PRODUCT_PAGE",
+              "brand_id": "BR-00052",
+              "brand_name": "SENSE OF PLACE",
+              "product_scope": "WOMEN_KNIT",
+              "published_date": "2026-03-15",
+              "period_evidence": {
+                "kind": "OFFICIAL_DATED_STYLING_DIRECT_PRODUCT_LINK",
+                "value": "2026-03-15",
+                "source_url": "https://www.urban-research.jp/shop/styling/detail.aspx?stylingId=26413573",
+                "original_evidence_index": 2,
+                "proves": "PRODUCT_LISTED_IN_MONTH",
+                "sales_start_date_proven": false
+              },
+              "checked_at": "2026-10-12T06:51:00Z",
+              "brand_verified": true,
+              "knit_verified": true,
+              "gender_verified": true,
+              "gender_evidence": "OFFICIAL_PRODUCT_TYPE_WOMEN",
+              "month_verified": true,
+              "original_evidence_index": 3
+            }
+          ],
           "evidence_audit": [
             {
               "evidence_index": 0,
@@ -8848,13 +8991,40 @@
               "live_content_retrieved": false,
               "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
               "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+            },
+            {
+              "evidence_index": 2,
+              "url": "https://www.urban-research.jp/shop/styling/detail.aspx?stylingId=26413573",
+              "source_kind": "OFFICIAL_STAFF_STYLING",
+              "status": "SUPPLEMENTARY_UNVERIFIED",
+              "reasons": [
+                "NON_INDIVIDUAL_PERIOD_SOURCE_ONLY"
+              ],
+              "live_content_retrieved": true,
+              "brand_verification": "MATCH_CONFIRMED",
+              "month_verification": "DATED_DIRECT_PRODUCT_LINK_CONFIRMED"
+            },
+            {
+              "evidence_index": 3,
+              "url": "https://www.urban-research.jp/shop/g/gAA26130-2022011/",
+              "source_kind": "OFFICIAL_PRODUCT_PAGE",
+              "status": "QUALIFYING_PRODUCT",
+              "reasons": [],
+              "live_content_retrieved": true,
+              "brand_verification": "MATCH_CONFIRMED",
+              "month_verification": "DATED_DIRECT_PRODUCT_LINK_CONFIRMED"
             }
           ],
           "check_time_audit": {
-            "status": "INVALID_ORIGINAL_TIME_ACTUAL_CHECK_UNKNOWN",
+            "status": "RECHECKED_INVALID_ORIGINAL_TIME",
             "original_last_checked_at": "2026-10-12T17:50:00+09:00",
             "first_recorded_commit": "efc407d40052770ef9f203725b9108f32febf551",
             "first_recorded_at": "2026-10-12T01:46:03Z"
+          },
+          "source_recheck": {
+            "checked_at": "2026-10-12T06:51:00Z",
+            "result": "VERIFIED_PRODUCTS",
+            "report_path": "data/brand-md-monitoring/2026-10-12-spring-qualifying-source-recheck.json"
           }
         },
         "2026-04": {
@@ -9153,11 +9323,11 @@
           }
         },
         "2026-03": {
-          "status": "PARTIAL",
-          "verified_product_count": 0,
-          "official_pages_checked": 3,
-          "last_checked_at": "2026-10-12T06:26:57Z",
-          "unresolved_reason": "ORIGINAL_PRODUCT_NAME_MISMATCH_AND_OFFICIAL_INDIVIDUAL_PRODUCT_HTTP_404",
+          "status": "VERIFIED_PRODUCTS",
+          "verified_product_count": 3,
+          "official_pages_checked": 6,
+          "last_checked_at": "2026-10-12T06:51:00Z",
+          "unresolved_reason": null,
           "evidence": [
             {
               "source_kind": "OFFICIAL_BLOG",
@@ -9190,9 +9360,115 @@
               "sales_start_date_proven": false,
               "source_access_status": "HTTP_404",
               "checked_at": "2026-10-12T06:26:57Z"
+            },
+            {
+              "source_kind": "OFFICIAL_PRODUCT_PAGE",
+              "url": "https://baycrews.jp/item/detail/bcstock/cutsew/26080700226010",
+              "product_code": "26080700226010",
+              "product_name": "ウォッシャブル / ソウバリボートプルオーバー",
+              "published_date": "2026-03-25",
+              "observed_fact": "個別ページでブランド・品番・ニットを確認。対象月の公式記録がこの商品へ直接リンクする。発売日としては扱わない。",
+              "sales_start_date_proven": false,
+              "checked_at": "2026-10-12T06:51:00Z"
+            },
+            {
+              "source_kind": "OFFICIAL_PRODUCT_PAGE",
+              "url": "https://baycrews.jp/item/detail/bcstock/cutsew/26080700640010",
+              "product_code": "26080700640010",
+              "product_name": "手洗い可 / ヘンリーネックニット",
+              "published_date": "2026-03-25",
+              "observed_fact": "個別ページでブランド・品番・ニットを確認。対象月の公式記録がこの商品へ直接リンクする。発売日としては扱わない。",
+              "sales_start_date_proven": false,
+              "checked_at": "2026-10-12T06:51:00Z"
+            },
+            {
+              "source_kind": "OFFICIAL_PRODUCT_PAGE",
+              "url": "https://baycrews.jp/item/detail/bcstock/cutsew/26080700840010",
+              "product_code": "26080700840010",
+              "product_name": "手洗い可 / テープヤーンミックスニットプルオーバー",
+              "published_date": "2026-03-25",
+              "observed_fact": "個別ページでブランド・品番・ニットを確認。対象月の公式記録がこの商品へ直接リンクする。発売日としては扱わない。",
+              "sales_start_date_proven": false,
+              "checked_at": "2026-10-12T06:51:00Z"
             }
           ],
-          "verified_product_evidence": [],
+          "verified_product_evidence": [
+            {
+              "product_code": "26080700226010",
+              "product_name": "ウォッシャブル / ソウバリボートプルオーバー",
+              "url": "https://baycrews.jp/item/detail/bcstock/cutsew/26080700226010",
+              "source_kind": "OFFICIAL_PRODUCT_PAGE",
+              "brand_id": "BR-00053",
+              "brand_name": "B.C STOCK",
+              "product_scope": "WOMEN_KNIT",
+              "published_date": "2026-03-25",
+              "period_evidence": {
+                "kind": "OFFICIAL_DATED_BLOG_DIRECT_PRODUCT_LINK",
+                "value": "2026-03-25",
+                "source_url": "https://baycrews.jp/blog/detail/100006652",
+                "original_evidence_index": 1,
+                "proves": "PRODUCT_LISTED_IN_MONTH",
+                "sales_start_date_proven": false
+              },
+              "checked_at": "2026-10-12T06:51:00Z",
+              "brand_verified": true,
+              "knit_verified": true,
+              "gender_verified": true,
+              "gender_evidence": "OFFICIAL_BC_STOCK_LADYS_ARTICLE_DIRECTLY_LINKS_EACH_PRODUCT",
+              "month_verified": true,
+              "original_evidence_index": 4
+            },
+            {
+              "product_code": "26080700640010",
+              "product_name": "手洗い可 / ヘンリーネックニット",
+              "url": "https://baycrews.jp/item/detail/bcstock/cutsew/26080700640010",
+              "source_kind": "OFFICIAL_PRODUCT_PAGE",
+              "brand_id": "BR-00053",
+              "brand_name": "B.C STOCK",
+              "product_scope": "WOMEN_KNIT",
+              "published_date": "2026-03-25",
+              "period_evidence": {
+                "kind": "OFFICIAL_DATED_BLOG_DIRECT_PRODUCT_LINK",
+                "value": "2026-03-25",
+                "source_url": "https://baycrews.jp/blog/detail/100006652",
+                "original_evidence_index": 1,
+                "proves": "PRODUCT_LISTED_IN_MONTH",
+                "sales_start_date_proven": false
+              },
+              "checked_at": "2026-10-12T06:51:00Z",
+              "brand_verified": true,
+              "knit_verified": true,
+              "gender_verified": true,
+              "gender_evidence": "OFFICIAL_BC_STOCK_LADYS_ARTICLE_DIRECTLY_LINKS_EACH_PRODUCT",
+              "month_verified": true,
+              "original_evidence_index": 5
+            },
+            {
+              "product_code": "26080700840010",
+              "product_name": "手洗い可 / テープヤーンミックスニットプルオーバー",
+              "url": "https://baycrews.jp/item/detail/bcstock/cutsew/26080700840010",
+              "source_kind": "OFFICIAL_PRODUCT_PAGE",
+              "brand_id": "BR-00053",
+              "brand_name": "B.C STOCK",
+              "product_scope": "WOMEN_KNIT",
+              "published_date": "2026-03-25",
+              "period_evidence": {
+                "kind": "OFFICIAL_DATED_BLOG_DIRECT_PRODUCT_LINK",
+                "value": "2026-03-25",
+                "source_url": "https://baycrews.jp/blog/detail/100006652",
+                "original_evidence_index": 1,
+                "proves": "PRODUCT_LISTED_IN_MONTH",
+                "sales_start_date_proven": false
+              },
+              "checked_at": "2026-10-12T06:51:00Z",
+              "brand_verified": true,
+              "knit_verified": true,
+              "gender_verified": true,
+              "gender_evidence": "OFFICIAL_BC_STOCK_LADYS_ARTICLE_DIRECTLY_LINKS_EACH_PRODUCT",
+              "month_verified": true,
+              "original_evidence_index": 6
+            }
+          ],
           "evidence_audit": [
             {
               "evidence_index": 0,
@@ -9217,11 +9493,14 @@
               "source_kind": "OFFICIAL_BLOG",
               "status": "SUPPLEMENTARY_UNVERIFIED",
               "reasons": [
-                "OFFICIAL_INDIVIDUAL_PRODUCT_URL_MISSING"
+                "NON_INDIVIDUAL_PERIOD_SOURCE_ONLY"
               ],
-              "live_content_retrieved": false,
-              "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
-              "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+              "live_content_retrieved": true,
+              "brand_verification": "MATCH_CONFIRMED",
+              "month_verification": "DATED_DIRECT_PRODUCT_LINK_CONFIRMED",
+              "previous_reasons": [
+                "OFFICIAL_INDIVIDUAL_PRODUCT_URL_MISSING"
+              ]
             },
             {
               "evidence_index": 2,
@@ -9246,6 +9525,36 @@
               "live_content_retrieved": false,
               "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
               "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+            },
+            {
+              "evidence_index": 4,
+              "url": "https://baycrews.jp/item/detail/bcstock/cutsew/26080700226010",
+              "source_kind": "OFFICIAL_PRODUCT_PAGE",
+              "status": "QUALIFYING_PRODUCT",
+              "reasons": [],
+              "live_content_retrieved": true,
+              "brand_verification": "MATCH_CONFIRMED",
+              "month_verification": "DATED_DIRECT_PRODUCT_LINK_CONFIRMED"
+            },
+            {
+              "evidence_index": 5,
+              "url": "https://baycrews.jp/item/detail/bcstock/cutsew/26080700640010",
+              "source_kind": "OFFICIAL_PRODUCT_PAGE",
+              "status": "QUALIFYING_PRODUCT",
+              "reasons": [],
+              "live_content_retrieved": true,
+              "brand_verification": "MATCH_CONFIRMED",
+              "month_verification": "DATED_DIRECT_PRODUCT_LINK_CONFIRMED"
+            },
+            {
+              "evidence_index": 6,
+              "url": "https://baycrews.jp/item/detail/bcstock/cutsew/26080700840010",
+              "source_kind": "OFFICIAL_PRODUCT_PAGE",
+              "status": "QUALIFYING_PRODUCT",
+              "reasons": [],
+              "live_content_retrieved": true,
+              "brand_verification": "MATCH_CONFIRMED",
+              "month_verification": "DATED_DIRECT_PRODUCT_LINK_CONFIRMED"
             }
           ],
           "check_time_audit": {
@@ -9255,10 +9564,17 @@
             "first_recorded_at": "2026-10-12T01:48:32Z"
           },
           "source_recheck": {
-            "checked_at": "2026-10-12T06:26:57Z",
-            "result": "CURRENT_BLOG_HAS_DIFFERENT_KNIT__INDIVIDUAL_PRODUCT_HTTP_404",
-            "report_path": "data/brand-md-monitoring/2026-10-12-spring-priority-source-recheck.json"
-          }
+            "checked_at": "2026-10-12T06:51:00Z",
+            "result": "VERIFIED_PRODUCTS",
+            "report_path": "data/brand-md-monitoring/2026-10-12-spring-qualifying-source-recheck.json"
+          },
+          "source_recheck_history": [
+            {
+              "checked_at": "2026-10-12T06:26:57Z",
+              "result": "CURRENT_BLOG_HAS_DIFFERENT_KNIT__INDIVIDUAL_PRODUCT_HTTP_404",
+              "report_path": "data/brand-md-monitoring/2026-10-12-spring-priority-source-recheck.json"
+            }
+          ]
         },
         "2026-04": {
           "status": "PARTIAL",
@@ -10794,15 +11110,15 @@
   ],
   "summary": {
     "total_brand_month_cells": 240,
-    "terminal_brand_month_cells": 51,
-    "pending_brand_month_cells": 189,
-    "partial_brand_month_cells": 147,
+    "terminal_brand_month_cells": 54,
+    "pending_brand_month_cells": 186,
+    "partial_brand_month_cells": 144,
     "not_started_brand_month_cells": 42,
     "fully_completed_brands": 6,
     "status": "INCOMPLETE",
     "season_evidence_only_brands": 5,
-    "month_verified_brands": 11,
-    "verified_product_month_observations": 55,
+    "month_verified_brands": 13,
+    "verified_product_month_observations": 60,
     "by_month": {
       "2026-01": {
         "total_brand_month_cells": 40,
@@ -10813,17 +11129,17 @@
       },
       "2026-02": {
         "total_brand_month_cells": 40,
-        "terminal_brand_month_cells": 8,
-        "partial_brand_month_cells": 29,
-        "not_started_brand_month_cells": 3,
-        "verified_product_count": 8
-      },
-      "2026-03": {
-        "total_brand_month_cells": 40,
         "terminal_brand_month_cells": 9,
         "partial_brand_month_cells": 28,
         "not_started_brand_month_cells": 3,
-        "verified_product_count": 11
+        "verified_product_count": 9
+      },
+      "2026-03": {
+        "total_brand_month_cells": 40,
+        "terminal_brand_month_cells": 11,
+        "partial_brand_month_cells": 26,
+        "not_started_brand_month_cells": 3,
+        "verified_product_count": 15
       },
       "2026-04": {
         "total_brand_month_cells": 40,
@@ -10851,7 +11167,7 @@
   },
   "publication_status": "PUBLISH_HOLD",
   "human_review_required": true,
-  "last_updated_at": "2026-10-12T06:31:49.315799Z",
+  "last_updated_at": "2026-10-12T06:55:11.744817Z",
   "validation_audit": {
     "audited_at": "2026-10-12T05:46:21.342Z",
     "source_commit": "eb15c14ca758197507185bc75ef8670d41dfb3e8",

@@ -42,7 +42,8 @@ class CoverageIntegrityTests(unittest.TestCase):
             self.run_validation()
 
     def test_duplicate_feature_url_does_not_inflate_pages(self):
-        self.cell('BR-00035', '2026-01')['official_pages_checked'] = 2
+        cell = self.cell('BR-00035', '2026-01')
+        cell['official_pages_checked'] += 1
         with self.assertRaisesRegex(AssertionError, 'page count'):
             self.run_validation()
 
@@ -198,8 +199,8 @@ class CoverageIntegrityTests(unittest.TestCase):
 
     def test_coverage_and_initial_inventory_cannot_be_deleted_together(self):
         cell = self.cell('BR-00035', '2026-01')
-        row = cell['evidence'].pop()
-        cell['evidence_audit'].pop()
+        row = cell['evidence'].pop(1)
+        cell['evidence_audit'].pop(1)
         inventory = self.references['evidence_inventory']
         entry = next(e for e in inventory['entries'] if e['brand_id'] == 'BR-00035'
                      and e['month'] == '2026-01' and e['evidence_sha256'] == evidence_digest(row))
