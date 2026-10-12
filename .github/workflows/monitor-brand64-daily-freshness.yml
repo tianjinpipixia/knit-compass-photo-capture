@@ -7,6 +7,7 @@ name: Monitor brand64 daily freshness
     paths:
       - "config/brand64-active-brands.json"
       - "config/brand64-md-monitoring.json"
+      - "config/2026-spring-approved-roster.json"
       - "config/brand-md-analysis-framework.json"
       - "data/brand-md-monitoring/**"
       - "docs/BRAND64_DAILY_MD_MONITORING.md"
@@ -15,6 +16,7 @@ name: Monitor brand64 daily freshness
       - "tests/test_brand64_retrospective_baseline.py"
       - "scripts/validate_spring_backfill_coverage.py"
       - "tests/test_spring_backfill_coverage_integrity.py"
+      - "tests/test_spring_no_products_evidence.py"
       - "tests/test_brand64_policy_compatibility.py"
       - "scripts/validate_brand_md_analysis_framework.py"
       - ".github/workflows/monitor-brand64-daily-freshness.yml"
@@ -23,6 +25,7 @@ name: Monitor brand64 daily freshness
     paths:
       - "config/brand64-active-brands.json"
       - "config/brand64-md-monitoring.json"
+      - "config/2026-spring-approved-roster.json"
       - "config/brand-md-analysis-framework.json"
       - "data/brand-md-monitoring/**"
       - "docs/BRAND64_DAILY_MD_MONITORING.md"
@@ -31,6 +34,7 @@ name: Monitor brand64 daily freshness
       - "tests/test_brand64_retrospective_baseline.py"
       - "scripts/validate_spring_backfill_coverage.py"
       - "tests/test_spring_backfill_coverage_integrity.py"
+      - "tests/test_spring_no_products_evidence.py"
       - "tests/test_brand64_policy_compatibility.py"
       - "scripts/validate_brand_md_analysis_framework.py"
       - ".github/workflows/monitor-brand64-daily-freshness.yml"
@@ -57,6 +61,7 @@ jobs:
           python scripts/validate_spring_backfill_coverage.py
           python -m unittest discover -s tests -p 'test_spring_backfill_coverage_integrity.py' -v
           python -m unittest discover -s tests -p 'test_brand64_policy_compatibility.py' -v
+          python -m unittest discover -s tests -p 'test_spring_no_products_evidence.py' -v
       - name: Validate saved observation integrity
         run: python scripts/validate_brand64_daily_freshness.py
       - name: Test gated spring retrospective baseline handling
@@ -70,3 +75,4 @@ jobs:
           mkdir -p .canonical-freshness
           git archive FETCH_HEAD data/brand-md-monitoring/direct-scans/cumulative-products | tar -x -C .canonical-freshness
           python scripts/check_brand64_canonical_freshness.py --root .canonical-freshness/data/brand-md-monitoring/direct-scans --max-age-days 1
+
