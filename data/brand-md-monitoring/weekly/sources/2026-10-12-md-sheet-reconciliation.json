@@ -1,0 +1,722 @@
+{
+  "format": "KC_MD_SHEET_RECONCILIATION",
+  "schema_version": "1.0",
+  "observation_date": "2026-10-12",
+  "checked_at_utc": "2026-10-12T20:33:52.541Z",
+  "publication_status": "PUBLISH_HOLD",
+  "human_review_required": true,
+  "report_display_status": "OWNER_VISIBLE",
+  "customer_projection_allowed": false,
+  "display_authorization": {
+    "user_message": "公開",
+    "date": "2026-10-13",
+    "scope": "OWNER_REPORT_VISIBILITY_ONLY"
+  },
+  "official_collection": {
+    "collector": "CHATGPT_OFFICIAL_DIRECT",
+    "brand_count": 24,
+    "product_count": 628,
+    "active_brand_count": 64,
+    "cumulative_product_count": 3510,
+    "complete_brand_count": 0,
+    "formal_unprocessed_days": 42,
+    "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+    "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+    "previous_source_commit": "ecd1ffc75e6c003867bb08510c3fac362d9be786",
+    "raw_delta_events": 82,
+    "unique_product_delta_keys": 80,
+    "first_observed_candidates": 2,
+    "unique_field_changes": 78
+  },
+  "gemini": {
+    "role": "MD_ANALYSIS_ONLY_NOT_OFFICIAL_COLLECTION",
+    "confirmed_brand_count": 46,
+    "signal_count": 220,
+    "individual_signal_text_status": "PENDING",
+    "provenance": {
+      "repository": "tianjinpipixia/knit-compass-photo-capture",
+      "commit": "5d72608b6f45ab80d47e177913d680105ce4412e",
+      "path": "actions/runs/38185741342/artifacts/11719756396#latest.json",
+      "sha256": "7ae07ff190990751eb5e7171f63eebbfe0f2560025fac64a1660cfb9f0870150",
+      "workflow_run_id": "38185741342",
+      "artifact_id": "11719756396",
+      "artifact_digest": "sha256:fbbb418d121cfdad6f19a5887f12aa0e7ab68c86c1b73fe5b3e17789882a5aa0"
+    }
+  },
+  "sheet": {
+    "spreadsheet_id": "1y9OcaFR1649xKbzbucHG9STR81l1RhDF2_6E8PMxeAo",
+    "sheet_name": "ブランド観測_2026",
+    "sheet_id": 20260924,
+    "headers": [
+      "観測日",
+      "ブランド",
+      "品番",
+      "商品名",
+      "分類",
+      "販売状態",
+      "税込表示価格",
+      "組成",
+      "公式の機能訴求",
+      "デザイン・用途",
+      "お届け予定",
+      "2026観測の位置づけ",
+      "2027MDへの仮説",
+      "公式URL",
+      "確認留保・根拠"
+    ],
+    "updated_rows": [
+      {
+        "sheet_row": 2,
+        "values": [
+          46307,
+          "Te chichi",
+          "2601484-32-12",
+          "帯電防止／マシンウォッシャブル レースレイヤードVネックプルオーバー",
+          "ニット",
+          "未確認",
+          5500,
+          "本体：ポリエステル72％・綿28％\nレース：ナイロン100％",
+          "帯電防止／洗濯機洗い可",
+          "襟元・袖口のレース／リブ調の表面感／Vネック",
+          "10/12収集に配送情報なし（個別確認待ち）",
+          "9/24：通常販売・6600円→10/12：5500円・outlet表示。組成・機能名は同じ。10/11比変化なし。",
+          "担当分析（仮説）：9〜10月の洗える綿混＋帯電低減を候補維持。outlet掲載を需要の強さ・投入終了とは断定せず、通常価格と現行表示を分ける。",
+          "https://www.canshop.jp/ap/item/i/A1CAN000A5E5?aid4=2601484-32-12",
+          "公式の分類・組成・機能・価格を確認。条件付き割引は表示価格と分離。同じ機能訴求でも2601536と混率が異なるため、同一糸・同一編地とは断定しない。ゲージ・糸構造・試験値は未確認。\n10/12追記：公式ストアJSONの品番・組成・表示価格・タグを照合。個別ページ再取得不可。機能は公式訴求名で性能値の証明ではない。発売・在庫・試験値・価格変更日は確認待ち。正式登録・公開保留。\n販売状態欄は既存の選択肢を維持。公式タグの事実は位置づけ・根拠欄に記載。outletは通常販売・在庫を確定する値ではない。"
+        ],
+        "source": {
+          "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+          "source_path": "data/brand-md-monitoring/direct-scans/cumulative-products/BR-00058.json",
+          "dedupe_key": "BR-00058|https://www.canshop.jp/ap/item/i/A1CAN000A5E5",
+          "source_url": "https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd:CAN02&fl=bd,bdName,cd,name,price,mkcode,material,icon,mcn2,mcn3",
+          "source_sha256": "bac155441ecb8df5ff2653876533b6204f97ecf6b52170b5e8c91a6630189c0e",
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "evidence_level": "OFFICIAL_STOREFRONT_JSON",
+          "publication_status": "PUBLISH_HOLD",
+          "human_review_required": true
+        }
+      },
+      {
+        "sheet_row": 3,
+        "values": [
+          46307,
+          "Te chichi",
+          "2601536-32-12",
+          "帯電防止／マシンウォッシャブル Vネックプルオーバー",
+          "ニット",
+          "未確認",
+          4950,
+          "ポリエステル66％・綿34％",
+          "帯電防止／洗濯機洗い可",
+          "深めのVネック／ドロップショルダー／シャツ・カットソーとの重ね着",
+          "10/12収集に配送情報なし（個別確認待ち）",
+          "9/24：通常販売・5940円→10/12：4950円・outlet表示。組成・機能名は同じ。10/11比変化なし。",
+          "担当分析（仮説）：9〜10月の洗える綿混＋帯電低減を候補維持。outlet掲載を需要の強さ・投入終了とは断定せず、通常価格と現行表示を分ける。",
+          "https://www.canshop.jp/ap/item/i/A1CAN000A59Z?aid4=2601536-32-12",
+          "公式の分類・組成・機能・価格を確認。条件付き割引は表示価格と分離。ゲージ・糸構造・試験値・ブランドの戦略商品指定は未確認。\n10/12追記：公式ストアJSONの品番・組成・表示価格・タグを照合。個別ページ再取得不可。機能は公式訴求名で性能値の証明ではない。発売・在庫・試験値・価格変更日は確認待ち。正式登録・公開保留。\n販売状態欄は既存の選択肢を維持。公式タグの事実は位置づけ・根拠欄に記載。outletは通常販売・在庫を確定する値ではない。"
+        ],
+        "source": {
+          "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+          "source_path": "data/brand-md-monitoring/direct-scans/cumulative-products/BR-00058.json",
+          "dedupe_key": "BR-00058|https://www.canshop.jp/ap/item/i/A1CAN000A59Z",
+          "source_url": "https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd:CAN02&fl=bd,bdName,cd,name,price,mkcode,material,icon,mcn2,mcn3",
+          "source_sha256": "bac155441ecb8df5ff2653876533b6204f97ecf6b52170b5e8c91a6630189c0e",
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "evidence_level": "OFFICIAL_STOREFRONT_JSON",
+          "publication_status": "PUBLISH_HOLD",
+          "human_review_required": true
+        }
+      },
+      {
+        "sheet_row": 4,
+        "values": [
+          46307,
+          "Te chichi",
+          "2601566-41-12",
+          "WEB限定 パール釦カーディガン《吸湿発熱／帯電防止》",
+          "ニット",
+          "予約",
+          6600,
+          "レーヨン46％・ポリエステル31％・ナイロン23％",
+          "吸湿発熱／帯電防止／洗濯機洗い可（公式表示）",
+          "パール調釦／クルーネック／ゆとりのある袖／前を閉めてトップス兼用",
+          "前回9/24：2026年10月下旬配送（白・黒・赤）。10/12再確認なし",
+          "9/24→10/12：品番・組成・6,600円・予約表示を再観測。配送は前回確認値。10/11比変化なし。",
+          "担当分析（仮説）：非ウール暖感＋帯電低減＋洗濯性を10月後半〜11月候補に。色別配送再確認後に展開月を判断。",
+          "https://www.canshop.jp/ap/item/i/A1CAN000A5HU",
+          "公式検索結果で予約・組成・価格・配送表示を確認。機能欄は『吸湿発熱』と『帯電防止』の説明文が逆に対応しているため、説明文は転記せず確認留保。試験値・機能加工法・他色の配送時期は未確認。\n10/12追記：公式ストアJSONの品番・組成・表示価格・タグを照合。個別ページ再取得不可。機能は公式訴求名で性能値の証明ではない。発売・在庫・試験値・配送・説明文対応は確認待ち。正式登録・公開保留。\n販売状態欄は既存の選択肢を維持。公式タグの事実は位置づけ・根拠欄に記載。outletは通常販売・在庫を確定する値ではない。"
+        ],
+        "source": {
+          "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+          "source_path": "data/brand-md-monitoring/direct-scans/cumulative-products/BR-00058.json",
+          "dedupe_key": "BR-00058|https://www.canshop.jp/ap/item/i/A1CAN000A5HU",
+          "source_url": "https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd:CAN02&fl=bd,bdName,cd,name,price,mkcode,material,icon,mcn2,mcn3",
+          "source_sha256": "bac155441ecb8df5ff2653876533b6204f97ecf6b52170b5e8c91a6630189c0e",
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "evidence_level": "OFFICIAL_STOREFRONT_JSON",
+          "publication_status": "PUBLISH_HOLD",
+          "human_review_required": true
+        }
+      }
+    ],
+    "added_rows": [
+      {
+        "sheet_row": 19,
+        "values": [
+          46307,
+          "対象64ブランド",
+          "KC-RECON-20261012-OFFICIAL",
+          "10/12公式収集・差分照合",
+          "収集監査（商品集計対象外）",
+          "PARTIAL_COVERAGE",
+          "商品価格ではない",
+          "当日24ブランド628商品／active64累積3,510件（source65は3,564件）",
+          "完了ブランド0／未処理42日（9/1〜10/12）",
+          "差分82イベント→商品キー80件（初回2＋変化78）。重複2組除外。",
+          "観測日を発売日・展開月に使わない",
+          "10/11：23ブランド660件・累積3,508→10/12：24ブランド628件・累積3,510。収集範囲が異なるため増減を需要変化と解釈しない。",
+          "担当分析（仮説）：秋機能・装飾ニットと夏機能残存を候補検討に使う。公式JSON・一覧・過去個別証拠の時点を分離。",
+          "https://github.com/tianjinpipixia/knit-compass-v04-current/blob/9a43ae974dd374ef895fac5952dbe2268e5b8d82/public/brand-md-monitor-market-latest.json",
+          "628件を新商品・正式確認完了扱いしない。初回2件中AYUMIコラボは既定方針でMD候補除外。DoCLASSE16820は詳細確認待ち。PUBLISH_HOLD／Human Review Required継続。"
+        ],
+        "source": {
+          "v04_commit": "9a43ae974dd374ef895fac5952dbe2268e5b8d82",
+          "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "verified_shards": 24,
+          "previous_source_commit": "ecd1ffc75e6c003867bb08510c3fac362d9be786",
+          "dedupe_key": "brand_id|product_url; official品番・URLで既存表照合"
+        }
+      },
+      {
+        "sheet_row": 20,
+        "values": [
+          46307,
+          "Gemini MD分析",
+          "KC-RECON-20261012-GEMINI",
+          "同一スナップショットのMD分析実行状況",
+          "分析・推定（商品集計対象外）",
+          "SUCCESS／個別シグナル本文確認待ち",
+          "商品価格ではない",
+          "46ブランド220シグナル（公式収集24ブランド628商品とは別）",
+          "公式機能確認に使用しない",
+          "GEMINI_PRIMARY／MD_ANALYSIS_ONLY_NOT_OFFICIAL_COLLECTION",
+          "発売月の証拠に使用しない",
+          "10/11の227→10/12の220シグナル。件数の減少から市場縮小を推定しない。",
+          "個別仮説は本文と商品根拠を照合後、M列にGemini推定と明記して記録。今回の担当分析とは別管理。",
+          "https://github.com/tianjinpipixia/knit-compass-v04-current/blob/9a43ae974dd374ef895fac5952dbe2268e5b8d82/data/brand-md-monitoring/gemini-analysis-evidence.json",
+          "正本保存ファイルに個別220シグナル本文は含まれず今回取得未了。確認待ち：run38185741342／artifact11719756396。46ブランドは公式確認完了数ではない。PUBLISH_HOLD／Human Review Required継続。"
+        ],
+        "source": {
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "repository": "tianjinpipixia/knit-compass-photo-capture",
+          "commit": "5d72608b6f45ab80d47e177913d680105ce4412e",
+          "path": "actions/runs/38185741342/artifacts/11719756396#latest.json",
+          "sha256": "7ae07ff190990751eb5e7171f63eebbfe0f2560025fac64a1660cfb9f0870150",
+          "workflow_run_id": "38185741342",
+          "artifact_id": "11719756396",
+          "artifact_digest": "sha256:fbbb418d121cfdad6f19a5887f12aa0e7ab68c86c1b73fe5b3e17789882a5aa0",
+          "individual_signal_readback": "PENDING"
+        }
+      },
+      {
+        "sheet_row": 21,
+        "values": [
+          46307,
+          "Te chichi",
+          "2601546-41-12",
+          "【アンチピリング/マシンウォッシャブル】フリルニット",
+          "ニット／公式掲載観測",
+          "公式JSON：new表示／在庫・発売日未確認",
+          7700,
+          "アクリル 53% ポリエステル 27% ナイロン 20%",
+          "アンチピリング／マシンウォッシャブル（公式商品名）",
+          "フリルニット",
+          "発売月・配送未確認",
+          "既存観測表には未登録。10/12公式ストアJSONで品番・組成・価格を確認。GitHubでは既観測商品で10/12新発売ではない。",
+          "担当分析（仮説）：9〜10月の非ウールAC/P/NYに毛玉対策・家庭洗濯性を基本仕様として検証。撚り・編地・ピリング試験で選定。",
+          "https://www.canshop.jp/ap/item/i/A1CAN000A5HT",
+          "公式ストアJSON確認済み。一覧差分と累積JSONのNEW表示が一致しないものがある。機能は訴求名。確認待ち：個別在庫・投入月・配送・試験値・加工法・ゲージ。 PUBLISH_HOLD／Human Review Required継続。"
+        ],
+        "source": {
+          "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+          "source_path": "data/brand-md-monitoring/direct-scans/cumulative-products/BR-00058.json",
+          "dedupe_key": "BR-00058|https://www.canshop.jp/ap/item/i/A1CAN000A5HT",
+          "source_url": "https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd:CAN02&fl=bd,bdName,cd,name,price,mkcode,material,icon,mcn2,mcn3",
+          "source_sha256": "bac155441ecb8df5ff2653876533b6204f97ecf6b52170b5e8c91a6630189c0e",
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "evidence_level": "OFFICIAL_STOREFRONT_JSON",
+          "publication_status": "PUBLISH_HOLD",
+          "human_review_required": true
+        }
+      },
+      {
+        "sheet_row": 22,
+        "values": [
+          46307,
+          "Te chichi",
+          "2601561-41-12",
+          "【静電気防止/マシンウォッシャブル】バイカラーレースニット",
+          "ニット／公式掲載観測",
+          "公式JSON：new表示／在庫・発売日未確認",
+          6600,
+          "本体  ポリエステル 53% レーヨン 34% ナイロン 13% レース部分  ナイロン 100%",
+          "静電気防止／マシンウォッシャブル（公式商品名）",
+          "バイカラーレースニット",
+          "発売月・配送未確認",
+          "既存観測表には未登録。10/12公式ストアJSONで品番・組成・価格を確認。GitHubでは既観測商品で10/12新発売ではない。",
+          "担当分析（仮説）：9〜10月のRY/P/NY＋レース＋帯電低減。既存2601484の綿混とは別配合で提案。",
+          "https://www.canshop.jp/ap/item/i/A1CAN000A5JY",
+          "公式ストアJSON確認済み。一覧差分と累積JSONのNEW表示が一致しないものがある。機能は訴求名。確認待ち：個別在庫・投入月・配送・試験値・加工法・ゲージ。 PUBLISH_HOLD／Human Review Required継続。"
+        ],
+        "source": {
+          "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+          "source_path": "data/brand-md-monitoring/direct-scans/cumulative-products/BR-00058.json",
+          "dedupe_key": "BR-00058|https://www.canshop.jp/ap/item/i/A1CAN000A5JY",
+          "source_url": "https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd:CAN02&fl=bd,bdName,cd,name,price,mkcode,material,icon,mcn2,mcn3",
+          "source_sha256": "bac155441ecb8df5ff2653876533b6204f97ecf6b52170b5e8c91a6630189c0e",
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "evidence_level": "OFFICIAL_STOREFRONT_JSON",
+          "publication_status": "PUBLISH_HOLD",
+          "human_review_required": true
+        }
+      },
+      {
+        "sheet_row": 23,
+        "values": [
+          46307,
+          "Te chichi",
+          "2601525-41-12",
+          "【静電気防止/マシンウォッシャブル】モチーフレースVネックカーディガン",
+          "ニット／公式掲載観測",
+          "公式JSON：new表示／在庫・発売日未確認",
+          6930,
+          "本体  レーヨン 50% ポリエステル 30% ナイロン 20% リブ部分  ポリエステル 53% レーヨン 33% ナイロン 14% レース部分  上糸  ナイロン 100% 下糸  ポリエステル 100%",
+          "静電気防止／マシンウォッシャブル（公式商品名）",
+          "モチーフレースVネックカーディガン",
+          "発売月・配送未確認",
+          "既存観測表には未登録。10/12公式ストアJSONで品番・組成・価格を確認。GitHubでは既観測商品で10/12新発売ではない。",
+          "担当分析（仮説）：秋の羽織り向けRY/P/NY＋レース。身頃・リブ配合差があるため単一混率で設計しない。",
+          "https://www.canshop.jp/ap/item/i/A1CAN000A5KI",
+          "公式ストアJSON確認済み。一覧差分と累積JSONのNEW表示が一致しないものがある。機能は訴求名。確認待ち：個別在庫・投入月・配送・試験値・加工法・ゲージ。 PUBLISH_HOLD／Human Review Required継続。"
+        ],
+        "source": {
+          "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+          "source_path": "data/brand-md-monitoring/direct-scans/cumulative-products/BR-00058.json",
+          "dedupe_key": "BR-00058|https://www.canshop.jp/ap/item/i/A1CAN000A5KI",
+          "source_url": "https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd:CAN02&fl=bd,bdName,cd,name,price,mkcode,material,icon,mcn2,mcn3",
+          "source_sha256": "bac155441ecb8df5ff2653876533b6204f97ecf6b52170b5e8c91a6630189c0e",
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "evidence_level": "OFFICIAL_STOREFRONT_JSON",
+          "publication_status": "PUBLISH_HOLD",
+          "human_review_required": true
+        }
+      },
+      {
+        "sheet_row": 24,
+        "values": [
+          46307,
+          "Te chichi",
+          "2601506-41-12",
+          "【抗菌防臭/帯電防止/マシンウォッシャブル】クルーネックカーディガン",
+          "ニット／公式掲載観測",
+          "公式JSON：new表示／在庫・発売日未確認",
+          4950,
+          "ポリエステル 76% アクリル 14% ナイロン 7% 絹（カイコ） 2% 毛 1%",
+          "抗菌防臭／帯電防止／マシンウォッシャブル（公式商品名）",
+          "クルーネックカーディガン",
+          "発売月・配送未確認",
+          "既存観測表には未登録。10/12公式ストアJSONで品番・組成・価格を確認。GitHubでは既観測商品で10/12新発売ではない。",
+          "担当分析（仮説）：10〜11月の低ウール複合機能候補。低毛率での暖感は未証明。暖息羊毛等と帯電・洗濯・抗菌を分けて試験比較。",
+          "https://www.canshop.jp/ap/item/i/A1CAN000A5J3",
+          "公式ストアJSON確認済み。一覧差分と累積JSONのNEW表示が一致しないものがある。機能は訴求名。確認待ち：個別在庫・投入月・配送・試験値・加工法・ゲージ。 PUBLISH_HOLD／Human Review Required継続。"
+        ],
+        "source": {
+          "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+          "source_path": "data/brand-md-monitoring/direct-scans/cumulative-products/BR-00058.json",
+          "dedupe_key": "BR-00058|https://www.canshop.jp/ap/item/i/A1CAN000A5J3",
+          "source_url": "https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd:CAN02&fl=bd,bdName,cd,name,price,mkcode,material,icon,mcn2,mcn3",
+          "source_sha256": "bac155441ecb8df5ff2653876533b6204f97ecf6b52170b5e8c91a6630189c0e",
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "evidence_level": "OFFICIAL_STOREFRONT_JSON",
+          "publication_status": "PUBLISH_HOLD",
+          "human_review_required": true
+        }
+      },
+      {
+        "sheet_row": 25,
+        "values": [
+          46307,
+          "Te chichi",
+          "2601455-31-12",
+          "【接触冷感/UVカット/マシンウォッシャブル】14G天竺デイリー機能ニットプルオーバー",
+          "ニット／公式掲載観測",
+          "公式JSON：sale表示／在庫未確認",
+          2475,
+          "レーヨン 63% ナイロン 37%",
+          "接触冷感／UVカット／マシンウォッシャブル（公式商品名）",
+          "14G天竺（公式商品名）",
+          "発売月・配送未確認",
+          "10/6横断記録の夏機能残存を10/12個別掲載で補足。新商品ではなくSALE掲載の継続。",
+          "担当分析（仮説）：6〜7月RY/NY機能定番を軸に8〜9月流用を検証。10月SALE掲載では需要延長・売れ筋を証明できない。",
+          "https://www.canshop.jp/ap/item/i/A1CAN000A4XJ",
+          "品番・RY63/NY37・2,475円は公式JSON。初販月、価格基準・割引率・実売、Q-MAX/UPF等は確認待ち。 PUBLISH_HOLD／Human Review Required継続。"
+        ],
+        "source": {
+          "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+          "source_path": "data/brand-md-monitoring/direct-scans/cumulative-products/BR-00058.json",
+          "dedupe_key": "BR-00058|https://www.canshop.jp/ap/item/i/A1CAN000A4XJ",
+          "source_url": "https://www.canshop.jp/ise/select?wt=json&rows=100&sort=fsdt%20desc&fq=bd%3ACAN02&fl=bd%2CbdName%2Ccd%2Cname%2Cprice%2Cmkcode%2Cmaterial%2Cicon%2Cmcn2%2Cmcn3&start=100",
+          "source_sha256": "8cc300e4ccbd020a74d71ddaa754fa9ebd155111b839f9adeef03978d70f7b01",
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "evidence_level": "OFFICIAL_STOREFRONT_JSON",
+          "publication_status": "PUBLISH_HOLD",
+          "human_review_required": true
+        }
+      },
+      {
+        "sheet_row": 26,
+        "values": [
+          46307,
+          "ROPÉ PICNIC",
+          "GDK56050",
+          "アンチピリングミニケーブルペプラムカーディガン",
+          "ニット／公式掲載観測",
+          "公式一覧：2BUY10%OFF表示／在庫未確認",
+          6490,
+          "過去個別確認（9/8）：AC48％/P33％/NY15％/毛4％",
+          "アンチピリング（10/12公式商品名）。性能値未確認",
+          "ミニケーブル／ペプラム（商品名）",
+          "発売月・配送未確認",
+          "表への追加であり新発売ではない。10/11→10/12価格6,490円・表示訴求は同じ。混率は9/8個別証拠を継承。",
+          "担当分析（仮説）：9〜10月低ウールAC主体＋編柄＋毛玉対策。Te chichi非ウールAC系と品質・風合い・コストで比較。",
+          "https://www.junonline.jp/rope-picnic/product/tops/cardigan/GDK56050",
+          "10/12一覧で商品名・品番・価格・条件付き割引表示を確認。混率は過去値で個別再確認待ち。2BUY割引を単品価格に混在させない。発売月・試験値未確認。 PUBLISH_HOLD／Human Review Required継続。"
+        ],
+        "source": {
+          "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+          "source_path": "data/brand-md-monitoring/direct-scans/cumulative-products/BR-00004.json",
+          "dedupe_key": "BR-00004|https://www.junonline.jp/rope-picnic/product/tops/cardigan/GDK56050",
+          "source_url": "https://www.junonline.jp/rope-picnic/product/tops/cardigan/",
+          "source_sha256": "697e320fa93f6b12c3f282e7cb82f3109c84c49f93c845ad62eec1695f145ead",
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "evidence_level": "OFFICIAL_LISTING_CARD",
+          "publication_status": "PUBLISH_HOLD",
+          "human_review_required": true
+        }
+      },
+      {
+        "sheet_row": 27,
+        "values": [
+          46307,
+          "ROPÉ",
+          "GGK26220",
+          "LEVITA 金ボタンクルーネックシアーカーディガン/接触冷感・イージーケア",
+          "ニット／公式掲載観測",
+          "公式一覧掲載／接触冷感・イージーケア表示／在庫未確認",
+          20900,
+          "過去個別確認（9/8）：RY78％/P22％",
+          "接触冷感／ドライタッチ／イージーケア（10/12公式商品名・一覧）",
+          "金ボタン／シアー（商品名）",
+          "5/1・6/11・7/7・8/18の公式着用記事あり（発売日ではない）",
+          "10/11→10/12：20,900円・機能表示は同じ。過去日付付き着用記事と10/12掲載をつなぐ継続観測。",
+          "担当分析（仮説）：5〜8月ドライ・シアーRY/Pを軸に残暑橋渡しを検証。春秋冰麻等とは混率・風合い・試験で比較。商品名LEVITAから糸を特定しない。",
+          "https://www.junonline.jp/rope/product/tops/cardigan/GGK26220",
+          "価格・機能名は10/12一覧。混率は9/8個別証拠。発売月・10月需要・使用糸・ゲージ・試験値は未確認。着用記事の日付は発売日ではない。 PUBLISH_HOLD／Human Review Required継続。"
+        ],
+        "source": {
+          "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+          "source_path": "data/brand-md-monitoring/direct-scans/cumulative-products/BR-00063.json",
+          "dedupe_key": "BR-00063|https://www.junonline.jp/rope/product/tops/cardigan/GGK26220",
+          "source_url": "https://www.junonline.jp/rope/product/tops/cardigan/",
+          "source_sha256": "9718961b82b28d242dcaad8dd0e515c44b0aa14fef5846dd2ca9c9516ae7bfa4",
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "evidence_level": "OFFICIAL_LISTING_CARD",
+          "publication_status": "PUBLISH_HOLD",
+          "human_review_required": true
+        }
+      },
+      {
+        "sheet_row": 28,
+        "values": [
+          46307,
+          "natural couture",
+          "0362050630",
+          "袖口シアーリブニット",
+          "ニット／公式掲載観測",
+          "公式一覧：SALE表示",
+          2990,
+          "混率未確認",
+          "詳細機能未確認（シアー・ファー・レースは性能試験ではない）",
+          "袖口シアーリブニット",
+          "発売月・配送未確認",
+          "10/9最終観測 ¥4,290→10/12 ¥2,990。一覧表示価格差を確認。既存GitHub商品で新発売ではない。",
+          "担当分析（仮説）：部分シアー・装飾を春〜初秋候補に残し、ファーは秋候補。通常表示・SALE価格を分離。価格復帰を素材原価上昇、値下げを需要拡大とは解釈しない。",
+          "https://www.palcloset.jp/display/item/0362050630",
+          "確認済み：公式一覧の品番・表示価格文字列。確認待ち：税・色/サイズ条件、通常/SALE価格、実施日、在庫、混率、投入月。累積タグが過去表示を保持する可能性がある。 PUBLISH_HOLD／Human Review Required継続。"
+        ],
+        "source": {
+          "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+          "source_path": "data/brand-md-monitoring/direct-scans/cumulative-products/BR-00073.json",
+          "dedupe_key": "BR-00073|https://www.palcloset.jp/display/item/0362050630",
+          "source_url": "https://www.palcloset.jp/display/display/?mode=zSearch&SearchItem.SORT_KEY=NEWARRIVAL_DESC&b=naturalcouture&c=1104%2C1105&sex=001",
+          "source_sha256": "ec9e74e8af05eaf9c20c5d3c28bf637b54724a2d642174bbce514c4a9adab296",
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "evidence_level": "OFFICIAL_LISTING_CARD",
+          "publication_status": "PUBLISH_HOLD",
+          "human_review_required": true
+        }
+      },
+      {
+        "sheet_row": 29,
+        "values": [
+          46307,
+          "La boutique BonBon",
+          "LBZ1062105A0001",
+          "【オフショル着用可能・最強愛されニット】フェイクファースリーブニット",
+          "ニット／公式掲載観測",
+          "確認待ち：日次SALE消失／累積SALEタグ不一致",
+          15400,
+          "混率未確認",
+          "詳細機能未確認（シアー・ファー・レースは性能試験ではない）",
+          "フェイクファースリーブニット",
+          "発売月・配送未確認",
+          "10/11観測 ¥10,318→10/12 ¥15,400。一覧表示価格差を確認。既存GitHub商品で新発売ではない。",
+          "担当分析（仮説）：部分シアー・装飾を春〜初秋候補に残し、ファーは秋候補。通常表示・SALE価格を分離。価格復帰を素材原価上昇、値下げを需要拡大とは解釈しない。",
+          "https://www.palcloset.jp/display/item/LBZ1062105A0001",
+          "確認済み：公式一覧の品番・表示価格文字列。確認待ち：税・色/サイズ条件、通常/SALE価格、実施日、在庫、混率、投入月。累積タグが過去表示を保持する可能性がある。 PUBLISH_HOLD／Human Review Required継続。"
+        ],
+        "source": {
+          "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+          "source_path": "data/brand-md-monitoring/direct-scans/cumulative-products/BR-00072.json",
+          "dedupe_key": "BR-00072|https://www.palcloset.jp/display/item/LBZ1062105A0001",
+          "source_url": "https://www.palcloset.jp/display/display/?mode=zSearch&SearchItem.SORT_KEY=NEWARRIVAL_DESC&b=laboutiquebonbon&c=1104%2C1105&sex=001",
+          "source_sha256": "51a9d3690cf9f6eee8b63966c0b46ad312352d21f6c159c9f94d433ce5ef3704",
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "evidence_level": "OFFICIAL_LISTING_CARD",
+          "publication_status": "PUBLISH_HOLD",
+          "human_review_required": true
+        }
+      },
+      {
+        "sheet_row": 30,
+        "values": [
+          46307,
+          "La boutique BonBon",
+          "LBZ1062205A0010",
+          "【繊細レースで女子力UP！】レース付きVネックニット",
+          "ニット／公式掲載観測",
+          "確認待ち：日次SALE消失／累積SALEタグ不一致",
+          14850,
+          "過去確認値（8/23・再確認待ち）：本体RY70％/P30％、レースNY100％",
+          "詳細機能未確認（シアー・ファー・レースは性能試験ではない）",
+          "レース付きVネックニット",
+          "発売月・配送未確認",
+          "10/11観測 ¥9,949→10/12 ¥14,850。一覧表示価格差を確認。既存GitHub商品で新発売ではない。",
+          "担当分析（仮説）：部分シアー・装飾を春〜初秋候補に残し、ファーは秋候補。通常表示・SALE価格を分離。価格復帰を素材原価上昇、値下げを需要拡大とは解釈しない。",
+          "https://www.palcloset.jp/display/item/LBZ1062205A0010",
+          "確認済み：公式一覧の品番・表示価格文字列。確認待ち：税・色/サイズ条件、通常/SALE価格、実施日、在庫、混率、投入月。累積タグが過去表示を保持する可能性がある。 PUBLISH_HOLD／Human Review Required継続。"
+        ],
+        "source": {
+          "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+          "source_path": "data/brand-md-monitoring/direct-scans/cumulative-products/BR-00072.json",
+          "dedupe_key": "BR-00072|https://www.palcloset.jp/display/item/LBZ1062205A0010",
+          "source_url": "https://www.palcloset.jp/display/display/?mode=zSearch&SearchItem.SORT_KEY=NEWARRIVAL_DESC&b=laboutiquebonbon&c=1104%2C1105&sex=001",
+          "source_sha256": "51a9d3690cf9f6eee8b63966c0b46ad312352d21f6c159c9f94d433ce5ef3704",
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "evidence_level": "OFFICIAL_LISTING_CARD",
+          "publication_status": "PUBLISH_HOLD",
+          "human_review_required": true
+        }
+      },
+      {
+        "sheet_row": 31,
+        "values": [
+          46307,
+          "組曲",
+          "KRWXLW0557",
+          "【WEB限定】ブラッシングニット 襟付きカーディガン",
+          "ニット／公式掲載観測",
+          "確認待ち：先行予約文言・予約タグの消失を日次一覧で観測",
+          14960,
+          "混率未確認",
+          "詳細機能未確認",
+          "商品名から確認。編地詳細未確認",
+          "発売月・配送未確認",
+          "10/11→10/12：先行予約の商品名・予約表示が消失。価格は同じ。通常販売移行・配送開始は未確認。",
+          "担当分析（仮説）：10月ブラッシング／フリル襟候補。個別ページの販売開始・配送時期を確認後に展開月を確定。",
+          "https://crosset.onward.co.jp/items/KRWXLW0557",
+          "公式一覧の品番・商品名・価格差分を確認。混率・機能・在庫・配送・予約終了は確認待ち。0556は日次差分と累積予約タグが不一致。新発売扱いしない。 PUBLISH_HOLD／Human Review Required継続。"
+        ],
+        "source": {
+          "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+          "source_path": "data/brand-md-monitoring/direct-scans/cumulative-products/BR-00042.json",
+          "dedupe_key": "BR-00042|https://crosset.onward.co.jp/items/KRWXLW0557",
+          "source_url": "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=10&du=2&scc=1004",
+          "source_sha256": "3da016aa5f0c17363bf302afb03f5fc9e0e46331bf44f22b16640cb6b8280a15",
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "evidence_level": "OFFICIAL_LISTING_CARD",
+          "publication_status": "PUBLISH_HOLD",
+          "human_review_required": true
+        }
+      },
+      {
+        "sheet_row": 32,
+        "values": [
+          46307,
+          "組曲",
+          "KRWXLW0558",
+          "【WEB限定】ブラッシングニット プルオーバー",
+          "ニット／公式掲載観測",
+          "確認待ち：先行予約文言・予約タグの消失を日次一覧で観測",
+          14960,
+          "混率未確認",
+          "詳細機能未確認",
+          "商品名から確認。編地詳細未確認",
+          "発売月・配送未確認",
+          "10/11→10/12：先行予約の商品名・予約表示が消失。価格は同じ。通常販売移行・配送開始は未確認。",
+          "担当分析（仮説）：10月ブラッシング／フリル襟候補。個別ページの販売開始・配送時期を確認後に展開月を確定。",
+          "https://crosset.onward.co.jp/items/KRWXLW0558",
+          "公式一覧の品番・商品名・価格差分を確認。混率・機能・在庫・配送・予約終了は確認待ち。0556は日次差分と累積予約タグが不一致。新発売扱いしない。 PUBLISH_HOLD／Human Review Required継続。"
+        ],
+        "source": {
+          "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+          "source_path": "data/brand-md-monitoring/direct-scans/cumulative-products/BR-00042.json",
+          "dedupe_key": "BR-00042|https://crosset.onward.co.jp/items/KRWXLW0558",
+          "source_url": "https://crosset.onward.co.jp/items?bc=003&gc=2&pp=10&du=2&scc=1004",
+          "source_sha256": "3da016aa5f0c17363bf302afb03f5fc9e0e46331bf44f22b16640cb6b8280a15",
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "evidence_level": "OFFICIAL_LISTING_CARD",
+          "publication_status": "PUBLISH_HOLD",
+          "human_review_required": true
+        }
+      },
+      {
+        "sheet_row": 33,
+        "values": [
+          46307,
+          "組曲",
+          "KRWXLW0556",
+          "シックニット フリル襟付きプルオーバー",
+          "ニット／公式掲載観測",
+          "確認待ち：先行予約文言・予約タグの消失を日次一覧で観測",
+          13970,
+          "混率未確認",
+          "詳細機能未確認",
+          "商品名から確認。編地詳細未確認",
+          "発売月・配送未確認",
+          "10/11→10/12：先行予約の商品名・予約表示が消失。価格は同じ。通常販売移行・配送開始は未確認。",
+          "担当分析（仮説）：10月ブラッシング／フリル襟候補。個別ページの販売開始・配送時期を確認後に展開月を確定。",
+          "https://crosset.onward.co.jp/items/KRWXLW0556",
+          "公式一覧の品番・商品名・価格差分を確認。混率・機能・在庫・配送・予約終了は確認待ち。0556は日次差分と累積予約タグが不一致。新発売扱いしない。 PUBLISH_HOLD／Human Review Required継続。"
+        ],
+        "source": {
+          "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+          "source_path": "data/brand-md-monitoring/direct-scans/cumulative-products/BR-00042.json",
+          "dedupe_key": "BR-00042|https://crosset.onward.co.jp/items/KRWXLW0556",
+          "source_url": "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1004",
+          "source_sha256": "22aae8802ca05a71158b6ab4c671688a28a508f55604b0a19befb70422500079",
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "evidence_level": "OFFICIAL_LISTING_CARD",
+          "publication_status": "PUBLISH_HOLD",
+          "human_review_required": true
+        }
+      },
+      {
+        "sheet_row": 34,
+        "values": [
+          46307,
+          "SHENERY",
+          "SNZ1062305A0005",
+          "【10/15 10:00販売スタート】【Silhouette Hacker】ディープVネックブークレニット",
+          "ニット／公式掲載観測",
+          "確認待ち：商品名に10/15 10:00販売スタート",
+          14300,
+          "混率未確認",
+          "保温性等未確認（ブークレは素材・表面表現）",
+          "ディープVネック／ブークレ（商品名）",
+          "商品名：10/15 10:00販売スタート（年・配送未確認）",
+          "10/12一覧名は販売予定告知。NEW消失でも販売済みとは扱わない。既観測商品。",
+          "担当分析（仮説）：10月中旬の表面感候補。毛混率・風合い・ピリングを確認し秋素材へ採用判断。",
+          "https://www.palcloset.jp/display/item/SNZ1062305A0005",
+          "一覧の品番・14,300円・日時文字列を確認。年、個別販売開始、混率・機能・配送・在庫は確認待ち。 PUBLISH_HOLD／Human Review Required継続。"
+        ],
+        "source": {
+          "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+          "source_path": "data/brand-md-monitoring/direct-scans/cumulative-products/BR-00070.json",
+          "dedupe_key": "BR-00070|https://www.palcloset.jp/display/item/SNZ1062305A0005",
+          "source_url": "https://www.palcloset.jp/display/display/?mode=zSearch&SearchItem.SORT_KEY=NEWARRIVAL_DESC&b=shenery&c=1104%2C1105&sex=001",
+          "source_sha256": "5dc1ea4711d0241ca5f93f7c163c6931971e4cd6cc3b80ec9f8d3ef8b82534ce",
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "evidence_level": "OFFICIAL_LISTING_CARD",
+          "publication_status": "PUBLISH_HOLD",
+          "human_review_required": true
+        }
+      },
+      {
+        "sheet_row": 35,
+        "values": [
+          46307,
+          "DoCLASSE",
+          "16820",
+          "モダールリネン・ドレープカーディガン",
+          "ニット／公式掲載観測",
+          "公式一覧初回観測／詳細・在庫・発売日確認待ち",
+          "税込候補2,739円（併記2,490円。税区分の個別確認待ち）",
+          "混率未確認",
+          "モダール・リネンは商品名のみ／機能未確認",
+          "ドレープカーディガン（商品名）",
+          "発売月・配送未確認",
+          "10/12初回観測候補。初販日・2026新作とは未確認。価格二重併記で混率なし。",
+          "担当分析（仮説）：5月ドライ・ドレープ羽織り／8〜9月残暑橋渡し候補。混率・現物確認まで素材採用・月別配置は保留。",
+          "https://www.doclasse.com/item/detail/1_1_16820/600",
+          "確認済み：品番16820・商品名・一覧価格文字列。確認待ち：個別婦人ニット分類、混率、税、定価/SALE、発売・配送・在庫。初回観測は新商品判定ではない。 PUBLISH_HOLD／Human Review Required継続。"
+        ],
+        "source": {
+          "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+          "source_path": "data/brand-md-monitoring/direct-scans/cumulative-products/BR-00018.json",
+          "dedupe_key": "BR-00018|https://www.doclasse.com/item/detail/1_1_16820/600",
+          "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=11&page=3",
+          "source_sha256": "67ea0166a33d946864a5f2f54b57e02b90b7964b7178503f602b7b5ef7acf13f",
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "evidence_level": "OFFICIAL_LISTING_CARD",
+          "publication_status": "PUBLISH_HOLD",
+          "human_review_required": true
+        }
+      },
+      {
+        "sheet_row": 36,
+        "values": [
+          46307,
+          "ikka",
+          "12140332",
+          "【接触冷感】シア－ニットカーディガン",
+          "ニット／公式掲載観測",
+          "確認待ち：日次SALE消失／累積SALEタグ不一致",
+          3839,
+          "混率未確認",
+          "接触冷感（公式商品名）。性能未確認",
+          "シアーニットカーディガン（商品名）",
+          "発売月・配送未確認",
+          "日次差分ではSALEが消失、3,839円は同じ。累積はSALEを保持。売切れ・SALE終了・通常販売移行は未確定。",
+          "担当分析（仮説）：夏機能とシアーの10月掲載例。残暑延長の売上根拠に使わず、6〜7月素材比較候補として詳細確認。",
+          "https://tokyodesignchannel.com/c/ikka/ikkaladies/ikkalknit/12140332",
+          "確認済み：一覧品番・機能名・価格文字列。混率・色サイズ在庫・税・SALE状態・初販月・試験値は確認待ち。 PUBLISH_HOLD／Human Review Required継続。"
+        ],
+        "source": {
+          "source_commit": "f3bac45344d78681e5a8f65eeafa75375a4caeee",
+          "source_path": "data/brand-md-monitoring/direct-scans/cumulative-products/BR-00016.json",
+          "dedupe_key": "BR-00016|https://tokyodesignchannel.com/c/ikka/ikkaladies/ikkalknit/12140332",
+          "source_url": "https://tokyodesignchannel.com/c/ikka/ikkaladies/ikkalknit/",
+          "source_sha256": "81e7bfcbc2cd809b9ba31a325d1e66f44a32fb5663235cfc25e63a5a0b110bf8",
+          "manifest_sha256": "2cf16a1c8221eadb46bf60d2445b81e72627fad70db8953ec1c37e8e3914335b",
+          "evidence_level": "OFFICIAL_LISTING_CARD",
+          "publication_status": "PUBLISH_HOLD",
+          "human_review_required": true
+        }
+      }
+    ]
+  },
+  "formal_registration": false,
+  "first_seen_is_sales_start": false
+}
