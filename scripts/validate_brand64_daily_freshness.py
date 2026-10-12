@@ -8,6 +8,8 @@ from datetime import date
 from pathlib import Path
 from urllib.parse import urlparse
 
+from validate_spring_backfill_coverage import validate_status_policy
+
 from brand64_retrospective_baseline import (
     Paths as RetrospectivePaths,
     SUMMARY_END,
@@ -185,6 +187,7 @@ def validate_retrospective_policy(monitoring_config, active_brands):
 
     assert retrospective_policy.get("accepted_source_kinds") == ["OFFICIAL_PRODUCT_PAGE", "OFFICIAL_EC_PRODUCT_PAGE"]
     gate = retrospective_policy["completion_gate"]
+    validate_status_policy(gate)
     assert gate["required_brands"] == 40
     assert gate["required_months"] == [f"2026-{month:02d}" for month in range(1, 7)]
     assert gate["complete_only_when_all_brand_months_terminal"] is True
@@ -454,3 +457,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

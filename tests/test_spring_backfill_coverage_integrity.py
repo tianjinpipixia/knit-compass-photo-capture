@@ -16,9 +16,13 @@ class CoverageIntegrityTests(unittest.TestCase):
         self.coverage = read('data/brand-md-monitoring/2026-spring-backfill-coverage.json')
         self.config = read('config/brand64-md-monitoring.json')
         self.ledger = read(self.config['retrospective_season_backfill']['ledger_path'])
+        policy = self.config['retrospective_season_backfill']
+        self.references = dict(approved_roster=read(policy['approved_roster_path']),
+                               evidence_inventory=read(policy['evidence_inventory_path']),
+                               original_audit=read(policy['original_integrity_audit_path']))
 
     def run_validation(self):
-        return validate(self.coverage, self.config, self.ledger)
+        return validate(self.coverage, self.config, self.ledger, **self.references)
 
     def cell(self, brand, month):
         return next(b for b in self.coverage['brand_month_coverage'] if b['brand_id'] == brand)['months'][month]
@@ -75,7 +79,8 @@ class CoverageIntegrityTests(unittest.TestCase):
         self.coverage['last_updated_at'] = '2099-01-01T00:00:00Z'
         from datetime import datetime, timezone
         with self.assertRaisesRegex(AssertionError, 'invalid original'):
-            validate(self.coverage, self.config, self.ledger, now=datetime(2100, 1, 1, tzinfo=timezone.utc))
+            validate(self.coverage, self.config, self.ledger, **self.references,
+                     now=datetime(2100, 1, 1, tzinfo=timezone.utc))
 
     def test_stale_summary_rejected(self):
         self.coverage['summary']['terminal_brand_month_cells'] = 112
@@ -100,5 +105,82 @@ class CoverageIntegrityTests(unittest.TestCase):
             self.run_validation()
 
 
+    def test_partial_cannot_be_promoted_by_config(self):
+        self.config['retrospective_season_backfill']['completion_gate']['terminal_month_statuses'].append('PARTIAL')
+        with self.assertRaisesRegex(AssertionError, 'status policy'):
+            self.run_validation()
+
+    def test_pending_cannot_be_promoted_by_config(self):
+        self.config['retrospective_season_backfill']['completion_gate']['terminal_month_statuses'].append('PENDING')
+        with self.assertRaisesRegex(AssertionError, 'status policy'):
+            self.run_validation()
+
+    def test_same_size_unapproved_roster_rejected(self):
+        self.coverage['brand_month_coverage'][0]['brand_id'] = 'BR-99999'
+        with self.assertRaisesRegex(AssertionError, 'approved roster'):
+            self.run_validation()
+
+    def test_approved_brand_name_cannot_be_replaced(self):
+        self.coverage['brand_month_coverage'][0]['brand_name'] = 'Unapproved name'
+        with self.assertRaisesRegex(AssertionError, 'approved roster'):
+            self.run_validation()
+
+    def test_approved_research_tier_cannot_be_changed(self):
+        self.coverage['brand_month_coverage'][0]['research_tier'] = 'MONITORING'
+        with self.assertRaisesRegex(AssertionError, 'approved roster'):
+            self.run_validation()
+
+    def test_evidence_deletion_with_matching_recount_is_rejected(self):
+        cell = self.cell('BR-00035', '2026-05')
+        cell['evidence'].clear()
+        cell['official_pages_checked'] = 0
+        with self.assertRaisesRegex(AssertionError, 'preserved evidence'):
+            self.run_validation()
+
+    def test_deletion_of_duplicate_url_observation_is_rejected(self):
+        cell = self.cell('BR-00035', '2026-01')
+        cell['evidence'].pop()
+        cell['evidence_audit'].pop()
+        with self.assertRaisesRegex(AssertionError, 'preserved evidence'):
+            self.run_validation()
+
+    def test_observed_fact_rewrite_is_rejected(self):
+        self.cell('BR-00035', '2026-01')['evidence'][0]['observed_fact'] = 'replacement'
+        with self.assertRaisesRegex(AssertionError, 'preserved evidence'):
+            self.run_validation()
+
+    def test_audit_deletion_is_rejected(self):
+        self.cell('BR-00035', '2026-01')['evidence_audit'].pop()
+        with self.assertRaisesRegex(AssertionError, 'evidence/audit row count'):
+            self.run_validation()
+
+    def test_audit_source_change_is_rejected(self):
+        self.cell('BR-00035', '2026-01')['evidence_audit'][0]['url'] = 'https://example.com/other'
+        with self.assertRaisesRegex(AssertionError, 'evidence/audit source'):
+            self.run_validation()
+
+    def test_new_evidence_can_be_appended(self):
+        cell = self.cell('BR-00035', '2026-01')
+        row = copy.deepcopy(cell['evidence'][0])
+        row['observed_fact'] = 'Unit test supplementary observation; no qualification claimed.'
+        cell['evidence'].append(row)
+        audit = copy.deepcopy(cell['evidence_audit'][0])
+        audit['evidence_index'] = len(cell['evidence']) - 1
+        cell['evidence_audit'].append(audit)
+        self.run_validation()
+
+    def test_truthy_no_products_claims_are_rejected(self):
+        cell = self.cell('BR-00035', '2026-01')
+        cell['status'] = 'VERIFIED_NO_PRODUCTS'
+        cell['last_checked_at'] = '2026-10-12T01:00:00Z'
+        cell['unresolved_reason'] = None
+        for evidence in ('claim', [{}]):
+            with self.subTest(evidence=evidence):
+                cell['no_products_evidence'] = evidence
+                with self.assertRaisesRegex(AssertionError, 'no-products'):
+                    self.run_validation()
+
+
 if __name__ == '__main__':
     unittest.main()
+
