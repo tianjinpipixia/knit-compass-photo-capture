@@ -1,16 +1,16 @@
 {
   "format": "KC_SPRING_BACKFILL_INTEGRITY_AUDIT",
   "schema_version": "1.0",
-  "audited_at": "2026-10-12T05:35:23.054Z",
-  "source_commit": "2f48445fc75d20d949d738d1a21f37ac953ade3b",
-  "source_tree": "2e8df144ad7fbbbdd8b06806b3dfaad8d1081b02",
+  "audited_at": "2026-10-12T05:42:43.755Z",
+  "source_commit": "2502d984974a2989d081f719c643e6e96ac29163",
+  "source_tree": "36527788826fb602f4882e1a83136bf44c659b80",
   "policy_path": "config/brand64-md-monitoring.json",
   "coverage_path": "data/brand-md-monitoring/2026-spring-backfill-coverage.json",
   "scope": {
     "brands": 40,
     "months": 6,
     "cells": 240,
-    "evidence_rows": 243
+    "evidence_rows": 253
   },
   "review_findings": [
     {
@@ -46,20 +46,20 @@
   ],
   "summary_before": {
     "total_brand_month_cells": 240,
-    "terminal_brand_month_cells": 142,
-    "pending_brand_month_cells": 98,
-    "fully_completed_brands": 21,
+    "terminal_brand_month_cells": 152,
+    "pending_brand_month_cells": 88,
+    "fully_completed_brands": 22,
     "status": "INCOMPLETE",
     "season_evidence_only_brands": 4,
-    "month_verified_brands": 25,
+    "month_verified_brands": 27,
     "note": "Season-level official evidence is stored separately and does not close any month cell."
   },
   "summary_after": {
     "total_brand_month_cells": 240,
     "terminal_brand_month_cells": 6,
     "pending_brand_month_cells": 234,
-    "partial_brand_month_cells": 177,
-    "not_started_brand_month_cells": 57,
+    "partial_brand_month_cells": 183,
+    "not_started_brand_month_cells": 51,
     "fully_completed_brands": 1,
     "status": "INCOMPLETE",
     "season_evidence_only_brands": 6,
@@ -90,28 +90,28 @@
       "2026-04": {
         "total_brand_month_cells": 40,
         "terminal_brand_month_cells": 1,
-        "partial_brand_month_cells": 24,
-        "not_started_brand_month_cells": 15,
+        "partial_brand_month_cells": 26,
+        "not_started_brand_month_cells": 13,
         "verified_product_count": 1
       },
       "2026-05": {
         "total_brand_month_cells": 40,
         "terminal_brand_month_cells": 1,
-        "partial_brand_month_cells": 24,
-        "not_started_brand_month_cells": 15,
+        "partial_brand_month_cells": 26,
+        "not_started_brand_month_cells": 13,
         "verified_product_count": 1
       },
       "2026-06": {
         "total_brand_month_cells": 40,
         "terminal_brand_month_cells": 1,
-        "partial_brand_month_cells": 24,
-        "not_started_brand_month_cells": 15,
+        "partial_brand_month_cells": 26,
+        "not_started_brand_month_cells": 13,
         "verified_product_count": 2
       }
     },
     "note": "Terminal cells require qualifying official individual women-knit product and explicit month evidence. pending_brand_month_cells counts all nonterminal cells; not_started_brand_month_cells counts PENDING only. Product-month observations are not canonical ledger rows or launch counts."
   },
-  "invalid_original_check_times": 183,
+  "invalid_original_check_times": 189,
   "live_product_pages_attempted": 30,
   "live_product_checks": [
     {
@@ -296,7 +296,7 @@
     }
   ],
   "limitations": [
-    "All 243 evidence rows were checked against source-kind, individual-URL, count and recorded-time gates; nonproduct supplementary pages were not all live re-fetched.",
+    "All 253 rows evaluated against gates; newly added LOWRYS FARM and LEPSIM dated-review claims not live reconfirmed, retained as PARTIAL.",
     "Missing dates in retrieved text are unresolved, not proof that the dates never existed.",
     "The two canonical ledger records are preserved; a 2026SS label alone assigns neither record to a month.",
     "DoCLASSE dated reviews prove existence in the month, not launch dates or completeness of the month's product population."
@@ -5077,29 +5077,40 @@
       "brand_name": "LOWRYS FARM",
       "month": "2026-01",
       "before": {
-        "status": "PARTIAL",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": "2026-10-12T15:05:00+09:00"
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 1,
+        "official_pages_checked": 1,
+        "last_checked_at": "2026-10-12T22:45:00+09:00"
       },
       "after": {
         "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://www.dot-st.com/lowrysfarm/disp/item/581147/",
+          "source_kind": "OFFICIAL_PRODUCT_PAGE_REVIEW",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "CLAIMED_MONTH_DATE_NOT_RECONFIRMED"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
       "chronology": {
         "brand": "BR-00007",
         "month": "2026-01",
-        "recorded": "2026-10-12T15:05:00+09:00",
-        "commit": "254640d0dc77c84e3ea6f85171614e2a66784292",
-        "introduced_at": "2026-10-12T01:25:37Z"
+        "recorded": "2026-10-12T22:45:00+09:00",
+        "commit": "2502d984974a2989d081f719c643e6e96ac29163",
+        "introduced_at": "2026-10-12T05:38:12Z"
       },
       "needs": [
-        "OFFICIAL_INDIVIDUAL_PRODUCT_ID",
-        "BRAND_AND_WOMEN_KNIT_CONFIRMATION",
-        "EXPLICIT_MONTH_EVIDENCE",
+        "RECONFIRM_OFFICIAL_PRODUCT_BRAND_WOMEN_KNIT_AND_DATED_REVIEW",
         "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
@@ -5108,29 +5119,40 @@
       "brand_name": "LOWRYS FARM",
       "month": "2026-02",
       "before": {
-        "status": "PARTIAL",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": "2026-10-12T15:05:00+09:00"
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 1,
+        "official_pages_checked": 1,
+        "last_checked_at": "2026-10-12T22:45:00+09:00"
       },
       "after": {
         "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://www.dot-st.com/lowrysfarm/disp/item/581147/",
+          "source_kind": "OFFICIAL_PRODUCT_PAGE_REVIEW",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "CLAIMED_MONTH_DATE_NOT_RECONFIRMED"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
       "chronology": {
         "brand": "BR-00007",
         "month": "2026-02",
-        "recorded": "2026-10-12T15:05:00+09:00",
-        "commit": "254640d0dc77c84e3ea6f85171614e2a66784292",
-        "introduced_at": "2026-10-12T01:25:37Z"
+        "recorded": "2026-10-12T22:45:00+09:00",
+        "commit": "2502d984974a2989d081f719c643e6e96ac29163",
+        "introduced_at": "2026-10-12T05:38:12Z"
       },
       "needs": [
-        "OFFICIAL_INDIVIDUAL_PRODUCT_ID",
-        "BRAND_AND_WOMEN_KNIT_CONFIRMATION",
-        "EXPLICIT_MONTH_EVIDENCE",
+        "RECONFIRM_OFFICIAL_PRODUCT_BRAND_WOMEN_KNIT_AND_DATED_REVIEW",
         "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
@@ -5139,29 +5161,40 @@
       "brand_name": "LOWRYS FARM",
       "month": "2026-03",
       "before": {
-        "status": "PARTIAL",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": "2026-10-12T15:05:00+09:00"
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 1,
+        "official_pages_checked": 1,
+        "last_checked_at": "2026-10-12T22:45:00+09:00"
       },
       "after": {
         "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://www.dot-st.com/lowrysfarm/disp/item/581147/",
+          "source_kind": "OFFICIAL_PRODUCT_PAGE_REVIEW",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "CLAIMED_MONTH_DATE_NOT_RECONFIRMED"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
       "chronology": {
         "brand": "BR-00007",
         "month": "2026-03",
-        "recorded": "2026-10-12T15:05:00+09:00",
-        "commit": "254640d0dc77c84e3ea6f85171614e2a66784292",
-        "introduced_at": "2026-10-12T01:25:37Z"
+        "recorded": "2026-10-12T22:45:00+09:00",
+        "commit": "2502d984974a2989d081f719c643e6e96ac29163",
+        "introduced_at": "2026-10-12T05:38:12Z"
       },
       "needs": [
-        "OFFICIAL_INDIVIDUAL_PRODUCT_ID",
-        "BRAND_AND_WOMEN_KNIT_CONFIRMATION",
-        "EXPLICIT_MONTH_EVIDENCE",
+        "RECONFIRM_OFFICIAL_PRODUCT_BRAND_WOMEN_KNIT_AND_DATED_REVIEW",
         "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
@@ -5170,21 +5203,41 @@
       "brand_name": "LOWRYS FARM",
       "month": "2026-04",
       "before": {
-        "status": "PENDING",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": null
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 1,
+        "official_pages_checked": 1,
+        "last_checked_at": "2026-10-12T22:45:00+09:00"
       },
       "after": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
-      "chronology": null,
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://www.dot-st.com/lowrysfarm/disp/item/581147/",
+          "source_kind": "OFFICIAL_PRODUCT_PAGE_REVIEW",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "CLAIMED_MONTH_DATE_NOT_RECONFIRMED"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
+      "chronology": {
+        "brand": "BR-00007",
+        "month": "2026-04",
+        "recorded": "2026-10-12T22:45:00+09:00",
+        "commit": "2502d984974a2989d081f719c643e6e96ac29163",
+        "introduced_at": "2026-10-12T05:38:12Z"
+      },
       "needs": [
-        "MONTH_RESEARCH_NOT_STARTED"
+        "RECONFIRM_OFFICIAL_PRODUCT_BRAND_WOMEN_KNIT_AND_DATED_REVIEW",
+        "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
     {
@@ -5192,21 +5245,41 @@
       "brand_name": "LOWRYS FARM",
       "month": "2026-05",
       "before": {
-        "status": "PENDING",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": null
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 1,
+        "official_pages_checked": 1,
+        "last_checked_at": "2026-10-12T22:45:00+09:00"
       },
       "after": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
-      "chronology": null,
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://www.dot-st.com/lowrysfarm/disp/item/636139/",
+          "source_kind": "OFFICIAL_PRODUCT_PAGE_REVIEW",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "CLAIMED_MONTH_DATE_NOT_RECONFIRMED"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
+      "chronology": {
+        "brand": "BR-00007",
+        "month": "2026-05",
+        "recorded": "2026-10-12T22:45:00+09:00",
+        "commit": "2502d984974a2989d081f719c643e6e96ac29163",
+        "introduced_at": "2026-10-12T05:38:12Z"
+      },
       "needs": [
-        "MONTH_RESEARCH_NOT_STARTED"
+        "RECONFIRM_OFFICIAL_PRODUCT_BRAND_WOMEN_KNIT_AND_DATED_REVIEW",
+        "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
     {
@@ -5214,21 +5287,41 @@
       "brand_name": "LOWRYS FARM",
       "month": "2026-06",
       "before": {
-        "status": "PENDING",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": null
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 1,
+        "official_pages_checked": 1,
+        "last_checked_at": "2026-10-12T22:45:00+09:00"
       },
       "after": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
-      "chronology": null,
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://www.dot-st.com/lowrysfarm/disp/item/636139/",
+          "source_kind": "OFFICIAL_PRODUCT_PAGE_REVIEW",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "CLAIMED_MONTH_DATE_NOT_RECONFIRMED"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
+      "chronology": {
+        "brand": "BR-00007",
+        "month": "2026-06",
+        "recorded": "2026-10-12T22:45:00+09:00",
+        "commit": "2502d984974a2989d081f719c643e6e96ac29163",
+        "introduced_at": "2026-10-12T05:38:12Z"
+      },
       "needs": [
-        "MONTH_RESEARCH_NOT_STARTED"
+        "RECONFIRM_OFFICIAL_PRODUCT_BRAND_WOMEN_KNIT_AND_DATED_REVIEW",
+        "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
     {
@@ -7120,7 +7213,7 @@
         "status": "PARTIAL",
         "verified_product_count": 0,
         "official_pages_checked": 0,
-        "last_checked_at": "2026-10-12T12:10:00+09:00"
+        "last_checked_at": "2026-10-12T22:20:00+09:00"
       },
       "after": {
         "status": "PARTIAL",
@@ -7132,14 +7225,12 @@
       "chronology": {
         "brand": "BR-00021",
         "month": "2026-01",
-        "recorded": "2026-10-12T12:10:00+09:00",
-        "commit": "06b9dd5ae7a0531f8f7d1c06e8535fb533a1c535",
-        "introduced_at": "2026-10-12T01:06:40Z"
+        "recorded": "2026-10-12T22:20:00+09:00",
+        "commit": "ba40b0edf98912af44bfe19bef1d169e545ce291",
+        "introduced_at": "2026-10-12T05:37:12Z"
       },
       "needs": [
-        "OFFICIAL_INDIVIDUAL_PRODUCT_ID",
-        "BRAND_AND_WOMEN_KNIT_CONFIRMATION",
-        "EXPLICIT_MONTH_EVIDENCE",
+        "RECONFIRM_OFFICIAL_PRODUCT_BRAND_WOMEN_KNIT_AND_DATED_REVIEW",
         "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
@@ -7148,29 +7239,40 @@
       "brand_name": "LEPSIM",
       "month": "2026-02",
       "before": {
-        "status": "PARTIAL",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": "2026-10-12T12:10:00+09:00"
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 1,
+        "official_pages_checked": 1,
+        "last_checked_at": "2026-10-12T22:20:00+09:00"
       },
       "after": {
         "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://www.dot-st.com/lepsim/disp/item/618521/",
+          "source_kind": "OFFICIAL_PRODUCT_PAGE_REVIEW",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "CLAIMED_MONTH_DATE_NOT_RECONFIRMED"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
       "chronology": {
         "brand": "BR-00021",
         "month": "2026-02",
-        "recorded": "2026-10-12T12:10:00+09:00",
-        "commit": "06b9dd5ae7a0531f8f7d1c06e8535fb533a1c535",
-        "introduced_at": "2026-10-12T01:06:40Z"
+        "recorded": "2026-10-12T22:20:00+09:00",
+        "commit": "ba40b0edf98912af44bfe19bef1d169e545ce291",
+        "introduced_at": "2026-10-12T05:37:12Z"
       },
       "needs": [
-        "OFFICIAL_INDIVIDUAL_PRODUCT_ID",
-        "BRAND_AND_WOMEN_KNIT_CONFIRMATION",
-        "EXPLICIT_MONTH_EVIDENCE",
+        "RECONFIRM_OFFICIAL_PRODUCT_BRAND_WOMEN_KNIT_AND_DATED_REVIEW",
         "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
@@ -7179,10 +7281,52 @@
       "brand_name": "LEPSIM",
       "month": "2026-03",
       "before": {
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 1,
+        "official_pages_checked": 1,
+        "last_checked_at": "2026-10-12T22:20:00+09:00"
+      },
+      "after": {
+        "status": "PARTIAL",
+        "verified_product_count": 0,
+        "official_pages_checked": 1,
+        "last_checked_at": null
+      },
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://www.dot-st.com/lepsim/disp/item/618521/",
+          "source_kind": "OFFICIAL_PRODUCT_PAGE_REVIEW",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "CLAIMED_MONTH_DATE_NOT_RECONFIRMED"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
+      "chronology": {
+        "brand": "BR-00021",
+        "month": "2026-03",
+        "recorded": "2026-10-12T22:20:00+09:00",
+        "commit": "ba40b0edf98912af44bfe19bef1d169e545ce291",
+        "introduced_at": "2026-10-12T05:37:12Z"
+      },
+      "needs": [
+        "RECONFIRM_OFFICIAL_PRODUCT_BRAND_WOMEN_KNIT_AND_DATED_REVIEW",
+        "ACTUAL_SOURCE_CHECK_TIMESTAMP"
+      ]
+    },
+    {
+      "brand_id": "BR-00021",
+      "brand_name": "LEPSIM",
+      "month": "2026-04",
+      "before": {
         "status": "PARTIAL",
         "verified_product_count": 0,
         "official_pages_checked": 0,
-        "last_checked_at": "2026-10-12T12:10:00+09:00"
+        "last_checked_at": "2026-10-12T22:20:00+09:00"
       },
       "after": {
         "status": "PARTIAL",
@@ -7193,38 +7337,14 @@
       "evidence_audit": [],
       "chronology": {
         "brand": "BR-00021",
-        "month": "2026-03",
-        "recorded": "2026-10-12T12:10:00+09:00",
-        "commit": "06b9dd5ae7a0531f8f7d1c06e8535fb533a1c535",
-        "introduced_at": "2026-10-12T01:06:40Z"
+        "month": "2026-04",
+        "recorded": "2026-10-12T22:20:00+09:00",
+        "commit": "ba40b0edf98912af44bfe19bef1d169e545ce291",
+        "introduced_at": "2026-10-12T05:37:12Z"
       },
       "needs": [
-        "OFFICIAL_INDIVIDUAL_PRODUCT_ID",
-        "BRAND_AND_WOMEN_KNIT_CONFIRMATION",
-        "EXPLICIT_MONTH_EVIDENCE",
+        "RECONFIRM_OFFICIAL_PRODUCT_BRAND_WOMEN_KNIT_AND_DATED_REVIEW",
         "ACTUAL_SOURCE_CHECK_TIMESTAMP"
-      ]
-    },
-    {
-      "brand_id": "BR-00021",
-      "brand_name": "LEPSIM",
-      "month": "2026-04",
-      "before": {
-        "status": "PENDING",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": null
-      },
-      "after": {
-        "status": "PENDING",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": null
-      },
-      "evidence_audit": [],
-      "chronology": null,
-      "needs": [
-        "MONTH_RESEARCH_NOT_STARTED"
       ]
     },
     {
@@ -7232,21 +7352,41 @@
       "brand_name": "LEPSIM",
       "month": "2026-05",
       "before": {
-        "status": "PENDING",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": null
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 1,
+        "official_pages_checked": 1,
+        "last_checked_at": "2026-10-12T22:20:00+09:00"
       },
       "after": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
-      "chronology": null,
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://www.dot-st.com/lepsim/disp/item/618521/",
+          "source_kind": "OFFICIAL_PRODUCT_PAGE_REVIEW",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "CLAIMED_MONTH_DATE_NOT_RECONFIRMED"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
+      "chronology": {
+        "brand": "BR-00021",
+        "month": "2026-05",
+        "recorded": "2026-10-12T22:20:00+09:00",
+        "commit": "ba40b0edf98912af44bfe19bef1d169e545ce291",
+        "introduced_at": "2026-10-12T05:37:12Z"
+      },
       "needs": [
-        "MONTH_RESEARCH_NOT_STARTED"
+        "RECONFIRM_OFFICIAL_PRODUCT_BRAND_WOMEN_KNIT_AND_DATED_REVIEW",
+        "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
     {
@@ -7254,21 +7394,41 @@
       "brand_name": "LEPSIM",
       "month": "2026-06",
       "before": {
-        "status": "PENDING",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": null
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 1,
+        "official_pages_checked": 1,
+        "last_checked_at": "2026-10-12T22:20:00+09:00"
       },
       "after": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
-      "chronology": null,
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://www.dot-st.com/lepsim/disp/item/618521/",
+          "source_kind": "OFFICIAL_PRODUCT_PAGE_REVIEW",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "CLAIMED_MONTH_DATE_NOT_RECONFIRMED"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
+      "chronology": {
+        "brand": "BR-00021",
+        "month": "2026-06",
+        "recorded": "2026-10-12T22:20:00+09:00",
+        "commit": "ba40b0edf98912af44bfe19bef1d169e545ce291",
+        "introduced_at": "2026-10-12T05:37:12Z"
+      },
       "needs": [
-        "MONTH_RESEARCH_NOT_STARTED"
+        "RECONFIRM_OFFICIAL_PRODUCT_BRAND_WOMEN_KNIT_AND_DATED_REVIEW",
+        "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
     {
@@ -10296,7 +10456,7 @@
     },
     {
       "code": "FUTURE_RECORDED_TIMES",
-      "action": "183 original times postdate their storage commits; retain originals, clear 177 unknown cells and preserve six actual DoCLASSE rechecks"
+      "action": "189 impossible original times retained; 183 unknown cells null; six DoCLASSE actual rechecks preserved"
     },
     {
       "code": "DOCLASSE_QUALIFYING_RECHECK",
@@ -10335,7 +10495,7 @@
       "passed": 3,
       "total": 3
     },
-    "original_evidence_rows": "243_UNCHANGED",
+    "original_evidence_rows": "253_UNCHANGED",
     "canonical_ledger": "UNCHANGED_2_RECORDS",
     "publication_status": "PUBLISH_HOLD",
     "human_review_required": true,
@@ -10348,7 +10508,7 @@
   },
   "concurrent_main_updates": {
     "initial_source_commit": "4ced8f689741304475b8fa4b014ff7e14267ac0e",
-    "incorporated_source_commit": "2f48445fc75d20d949d738d1a21f37ac953ade3b",
+    "incorporated_source_commit": "2502d984974a2989d081f719c643e6e96ac29163",
     "additional_commits": [
       {
         "sha": "a0fe75e32d90aa290c136f126a1cce4fa1966a35",
@@ -10381,9 +10541,17 @@
       {
         "sha": "9a61a48438385d576867ace60a2c46150f5ad1c4",
         "date": "2026-10-12T05:29:47Z"
+      },
+      {
+        "sha": "2502d984974a2989d081f719c643e6e96ac29163",
+        "date": "2026-10-12T05:38:12Z"
+      },
+      {
+        "sha": "ba40b0edf98912af44bfe19bef1d169e545ce291",
+        "date": "2026-10-12T05:37:12Z"
       }
     ],
-    "additional_cells": 36
+    "additional_cells": 48
   },
   "publication_request": {
     "requested_at": "2026-10-12T05:35:23.054Z",
