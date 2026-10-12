@@ -1,16 +1,16 @@
 {
   "format": "KC_SPRING_BACKFILL_INTEGRITY_AUDIT",
   "schema_version": "1.0",
-  "audited_at": "2026-10-12T05:28:29.845Z",
-  "source_commit": "05e617a5807f30f89df0ac0090e6fd3bd859a2a3",
-  "source_tree": "9d0b3566bf35d8b04d226702061b8853b0ba9112",
+  "audited_at": "2026-10-12T05:35:23.054Z",
+  "source_commit": "2f48445fc75d20d949d738d1a21f37ac953ade3b",
+  "source_tree": "2e8df144ad7fbbbdd8b06806b3dfaad8d1081b02",
   "policy_path": "config/brand64-md-monitoring.json",
   "coverage_path": "data/brand-md-monitoring/2026-spring-backfill-coverage.json",
   "scope": {
     "brands": 40,
     "months": 6,
     "cells": 240,
-    "evidence_rows": 236
+    "evidence_rows": 243
   },
   "review_findings": [
     {
@@ -46,20 +46,20 @@
   ],
   "summary_before": {
     "total_brand_month_cells": 240,
-    "terminal_brand_month_cells": 137,
-    "pending_brand_month_cells": 103,
+    "terminal_brand_month_cells": 142,
+    "pending_brand_month_cells": 98,
     "fully_completed_brands": 21,
     "status": "INCOMPLETE",
     "season_evidence_only_brands": 4,
-    "month_verified_brands": 24,
+    "month_verified_brands": 25,
     "note": "Season-level official evidence is stored separately and does not close any month cell."
   },
   "summary_after": {
     "total_brand_month_cells": 240,
     "terminal_brand_month_cells": 6,
     "pending_brand_month_cells": 234,
-    "partial_brand_month_cells": 169,
-    "not_started_brand_month_cells": 65,
+    "partial_brand_month_cells": 177,
+    "not_started_brand_month_cells": 57,
     "fully_completed_brands": 1,
     "status": "INCOMPLETE",
     "season_evidence_only_brands": 6,
@@ -69,49 +69,49 @@
       "2026-01": {
         "total_brand_month_cells": 40,
         "terminal_brand_month_cells": 1,
-        "partial_brand_month_cells": 34,
-        "not_started_brand_month_cells": 5,
+        "partial_brand_month_cells": 35,
+        "not_started_brand_month_cells": 4,
         "verified_product_count": 1
       },
       "2026-02": {
         "total_brand_month_cells": 40,
         "terminal_brand_month_cells": 1,
-        "partial_brand_month_cells": 34,
-        "not_started_brand_month_cells": 5,
+        "partial_brand_month_cells": 35,
+        "not_started_brand_month_cells": 4,
         "verified_product_count": 1
       },
       "2026-03": {
         "total_brand_month_cells": 40,
         "terminal_brand_month_cells": 1,
-        "partial_brand_month_cells": 34,
-        "not_started_brand_month_cells": 5,
+        "partial_brand_month_cells": 35,
+        "not_started_brand_month_cells": 4,
         "verified_product_count": 3
       },
       "2026-04": {
         "total_brand_month_cells": 40,
         "terminal_brand_month_cells": 1,
-        "partial_brand_month_cells": 23,
-        "not_started_brand_month_cells": 16,
+        "partial_brand_month_cells": 24,
+        "not_started_brand_month_cells": 15,
         "verified_product_count": 1
       },
       "2026-05": {
         "total_brand_month_cells": 40,
         "terminal_brand_month_cells": 1,
-        "partial_brand_month_cells": 22,
-        "not_started_brand_month_cells": 17,
+        "partial_brand_month_cells": 24,
+        "not_started_brand_month_cells": 15,
         "verified_product_count": 1
       },
       "2026-06": {
         "total_brand_month_cells": 40,
         "terminal_brand_month_cells": 1,
-        "partial_brand_month_cells": 22,
-        "not_started_brand_month_cells": 17,
+        "partial_brand_month_cells": 24,
+        "not_started_brand_month_cells": 15,
         "verified_product_count": 2
       }
     },
     "note": "Terminal cells require qualifying official individual women-knit product and explicit month evidence. pending_brand_month_cells counts all nonterminal cells; not_started_brand_month_cells counts PENDING only. Product-month observations are not canonical ledger rows or launch counts."
   },
-  "invalid_original_check_times": 175,
+  "invalid_original_check_times": 183,
   "live_product_pages_attempted": 30,
   "live_product_checks": [
     {
@@ -296,7 +296,7 @@
     }
   ],
   "limitations": [
-    "All 236 evidence rows were checked against source-kind, individual-URL, count and recorded-time gates; nonproduct supplementary pages were not all live re-fetched.",
+    "All 243 evidence rows were checked against source-kind, individual-URL, count and recorded-time gates; nonproduct supplementary pages were not all live re-fetched.",
     "Missing dates in retrieved text are unresolved, not proof that the dates never existed.",
     "The two canonical ledger records are preserved; a 2026SS label alone assigns neither record to a month.",
     "DoCLASSE dated reviews prove existence in the month, not launch dates or completeness of the month's product population."
@@ -6179,24 +6179,37 @@
       "brand_name": "index",
       "month": "2026-05",
       "before": {
-        "status": "PARTIAL",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": "2026-10-12T16:45:00+09:00"
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 1,
+        "official_pages_checked": 1,
+        "last_checked_at": "2026-10-12T21:55:00+09:00"
       },
       "after": {
         "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://store.world.co.jp/s/journal/fashionnews/promotion/059788/",
+          "source_kind": "OFFICIAL_WORLD_RANKING",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "OFFICIAL_INDIVIDUAL_PRODUCT_URL_MISSING"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
       "chronology": {
         "brand": "BR-00013",
         "month": "2026-05",
-        "recorded": "2026-10-12T16:45:00+09:00",
-        "commit": "d3bc409c24056b3dbe42aa38a7df4a4be457ca0e",
-        "introduced_at": "2026-10-12T01:33:52Z"
+        "recorded": "2026-10-12T21:55:00+09:00",
+        "commit": "2f48445fc75d20d949d738d1a21f37ac953ade3b",
+        "introduced_at": "2026-10-12T05:30:33Z"
       },
       "needs": [
         "OFFICIAL_INDIVIDUAL_PRODUCT_ID",
@@ -6416,21 +6429,55 @@
       "brand_name": "grove",
       "month": "2026-05",
       "before": {
-        "status": "PENDING",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": null
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 2,
+        "official_pages_checked": 2,
+        "last_checked_at": "2026-10-12T21:55:00+09:00"
       },
       "after": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
-      "chronology": null,
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://store.world.co.jp/s/journal/fashionnews/promotion/059788/",
+          "source_kind": "OFFICIAL_WORLD_RANKING",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "OFFICIAL_INDIVIDUAL_PRODUCT_URL_MISSING"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        },
+        {
+          "evidence_index": 1,
+          "url": "https://store.world.co.jp/s/journal/fashionnews/promotion/059788/",
+          "source_kind": "OFFICIAL_WORLD_RANKING",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "OFFICIAL_INDIVIDUAL_PRODUCT_URL_MISSING"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
+      "chronology": {
+        "brand": "BR-00015",
+        "month": "2026-05",
+        "recorded": "2026-10-12T21:55:00+09:00",
+        "commit": "2f48445fc75d20d949d738d1a21f37ac953ade3b",
+        "introduced_at": "2026-10-12T05:30:33Z"
+      },
       "needs": [
-        "MONTH_RESEARCH_NOT_STARTED"
+        "OFFICIAL_INDIVIDUAL_PRODUCT_ID",
+        "BRAND_AND_WOMEN_KNIT_CONFIRMATION",
+        "EXPLICIT_MONTH_EVIDENCE",
+        "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
     {
@@ -6438,21 +6485,43 @@
       "brand_name": "grove",
       "month": "2026-06",
       "before": {
-        "status": "PENDING",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": null
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 1,
+        "official_pages_checked": 1,
+        "last_checked_at": "2026-10-12T21:55:00+09:00"
       },
       "after": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
-      "chronology": null,
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://store.world.co.jp/s/journal/fashionnews/promotion/092864/",
+          "source_kind": "OFFICIAL_WORLD_RANKING",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "OFFICIAL_INDIVIDUAL_PRODUCT_URL_MISSING"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
+      "chronology": {
+        "brand": "BR-00015",
+        "month": "2026-06",
+        "recorded": "2026-10-12T21:55:00+09:00",
+        "commit": "2f48445fc75d20d949d738d1a21f37ac953ade3b",
+        "introduced_at": "2026-10-12T05:30:33Z"
+      },
       "needs": [
-        "MONTH_RESEARCH_NOT_STARTED"
+        "OFFICIAL_INDIVIDUAL_PRODUCT_ID",
+        "BRAND_AND_WOMEN_KNIT_CONFIRMATION",
+        "EXPLICIT_MONTH_EVIDENCE",
+        "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
     {
@@ -7746,21 +7815,30 @@
       "brand_name": "INDIVI",
       "month": "2026-01",
       "before": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
         "official_pages_checked": 0,
-        "last_checked_at": null
+        "last_checked_at": "2026-10-12T21:35:00+09:00"
       },
       "after": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
         "official_pages_checked": 0,
         "last_checked_at": null
       },
       "evidence_audit": [],
-      "chronology": null,
+      "chronology": {
+        "brand": "BR-00049",
+        "month": "2026-01",
+        "recorded": "2026-10-12T21:35:00+09:00",
+        "commit": "9a61a48438385d576867ace60a2c46150f5ad1c4",
+        "introduced_at": "2026-10-12T05:29:47Z"
+      },
       "needs": [
-        "MONTH_RESEARCH_NOT_STARTED"
+        "OFFICIAL_INDIVIDUAL_PRODUCT_ID",
+        "BRAND_AND_WOMEN_KNIT_CONFIRMATION",
+        "EXPLICIT_MONTH_EVIDENCE",
+        "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
     {
@@ -7768,21 +7846,30 @@
       "brand_name": "INDIVI",
       "month": "2026-02",
       "before": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
         "official_pages_checked": 0,
-        "last_checked_at": null
+        "last_checked_at": "2026-10-12T21:35:00+09:00"
       },
       "after": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
         "official_pages_checked": 0,
         "last_checked_at": null
       },
       "evidence_audit": [],
-      "chronology": null,
+      "chronology": {
+        "brand": "BR-00049",
+        "month": "2026-02",
+        "recorded": "2026-10-12T21:35:00+09:00",
+        "commit": "9a61a48438385d576867ace60a2c46150f5ad1c4",
+        "introduced_at": "2026-10-12T05:29:47Z"
+      },
       "needs": [
-        "MONTH_RESEARCH_NOT_STARTED"
+        "OFFICIAL_INDIVIDUAL_PRODUCT_ID",
+        "BRAND_AND_WOMEN_KNIT_CONFIRMATION",
+        "EXPLICIT_MONTH_EVIDENCE",
+        "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
     {
@@ -7790,21 +7877,30 @@
       "brand_name": "INDIVI",
       "month": "2026-03",
       "before": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
         "official_pages_checked": 0,
-        "last_checked_at": null
+        "last_checked_at": "2026-10-12T21:35:00+09:00"
       },
       "after": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
         "official_pages_checked": 0,
         "last_checked_at": null
       },
       "evidence_audit": [],
-      "chronology": null,
+      "chronology": {
+        "brand": "BR-00049",
+        "month": "2026-03",
+        "recorded": "2026-10-12T21:35:00+09:00",
+        "commit": "9a61a48438385d576867ace60a2c46150f5ad1c4",
+        "introduced_at": "2026-10-12T05:29:47Z"
+      },
       "needs": [
-        "MONTH_RESEARCH_NOT_STARTED"
+        "OFFICIAL_INDIVIDUAL_PRODUCT_ID",
+        "BRAND_AND_WOMEN_KNIT_CONFIRMATION",
+        "EXPLICIT_MONTH_EVIDENCE",
+        "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
     {
@@ -7812,21 +7908,43 @@
       "brand_name": "INDIVI",
       "month": "2026-04",
       "before": {
-        "status": "PENDING",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": null
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 1,
+        "official_pages_checked": 1,
+        "last_checked_at": "2026-10-12T21:35:00+09:00"
       },
       "after": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
-      "chronology": null,
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://store.world.co.jp/s/journal/fashionnews/promotion/091127/",
+          "source_kind": "OFFICIAL_WORLD_RANKING",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "OFFICIAL_INDIVIDUAL_PRODUCT_URL_MISSING"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
+      "chronology": {
+        "brand": "BR-00049",
+        "month": "2026-04",
+        "recorded": "2026-10-12T21:35:00+09:00",
+        "commit": "9a61a48438385d576867ace60a2c46150f5ad1c4",
+        "introduced_at": "2026-10-12T05:29:47Z"
+      },
       "needs": [
-        "MONTH_RESEARCH_NOT_STARTED"
+        "OFFICIAL_INDIVIDUAL_PRODUCT_ID",
+        "BRAND_AND_WOMEN_KNIT_CONFIRMATION",
+        "EXPLICIT_MONTH_EVIDENCE",
+        "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
     {
@@ -7834,21 +7952,55 @@
       "brand_name": "INDIVI",
       "month": "2026-05",
       "before": {
-        "status": "PENDING",
-        "verified_product_count": 0,
-        "official_pages_checked": 0,
-        "last_checked_at": null
+        "status": "VERIFIED_PRODUCTS",
+        "verified_product_count": 2,
+        "official_pages_checked": 2,
+        "last_checked_at": "2026-10-12T21:35:00+09:00"
       },
       "after": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
-        "official_pages_checked": 0,
+        "official_pages_checked": 1,
         "last_checked_at": null
       },
-      "evidence_audit": [],
-      "chronology": null,
+      "evidence_audit": [
+        {
+          "evidence_index": 0,
+          "url": "https://store.world.co.jp/s/journal/fashionnews/promotion/062488/",
+          "source_kind": "OFFICIAL_WORLD_RANKING",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "OFFICIAL_INDIVIDUAL_PRODUCT_URL_MISSING"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        },
+        {
+          "evidence_index": 1,
+          "url": "https://store.world.co.jp/s/journal/fashionnews/promotion/062488/",
+          "source_kind": "OFFICIAL_WORLD_RANKING",
+          "status": "SUPPLEMENTARY_UNVERIFIED",
+          "reasons": [
+            "OFFICIAL_INDIVIDUAL_PRODUCT_URL_MISSING"
+          ],
+          "live_content_retrieved": false,
+          "brand_verification": "NOT_ESTABLISHED_FOR_COUNTING",
+          "month_verification": "NOT_ESTABLISHED_FOR_COUNTING"
+        }
+      ],
+      "chronology": {
+        "brand": "BR-00049",
+        "month": "2026-05",
+        "recorded": "2026-10-12T21:35:00+09:00",
+        "commit": "9a61a48438385d576867ace60a2c46150f5ad1c4",
+        "introduced_at": "2026-10-12T05:29:47Z"
+      },
       "needs": [
-        "MONTH_RESEARCH_NOT_STARTED"
+        "OFFICIAL_INDIVIDUAL_PRODUCT_ID",
+        "BRAND_AND_WOMEN_KNIT_CONFIRMATION",
+        "EXPLICIT_MONTH_EVIDENCE",
+        "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
     {
@@ -7856,21 +8008,30 @@
       "brand_name": "INDIVI",
       "month": "2026-06",
       "before": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
         "official_pages_checked": 0,
-        "last_checked_at": null
+        "last_checked_at": "2026-10-12T21:35:00+09:00"
       },
       "after": {
-        "status": "PENDING",
+        "status": "PARTIAL",
         "verified_product_count": 0,
         "official_pages_checked": 0,
         "last_checked_at": null
       },
       "evidence_audit": [],
-      "chronology": null,
+      "chronology": {
+        "brand": "BR-00049",
+        "month": "2026-06",
+        "recorded": "2026-10-12T21:35:00+09:00",
+        "commit": "9a61a48438385d576867ace60a2c46150f5ad1c4",
+        "introduced_at": "2026-10-12T05:29:47Z"
+      },
       "needs": [
-        "MONTH_RESEARCH_NOT_STARTED"
+        "OFFICIAL_INDIVIDUAL_PRODUCT_ID",
+        "BRAND_AND_WOMEN_KNIT_CONFIRMATION",
+        "EXPLICIT_MONTH_EVIDENCE",
+        "ACTUAL_SOURCE_CHECK_TIMESTAMP"
       ]
     },
     {
@@ -10135,7 +10296,7 @@
     },
     {
       "code": "FUTURE_RECORDED_TIMES",
-      "action": "175 original check times postdate their first storage commits; originals and commit times retained; clear 169 unknown cells, replace six freshly rechecked DoCLASSE cells"
+      "action": "183 original times postdate their storage commits; retain originals, clear 177 unknown cells and preserve six actual DoCLASSE rechecks"
     },
     {
       "code": "DOCLASSE_QUALIFYING_RECHECK",
@@ -10174,14 +10335,20 @@
       "passed": 3,
       "total": 3
     },
-    "original_evidence_rows": "236_UNCHANGED",
+    "original_evidence_rows": "243_UNCHANGED",
     "canonical_ledger": "UNCHANGED_2_RECORDS",
     "publication_status": "PUBLISH_HOLD",
-    "human_review_required": true
+    "human_review_required": true,
+    "daily_policy_compatibility": "PASS",
+    "historical_ledger_scope": "PRESERVED_AND_VALIDATED_WITHIN_APPROVED_SCOPE",
+    "policy_compatibility_tests": {
+      "passed": 8,
+      "total": 8
+    }
   },
   "concurrent_main_updates": {
     "initial_source_commit": "4ced8f689741304475b8fa4b014ff7e14267ac0e",
-    "incorporated_source_commit": "05e617a5807f30f89df0ac0090e6fd3bd859a2a3",
+    "incorporated_source_commit": "2f48445fc75d20d949d738d1a21f37ac953ade3b",
     "additional_commits": [
       {
         "sha": "a0fe75e32d90aa290c136f126a1cce4fa1966a35",
@@ -10206,8 +10373,23 @@
       {
         "sha": "5fdb94eaa9480ef23a33cc8a461bb9f46821e3ec",
         "date": "2026-10-12T05:24:29Z"
+      },
+      {
+        "sha": "2f48445fc75d20d949d738d1a21f37ac953ade3b",
+        "date": "2026-10-12T05:30:33Z"
+      },
+      {
+        "sha": "9a61a48438385d576867ace60a2c46150f5ad1c4",
+        "date": "2026-10-12T05:29:47Z"
       }
     ],
-    "additional_cells": 27
+    "additional_cells": 36
+  },
+  "publication_request": {
+    "requested_at": "2026-10-12T05:35:23.054Z",
+    "request": "公開",
+    "scope": "PUBLISH_CORRECTED_COVERAGE_AND_VALIDATORS",
+    "publication_status": "PUBLISH_HOLD",
+    "human_review_required": true
   }
 }

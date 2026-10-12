@@ -15,6 +15,7 @@ name: Monitor brand64 daily freshness
       - "tests/test_brand64_retrospective_baseline.py"
       - "scripts/validate_spring_backfill_coverage.py"
       - "tests/test_spring_backfill_coverage_integrity.py"
+      - "tests/test_brand64_policy_compatibility.py"
       - "scripts/validate_brand_md_analysis_framework.py"
       - ".github/workflows/monitor-brand64-daily-freshness.yml"
   push:
@@ -30,6 +31,7 @@ name: Monitor brand64 daily freshness
       - "tests/test_brand64_retrospective_baseline.py"
       - "scripts/validate_spring_backfill_coverage.py"
       - "tests/test_spring_backfill_coverage_integrity.py"
+      - "tests/test_brand64_policy_compatibility.py"
       - "scripts/validate_brand_md_analysis_framework.py"
       - ".github/workflows/monitor-brand64-daily-freshness.yml"
   workflow_dispatch:
@@ -54,6 +56,7 @@ jobs:
         run: |
           python scripts/validate_spring_backfill_coverage.py
           python -m unittest discover -s tests -p 'test_spring_backfill_coverage_integrity.py' -v
+          python -m unittest discover -s tests -p 'test_brand64_policy_compatibility.py' -v
       - name: Validate saved observation integrity
         run: python scripts/validate_brand64_daily_freshness.py
       - name: Test gated spring retrospective baseline handling

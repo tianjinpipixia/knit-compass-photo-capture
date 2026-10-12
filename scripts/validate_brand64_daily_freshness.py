@@ -158,6 +158,48 @@ def validate_structured_daily(
         assert daily.get("recovered_on")
 
 
+def validate_retrospective_policy(monitoring_config, active_brands):
+    retrospective_policy = monitoring_config.get("retrospective_season_backfill", {})
+    assert retrospective_policy.get("status") == "INDEPENDENT_BACKFILL_REQUIRED"
+    assert retrospective_policy.get("scope") == "WOMEN_KNIT_APPROVED_SCOPE"
+    assert retrospective_policy.get("retrospective_period") == "2026-01-01/2026-06-30"
+    assert retrospective_policy.get("execution_order") == [
+        "RETROSPECTIVE_BACKFILL_PARALLEL_TRACK",
+        "CURRENT_DAY_BRAND64",
+        "UNPROCESSED_OBSERVATION_DATES_RECOVERED",
+    ]
+    assert retrospective_policy.get("priority_brand_ids") == monitoring_config["tiered_analysis"]["tier_a_deep_dive_brand_ids"]
+    assert set(retrospective_policy.get("priority_brand_ids", [])) <= set(active_brands)
+    assert retrospective_policy.get("max_products_per_run") == 60
+    assert retrospective_policy.get("max_products_per_brand_per_run") == 10
+    assert retrospective_policy.get("require_official_individual_product_url") is True
+    assert retrospective_policy.get("record_scope") == "RETROSPECTIVE_BASELINE"
+    assert retrospective_policy.get("v04_projection") == (
+        "LEDGER_ROWS_INCLUDE_PRODUCT_ID_PRODUCT_URL_SOURCE_TYPE_AND_PUBLISH_HOLD_FIELDS"
+    )
+    assert retrospective_policy.get("dedupe_keys") == ["product_code", "official_url"]
+    assert retrospective_policy.get("source_offline_status") == "SOURCE_OFFLINE"
+    assert retrospective_policy.get("publication_status") == "PUBLISH_HOLD"
+    assert retrospective_policy.get("human_review_required") is True
+    assert retrospective_policy.get("sales_quantity_estimation") == "FORBIDDEN"
+
+    assert retrospective_policy.get("accepted_source_kinds") == ["OFFICIAL_PRODUCT_PAGE", "OFFICIAL_EC_PRODUCT_PAGE"]
+    gate = retrospective_policy["completion_gate"]
+    assert gate["required_brands"] == 40
+    assert gate["required_months"] == [f"2026-{month:02d}" for month in range(1, 7)]
+    assert gate["complete_only_when_all_brand_months_terminal"] is True
+    assert gate["source_access_limited_is_not_no_change"] is True
+    assert gate["season_label_only_does_not_prove_month"] is True
+    return retrospective_policy
+
+
+def validate_archived_period(archive_period, approved_period):
+    archive_start, archive_end = [date.fromisoformat(value) for value in archive_period.split("/")]
+    approved_start, approved_end = [date.fromisoformat(value) for value in approved_period.split("/")]
+    assert approved_start <= archive_start <= archive_end <= approved_end, "archive period outside approved scope"
+    return archive_period
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--max-age-days", type=int)
@@ -235,29 +277,7 @@ def main() -> None:
     assert monitoring_config.get("global_signal_group", {}).get("brands") == [EXPECTED_ZARA_ID]
     assert monitoring_config.get("rules", {}).get("external_signals_do_not_change_brand64_count") is True
 
-    retrospective_policy = monitoring_config.get("retrospective_season_backfill", {})
-    assert retrospective_policy.get("status") == "ENABLED_WHEN_DAILY_CAPACITY_REMAINS"
-    assert retrospective_policy.get("scope") == "WOMEN_KNIT"
-    assert retrospective_policy.get("retrospective_period") == "2026-01-01/2026-04-30"
-    assert retrospective_policy.get("execution_order") == [
-        "CURRENT_DAY_BRAND64_COMPLETE",
-        "UNPROCESSED_OBSERVATION_DATES_RECOVERED",
-        "RETROSPECTIVE_BASELINE",
-    ]
-    assert retrospective_policy.get("priority_brand_ids") == EXPECTED_RETROSPECTIVE_PRIORITY_IDS
-    assert set(retrospective_policy.get("priority_brand_ids", [])) <= set(active_brands)
-    assert retrospective_policy.get("max_products_per_run") == 4
-    assert retrospective_policy.get("max_products_per_brand_per_run") == 2
-    assert retrospective_policy.get("require_official_individual_product_url") is True
-    assert retrospective_policy.get("record_scope") == "RETROSPECTIVE_BASELINE"
-    assert retrospective_policy.get("v04_projection") == (
-        "LEDGER_ROWS_INCLUDE_PRODUCT_ID_PRODUCT_URL_SOURCE_TYPE_AND_PUBLISH_HOLD_FIELDS"
-    )
-    assert retrospective_policy.get("dedupe_keys") == ["product_code", "official_url"]
-    assert retrospective_policy.get("source_offline_status") == "SOURCE_OFFLINE"
-    assert retrospective_policy.get("publication_status") == "PUBLISH_HOLD"
-    assert retrospective_policy.get("human_review_required") is True
-    assert retrospective_policy.get("sales_quantity_estimation") == "FORBIDDEN"
+    retrospective_policy = validate_retrospective_policy(monitoring_config, active_brands)
 
     transition = active_config.get("transition", {})
     effective_from = date.fromisoformat(transition.get("effective_from"))
@@ -356,9 +376,12 @@ def main() -> None:
     retrospective_path = repository_path(retrospective_policy["ledger_path"])
     assert retrospective_path.is_file()
     retrospective_ledger = json.loads(retrospective_path.read_text(encoding="utf-8"))
+    # Historical records keep the actual scope declared when they were collected.
+    ledger_period = validate_archived_period(retrospective_ledger["retrospective_period"],
+                                            retrospective_policy["retrospective_period"])
     validate_ledger(
         retrospective_ledger,
-        period=retrospective_policy["retrospective_period"],
+        period=ledger_period,
         accepted_source_kinds=set(retrospective_policy["accepted_source_kinds"]),
         active_brands=active_brands,
     )
@@ -381,13 +404,13 @@ def main() -> None:
         "retrospective_season_backfill_cumulative_count",
     ):
         assert latest.get(key) == retrospective_counts[key]
-    assert latest.get("retrospective_period") == retrospective_policy["retrospective_period"]
+    assert latest.get("retrospective_period") == ledger_period
     assert latest.get("retrospective_season_backfill_path") == retrospective_policy["ledger_path"]
     report_path = repository_path(latest["retrospective_season_backfill_report_path"])
     report = json.loads(report_path.read_text(encoding="utf-8"))
     assert report.get("format") == "KC_BRAND64_RETROSPECTIVE_BACKFILL_REPORT"
     assert report.get("observed_date") == latest["observed_date"]
-    assert report.get("retrospective_period") == retrospective_policy["retrospective_period"]
+    assert report.get("retrospective_period") == ledger_period
     assert report.get("retrospective_season_backfill_count") == retrospective_counts["retrospective_season_backfill_count"]
     assert report.get("retrospective_season_backfill_cumulative_count") == retrospective_counts[
         "retrospective_season_backfill_cumulative_count"
@@ -408,7 +431,7 @@ def main() -> None:
         assert daily_payload.get("retrospective_season_backfill_cumulative_count") == retrospective_counts[
             "retrospective_season_backfill_cumulative_count"
         ]
-        assert daily_payload.get("retrospective_period") == retrospective_policy["retrospective_period"]
+        assert daily_payload.get("retrospective_period") == ledger_period
 
     previous_daily = latest.get("previous_daily_path")
     if previous_daily:
