@@ -36,6 +36,15 @@ class CoverageIntegrityTests(unittest.TestCase):
                          result['terminal_brand_month_cells'] + result['pending_brand_month_cells'])
         self.assertEqual(result['by_month'], self.coverage['summary']['by_month'])
 
+    def test_all_confirmed_products_from_rechecked_sources_are_registered(self):
+        report = json.loads((ROOT / 'data/brand-md-monitoring/2026-10-12-spring-qualifying-source-recheck.json').read_text())
+        for finding in report['findings']:
+            if finding['status'] != 'VERIFIED_PRODUCTS':
+                continue
+            expected = {p['product_code'] for p in finding['products']}
+            actual = {p['product_code'] for p in self.cell(finding['brand_id'], finding['month'])['verified_product_evidence']}
+            self.assertTrue(expected <= actual, f"confirmed source items omitted: {finding['brand_id']} {finding['month']}")
+
     def test_feature_only_cannot_close_month(self):
         self.cell('BR-00035', '2026-01')['status'] = 'VERIFIED_PRODUCTS'
         with self.assertRaisesRegex(AssertionError, 'terminal product cell'):
