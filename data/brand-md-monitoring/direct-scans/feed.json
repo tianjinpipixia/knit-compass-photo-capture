@@ -7,11 +7,11 @@
     "collector": "CHATGPT_OFFICIAL_DIRECT",
     "collection_method": "DIRECT_HTTP_NO_AI_API",
     "observed_date": "2026-10-14",
-    "generated_at_utc": "2026-10-13T23:45:00.164932+00:00",
+    "generated_at_utc": "2026-10-13T23:46:09.869960+00:00",
     "active_brand_count": 65,
     "attempted_brand_count": 65,
     "product_observed_brand_count": 24,
-    "product_count": 530,
+    "product_count": 656,
     "complete_brand_count": 0,
     "unresolved_brand_ids": [
       "BR-00001",
@@ -81,7 +81,7 @@
       "BR-00077"
     ],
     "not_attempted_brand_ids": [],
-    "pending_page_count": 44,
+    "pending_page_count": 47,
     "scan_status": "PARTIAL_COVERAGE",
     "ai_api_request_count": 0,
     "billing_enabled_by_this_job": false,
@@ -145,7 +145,7 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-13T23:43:50.776892+00:00",
+        "last_attempt_at_utc": "2026-10-13T23:45:34.358829+00:00",
         "pending_page_urls": [],
         "errors": [
           {
@@ -198,9 +198,10 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-13T23:43:31.845436+00:00",
+        "last_attempt_at_utc": "2026-10-13T23:45:20.678598+00:00",
         "pending_page_urls": [
-          "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
+          "https://www.dot-st.com/globalwork/disp/itemlist/?mode=&sort=01&groupNm=0&p=1&refineFlg=true&dispNo=001001&dispNoRadio=001001&search_color_cd=&search_size_cd=&search_class_attribute=&search_function_tag=&search_range_price_min=&search_range_price_max=&search_refine_range_min=&search_refine_range_max=&search_price=&goodsType=1&search_campaign=&store_delv_yn=&gift_wrap_yn=&stock=0&pre_rl=",
+          "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01"
         ],
         "errors": [
           {
@@ -209,6 +210,10 @@
           },
           {
             "url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
@@ -335,11 +340,10 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-13T23:43:33.251276+00:00",
+        "last_attempt_at_utc": "2026-10-13T23:45:23.516335+00:00",
         "pending_page_urls": [
-          "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2",
-          "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=3",
-          "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2"
+          "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/",
+          "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/"
         ],
         "errors": [
           {
@@ -348,6 +352,18 @@
           },
           {
             "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=3",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
@@ -366,10 +382,10 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-13T23:44:08.903679+00:00",
+        "last_attempt_at_utc": "2026-10-13T23:45:38.948965+00:00",
         "pending_page_urls": [
-          "https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2",
-          "https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2"
+          "https://store.world.co.jp/s/brand/index/category/WB/WB01/",
+          "https://store.world.co.jp/s/brand/index/category/WB/WB02/"
         ],
         "errors": [
           {
@@ -378,6 +394,14 @@
           },
           {
             "url": "https://store.world.co.jp/s/brand/index/category/WB/WB02/",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
@@ -396,11 +420,10 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-13T23:43:54.910798+00:00",
+        "last_attempt_at_utc": "2026-10-13T23:45:35.927554+00:00",
         "pending_page_urls": [
-          "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2",
-          "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2",
-          "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3"
+          "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/",
+          "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/"
         ],
         "errors": [
           {
@@ -409,6 +432,18 @@
           },
           {
             "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
@@ -427,9 +462,10 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-13T23:44:21.867383+00:00",
+        "last_attempt_at_utc": "2026-10-13T23:45:40.411603+00:00",
         "pending_page_urls": [
-          "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2"
+          "https://store.world.co.jp/s/brand/grove/category/WB/WB01/",
+          "https://store.world.co.jp/s/brand/grove/category/WB/WB02/"
         ],
         "errors": [
           {
@@ -438,6 +474,10 @@
           },
           {
             "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB02/",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
@@ -490,14 +530,13 @@
             "SOURCE_SCOPE_AUDIT_REQUIRED"
           ]
         },
-        "product_count": 40,
-        "last_attempt_at_utc": "2026-10-13T23:43:56.333126+00:00",
+        "product_count": 116,
+        "last_attempt_at_utc": "2026-10-13T23:45:43.667852+00:00",
         "pending_page_urls": [
-          "https://www.doclasse.com/item?brand_id=1&category_id=11&page=2",
-          "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
-          "https://www.doclasse.com/item?brand_id=1&category_id=12&page=6",
-          "https://www.doclasse.com/item?brand_id=1&category_id=12&page=8",
-          "https://www.doclasse.com/item?brand_id=1&category_id=11&page=4"
+          "https://www.doclasse.com/item?brand_id=1&category_id=11&page=4",
+          "https://www.doclasse.com/item?brand_id=1&category_id=11&page=3",
+          "https://www.doclasse.com/item?brand_id=1&category_id=12&page=3",
+          "https://www.doclasse.com/item?brand_id=1&category_id=12&page=7"
         ],
         "errors": [],
         "unverified_link_candidate_count": 0
@@ -820,15 +859,15 @@
             "SOURCE_SCOPE_AUDIT_REQUIRED"
           ]
         },
-        "product_count": 13,
-        "last_attempt_at_utc": "2026-10-13T23:44:14.952697+00:00",
+        "product_count": 36,
+        "last_attempt_at_utc": "2026-10-13T23:45:26.532457+00:00",
         "pending_page_urls": [
-          "https://stripe-club.com/brand/american-holic/search?so=NEW&page=11",
-          "https://stripe-club.com/brand/american-holic/search?so=NEW&page=2",
-          "https://stripe-club.com/brand/american-holic/search?so=NEW&page=9",
-          "https://stripe-club.com/brand/american-holic/search?so=NEW&page=16",
           "https://stripe-club.com/brand/american-holic/search?so=NEW&page=4",
-          "https://stripe-club.com/brand/american-holic/search?so=NEW&page=7"
+          "https://stripe-club.com/brand/american-holic/search?so=NEW&page=7",
+          "https://stripe-club.com/brand/american-holic/search?so=NEW&page=12",
+          "https://stripe-club.com/brand/american-holic/search?so=NEW&page=3",
+          "https://stripe-club.com/brand/american-holic/search?so=NEW&page=10",
+          "https://stripe-club.com/brand/american-holic/search?so=NEW&page=17"
         ],
         "errors": [],
         "unverified_link_candidate_count": 0
@@ -858,19 +897,19 @@
             "SOURCE_SCOPE_AUDIT_REQUIRED"
           ]
         },
-        "product_count": 7,
-        "last_attempt_at_utc": "2026-10-13T23:44:17.678289+00:00",
+        "product_count": 20,
+        "last_attempt_at_utc": "2026-10-13T23:45:32.800272+00:00",
         "pending_page_urls": [
-          "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1004",
-          "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1005",
-          "https://crosset.onward.co.jp/items?cp=8&pp=10&gc=2&bc=002&du=2&scc=1004",
-          "https://crosset.onward.co.jp/items?cp=8&pp=10&gc=2&bc=002&du=2&scc=1005",
           "https://crosset.onward.co.jp/items?cp=11&pp=10&gc=2&bc=002&du=2&scc=1004",
           "https://crosset.onward.co.jp/items?cp=11&pp=10&gc=2&bc=002&du=2&scc=1005",
           "https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=002&du=2&scc=1004",
           "https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=002&du=2&scc=1005",
           "https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1004",
-          "https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1005"
+          "https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1005",
+          "https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=002&du=2&scc=1004",
+          "https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=002&du=2&scc=1005",
+          "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=002&du=2&scc=1004",
+          "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=002&du=2&scc=1005"
         ],
         "errors": [],
         "unverified_link_candidate_count": 0
@@ -929,18 +968,18 @@
             "SOURCE_SCOPE_AUDIT_REQUIRED"
           ]
         },
-        "product_count": 8,
-        "last_attempt_at_utc": "2026-10-13T23:44:45.280837+00:00",
+        "product_count": 22,
+        "last_attempt_at_utc": "2026-10-13T23:45:47.625644+00:00",
         "pending_page_urls": [
-          "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1005",
-          "https://crosset.onward.co.jp/items?cp=8&pp=10&gc=2&bc=003&du=2&scc=1005",
-          "https://crosset.onward.co.jp/items?cp=11&pp=10&gc=2&bc=003&du=2&scc=1004",
-          "https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1004",
           "https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1005",
           "https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1004",
           "https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1005",
           "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=003&du=2&scc=1004",
-          "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1004"
+          "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1004",
+          "https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=003&du=2&scc=1005",
+          "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=003&du=2&scc=1005",
+          "https://crosset.onward.co.jp/items?cp=12&pp=10&gc=2&bc=003&du=2&scc=1004",
+          "https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=003&du=2&scc=1004"
         ],
         "errors": [],
         "unverified_link_candidate_count": 0
@@ -984,9 +1023,10 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-13T23:44:31.560237+00:00",
+        "last_attempt_at_utc": "2026-10-13T23:45:42.333782+00:00",
         "pending_page_urls": [
-          "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2"
+          "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/",
+          "https://store.world.co.jp/s/brand/indivi/category/WB/WB02/"
         ],
         "errors": [
           {
@@ -995,6 +1035,10 @@
           },
           {
             "url": "https://store.world.co.jp/s/brand/indivi/category/WB/WB02/",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
@@ -1013,9 +1057,10 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-13T23:44:38.528461+00:00",
+        "last_attempt_at_utc": "2026-10-13T23:45:45.534178+00:00",
         "pending_page_urls": [
-          "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2"
+          "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/",
+          "https://store.world.co.jp/s/brand/untitled/category/WB/WB02/"
         ],
         "errors": [
           {
@@ -1024,6 +1069,10 @@
           },
           {
             "url": "https://store.world.co.jp/s/brand/untitled/category/WB/WB02/",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
@@ -1101,9 +1150,10 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-13T23:43:37.197085+00:00",
+        "last_attempt_at_utc": "2026-10-13T23:45:19.262125+00:00",
         "pending_page_urls": [
-          "https://baycrews.jp/brand/detail/slobe"
+          "https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0999",
+          "https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0999"
         ],
         "errors": [
           {
@@ -1112,6 +1162,10 @@
           },
           {
             "url": "https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0999",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://baycrews.jp/brand/detail/slobe",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
@@ -1130,9 +1184,10 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-13T23:43:39.824653+00:00",
+        "last_attempt_at_utc": "2026-10-13T23:45:22.128911+00:00",
         "pending_page_urls": [
-          "https://store.united-arrows.co.jp/brand/glr/"
+          "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0105",
+          "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0108"
         ],
         "errors": [
           {
@@ -1141,6 +1196,10 @@
           },
           {
             "url": "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0108",
+            "reason": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "url": "https://store.united-arrows.co.jp/brand/glr/",
             "reason": "HTTPError: HTTP Error 403: Forbidden"
           }
         ],
@@ -1239,7 +1298,7 @@
           ]
         },
         "product_count": 0,
-        "last_attempt_at_utc": "2026-10-13T23:44:13.573167+00:00",
+        "last_attempt_at_utc": "2026-10-13T23:45:49.568549+00:00",
         "pending_page_urls": [],
         "errors": [
           {
@@ -1530,10 +1589,10 @@
         "unverified_link_candidate_count": 0
       }
     ],
-    "stage": "flash",
-    "artifact_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-14/20261013T234327607328Z-flash/scan.json",
-    "first_observed_candidate_count": 15,
-    "candidate_delta_count": 203,
+    "stage": "check",
+    "artifact_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-14/20261013T234609869496Z-check/scan.json",
+    "first_observed_candidate_count": 25,
+    "candidate_delta_count": 250,
     "baseline_initialization_count": 0
   },
   "candidates": [
@@ -26069,6 +26128,2424 @@
         "product_name": "〈ako〉スクエア×ボート前後２WAYリブニット"
       },
       "discovered_at_utc": "2026-10-13T23:44:48.097591+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "AMERICAN HOLIC 【バイパチ・シアバター配合】配色ニットカーディガン",
+      "product_url": "https://stripe-club.com/brand/american-holic/item/100HA26G0083",
+      "product_code": "100HA26G0083",
+      "display_price": "¥ 4,490",
+      "status_labels": [],
+      "source_url": "https://stripe-club.com/brand/american-holic/search?so=NEW&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "2a091d693e18bb7f0d1388e1c36d6c7f31ed038102a124c0bd27812ba4e5e812",
+      "brand_id": "BR-00035",
+      "brand_name": "AMERICAN HOLIC",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://stripe-club.com/brand/american-holic/item/100HA26G0083"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 4,490",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "AMERICAN HOLIC 【バイパチ・シアバター配合】配色ニットカーディガン"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:26.627171+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "AMERICAN HOLIC 袖配色Vネックニットカーディガン",
+      "product_url": "https://stripe-club.com/brand/american-holic/item/100HA26G0057",
+      "product_code": "100HA26G0057",
+      "display_price": "¥ 4,490",
+      "status_labels": [],
+      "source_url": "https://stripe-club.com/brand/american-holic/search?so=NEW&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "2a091d693e18bb7f0d1388e1c36d6c7f31ed038102a124c0bd27812ba4e5e812",
+      "brand_id": "BR-00035",
+      "brand_name": "AMERICAN HOLIC",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://stripe-club.com/brand/american-holic/item/100HA26G0057"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 4,490",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "AMERICAN HOLIC 袖配色Vネックニットカーディガン"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:26.627257+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "AMERICAN HOLIC シアーリブニットカーディガン",
+      "product_url": "https://stripe-club.com/brand/american-holic/item/100HA26C0050",
+      "product_code": "100HA26C0050",
+      "display_price": "¥ 3,490 / ¥ 2,093",
+      "status_labels": [
+        "SALE"
+      ],
+      "source_url": "https://stripe-club.com/brand/american-holic/search?so=NEW&page=16",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "3a05d5e1f2f79d792cf6fd5559c906e5fe02f6e808b39ff132c5a57fdbdd1d1c",
+      "brand_id": "BR-00035",
+      "brand_name": "AMERICAN HOLIC",
+      "first_seen_date": "2026-10-14",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-14",
+      "discovered_at_utc": "2026-10-13T23:45:26.627285+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "AMERICAN HOLIC ボーダーハーフスリーブニットプルオーバー",
+      "product_url": "https://stripe-club.com/brand/american-holic/item/100HA26C0064",
+      "product_code": "100HA26C0064",
+      "display_price": "¥ 2,990 / ¥ 1,494",
+      "status_labels": [
+        "SALE"
+      ],
+      "source_url": "https://stripe-club.com/brand/american-holic/search?so=NEW&page=16",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "3a05d5e1f2f79d792cf6fd5559c906e5fe02f6e808b39ff132c5a57fdbdd1d1c",
+      "brand_id": "BR-00035",
+      "brand_name": "AMERICAN HOLIC",
+      "first_seen_date": "2026-10-14",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-14",
+      "discovered_at_utc": "2026-10-13T23:45:26.627288+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "AMERICAN HOLIC 【前後2WAY・接触冷感】ポンチョニット",
+      "product_url": "https://stripe-club.com/brand/american-holic/item/100HA26C0051",
+      "product_code": "100HA26C0051",
+      "display_price": "¥ 3,290 / ¥ 1,644",
+      "status_labels": [
+        "SALE"
+      ],
+      "source_url": "https://stripe-club.com/brand/american-holic/search?so=NEW&page=16",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "3a05d5e1f2f79d792cf6fd5559c906e5fe02f6e808b39ff132c5a57fdbdd1d1c",
+      "brand_id": "BR-00035",
+      "brand_name": "AMERICAN HOLIC",
+      "first_seen_date": "2026-10-14",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-14",
+      "discovered_at_utc": "2026-10-13T23:45:26.627291+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "AMERICAN HOLIC 【2WAY】金ボタンカーディガン",
+      "product_url": "https://stripe-club.com/brand/american-holic/item/100HA26C0074",
+      "product_code": "100HA26C0074",
+      "display_price": "¥ 3,990 / ¥ 1,596",
+      "status_labels": [
+        "SALE"
+      ],
+      "source_url": "https://stripe-club.com/brand/american-holic/search?so=NEW&page=16",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "3a05d5e1f2f79d792cf6fd5559c906e5fe02f6e808b39ff132c5a57fdbdd1d1c",
+      "brand_id": "BR-00035",
+      "brand_name": "AMERICAN HOLIC",
+      "first_seen_date": "2026-10-14",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-14",
+      "discovered_at_utc": "2026-10-13T23:45:26.627294+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "【新色追加/見上愛さん着用】ピュアカシミヤ クルーネック カーディガン",
+      "product_url": "https://crosset.onward.co.jp/items/KRWOLW0450",
+      "product_code": "KRWOLW0450",
+      "display_price": "¥29,920",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1005",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "c8b72f168071163fdd6eb8880d3758bbaba002cf34ced14ade5e6e304b9e51b0",
+      "brand_id": "BR-00039",
+      "brand_name": "23区",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://crosset.onward.co.jp/items/KRWOLW0450"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥29,920",
+        "status_labels": [
+          "NEW"
+        ],
+        "product_name": "【新色追加/見上愛さん着用】ピュアカシミヤ クルーネック カーディガン"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:32.895029+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "イタリア糸・アルパカ混ロングカーディガン",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_18565/030",
+      "product_code": "18565",
+      "display_price": "¥ 7,190 / ￥7,909",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=11&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "1e67c896341ea577a858963cf1e9f7d5c9f9a539702bca508b2f78d065cb3048",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_18565/030"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 7,190 / ￥7,909",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "イタリア糸・アルパカ混ロングカーディガン"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762526+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "イタリア糸・カシミヤ混畦カーディガン",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_18556/490",
+      "product_code": "18556",
+      "display_price": "¥ 5,990 / ￥6,589",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=11&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "1e67c896341ea577a858963cf1e9f7d5c9f9a539702bca508b2f78d065cb3048",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-09",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_18556/490"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 5,990 / ￥6,589",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "イタリア糸・カシミヤ混畦カーディガン"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762609+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "Nukle・テディロングフーディ",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_16318/036",
+      "product_code": "16318",
+      "display_price": "¥ 9,290 / ￥10,219",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=11&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "1e67c896341ea577a858963cf1e9f7d5c9f9a539702bca508b2f78d065cb3048",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_16318/036"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 9,290 / ￥10,219",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "Nukle・テディロングフーディ"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762635+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "Nukle・テディパーカー",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_16320/717",
+      "product_code": "16320",
+      "display_price": "¥ 6,990 / ￥7,689",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=11&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "1e67c896341ea577a858963cf1e9f7d5c9f9a539702bca508b2f78d065cb3048",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_16320/717"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 6,990 / ￥7,689",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "Nukle・テディパーカー"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762656+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "Nukle・テディショールカーディガン",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_13116/130",
+      "product_code": "13116",
+      "display_price": "¥ 10,090 / ￥11,099",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=11&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "1e67c896341ea577a858963cf1e9f7d5c9f9a539702bca508b2f78d065cb3048",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_13116/130"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 10,090 / ￥11,099",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "Nukle・テディショールカーディガン"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762674+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "構築ニット・ボレロカーディガン",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_32255/090",
+      "product_code": "32255",
+      "display_price": "¥ 4,990 / ￥5,489",
+      "status_labels": [
+        "SALE"
+      ],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=11&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "1e67c896341ea577a858963cf1e9f7d5c9f9a539702bca508b2f78d065cb3048",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-14",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-14",
+      "discovered_at_utc": "2026-10-13T23:45:43.762694+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "総針ニット・ブルゾンカーディガン",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_32301/120",
+      "product_code": "32301",
+      "display_price": "¥ 4,590 / ￥5,049",
+      "status_labels": [
+        "SALE"
+      ],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=11&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "1e67c896341ea577a858963cf1e9f7d5c9f9a539702bca508b2f78d065cb3048",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-14",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-14",
+      "discovered_at_utc": "2026-10-13T23:45:43.762698+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "ライトシアー・ベルト付きロングカーディガン",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_31622/673",
+      "product_code": "31622",
+      "display_price": "¥ 1,990 / ￥2,189",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=11&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "1e67c896341ea577a858963cf1e9f7d5c9f9a539702bca508b2f78d065cb3048",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_31622/673"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 1,990 / ￥2,189",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "ライトシアー・ベルト付きロングカーディガン"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762700+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "パールビジュー・プルオーバーニット",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_32960/300",
+      "product_code": "32960",
+      "display_price": "¥ 3,490 / ￥3,839",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "c899cff8ee519aa3a30b593aa699fbfbe5efa3b1b9e9a97201de517ff948c455",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_32960/300"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 3,490 / ￥3,839",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "パールビジュー・プルオーバーニット"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762717+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "片畦編み・裾ボタンライン使いセーター",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_32527/050",
+      "product_code": "32527",
+      "display_price": "¥ 4,990 / ￥5,489",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "c899cff8ee519aa3a30b593aa699fbfbe5efa3b1b9e9a97201de517ff948c455",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_32527/050"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 4,990 / ￥5,489",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "片畦編み・裾ボタンライン使いセーター"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762734+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "スーパーキッドモヘア・シアーハイネックニット",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_32380/409",
+      "product_code": "32380",
+      "display_price": "¥ 4,990 / ￥5,489",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "c899cff8ee519aa3a30b593aa699fbfbe5efa3b1b9e9a97201de517ff948c455",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_32380/409"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 4,990 / ￥5,489",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "スーパーキッドモヘア・シアーハイネックニット"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762750+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "マシュマロウール100・ハイネック",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_31286/417",
+      "product_code": "31286",
+      "display_price": "¥ 3,990 / ￥4,389",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "c899cff8ee519aa3a30b593aa699fbfbe5efa3b1b9e9a97201de517ff948c455",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_31286/417"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 3,990 / ￥4,389",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "マシュマロウール100・ハイネック"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762765+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "イタリア糸・カシミヤ混リボンプルオーバー",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_16910/090",
+      "product_code": "16910",
+      "display_price": "¥ 8,990 / ￥9,889",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "c899cff8ee519aa3a30b593aa699fbfbe5efa3b1b9e9a97201de517ff948c455",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_16910/090"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 8,990 / ￥9,889",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "イタリア糸・カシミヤ混リボンプルオーバー"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762781+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "片畦編み・Vネックパフ袖セーター",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_16956/270",
+      "product_code": "16956",
+      "display_price": "¥ 2,490 / ￥2,739",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "c899cff8ee519aa3a30b593aa699fbfbe5efa3b1b9e9a97201de517ff948c455",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_16956/270"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 2,490 / ￥2,739",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "片畦編み・Vネックパフ袖セーター"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762797+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "カシミヤ混・裾レースVネックニット",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_32305/750",
+      "product_code": "32305",
+      "display_price": "¥ 5,990 / ￥6,589",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "c899cff8ee519aa3a30b593aa699fbfbe5efa3b1b9e9a97201de517ff948c455",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_32305/750"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 5,990 / ￥6,589",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "カシミヤ混・裾レースVネックニット"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762813+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "ブークレニット・ベルスリーブプルオーバー",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_33374/090",
+      "product_code": "33374",
+      "display_price": "¥ 6,490 / ￥7,139",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "c899cff8ee519aa3a30b593aa699fbfbe5efa3b1b9e9a97201de517ff948c455",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_33374/090"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 6,490 / ￥7,139",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "ブークレニット・ベルスリーブプルオーバー"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762829+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "コットンニット・片畦コンビプルオーバー",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_32975/480",
+      "product_code": "32975",
+      "display_price": "¥ 7,990 / ￥8,789",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "c899cff8ee519aa3a30b593aa699fbfbe5efa3b1b9e9a97201de517ff948c455",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_32975/480"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 7,990 / ￥8,789",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "コットンニット・片畦コンビプルオーバー"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762845+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "ミラノリブ・ボックスボーダートップス",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_32972/372",
+      "product_code": "32972",
+      "display_price": "¥ 6,990 / ￥7,689",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "c899cff8ee519aa3a30b593aa699fbfbe5efa3b1b9e9a97201de517ff948c455",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_32972/372"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 6,990 / ￥7,689",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "ミラノリブ・ボックスボーダートップス"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762861+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "ハイゲージニット・バックスリットタートル",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_32348/023",
+      "product_code": "32348",
+      "display_price": "¥ 2,790 / ￥3,069",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "c899cff8ee519aa3a30b593aa699fbfbe5efa3b1b9e9a97201de517ff948c455",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_32348/023"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 2,790 / ￥3,069",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "ハイゲージニット・バックスリットタートル"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762878+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "ウール混・ドロップショルダーセーター",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_32508/490",
+      "product_code": "32508",
+      "display_price": "¥ 5,380 / ￥5,918",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "c899cff8ee519aa3a30b593aa699fbfbe5efa3b1b9e9a97201de517ff948c455",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-14",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-14",
+      "discovered_at_utc": "2026-10-13T23:45:43.762893+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "ラメトリム・サマーニット／ノースリーブ",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_32959/090",
+      "product_code": "32959",
+      "display_price": "¥ 3,490 / ￥3,839",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "c899cff8ee519aa3a30b593aa699fbfbe5efa3b1b9e9a97201de517ff948c455",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_32959/090"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 3,490 / ￥3,839",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "ラメトリム・サマーニット／ノースリーブ"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762896+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "product_name": "スパークリングニット・フレンチトップス",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_32689/122",
+      "product_code": "32689",
+      "display_price": "¥ 2,990 / ￥3,289",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "first_seen_date": "2026-09-08",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "material_composition": "RY-75 NY-25",
+      "function_claims": [
+        "フレンチトップス",
+        "スパークリング"
+      ],
+      "confirmed_design": "Knit top structure",
+      "season_release": "2026SS",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [
+        "2026-08"
+      ],
+      "retrospective_sources": [
+        "data/brand-md-monitoring/retrospective/imports/v04-static-products.json"
+      ],
+      "retrospective_evidence": [
+        {
+          "source_path": "data/brand-md-monitoring/retrospective/imports/v04-static-products.json",
+          "snapshot_date": null,
+          "verification_date": null,
+          "retrospective_months": [
+            "2026-08"
+          ],
+          "period_evidence_date": "2026-08-11",
+          "period_evidence_kind": "",
+          "period_evidence_value": "",
+          "period_evidence_source": "https://www.doclasse.com/item/detail/1_1_32689/122",
+          "source_record_scope": "CORE_PRODUCT_EVIDENCE_STAGING",
+          "legacy_record": {
+            "brand_id": "BR-00018",
+            "brand_name": "DoCLASSE",
+            "season": "2026SS",
+            "product_name": "スパークリングニット・フレンチトップス",
+            "product_code": "32689",
+            "category": "Knit_Top",
+            "price": "JPY 4389",
+            "composition": "RY-75 NY-25",
+            "function": "フレンチトップス; スパークリング",
+            "knit_structure": "Knit top structure",
+            "launch_status": "Listed",
+            "product_url": "https://www.doclasse.com/item/detail/1_1_32689/122",
+            "source": "https://www.doclasse.com/item/detail/1_1_32689/122 | Official listing product link | brand_review_catalog_2026-07.csv",
+            "source_date": "2026-08-11",
+            "evidence_level": "C",
+            "data_quality_status": "REVIEW_REQUIRED",
+            "source_dataset": "product_evidence_pilot_2026-07.csv;brand_review_catalog_2026-07.csv",
+            "record_scope": "CORE_PRODUCT_EVIDENCE_STAGING"
+          },
+          "source_provenance": [
+            {
+              "repository": "tianjinpipixia/knit-compass-v04-current",
+              "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+              "path": "public/brand_product_staging_trial_350_500_v1.csv",
+              "source_sha256": "a8e71577cf5c16aeab6b1428e8a21b2719cc1277a57dda04602b87902accf91f"
+            }
+          ]
+        },
+        {
+          "source_path": "data/brand-md-monitoring/retrospective/imports/v04-static-products.json",
+          "snapshot_date": "2026-08-11",
+          "verification_date": "2026-08-11",
+          "retrospective_months": [
+            "2026-08"
+          ],
+          "period_evidence_date": "2026-08-11",
+          "period_evidence_kind": "",
+          "period_evidence_value": "",
+          "period_evidence_source": "https://www.doclasse.com/item/detail/1_1_32689/122",
+          "source_record_scope": "CORE_PRODUCT_EVIDENCE_STAGING",
+          "legacy_record": {
+            "product_id": "PRD_DOCLASSE_008",
+            "brand_id": "BR-00018",
+            "brand_name": "DoCLASSE",
+            "season": "2026SS",
+            "product_name": "スパークリングニット・フレンチトップス",
+            "product_code": "32689",
+            "category": "Knit_Top",
+            "price": "JPY 4389",
+            "composition": "RY-75 NY-25",
+            "function": "フレンチトップス; スパークリング",
+            "knit_structure": "Knit top structure",
+            "launch_status": "Listed",
+            "product_url": "https://www.doclasse.com/item/detail/1_1_32689/122",
+            "source": "https://www.doclasse.com/item/detail/1_1_32689/122 | Official listing product link | brand_review_catalog_2026-07.csv",
+            "source_date": "2026-08-11",
+            "evidence_level": "C",
+            "data_quality_status": "REVIEW_REQUIRED",
+            "source_dataset": "product_evidence_pilot_2026-07.csv;brand_review_catalog_2026-07.csv",
+            "record_scope": "CORE_PRODUCT_EVIDENCE_STAGING",
+            "source_type": "CONNECTED_OWNER_PRODUCT_MASTER",
+            "last_verified_date": "2026-08-11"
+          },
+          "source_provenance": [
+            {
+              "repository": "tianjinpipixia/knit-compass-v04-current",
+              "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+              "path": "public/connected_brand_product_data_v1.js",
+              "source_sha256": "f37142e8ea47c221fd0c3fe939e2f99bca37c6294a99d938bf7de134b9b855d9"
+            }
+          ]
+        }
+      ],
+      "retrospective_only": true,
+      "source_provenance": [
+        {
+          "repository": "tianjinpipixia/knit-compass-v04-current",
+          "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+          "path": "public/brand_product_staging_trial_350_500_v1.csv",
+          "source_sha256": "a8e71577cf5c16aeab6b1428e8a21b2719cc1277a57dda04602b87902accf91f"
+        },
+        {
+          "repository": "tianjinpipixia/knit-compass-v04-current",
+          "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+          "path": "public/connected_brand_product_data_v1.js",
+          "source_sha256": "f37142e8ea47c221fd0c3fe939e2f99bca37c6294a99d938bf7de134b9b855d9"
+        }
+      ],
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_32689/122"
+      ],
+      "observed_date": "2026-10-14",
+      "source_sha256": "c899cff8ee519aa3a30b593aa699fbfbe5efa3b1b9e9a97201de517ff948c455",
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 2,990 / ￥3,289",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "スパークリングニット・フレンチトップス"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762912+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "ドライニット・ローゲージポロトップス",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_33170/680",
+      "product_code": "33170",
+      "display_price": "¥ 6,790 / ￥7,469",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "c899cff8ee519aa3a30b593aa699fbfbe5efa3b1b9e9a97201de517ff948c455",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_33170/680"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 6,790 / ￥7,469",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "ドライニット・ローゲージポロトップス"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762973+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "product_name": "ドライリブニット・Vネックトップス",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_33048/010",
+      "product_code": "33048",
+      "display_price": "¥ 3,990 / ￥4,389",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "first_seen_date": "2026-07-11",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "material_composition": "NOT AVAILABLE",
+      "function_claims": [
+        "吸水速乾"
+      ],
+      "confirmed_design": "Rib",
+      "season_release": "2026SS",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [
+        "2026-07"
+      ],
+      "retrospective_sources": [
+        "data/brand-md-monitoring/retrospective/imports/v04-static-products.json"
+      ],
+      "retrospective_evidence": [
+        {
+          "source_path": "data/brand-md-monitoring/retrospective/imports/v04-static-products.json",
+          "snapshot_date": "2026-07-11",
+          "verification_date": "2026-07-11",
+          "retrospective_months": [
+            "2026-07"
+          ],
+          "period_evidence_date": "2026-07-11",
+          "period_evidence_kind": "",
+          "period_evidence_value": "",
+          "period_evidence_source": "https://www.doclasse.com/item/detail/1_1_33048/010",
+          "source_record_scope": "COMPANY_PRODUCT_EVIDENCE_STAGING",
+          "legacy_record": {
+            "product_id": "PRD_DOCLASSE_002",
+            "brand_id": "BR-00018",
+            "brand_name": "DoCLASSE",
+            "season": "2026SS",
+            "product_name": "ドライリブニット・Vネックトップス",
+            "product_code": "NOT AVAILABLE",
+            "category": "Knit_Top",
+            "price": "JPY 5489",
+            "composition": "NOT AVAILABLE",
+            "function": "吸水速乾",
+            "knit_structure": "Rib",
+            "product_url": "https://www.doclasse.com/item/detail/1_1_33048/010",
+            "source": "https://www.doclasse.com/item/detail/1_1_33048/010 | Official listing lines 907-909",
+            "source_type": "PRODUCT_EVIDENCE_PILOT",
+            "source_date": "2026-07-11",
+            "last_verified_date": "2026-07-11",
+            "evidence_level": "C",
+            "data_quality_status": "REVIEW_REQUIRED",
+            "record_scope": "COMPANY_PRODUCT_EVIDENCE_STAGING"
+          },
+          "source_provenance": [
+            {
+              "repository": "tianjinpipixia/knit-compass-v04-current",
+              "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+              "path": "public/brand_product_staging_live_v3.csv",
+              "source_sha256": "8d515fedac00ecc83906c09bb672aa99bb94c7ac200f2471f13c4204f0e8d6bd"
+            },
+            {
+              "repository": "tianjinpipixia/knit-compass-v04-current",
+              "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+              "path": "public/product_trial_data_v4.js",
+              "source_sha256": "b51b9a0df844637595229f6a90e559179af9db5dd0f0b7a5004706b0e40096e3"
+            },
+            {
+              "repository": "tianjinpipixia/knit-compass-v04-current",
+              "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+              "path": "public/product_viewer_data_v3.js",
+              "source_sha256": "7e508f085d68b6b3bf4d2fc0ee32e79240de397b641231f27d9f8558f60f4341"
+            }
+          ]
+        },
+        {
+          "source_path": "data/brand-md-monitoring/retrospective/imports/v04-static-products.json",
+          "snapshot_date": null,
+          "verification_date": null,
+          "retrospective_months": [
+            "2026-07"
+          ],
+          "period_evidence_date": "2026-07-11",
+          "period_evidence_kind": "",
+          "period_evidence_value": "",
+          "period_evidence_source": "https://www.doclasse.com/item/detail/1_1_33048/010",
+          "source_record_scope": "CORE_PRODUCT_EVIDENCE_STAGING",
+          "legacy_record": {
+            "brand_id": "BR-00018",
+            "brand_name": "DoCLASSE",
+            "season": "2026SS",
+            "product_name": "ドライリブニット・Vネックトップス",
+            "product_code": "33048",
+            "category": "Knit_Top",
+            "price": "JPY 5489",
+            "composition": "NOT AVAILABLE",
+            "function": "吸水速乾",
+            "knit_structure": "Rib",
+            "launch_status": "Listed",
+            "product_url": "https://www.doclasse.com/item/detail/1_1_33048/010",
+            "source": "https://www.doclasse.com/item/detail/1_1_33048/010 | Official listing lines 907-909",
+            "source_date": "2026-07-11",
+            "evidence_level": "C",
+            "data_quality_status": "REVIEW_REQUIRED",
+            "source_dataset": "product_evidence_pilot_2026-07.csv",
+            "record_scope": "CORE_PRODUCT_EVIDENCE_STAGING"
+          },
+          "source_provenance": [
+            {
+              "repository": "tianjinpipixia/knit-compass-v04-current",
+              "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+              "path": "public/brand_product_staging_trial_350_500_v1.csv",
+              "source_sha256": "a8e71577cf5c16aeab6b1428e8a21b2719cc1277a57dda04602b87902accf91f"
+            }
+          ]
+        },
+        {
+          "source_path": "data/brand-md-monitoring/retrospective/imports/v04-static-products.json",
+          "snapshot_date": "2026-07-11",
+          "verification_date": "2026-07-11",
+          "retrospective_months": [
+            "2026-07"
+          ],
+          "period_evidence_date": "2026-07-11",
+          "period_evidence_kind": "",
+          "period_evidence_value": "",
+          "period_evidence_source": "https://www.doclasse.com/item/detail/1_1_33048/010",
+          "source_record_scope": "CORE_PRODUCT_EVIDENCE_STAGING",
+          "legacy_record": {
+            "product_id": "PRD_DOCLASSE_002",
+            "brand_id": "BR-00018",
+            "brand_name": "DoCLASSE",
+            "season": "2026SS",
+            "product_name": "ドライリブニット・Vネックトップス",
+            "product_code": "33048",
+            "category": "Knit_Top",
+            "price": "JPY 5489",
+            "composition": "NOT AVAILABLE",
+            "function": "吸水速乾",
+            "knit_structure": "Rib",
+            "launch_status": "Listed",
+            "product_url": "https://www.doclasse.com/item/detail/1_1_33048/010",
+            "source": "https://www.doclasse.com/item/detail/1_1_33048/010 | Official listing lines 907-909",
+            "source_date": "2026-07-11",
+            "evidence_level": "C",
+            "data_quality_status": "REVIEW_REQUIRED",
+            "source_dataset": "product_evidence_pilot_2026-07.csv",
+            "record_scope": "CORE_PRODUCT_EVIDENCE_STAGING",
+            "source_type": "CONNECTED_OWNER_PRODUCT_MASTER",
+            "last_verified_date": "2026-07-11"
+          },
+          "source_provenance": [
+            {
+              "repository": "tianjinpipixia/knit-compass-v04-current",
+              "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+              "path": "public/connected_brand_product_data_v1.js",
+              "source_sha256": "f37142e8ea47c221fd0c3fe939e2f99bca37c6294a99d938bf7de134b9b855d9"
+            }
+          ]
+        },
+        {
+          "source_path": "data/brand-md-monitoring/retrospective/imports/v04-static-products.json",
+          "snapshot_date": null,
+          "verification_date": null,
+          "retrospective_months": [
+            "2026-07"
+          ],
+          "period_evidence_date": "2026-07-11",
+          "period_evidence_kind": "",
+          "period_evidence_value": "",
+          "period_evidence_source": "https://www.doclasse.com/item/detail/1_1_33048/010",
+          "source_record_scope": "CORE_PRODUCT_EVIDENCE_STAGING",
+          "legacy_record": {
+            "product_id": "PRD_DOCLASSE_002",
+            "brand_id": "BR-00018",
+            "brand_name": "DoCLASSE",
+            "season": "2026SS",
+            "product_name": "ドライリブニット・Vネックトップス",
+            "product_code": "33048",
+            "category": "Knit_Top",
+            "price": "JPY 5489",
+            "composition": "NOT AVAILABLE",
+            "function": "吸水速乾",
+            "knit_structure": "Rib",
+            "launch_status": "Listed",
+            "product_url": "https://www.doclasse.com/item/detail/1_1_33048/010",
+            "source": "https://www.doclasse.com/item/detail/1_1_33048/010 | Official listing lines 907-909",
+            "source_date": "2026-07-11",
+            "evidence_level": "C",
+            "data_quality_status": "REVIEW_REQUIRED",
+            "source_dataset": "product_evidence_pilot_2026-07.csv",
+            "record_scope": "CORE_PRODUCT_EVIDENCE_STAGING"
+          },
+          "source_provenance": [
+            {
+              "repository": "tianjinpipixia/knit-compass-v04-current",
+              "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+              "path": "public/product_viewer_data_v1.js",
+              "source_sha256": "90553d582cdf753064631a29e3a5dc9fd43ef35292fce55a06e7b059078ac398"
+            }
+          ]
+        }
+      ],
+      "retrospective_only": true,
+      "source_provenance": [
+        {
+          "repository": "tianjinpipixia/knit-compass-v04-current",
+          "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+          "path": "public/brand_product_staging_live_v3.csv",
+          "source_sha256": "8d515fedac00ecc83906c09bb672aa99bb94c7ac200f2471f13c4204f0e8d6bd"
+        },
+        {
+          "repository": "tianjinpipixia/knit-compass-v04-current",
+          "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+          "path": "public/product_trial_data_v4.js",
+          "source_sha256": "b51b9a0df844637595229f6a90e559179af9db5dd0f0b7a5004706b0e40096e3"
+        },
+        {
+          "repository": "tianjinpipixia/knit-compass-v04-current",
+          "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+          "path": "public/product_viewer_data_v3.js",
+          "source_sha256": "7e508f085d68b6b3bf4d2fc0ee32e79240de397b641231f27d9f8558f60f4341"
+        },
+        {
+          "repository": "tianjinpipixia/knit-compass-v04-current",
+          "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+          "path": "public/brand_product_staging_trial_350_500_v1.csv",
+          "source_sha256": "a8e71577cf5c16aeab6b1428e8a21b2719cc1277a57dda04602b87902accf91f"
+        },
+        {
+          "repository": "tianjinpipixia/knit-compass-v04-current",
+          "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+          "path": "public/connected_brand_product_data_v1.js",
+          "source_sha256": "f37142e8ea47c221fd0c3fe939e2f99bca37c6294a99d938bf7de134b9b855d9"
+        },
+        {
+          "repository": "tianjinpipixia/knit-compass-v04-current",
+          "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+          "path": "public/product_viewer_data_v1.js",
+          "source_sha256": "90553d582cdf753064631a29e3a5dc9fd43ef35292fce55a06e7b059078ac398"
+        }
+      ],
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_33048/010"
+      ],
+      "observed_date": "2026-10-14",
+      "source_sha256": "c899cff8ee519aa3a30b593aa699fbfbe5efa3b1b9e9a97201de517ff948c455",
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 3,990 / ￥4,389",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "ドライリブニット・Vネックトップス"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.762990+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "ラメトリム・サマーニット／ハーフスリーブ",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_32958/090",
+      "product_code": "32958",
+      "display_price": "¥ 3,990 / ￥4,389",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "c899cff8ee519aa3a30b593aa699fbfbe5efa3b1b9e9a97201de517ff948c455",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_32958/090"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 3,990 / ￥4,389",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "ラメトリム・サマーニット／ハーフスリーブ"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.763100+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "UVクールニット・Vネックトップス",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_32667/030",
+      "product_code": "32667",
+      "display_price": "¥ 2,790 / ￥3,069",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "c899cff8ee519aa3a30b593aa699fbfbe5efa3b1b9e9a97201de517ff948c455",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_32667/030"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 2,790 / ￥3,069",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "UVクールニット・Vネックトップス"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.763120+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "product_name": "UVクールニット・フレンチトップス",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_32669/008",
+      "product_code": "32669",
+      "display_price": "¥ 2,990 / ￥3,289",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "first_seen_date": "2026-09-08",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "material_composition": "NOT AVAILABLE",
+      "function_claims": [
+        "UV",
+        "接触冷感"
+      ],
+      "confirmed_design": "Knit top structure",
+      "season_release": "2026SS",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [
+        "2026-07"
+      ],
+      "retrospective_sources": [
+        "data/brand-md-monitoring/retrospective/imports/v04-static-products.json"
+      ],
+      "retrospective_evidence": [
+        {
+          "source_path": "data/brand-md-monitoring/retrospective/imports/v04-static-products.json",
+          "snapshot_date": null,
+          "verification_date": null,
+          "retrospective_months": [
+            "2026-07"
+          ],
+          "period_evidence_date": "2026-07-11",
+          "period_evidence_kind": "",
+          "period_evidence_value": "",
+          "period_evidence_source": "https://www.doclasse.com/item/detail/1_1_32669/008",
+          "source_record_scope": "CORE_PRODUCT_EVIDENCE_STAGING",
+          "legacy_record": {
+            "brand_id": "BR-00018",
+            "brand_name": "DoCLASSE",
+            "season": "2026SS",
+            "product_name": "UVクールニット・フレンチトップス",
+            "product_code": "32669",
+            "category": "Knit_Top",
+            "price": "JPY 4389",
+            "composition": "NOT AVAILABLE",
+            "function": "UV; 接触冷感",
+            "knit_structure": "Knit top structure",
+            "launch_status": "Listed",
+            "product_url": "https://www.doclasse.com/item/detail/1_1_32669/008",
+            "source": "https://www.doclasse.com/item/detail/1_1_32669/008 | Official listing lines 978-980 and 1003-1005",
+            "source_date": "2026-07-11",
+            "evidence_level": "C",
+            "data_quality_status": "REVIEW_REQUIRED",
+            "source_dataset": "product_evidence_pilot_2026-07.csv",
+            "record_scope": "CORE_PRODUCT_EVIDENCE_STAGING"
+          },
+          "source_provenance": [
+            {
+              "repository": "tianjinpipixia/knit-compass-v04-current",
+              "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+              "path": "public/brand_product_staging_trial_350_500_v1.csv",
+              "source_sha256": "a8e71577cf5c16aeab6b1428e8a21b2719cc1277a57dda04602b87902accf91f"
+            }
+          ]
+        },
+        {
+          "source_path": "data/brand-md-monitoring/retrospective/imports/v04-static-products.json",
+          "snapshot_date": "2026-07-11",
+          "verification_date": "2026-07-11",
+          "retrospective_months": [
+            "2026-07"
+          ],
+          "period_evidence_date": "2026-07-11",
+          "period_evidence_kind": "",
+          "period_evidence_value": "",
+          "period_evidence_source": "https://www.doclasse.com/item/detail/1_1_32669/008",
+          "source_record_scope": "CORE_PRODUCT_EVIDENCE_STAGING",
+          "legacy_record": {
+            "product_id": "PRD_DOCLASSE_009",
+            "brand_id": "BR-00018",
+            "brand_name": "DoCLASSE",
+            "season": "2026SS",
+            "product_name": "UVクールニット・フレンチトップス",
+            "product_code": "32669",
+            "category": "Knit_Top",
+            "price": "JPY 4389",
+            "composition": "NOT AVAILABLE",
+            "function": "UV; 接触冷感",
+            "knit_structure": "Knit top structure",
+            "launch_status": "Listed",
+            "product_url": "https://www.doclasse.com/item/detail/1_1_32669/008",
+            "source": "https://www.doclasse.com/item/detail/1_1_32669/008 | Official listing lines 978-980 and 1003-1005",
+            "source_date": "2026-07-11",
+            "evidence_level": "C",
+            "data_quality_status": "REVIEW_REQUIRED",
+            "source_dataset": "product_evidence_pilot_2026-07.csv",
+            "record_scope": "CORE_PRODUCT_EVIDENCE_STAGING",
+            "source_type": "CONNECTED_OWNER_PRODUCT_MASTER",
+            "last_verified_date": "2026-07-11"
+          },
+          "source_provenance": [
+            {
+              "repository": "tianjinpipixia/knit-compass-v04-current",
+              "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+              "path": "public/connected_brand_product_data_v1.js",
+              "source_sha256": "f37142e8ea47c221fd0c3fe939e2f99bca37c6294a99d938bf7de134b9b855d9"
+            }
+          ]
+        },
+        {
+          "source_path": "data/brand-md-monitoring/retrospective/imports/v04-static-products.json",
+          "snapshot_date": null,
+          "verification_date": null,
+          "retrospective_months": [
+            "2026-07"
+          ],
+          "period_evidence_date": "2026-07-11",
+          "period_evidence_kind": "",
+          "period_evidence_value": "",
+          "period_evidence_source": "https://www.doclasse.com/item/detail/1_1_32669/008",
+          "source_record_scope": "CORE_PRODUCT_EVIDENCE_STAGING",
+          "legacy_record": {
+            "product_id": "PRD_DOCLASSE_009",
+            "brand_id": "BR-00018",
+            "brand_name": "DoCLASSE",
+            "season": "2026SS",
+            "product_name": "UVクールニット・フレンチトップス",
+            "product_code": "32669",
+            "category": "Knit_Top",
+            "price": "JPY 4389",
+            "composition": "NOT AVAILABLE",
+            "function": "UV; 接触冷感",
+            "knit_structure": "Knit top structure",
+            "launch_status": "Listed",
+            "product_url": "https://www.doclasse.com/item/detail/1_1_32669/008",
+            "source": "https://www.doclasse.com/item/detail/1_1_32669/008 | Official listing lines 978-980 and 1003-1005",
+            "source_date": "2026-07-11",
+            "evidence_level": "C",
+            "data_quality_status": "REVIEW_REQUIRED",
+            "source_dataset": "product_evidence_pilot_2026-07.csv",
+            "record_scope": "CORE_PRODUCT_EVIDENCE_STAGING"
+          },
+          "source_provenance": [
+            {
+              "repository": "tianjinpipixia/knit-compass-v04-current",
+              "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+              "path": "public/product_viewer_data_v1.js",
+              "source_sha256": "90553d582cdf753064631a29e3a5dc9fd43ef35292fce55a06e7b059078ac398"
+            }
+          ]
+        }
+      ],
+      "retrospective_only": true,
+      "source_provenance": [
+        {
+          "repository": "tianjinpipixia/knit-compass-v04-current",
+          "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+          "path": "public/brand_product_staging_trial_350_500_v1.csv",
+          "source_sha256": "a8e71577cf5c16aeab6b1428e8a21b2719cc1277a57dda04602b87902accf91f"
+        },
+        {
+          "repository": "tianjinpipixia/knit-compass-v04-current",
+          "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+          "path": "public/connected_brand_product_data_v1.js",
+          "source_sha256": "f37142e8ea47c221fd0c3fe939e2f99bca37c6294a99d938bf7de134b9b855d9"
+        },
+        {
+          "repository": "tianjinpipixia/knit-compass-v04-current",
+          "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+          "path": "public/product_viewer_data_v1.js",
+          "source_sha256": "90553d582cdf753064631a29e3a5dc9fd43ef35292fce55a06e7b059078ac398"
+        }
+      ],
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_32669/008"
+      ],
+      "observed_date": "2026-10-14",
+      "source_sha256": "c899cff8ee519aa3a30b593aa699fbfbe5efa3b1b9e9a97201de517ff948c455",
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 2,990 / ￥3,289",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "UVクールニット・フレンチトップス"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.763137+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "product_name": "総針ニット・インナースクエアタンク",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_32956/142",
+      "product_code": "32956",
+      "display_price": "¥ 2,490 / ￥2,739",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=2",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "first_seen_date": "2026-09-08",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "material_composition": "NOT AVAILABLE",
+      "function_claims": [],
+      "confirmed_design": "Full needle",
+      "season_release": "2026SS",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [
+        "2026-07"
+      ],
+      "retrospective_sources": [
+        "data/brand-md-monitoring/retrospective/imports/v04-static-products.json"
+      ],
+      "retrospective_evidence": [
+        {
+          "source_path": "data/brand-md-monitoring/retrospective/imports/v04-static-products.json",
+          "snapshot_date": null,
+          "verification_date": null,
+          "retrospective_months": [
+            "2026-07"
+          ],
+          "period_evidence_date": "2026-07-11",
+          "period_evidence_kind": "",
+          "period_evidence_value": "",
+          "period_evidence_source": "https://www.doclasse.com/item/detail/1_1_32956/142",
+          "source_record_scope": "CORE_PRODUCT_EVIDENCE_STAGING",
+          "legacy_record": {
+            "brand_id": "BR-00018",
+            "brand_name": "DoCLASSE",
+            "season": "2026SS",
+            "product_name": "総針ニット・インナースクエアタンク",
+            "product_code": "32956",
+            "category": "Knit_Top",
+            "price": "JPY 3289",
+            "composition": "NOT AVAILABLE",
+            "function": "NOT AVAILABLE",
+            "knit_structure": "Full needle",
+            "launch_status": "Listed",
+            "product_url": "https://www.doclasse.com/item/detail/1_1_32956/142",
+            "source": "https://www.doclasse.com/item/detail/1_1_32956/142 | Official listing lines 917-919",
+            "source_date": "2026-07-11",
+            "evidence_level": "C",
+            "data_quality_status": "REVIEW_REQUIRED",
+            "source_dataset": "product_evidence_pilot_2026-07.csv",
+            "record_scope": "CORE_PRODUCT_EVIDENCE_STAGING"
+          },
+          "source_provenance": [
+            {
+              "repository": "tianjinpipixia/knit-compass-v04-current",
+              "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+              "path": "public/brand_product_staging_trial_350_500_v1.csv",
+              "source_sha256": "a8e71577cf5c16aeab6b1428e8a21b2719cc1277a57dda04602b87902accf91f"
+            }
+          ]
+        },
+        {
+          "source_path": "data/brand-md-monitoring/retrospective/imports/v04-static-products.json",
+          "snapshot_date": "2026-07-11",
+          "verification_date": "2026-07-11",
+          "retrospective_months": [
+            "2026-07"
+          ],
+          "period_evidence_date": "2026-07-11",
+          "period_evidence_kind": "",
+          "period_evidence_value": "",
+          "period_evidence_source": "https://www.doclasse.com/item/detail/1_1_32956/142",
+          "source_record_scope": "CORE_PRODUCT_EVIDENCE_STAGING",
+          "legacy_record": {
+            "product_id": "PRD_DOCLASSE_003",
+            "brand_id": "BR-00018",
+            "brand_name": "DoCLASSE",
+            "season": "2026SS",
+            "product_name": "総針ニット・インナースクエアタンク",
+            "product_code": "32956",
+            "category": "Knit_Top",
+            "price": "JPY 3289",
+            "composition": "NOT AVAILABLE",
+            "function": "NOT AVAILABLE",
+            "knit_structure": "Full needle",
+            "launch_status": "Listed",
+            "product_url": "https://www.doclasse.com/item/detail/1_1_32956/142",
+            "source": "https://www.doclasse.com/item/detail/1_1_32956/142 | Official listing lines 917-919",
+            "source_date": "2026-07-11",
+            "evidence_level": "C",
+            "data_quality_status": "REVIEW_REQUIRED",
+            "source_dataset": "product_evidence_pilot_2026-07.csv",
+            "record_scope": "CORE_PRODUCT_EVIDENCE_STAGING",
+            "source_type": "CONNECTED_OWNER_PRODUCT_MASTER",
+            "last_verified_date": "2026-07-11"
+          },
+          "source_provenance": [
+            {
+              "repository": "tianjinpipixia/knit-compass-v04-current",
+              "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+              "path": "public/connected_brand_product_data_v1.js",
+              "source_sha256": "f37142e8ea47c221fd0c3fe939e2f99bca37c6294a99d938bf7de134b9b855d9"
+            }
+          ]
+        },
+        {
+          "source_path": "data/brand-md-monitoring/retrospective/imports/v04-static-products.json",
+          "snapshot_date": null,
+          "verification_date": null,
+          "retrospective_months": [
+            "2026-07"
+          ],
+          "period_evidence_date": "2026-07-11",
+          "period_evidence_kind": "",
+          "period_evidence_value": "",
+          "period_evidence_source": "https://www.doclasse.com/item/detail/1_1_32956/142",
+          "source_record_scope": "CORE_PRODUCT_EVIDENCE_STAGING",
+          "legacy_record": {
+            "product_id": "PRD_DOCLASSE_003",
+            "brand_id": "BR-00018",
+            "brand_name": "DoCLASSE",
+            "season": "2026SS",
+            "product_name": "総針ニット・インナースクエアタンク",
+            "product_code": "32956",
+            "category": "Knit_Top",
+            "price": "JPY 3289",
+            "composition": "NOT AVAILABLE",
+            "function": "NOT AVAILABLE",
+            "knit_structure": "Full needle",
+            "launch_status": "Listed",
+            "product_url": "https://www.doclasse.com/item/detail/1_1_32956/142",
+            "source": "https://www.doclasse.com/item/detail/1_1_32956/142 | Official listing lines 917-919",
+            "source_date": "2026-07-11",
+            "evidence_level": "C",
+            "data_quality_status": "REVIEW_REQUIRED",
+            "source_dataset": "product_evidence_pilot_2026-07.csv",
+            "record_scope": "CORE_PRODUCT_EVIDENCE_STAGING"
+          },
+          "source_provenance": [
+            {
+              "repository": "tianjinpipixia/knit-compass-v04-current",
+              "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+              "path": "public/product_viewer_data_v1.js",
+              "source_sha256": "90553d582cdf753064631a29e3a5dc9fd43ef35292fce55a06e7b059078ac398"
+            }
+          ]
+        }
+      ],
+      "retrospective_only": true,
+      "source_provenance": [
+        {
+          "repository": "tianjinpipixia/knit-compass-v04-current",
+          "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+          "path": "public/brand_product_staging_trial_350_500_v1.csv",
+          "source_sha256": "a8e71577cf5c16aeab6b1428e8a21b2719cc1277a57dda04602b87902accf91f"
+        },
+        {
+          "repository": "tianjinpipixia/knit-compass-v04-current",
+          "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+          "path": "public/connected_brand_product_data_v1.js",
+          "source_sha256": "f37142e8ea47c221fd0c3fe939e2f99bca37c6294a99d938bf7de134b9b855d9"
+        },
+        {
+          "repository": "tianjinpipixia/knit-compass-v04-current",
+          "commit": "1c06bb4cfc2e2eed7aa8d3915013c13362911ff9",
+          "path": "public/product_viewer_data_v1.js",
+          "source_sha256": "90553d582cdf753064631a29e3a5dc9fd43ef35292fce55a06e7b059078ac398"
+        }
+      ],
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_32956/142"
+      ],
+      "observed_date": "2026-10-14",
+      "source_sha256": "c899cff8ee519aa3a30b593aa699fbfbe5efa3b1b9e9a97201de517ff948c455",
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 2,490 / ￥2,739",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "総針ニット・インナースクエアタンク"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.763203+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "カリアッジ・リブクルーネック",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_16954/121",
+      "product_code": "16954",
+      "display_price": "¥ 5,990 / ￥6,589",
+      "status_labels": [
+        "SALE"
+      ],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=6",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "2fe75a4bb9207efe88f0c3279af6e44ccdc3a3d8cba9272c27fa3bd2489f0e96",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_16954/121"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 8,990 / ￥9,889",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "カリアッジ・リブクルーネック"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.763266+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "柄編み・フリンジニットベスト",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_30601/010",
+      "product_code": "30601",
+      "display_price": "¥ 2,590 / ￥2,849",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=6",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "2fe75a4bb9207efe88f0c3279af6e44ccdc3a3d8cba9272c27fa3bd2489f0e96",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_30601/010"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 2,990 / ￥3,289",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "柄編み・フリンジニットベスト"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.763286+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "カシミヤ混・タートルネックチュニック",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_16420/320",
+      "product_code": "16420",
+      "display_price": "¥ 5,090 / ￥5,599",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=6",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "2fe75a4bb9207efe88f0c3279af6e44ccdc3a3d8cba9272c27fa3bd2489f0e96",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_16420/320"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 5,090 / ￥5,599",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "カシミヤ混・タートルネックチュニック"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.763314+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "カシミヤ混・アシメリブ編みセーター",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_16419/320",
+      "product_code": "16419",
+      "display_price": "¥ 6,390 / ￥7,029",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=6",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "2fe75a4bb9207efe88f0c3279af6e44ccdc3a3d8cba9272c27fa3bd2489f0e96",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-07",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://www.doclasse.com/item/detail/1_1_16419/320"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥ 6,390 / ￥7,029",
+        "status_labels": [
+          "SALE"
+        ],
+        "product_name": "カシミヤ混・アシメリブ編みセーター"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:43.763331+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "シルクニット・総針クルーネック",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_16919/051",
+      "product_code": "16919",
+      "display_price": "¥ 5,990 / ￥6,589",
+      "status_labels": [],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=6",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "2fe75a4bb9207efe88f0c3279af6e44ccdc3a3d8cba9272c27fa3bd2489f0e96",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-14",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-14",
+      "discovered_at_utc": "2026-10-13T23:45:43.763347+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "カシミヤ混・オーバーサイズVネック",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_14942/050",
+      "product_code": "14942",
+      "display_price": "¥ 35,000 / ￥38,500",
+      "status_labels": [
+        "NEW"
+      ],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=8",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "c1fe327adfcb9fa51c3645fd3c95442c5b815ba7e3632f3a293d6be7f1495c56",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-14",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-14",
+      "discovered_at_utc": "2026-10-13T23:45:43.763350+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "カシミヤ混・ミニマムクルーネック",
+      "product_url": "https://www.doclasse.com/item/detail/1_1_14939/411",
+      "product_code": "14939",
+      "display_price": "¥ 35,000 / ￥38,500",
+      "status_labels": [
+        "NEW"
+      ],
+      "source_url": "https://www.doclasse.com/item?brand_id=1&category_id=12&page=8",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_sha256": "c1fe327adfcb9fa51c3645fd3c95442c5b815ba7e3632f3a293d6be7f1495c56",
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "first_seen_date": "2026-10-14",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "delta_type": "FIRST_OBSERVED_CANDIDATE",
+      "is_new_release_confirmed": false,
+      "observed_date": "2026-10-14",
+      "discovered_at_utc": "2026-10-13T23:45:43.763352+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "【美人LABコラボ】ブリングニット Vネックカーディガン",
+      "product_url": "https://crosset.onward.co.jp/items/KRWXLW0456",
+      "product_code": "KRWXLW0456",
+      "display_price": "¥11,990",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1005",
+      "source_sha256": "d5fc536e40486e7ffce2a60c99706f041cd913f6b3868fc1f64522fd9bb6c645",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_brand_code": "003",
+      "source_gender_scope": "WOMEN",
+      "retrieved_at_utc": "2026-09-08T21:17:35.619476+00:00",
+      "brand_id": "BR-00042",
+      "brand_name": "組曲",
+      "first_seen_date": "2026-09-09",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://crosset.onward.co.jp/items/KRWXLW0456"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥11,990",
+        "status_labels": [
+          "NEW"
+        ],
+        "product_name": "【美人LABコラボ】ブリングニット Vネックカーディガン"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:47.717858+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "【WEB限定】パール釦畦ニット プルオーバー",
+      "product_url": "https://crosset.onward.co.jp/items/KRWXLS6152",
+      "product_code": "KRWXLS6152",
+      "display_price": "¥12,980 / ¥7,788",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=11&pp=10&gc=2&bc=003&du=2&scc=1004",
+      "source_sha256": "905e6cbf1293ce06fc305a91c584cdcb603753ceba0999ce609c3b572e73463a",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_brand_code": "003",
+      "source_gender_scope": "WOMEN",
+      "retrieved_at_utc": "2026-09-08T21:18:26.605074+00:00",
+      "brand_id": "BR-00042",
+      "brand_name": "組曲",
+      "first_seen_date": "2026-09-09",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://crosset.onward.co.jp/items/KRWXLS6152"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥7,788",
+        "status_labels": [],
+        "product_name": "【WEB限定】パール釦畦ニット プルオーバー"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:47.717939+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "オーガンスウェット ニット",
+      "product_url": "https://crosset.onward.co.jp/items/KRWXLS0150",
+      "product_code": "KRWXLS0150",
+      "display_price": "¥11,000 / ¥5,500",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=11&pp=10&gc=2&bc=003&du=2&scc=1004",
+      "source_sha256": "905e6cbf1293ce06fc305a91c584cdcb603753ceba0999ce609c3b572e73463a",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_brand_code": "003",
+      "source_gender_scope": "WOMEN",
+      "retrieved_at_utc": "2026-09-08T21:57:49.775648+00:00",
+      "brand_id": "BR-00042",
+      "brand_name": "組曲",
+      "first_seen_date": "2026-09-09",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://crosset.onward.co.jp/items/KRWXLS0150"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥5,500",
+        "status_labels": [],
+        "product_name": "オーガンスウェット ニット"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:47.717973+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "オーガンスキッパー ニット",
+      "product_url": "https://crosset.onward.co.jp/items/KRWXLS0151",
+      "product_code": "KRWXLS0151",
+      "display_price": "¥11,990 / ¥5,995",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=11&pp=10&gc=2&bc=003&du=2&scc=1004",
+      "source_sha256": "905e6cbf1293ce06fc305a91c584cdcb603753ceba0999ce609c3b572e73463a",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_brand_code": "003",
+      "source_gender_scope": "WOMEN",
+      "retrieved_at_utc": "2026-09-08T21:57:49.775648+00:00",
+      "brand_id": "BR-00042",
+      "brand_name": "組曲",
+      "first_seen_date": "2026-09-09",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://crosset.onward.co.jp/items/KRWXLS0151"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥5,995",
+        "status_labels": [],
+        "product_name": "オーガンスキッパー ニット"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:47.718000+00:00",
+      "research_status": "FLASH_UNCONFIRMED_DETAILS"
+    },
+    {
+      "product_name": "【WEB＆一部店舗限定】エンブロイダリーブルーム 半袖ニット",
+      "product_url": "https://crosset.onward.co.jp/items/KRWXLW0463",
+      "product_code": "KRWXLW0463",
+      "display_price": "¥14,960",
+      "status_labels": [],
+      "source_url": "https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1004",
+      "source_sha256": "eb95b15734ab0761ec094a3f906cfe0064116de11952b21e0e2b70612bc632f9",
+      "evidence_level": "OFFICIAL_LISTING_CARD",
+      "scope_status": "BRAND_AND_KNIT_PATH_MATCHED",
+      "source_brand_code": "003",
+      "source_gender_scope": "WOMEN",
+      "retrieved_at_utc": "2026-09-08T21:17:48.714972+00:00",
+      "brand_id": "BR-00042",
+      "brand_name": "組曲",
+      "first_seen_date": "2026-09-09",
+      "last_seen_date": "2026-10-14",
+      "sales_start_date": null,
+      "publication_status": "PUBLISH_HOLD",
+      "human_review_required": true,
+      "source_url_aliases": [
+        "https://crosset.onward.co.jp/items/KRWXLW0463"
+      ],
+      "observed_date": "2026-10-14",
+      "material_composition": "",
+      "function_claims": [],
+      "confirmed_design": "",
+      "season_release": "",
+      "regular_price_jpy": null,
+      "sale_price_jpy": null,
+      "retrospective_months": [],
+      "retrospective_sources": [],
+      "retrospective_only": false,
+      "delta_type": "OBSERVED_FIELD_CHANGE",
+      "previous_values": {
+        "display_price": "¥14,960",
+        "status_labels": [
+          "予約商品"
+        ],
+        "product_name": "【WEB＆一部店舗限定】エンブロイダリーブルーム 半袖ニット"
+      },
+      "discovered_at_utc": "2026-10-13T23:45:47.718020+00:00",
       "research_status": "FLASH_UNCONFIRMED_DETAILS"
     }
   ],
