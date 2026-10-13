@@ -2,7 +2,7 @@
 観測日：2026-10-14
 
 登録範囲の確認完了：0/65ブランド。
-本日観測した商品：656件。MD用の蓄積として保持します。
+本日観測した商品：777件。MD用の蓄積として保持します。
 初回発見と発売日は区別します。未確認・未取得を「新商品なし」と判定しません。
 
 ## 本日初めて見つけた商品（発売日未確認）
@@ -34,6 +34,11 @@
 |DoCLASSE|シルクニット・総針クルーネック|¥ 5,990 / ￥6,589|[公式商品](https://www.doclasse.com/item/detail/1_1_16919/051)|
 |DoCLASSE|カシミヤ混・オーバーサイズVネック|¥ 35,000 / ￥38,500|[公式商品](https://www.doclasse.com/item/detail/1_1_14942/050)|
 |DoCLASSE|カシミヤ混・ミニマムクルーネック|¥ 35,000 / ￥38,500|[公式商品](https://www.doclasse.com/item/detail/1_1_14939/411)|
+|23区|【見上愛さん着用/VERY掲載】ピュアカシミヤ タートルネック ニット|¥29,920|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0452)|
+|23区|【R(アール)】ファインウール ニットカーディガン|¥42,900 / ¥25,740|[公式商品](https://crosset.onward.co.jp/items/KRRGGW0957)|
+|23区|【エステータ】ビスチェカーディガン|¥64,900 / ¥32,450|[公式商品](https://crosset.onward.co.jp/items/KRH6GW0928)|
+|23区|【見上愛さん着用/STORY掲載】ピュアカシミヤ クルーネック カーディガン|¥29,920|[公式商品](https://crosset.onward.co.jp/items/KRWOGW0450)|
+|23区|【洗える】カシミヤブレンド ケーブルニットカーディガン|¥28,930 / ¥23,100|[公式商品](https://crosset.onward.co.jp/items/KRWOGW0550)|
 
 ## ブランド・婦人対象の判定待ちリンク
 
@@ -59,7 +64,7 @@
 |grove|未完了|0|1|
 |ikka|未完了|20|0|
 |coen|未完了|0|0|
-|DoCLASSE|未完了|116|6|
+|DoCLASSE|未完了|191|4|
 |any SiS|未完了|0|0|
 |LEPSIM|未完了|0|0|
 |LAKOLE|未完了|0|0|
@@ -72,12 +77,12 @@
 |Elura|未完了|0|0|
 |mysty woman|未完了|0|0|
 |Andemiu|未完了|0|0|
-|AMERICAN HOLIC|未完了|36|7|
+|AMERICAN HOLIC|未完了|51|6|
 |YECCA VECCA|未完了|2|0|
-|23区|未完了|20|12|
+|23区|未完了|34|12|
 |ICB|未完了|0|0|
 |自由区|未完了|0|0|
-|組曲|未完了|22|10|
+|組曲|未完了|39|10|
 |UNFILO|未完了|0|0|
 |INDIVI|未完了|0|1|
 |UNTITLED|未完了|0|1|
@@ -203,12 +208,10 @@
 
 ### DoCLASSE
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.doclasse.com/item?brand_id=1&category_id=11&page=4
-- https://www.doclasse.com/item?brand_id=1&category_id=11&page=3
-- https://www.doclasse.com/item?brand_id=1&category_id=12&page=3
-- https://www.doclasse.com/item?brand_id=1&category_id=12&page=7
 - https://www.doclasse.com/item?brand_id=1&category_id=11&page=2
 - https://www.doclasse.com/item?brand_id=1&category_id=12&page=2
+- https://www.doclasse.com/item?brand_id=1&category_id=12&page=4
+- https://www.doclasse.com/item?brand_id=1&category_id=12&page=8
 
 ### any SiS
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -271,23 +274,18 @@
 
 ### AMERICAN HOLIC
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://stripe-club.com/brand/american-holic/search?so=NEW&page=4
-- https://stripe-club.com/brand/american-holic/search?so=NEW&page=7
-- https://stripe-club.com/brand/american-holic/search?so=NEW&page=12
-- https://stripe-club.com/brand/american-holic/search?so=NEW&page=3
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=10
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=17
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=2
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=5
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=8
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=13
 
 ### YECCA VECCA
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### 23区
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://crosset.onward.co.jp/items?cp=11&pp=10&gc=2&bc=002&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=11&pp=10&gc=2&bc=002&du=2&scc=1005
-- https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=002&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=002&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=002&du=2&scc=1004
@@ -296,6 +294,10 @@
 - https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=002&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=12&pp=10&gc=2&bc=002&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=12&pp=10&gc=2&bc=002&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=002&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=002&du=2&scc=1005
 
 ### ICB
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -307,16 +309,16 @@
 
 ### 組曲
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1005
-- https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1005
-- https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=003&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=003&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=003&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=12&pp=10&gc=2&bc=003&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=003&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=003&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=5&pp=10&gc=2&bc=003&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=5&pp=10&gc=2&bc=003&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=10&pp=10&gc=2&bc=003&du=2&scc=1004
 
 ### UNFILO
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
