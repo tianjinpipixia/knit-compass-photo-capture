@@ -2,7 +2,7 @@
 観測日：2026-10-15
 
 登録範囲の確認完了：0/65ブランド。
-本日観測した商品：660件。MD用の蓄積として保持します。
+本日観測した商品：778件。MD用の蓄積として保持します。
 初回発見と発売日は区別します。未確認・未取得を「新商品なし」と判定しません。
 
 ## 本日初めて見つけた商品（発売日未確認）
@@ -33,6 +33,12 @@
 |DoCLASSE|Nukle・テディプルオーバー|¥ 8,690 / ￥9,559|[公式商品](https://www.doclasse.com/item/detail/1_1_16360/710)|
 |組曲|ラメシャギーニット|¥11,000 / ¥7,700|[公式商品](https://crosset.onward.co.jp/items/KRWXGW0655)|
 |組曲|ラメリブポロ襟 ニット|¥11,990 / ¥5,995|[公式商品](https://crosset.onward.co.jp/items/KRWXGW0556)|
+|AMERICAN HOLIC|AMERICAN HOLIC ジップアップメッシュニットカーディガン【WEB限定カラー有り】|¥ 3,990 / ¥ 1,995|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26C0033)|
+|AMERICAN HOLIC|AMERICAN HOLIC 【2点セット】カーディガン+タンクトップ|¥ 3,990 / ¥ 1,596|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26C0048)|
+|AMERICAN HOLIC|AMERICAN HOLIC 【BEVERLY HILLS POLO CLUB】ニットカーディガン|¥ 4,990 / ¥ 2,494|[公式商品](https://stripe-club.com/brand/american-holic/item/100HN26B0013)|
+|AMERICAN HOLIC|AMERICAN HOLIC リングドットボタンカーディガン|¥ 3,290 / ¥ 1,644|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26C0001)|
+|DoCLASSE|総針メッシュニット・ノースリポロ|¥ 3,490 / ￥3,839|[公式商品](https://www.doclasse.com/item/detail/1_1_32676/680)|
+|DoCLASSE|ワイドリブ・ブレードニットジャケット|¥ 16,900 / ￥18,590|[公式商品](https://www.doclasse.com/item/detail/1_1_30350/012)|
 
 ## ブランド・婦人対象の判定待ちリンク
 
@@ -58,7 +64,7 @@
 |grove|未完了|0|1|
 |ikka|未完了|20|0|
 |coen|未完了|0|0|
-|DoCLASSE|未完了|114|5|
+|DoCLASSE|未完了|184|4|
 |any SiS|未完了|0|0|
 |LEPSIM|未完了|0|0|
 |LAKOLE|未完了|0|0|
@@ -71,12 +77,12 @@
 |Elura|未完了|0|0|
 |mysty woman|未完了|0|0|
 |Andemiu|未完了|0|0|
-|AMERICAN HOLIC|未完了|39|7|
+|AMERICAN HOLIC|未完了|58|7|
 |YECCA VECCA|未完了|2|0|
-|23区|未完了|20|10|
+|23区|未完了|34|10|
 |ICB|未完了|0|0|
 |自由区|未完了|0|0|
-|組曲|未完了|19|10|
+|組曲|未完了|34|10|
 |UNFILO|未完了|0|0|
 |INDIVI|未完了|0|1|
 |UNTITLED|未完了|0|1|
@@ -202,11 +208,10 @@
 
 ### DoCLASSE
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.doclasse.com/item?brand_id=1&category_id=11&page=3
-- https://www.doclasse.com/item?brand_id=1&category_id=12&page=3
-- https://www.doclasse.com/item?brand_id=1&category_id=12&page=5
-- https://www.doclasse.com/item?brand_id=1&category_id=11&page=2
 - https://www.doclasse.com/item?brand_id=1&category_id=12&page=2
+- https://www.doclasse.com/item?brand_id=1&category_id=11&page=4
+- https://www.doclasse.com/item?brand_id=1&category_id=12&page=4
+- https://www.doclasse.com/item?brand_id=1&category_id=12&page=6
 
 ### any SiS
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -269,29 +274,29 @@
 
 ### AMERICAN HOLIC
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://stripe-club.com/brand/american-holic/search?so=NEW&page=8
-- https://stripe-club.com/brand/american-holic/search?so=NEW&page=13
-- https://stripe-club.com/brand/american-holic/search?so=NEW&page=11
-- https://stripe-club.com/brand/american-holic/search?so=NEW&page=18
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=3
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=6
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=2
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=9
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=14
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=12
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=19
 
 ### YECCA VECCA
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### 23区
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=002&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=002&du=2&scc=1005
-- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=12&pp=10&gc=2&bc=002&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=12&pp=10&gc=2&bc=002&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=002&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=002&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=5&pp=10&gc=2&bc=002&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=5&pp=10&gc=2&bc=002&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=10&pp=10&gc=2&bc=002&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=10&pp=10&gc=2&bc=002&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=002&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=002&du=2&scc=1005
 
 ### ICB
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -303,16 +308,16 @@
 
 ### 組曲
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=003&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1005
-- https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=003&du=2&scc=1005
-- https://crosset.onward.co.jp/items?cp=5&pp=10&gc=2&bc=003&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=5&pp=10&gc=2&bc=003&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=10&pp=10&gc=2&bc=003&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=003&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=13&pp=10&gc=2&bc=003&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=8&pp=10&gc=2&bc=003&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=003&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=8&pp=10&gc=2&bc=003&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1004
 
 ### UNFILO
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -432,5 +437,5 @@
 - HTTPError: HTTP Error 403: Forbidden：https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0498
 - HTTPError: HTTP Error 403: Forbidden：https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0498
 
-深掘り待ち：429件。速報は詳細調査の完了を待たず保存します。
+深掘り待ち：427件。速報は詳細調査の完了を待たず保存します。
 詳細・混率・発売日等の不明点は未確認。正式マスター・顧客公開は確認後。
