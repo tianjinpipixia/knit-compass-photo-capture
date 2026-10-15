@@ -9,7 +9,7 @@ from urllib.parse import urlsplit, urljoin, urlunsplit, parse_qs
 import unicodedata
 
 KNIT = re.compile(r'ニット|セーター|カーディガン|編み|knit|cardigan|sweater', re.I)
-OTHER = re.compile(r'キッズ|メンズ|ユニセックス|\bKIDS\b|\bMEN\b|\bUNISEX\b|ニット帽|ビーニー|ワッチ|シュシュ|キャップ|ストール|バッグ|スカート|ワンピース|パンツ', re.I)
+OTHER = re.compile(r'キッズ|メンズ|ユニセックス|\bKIDS\b|\bMEN\b|\bUNISEX\b|ニット帽|ビーニー|ワッチ|シュシュ|キャップ|ストール|バッグ|スカート|ワンピース|パンツ|靴|シューズ|パンプス|ブーツ|ローファー|スニーカー|サンダル', re.I)
 
 def text(n): return re.sub(r'\s+', ' ', n.text()).strip() if n else ''
 def norm(t): return re.sub(r'[^\w]', '', unicodedata.normalize('NFKD',t).casefold())
