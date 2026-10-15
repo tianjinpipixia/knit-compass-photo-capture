@@ -24,6 +24,12 @@ class RecoveryAdapters(unittest.TestCase):
             'adapter':'stripe','brand_name':'earth music&ecology','slug':'earth1999'})
         self.assertEqual(items,[])
 
+    def test_stripe_rejects_footwear_with_knit_in_the_name(self):
+        html='''<li><a href="https://stripe-club.com/brand/american-holic/item/100HA26C0014"><p>AMERICAN HOLIC</p><p>【整履き】メッシュニットフラットパンプス</p></a></li>'''
+        items=scan.adapters.extract(scan.Document(html),'https://stripe-club.com/brand/american-holic/',{
+            'adapter':'stripe','brand_name':'AMERICAN HOLIC','slug':'american-holic'})
+        self.assertEqual(items,[])
+
     def test_sense_brand_page_card_requires_official_brand_and_knit(self):
         html='''<div class="block-thumbnail-t--goods"><a href="/shop/g/gAA26330-2021013/?goods=x"><div class="block-thumbnail-t--goods-label">SENSE OF PLACE</div><div class="block-thumbnail-t--goods-name"><p>『洗濯可』ローゲージスラブニット</p></div><div class="block-thumbnail-t--price-infos"><div>¥6,050</div></div></a></div>'''
         items=scan.adapters.extract(scan.Document(html),'https://www.urban-research.jp/shop/label/sense-of-place/',{'brand_name':'SENSE OF PLACE'})
