@@ -124,8 +124,8 @@
 |UNIQLO|未完了|0|0|
 |GU|未完了|0|0|
 |MUJI|未完了|0|0|
-|ROPÉ PICNIC|未完了|53|0|
-|VIS|未完了|108|1|
+|ROPÉ PICNIC|未完了|53|2|
+|VIS|未完了|108|3|
 |GLOBAL WORK|未完了|0|1|
 |LOWRYS FARM|未完了|0|0|
 |studio CLIP|未完了|0|0|
@@ -151,12 +151,12 @@
 |Elura|未完了|0|0|
 |mysty woman|未完了|0|0|
 |Andemiu|未完了|0|0|
-|AMERICAN HOLIC|未完了|48|7|
+|AMERICAN HOLIC|未完了|48|8|
 |YECCA VECCA|未完了|2|0|
-|23区|未完了|29|8|
+|23区|未完了|29|10|
 |ICB|未完了|0|0|
 |自由区|未完了|0|0|
-|組曲|未完了|34|10|
+|組曲|未完了|34|11|
 |UNFILO|未完了|0|0|
 |INDIVI|未完了|0|1|
 |UNTITLED|未完了|0|1|
@@ -171,8 +171,8 @@
 |ANY|未完了|0|0|
 |MUJI Labo|未完了|0|0|
 |Mila Owen|未完了|0|0|
-|ROPÉ|未完了|51|0|
-|ADAM ET ROPÉ|未完了|97|0|
+|ROPÉ|未完了|51|2|
+|ADAM ET ROPÉ|未完了|97|2|
 |GALLARDAGALANTE|未完了|19|0|
 |Whim Gazette|未完了|24|0|
 |LOUNGEDRESS|未完了|17|0|
@@ -202,11 +202,15 @@
 - TimeoutError: The read operation timed out：https://www.muji.com/jp/ja/store/cmdty/section/T10031
 
 ### ROPÉ PICNIC
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/?page=2
+- https://www.junonline.jp/rope-picnic/product/tops/cardigan/?page=2
 
 ### VIS
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - https://www.junonline.jp/vis/product/tops/knit-sweater/?page=4
+- https://www.junonline.jp/vis/product/tops/knit-sweater/?page=2
+- https://www.junonline.jp/vis/product/tops/cardigan/?page=2
 
 ### GLOBAL WORK
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -352,6 +356,7 @@
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=11
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=3
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=16
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=2
 
 ### YECCA VECCA
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -366,6 +371,8 @@
 - https://crosset.onward.co.jp/items?cp=11&pp=10&gc=2&bc=002&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1005
 
 ### ICB
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -387,6 +394,7 @@
 - https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=003&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=003&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=003&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1005
 
 ### UNFILO
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -458,10 +466,14 @@
 - HTTPError: HTTP Error 403: Forbidden：https://usagi-online.com/brand/milaowen/category/AB/AB05/
 
 ### ROPÉ
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.junonline.jp/rope/product/tops/knit-sweater/?page=2
+- https://www.junonline.jp/rope/product/tops/cardigan/?page=2
 
 ### ADAM ET ROPÉ
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/?page=2
+- https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/?page=2
 
 ### GALLARDAGALANTE
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
