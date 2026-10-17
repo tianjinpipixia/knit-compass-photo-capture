@@ -76,8 +76,10 @@ def merge_row(previous, row, date):
     merged['errors'] = [e for e in old.get('errors', []) if e.get('url') not in attempted] + row['errors']
     outstanding = [u for u in recovery_urls(previous or {}) if u not in successful and u not in attempted]
     merged['pending_page_urls'] = list(dict.fromkeys(outstanding + row['pending_page_urls']))
-    items = {i['product_url']: i for i in old.get('surface_items', [])}
-    items.update({i['product_url']: i for i in row['surface_items']})
+    items = {}
+    for item in old.get('surface_items', []) + row['surface_items']:
+        identity = scan.product_identity(item)
+        items[identity] = scan.merge_product(items.get(identity), item)
     merged['surface_items'] = list(items.values())
     links = {i['product_url']: i for i in old.get('unverified_link_candidates', [])}
     links.update({i['product_url']: i for i in row.get('unverified_link_candidates', [])})
@@ -351,3 +353,4 @@ def run(argv=None):
     print(json.dumps({k: summary[k] for k in ('stage', 'product_count', 'complete_brand_count', 'pending_page_count')}, ensure_ascii=False))
     # Transport/extraction gaps are recorded; coverage is a separate, strict gate.
     return 0
+

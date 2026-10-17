@@ -277,7 +277,9 @@ def scan_brand(bid,meta,fetch, *, page_urls=None, max_pages=4, include_details=F
                     if next_url not in seen and next_url not in queue:queue.append(next_url)
             if items:row['successful_page_urls'].append(url)
             for item in items:
-                item['source_sha256']=evidence['sha256'];unique[item['product_url']]=item
+                item['source_sha256']=evidence['sha256']
+                identity=product_identity(item)
+                unique[identity]=merge_product(unique.get(identity),item)
             if not items:row['errors'].append({'url':url,'reason':'NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE'})
         except (OSError,ValueError,TimeoutError) as exc:
             row['errors'].append({'url':url,'reason':type(exc).__name__+': '+str(exc)[:300]})
@@ -289,7 +291,7 @@ def scan_brand(bid,meta,fetch, *, page_urls=None, max_pages=4, include_details=F
         try:
             html,evidence=fetch(url);row['sources'].append(evidence)
             detail=product_detail(html,evidence['url'],meta);detail['source_sha256']=evidence['sha256']
-            detail['discovered_in_listing']=canonical(url) in unique
+            detail['discovered_in_listing']=product_identity({'product_url':url}) in unique
             row['product_details'].append(detail)
         except (OSError,ValueError,TimeoutError) as exc:
             row['errors'].append({'url':url,'reason':type(exc).__name__+': '+str(exc)[:300]})
@@ -303,14 +305,54 @@ def scan_brand(bid,meta,fetch, *, page_urls=None, max_pages=4, include_details=F
     return row
 
 
+def product_identity(item):
+    """DoCLASSE common goods IDs span colours and official listing sources."""
+    parsed = urlsplit(item.get('product_url', ''))
+    match = re.fullmatch(r'/item/detail/1_1_(\d+)/(\d+)', parsed.path)
+    if parsed.scheme == 'https' and parsed.hostname == 'www.doclasse.com' and match:
+        code = str(item.get('product_code') or match[1])
+        if code == match[1]:
+            return 'doclasse:' + code
+    return canonical(item.get('product_url', '')).rstrip('/')
+
+
+def merge_product(previous, item):
+    merged = {**(previous or {}), **item}
+    if not product_identity(item).startswith('doclasse:'):
+        return merged
+    evidence = []
+    for record in (previous or {}, item):
+        observations = list(record.get('listing_evidence', []))
+        if not observations and record.get('product_url'):
+            observations.append({k: record[k] for k in
+                                 ('product_url', 'source_url', 'source_sha256')
+                                 if k in record})
+        for observation in observations:
+            if observation not in evidence:
+                evidence.append(observation)
+    merged['listing_evidence'] = evidence
+    return merged
+
+
 def update_baseline(rows, known, date, *, baseline_initialization=False):
     known=json.loads(json.dumps(known)); changes=[]
-    identity_index = {row.get('brand_id','')+'|'+canonical(row.get('product_url','')).rstrip('/'): key for key,row in known.items()}
+    identity_index = {}
+    for key, record in list(known.items()):
+        identity = record.get('brand_id', '')+'|'+product_identity(record)
+        existing = identity_index.get(identity)
+        if existing and product_identity(record).startswith('doclasse:'):
+            merged = merge_product(known[existing], record)
+            merged['first_seen_date'] = min(known[existing]['first_seen_date'], record['first_seen_date'])
+            known[existing] = merged
+            del known[key]
+        else:
+            identity_index[identity] = key
     for row in rows:
         for item in row['surface_items']:
             if item.get('scope_status')!='BRAND_AND_KNIT_PATH_MATCHED': continue
-            identity=row['brand_id']+'|'+canonical(item['product_url']).rstrip('/')
+            identity=row['brand_id']+'|'+product_identity(item)
             key=identity_index.get(identity, row['brand_id']+'|'+item['product_url']); before=known.get(key)
+            item=merge_product(before, item)
             if before: item={**item, 'product_url':before['product_url']}
             identity_index[identity]=key
             record={**(before or {}),**item,'brand_id':row['brand_id'],'brand_name':row['brand_name'],
@@ -332,3 +374,4 @@ def main():
     return run()
 
 if __name__=='__main__':raise SystemExit(main())
+
