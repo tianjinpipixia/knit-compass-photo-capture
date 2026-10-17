@@ -218,10 +218,26 @@ def build_cumulative_product_shards(root, active=None):
     (output/'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, separators=(',', ':'))+'\n')
     exported = read_pool(root)
     for key, row in normalize_identities(previous).items():
-        if key not in exported and not any(r.get('identity_key') == key and r.get('record') == row
+        if key not in exported and not retained_doclasse_alias(row, exported) and not any(r.get('identity_key') == key and r.get('record') == row
                                            for r in review if r.get('reason') == 'BRAND_IDENTITY_CONFLICT'):
             raise ValueError('Refusing canonical product loss without exact retained review evidence')
     return [manifest_relative, *generated]
+
+
+def retained_doclasse_alias(previous, exported):
+    """A representative URL may change only with the exact prior facts retained."""
+    from run_brand64_free_direct_scan import product_identity
+    identity = product_identity(previous)
+    if not identity.startswith('doclasse:'): return False
+    snapshot = {k:v for k,v in previous.items() if k not in ('legacy_identity_records','source_url_aliases')}
+    for row in exported.values():
+        if (row.get('brand_id') == previous.get('brand_id') and product_identity(row) == identity and
+                previous['product_url'] in row.get('source_url_aliases', []) and
+                set(previous.get('source_url_aliases', [])) <= set(row.get('source_url_aliases', [])) and
+                all(r in row.get('legacy_identity_records', []) for r in previous.get('legacy_identity_records', [])) and
+                snapshot in row.get('legacy_identity_records', [])):
+            return True
+    return False
 
 
 def publish(root):
