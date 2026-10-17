@@ -101,9 +101,12 @@ class SafeRedirect(urllib.request.HTTPRedirectHandler):
         return super().redirect_request(req,fp,code,msg,headers,newurl)
 
 class Fetcher:
-    def __init__(self, evidence_root, deadline=None):
+    def __init__(self, evidence_root, deadline=None, request_timeout=15):
+        if not 0 < request_timeout <= 30:
+            raise ValueError('Request timeout must be in (0, 30] seconds')
         self.root = evidence_root
         self.deadline = deadline
+        self.request_timeout = request_timeout
         self.guard = threading.Lock(); self.locks = {}; self.last = {}; self.count = 0
     def __call__(self, url):
         public_url(url)
@@ -118,7 +121,11 @@ class Fetcher:
             self.last[host] = time.monotonic()
             with self.guard: self.count += 1
             req = urllib.request.Request(url,headers={'User-Agent':UA,'Accept':'text/html'})
-            with urllib.request.build_opener(SafeRedirect()).open(req,timeout=15) as r:
+            timeout = self.request_timeout
+            if self.deadline is not None:
+                timeout = min(timeout, self.deadline-time.monotonic())
+                if timeout <= 0: raise TimeoutError('BUDGET_EXHAUSTED: resume from saved queue')
+            with urllib.request.build_opener(SafeRedirect()).open(req,timeout=timeout) as r:
                 byte_limit = min(source_byte_limit(url), source_byte_limit(r.url))
                 data = r.read(byte_limit+1)
                 if len(data)>byte_limit: raise ValueError('Source exceeds size limit')
@@ -211,6 +218,25 @@ def product_detail(html, url, meta):
     raise ValueError('No matching official product JSON-LD found')
 
 
+def jun_next_url(node, source, meta):
+    """Translate the official pager's data-page without running JavaScript."""
+    p = urlsplit(source)
+    if (meta.get('adapter') != 'jun' or not meta.get('slug') or
+            p.scheme != 'https' or p.hostname != 'www.junonline.jp' or
+            p.path not in {f"/{meta['slug']}/product/tops/{category}/" for category in ('knit-sweater', 'cardigan')} or
+            node.attrs.get('href') != 'javascript:' or
+            not adapters.parent_with(node, lambda n: n.has_class('pager-area'), max_depth=6)):
+        return None
+    params = parse_qsl(p.query, keep_blank_values=True)
+    current = [v for k,v in params if k == 'page'] or ['1']
+    target = node.attrs.get('data-page', '')
+    if (len(current) != 1 or not current[0].isdigit() or int(current[0]) < 1 or
+            not target.isdigit() or int(target) != int(current[0])+1):
+        return None
+    return urlunsplit((p.scheme,p.netloc,p.path,
+                       urlencode([(k,v) for k,v in params if k != 'page']+[('page',target)]),''))
+
+
 def scan_brand(bid,meta,fetch, *, page_urls=None, max_pages=4, include_details=False):
     row={'brand_id':bid,'brand_name':meta['brand_name'],'collector':'CHATGPT_OFFICIAL_DIRECT',
          'collection_method':'DIRECT_HTTP_NO_AI_API',
@@ -235,6 +261,10 @@ def scan_brand(bid,meta,fetch, *, page_urls=None, max_pages=4, include_details=F
             if not items:items=generic_items(doc,evidence['url'],meta)
             for a in doc.root.walk():
                 if a.tag!='a' or not a.attrs.get('href'):continue
+                jun_next = jun_next_url(a, evidence['url'], meta)
+                if jun_next:
+                    if jun_next not in seen and jun_next not in queue: queue.append(jun_next)
+                    continue
                 label=clean(a.text())
                 baycrews_next=meta.get('adapter')=='baycrews' and a.has_class('next')
                 onward_next=meta.get('adapter')=='onward-listing' and a.has_class('c-pagination__next')
@@ -277,7 +307,9 @@ def scan_brand(bid,meta,fetch, *, page_urls=None, max_pages=4, include_details=F
                     if next_url not in seen and next_url not in queue:queue.append(next_url)
             if items:row['successful_page_urls'].append(url)
             for item in items:
-                item['source_sha256']=evidence['sha256'];unique[item['product_url']]=item
+                item['source_sha256']=evidence['sha256']
+                identity=product_identity(item)
+                unique[identity]=merge_product(unique.get(identity),item)
             if not items:row['errors'].append({'url':url,'reason':'NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE'})
         except (OSError,ValueError,TimeoutError) as exc:
             row['errors'].append({'url':url,'reason':type(exc).__name__+': '+str(exc)[:300]})
@@ -289,7 +321,7 @@ def scan_brand(bid,meta,fetch, *, page_urls=None, max_pages=4, include_details=F
         try:
             html,evidence=fetch(url);row['sources'].append(evidence)
             detail=product_detail(html,evidence['url'],meta);detail['source_sha256']=evidence['sha256']
-            detail['discovered_in_listing']=canonical(url) in unique
+            detail['discovered_in_listing']=product_identity({'product_url':url}) in unique
             row['product_details'].append(detail)
         except (OSError,ValueError,TimeoutError) as exc:
             row['errors'].append({'url':url,'reason':type(exc).__name__+': '+str(exc)[:300]})
@@ -303,14 +335,54 @@ def scan_brand(bid,meta,fetch, *, page_urls=None, max_pages=4, include_details=F
     return row
 
 
+def product_identity(item):
+    """DoCLASSE common goods IDs span colours and official listing sources."""
+    parsed = urlsplit(item.get('product_url', ''))
+    match = re.fullmatch(r'/item/detail/1_1_(\d+)/(\d+)', parsed.path)
+    if parsed.scheme == 'https' and parsed.hostname == 'www.doclasse.com' and match:
+        code = str(item.get('product_code') or match[1])
+        if code == match[1]:
+            return 'doclasse:' + code
+    return canonical(item.get('product_url', '')).rstrip('/')
+
+
+def merge_product(previous, item):
+    merged = {**(previous or {}), **item}
+    if not product_identity(item).startswith('doclasse:'):
+        return merged
+    evidence = []
+    for record in (previous or {}, item):
+        observations = list(record.get('listing_evidence', []))
+        if not observations and record.get('product_url'):
+            observations.append({k: record[k] for k in
+                                 ('product_url', 'source_url', 'source_sha256')
+                                 if k in record})
+        for observation in observations:
+            if observation not in evidence:
+                evidence.append(observation)
+    merged['listing_evidence'] = evidence
+    return merged
+
+
 def update_baseline(rows, known, date, *, baseline_initialization=False):
     known=json.loads(json.dumps(known)); changes=[]
-    identity_index = {row.get('brand_id','')+'|'+canonical(row.get('product_url','')).rstrip('/'): key for key,row in known.items()}
+    identity_index = {}
+    for key, record in list(known.items()):
+        identity = record.get('brand_id', '')+'|'+product_identity(record)
+        existing = identity_index.get(identity)
+        if existing and product_identity(record).startswith('doclasse:'):
+            merged = merge_product(known[existing], record)
+            merged['first_seen_date'] = min(known[existing]['first_seen_date'], record['first_seen_date'])
+            known[existing] = merged
+            del known[key]
+        else:
+            identity_index[identity] = key
     for row in rows:
         for item in row['surface_items']:
             if item.get('scope_status')!='BRAND_AND_KNIT_PATH_MATCHED': continue
-            identity=row['brand_id']+'|'+canonical(item['product_url']).rstrip('/')
+            identity=row['brand_id']+'|'+product_identity(item)
             key=identity_index.get(identity, row['brand_id']+'|'+item['product_url']); before=known.get(key)
+            item=merge_product(before, item)
             if before: item={**item, 'product_url':before['product_url']}
             identity_index[identity]=key
             record={**(before or {}),**item,'brand_id':row['brand_id'],'brand_name':row['brand_name'],

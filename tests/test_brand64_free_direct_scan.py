@@ -13,6 +13,65 @@ URL='https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/GDM66000'
 def card(slug='rope-picnic',brand='ROPÉ PICNIC',color='08'):
     return f'<div class="content-cassette"><p class="brand-name">{brand}</p><p class="item-name">サイドスリットニット</p><p class="item-price">&yen;5,489</p><p class="item-tag"><span>予約</span></p><a class="content-cassette__link" href="/{slug}/product/tops/knit-sweater/GDM66000?cc={color}"></a></div>'
 class Tests(unittest.TestCase):
+    def test_seven_brand_diagnostic_preserves_product_source_url_and_hash_binding(self):
+        import json
+        result=json.loads((ROOT/'data/brand-md-monitoring/diagnostics/2026-10-17-seven-brand-recovery/results.json').read_text())
+        self.assertEqual(result['publication_status'],'PUBLISH_HOLD')
+        self.assertEqual(result['formal_unprocessed_status'],'OPEN')
+        self.assertFalse(result['canonical_or_ledger_files_modified'])
+        self.assertEqual(len(result['results']),7)
+        for row in result['results']:
+            candidate=row['local_candidate']
+            evidence={(e['url'],e['sha256']) for e in candidate['evidence']}
+            identities=[]
+            for product in candidate['products_with_evidence']:
+                identities.append(scan.product_identity(product))
+                observations=product.get('listing_evidence') or [product]
+                for item in observations:
+                    self.assertIn((item['source_url'],item['source_sha256']),evidence)
+                    self.assertEqual(scan.urlsplit(item['product_url']).scheme,'https')
+                    self.assertEqual(scan.urlsplit(item['product_url']).hostname,
+                                     scan.urlsplit(item['source_url']).hostname)
+            self.assertEqual(len(identities),len(set(identities)))
+            self.assertEqual(candidate['products'],len(identities))
+            self.assertEqual(candidate['coverage']['status'],'INCOMPLETE')
+            self.assertIn('SOURCE_SCOPE_AUDIT_REQUIRED',candidate['coverage']['reasons'])
+
+    def test_jun_data_page_pager_recovers_sequential_pages_and_deduplicates(self):
+        source=META['entry_urls'][0]
+        def fetch(url):
+            page=int(scan.parse_qs(scan.urlsplit(url).query).get('page',['1'])[0])
+            # Official 2026-10-17 pager: javascript: links, data-page, empty next arrow.
+            pager=(f'<div class="pager-area"><div class="pager-area__pagenumber"><ul>'
+                   f'<li><a href="javascript:" data-page="{page+1}">{page+1}</a></li>'
+                   f'<li class="next"><a href="javascript:" data-page="{page+1}"></a></li>'
+                   '</ul></div></div>') if page<3 else ''
+            return card()+card().replace('GDM66000',f'GDM{page}')+pager, {'url':url,'sha256':f'page{page}'}
+        row=scan.scan_brand('BR-00004',META,fetch,max_pages=1)
+        self.assertEqual(row['pending_page_urls'],[source+'?page=2'])
+        row=scan.scan_brand('BR-00004',META,fetch,max_pages=4)
+        self.assertEqual(row['attempted_page_urls'],[source,source+'?page=2',source+'?page=3'])
+        self.assertEqual(len(row['surface_items']),4)
+        self.assertEqual(row['pending_page_urls'],[])
+        self.assertTrue(all(i['source_url'] in row['successful_page_urls'] for i in row['surface_items']))
+        self.assertTrue(all(i['source_sha256'].startswith('page') for i in row['surface_items']))
+
+    def test_jun_pager_preserves_filters_and_rejects_jumps_or_unscoped_widgets(self):
+        source=META['entry_urls'][0]+'?stock=&mode=preorder&page=2'
+        def node(target='3',pager=True):
+            html=f'<a href="javascript:" data-page="{target}"></a>'
+            if pager:html='<div class="pager-area"><ul><li>'+html+'</li></ul></div>'
+            return next(n for n in scan.Document(html).root.walk() if n.tag=='a')
+        result=scan.jun_next_url(node(),source,META)
+        self.assertEqual(scan.parse_qs(scan.urlsplit(result).query,keep_blank_values=True),
+                         {'stock':[''],'mode':['preorder'],'page':['3']})
+        for target in ['1','2','4','-1','3&mode=sale','abc']:
+            self.assertIsNone(scan.jun_next_url(node(target),source,META))
+        self.assertIsNone(scan.jun_next_url(node(pager=False),source,META))
+        for url in [source.replace('https:','http:'),source.replace('www.junonline.jp','other.example'),
+                    source.replace('/rope-picnic/','/vis/'),source+'&page=2',source.replace('page=2','page=x')]:
+            self.assertIsNone(scan.jun_next_url(node(),url,META))
+
     def test_product_group_detail_collects_variant_offers(self):
         html = '''<script type="application/ld+json">{
           "@type":"ProductGroup","name":"ウールミンクショートボレロ",

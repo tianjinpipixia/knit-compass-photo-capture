@@ -30,6 +30,100 @@ def fetch(url):
 
 
 class FlashPipelineTests(unittest.TestCase):
+    def test_slow_source_recovers_once_in_scheduled_retry_with_longer_timeout(self):
+        from unittest.mock import MagicMock
+        from email.message import Message
+        headers=Message();headers['Content-Type']='text/html; charset=utf-8'
+        response=MagicMock();response.__enter__.return_value=response
+        response.url=URL;response.headers=headers;response.read.return_value=card().encode()
+        timeouts=[]
+        def open_source(request,timeout):
+            timeouts.append(timeout)
+            if timeout<20:raise TimeoutError('read timed out')
+            return response
+        with tempfile.TemporaryDirectory() as tmp, patch.object(scan.urllib.request,'build_opener') as opener, patch.object(scan.time,'sleep'):
+            opener.return_value.open.side_effect=open_source
+            args=['--brand','BR-00004','--output-root',tmp,'--budget-seconds','60']
+            self.assertEqual(pipeline.run(args+['--stage','flash']),0)
+            first=json.loads((pathlib.Path(tmp)/'latest.json').read_text())
+            self.assertEqual(first['product_count'],0)
+            self.assertEqual(pipeline.run(args+['--stage','retry']),0)
+            after=json.loads((pathlib.Path(tmp)/'latest.json').read_text())
+            self.assertEqual(timeouts,[15,15,30,30])
+            self.assertEqual(after['product_count'],1)
+            self.assertEqual(after['complete_brand_count'],0)
+            self.assertEqual(after['publication_status'],'PUBLISH_HOLD')
+
+    def test_grove_official_cardigan_entry_replaces_only_incorrect_cutsew_entry(self):
+        meta=json.loads((scan.ROOT/'config/brand64-free-direct-sources.json').read_text())['brands']['BR-00015']
+        old='https://store.world.co.jp/s/brand/grove/category/WB/WB02/'
+        new=old.replace('WB02','WB06')
+        self.assertIn(new,meta['entry_urls']);self.assertNotIn(old,meta['entry_urls'])
+        row={'errors':[{'url':old,'reason':'NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE'},
+                       {'url':new,'reason':'HTTPError: HTTP Error 403: Forbidden'}],
+             'pending_page_urls':[old,new]}
+        pipeline.archive_superseded_sources(row,meta,DATE)
+        self.assertEqual(row['pending_page_urls'],[new])
+        self.assertEqual([e['url'] for e in row['errors']],[new])
+        self.assertEqual(row['superseded_sources'][old]['errors'][0]['reason'],
+                         'NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE')
+        self.assertEqual(pipeline.coverage(row,meta,DATE)['status'],'INCOMPLETE')
+
+    def test_recovery_timeout_is_bounded_and_access_failures_stay_unresolved(self):
+        from unittest.mock import MagicMock
+        from email.message import Message
+        headers=Message();headers['Content-Type']='text/html; charset=utf-8'
+        response=MagicMock();response.__enter__.return_value=response
+        response.url=URL;response.headers=headers;response.read.return_value=b'<html></html>'
+        with tempfile.TemporaryDirectory() as tmp, patch.object(scan.urllib.request,'build_opener') as opener:
+            opener.return_value.open.return_value=response
+            with patch.object(scan.time,'monotonic',return_value=100):
+                scan.Fetcher(pathlib.Path(tmp),deadline=107,request_timeout=30)(URL)
+            self.assertEqual(opener.return_value.open.call_args.kwargs['timeout'],7)
+        for invalid in [0,31,-1]:
+            with self.assertRaises(ValueError):scan.Fetcher(pathlib.Path('.'),request_timeout=invalid)
+        rows={'pending_page_urls':[URL,URL+'?page=2'], 'errors':[
+            {'url':URL,'reason':'TimeoutError: read timed out'},
+            {'url':URL+'?page=2','reason':'HTTPError: HTTP Error 403: Forbidden'}]}
+        retry=pipeline.retryable_urls(rows)
+        self.assertEqual(retry,[URL])
+        seen=[]
+        def timeout(url):seen.append(url);raise TimeoutError('read timed out')
+        failed=scan.scan_brand('B',META,timeout,page_urls=retry)
+        self.assertEqual(seen,[URL])  # no unbounded in-request retries
+        state=pipeline.merge_row({**rows,'observed_date':DATE},failed,DATE)
+        self.assertEqual(len(state['errors']),2)
+        self.assertEqual(set(pipeline.recovery_urls(state)),set(rows['pending_page_urls']))
+        self.assertEqual(pipeline.coverage(state,META,DATE)['status'],'INCOMPLETE')
+
+    def test_doclasse_config_recovers_five_pending_pages_without_deleting_history(self):
+        meta=json.loads((scan.ROOT/'config/brand64-free-direct-sources.json').read_text())['brands']['BR-00018']
+        self.assertIn('https://www.doclasse.com/ladies/feature/newarrival',meta['entry_urls'])
+        self.assertEqual(pipeline.page_budget(meta,4),16)
+        from test_brand64_doclasse_recovery import card as doclasse_card
+        pending=[f'https://www.doclasse.com/item?brand_id=1&category_id=12&page={i}' for i in [2,3,4,6,8]]
+        def fetch_page(url):
+            page=scan.parse_qs(scan.urlsplit(url).query)['page'][0]
+            return doclasse_card(code='3300'+page),{'url':url,'sha256':'page'+page}
+        with tempfile.TemporaryDirectory() as tmp:
+            pipe=pipeline.Pipeline(pathlib.Path(tmp),{'BR-00018':'DoCLASSE'},{'BR-00018':meta},[],DATE,'retry')
+            pipe.known={'old':{'brand_id':'BR-00018','product_url':'https://www.doclasse.com/item/detail/1_1_12345/010',
+                               'first_seen_date':'2026-09-01','composition':'cotton','sales_start_date':'2026-08-01'}}
+            pipe.rows['BR-00018']={'observed_date':DATE,'surface_items':[],'pending_page_urls':pending,'errors':[]}
+            short=scan.scan_brand('BR-00018',meta,fetch_page,page_urls=pending,max_pages=4)
+            self.assertEqual(short['pending_page_urls'],[pending[-1]])
+            row=scan.scan_brand('BR-00018',meta,fetch_page,page_urls=pipeline.retryable_urls(pipe.rows['BR-00018']),
+                                max_pages=pipeline.page_budget(meta,4))
+            pipe.accept(row)
+            self.assertEqual(pipe.rows['BR-00018']['pending_page_urls'],[])
+            self.assertEqual(len(pipe.known),6)
+            self.assertEqual(pipe.known['old']['composition'],'cotton')
+            self.assertEqual(pipe.known['old']['first_seen_date'],'2026-09-01')
+            pipe.accept(row)
+            self.assertEqual(len(pipe.known),6)
+            self.assertEqual(pipe.checkpoint()['publication_status'],'PUBLISH_HOLD')
+            self.assertEqual(pipe.checkpoint()['complete_brand_count'],0)
+
     def test_first_four_pages_then_recovery_collects_pages_five_and_six(self):
         first = scan.scan_brand('B', META, fetch)
         state = pipeline.merge_row(None, first, DATE)
