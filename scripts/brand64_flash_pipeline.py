@@ -54,7 +54,7 @@ def retryable_urls(row):
     # A saved pending page may have failed with a permanent/access error in
     # flash. Keep it durable, but do not hammer it again in the same run.
     blocked = {e.get('url') for e in row.get('errors', []) if
-               re.search(r'HTTP Error (?:403|429)|SOURCE_ACCESS_CHALLENGE|NO_SUPPORTED_PRODUCT_CARDS|Source exceeds size limit|redirect error', e['reason'])}
+               re.search(r'HTTP Error (?:401|403|404|429)|SOURCE_ACCESS_CHALLENGE|NO_SUPPORTED_PRODUCT_CARDS|Source exceeds size limit|redirect error', e['reason'])}
     urls = [u for u in row.get('pending_page_urls', []) if u not in blocked]
     for error in row.get('errors', []):
         reason = error['reason']
@@ -76,8 +76,10 @@ def merge_row(previous, row, date):
     merged['errors'] = [e for e in old.get('errors', []) if e.get('url') not in attempted] + row['errors']
     outstanding = [u for u in recovery_urls(previous or {}) if u not in successful and u not in attempted]
     merged['pending_page_urls'] = list(dict.fromkeys(outstanding + row['pending_page_urls']))
-    items = {i['product_url']: i for i in old.get('surface_items', [])}
-    items.update({i['product_url']: i for i in row['surface_items']})
+    items = {}
+    for item in old.get('surface_items', []) + row['surface_items']:
+        identity = scan.product_identity(item)
+        items[identity] = scan.merge_product(items.get(identity), item)
     merged['surface_items'] = list(items.values())
     links = {i['product_url']: i for i in old.get('unverified_link_candidates', [])}
     links.update({i['product_url']: i for i in row.get('unverified_link_candidates', [])})
@@ -310,7 +312,10 @@ def run(argv=None):
         print(json.dumps(summary, ensure_ascii=False))
         return 0 if summary['complete_brand_count'] == len(active) else COVERAGE_INCOMPLETE_EXIT
     deadline = time.monotonic()+args.budget_seconds
-    fetch = scan.Fetcher(pipe.run_dir/'evidence', deadline=deadline)
+    # The one scheduled recovery pass gives slow sources up to 30 seconds.
+    # No in-request loop; access errors remain excluded by retryable_urls.
+    fetch = scan.Fetcher(pipe.run_dir/'evidence', deadline=deadline,
+                         request_timeout=30 if args.stage == 'retry' else 15)
     pipe.checkpoint()  # All 64 brands are visible even before the first request.
     if args.stage in {'flash', 'retry'}:
         def collect(bid):
