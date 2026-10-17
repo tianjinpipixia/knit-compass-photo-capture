@@ -94,8 +94,9 @@
   function syncSimpleDetailVisibility(form) {
     if (!form) return;
     const showDetails = document.body.classList.contains("kc-simple-show-details");
+    const shouldHide = !showDetails;
     form.querySelectorAll(".kc-simple-hidden-section, .kc-simple-hidden-field, .kc-simple-photo-original").forEach(node => {
-      node.hidden = !showDetails;
+      if (node.hidden !== shouldHide) node.hidden = shouldHide;
     });
   }
 
