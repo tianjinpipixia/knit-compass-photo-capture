@@ -1,0 +1,50 @@
+name: Prepare Pages source candidate (no deployment)
+
+on:
+  workflow_dispatch:
+    inputs:
+      code_commit:
+        description: Full approved main code SHA to prepare for review
+        required: true
+        type: string
+      source_path:
+        description: Explicit candidate path; must be confirmed against Pages settings by a maintainer
+        required: true
+        type: choice
+        options:
+          - /
+          - /docs
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Prepare the exact source candidate without publishing
+        env:
+          CODE_COMMIT: ${{ inputs.code_commit }}
+          SOURCE_PATH: ${{ inputs.source_path }}
+        run: |
+          python scripts/prepare_pages_manual.py --code-commit "$CODE_COMMIT" \
+            --source-path "$SOURCE_PATH" --output "$RUNNER_TEMP/pages-source-candidate"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pages-source-candidate-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/pages-source-candidate/
+          retention-days: 7
+          if-no-files-found: error
+      - name: Report the remaining admin and approval boundary
+        run: |
+          echo "Source candidate only. Pages settings are unverified; no build or deployment was performed." >> "$GITHUB_STEP_SUMMARY"
+          echo "Maintainer must separately confirm/migrate the Pages source and approve publication. Existing server-side auto-publication may still be enabled." >> "$GITHUB_STEP_SUMMARY"

@@ -1,14 +1,20 @@
 name: Run Brand64 Gemini MD analysis
 
 on:
-  workflow_run:
-    workflows: ["Run Brand64 official direct collection"]
-    types: [completed]
   workflow_dispatch:
-  push:
-    # Smoke trigger marker; changed only when a real rollout validation is needed.
-    paths:
-      - config/gemini-md-free-tier-smoke-trigger-20260907.txt
+    inputs:
+      collection_run_id:
+        description: Exact official collection run ID
+        required: true
+        type: string
+      canonical_commit:
+        description: Full commit SHA on brand64/flash-feed
+        required: true
+        type: string
+      manifest_sha256:
+        description: SHA-256 of that commit's cumulative-products/manifest.json
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -20,15 +26,17 @@ concurrency:
 
 jobs:
   gemini-md:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
       TZ: Asia/Tokyo
-      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       GEMINI_MD_MODEL: ${{ vars.GEMINI_MD_MODEL || 'gemini-3.5-flash-lite' }}
       GH_TOKEN: ${{ github.token }}
-      UPSTREAM_COLLECTION_RUN_ID: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || '' }}
-      UPSTREAM_COLLECTION_CONCLUSION: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.conclusion || 'manual' }}
+      UPSTREAM_COLLECTION_RUN_ID: ${{ inputs.collection_run_id }}
+      CANONICAL_COMMIT: ${{ inputs.canonical_commit }}
+      MANIFEST_SHA256: ${{ inputs.manifest_sha256 }}
+      UPSTREAM_COLLECTION_CONCLUSION: manual
 
     steps:
       - uses: actions/checkout@v4
@@ -42,16 +50,18 @@ jobs:
       - name: Restore and verify the exact official collection snapshot
         shell: bash
         run: |
-          git fetch --depth=1 origin brand64/flash-feed
-          mkdir -p data/brand-md-monitoring/direct-scans
-          for state_file in coverage-state.json feed.json latest.json flash-latest.json known-products.json snapshot-binding.json; do
-            git show "FETCH_HEAD:data/brand-md-monitoring/direct-scans/$state_file" > "data/brand-md-monitoring/direct-scans/$state_file"
-          done
-          git checkout FETCH_HEAD -- data/brand-md-monitoring/direct-scans/cumulative-products
-          expected_date=$(date +%F)
-          python scripts/brand64_daily_pipeline_binding.py verify \
-            --date "$expected_date" \
-            --expected-collection-run-id "$UPSTREAM_COLLECTION_RUN_ID"
+          # Validate untrusted input before using it as a Git argument.
+          [[ "$CANONICAL_COMMIT" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$MANIFEST_SHA256" =~ ^[0-9a-f]{64}$ ]]
+          [[ "$UPSTREAM_COLLECTION_RUN_ID" =~ ^[1-9][0-9]*$ ]]
+          git fetch --no-tags origin brand64/flash-feed:refs/remotes/origin/brand64/flash-feed
+          git merge-base --is-ancestor "$CANONICAL_COMMIT" refs/remotes/origin/brand64/flash-feed
+          git restore --source="$CANONICAL_COMMIT" --worktree -- data/brand-md-monitoring/direct-scans
+          python scripts/brand64_daily_pipeline_binding.py verify-manual \
+            --date "$(date +%F)" \
+            --expected-collection-run-id "$UPSTREAM_COLLECTION_RUN_ID" \
+            --canonical-commit "$CANONICAL_COMMIT" \
+            --manifest-sha256 "$MANIFEST_SHA256"
 
       - name: Verify free-tier pacing, quota-stop behavior, and pipeline binding
         run: |
@@ -72,11 +82,16 @@ jobs:
 
       - name: Run Gemini MD pass with URL Context only
         id: gemini
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         continue-on-error: true
         run: |
           touch /tmp/gemini-md-attempt-start
           python scripts/run_brand64_gemini_md_free_tier.py \
             --date "$(date +%F)" \
+            --collection-run-id "$UPSTREAM_COLLECTION_RUN_ID" \
+            --canonical-commit "$CANONICAL_COMMIT" \
+            --manifest-sha256 "$MANIFEST_SHA256" \
             --required-confirmed 39 \
             --batch-size 13 \
             --max-batches 5 \
