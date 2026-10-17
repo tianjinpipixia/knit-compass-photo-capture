@@ -2,7 +2,7 @@
 観測日：2026-10-17
 
 登録範囲の確認完了：0/65ブランド。
-本日観測した商品：789件。MD用の蓄積として保持します。
+本日観測した商品：1010件。MD用の蓄積として保持します。
 初回発見と発売日は区別します。未確認・未取得を「新商品なし」と判定しません。
 
 ## 本日初めて見つけた商品（発売日未確認）
@@ -42,6 +42,77 @@
 |AMERICAN HOLIC|AMERICAN HOLIC ドッキングペプラムニット|¥ 4,990|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26H0087)|
 |DoCLASSE|シルキーダンボール・オーバーカーディガン|¥ 5,990 / ￥6,589|[公式商品](https://www.doclasse.com/item/detail/1_1_33509/400)|
 |DoCLASSE|UVスラブ・ジェットセッターズ／2点セット|¥ 4,790 / ￥5,269|[公式商品](https://www.doclasse.com/item/detail/1_1_31907/411)|
+|ROPÉ PICNIC|【BEVERLY HILLS POLO CLUB/ビバリーヒルズポロクラブ】モヘヤタッチカーディガン|¥5,489|[公式商品](https://www.junonline.jp/rope-picnic/product/tops/cardigan/GDK85600)|
+|ROPÉ PICNIC|【新色追加】フェイクレイヤードニットプルオーバー|¥5,489|[公式商品](https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/GDM45500)|
+|ROPÉ PICNIC|【emur/エミュール】ラメジャガードフリンジスリーブプルオーバー|¥7,491|[公式商品](https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/GDM65500)|
+|ROPÉ PICNIC|ミニフラワースパンコールニット|¥5,995|[公式商品](https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/GDM55430)|
+|VIS|ICE BEAUTY クロスデザインニットプルオーバー/UVケア・接触冷感|¥5,929|[公式商品](https://www.junonline.jp/vis/product/tops/knit-sweater/BVM16450)|
+|VIS|フェザーヤーンオフショルもちもちリブニット/イージーケア|¥5,929|[公式商品](https://www.junonline.jp/vis/product/tops/knit-sweater/BVM45250)|
+|VIS|ペプラムニットドッキングプルオーバー|¥5,929|[公式商品](https://www.junonline.jp/vis/product/tops/knit-sweater/BVM65080)|
+|VIS|ダブルカラーポロニットトップス|¥5,929|[公式商品](https://www.junonline.jp/vis/product/tops/knit-sweater/BVM45240)|
+|VIS|【POLO BCS】VIS別注ヘンリーネックミニケーブルニットトップス|¥6,600|[公式商品](https://www.junonline.jp/vis/product/tops/knit-sweater/BVM75250)|
+|VIS|【WEB限定】裾ジップニットプルオーバー|¥5,929|[公式商品](https://www.junonline.jp/vis/product/tops/knit-sweater/BVM85210)|
+|VIS|フェザー切り替えスリーブシアータートルニット|¥5,489|[公式商品](https://www.junonline.jp/vis/product/tops/knit-sweater/BVM45160)|
+|VIS|シアーボウタイリボン付きフェザーニットプルオーバー/2WAY・イージーケア|¥6,589|[公式商品](https://www.junonline.jp/vis/product/tops/knit-sweater/BVM45190)|
+|VIS|アシメねじれデザインリブニット|¥5,489|[公式商品](https://www.junonline.jp/vis/product/tops/knit-sweater/BVM65070)|
+|VIS|接結ミニフェザーニットジャケットカーディガン/一部WEB限定カラー|¥6,919|[公式商品](https://www.junonline.jp/vis/product/tops/cardigan/BVK65070)|
+|VIS|ティアードペプラムニットカーディガン|¥6,589|[公式商品](https://www.junonline.jp/vis/product/tops/cardigan/BVK45150)|
+|VIS|衿ファー取り外しカーディガン|¥6,589|[公式商品](https://www.junonline.jp/vis/product/tops/cardigan/BVK45120)|
+|VIS|ペプラム切替モールニットカーディガン/イージーケア|¥6,589|[公式商品](https://www.junonline.jp/vis/product/tops/cardigan/BVK65210)|
+|VIS|【POLO BCS】VIS別注ミニケーブルノーカラーニットカーディガン|¥6,930|[公式商品](https://www.junonline.jp/vis/product/tops/cardigan/BVK75150)|
+|VIS|【POLO BCS】VIS別注アーガイルニットカーディガン|¥7,920|[公式商品](https://www.junonline.jp/vis/product/tops/cardigan/BVK75250)|
+|VIS|リボンモチーフジャガードカーディガン/イージーケア|¥6,919|[公式商品](https://www.junonline.jp/vis/product/tops/cardigan/BVK45070)|
+|VIS|【洗える】襟付きペプラムカーディガン|¥3,953|[公式商品](https://www.junonline.jp/vis/product/tops/cardigan/BVK65050)|
+|VIS|くるみ釦ニットトップスカーデ/洗える|¥4,939|[公式商品](https://www.junonline.jp/vis/product/tops/cardigan/BVK45010)|
+|VIS|【POLO BCS】VIS別注ハーフスリーブミニケーブルカーディガン|¥6,600|[公式商品](https://www.junonline.jp/vis/product/tops/cardigan/BVK75050)|
+|ADAM ET ROPÉ|【AURALEE(オーラリー)】COTTON HIGH GAUGE RIB KNIT TEE|¥30,800|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/EUM46040)|
+|ADAM ET ROPÉ|バイカラーリバーシブルニットプルオーバー|¥18,700|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/GAM25410)|
+|ADAM ET ROPÉ|【WEB限定】ボリュームスリーブモヘアプルオーバー|¥9,900|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/GAM55590)|
+|ADAM ET ROPÉ|【WEB限定】・【サステナブル】エコベロRIBタートル|¥6,160|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/GAM55510)|
+|ADAM ET ROPÉ|ペプラムコンビハーフスリーブニット|¥15,950|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/GAM05250)|
+|ADAM ET ROPÉ|【再入荷】・【サステナブル】ペプラムコンビニットプルオーバー|¥16,940|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/GAM05320)|
+|ADAM ET ROPÉ|【公式サイト限定】【extreme cashmere(クストリーム カシミア)】VEST|¥33,550|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/EUM15000)|
+|ADAM ET ROPÉ|【公式サイト限定】【extreme cashmere(エクストリーム カシミア)】RIK|¥44,770|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/EUM15020)|
+|ADAM ET ROPÉ|【サステナブル・洗える】フェルト刺しゅうニットプルオーバー|¥15,950|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/GAM24280)|
+|ADAM ET ROPÉ|【一部カラー公式サイト限定・WEB限定(一部店舗展開あり)】タートルショートニットプルオーバー|¥10,450|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/GAM52520)|
+|ADAM ET ROPÉ|フロントギャザーカーディガン/接触冷感/UVカット/遮熱|¥9,900|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK06230)|
+|ADAM ET ROPÉ|キュプラMIXクールタッチカーディガン/UV抑制/接触冷感|¥14,300|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK06100)|
+|ADAM ET ROPÉ|【WEB限定】ワイドリブヘムポロカーディガン|¥7,425|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK56080)|
+|ADAM ET ROPÉ|【WEB限定】シアークルーネックカーディガン|¥7,128|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK56050)|
+|ADAM ET ROPÉ|【WEB限定】シアーシャーリングカーディガン|¥7,722|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK56150)|
+|ADAM ET ROPÉ|【サステナブル】シアーロゴカーディガン|¥9,900|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK06140)|
+|ADAM ET ROPÉ|【WEB限定】メッシュエンブロイダリーカーディガン|¥14,256|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK56090)|
+|ADAM ET ROPÉ|【JANE SMITH（ジェーンスミス）】COTTON EYELET RIB CARDIGAN|¥20,900|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/EUK36110)|
+|ADAM ET ROPÉ|【AURALEE(オーラリー)】HIGH GAUGE TUCK RIB KNIT CARDIGAN|¥46,200|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/EUK36130)|
+|ADAM ET ROPÉ|【AURALEE(オーラリー)】 COTTON HIGH GAUGE RIB KNIT CROPPED CREW NECK CARDIGAN|¥39,600|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/EUK36140)|
+|ADAM ET ROPÉ|【WEB限定】パターンニットブルゾン|¥5,984|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK56100)|
+|ADAM ET ROPÉ|【WEB限定】メニーボタンリップルシアーカーディガン|¥5,940|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK56120)|
+|ADAM ET ROPÉ|【WEB限定】2WAYリブカーディガン|¥5,940|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK56060)|
+|ADAM ET ROPÉ|【WEB限定】・【サステナブル】セレクトネックカーディガン|¥8,855|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK56070)|
+|ADAM ET ROPÉ|【Pillings（ピリングス）】unstable cardigan|¥47,300|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/EUK36080)|
+|ADAM ET ROPÉ|ダンボールタフタペプラムカットソーカーディガン|¥18,700|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK05131)|
+|ADAM ET ROPÉ|【JANE SMITH（ジェーンスミス）】CROCHET STAR 7G MESH POLO COLLAR CARDIGAN|¥28,600|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/EUK36100)|
+|ADAM ET ROPÉ|【WEB限定】バイカラーカーディガン/接触冷感|¥5,456|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK56040)|
+|ADAM ET ROPÉ|セレクトレングスコンパクトカーディガン/UV抑制/接触冷感|¥15,400|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK06090)|
+|ADAM ET ROPÉ|【WEB限定】メタルボタンVネックカーディガン|¥12,716|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK56020)|
+|ADAM ET ROPÉ|コットンカシミヤポケットカーディガン|¥24,200|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK06040)|
+|ADAM ET ROPÉ|【WEB限定】・【サステナブル】カラー付きカーディガン|¥17,930|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK55690)|
+|ADAM ET ROPÉ|【WEB限定】ペプラムコンビニットカーディガン|¥13,640|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK55660)|
+|ADAM ET ROPÉ|【WEB限定】ポロニットカーディガン|¥9,240|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK55650)|
+|ADAM ET ROPÉ|セレクトレングスクルーネックニットカーディガン|¥14,300|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK25130)|
+|ADAM ET ROPÉ|マルチWAYシアートリコットベロアカーディガン|¥17,600|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK25040)|
+|ADAM ET ROPÉ|ダンボールタフタペプラムカットソーカーディガン|¥18,700|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK05130)|
+|ADAM ET ROPÉ|【洗える】エッグブローチ付きペプラムカーディガン|¥7,172|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK05070)|
+|ADAM ET ROPÉ|【WEB限定】・【サステナブル】BIGボタンニットカーディガン|¥12,650|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK54560)|
+|ADAM ET ROPÉ|【サステナブル・WEB限定】ペプラムコンビニットカーディガン|¥13,640|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK53560)|
+|ADAM ET ROPÉ|【アウトレット店舗・WEB限定】2WAY裏毛カーディガン|¥7,590|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GTK11550)|
+|ROPÉ|ビジューレース襟ニットプルオーバー/イージーケア|¥28,600|[公式商品](https://www.junonline.jp/rope/product/tops/knit-sweater/GGM35390)|
+|ROPÉ|フォックスカシミヤニットプルオーバー/イージーケア・アンサンブル対応|¥30,800|[公式商品](https://www.junonline.jp/rope/product/tops/knit-sweater/GGM35060)|
+|ROPÉ|パール釦ポロニット/イージーケア|¥19,800|[公式商品](https://www.junonline.jp/rope/product/tops/knit-sweater/GGM35210)|
+|ROPÉ|ペーパーヤーンメッシュカーディガン/ショート丈メッシュボレロ|¥17,600|[公式商品](https://www.junonline.jp/rope/product/tops/cardigan/GGK24390)|
+|ROPÉ|【COOHEM(コーヘン）】SUKASHI BORDER KNIT VEST【WEB・店舗限定】|¥27,500|[公式商品](https://www.junonline.jp/rope/product/tops/knit-sweater/GGJ65000)|
+|ROPÉ|リネンライクスキッパー半袖トップス|¥16,500|[公式商品](https://www.junonline.jp/rope/product/tops/knit-sweater/GGM24270)|
+|ROPÉ|フォックスカシミヤボートネックプルオーバー|¥29,700|[公式商品](https://www.junonline.jp/rope/product/tops/knit-sweater/GGM33100)|
 
 ## ブランド・婦人対象の判定待ちリンク
 
@@ -53,8 +124,8 @@
 |UNIQLO|未完了|0|0|
 |GU|未完了|0|0|
 |MUJI|未完了|0|0|
-|ROPÉ PICNIC|未完了|23|2|
-|VIS|未完了|39|2|
+|ROPÉ PICNIC|未完了|53|0|
+|VIS|未完了|108|1|
 |GLOBAL WORK|未完了|0|1|
 |LOWRYS FARM|未完了|0|0|
 |studio CLIP|未完了|0|0|
@@ -80,12 +151,12 @@
 |Elura|未完了|0|0|
 |mysty woman|未完了|0|0|
 |Andemiu|未完了|0|0|
-|AMERICAN HOLIC|未完了|34|7|
+|AMERICAN HOLIC|未完了|48|7|
 |YECCA VECCA|未完了|2|0|
-|23区|未完了|19|10|
+|23区|未完了|29|8|
 |ICB|未完了|0|0|
 |自由区|未完了|0|0|
-|組曲|未完了|21|11|
+|組曲|未完了|34|10|
 |UNFILO|未完了|0|0|
 |INDIVI|未完了|0|1|
 |UNTITLED|未完了|0|1|
@@ -100,8 +171,8 @@
 |ANY|未完了|0|0|
 |MUJI Labo|未完了|0|0|
 |Mila Owen|未完了|0|0|
-|ROPÉ|未完了|29|2|
-|ADAM ET ROPÉ|未完了|34|2|
+|ROPÉ|未完了|51|0|
+|ADAM ET ROPÉ|未完了|97|0|
 |GALLARDAGALANTE|未完了|19|0|
 |Whim Gazette|未完了|24|0|
 |LOUNGEDRESS|未完了|17|0|
@@ -131,14 +202,11 @@
 - TimeoutError: The read operation timed out：https://www.muji.com/jp/ja/store/cmdty/section/T10031
 
 ### ROPÉ PICNIC
-未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/?page=2
-- https://www.junonline.jp/rope-picnic/product/tops/cardigan/?page=2
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### VIS
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.junonline.jp/vis/product/tops/knit-sweater/?page=2
-- https://www.junonline.jp/vis/product/tops/cardigan/?page=2
+- https://www.junonline.jp/vis/product/tops/knit-sweater/?page=4
 
 ### GLOBAL WORK
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -277,29 +345,27 @@
 
 ### AMERICAN HOLIC
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://stripe-club.com/brand/american-holic/search?so=NEW&page=7
-- https://stripe-club.com/brand/american-holic/search?so=NEW&page=10
-- https://stripe-club.com/brand/american-holic/search?so=NEW&page=2
-- https://stripe-club.com/brand/american-holic/search?so=NEW&page=15
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=13
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=20
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=5
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=8
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=11
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=3
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=16
 
 ### YECCA VECCA
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### 23区
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=002&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=002&du=2&scc=1005
-- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=13&pp=10&gc=2&bc=002&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=13&pp=10&gc=2&bc=002&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=8&pp=10&gc=2&bc=002&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=8&pp=10&gc=2&bc=002&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=002&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=11&pp=10&gc=2&bc=002&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1005
 
 ### ICB
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -311,10 +377,6 @@
 
 ### 組曲
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://crosset.onward.co.jp/items?cp=8&pp=10&gc=2&bc=003&du=2&scc=1005
-- https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1005
-- https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=11&pp=10&gc=2&bc=003&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=14&pp=10&gc=2&bc=003&du=2&scc=1004
@@ -322,6 +384,9 @@
 - https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=003&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=003&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=003&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=003&du=2&scc=1005
 
 ### UNFILO
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -393,14 +458,10 @@
 - HTTPError: HTTP Error 403: Forbidden：https://usagi-online.com/brand/milaowen/category/AB/AB05/
 
 ### ROPÉ
-未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.junonline.jp/rope/product/tops/knit-sweater/?page=2
-- https://www.junonline.jp/rope/product/tops/cardigan/?page=2
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### ADAM ET ROPÉ
-未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/?page=2
-- https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/?page=2
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### GALLARDAGALANTE
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -446,5 +507,5 @@
 - HTTPError: HTTP Error 403: Forbidden：https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0498
 - HTTPError: HTTP Error 403: Forbidden：https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0498
 
-深掘り待ち：442件。速報は詳細調査の完了を待たず保存します。
+深掘り待ち：506件。速報は詳細調査の完了を待たず保存します。
 詳細・混率・発売日等の不明点は未確認。正式マスター・顧客公開は確認後。
