@@ -57,7 +57,7 @@ def preserve(previous, incoming):
             continue
         fresh = str(row.get('last_seen_date') or '') >= str(old.get('last_seen_date') or '')
         result = {**old, **{k: v for k, v in row.items() if v not in (None, '', [], {}) and (fresh or not old.get(k))}}
-        for field in ('retrospective_months', 'retrospective_sources', 'retrospective_evidence', 'function_claims', 'source_provenance', 'source_url_aliases', 'legacy_identity_records'):
+        for field in ('retrospective_months', 'retrospective_sources', 'retrospective_evidence', 'function_claims', 'source_provenance', 'source_url_aliases', 'legacy_identity_records', 'listing_evidence'):
             values = list(old.get(field) or [])
             for value in row.get(field) or []:
                 if value not in values:
@@ -73,14 +73,21 @@ def preserve(previous, incoming):
 
 
 def normalize_identities(records):
-    """Coalesce slash aliases, retaining both their URLs and complete prior facts."""
+    """Coalesce slash/DoCLASSE colour aliases, retaining URLs and prior facts."""
+    from run_brand64_free_direct_scan import product_identity
     result = {}
+    identities = {}
     for old_key, original in sorted(records.items()):
         row = dict(original)
         url = str(row.get('product_url') or '').rstrip('/')
         if not url:
             continue
-        key = str(row.get('brand_id') or '') + '|' + url
+        bid = str(row.get('brand_id') or '')
+        common = product_identity(row)
+        identity = bid + '|' + (common if common.startswith('doclasse:') else url)
+        key = identities.setdefault(identity, bid + '|' + url)
+        if key in result:
+            url = result[key]['product_url']
         row['product_url'] = url
         aliases = list(row.get('source_url_aliases') or [])
         if url not in aliases:
@@ -105,7 +112,7 @@ def seed_working_state(root):
     path = root / 'known-products.json'
     working = normalize_identities(json.loads(path.read_text()) if path.exists() else {})
     if canonical is not None:
-        working = preserve(normalize_identities(canonical), normalize_identities(working))
+        working = normalize_identities(preserve(normalize_identities(canonical), normalize_identities(working)))
     path.write_text(json.dumps(working, ensure_ascii=False, separators=(',', ':')) + '\n')
     return working
 

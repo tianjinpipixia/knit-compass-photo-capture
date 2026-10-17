@@ -338,7 +338,7 @@ def scan_brand(bid,meta,fetch, *, page_urls=None, max_pages=4, include_details=F
 def product_identity(item):
     """DoCLASSE common goods IDs span colours and official listing sources."""
     parsed = urlsplit(item.get('product_url', ''))
-    match = re.fullmatch(r'/item/detail/1_1_(\d+)/(\d+)', parsed.path)
+    match = re.fullmatch(r'/item/detail/1_1_(\d+)(?:/\d+)?/?', parsed.path)
     if parsed.scheme == 'https' and parsed.hostname == 'www.doclasse.com' and match:
         code = str(item.get('product_code') or match[1])
         if code == match[1]:
@@ -361,6 +361,20 @@ def merge_product(previous, item):
             if observation not in evidence:
                 evidence.append(observation)
     merged['listing_evidence'] = evidence
+    aliases = []
+    for record in (previous or {}, item):
+        for url in list(record.get('source_url_aliases', [])) + [record.get('product_url')]:
+            if url and url not in aliases: aliases.append(url)
+    merged['source_url_aliases'] = aliases
+    if previous and previous.get('product_url') != item.get('product_url'):
+        retained = list(previous.get('legacy_identity_records', []))
+        for record in [*item.get('legacy_identity_records', []), previous, item]:
+            snapshot = {k:v for k,v in record.items() if k not in ('legacy_identity_records','source_url_aliases')}
+            if snapshot not in retained: retained.append(snapshot)
+        merged['legacy_identity_records'] = retained
+        for field, operation in [('first_seen_date', min), ('last_seen_date', max)]:
+            dates = [r[field] for r in (previous, item) if r.get(field)]
+            if dates: merged[field] = operation(dates)
     return merged
 
 
@@ -372,6 +386,7 @@ def update_baseline(rows, known, date, *, baseline_initialization=False):
         existing = identity_index.get(identity)
         if existing and product_identity(record).startswith('doclasse:'):
             merged = merge_product(known[existing], record)
+            merged['product_url'] = known[existing]['product_url']
             merged['first_seen_date'] = min(known[existing]['first_seen_date'], record['first_seen_date'])
             known[existing] = merged
             del known[key]
