@@ -46,9 +46,11 @@ class GeminiMdFreeTierTests(unittest.TestCase):
             shutil.copy(ROOT / 'scripts/brand64_gemini_md_status.py', root / 'scripts')
             out_root = root / 'data/brand-md-monitoring/gemini-md'
             argv = ['runner', '--date', '2026-10-02', '--required-confirmed', '1',
-                    '--cooldown-seconds', '0']
+                    '--cooldown-seconds', '0', '--collection-run-id', '12345',
+                    '--canonical-commit', 'a' * 40, '--manifest-sha256', 'b' * 64]
             candidate = {'brand_id': 'B', 'brand_name': 'Brand', 'official_url': 'https://example.com'}
             with patch.object(mod.sys, 'argv', argv), patch.dict(mod.os.environ, {'GEMINI_API_KEY': 'test'}), \
+                 patch.object(mod, 'verify_manual_analysis_input', return_value={}), \
                  patch.object(mod, 'ROOT', root), patch.object(mod, 'OUT_ROOT', out_root), \
                  patch.object(mod, 'today_jst', return_value='2026-10-02'), \
                  patch.object(mod, 'read_json', side_effect=[{'observed_date': '2026-10-02'}, {'brands': {}}, {}] * 2), \
@@ -69,6 +71,10 @@ class GeminiMdFreeTierTests(unittest.TestCase):
                     self.assertFalse(pathlib.Path(pointer[key]).is_absolute())
                     self.assertTrue(pointer[key].startswith('data/brand-md-monitoring/gemini-md/'))
                     self.assertTrue((root / pointer[key]).is_file())
+            artifact = json.loads((root / before['artifact_path']).read_text())
+            self.assertEqual(artifact['direct_snapshot']['canonical_commit'], 'a' * 40)
+            self.assertEqual(artifact['direct_snapshot']['collection_run_id'], '12345')
+            self.assertEqual(artifact['direct_snapshot']['manifest_sha256'], 'b' * 64)
             with tempfile.TemporaryDirectory() as relocated:
                 moved_root = pathlib.Path(relocated)
                 shutil.copytree(root / 'data', moved_root / 'data')

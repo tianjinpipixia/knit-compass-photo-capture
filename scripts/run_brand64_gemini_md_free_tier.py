@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import importlib.util
 import json
 import os
 import pathlib
@@ -22,6 +23,11 @@ import urllib.request
 from typing import Any, Dict, Iterable, List, Tuple
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+_binding_spec = importlib.util.spec_from_file_location(
+    "manual_pipeline_binding", ROOT / "scripts/brand64_daily_pipeline_binding.py")
+_binding_module = importlib.util.module_from_spec(_binding_spec)
+_binding_spec.loader.exec_module(_binding_module)
+verify_manual_analysis_input = _binding_module.verify_manual_analysis_input
 SOURCE_CONFIG = ROOT / "config/brand64-free-direct-sources.json"
 DIRECT_ROOT = ROOT / "data/brand-md-monitoring/direct-scans"
 OUT_ROOT = ROOT / "data/brand-md-monitoring/gemini-md"
@@ -282,6 +288,9 @@ def chunks(items: List[Dict[str, Any]], size: int) -> Iterable[List[Dict[str, An
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--date", default=None)
+    ap.add_argument("--collection-run-id", required=True)
+    ap.add_argument("--canonical-commit", required=True)
+    ap.add_argument("--manifest-sha256", required=True)
     ap.add_argument("--required-confirmed", type=int, default=REQUIRED_CONFIRMED)
     ap.add_argument("--batch-size", type=int, default=DEFAULT_BATCH_SIZE)
     ap.add_argument("--max-batches", type=int, default=DEFAULT_MAX_BATCHES)
@@ -296,6 +305,13 @@ def main() -> int:
         ap.error("--required-confirmed must be 1..64")
     batch_size = max(1, min(args.batch_size, 19))
     max_batches = max(1, min(args.max_batches, 5))
+
+    # Also enforce the gate for direct CLI use, before reading the key or calling
+    # the model. A valid snapshot does not imply a free billing tier or approval.
+    verify_manual_analysis_input(
+        DIRECT_ROOT, repository=ROOT, expected_date=date,
+        collection_run_id=args.collection_run_id, canonical_commit=args.canonical_commit,
+        manifest_sha256=args.manifest_sha256)
 
     api_key = os.environ.get("GEMINI_API_KEY", "").strip()
     if not api_key:
@@ -391,6 +407,9 @@ def main() -> int:
         "md_signal_count": signal_count,
         "quota_exhausted": quota_exhausted,
         "direct_snapshot": {
+            "canonical_commit": args.canonical_commit,
+            "collection_run_id": args.collection_run_id,
+            "manifest_sha256": args.manifest_sha256,
             "observed_date": direct_latest.get("observed_date"),
             "attempted_brand_count": direct_latest.get("attempted_brand_count"),
             "product_observed_brand_count": direct_latest.get("product_observed_brand_count"),

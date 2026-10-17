@@ -6,6 +6,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import subprocess
 import tempfile
@@ -174,6 +175,48 @@ def _git_bytes(*args: str, check: bool = True, input_bytes: bytes | None = None,
     return result.stdout
 
 
+def verify_manual_analysis_input(root: Path, *, repository: Path, expected_date: str,
+                                 collection_run_id: str, canonical_commit: str,
+                                 manifest_sha256: str) -> Dict[str, Any]:
+    """Read-only gate: pin manual analysis to a committed canonical generation.
+
+    The workflow fetches the canonical branch before calling this function. No
+    fetch, API request, data write or credentials are needed by this verifier.
+    collector_source_sha is the collector CODE revision, not this DATA commit.
+    """
+    if not re.fullmatch(r"[1-9][0-9]*", collection_run_id):
+        raise ValueError("MANUAL_COLLECTION_RUN_ID_INVALID")
+    if not re.fullmatch(r"[0-9a-f]{40}", canonical_commit):
+        raise ValueError("MANUAL_CANONICAL_COMMIT_INVALID")
+    if not re.fullmatch(r"[0-9a-f]{64}", manifest_sha256):
+        raise ValueError("MANUAL_MANIFEST_SHA256_INVALID")
+
+    def git(*args: str) -> bytes:
+        return subprocess.check_output(["git", *args], cwd=repository, stderr=subprocess.PIPE)
+
+    if git("cat-file", "-t", canonical_commit).strip() != b"commit":
+        raise ValueError("MANUAL_CANONICAL_NOT_COMMIT")
+    try:
+        git("merge-base", "--is-ancestor", canonical_commit,
+            "refs/remotes/origin/" + BRANCH)
+    except subprocess.CalledProcessError as exc:
+        raise ValueError("MANUAL_CANONICAL_NOT_ON_FEED") from exc
+    committed_manifest = git("show", canonical_commit + ":" + PREFIX + MANIFEST_RELATIVE)
+    if hashlib.sha256(committed_manifest).hexdigest() != manifest_sha256:
+        raise ValueError("MANUAL_MANIFEST_CHECKSUM_MISMATCH")
+    binding = verify_binding(root, expected_date=expected_date,
+                             expected_collection_run_id=collection_run_id)
+    if binding["canonical_manifest_sha256"] != manifest_sha256:
+        raise ValueError("MANUAL_LOCAL_MANIFEST_MISMATCH")
+    manifest = read_json(root / MANIFEST_RELATIVE)
+    relatives = ["latest.json", "feed.json", "coverage-state.json", BINDING_NAME,
+                 MANIFEST_RELATIVE, *[brand["path"] for brand in manifest.get("brands", [])]]
+    for relative in relatives:
+        if _required(root, relative).read_bytes() != git("show", canonical_commit + ":" + PREFIX + relative):
+            raise ValueError(f"MANUAL_COMMITTED_INPUT_MISMATCH:{relative}")
+    return binding
+
+
 def _remote_blob_sha(parent: str, repo_path: str) -> str:
     return hashlib.sha256(_git_bytes("show", f"{parent}:{repo_path}")).hexdigest()
 
@@ -270,6 +313,14 @@ def main() -> int:
     verify.add_argument("--date", default=None)
     verify.add_argument("--expected-collection-run-id", default="")
 
+    manual = sub.add_parser("verify-manual")
+    manual.add_argument("--root", type=Path, default=DIRECT_ROOT)
+    manual.add_argument("--repository", type=Path, default=ROOT)
+    manual.add_argument("--date", required=True)
+    manual.add_argument("--expected-collection-run-id", required=True)
+    manual.add_argument("--canonical-commit", required=True)
+    manual.add_argument("--manifest-sha256", required=True)
+
     stamp = sub.add_parser("stamp-gemini")
     stamp.add_argument("--direct-root", type=Path, default=DIRECT_ROOT)
     stamp.add_argument("--gemini-root", type=Path, default=GEMINI_ROOT)
@@ -278,6 +329,15 @@ def main() -> int:
     stamp.add_argument("--expected-collection-run-id", default="")
 
     args = parser.parse_args()
+    if args.command == "verify-manual":
+        binding = verify_manual_analysis_input(
+            args.root, repository=args.repository, expected_date=args.date,
+            collection_run_id=args.expected_collection_run_id,
+            canonical_commit=args.canonical_commit, manifest_sha256=args.manifest_sha256)
+        print(json.dumps({"status": "VALID", "canonical_commit": args.canonical_commit,
+                          "collection_run_id": binding["collection_run_id"],
+                          "canonical_manifest_sha256": binding["canonical_manifest_sha256"]}))
+        return 0
     if args.command == "create-publish":
         binding = build_binding(
             args.root,
