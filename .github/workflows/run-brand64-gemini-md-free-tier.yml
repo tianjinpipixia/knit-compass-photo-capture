@@ -20,6 +20,9 @@ concurrency:
 
 jobs:
   gemini-md:
+    # Do not spend a runner on a failed/cancelled upstream collection.
+    # Preserve manual dispatch and the explicit smoke-test trigger.
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
