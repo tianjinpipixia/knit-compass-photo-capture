@@ -1,6 +1,15 @@
 name: Validate / refresh owner yarn catalog
 
 "on":
+  pull_request:
+    paths:
+      - "scripts/build_mz100_catalog.py"
+      - "scripts/validate_owner_yarn_implementation.py"
+      - "scripts/validate_navigation_links.py"
+      - "requirements-catalog.txt"
+      - "data/yarn-catalog/**"
+      - "tests/test_owner_catalog_review_branch.py"
+      - ".github/workflows/build-owner-yarn-catalog.yml"
   push:
     branches:
       - main
@@ -32,12 +41,14 @@ concurrency:
 
 jobs:
   validate:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
@@ -46,8 +57,11 @@ jobs:
         run: python scripts/validate_owner_yarn_implementation.py
       - name: Validate navigation
         run: python scripts/validate_navigation_links.py
+      - name: Verify review-only persistence without remote writes
+        run: python -m unittest discover -s tests -p test_owner_catalog_review_branch.py -v
 
   refresh:
+    needs: validate
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -74,17 +88,18 @@ jobs:
           path: data/yarn-catalog/mz100-catalog-3000.json
           if-no-files-found: error
           retention-days: 14
-      - name: Commit catalog when changed
+      - name: Preserve refreshed catalog on a review branch (never push main)
         shell: bash
         run: |
           if [ -z "$(git status --porcelain -- data/yarn-catalog/mz100-catalog-3000.json)" ]; then
-            echo "Catalog is unchanged."
+            echo "Catalog is unchanged." >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
+          branch="review/owner-yarn-catalog-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
           git add data/yarn-catalog/mz100-catalog-3000.json
-          git commit -m "Expand owner yarn catalog to 3,000 candidates"
-          git fetch origin "${GITHUB_REF_NAME}"
-          git rebase "origin/${GITHUB_REF_NAME}"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+          git commit -m "Propose owner yarn catalog refresh for review"
+          git push origin "HEAD:refs/heads/$branch"
+          echo "Catalog proposal saved to $branch; open a reviewed PR before merging into protected main." >> "$GITHUB_STEP_SUMMARY"
