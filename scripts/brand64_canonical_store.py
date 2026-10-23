@@ -97,7 +97,11 @@ def normalize_identities(records):
         row['source_url_aliases'] = aliases
         if key in result:
             prior = result[key]
-            preserved = list(prior.get('legacy_identity_records') or [])
+            preserved = []
+            for source in [prior, original]:
+                for record in source.get('legacy_identity_records') or []:
+                    if record not in preserved:
+                        preserved.append(record)
             for source in [prior, original]:
                 record = {k: v for k, v in source.items() if k not in ('legacy_identity_records', 'source_url_aliases')}
                 if record not in preserved:
@@ -118,8 +122,24 @@ def seed_working_state(root):
 
 
 def attach_details(known, details):
+    # Retained aliases may be the keys used by the detail queue. Keep the brand
+    # prefix, and do not guess when two products claim the same alias.
+    aliases = {}
+    for row in known.values():
+        if not row.get('brand_id'):
+            continue
+        for alias in row.get('source_url_aliases') or []:
+            if not isinstance(alias, str) or not alias:
+                continue
+            alias_key = (row['brand_id'] + '|' + alias).rstrip('/')
+            if alias_key not in aliases:
+                aliases[alias_key] = row
+            elif aliases[alias_key] is not row:
+                aliases[alias_key] = None
     for key, detail in details.items():
         row = known.get(key.rstrip('/'))
+        if row is None:
+            row = aliases.get(key.rstrip('/'))
         if (not row or detail.get('product_url') not in [row['product_url'], *row.get('source_url_aliases', [])]
             or detail.get('source_url') != detail.get('product_url')
             or detail.get('publication_status') != 'PUBLISH_HOLD'
