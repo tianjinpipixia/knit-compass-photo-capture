@@ -1,24 +1,30 @@
 {
+  "latest_attempted_scan_date": "2026-10-26",
   "gemini_execution_status": "GEMINI_SCAN_INCOMPLETE",
-  "attempted_brand_count": 38,
-  "confirmed_brand_count": 28,
-  "md_signal_count": 131,
-  "md_signal_brand_count": 28,
+  "artifact_path": "data/brand-md-monitoring/gemini-md/2026-10-26/gemini-md-20261025T225226000850Z.json",
   "required_confirmed_brand_count": 39,
+  "confirmed_brand_count": 33,
+  "attempted_brand_count": 51,
+  "md_signal_brand_count": 33,
+  "md_signal_count": 165,
   "quota_exhausted": false,
   "errors": [
-    "RuntimeError: HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
-    "RuntimeError: HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n"
+    "JSONDecodeError: Expecting ',' delimiter: line 206 column 2 (char 7566)"
   ],
-  "latest_attempted_scan_date": "2026-10-02",
-  "generated_at_utc": "2026-10-02T00:11:10Z",
-  "artifact_path": "data/brand-md-monitoring/gemini-md/2026-10-02/gemini-md-20261002T001110888354Z.json",
+  "generated_at_utc": "2026-10-25T22:52:26Z",
   "role": "CURRENT_GEMINI_MD_STATUS",
   "analyzer": "GEMINI_PRIMARY",
   "pipeline_stage": "MD_ANALYSIS",
   "publication_status": "PUBLISH_HOLD",
   "human_review_required": true,
-  "latest_successful_scan_date": "2026-10-02",
-  "latest_successful_artifact_path": "data/brand-md-monitoring/gemini-md/2026-10-02/gemini-md-20261001T205624919195Z.json",
-  "latest_successful_generated_at_utc": "2026-10-01T20:56:24Z"
+  "latest_successful_scan_date": "2026-10-25",
+  "latest_successful_artifact_path": "data/brand-md-monitoring/gemini-md/2026-10-25/gemini-md-20261024T224622624123Z.json",
+  "latest_successful_generated_at_utc": "2026-10-24T22:46:22Z",
+  "analysis_run_id": "40241755380",
+  "analysis_run_attempt": "1",
+  "source_collector": "CHATGPT_OFFICIAL_DIRECT",
+  "source_collection_run_id": "40241334196",
+  "analysis_input_snapshot_sha256": "abaf0d6b53e8ea69ab63a926233a5cfd367976bb13b3b726f4a135205c68d4e1",
+  "analysis_input_manifest_sha256": "68d41431de105b7720cb317938aa728b2549c8406c97358d402a7b3b82f5c7b6",
+  "pipeline_binding_status": "BOUND_TO_CANONICAL_SNAPSHOT"
 }
