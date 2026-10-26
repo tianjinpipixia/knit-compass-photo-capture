@@ -1,0 +1,172 @@
+{
+  "format": "KC_BRAND64_MANUAL_FALLBACK_OBSERVATION",
+  "schema_version": "1.0",
+  "observation_date": "2026-10-27",
+  "collected_at": "2026-10-27T08:45:00+09:00",
+  "collector": "CHATGPT_OFFICIAL_DIRECT",
+  "collection_status": "PARTIAL_MANUAL_FALLBACK",
+  "trigger": {
+    "canonical_direct_scan_latest_observation_date": "2026-10-26",
+    "scheduled_workflow_latest_run_number": 53,
+    "scheduled_workflow_latest_run_observation_date": "2026-10-26",
+    "current_date_run_present": false,
+    "stop_reason": "NO_2026-10-27_SCHEDULED_WORKFLOW_RUN_CREATED",
+    "exact_scheduler_failure_reason": "NOT_SURFACED_IN_ACTIONS_RUN_LIST",
+    "note": "Manual read-only official-site fallback. Canonical latest/manifest not advanced because approved scope was not fully collected."
+  },
+  "approved_scope": {
+    "scope_id": "KC40-20260930",
+    "approval_status": "LOCKED_OWNER_APPROVED",
+    "target_brand_count": 40,
+    "deep_dive_count": 20,
+    "monitoring_count": 20,
+    "complete_brand_count": 0,
+    "checked_brand_ids": [
+      "BR-00004",
+      "BR-00006"
+    ],
+    "unchecked_brand_count": 38
+  },
+  "sources_checked": [
+    {
+      "brand_id": "BR-00006",
+      "brand_name": "GLOBAL WORK",
+      "url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001003009",
+      "range": "Women cardigan category; visible unique product codes; individual official product pages for 1063251, 1063247, 759303, 1017902",
+      "status": "PARTIAL",
+      "unverified_range": "Subsequent pagination, all knit/sweater/vest category pages, color-size delivery matrix"
+    },
+    {
+      "brand_id": "BR-00004",
+      "brand_name": "ROPÉ PICNIC",
+      "url": "https://www.junonline.jp/rope-picnic/",
+      "range": "Brand top and surfaced official knit/product/news links",
+      "status": "PARTIAL",
+      "unverified_range": "All category pagination and all NEWS/ARTICLE/SPECIAL pagination"
+    },
+    {
+      "brand_name": "AMACA",
+      "url": "https://store.sanyo-shokai.co.jp/blogs/feature/ama-20260901-2",
+      "range": "265 days KNIT known feature and official feature index",
+      "status": "PARTIAL",
+      "unverified_range": "All product color-size inventory and delivery matrices"
+    }
+  ],
+  "global_work": {
+    "policy": "NORMAL_LINE_ONLY; confirmed collaborations excluded",
+    "visible_unique_codes_checked": 15,
+    "baseline_matches": 9,
+    "excluded_collaboration_codes": [
+      "685692",
+      "1048591"
+    ],
+    "unregistered_candidates": 6,
+    "candidates": [
+      {
+        "product_code": "1063251",
+        "product_name": "配色金ボタンジャケット",
+        "price_jpy": 5990,
+        "status": "CURRENT_LISTING; FIRST_OBSERVED_RETROSPECTIVE_CANDIDATE",
+        "official_description": "ループヤーンでツイードのような表情",
+        "url": "https://www.dot-st.com/globalwork/disp/item/1063251/",
+        "sales_start_date": null
+      },
+      {
+        "product_code": "1063247",
+        "product_name": "カシミヤタッチZIPパーカー",
+        "price_jpy": 5990,
+        "status": "PREORDER_LISTING; FIRST_OBSERVED_RETROSPECTIVE_CANDIDATE",
+        "official_page_published_date": "2026-10-09",
+        "colors": [
+          "オフホワイト05",
+          "レッド35",
+          "ブラウン58"
+        ],
+        "url": "https://www.dot-st.com/globalwork/disp/item/1063247/",
+        "sales_start_date": null
+      },
+      {
+        "product_code": "759303",
+        "product_name": "アンチピリングなめらかダブルポロ襟",
+        "price_jpy": 3990,
+        "status": "CURRENT_LISTING; FIRST_OBSERVED_RETROSPECTIVE_CANDIDATE",
+        "delivery_display": "2026-10-31までに発送",
+        "url": "https://www.dot-st.com/globalwork/disp/item/759303/",
+        "sales_start_date": null
+      },
+      {
+        "product_code": "571330",
+        "product_name": "ふわふわHugme Vネックカーディガン",
+        "price_jpy": 2494,
+        "status": "SALE_50_PERCENT; FIRST_OBSERVED_RETROSPECTIVE_CANDIDATE",
+        "url": "https://www.dot-st.com/globalwork/disp/item/571330/",
+        "sales_start_date": null
+      },
+      {
+        "product_code": "1017902",
+        "product_name": "アンチピリングなめらかベストセット",
+        "price_jpy": 5490,
+        "status": "CURRENT_CATEGORY_LISTING_AFTER_OFFICIAL_PREORDER_PAGE; TRANSITION_DATE_UNCONFIRMED",
+        "official_page_published_date": "2026-09-07",
+        "colors": [
+          "ブラック09",
+          "レッド37",
+          "グレージュ51",
+          "WEB限定 杢モカ53"
+        ],
+        "material_composition": "カーディガン・リブビスチェとも レーヨン69% ポリエステル31%",
+        "function_claims": [
+          "マシンウォッシャブル",
+          "アンチピリング"
+        ],
+        "url": "https://www.dot-st.com/globalwork/disp/item/1017902/",
+        "sales_start_date": null
+      },
+      {
+        "product_code": "579504",
+        "product_name": "シャギーカーディガン＊スカートSET",
+        "price_jpy": 4494,
+        "status": "OUTLET_SALE_50_PERCENT; FIRST_OBSERVED_RETROSPECTIVE_CANDIDATE",
+        "url": "https://www.dot-st.com/globalwork/disp/item/579504/",
+        "sales_start_date": null
+      }
+    ],
+    "md_events": [
+      {
+        "type": "CURRENT_CATEGORY_PRESENCE_AFTER_PREORDER_ANNOUNCEMENT",
+        "product_code": "1017902",
+        "event_date": null,
+        "certainty": "LIMITED_COMPARABILITY",
+        "note": "Official product page documents preorder; current category includes the code. Exact normal-sale transition date was not verified."
+      }
+    ]
+  },
+  "rope_picnic": {
+    "known_manual_candidate_code": "GDM66000",
+    "dedupe_action": "NO_DUPLICATE_CREATED",
+    "important_news_special_change_found": false,
+    "note": "No important NEWS/ARTICLE/SPECIAL change was verified in the partial manual range; this is not full-coverage evidence."
+  },
+  "amaca_265_days_knit": {
+    "important_change_found": false,
+    "baseline_checked_product_code": "V5N08810",
+    "note": "No important change was verified in the partial official range; known 2026-09 feature remains the latest surfaced 265-day feature."
+  },
+  "daily_counts": {
+    "automated_observed_products": null,
+    "manual_unregistered_product_candidates": 6,
+    "retrospective_first_observation_candidates": 6,
+    "confirmed_same_day_new_launches": 0,
+    "md_events": 1,
+    "canonical_cumulative_unique_products_as_of_2026_10_26": 3893
+  },
+  "output_controls": {
+    "publication_status": "PUBLISH_HOLD",
+    "human_review_required": true,
+    "formal_product_registration": false,
+    "candidate_connection_status": "NOT_CONNECTED_PARTIAL_SCOPE",
+    "v04_reflection_status": "NOT_UPDATED_PARTIAL_SCOPE",
+    "public_display_status": "NOT_CONFIRMED",
+    "company_sheets_forms_apps_script_accessed": false
+  }
+}
