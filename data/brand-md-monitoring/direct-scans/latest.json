@@ -4,11 +4,11 @@
   "collector": "CHATGPT_OFFICIAL_DIRECT",
   "collection_method": "DIRECT_HTTP_NO_AI_API",
   "observed_date": "2026-10-27",
-  "generated_at_utc": "2026-10-27T00:00:09.954309+00:00",
+  "generated_at_utc": "2026-10-27T00:02:14.380641+00:00",
   "active_brand_count": 65,
   "attempted_brand_count": 65,
   "product_observed_brand_count": 24,
-  "product_count": 745,
+  "product_count": 949,
   "complete_brand_count": 0,
   "unresolved_brand_ids": [
     "BR-00001",
@@ -78,7 +78,7 @@
     "BR-00077"
   ],
   "not_attempted_brand_ids": [],
-  "pending_page_count": 54,
+  "pending_page_count": 49,
   "scan_status": "PARTIAL_COVERAGE",
   "ai_api_request_count": 0,
   "billing_enabled_by_this_job": false,
@@ -142,7 +142,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-26T23:58:31.112272+00:00",
+      "last_attempt_at_utc": "2026-10-27T00:01:06.017362+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -158,16 +158,12 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
-          "PAGES_PENDING",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 22,
-      "last_attempt_at_utc": "2026-10-26T23:58:13.971098+00:00",
-      "pending_page_urls": [
-        "https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/?page=2",
-        "https://www.junonline.jp/rope-picnic/product/tops/cardigan/?page=2"
-      ],
+      "product_count": 53,
+      "last_attempt_at_utc": "2026-10-27T00:00:52.384152+00:00",
+      "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
     },
@@ -181,12 +177,10 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 39,
-      "last_attempt_at_utc": "2026-10-26T23:58:35.251287+00:00",
+      "product_count": 94,
+      "last_attempt_at_utc": "2026-10-27T00:00:56.712488+00:00",
       "pending_page_urls": [
-        "https://www.junonline.jp/vis/product/tops/knit-sweater/?page=4",
-        "https://www.junonline.jp/vis/product/tops/knit-sweater/?page=2",
-        "https://www.junonline.jp/vis/product/tops/cardigan/?page=2"
+        "https://www.junonline.jp/vis/product/tops/cardigan/?page=3"
       ],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -204,9 +198,10 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-26T23:58:00.486835+00:00",
+      "last_attempt_at_utc": "2026-10-27T00:00:36.033750+00:00",
       "pending_page_urls": [
-        "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
+        "https://www.dot-st.com/globalwork/disp/itemlist/?mode=&sort=01&groupNm=0&p=1&refineFlg=true&dispNo=001001&dispNoRadio=001001&search_color_cd=&search_size_cd=&search_class_attribute=&search_function_tag=&search_range_price_min=&search_range_price_max=&search_refine_range_min=&search_refine_range_max=&search_price=&goodsType=1&search_campaign=&store_delv_yn=&gift_wrap_yn=&stock=0&pre_rl=",
+        "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01"
       ],
       "errors": [
         {
@@ -215,6 +210,10 @@
         },
         {
           "url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%83%8B%E3%83%83%E3%83%88&sort=01",
+          "reason": "HTTPError: HTTP Error 403: Forbidden"
+        },
+        {
+          "url": "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
         }
       ],
@@ -341,11 +340,10 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-26T23:58:03.593825+00:00",
+      "last_attempt_at_utc": "2026-10-27T00:00:42.806576+00:00",
       "pending_page_urls": [
-        "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2",
-        "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=3",
-        "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2"
+        "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/",
+        "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/"
       ],
       "errors": [
         {
@@ -354,6 +352,18 @@
         },
         {
           "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/",
+          "reason": "HTTPError: HTTP Error 403: Forbidden"
+        },
+        {
+          "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2",
+          "reason": "HTTPError: HTTP Error 403: Forbidden"
+        },
+        {
+          "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=3",
+          "reason": "HTTPError: HTTP Error 403: Forbidden"
+        },
+        {
+          "url": "https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
         }
       ],
@@ -372,10 +382,10 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-26T23:58:54.897268+00:00",
+      "last_attempt_at_utc": "2026-10-27T00:01:03.186827+00:00",
       "pending_page_urls": [
-        "https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2",
-        "https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2"
+        "https://store.world.co.jp/s/brand/index/category/WB/WB01/",
+        "https://store.world.co.jp/s/brand/index/category/WB/WB02/"
       ],
       "errors": [
         {
@@ -384,6 +394,14 @@
         },
         {
           "url": "https://store.world.co.jp/s/brand/index/category/WB/WB02/",
+          "reason": "HTTPError: HTTP Error 403: Forbidden"
+        },
+        {
+          "url": "https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2",
+          "reason": "HTTPError: HTTP Error 403: Forbidden"
+        },
+        {
+          "url": "https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
         }
       ],
@@ -402,11 +420,10 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-26T23:58:39.904064+00:00",
+      "last_attempt_at_utc": "2026-10-27T00:00:54.644596+00:00",
       "pending_page_urls": [
-        "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2",
-        "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2",
-        "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3"
+        "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/",
+        "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/"
       ],
       "errors": [
         {
@@ -415,6 +432,18 @@
         },
         {
           "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/",
+          "reason": "HTTPError: HTTP Error 403: Forbidden"
+        },
+        {
+          "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2",
+          "reason": "HTTPError: HTTP Error 403: Forbidden"
+        },
+        {
+          "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2",
+          "reason": "HTTPError: HTTP Error 403: Forbidden"
+        },
+        {
+          "url": "https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=3",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
         }
       ],
@@ -433,9 +462,10 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-26T23:59:10.600957+00:00",
+      "last_attempt_at_utc": "2026-10-27T00:01:08.667734+00:00",
       "pending_page_urls": [
-        "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2"
+        "https://store.world.co.jp/s/brand/grove/category/WB/WB01/",
+        "https://store.world.co.jp/s/brand/grove/category/WB/WB06/"
       ],
       "errors": [
         {
@@ -444,6 +474,10 @@
         },
         {
           "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB06/",
+          "reason": "HTTPError: HTTP Error 403: Forbidden"
+        },
+        {
+          "url": "https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
         }
       ],
@@ -819,19 +853,19 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 15,
-      "last_attempt_at_utc": "2026-10-26T23:59:08.714715+00:00",
+      "product_count": 35,
+      "last_attempt_at_utc": "2026-10-27T00:00:45.235142+00:00",
       "pending_page_urls": [
-        "https://stripe-club.com/brand/american-holic/search?so=NEW&page=7",
-        "https://stripe-club.com/brand/american-holic/search?so=NEW&page=20",
-        "https://stripe-club.com/brand/american-holic/search?so=NEW&page=5",
-        "https://stripe-club.com/brand/american-holic/search?so=NEW&page=18",
         "https://stripe-club.com/brand/american-holic/search?so=NEW&page=25",
         "https://stripe-club.com/brand/american-holic/search?so=NEW&page=10",
         "https://stripe-club.com/brand/american-holic/search?so=NEW&page=3",
         "https://stripe-club.com/brand/american-holic/search?so=NEW&page=13",
         "https://stripe-club.com/brand/american-holic/search?so=NEW&page=16",
-        "https://stripe-club.com/brand/american-holic/search?so=NEW&page=2"
+        "https://stripe-club.com/brand/american-holic/search?so=NEW&page=2",
+        "https://stripe-club.com/brand/american-holic/search?so=NEW&page=8",
+        "https://stripe-club.com/brand/american-holic/search?so=NEW&page=21",
+        "https://stripe-club.com/brand/american-holic/search?so=NEW&page=6",
+        "https://stripe-club.com/brand/american-holic/search?so=NEW&page=19"
       ],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -861,13 +895,9 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 8,
-      "last_attempt_at_utc": "2026-10-26T23:59:04.679218+00:00",
+      "product_count": 22,
+      "last_attempt_at_utc": "2026-10-27T00:00:49.587318+00:00",
       "pending_page_urls": [
-        "https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1004",
-        "https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1005",
-        "https://crosset.onward.co.jp/items?cp=10&pp=10&gc=2&bc=002&du=2&scc=1004",
-        "https://crosset.onward.co.jp/items?cp=15&pp=10&gc=2&bc=002&du=2&scc=1004",
         "https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=002&du=2&scc=1004",
         "https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=002&du=2&scc=1005",
         "https://crosset.onward.co.jp/items?cp=8&pp=10&gc=2&bc=002&du=2&scc=1004",
@@ -875,7 +905,11 @@
         "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1005",
         "https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=002&du=2&scc=1004",
         "https://crosset.onward.co.jp/items?cp=18&pp=10&gc=2&bc=002&du=2&scc=1004",
-        "https://crosset.onward.co.jp/items?cp=13&pp=10&gc=2&bc=002&du=2&scc=1004"
+        "https://crosset.onward.co.jp/items?cp=13&pp=10&gc=2&bc=002&du=2&scc=1004",
+        "https://crosset.onward.co.jp/items?cp=5&pp=10&gc=2&bc=002&du=2&scc=1004",
+        "https://crosset.onward.co.jp/items?cp=5&pp=10&gc=2&bc=002&du=2&scc=1005",
+        "https://crosset.onward.co.jp/items?cp=11&pp=10&gc=2&bc=002&du=2&scc=1004",
+        "https://crosset.onward.co.jp/items?cp=16&pp=10&gc=2&bc=002&du=2&scc=1004"
       ],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -934,17 +968,16 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 8,
-      "last_attempt_at_utc": "2026-10-26T23:59:49.284386+00:00",
+      "product_count": 20,
+      "last_attempt_at_utc": "2026-10-27T00:01:12.917502+00:00",
       "pending_page_urls": [
-        "https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=003&du=2&scc=1004",
-        "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1004",
-        "https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1005",
-        "https://crosset.onward.co.jp/items?cp=8&pp=10&gc=2&bc=003&du=2&scc=1004",
         "https://crosset.onward.co.jp/items?cp=13&pp=10&gc=2&bc=003&du=2&scc=1004",
         "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1005",
         "https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1004",
-        "https://crosset.onward.co.jp/items?cp=11&pp=10&gc=2&bc=003&du=2&scc=1004"
+        "https://crosset.onward.co.jp/items?cp=11&pp=10&gc=2&bc=003&du=2&scc=1004",
+        "https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1004",
+        "https://crosset.onward.co.jp/items?cp=5&pp=10&gc=2&bc=003&du=2&scc=1005",
+        "https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=003&du=2&scc=1004"
       ],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -988,9 +1021,10 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-26T23:59:25.735315+00:00",
+      "last_attempt_at_utc": "2026-10-27T00:01:10.923410+00:00",
       "pending_page_urls": [
-        "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2"
+        "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/",
+        "https://store.world.co.jp/s/brand/indivi/category/WB/WB02/"
       ],
       "errors": [
         {
@@ -999,6 +1033,10 @@
         },
         {
           "url": "https://store.world.co.jp/s/brand/indivi/category/WB/WB02/",
+          "reason": "HTTPError: HTTP Error 403: Forbidden"
+        },
+        {
+          "url": "https://store.world.co.jp/s/brand/indivi/category/WB/WB01/?page=2",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
         }
       ],
@@ -1017,9 +1055,10 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-26T23:59:33.415119+00:00",
+      "last_attempt_at_utc": "2026-10-27T00:01:17.182741+00:00",
       "pending_page_urls": [
-        "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2"
+        "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/",
+        "https://store.world.co.jp/s/brand/untitled/category/WB/WB02/"
       ],
       "errors": [
         {
@@ -1028,6 +1067,10 @@
         },
         {
           "url": "https://store.world.co.jp/s/brand/untitled/category/WB/WB02/",
+          "reason": "HTTPError: HTTP Error 403: Forbidden"
+        },
+        {
+          "url": "https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
         }
       ],
@@ -1105,9 +1148,10 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-26T23:58:09.863631+00:00",
+      "last_attempt_at_utc": "2026-10-27T00:00:38.119423+00:00",
       "pending_page_urls": [
-        "https://baycrews.jp/brand/detail/slobe"
+        "https://baycrews.jp/item/list?q_mccate=231&q_mtype=1&q_mshop=0999",
+        "https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0999"
       ],
       "errors": [
         {
@@ -1116,6 +1160,10 @@
         },
         {
           "url": "https://baycrews.jp/item/list?q_mccate=223&q_mtype=1&q_mshop=0999",
+          "reason": "HTTPError: HTTP Error 403: Forbidden"
+        },
+        {
+          "url": "https://baycrews.jp/brand/detail/slobe",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
         }
       ],
@@ -1134,9 +1182,10 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-26T23:58:11.807465+00:00",
+      "last_attempt_at_utc": "2026-10-27T00:00:40.209630+00:00",
       "pending_page_urls": [
-        "https://store.united-arrows.co.jp/brand/glr/"
+        "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0105",
+        "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0108"
       ],
       "errors": [
         {
@@ -1145,6 +1194,10 @@
         },
         {
           "url": "https://store.united-arrows.co.jp/brand/glr/search?lm=10W1&ca=0108",
+          "reason": "HTTPError: HTTP Error 403: Forbidden"
+        },
+        {
+          "url": "https://store.united-arrows.co.jp/brand/glr/",
           "reason": "HTTPError: HTTP Error 403: Forbidden"
         }
       ],
@@ -1243,7 +1296,7 @@
         ]
       },
       "product_count": 0,
-      "last_attempt_at_utc": "2026-10-26T23:58:56.921363+00:00",
+      "last_attempt_at_utc": "2026-10-27T00:01:36.207329+00:00",
       "pending_page_urls": [],
       "errors": [
         {
@@ -1285,16 +1338,12 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
-          "PAGES_PENDING",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 31,
-      "last_attempt_at_utc": "2026-10-26T23:59:14.460038+00:00",
-      "pending_page_urls": [
-        "https://www.junonline.jp/rope/product/tops/knit-sweater/?page=2",
-        "https://www.junonline.jp/rope/product/tops/cardigan/?page=2"
-      ],
+      "product_count": 55,
+      "last_attempt_at_utc": "2026-10-27T00:01:14.888759+00:00",
+      "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
     },
@@ -1308,12 +1357,10 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 36,
-      "last_attempt_at_utc": "2026-10-26T23:59:02.767791+00:00",
+      "product_count": 84,
+      "last_attempt_at_utc": "2026-10-27T00:01:00.944759+00:00",
       "pending_page_urls": [
-        "https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/?page=4",
-        "https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/?page=2",
-        "https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/?page=2"
+        "https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/?page=3"
       ],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -1543,9 +1590,9 @@
       "unverified_link_candidate_count": 0
     }
   ],
-  "stage": "flash",
-  "artifact_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-27/20261026T235752501416Z-flash/scan.json",
+  "stage": "check",
+  "artifact_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-10-27/20261027T000214264678Z-check/scan.json",
   "first_observed_candidate_count": 9,
-  "candidate_delta_count": 323,
+  "candidate_delta_count": 386,
   "baseline_initialization_count": 0
 }
