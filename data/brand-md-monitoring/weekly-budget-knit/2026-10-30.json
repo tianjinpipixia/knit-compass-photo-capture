@@ -1,0 +1,379 @@
+{
+  "schema_version": "1.0",
+  "report_type": "FRIDAY_BUDGET_8_BRAND_KNIT_WEEKLY",
+  "report_date": "2026-10-30",
+  "observed_at": "2026-10-30T09:15:00+09:00",
+  "collector": "CHATGPT_OFFICIAL_DIRECT",
+  "scope_is_separate_from_brand64": true,
+  "baseline_type": "INITIAL_FRIDAY_BASELINE_AFTER_2026-10-29_REQUEST",
+  "comparison_note": "Except for the ur's promotional price event, items are initial observations or current-state confirmations and are not asserted as weekly new releases.",
+  "acquisition_summary": {
+    "brands_targeted": 8,
+    "brands_reached": 8,
+    "complete_brands": 0,
+    "partial_brands": 8,
+    "unavailable_brands": 0
+  },
+  "brands": [
+    {
+      "brand": "Pierrot",
+      "status": "PARTIAL",
+      "checked_range": "official knit category/current product",
+      "observations": [
+        {
+          "product_code": "s2610-013543",
+          "name": "ハート刺繍ニット",
+          "regular_price_jpy": 4290,
+          "sale_start_date": "2026-10-23",
+          "first_seen_date": "2026-10-30",
+          "official_url": "https://pierrotshop.jp/c/category/tops/knit/s2610-013543"
+        }
+      ],
+      "unconfirmed": [
+        "full pagination coverage",
+        "material composition on saved page",
+        "release date"
+      ]
+    },
+    {
+      "brand": "神戸レタス",
+      "status": "PARTIAL",
+      "checked_range": "official new/rearrival list and selected product pages",
+      "observations": [
+        {
+          "product_code": "N1374",
+          "price_jpy": 1990,
+          "listed_update_date": "2026-10-16",
+          "first_seen_date": "2026-10-30"
+        },
+        {
+          "product_code": "N1372",
+          "price_jpy": 2490,
+          "listed_update_date": "2026-10-11",
+          "first_seen_date": "2026-10-30"
+        },
+        {
+          "product_code": "N1362",
+          "price_jpy": 4590,
+          "listed_update_date": "2026-10-11",
+          "first_seen_date": "2026-10-30"
+        },
+        {
+          "product_code": "C7998",
+          "price_jpy": 1990,
+          "listed_update_date": "2026-10-04",
+          "first_seen_date": "2026-10-30"
+        }
+      ],
+      "baseline_mixture": {
+        "codes": [
+          "N1189",
+          "C7568"
+        ],
+        "composition": "RY89/NY11",
+        "classification": "SINGLE_BRAND_MULTI_STYLE_OFFICIALLY_SAME_YARN"
+      },
+      "official_url": "https://www.lettuce.co.jp/products/list?category_id=16",
+      "unconfirmed": [
+        "full pagination coverage",
+        "release dates"
+      ]
+    },
+    {
+      "brand": "Re:EDIT",
+      "status": "PARTIAL",
+      "checked_range": "official current product",
+      "observations": [
+        {
+          "product_code": "140465",
+          "season": "2026AW",
+          "price_jpy": 3998,
+          "texture": "long-hair poodle-feather look",
+          "colors": [
+            "black",
+            "ivory",
+            "gray",
+            "pink"
+          ],
+          "first_seen_date": "2026-10-30",
+          "official_url": "https://reedit.jp/item/140465.html"
+        }
+      ],
+      "unconfirmed": [
+        "composition on retrieved page",
+        "full category pagination",
+        "release date"
+      ]
+    },
+    {
+      "brand": "titivate",
+      "status": "PARTIAL",
+      "checked_range": "selected official current products",
+      "observations": [
+        {
+          "product_code": "AIXP4650",
+          "regular_price_jpy": 6589,
+          "early_price_jpy": 5930,
+          "early_sale_period": "2026-10-09..2026-10-16",
+          "composition": "NY84/PET11/W3/PU2",
+          "first_seen_date": "2026-10-30",
+          "official_url": "https://titivate.jp/product/aixp4650"
+        },
+        {
+          "product_code": "AIXP4622",
+          "regular_price_jpy": 5929,
+          "composition": "RY80/NY20",
+          "first_seen_date": "2026-10-30",
+          "official_url": "https://titivate.jp/product/aixp4622"
+        }
+      ],
+      "unconfirmed": [
+        "full category pagination",
+        "release dates"
+      ]
+    },
+    {
+      "brand": "coca",
+      "status": "PARTIAL",
+      "checked_range": "official Moisture Knit feature/category and selected reservation product",
+      "observations": [
+        {
+          "product_code": "36-260331002-15",
+          "composition": "RY80/NY20",
+          "reservation_status": "RESERVATION",
+          "delivery_wording": "around 2026-10-30 dispatch",
+          "first_seen_date": "2026-10-30",
+          "official_url": "https://cocacoca.jp/products/36-260331002-15"
+        }
+      ],
+      "series_baseline": {
+        "name": "Moisture Knit",
+        "composition": "RY80/NY20",
+        "style_count": 4,
+        "price_range_jpy": "1990-2490"
+      },
+      "unconfirmed": [
+        "reservation-to-normal-sale transition",
+        "color/size-level delivery",
+        "full pagination coverage"
+      ]
+    },
+    {
+      "brand": "osharewalker",
+      "status": "PARTIAL",
+      "checked_range": "official knit category/current announcements",
+      "observations": [
+        {
+          "product_code": "14tq010",
+          "name": "コード刺繍ロゴ モヘアタッチニット",
+          "first_seen_date": "2026-10-30"
+        },
+        {
+          "product_code": "14tq019",
+          "name": "ハーフジップニット",
+          "first_seen_date": "2026-10-30"
+        }
+      ],
+      "excluded": [
+        {
+          "reason": "mixed knit and checked woven; excluded from flat-knit count",
+          "planned_sale_date": "2026-10-31"
+        }
+      ],
+      "official_url": "https://www.osharewalker.co.jp/c/tops/knit",
+      "unconfirmed": [
+        "previous baseline tln0202 direct-page status",
+        "composition",
+        "full pagination coverage"
+      ]
+    },
+    {
+      "brand": "Classical Elf",
+      "status": "PARTIAL",
+      "checked_range": "selected official current products",
+      "observations": [
+        {
+          "product_code": "ce1020152",
+          "season": "2026AW",
+          "regular_price_jpy": 4998,
+          "current_price_jpy": 2987,
+          "composition": "PET80/AC17/PU3",
+          "first_seen_date": "2026-10-30",
+          "official_url": "https://www.classicalelf.co.jp/fs/classical/ce1020152"
+        },
+        {
+          "product_code": "ce0420050",
+          "regular_price_jpy": 2999,
+          "current_price_jpy": 1788,
+          "composition": "RY74/NY26",
+          "knit_structure": "rib",
+          "care": "dry clean",
+          "first_seen_date": "2026-10-30",
+          "official_url": "https://www.classicalelf.co.jp/fs/classical/ce0420050"
+        }
+      ],
+      "unconfirmed": [
+        "full category pagination",
+        "release dates"
+      ]
+    },
+    {
+      "brand": "ur's",
+      "status": "PARTIAL",
+      "checked_range": "selected official current products",
+      "observations": [
+        {
+          "product_code": "BFJR1272",
+          "regular_price_jpy": 4719,
+          "composition": "RY91/NY9",
+          "handfeel": "linen-touch/light/soft",
+          "transparency": "moderate",
+          "first_seen_date": "2026-10-30",
+          "official_url": "https://ur-s.me/fs/urs/bfjr1272"
+        },
+        {
+          "product_code": "BEXU1735",
+          "regular_price_jpy": 6589,
+          "current_price_jpy": 3000,
+          "previous_observed_price_jpy": 3500,
+          "composition": "NY73/PET21/AC6",
+          "feature": "washable",
+          "texture": "thick shaggy",
+          "price_change_confirmed": true,
+          "first_seen_date": "2026-10-30",
+          "official_url": "https://ur-s.me/fs/urs/bexu1735"
+        }
+      ],
+      "unconfirmed": [
+        "full category pagination",
+        "release dates"
+      ]
+    }
+  ],
+  "important_differences": [
+    {
+      "rank": 1,
+      "brand": "ur's",
+      "product_code": "BEXU1735",
+      "change": "promotional price JPY 3,500 -> JPY 3,000; regular JPY 6,589 unchanged",
+      "official_url": "https://ur-s.me/fs/urs/bexu1735"
+    },
+    {
+      "rank": 2,
+      "status": "BASELINE_ONLY",
+      "note": "No other weekly difference is asserted because this is the initial Friday baseline."
+    }
+  ],
+  "staple_mixtures": {
+    "multi_brand_exact": [
+      {
+        "composition": "RY80/NY20",
+        "evidence": [
+          "coca Moisture Knit",
+          "titivate AIXP4622"
+        ]
+      }
+    ],
+    "single_brand_multi_style": [
+      {
+        "composition": "RY89/NY11",
+        "evidence": [
+          "神戸レタス N1189",
+          "神戸レタス C7568"
+        ]
+      },
+      {
+        "composition": "RY64/NY26/PET10",
+        "evidence": [
+          "Pierrot multiple item codes"
+        ]
+      },
+      {
+        "composition": "RY85/PET15",
+        "evidence": [
+          "osharewalker tln0202",
+          "osharewalker 12tn0j2"
+        ]
+      }
+    ],
+    "single_product": [
+      {
+        "composition": "RY74/NY26",
+        "evidence": [
+          "Classical Elf ce0420050"
+        ]
+      },
+      {
+        "composition": "RY91/NY9",
+        "evidence": [
+          "ur's BFJR1272"
+        ]
+      },
+      {
+        "composition": "RY75/NY25",
+        "evidence": [
+          "Re:EDIT 140357"
+        ],
+        "status": "OFFICIAL_RECHECK_PENDING"
+      }
+    ],
+    "conclusion": "No evidence today justifies reclassifying these groups. Product-label composition, yarn composition and adopted yarn identity remain separate."
+  },
+  "kc_proposals": [
+    {
+      "season": "3-9 months; emphasis 8-10 transition",
+      "direction": "Compare M08 spring/autumn ice-linen and M09 high-twist faux-linen against the RY80/NY20 and RY89/NY11 market baselines in 12G/14G total needle and rib.",
+      "tests": [
+        "wash dimensional change",
+        "skew",
+        "pilling",
+        "contact coolness",
+        "transparency"
+      ]
+    },
+    {
+      "season": "3-5 and 9 months",
+      "direction": "Position M11 cotton-silk-like and A23529 as a cleaner hand/drape alternative; A23529's 16G suitability must be treated separately from the 12G/14G core and is not an automatic adoption.",
+      "tests": [
+        "drape",
+        "snagging",
+        "wash durability",
+        "opacity"
+      ]
+    },
+    {
+      "season": "10-next February",
+      "direction": "Compare AC100 and warm wool against the market RY55/NY24/PET21 anti-pilling blend in 12G/14G jersey/rib; keep fancy FOX/Terra/Tianyu routes separate where lower-gauge suitability is more plausible.",
+      "tests": [
+        "pilling",
+        "static",
+        "wash durability",
+        "thermal retention"
+      ]
+    }
+  ],
+  "next_week_checks": [
+    "coca 36-260331002-15 reservation-to-normal-sale transition and color/size delivery",
+    "Re:EDIT 140465 official composition and category pagination",
+    "osharewalker tln0202/12tn0j2 continued listing and official composition",
+    "ur's BEXU1735 promotional price persistence",
+    "exact new/rearrival dates versus first-observed dates for all eight brands"
+  ],
+  "issue_reuse": {
+    "issues": [
+      681,
+      680,
+      674,
+      679
+    ],
+    "owner05_write": "NOT_PERFORMED",
+    "reason": "New weekly file path is saved first; no Owner05 issue mutation without a confirmed approved append path."
+  },
+  "governance": [
+    "PUBLISH_HOLD",
+    "HUMAN_REVIEW_REQUIRED",
+    "NO_BRAND64_SCOPE_CHANGE",
+    "NO_PUBLICATION",
+    "NO_ORDER_OR_TEST_REQUEST"
+  ]
+}
