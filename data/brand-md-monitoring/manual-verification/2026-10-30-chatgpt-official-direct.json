@@ -1,0 +1,199 @@
+{
+  "schema_version": "1.0",
+  "report_date": "2026-10-30",
+  "observed_at": "2026-10-30T09:15:00+09:00",
+  "collector": "CHATGPT_OFFICIAL_DIRECT",
+  "collection_mode": "DIRECT_HTTP_NO_AI_API",
+  "status": "PARTIAL",
+  "governance": [
+    "PUBLISH_HOLD",
+    "HUMAN_REVIEW_REQUIRED"
+  ],
+  "approved_scope": {
+    "scope_id": "KC40-20260930",
+    "target_brands": 40,
+    "deep_brands": 20,
+    "note": "The current approved V04 scope contains 40 target brands and 20 deep brands; counts were not coerced to the older 39/19 request wording.",
+    "target_observed_brands": 13,
+    "target_observed_products": 727,
+    "target_pending_pages": 29,
+    "target_blocked_pages": 28,
+    "target_complete_brands": 0,
+    "deep_observed_brands": 7,
+    "deep_observed_products": 359,
+    "deep_pending_pages": 12,
+    "deep_blocked_pages": 14,
+    "deep_complete_brands": 0,
+    "deep_unobserved": [
+      {
+        "brand": "UNIQLO",
+        "reason": "HTTP 403"
+      },
+      {
+        "brand": "GU",
+        "reason": "HTTP 403"
+      },
+      {
+        "brand": "MUJI",
+        "reason": "timeout"
+      },
+      {
+        "brand": "GLOBAL WORK",
+        "reason": "HTTP 403"
+      },
+      {
+        "brand": "niko and ...",
+        "reason": "HTTP 403"
+      },
+      {
+        "brand": "OPAQUE.CLIP",
+        "reason": "HTTP 403"
+      },
+      {
+        "brand": "SHOO・LA・RUE",
+        "reason": "HTTP 403"
+      },
+      {
+        "brand": "UNFILO",
+        "reason": "dynamic page/no product cards parsed"
+      },
+      {
+        "brand": "SLOBE IENA",
+        "reason": "HTTP 403"
+      },
+      {
+        "brand": "green label relaxing",
+        "reason": "HTTP 403"
+      },
+      {
+        "brand": "ZARA",
+        "reason": "access challenge"
+      },
+      {
+        "brand": "SNIDEL",
+        "reason": "HTTP 403"
+      },
+      {
+        "brand": "JOURNAL STANDARD relume",
+        "reason": "HTTP 403"
+      }
+    ]
+  },
+  "all_source_scope": {
+    "attempted_brands": 65,
+    "product_observed_brands": 24,
+    "observed_products": 953,
+    "complete_brands": 0,
+    "pending_pages": 54
+  },
+  "daily_delta": {
+    "first_observed_products": 32,
+    "retrospective_products": 0,
+    "cumulative_unique_products": 3988,
+    "cumulative_retrospective_products": 422,
+    "md_events": 2,
+    "first_observed_by_brand": {
+      "ikka": 1,
+      "VIS": 1,
+      "AMERICAN HOLIC": 11,
+      "DOUDOU": 4,
+      "La boutique BonBon": 1,
+      "組曲": 4,
+      "DoCLASSE": 10
+    },
+    "key_verified_products": [
+      {
+        "brand": "VIS",
+        "product_code": "BVM46240",
+        "name": "もちもちドレープリブニット",
+        "price_jpy": 4389,
+        "first_seen_date": "2026-10-30",
+        "sales_start_date": null,
+        "status": "FIRST_OBSERVED_NOT_NEW_RELEASE_ASSERTION",
+        "official_url": "https://www.junonline.jp/vis/product/tops/knit-sweater/BVM46240"
+      },
+      {
+        "brand": "DOUDOU",
+        "product_code": "DDZ1062305A0017",
+        "name": "【WEB限定】対象ニット",
+        "price_jpy": null,
+        "first_seen_date": "2026-10-30",
+        "sales_start_date": null,
+        "status": "FIRST_OBSERVED_NOT_NEW_RELEASE_ASSERTION",
+        "official_url": "https://www.palcloset.jp/display/item/DDZ1062305A0017/"
+      }
+    ]
+  },
+  "md_events": [
+    {
+      "brand": "ROPÉ PICNIC",
+      "event_type": "OFFICIAL_ARTICLE_NEW_PUBLICATION",
+      "title": "キレイめ派？カジュアル派？ 気分で選ぶロペピクニックのニットコレクション",
+      "publication_date": "2026-10-29",
+      "first_seen_date": "2026-10-30",
+      "official_url": "https://www.junonline.jp/news/517354",
+      "facts": "Official article divides current knit proposal into clean/elegant and casual/material-texture groups; displayed price architecture concentrates at JPY 4,994-5,995 with FOX BLEND at JPY 8,998. GDM56370 is shown as reservation at JPY 6,490 with mid-December delivery.",
+      "inference": "For 12G/14G development, compare a smooth/Milano/anti-pilling base line with surface-expression options such as FOX blend, cable and lace; stage the base in September-October and surface materials from November.",
+      "unconfirmed": [
+        "gauge",
+        "yarn supplier",
+        "sales quantity",
+        "independent functional test evidence"
+      ]
+    },
+    {
+      "brand": "ur's",
+      "event_type": "PROMOTIONAL_PRICE_CHANGE",
+      "product_code": "BEXU1735",
+      "previous_observed_price_jpy": 3500,
+      "current_price_jpy": 3000,
+      "regular_price_jpy": 6589,
+      "prior_reference_date": "2026-10-29",
+      "observed_date": "2026-10-30",
+      "official_url": "https://ur-s.me/fs/urs/bexu1735",
+      "note": "Promotional selling price changed; regular price unchanged."
+    }
+  ],
+  "special_checks": {
+    "global_work": {
+      "status": "UNAVAILABLE",
+      "official_list_url": "https://www.dot-st.com/globalwork/disp/itemlist/?mode=&sort=01&groupNm=0&p=1&refineFlg=true&dispNo=001001&dispNoRadio=001001&search_color_cd=&search_size_cd=&search_class_attribute=&search_function_tag=&search_range_price_min=&search_range_price_max=&search_refine_range_min=&search_range_price_max=&search_price=&goodsType=1&search_campaign=&store_delv_yn=&gift_wrap_yn=&stock=0&pre_rl=",
+      "reason": "HTTP 403 on specified list and knit/category paths",
+      "products_observed": 0,
+      "classification_note": "Normal-line versus collaboration classification was not updated."
+    },
+    "rope_picnic_gdm66000": {
+      "status": "DEDUPED_EXISTING",
+      "matching_records": 1,
+      "first_seen_date": "2026-09-07",
+      "last_seen_date": "2026-10-30",
+      "official_url": "https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/GDM66000"
+    },
+    "amaca_265_days_knit": {
+      "status": "NO_IMPORTANT_CHANGE_CONFIRMED",
+      "baseline_product_code": "V5N08810",
+      "note": "V5N10810 remains reservation sale with late-October arrival/delivery wording; no normal-sale transition confirmed."
+    }
+  },
+  "v04_reflection": {
+    "source_repository_saved": true,
+    "candidate_connection": "PENDING_HUMAN_REVIEW",
+    "v04_latest_observation_date": "2026-10-29",
+    "reflected_2026_10_30": false,
+    "formal_unprocessed_days": 59,
+    "formal_unprocessed_range": "2026-09-01..2026-10-29",
+    "public_display_check": "NOT_REFLECTED_AS_OF_THIS_OBSERVATION",
+    "note": "Repository save is not reported as production/public reflection."
+  },
+  "gemini": {
+    "last_available_analysis_date": "2026-10-24",
+    "status": "STALE_EVIDENCE",
+    "role": "MD_ANALYSIS_ONLY_NOT_OFFICIAL_COLLECTION",
+    "counted_as_collection": false
+  },
+  "canonical_sources": {
+    "direct_scan_latest": "data/brand-md-monitoring/direct-scans/latest.json",
+    "daily_summary": "data/brand-md-monitoring/summaries/2026-10-30.json",
+    "cumulative_manifest": "data/brand-md-monitoring/cumulative/latest.json"
+  }
+}
