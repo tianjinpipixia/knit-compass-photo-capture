@@ -22,7 +22,7 @@ V04正本ACTIVE64（BR-00032 mysty womanは履歴のみ、BR-00077 relumeはACTI
 | NATURAL BEAUTY BASIC | [スパンコールラメニットセットアップ](https://mix.tokyo/products/0177140042) | 10/28確認、¥14,993、NY65/PET35、オフ白・ベージュ・ブルー | ラメ意匠の肌当たり・耐久 |
 | AMERICAN HOLIC | [マルチボーダーニット](https://stripe-club.com/brand/american-holic/item/100HA26G0125) | 10/28確認、¥3,990、PET86/NY14、杢グレー・ブラウン・ネイビー | 低価格合繊と色柄 |
 | RIVE DROITE | [フェザーラメオフショルニット](https://www.palcloset.jp/display/item/RDZ1062405A0010/) | 10/29確認、¥16,500、PET38/NY34/AC26/PU2、ベージュ・グレー・ブラウン | 軽量毛羽とストレッチの評価 |
-| DISCOAT | [透かしモヘアマルチボーダー](https://www.palcloset.jp/display/item/DCZ1062205A0124/) | 10/28確認、¥5,500、PET100（保存済み手動検証） | 合繊による天然見え表面 |
+| DISCOAT | [透かしモヘアマルチボーダー](https://www.palcloset.jp/display/item/DCZ1062405A0005/?b=discoat) | 10/28確認、¥5,500、PET100（保存済み手動検証） | 合繊による天然見え表面 |
 | ROPÉ PICNIC | [イージーケア・サイドスリットニット](https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/GDM66000) | 10/28確認、¥5,489、PET57/AC43、帯電防止/洗濯機可を訴求、予約 | 機能訴求と試験証拠を分離 |
 
 上記は保存済みの公式ページ確認情報で、**ブランドの月間主素材比率・平均価格・売れ筋順位を示すものではない**。各商品の発売日、混率の全色共通性、ゲージ、試験値は個別に未確認の場合がある。
