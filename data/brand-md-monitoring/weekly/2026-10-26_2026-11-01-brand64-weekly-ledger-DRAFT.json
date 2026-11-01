@@ -1,0 +1,5640 @@
+{
+  "format": "KC_BRAND64_WEEKLY_MD_LEDGER_SAVED_ONLY",
+  "period": {
+    "start": "2026-10-26",
+    "end": "2026-11-01"
+  },
+  "created_for_run": "2026-11-02",
+  "publication_status": "PUBLISH_HOLD",
+  "review_status": "DRAFT_HUMAN_REVIEW_REQUIRED",
+  "aggregation_only": true,
+  "official_site_access": false,
+  "roster": {
+    "source": "tianjinpipixia/knit-compass-v04-current/public/brand-md-monitor-active-master-latest.json",
+    "effective_date": "2026-10-03",
+    "active_count": 64,
+    "collector_count": 65,
+    "excluded": "BR-00032 mysty woman",
+    "retained": "BR-00077 JOURNAL STANDARD relume",
+    "conflict": "ROSTER_SCOPE_CONFLICT"
+  },
+  "source_branch": "brand64/flash-feed",
+  "daily": [
+    {
+      "date": "2026-10-26",
+      "commit": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+      "generated_at_utc": "2026-10-25T22:46:00.619258+00:00",
+      "attempted_collector": 65,
+      "observed_collector": 24,
+      "observed_rows_collector": 984,
+      "complete": 0,
+      "coverage": "PARTIAL_COVERAGE"
+    },
+    {
+      "date": "2026-10-27",
+      "commit": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+      "generated_at_utc": "2026-10-27T00:02:14.380641+00:00",
+      "attempted_collector": 65,
+      "observed_collector": 24,
+      "observed_rows_collector": 949,
+      "complete": 0,
+      "coverage": "PARTIAL_COVERAGE"
+    },
+    {
+      "date": "2026-10-28",
+      "commit": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+      "generated_at_utc": "2026-10-27T23:57:25.055958+00:00",
+      "attempted_collector": 65,
+      "observed_collector": 24,
+      "observed_rows_collector": 998,
+      "complete": 0,
+      "coverage": "PARTIAL_COVERAGE"
+    },
+    {
+      "date": "2026-10-29",
+      "commit": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+      "generated_at_utc": "2026-10-29T00:10:58.371560+00:00",
+      "attempted_collector": 65,
+      "observed_collector": 24,
+      "observed_rows_collector": 915,
+      "complete": 0,
+      "coverage": "PARTIAL_COVERAGE"
+    },
+    {
+      "date": "2026-10-30",
+      "commit": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+      "generated_at_utc": "2026-10-30T00:06:40.037895+00:00",
+      "attempted_collector": 65,
+      "observed_collector": 24,
+      "observed_rows_collector": 953,
+      "complete": 0,
+      "coverage": "PARTIAL_COVERAGE"
+    },
+    {
+      "date": "2026-10-31",
+      "commit": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+      "generated_at_utc": "2026-10-31T00:00:05.997529+00:00",
+      "attempted_collector": 65,
+      "observed_collector": 24,
+      "observed_rows_collector": 946,
+      "complete": 0,
+      "coverage": "PARTIAL_COVERAGE"
+    },
+    {
+      "date": "2026-11-01",
+      "commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+      "generated_at_utc": "2026-10-31T23:35:37.357537+00:00",
+      "attempted_collector": 65,
+      "observed_collector": 24,
+      "observed_rows_collector": 953,
+      "complete": 0,
+      "coverage": "PARTIAL_COVERAGE"
+    }
+  ],
+  "scope_note": "Daily totals are collector 65 scope, not normalized unique products or sales. No full brand coverage. Endpoint audit compares 10/26 vs 11/01, not every intraweek transition.",
+  "brands": [
+    {
+      "brand_id": "BR-00001",
+      "brand_name": "UNIQLO",
+      "md_tier": "CORE",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:41:30.140664+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:57:56.218983+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:52:43.204177+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:06:24.832565+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:01:55.435408+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:56:08.990594+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:30:46.407124+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00002",
+      "brand_name": "GU",
+      "md_tier": "CORE",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:41:32.486797+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:57:58.214970+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:52:45.316838+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:06:22.685849+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:01:53.164322+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:56:10.781360+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:30:48.893517+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00003",
+      "brand_name": "MUJI",
+      "md_tier": "CORE",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:44:51.230101+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:01:06.017362+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:56:12.082965+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:09:48.892504+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:05:26.620575+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:59:01.984409+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:34:28.074644+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00004",
+      "brand_name": "ROPÉ PICNIC",
+      "md_tier": "CORE",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        53,
+        53,
+        54,
+        57,
+        57,
+        57,
+        57
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "ビジューボタンポロ襟ニットプルオーバー",
+          "url": "https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/GDM56370",
+          "display_price": "¥6,490",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW!",
+            "予約"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "ショートパールビジューカーディガン",
+          "url": "https://www.junonline.jp/rope-picnic/product/tops/cardigan/GDK56080",
+          "display_price": "¥6,490",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW!",
+            "予約"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 5,
+      "endpoint_badge_changes": 53,
+      "endpoint_newly_visible_urls": 4,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:44:27.655988+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:00:52.384152+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:55:52.562924+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:09:29.273105+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:05:07.252663+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:58:36.218389+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:34:06.393699+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00005",
+      "brand_name": "VIS",
+      "md_tier": "CORE",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        106,
+        94,
+        107,
+        97,
+        107,
+        97,
+        107
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "PAGES_PENDING",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "もちもちドレープリブニット",
+          "url": "https://www.junonline.jp/vis/product/tops/knit-sweater/BVM46240",
+          "display_price": "¥4,389",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW!",
+            "予約"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "チュールフリル畦編みVネックニットプルオーバー",
+          "url": "https://www.junonline.jp/vis/product/tops/knit-sweater/BVM46230",
+          "display_price": "¥8,789",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW!"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "【WEB限定】シアーモヘア配色ポロ襟ニット",
+          "url": "https://www.junonline.jp/vis/product/tops/knit-sweater/BVM86100",
+          "display_price": "¥3,842",
+          "previous_display_price": "¥4,391",
+          "status_labels": [
+            "2BUY10%OFF"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 3,
+      "endpoint_badge_changes": 98,
+      "endpoint_newly_visible_urls": 5,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:44:34.992139+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:00:56.712488+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:55:58.060706+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:09:33.758021+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:05:12.859222+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:58:44.767868+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:34:12.801070+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00006",
+      "brand_name": "GLOBAL WORK",
+      "md_tier": "CORE",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "PAGES_PENDING",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:44:18.173981+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:00:36.033750+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:55:41.284325+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:09:18.991499+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:04:56.595301+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:58:28.369652+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:33:55.323337+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00007",
+      "brand_name": "LOWRYS FARM",
+      "md_tier": "MONITORING",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:42:30.212267+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:58:53.058137+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:53:45.842120+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:07:24.687342+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:02:58.757132+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:56:57.631321+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:31:53.833868+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00008",
+      "brand_name": "studio CLIP",
+      "md_tier": "MONITORING",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:42:45.119980+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:06.806318+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:05.057221+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:07:39.647323+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:03:17.117508+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:11.636540+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:32:12.087090+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00009",
+      "brand_name": "niko and ...",
+      "md_tier": "CORE",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:42:14.786082+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:58:37.821050+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:53:29.153609+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:07:05.340881+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:02:38.051927+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:56:43.713845+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:31:36.819272+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00010",
+      "brand_name": "earth music&ecology",
+      "md_tier": "MONITORING",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        3,
+        3,
+        5,
+        2,
+        4,
+        5,
+        4
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "earth music&ecology ビジューボタンコンパクトカーディガン",
+          "url": "https://stripe-club.com/brand/earth1999/item/1001M26H0062",
+          "display_price": "",
+          "previous_display_price": null,
+          "status_labels": [],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "earth music&ecology レースコンビリブニットプルオーバー",
+          "url": "https://stripe-club.com/brand/earth1999/item/1001M26H0093",
+          "display_price": "",
+          "previous_display_price": null,
+          "status_labels": [],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 4,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:41:56.572528+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:58:21.838176+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:53:08.078438+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:06:47.797461+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:02:21.679893+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:56:30.721106+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:31:14.175350+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00011",
+      "brand_name": "Green Parks",
+      "md_tier": "MONITORING",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        6,
+        6,
+        7,
+        7,
+        7,
+        6,
+        6
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "Green Parks effortless casual 【WEB限定カラーあり】ここちリブ配色ニットプルオーバー",
+          "url": "https://stripe-club.com/brand/greenparks/item/1006G26H0023",
+          "display_price": "",
+          "previous_display_price": null,
+          "status_labels": [
+            "WEB限定"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "Green Parks effortless casual 【WEB限定カラーあり】シャギーニットカーディガン",
+          "url": "https://stripe-club.com/brand/greenparks/item/1006G26H0020",
+          "display_price": "",
+          "previous_display_price": null,
+          "status_labels": [
+            "WEB限定"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 2,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:42:28.195953+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:58:51.060595+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:53:43.709667+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:07:22.554737+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:02:56.566911+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:56:55.394830+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:31:51.548502+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00012",
+      "brand_name": "OPAQUE.CLIP",
+      "md_tier": "CORE",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "PAGES_PENDING",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:44:24.845971+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:00:42.806576+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:55:49.521086+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:09:26.225320+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:05:04.671228+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:58:33.950132+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:34:03.986422+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00013",
+      "brand_name": "index",
+      "md_tier": "MONITORING",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "PAGES_PENDING",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:44:48.574092+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:01:03.186827+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:56:15.159715+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:09:56.634117+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:05:32.237197+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:58:55.781900+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:34:25.405189+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00014",
+      "brand_name": "SHOO・LA・RUE",
+      "md_tier": "CORE",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "PAGES_PENDING",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:44:39.752017+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:00:54.644596+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:56:00.834393+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:09:36.803795+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:05:16.179295+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:58:46.689953+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:34:15.890880+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00015",
+      "brand_name": "grove",
+      "md_tier": "MONITORING",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "PAGES_PENDING",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:44:53.794784+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:01:08.667734+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:56:17.537626+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:09:58.934376+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:05:34.693018+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:59:00.203702+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:34:31.418958+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00016",
+      "brand_name": "ikka",
+      "md_tier": "BACKGROUND",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "【お得だ値】ピーチヤーン鹿の子柄ニット",
+          "url": "https://tokyodesignchannel.com/c/ikka/ikkaladies/ikkalknit/12120712",
+          "display_price": "¥ 3,289",
+          "previous_display_price": null,
+          "status_labels": [],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 1,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:42:01.377490+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:58:26.570764+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:53:16.230369+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:07:00.717750+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:02:30.484066+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:56:38.192242+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:31:28.315833+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00017",
+      "brand_name": "coen",
+      "md_tier": "BACKGROUND",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:41:59.076185+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:58:24.256253+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:53:13.430042+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:06:52.418377+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:02:23.910337+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:56:32.427125+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:31:20.186378+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00018",
+      "brand_name": "DoCLASSE",
+      "md_tier": "MONITORING",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        231,
+        227,
+        224,
+        221,
+        229,
+        234,
+        237
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "ビジュー・アンサンブルニット",
+          "url": "https://www.doclasse.com/item/detail/1_1_33288/090",
+          "display_price": "¥ 8,990 / ￥9,889",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "ジャカード編み・レオパードカーディガン",
+          "url": "https://www.doclasse.com/item/detail/1_1_33568/149",
+          "display_price": "¥ 8,990 / ￥9,889",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "ミンクタッチカシミヤ・カーディガン",
+          "url": "https://www.doclasse.com/item/detail/1_1_32504/411",
+          "display_price": "¥ 24,900 / ￥27,390",
+          "previous_display_price": "¥ 34,900 / ￥38,390",
+          "status_labels": [
+            "SALE"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 51,
+      "endpoint_badge_changes": 63,
+      "endpoint_newly_visible_urls": 31,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:51.543769+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:47.007250+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:55.001330+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:08:20.926954+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:04:25.983295+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:58:03.869031+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:33:10.352600+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00019",
+      "brand_name": "any SiS",
+      "md_tier": "MONITORING",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:42:19.762090+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:58:42.532882+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:53:35.004996+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:07:15.347774+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:02:46.225283+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:56:49.771659+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:31:42.319656+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00021",
+      "brand_name": "LEPSIM",
+      "md_tier": "MONITORING",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:03.590403+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:21.977957+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:18.122258+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:07:56.903659+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:03:31.154263+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:23.473138+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:32:28.334298+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00022",
+      "brand_name": "LAKOLE",
+      "md_tier": "BACKGROUND",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:14.152115+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:31.447355+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:28.901952+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:08:07.777391+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:03:44.689950+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:30.522022+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:32:40.091954+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00023",
+      "brand_name": "JEANASIS",
+      "md_tier": "BACKGROUND",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:20.328114+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:37.174272+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:35.391279+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:08:14.362969+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:03:51.501002+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:37.437779+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:32:47.116170+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00024",
+      "brand_name": "BAYFLOW",
+      "md_tier": "BACKGROUND",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:26.428123+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:44.949863+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:41.904642+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:08:18.735332+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:03:56.053505+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:44.168846+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:32:56.359787+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00025",
+      "brand_name": "HARE",
+      "md_tier": "BACKGROUND",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:36.990425+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:55.617920+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:50.625806+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:08:27.670066+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:04:02.863899+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:51.487362+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:33:05.683535+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00027",
+      "brand_name": "Heather",
+      "md_tier": "MONITORING",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:39.031719+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:57.634305+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:57.322331+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:08:34.390227+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:04:09.949891+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:53.277205+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:33:08.016309+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00028",
+      "brand_name": "PAGEBOY",
+      "md_tier": "BACKGROUND",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:41.069754+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:59.775747+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:59.582758+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:08:38.917597+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:04:14.534697+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:55.041820+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:33:12.996382+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00030",
+      "brand_name": "A part by",
+      "md_tier": "BACKGROUND",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:43.127743+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:00:01.813164+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:55:01.859366+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:08:41.165317+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:04:16.800893+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:56.796165+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:33:15.368539+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00031",
+      "brand_name": "Elura",
+      "md_tier": "BACKGROUND",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:45.191756+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:00:03.755157+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:55:04.116950+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:08:43.418066+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:04:19.088106+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:58.559249+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:33:17.810647+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00033",
+      "brand_name": "Andemiu",
+      "md_tier": "BACKGROUND",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:49.374221+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:00:07.938055+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:55:08.688579+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:08:47.900970+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:04:23.709355+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:58:02.102411+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:33:22.666539+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00035",
+      "brand_name": "AMERICAN HOLIC",
+      "md_tier": "MONITORING",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        39,
+        35,
+        45,
+        33,
+        43,
+        30,
+        37
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "PAGES_PENDING",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "AMERICAN HOLIC 【バイパチ】襟付きモールニット",
+          "url": "https://stripe-club.com/brand/american-holic/item/100HA26G0124",
+          "display_price": "¥ 3,990",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "AMERICAN HOLIC 【予約】【WEB限定】【ハリー・ポッター】ニットプルオーバー",
+          "url": "https://stripe-club.com/brand/american-holic/item/100HS26H0014",
+          "display_price": "¥ 5,990",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW",
+            "予約",
+            "WEB限定"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "AMERICAN HOLIC 【WEB限定】【バイパチ】WZIPショート丈ニットカーディガン",
+          "url": "https://stripe-club.com/brand/american-holic/item/100HS26G0017",
+          "display_price": "¥ 4,490 / ¥ 3,142",
+          "previous_display_price": "¥ 4,490",
+          "status_labels": [
+            "NEW",
+            "SALE",
+            "WEB限定"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 2,
+      "endpoint_badge_changes": 10,
+      "endpoint_newly_visible_urls": 15,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:44:30.592343+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:00:45.235142+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:55:55.023818+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:09:31.536230+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:05:10.471468+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:58:38.737342+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:34:09.622322+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00036",
+      "brand_name": "YECCA VECCA",
+      "md_tier": "BACKGROUND",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "Editt by YECCA VECCA ダメージルーズニット",
+          "url": "https://stripe-club.com/brand/yeccavecca/item/1007B26H0002",
+          "display_price": "",
+          "previous_display_price": null,
+          "status_labels": [],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "YECCA VECCA 2way袖リボンカーディガン",
+          "url": "https://stripe-club.com/brand/yeccavecca/item/1007A26G0011",
+          "display_price": "",
+          "previous_display_price": null,
+          "status_labels": [],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 2,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:42:59.498047+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:18.224843+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:13.688540+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:07:54.719815+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:03:26.274023+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:18.444802+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:32:21.358122+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00039",
+      "brand_name": "23区",
+      "md_tier": "BACKGROUND",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        22,
+        22,
+        18,
+        21,
+        22,
+        22,
+        20
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "PAGES_PENDING",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "【見上愛さん着用/WEB&一部店舗限定カラーあり】カシミヤブレンド ジャケットライク カーディガン",
+          "url": "https://crosset.onward.co.jp/items/KRWOLW0550",
+          "display_price": "¥29,920",
+          "previous_display_price": null,
+          "status_labels": [],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "【Oggi掲載】フォックスカシミヤファー Vネック カーディガン",
+          "url": "https://crosset.onward.co.jp/items/KRWOLW0560",
+          "display_price": "¥35,970",
+          "previous_display_price": null,
+          "status_labels": [],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 5,
+      "endpoint_newly_visible_urls": 12,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:44:37.594893+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:00:49.587318+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:56:03.405345+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:09:43.891123+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:05:19.151130+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:58:42.837498+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:34:19.412459+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00040",
+      "brand_name": "ICB",
+      "md_tier": "BACKGROUND",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:42:54.442210+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:16.355567+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:11.516215+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:07:48.233432+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:03:21.791417+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:21.802631+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:32:25.977497+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00041",
+      "brand_name": "自由区",
+      "md_tier": "BACKGROUND",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:09.772027+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:27.695724+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:22.438119+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:08:03.454741+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:03:37.900803+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:28.799155+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:32:35.375246+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00042",
+      "brand_name": "組曲",
+      "md_tier": "BACKGROUND",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        26,
+        20,
+        27,
+        22,
+        28,
+        24,
+        21
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "PAGES_PENDING",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "【先行予約】ミドルゲージ クラムステッチニット",
+          "url": "https://crosset.onward.co.jp/items/KRWXLW0655",
+          "display_price": "¥11,990",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW",
+            "予約"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "【先行予約・前後着用】ミドルゲージ ケーブルニット",
+          "url": "https://crosset.onward.co.jp/items/KRWXLW0656",
+          "display_price": "¥11,990",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW",
+            "予約"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 14,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:45:00.733182+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:01:12.917502+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:56:19.871184+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:09:51.662209+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:05:37.049592+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:58:58.349433+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:34:41.722255+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00047",
+      "brand_name": "UNFILO",
+      "md_tier": "CORE",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:41:45.808449+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:58:07.916369+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:52:56.692295+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:06:36.314807+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:02:05.163494+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:56:17.715214+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:30:59.128044+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00049",
+      "brand_name": "INDIVI",
+      "md_tier": "MONITORING",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "PAGES_PENDING",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:44:56.242086+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:01:10.923410+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:56:22.142929+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:10:01.188861+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:05:39.399859+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:59:03.921656+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:34:33.842216+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00050",
+      "brand_name": "UNTITLED",
+      "md_tier": "BACKGROUND",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "PAGES_PENDING",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:44:58.474338+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:01:17.182741+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:56:24.436470+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:10:03.438139+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:05:44.133095+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:59:05.810081+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:34:36.868987+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00051",
+      "brand_name": "NATURAL BEAUTY BASIC",
+      "md_tier": "CORE",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        20,
+        19,
+        20,
+        16,
+        16,
+        17,
+        17
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "ニュアンスボタンカーディガン",
+          "url": "https://mix.tokyo/products/0176275042",
+          "display_price": "¥8,492",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "スパンコールラメニットセットアップ",
+          "url": "https://mix.tokyo/products/0177140042",
+          "display_price": "¥14,993",
+          "previous_display_price": null,
+          "status_labels": [],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 3,
+      "endpoint_newly_visible_urls": 4,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:41:41.569278+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:58:05.700413+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:52:54.257570+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:06:34.064128+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:02:02.610318+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:56:19.746016+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:31:01.582134+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00052",
+      "brand_name": "SENSE OF PLACE",
+      "md_tier": "MONITORING",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:42:05.179473+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:58:29.077819+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:53:19.142974+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:06:57.961081+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:02:32.895037+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:56:35.918141+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:31:25.666503+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00053",
+      "brand_name": "B.C STOCK",
+      "md_tier": "MONITORING",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:42:36.646375+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:58:58.906778+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:53:52.243333+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:07:31.087873+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:03:05.587792+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:02.784075+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:32:00.647743+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00054",
+      "brand_name": "SLOBE IENA",
+      "md_tier": "CORE",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "PAGES_PENDING",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:44:20.302169+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:00:38.119423+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:55:43.884358+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:09:21.438269+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:04:58.960721+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:58:30.210085+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:33:57.970044+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00055",
+      "brand_name": "green label relaxing",
+      "md_tier": "CORE",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "PAGES_PENDING",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:44:22.600353+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:00:40.209630+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:55:46.351359+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:09:23.827031+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:05:01.411204+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:58:32.036514+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:34:00.593487+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00056",
+      "brand_name": "Spick & Span",
+      "md_tier": "MONITORING",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:42:52.245929+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:12.601666+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:07.191822+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:07:46.083983+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:03:24.029980+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:15.028979+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:32:16.711082+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00057",
+      "brand_name": "IÉNA",
+      "md_tier": "MONITORING",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:05.644184+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:23.849253+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:20.275640+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:07:59.087995+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:03:35.655538+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:25.142883+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:32:30.709339+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00058",
+      "brand_name": "Te chichi",
+      "md_tier": "CORE",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        103,
+        103,
+        104,
+        52,
+        52,
+        52,
+        52
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "SOURCE_SCOPE_AUDIT_REQUIRED",
+        "FETCH_OR_EXTRACTION_FAILED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "【マシンウォッシャブル】アーガイルVネックカーディガン",
+          "url": "https://www.canshop.jp/ap/item/i/A1CAN000A5LP",
+          "display_price": "¥6930.0",
+          "previous_display_price": null,
+          "status_labels": [
+            "new"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "メランジ衿ニットジャケット",
+          "url": "https://www.canshop.jp/ap/item/i/A1CAN000A58N",
+          "display_price": "¥3465.0",
+          "previous_display_price": "¥4851.0",
+          "status_labels": [
+            "sale"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 11,
+      "endpoint_badge_changes": 8,
+      "endpoint_newly_visible_urls": 1,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:42:09.750315+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:58:33.242199+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:53:23.666282+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:06:55.478603+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:02:27.107776+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:56:34.276022+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:31:23.143221+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00059",
+      "brand_name": "ANY",
+      "md_tier": "BACKGROUND",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:22.354196+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:41.036774+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:39.746981+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:08:25.432579+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:04:00.597177+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:39.081445+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:32:51.750779+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00060",
+      "brand_name": "MUJI Labo",
+      "md_tier": "MONITORING",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:45:18.162191+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:01:36.207329+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:56:41.483867+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:10:19.239617+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:05:56.870872+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:59:28.824627+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:34:55.349780+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00062",
+      "brand_name": "Mila Owen",
+      "md_tier": "MONITORING",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:42:26.083918+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:58:49.194543+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:53:39.454507+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:07:19.654956+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:02:54.328791+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:56:53.681786+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:31:49.283904+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00063",
+      "brand_name": "ROPÉ",
+      "md_tier": "MONITORING",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        55,
+        55,
+        55,
+        55,
+        55,
+        55,
+        55
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "ガーデンエンブロイダリーカーディガン(ビジュー×リーフ/フラワー刺繍)",
+          "url": "https://www.junonline.jp/rope/product/tops/cardigan/GGK36150",
+          "display_price": "¥39,600",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW!",
+            "予約",
+            "通気性"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "【一部J'aDoRe限定カラー/サイズ】ギャザースリーブニットカーディガン",
+          "url": "https://www.junonline.jp/rope/product/tops/cardigan/GGK36010",
+          "display_price": "¥15,400",
+          "previous_display_price": "¥22,000",
+          "status_labels": [],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 3,
+      "endpoint_badge_changes": 5,
+      "endpoint_newly_visible_urls": 1,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:45:02.850131+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:01:14.888759+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:56:26.728977+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:10:05.703159+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:05:41.752259+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:59:07.573046+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:34:39.279061+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00064",
+      "brand_name": "ADAM ET ROPÉ",
+      "md_tier": "CORE",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        91,
+        84,
+        104,
+        95,
+        90,
+        105,
+        95
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "PAGES_PENDING",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "【AMOMENTO（アモーメント）】RACOON V-NECK KNIT",
+          "url": "https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/EUM76010",
+          "display_price": "¥39,600",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW!"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "ノルディッククロップドニット",
+          "url": "https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/GAM26250",
+          "display_price": "¥16,500",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW!"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "【WEB限定】・【定番】WOOL混リブタートルニット",
+          "url": "https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/GAM56510",
+          "display_price": "¥7,722",
+          "previous_display_price": "¥8,580",
+          "status_labels": [
+            "NEW!"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 26,
+      "endpoint_badge_changes": 12,
+      "endpoint_newly_visible_urls": 7,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:44:46.398680+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-27T00:01:00.944759+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:56:09.583458+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:09:54.064083+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:05:29.063073+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:58:53.870890+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:34:22.075388+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00065",
+      "brand_name": "GALLARDAGALANTE",
+      "md_tier": "CORE",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "【10/23(金)12:00～予約開始】【AYUMIコラボ】モヘアシルクボートニットプルオーバー",
+          "url": "https://www.palcloset.jp/display/item/GGZ1062405A0004/",
+          "display_price": "¥28,600",
+          "previous_display_price": "¥25,740",
+          "status_labels": [
+            "NEW",
+            "予約"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 1,
+      "endpoint_badge_changes": 7,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存",
+        "PAL CLOSET同一SKUの人気順位・ランキング種別・観測時刻を日次保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:41:52.529328+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:58:17.963025+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:53:05.831242+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:06:45.492300+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:02:17.086819+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:56:26.998469+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:31:11.585309+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00066",
+      "brand_name": "Whim Gazette",
+      "md_tier": "BACKGROUND",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        23,
+        22,
+        22,
+        22,
+        22,
+        21,
+        21
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "モヘヤラメニットプルオーバー",
+          "url": "https://www.palcloset.jp/display/item/WGZ1062505A0001/",
+          "display_price": "¥23,100",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW",
+            "予約"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "【Drawing numbers】接結ルーズタートルニット",
+          "url": "https://www.palcloset.jp/display/item/DNZ1062405A0001/",
+          "display_price": "¥30,800",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW",
+            "予約",
+            "再入荷"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "【Drawing Numbers】タートル裾ラウンドニット",
+          "url": "https://www.palcloset.jp/display/item/DNZ1062405A0002/",
+          "display_price": "¥25,300",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW",
+            "再入荷"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 7,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存",
+        "PAL CLOSET同一SKUの人気順位・ランキング種別・観測時刻を日次保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:42:43.115951+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:00.903465+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:53:54.367340+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:07:33.224813+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:03:07.845689+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:04.411454+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:32:05.219238+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00067",
+      "brand_name": "LOUNGEDRESS",
+      "md_tier": "BACKGROUND",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        17,
+        17,
+        18,
+        19,
+        19,
+        19,
+        19
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "《10/30インスタライブご紹介》ラメニット",
+          "url": "https://www.palcloset.jp/display/item/LDZ1062405A0006/",
+          "display_price": "¥27,500",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW",
+            "予約"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "《10/30インスタライブご紹介》ドルマンニット",
+          "url": "https://www.palcloset.jp/display/item/LDZ1062406A0002/",
+          "display_price": "¥17,600",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW",
+            "予約"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "《好評につき再登場！/イージーケア》【earthy_/アーシー】シアーハンドライクニット",
+          "url": "https://www.palcloset.jp/display/item/LDZ1062105A0001/",
+          "display_price": "¥8,800",
+          "previous_display_price": "¥8,360",
+          "status_labels": [],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 1,
+      "endpoint_badge_changes": 6,
+      "endpoint_newly_visible_urls": 2,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存",
+        "PAL CLOSET同一SKUの人気順位・ランキング種別・観測時刻を日次保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:01.550004+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:20.104376+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:15.862836+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:07:50.350364+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:03:28.806783+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:20.145465+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:32:23.647371+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00068",
+      "brand_name": "RIVE DROITE",
+      "md_tier": "BACKGROUND",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        29,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "フェザーラメオフショルニット",
+          "url": "https://www.palcloset.jp/display/item/RDZ1062405A0010/",
+          "display_price": "¥16,500",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW",
+            "予約"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "【二の腕カバー】ケープニット",
+          "url": "https://www.palcloset.jp/display/item/RDZ1062105A0003/",
+          "display_price": "¥10,560",
+          "previous_display_price": "¥12,320",
+          "status_labels": [
+            "SALE"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 1,
+      "endpoint_badge_changes": 1,
+      "endpoint_newly_visible_urls": 1,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存",
+        "PAL CLOSET同一SKUの人気順位・ランキング種別・観測時刻を日次保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:11.940054+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:29.566593+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:26.735075+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:08:05.613983+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:03:42.415925+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:33.887948+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:32:37.711086+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00069",
+      "brand_name": "DOUDOU",
+      "md_tier": "MONITORING",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        26,
+        23,
+        24,
+        27,
+        30,
+        30,
+        30
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "【WEB限定】ファンシーフェザーニット",
+          "url": "https://www.palcloset.jp/display/item/DDZ1062305A0002/",
+          "display_price": "¥16,500",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW",
+            "WEB限定"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "【WEB限定】サガラ刺繍ロゴニット",
+          "url": "https://www.palcloset.jp/display/item/DDZ1062305A0008/",
+          "display_price": "¥12,100",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW",
+            "予約",
+            "WEB限定"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "スクエアニットロングスリーブプルオーバー",
+          "url": "https://www.palcloset.jp/display/item/DDZ1061105A0015/",
+          "display_price": "¥8,690",
+          "previous_display_price": "¥7,821",
+          "status_labels": [
+            "NEW",
+            "予約"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 2,
+      "endpoint_badge_changes": 11,
+      "endpoint_newly_visible_urls": 13,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存",
+        "PAL CLOSET同一SKUの人気順位・ランキング種別・観測時刻を日次保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:18.282073+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:35.308360+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:33.216749+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:08:12.159739+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:03:49.239473+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:35.688061+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:32:44.769988+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00070",
+      "brand_name": "SHENERY",
+      "md_tier": "BACKGROUND",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "ファーカシミヤ2WAYヘンリーニット",
+          "url": "https://www.palcloset.jp/display/item/SNZ1062205A0001/",
+          "display_price": "¥29,700",
+          "previous_display_price": "¥26,730",
+          "status_labels": [
+            "NEW"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 8,
+      "endpoint_badge_changes": 10,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存",
+        "PAL CLOSET同一SKUの人気順位・ランキング種別・観測時刻を日次保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:24.405686+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:39.084028+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:37.550876+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:08:16.546453+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:03:53.772770+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:40.759358+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:32:49.433829+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00071",
+      "brand_name": "un dix cors",
+      "md_tier": "BACKGROUND",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "【2点SET】ニットセットレイヤードプルオーバー",
+          "url": "https://www.palcloset.jp/display/item/UOZ1062305A0008/",
+          "display_price": "¥8,910",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW",
+            "予約"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "シャギーニットプルオーバー",
+          "url": "https://www.palcloset.jp/display/item/UOZ1062406C0001/",
+          "display_price": "¥6,600",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW",
+            "予約"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "圧縮起毛ワイドネックニット",
+          "url": "https://www.palcloset.jp/display/item/UOZ1052505A0002/",
+          "display_price": "¥3,960",
+          "previous_display_price": null,
+          "status_labels": [
+            "再入荷",
+            "SALE"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 1,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存",
+        "PAL CLOSET同一SKUの人気順位・ランキング種別・観測時刻を日次保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:30.736071+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:42.992336+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:44.107672+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:08:23.211280+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:03:58.334619+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:42.453501+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:32:54.046673+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00072",
+      "brand_name": "La boutique BonBon",
+      "md_tier": "BACKGROUND",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        36,
+        36,
+        36,
+        39,
+        40,
+        40,
+        40
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "ウール100クロップドニット",
+          "url": "https://www.palcloset.jp/display/item/LBZ1062505A0010/",
+          "display_price": "¥17,820",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW",
+            "予約"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "お花スパンコールラメフェザーニット",
+          "url": "https://www.palcloset.jp/display/item/LBZ1062405A0016/",
+          "display_price": "¥15,950",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW",
+            "予約"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 6,
+      "endpoint_newly_visible_urls": 4,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存",
+        "PAL CLOSET同一SKUの人気順位・ランキング種別・観測時刻を日次保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:32.908174+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:51.601220+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:48.425429+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:08:29.903332+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:04:05.163643+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:47.945201+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:32:58.708852+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00073",
+      "brand_name": "natural couture",
+      "md_tier": "BACKGROUND",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        23,
+        24,
+        24,
+        24,
+        24,
+        24,
+        25
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "配色レースアップニット",
+          "url": "https://www.palcloset.jp/display/item/NTU1062405A0013/",
+          "display_price": "¥5,940",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW",
+            "予約"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "シャギーチェックニット",
+          "url": "https://www.palcloset.jp/display/item/NTU1062405A0006/",
+          "display_price": "¥5,500",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW",
+            "予約"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "マルチWAYフリルニット",
+          "url": "https://www.palcloset.jp/display/item/NTU1062305A0005/",
+          "display_price": "¥5,390",
+          "previous_display_price": "¥7,590",
+          "status_labels": [
+            "NEW",
+            "SALE"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 4,
+      "endpoint_badge_changes": 16,
+      "endpoint_newly_visible_urls": 2,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存",
+        "PAL CLOSET同一SKUの人気順位・ランキング種別・観測時刻を日次保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:43:34.949705+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:59:53.656010+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:54:52.812766+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:08:32.164914+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:04:07.445014+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:57:49.714382+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:33:03.357769+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00074",
+      "brand_name": "DISCOAT",
+      "md_tier": "CORE",
+      "observation_state": "PARTIAL_COVERAGE",
+      "observed_days": 7,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        14,
+        15,
+        13,
+        15,
+        17,
+        17,
+        19
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [
+        {
+          "name": "【WEB限定】12G配色ボーダーメロー使いニットプルオーバー",
+          "url": "https://www.palcloset.jp/display/item/DCZ1062205A0125/",
+          "display_price": "¥5,500",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW",
+            "WEB限定"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "【WEB限定】前後2WAYレースアップ長袖ニット",
+          "url": "https://www.palcloset.jp/display/item/DCZ1062205A0130/",
+          "display_price": "¥5,940",
+          "previous_display_price": null,
+          "status_labels": [
+            "NEW",
+            "WEB限定"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        },
+        {
+          "name": "【WEB限定】配色ボーダークルーネックニット",
+          "url": "https://www.palcloset.jp/display/item/DCZ1062205A0122/",
+          "display_price": "¥5,940",
+          "previous_display_price": "¥4,950",
+          "status_labels": [
+            "NEW",
+            "WEB限定"
+          ],
+          "material": "",
+          "function_claims": [],
+          "source_observation_date": "2026-11-01",
+          "source_commit": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "source_scope": "SAVED_OFFICIAL_LISTING_PARTIAL"
+        }
+      ],
+      "endpoint_display_price_changes": 4,
+      "endpoint_badge_changes": 4,
+      "endpoint_newly_visible_urls": 11,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "商品名・ラベルの意匠/販促を素材開発の仮説候補として扱う。市場全体の増加・減少は確定しない。",
+      "next_daily_collection_requests": [
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存",
+        "PAL CLOSET同一SKUの人気順位・ランキング種別・観測時刻を日次保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:42:24.042022+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:58:47.108489+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:53:41.583033+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:07:17.540621+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:02:51.026059+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:56:51.499093+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:31:47.014644+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00075",
+      "brand_name": "ZARA",
+      "md_tier": "CORE",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存",
+        "THE NEW/レディースニット/Special Pricesを日次別に保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:41:50.036422+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:58:15.994381+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:53:03.666295+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:06:43.268969+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:02:14.486747+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:56:25.293590+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:31:09.207950+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00076",
+      "brand_name": "SNIDEL",
+      "md_tier": "CORE",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存",
+        "NEW/予約/SALE/SOLD OUT/ニット/カーディガンの同一SKU状態遷移を保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:41:54.565911+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:58:19.923396+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:53:10.609781+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:06:50.122003+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:02:19.331989+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:56:28.646285+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:31:17.070580+00:00"
+        }
+      ]
+    },
+    {
+      "brand_id": "BR-00077",
+      "brand_name": "JOURNAL STANDARD relume",
+      "md_tier": "CORE",
+      "observation_state": "OBSERVATION_MISSING_SOURCE_ACCESS_LIMITED",
+      "observed_days": 0,
+      "attempted_days": 7,
+      "observed_rows_by_day": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "complete_days": 0,
+      "coverage_issues": [
+        "ENTRY_NOT_VERIFIED",
+        "FETCH_OR_EXTRACTION_FAILED",
+        "SOURCE_SCOPE_AUDIT_REQUIRED"
+      ],
+      "official_product_examples": [],
+      "endpoint_display_price_changes": 0,
+      "endpoint_badge_changes": 0,
+      "endpoint_newly_visible_urls": 0,
+      "rank_change": "RANK_DATA_NOT_SAVED",
+      "new_materials_growth": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "weekly_price_band_change": "NOT_PROVABLE_WITH_PARTIAL_COVERAGE",
+      "color_silhouette_stitch_change": "NAME_LEVEL_SIGNAL_ONLY_UNLESS_DETAIL_VERIFIED",
+      "interpretation": "観測不足。変化なしとは判定しない。",
+      "next_daily_collection_requests": [
+        "公式日次収集側の取得失敗・動的ページを修復（週次では再巡回しない）",
+        "日次の取得範囲・SKU同一性・出典URL・確認日時を保持",
+        "本体/リブ混率、機能、色、編地、正式発売日を商品単位で保存"
+      ],
+      "source_daily_commits": [
+        {
+          "date": "2026-10-26",
+          "sha": "6ec551a8568cd88a13615decd5e8a12de7e4da76",
+          "attempted_at_utc": "2026-10-25T22:42:22.009897+00:00"
+        },
+        {
+          "date": "2026-10-27",
+          "sha": "dd6bdf576781c290199f74fac0d607cce01e4fc0",
+          "attempted_at_utc": "2026-10-26T23:58:45.090807+00:00"
+        },
+        {
+          "date": "2026-10-28",
+          "sha": "5ea9d2bf8efb6bc52176bf32073459a84054fb40",
+          "attempted_at_utc": "2026-10-27T23:53:37.320076+00:00"
+        },
+        {
+          "date": "2026-10-29",
+          "sha": "4df73dd84304f05b1175888a80c8f1c841b4a36c",
+          "attempted_at_utc": "2026-10-29T00:07:13.013810+00:00"
+        },
+        {
+          "date": "2026-10-30",
+          "sha": "68e0d4879f4be1679ef0dd282371fb8e1457d7e5",
+          "attempted_at_utc": "2026-10-30T00:02:48.590271+00:00"
+        },
+        {
+          "date": "2026-10-31",
+          "sha": "3ddc27f06095fe3c9e49efd05865d099cc7dfc71",
+          "attempted_at_utc": "2026-10-30T23:56:47.960306+00:00"
+        },
+        {
+          "date": "2026-11-01",
+          "sha": "14c14fdedead52fad55feb6e8763dfced618f34d",
+          "attempted_at_utc": "2026-10-31T23:31:44.759355+00:00"
+        }
+      ]
+    }
+  ],
+  "external_support": [
+    {
+      "brand": "PLST",
+      "state": "SAVED_DAILY_COMPARABLE_EVIDENCE_NOT_LOCATED",
+      "next_daily_collection": "日次側に公式SKU URL・確認日時・価格/混率/機能/ランキング状態を保存"
+    },
+    {
+      "brand": "FRAY I.D",
+      "state": "SAVED_DAILY_COMPARABLE_EVIDENCE_NOT_LOCATED",
+      "next_daily_collection": "日次側に公式SKU URL・確認日時・価格/混率/機能/ランキング状態を保存"
+    },
+    {
+      "brand": "H&M",
+      "state": "SAVED_DAILY_COMPARABLE_EVIDENCE_NOT_LOCATED",
+      "next_daily_collection": "日次側に公式SKU URL・確認日時・価格/混率/機能/ランキング状態を保存"
+    },
+    {
+      "brand": "COS",
+      "state": "SAVED_DAILY_COMPARABLE_EVIDENCE_NOT_LOCATED",
+      "next_daily_collection": "日次側に公式SKU URL・確認日時・価格/混率/機能/ランキング状態を保存"
+    },
+    {
+      "brand": "MANGO",
+      "state": "SAVED_DAILY_COMPARABLE_EVIDENCE_NOT_LOCATED",
+      "next_daily_collection": "日次側に公式SKU URL・確認日時・価格/混率/機能/ランキング状態を保存"
+    },
+    {
+      "brand": "NOLLEY'S",
+      "state": "SAVED_DAILY_COMPARABLE_EVIDENCE_NOT_LOCATED",
+      "next_daily_collection": "日次側に公式SKU URL・確認日時・価格/混率/機能/ランキング状態を保存"
+    },
+    {
+      "brand": "BEAUTY&YOUTH",
+      "state": "SAVED_DAILY_COMPARABLE_EVIDENCE_NOT_LOCATED",
+      "next_daily_collection": "日次側に公式SKU URL・確認日時・価格/混率/機能/ランキング状態を保存"
+    }
+  ],
+  "manual_verification_sources": [
+    "data/brand-md-monitoring/manual-verification/2026-10-28-chatgpt-official-direct.json",
+    "data/brand-md-monitoring/manual-verification/2026-10-29-chatgpt-official-direct.json",
+    "data/brand-md-monitoring/manual-verification/2026-10-30-chatgpt-official-direct.json"
+  ],
+  "sales_quantity": "NOT_ESTIMATED",
+  "latest_pointer_changed": false
+}
