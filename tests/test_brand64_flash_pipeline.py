@@ -352,6 +352,11 @@ class FlashPipelineTests(unittest.TestCase):
             (out/'coverage-state.json').unlink()
             real_save = scan.save
             for failed in [*pipeline.STATE_FILES, 'scan.json', 'feed.json', 'latest.json', 'flash-latest.json']:
+                if failed == 'flash-history.json':
+                    with patch('brand64_history_store.atomic_write', side_effect=OSError('history unavailable')):
+                        with self.assertRaises(OSError):
+                            pipeline.run(['--stage', 'check', '--output-root', tmp])
+                    continue
                 def fail_save(path, value):
                     if path.name == failed:
                         raise OSError('checkpoint unavailable')

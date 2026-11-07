@@ -8,6 +8,7 @@ The first strict UTF-8 JSON object with a substantial product baseline is restor
 from __future__ import annotations
 
 import json
+import argparse
 import os
 from pathlib import Path
 import shutil
@@ -15,6 +16,7 @@ import subprocess
 import tempfile
 
 from brand64_canonical_store import read_pool, preserve
+from brand64_history_store import read_history, history_files, DIRECTORY as HISTORY_DIRECTORY
 
 ROOT = Path("data/brand-md-monitoring/direct-scans")
 STATE_FILES = [
@@ -83,15 +85,21 @@ def validate_candidate(directory: Path, label: str) -> bool:
         if not isinstance(value, (dict, list)):
             print(f"REJECT {label}: {name} has unexpected root type")
             return False
+    try:
+        read_history(directory)
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        print(f"REJECT {label}: history invalid: {exc}")
+        return False
     print(f"ACCEPT {label}: {len(known)} strict-valid known products")
     return True
 
 
 def copy_state(source: Path, label: str) -> None:
     ROOT.mkdir(parents=True, exist_ok=True)
-    for name in SNAPSHOT_FILES:
+    for name in dict.fromkeys([*SNAPSHOT_FILES, *history_files(source)]):
         src = source / name
         if src.is_file():
+            (ROOT / name).parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(src, ROOT / name)
     if (source / "cumulative-products").exists():
         shutil.copytree(source / "cumulative-products", ROOT / "cumulative-products", dirs_exist_ok=True)
@@ -103,7 +111,8 @@ def extract_ref(ref: str, directory: Path) -> bool:
     run("git", "fetch", "--depth=1", "origin", ref)
     found = False
     canonical_paths = run("git", "ls-tree", "-r", "--name-only", "FETCH_HEAD", "--", "data/brand-md-monitoring/direct-scans/cumulative-products").stdout.splitlines()
-    names = SNAPSHOT_FILES + [str(Path(p).relative_to(ROOT)) for p in canonical_paths]
+    history_paths = run("git", "ls-tree", "-r", "--name-only", "FETCH_HEAD", "--", str(ROOT/HISTORY_DIRECTORY)).stdout.splitlines()
+    names = SNAPSHOT_FILES + [str(Path(p).relative_to(ROOT)) for p in [*canonical_paths, *history_paths]]
     for name in names:
         probe = run(
             "git", "cat-file", "-e",
@@ -202,8 +211,29 @@ def try_direct_branches(tmp: Path) -> bool:
     return False
 
 
-def main() -> int:
+def main(argv=None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--reviewed-snapshot', type=Path)
+    parser.add_argument('--expected-manifest-sha')
+    parser.add_argument('--expected-review-sha')
+    args = parser.parse_args(argv)
+    explicit = [args.reviewed_snapshot, args.expected_manifest_sha, args.expected_review_sha]
+    if any(explicit) and not all(explicit):
+        parser.error('A reviewed snapshot requires both approved checksum pins')
     ROOT.mkdir(parents=True, exist_ok=True)
+    if args.reviewed_snapshot:
+        from prepare_brand64_recovery import verify_review
+        reviewed = args.reviewed_snapshot.resolve()
+        if reviewed == ROOT.resolve():
+            raise ValueError('Reviewed input must differ from working state')
+        proof = verify_review(reviewed, args.expected_manifest_sha, args.expected_review_sha)
+        if proof['product_count'] < MIN_KNOWN_PRODUCTS:
+            raise ValueError('Reviewed recovery candidate is suspiciously small')
+        copy_state(reviewed, 'explicit-reviewed-snapshot')
+        if not validate_candidate(ROOT, 'restored-reviewed-state'):
+            raise ValueError('Restored reviewed recovery candidate is invalid')
+        # No Git or network fallback is allowed after an explicit selection.
+        return 0
     with tempfile.TemporaryDirectory() as work:
         tmp = Path(work)
         if try_flash(tmp) or try_artifacts(tmp) or try_direct_branches(tmp):
