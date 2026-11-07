@@ -205,7 +205,8 @@ class Pipeline:
         for bid, row in self.rows.items():
             archive_superseded_sources(row, sources.get(bid, {}), date)
         self.queue = read(out/'deep-dive-queue.json', {})
-        self.history = read(out/'flash-history.json', {})
+        from brand64_history_store import read_history
+        self.history = read_history(out)
         self.details = read(out/'detail-results.json', {})
         stamp = dt.datetime.now(dt.timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
         self.run_dir = out/date/(stamp+'-'+stage)
@@ -221,11 +222,13 @@ class Pipeline:
         summary['artifact_path'] = str(self.run_dir/'scan.json')
         # History first: a crash before baseline save may duplicate a detection, but
         # must never suppress an event already incorporated into the baseline.
-        for name, value in [('flash-history.json', self.history), ('known-products.json', self.known),
+        from brand64_history_store import write_history
+        write_history(self.out, self.history)
+        for name, value in [('known-products.json', self.known),
                             ('coverage-state.json', self.rows), ('deep-dive-queue.json', self.queue),
                             ('detail-results.json', self.details)]:
             scan.save(self.out/name, value)
-        events = [e for e in self.history.values() if e['observed_date'] == self.date]
+        events = [self.history[key] for key in sorted(self.history) if self.history[key]['observed_date'] == self.date]
         candidates = [e for e in events if e['delta_type'] != 'BASELINE_INITIALIZATION']
         summary['first_observed_candidate_count'] = sum(e['delta_type'] == 'FIRST_OBSERVED_CANDIDATE' for e in events)
         summary['candidate_delta_count'] = len(candidates)

@@ -1,0 +1,295 @@
+{
+  "scope_id": "KC40-20260930",
+  "scope_status": "LOCKED_OWNER_APPROVED",
+  "target_brand_count": 40,
+  "deep_brand_count": 20,
+  "source_commit": "069e379b38b8faf416e78058d0b028259e32f229",
+  "collector_source_commit": "144cbbcab6e37b49d97e6839b81a0f25b3a2ef7e",
+  "v04_main_commit": "e7031c08f3f2610af022df4c3882caf7f1443ef6",
+  "changes": {
+    "nov6_added_vs_canonical": 209,
+    "nov7_added_vs_canonical": 261,
+    "nov6_only_absent_from_nov7": 10,
+    "nov7_only_absent_from_nov6": 62,
+    "union_unique_products": 4328,
+    "added_vs_canonical": 271,
+    "canonical_keys_missing_from_either_artifact": 0
+  },
+  "publication_status": "PUBLISH_HOLD",
+  "human_review_required": true,
+  "formal_product_registration": false,
+  "scope_git_blob_sha": "727f77fb590ddf639a704b00da188c0ec071d730",
+  "scope_sha256": "ce029740d4c42f42a69df0b16631ac455dece15ac60b3b7027a43505b275a988",
+  "artifact_recovery": [
+    {
+      "run_id": 42140705943,
+      "artifact_id": 13468277759,
+      "observation_date": "2026-11-06",
+      "zip_sha256": "c75e8590dc6b2431612aa372c3e4862a2919850edc7fe6c9e50cd0e68f0368c9",
+      "snapshot_binding_present": false
+    },
+    {
+      "run_id": 42316561739,
+      "artifact_id": 13551600654,
+      "observation_date": "2026-11-07",
+      "zip_sha256": "da412dfa61096a9082f59269d991368f58de6a5b45a736eb4362d57fde72ecef",
+      "snapshot_binding_present": false
+    }
+  ],
+  "failure": {
+    "github_confirmed_cause": "flash-history.json exceeded 100 MiB GitHub Git blob limit; canonical feed and preservation branch pushes failed",
+    "nov6_file_size_mb_as_logged": 102.9,
+    "nov7_file_size_mb_as_logged": 103.17,
+    "failed_steps": [
+      "feed_flash",
+      "feed_final",
+      "preserve"
+    ],
+    "binding_step": "SKIPPED_AFTER_FEED_FAILURE",
+    "restore_limit": "First strict-valid flash-feed was chosen before newer failed-run artifacts; both failed runs restarted from 2026-11-05",
+    "chatgpt_scheduler_internal_cause": "UNKNOWN_GENERIC_FAILURE_MESSAGES_ONLY; DO_NOT_ASSUME_SAME_CAUSE_AS_GITHUB"
+  },
+  "v04": {
+    "main_sha": "e7031c08f3f2610af022df4c3882caf7f1443ef6",
+    "saved_sites_version": 1277,
+    "saved_sites_sha": "b14d004a7598289be879e66eb4e0ed2f0c6c1f36",
+    "saved_sites_is_live_verified": false,
+    "live_fetch_status": "FAILED_403_NOT_ZERO_OR_CLEAN",
+    "files": {
+      "brand64_market_latest.json": {
+        "git_blob_sha": "ce162a6631b9ea8a6db44101672b7712864d47fb",
+        "sha256": "b6fcc595c2708add109eb317403bd8face32c5ce95769ce297f5249b6810624d",
+        "observation_date": "2026-11-03",
+        "snapshot": {
+          "manifest_url": "https://raw.githubusercontent.com/tianjinpipixia/knit-compass-photo-capture/refs/heads/brand64/flash-feed/data/brand-md-monitoring/direct-scans/cumulative-products/manifest.json",
+          "manifest_sha256": "4319e68ce17ccd5c70b23f502f1cb63a43d8fa0817c90ca576253cf11b0cd43a"
+        },
+        "observed_product_count": 832,
+        "cumulative_unique_product_count": 3976
+      },
+      "brand64_coverage_latest.json": {
+        "git_blob_sha": "8d8cab4df2da87567e154a25da55210ca217f288",
+        "sha256": "2a8c0e5790fb73ce48a337a5af9ea435d932c9ce24a7f0cdd1fcf9eecd34e4f7",
+        "observation_date": "2026-11-03",
+        "snapshot": {
+          "manifest_url": "https://raw.githubusercontent.com/tianjinpipixia/knit-compass-photo-capture/refs/heads/brand64/flash-feed/data/brand-md-monitoring/direct-scans/cumulative-products/manifest.json",
+          "manifest_sha256": "4319e68ce17ccd5c70b23f502f1cb63a43d8fa0817c90ca576253cf11b0cd43a"
+        },
+        "observed_product_count": 832,
+        "cumulative_unique_product_count": 3976
+      },
+      "brand64_product_delta_latest.json": {
+        "git_blob_sha": "a458d15e1071e7db2cffeb574fbaed2573fc240c",
+        "sha256": "ffa2edb3a4c2c1da6f5ebf7170793e6f9d1948f1a272297c4680d103a6779219",
+        "records": 127,
+        "dated_source_date_max": "2026-10-01",
+        "last_verified_date_max": "2026-10-01",
+        "role": "DEPRECATED_READ_ONLY_EVIDENCE_NOT_CURRENT_CANONICAL_DELTA"
+      },
+      "formal-unprocessed-days.json": {
+        "git_blob_sha": "0bd1a08743311b4a29b7677e81354ae752b87b4d",
+        "sha256": "8919886bd2813315d8ced8e97a95a637226a840784d6c644fd77827fab27d37a",
+        "as_of_date": "2026-11-03",
+        "scope_id": "KC40-20260930",
+        "unprocessed_ranges": [
+          {
+            "from": "2026-09-01",
+            "through": "2026-11-03",
+            "inclusive_date_count": 64,
+            "reason": "DAILY_OFFICIAL_COLLECTION_DID_NOT_REACH_COMPLETE_COVERAGE"
+          }
+        ]
+      }
+    },
+    "date_and_manifest_alignment": "V04_MARKET_COVERAGE_LEDGER_AGREE_ON_2026-11-03_AND_4319e68c; CANONICAL_IS_2026-11-05_AND_1a8a56eb; RECOVERED_ARTIFACTS_ARE_NOV6_NOV7"
+  },
+  "history_verification": {
+    "events": 30002,
+    "same_key_conflicts": 0,
+    "part_count": 256,
+    "max_file_bytes": 759205,
+    "roundtrip_exact_values_equal": true,
+    "seconds": 2.46
+  },
+  "friday_only_monitors": {
+    "additional_saturday_collection": false,
+    "weekly_budget_8_latest_file_in_feed": "2026-10-30",
+    "nov6_weekly_result_found_in_retrieved_feed": false,
+    "kobe_lettuce_comparison": "NOT_RUN_SATURDAY_AS_INSTRUCTED"
+  },
+  "gemini": {
+    "executed_this_task": false,
+    "official_collector": "CHATGPT_OFFICIAL_DIRECT",
+    "analysis_analyzer": "GEMINI_PRIMARY",
+    "v04_last_known_analysis_date": "2026-10-24",
+    "nov5_github_analysis_run_status": "failure",
+    "nov6_analysis_run_status": "skipped",
+    "nov7_analysis_run_status": "skipped",
+    "not_a_start_condition": true
+  },
+  "tests": {
+    "final_brand64_suite_tests": 146,
+    "final_brand64_suite_passed": true,
+    "real_history_roundtrip_equal": true,
+    "git_local_publication_and_restore_roundtrip_test_passed": true,
+    "initial_environment_failures_resolved": "Used complete diagnostic fixtures, local python alias, and real-path temporary directory; no product logic weakened"
+  },
+  "not_performed": [
+    "main update",
+    "canonical flash-feed update",
+    "deployment",
+    "production DB update",
+    "formal product registration",
+    "publication",
+    "billing settings",
+    "external messages",
+    "Gemini requests",
+    "Friday-only Saturday巡回"
+  ],
+  "individual_page_verification": {
+    "http_200_pages": 6,
+    "structured_detail_parser_successes": 0,
+    "failure": "NO_MATCHING_OFFICIAL_PRODUCT_JSONLD; details remain unverified",
+    "results_file": "current-product-page-checks.json"
+  },
+  "identity_review": {
+    "brand_id_and_product_code_multiple_url_groups": 11,
+    "auto_merged_by_code": false,
+    "decision": "PRESERVE_AND_REVIEW_DIFFERENT_OFFICIAL_URLS"
+  },
+  "daily": {
+    "2026-11-05": {
+      "manifest_sha256": "1a8a56ebfec7fc66c42018966f874adc661d39cecaa0d7ab3982870b1c30c476",
+      "referenced_shards_verified": 63,
+      "daily_sources_verified": 2,
+      "cumulative_unique_products": 4057,
+      "first_observed_candidates": 24,
+      "candidate_delta_events": 453,
+      "generated_at_utc": "2026-11-05T01:01:31.661111+00:00",
+      "scopes": {
+        "approved40": {
+          "attempted_brand_count": 40,
+          "product_observed_brand_count": 13,
+          "observed_product_count": 729,
+          "complete_brand_count": 0,
+          "pending_page_count": 28
+        },
+        "deep20": {
+          "attempted_brand_count": 20,
+          "product_observed_brand_count": 7,
+          "observed_product_count": 360,
+          "complete_brand_count": 0,
+          "pending_page_count": 11
+        },
+        "all65": {
+          "attempted_brand_count": 65,
+          "product_observed_brand_count": 24,
+          "observed_product_count": 950,
+          "complete_brand_count": 0,
+          "pending_page_count": 53
+        }
+      }
+    },
+    "2026-11-06": {
+      "manifest_sha256": "a97da1f9cab442608204c6b432b3b466ab64278e941370eba114eec4e889389f",
+      "referenced_shards_verified": 63,
+      "daily_sources_verified": 2,
+      "cumulative_unique_products": 4266,
+      "first_observed_candidates": 209,
+      "candidate_delta_events": 1098,
+      "generated_at_utc": "2026-11-06T01:03:59.095915+00:00",
+      "scopes": {
+        "approved40": {
+          "attempted_brand_count": 40,
+          "product_observed_brand_count": 22,
+          "observed_product_count": 1172,
+          "complete_brand_count": 0,
+          "pending_page_count": 26
+        },
+        "deep20": {
+          "attempted_brand_count": 20,
+          "product_observed_brand_count": 11,
+          "observed_product_count": 591,
+          "complete_brand_count": 0,
+          "pending_page_count": 7
+        },
+        "all65": {
+          "attempted_brand_count": 65,
+          "product_observed_brand_count": 42,
+          "observed_product_count": 1761,
+          "complete_brand_count": 0,
+          "pending_page_count": 51
+        }
+      }
+    },
+    "2026-11-07": {
+      "manifest_sha256": "5ae8c0951c9b7564d6030e748af4f0191ebb3560991c59a5c4558b0542800f9c",
+      "referenced_shards_verified": 63,
+      "daily_sources_verified": 2,
+      "cumulative_unique_products": 4318,
+      "first_observed_candidates": 261,
+      "candidate_delta_events": 1171,
+      "generated_at_utc": "2026-11-07T00:15:39.451494+00:00",
+      "scopes": {
+        "approved40": {
+          "attempted_brand_count": 40,
+          "product_observed_brand_count": 22,
+          "observed_product_count": 1190,
+          "complete_brand_count": 0,
+          "pending_page_count": 24
+        },
+        "deep20": {
+          "attempted_brand_count": 20,
+          "product_observed_brand_count": 11,
+          "observed_product_count": 602,
+          "complete_brand_count": 0,
+          "pending_page_count": 7
+        },
+        "all65": {
+          "attempted_brand_count": 65,
+          "product_observed_brand_count": 42,
+          "observed_product_count": 1788,
+          "complete_brand_count": 0,
+          "pending_page_count": 49
+        }
+      }
+    }
+  },
+  "local_pass": {
+    "collector": "CHATGPT_OFFICIAL_DIRECT",
+    "execution_kind": "LOCAL_REVIEW_ONLY",
+    "observed_date": "2026-11-07",
+    "latest_generated_at_utc": "2026-11-07T11:50:18.776805+00:00",
+    "latest_generated_at_jst": "2026-11-07T20:50:18.776805+09:00",
+    "source_sha": "144cbbcab6e37b49d97e6839b81a0f25b3a2ef7e",
+    "source_config_sha256": "97373515e57b201cf3b977313ae3b57d4e2960503c75acfcb258a282e21eee02",
+    "source_config_brand_count": 65,
+    "scope_selection_count": 40,
+    "new_candidates": 5,
+    "new_release_confirmed_count": 0,
+    "local_cumulative_review_products": 4333,
+    "canonical_updated": false,
+    "gemini_api_calls": 0,
+    "publication_status": "PUBLISH_HOLD",
+    "human_review_required": true,
+    "approved40": {
+      "attempted_brands": 40,
+      "product_observed_brands": 19,
+      "observed_products": 1023,
+      "complete_brands": 0,
+      "pending_pages": 3
+    },
+    "deep20": {
+      "attempted_brands": 20,
+      "product_observed_brands": 9,
+      "observed_products": 452,
+      "complete_brands": 0,
+      "pending_pages": 2
+    }
+  },
+  "official_monitor_summary": {
+    "global_work": "44 regular-line listing observations; incomplete source scope audit; existing manual 1063251 candidate refreshed without duplicating; delivery and current price unverified",
+    "rope_picnic": "Existing washable and Souffle pages rechecked; Nov5 winter design-knit editorial observed; GDM56210/GDM56220/GDM56320 already exist; no duplicate products added",
+    "amaca": "V5N10810 reservation label absent and purchasable stock displayed on Nov7 direct retrieval; transition date unknown. V5N08810 rayon56/polyester44, black navy38 unavailable; purple3/beige38 available."
+  }
+}

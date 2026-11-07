@@ -15,6 +15,7 @@ import subprocess
 import tempfile
 
 from brand64_canonical_store import read_pool, preserve
+from brand64_history_store import read_history, history_files, DIRECTORY as HISTORY_DIRECTORY
 
 ROOT = Path("data/brand-md-monitoring/direct-scans")
 STATE_FILES = [
@@ -83,15 +84,21 @@ def validate_candidate(directory: Path, label: str) -> bool:
         if not isinstance(value, (dict, list)):
             print(f"REJECT {label}: {name} has unexpected root type")
             return False
+    try:
+        read_history(directory)
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        print(f"REJECT {label}: history invalid: {exc}")
+        return False
     print(f"ACCEPT {label}: {len(known)} strict-valid known products")
     return True
 
 
 def copy_state(source: Path, label: str) -> None:
     ROOT.mkdir(parents=True, exist_ok=True)
-    for name in SNAPSHOT_FILES:
+    for name in dict.fromkeys([*SNAPSHOT_FILES, *history_files(source)]):
         src = source / name
         if src.is_file():
+            (ROOT / name).parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(src, ROOT / name)
     if (source / "cumulative-products").exists():
         shutil.copytree(source / "cumulative-products", ROOT / "cumulative-products", dirs_exist_ok=True)
@@ -103,7 +110,8 @@ def extract_ref(ref: str, directory: Path) -> bool:
     run("git", "fetch", "--depth=1", "origin", ref)
     found = False
     canonical_paths = run("git", "ls-tree", "-r", "--name-only", "FETCH_HEAD", "--", "data/brand-md-monitoring/direct-scans/cumulative-products").stdout.splitlines()
-    names = SNAPSHOT_FILES + [str(Path(p).relative_to(ROOT)) for p in canonical_paths]
+    history_paths = run("git", "ls-tree", "-r", "--name-only", "FETCH_HEAD", "--", str(ROOT/HISTORY_DIRECTORY)).stdout.splitlines()
+    names = SNAPSHOT_FILES + [str(Path(p).relative_to(ROOT)) for p in [*canonical_paths, *history_paths]]
     for name in names:
         probe = run(
             "git", "cat-file", "-e",

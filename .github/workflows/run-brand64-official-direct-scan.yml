@@ -9,6 +9,7 @@ on:
     paths:
       - scripts/run_brand64_free_direct_scan.py
       - scripts/brand64_flash_pipeline.py
+      - scripts/brand64_history_store.py
       - scripts/brand64_canonical_store.py
       - scripts/brand64_daily_pipeline_binding.py
       - scripts/publish_brand64_flash_feed.py
@@ -19,6 +20,7 @@ on:
       - tests/test_brand64_doclasse_recovery.py
       - tests/test_brand64_onward_listing.py
       - tests/test_brand64_flash_pipeline.py
+      - tests/test_brand64_history_store.py
       - tests/test_brand64_daily_pipeline_binding.py
       - tests/test_brand64_retrospective_unification.py
       - tests/test_brand64_retrospective_month_evidence.py
@@ -58,6 +60,7 @@ jobs:
           python -m unittest discover -s tests -p test_brand64_doclasse_recovery.py -v
           python -m unittest discover -s tests -p test_brand64_onward_listing.py -v
           python -m unittest discover -s tests -p test_brand64_flash_pipeline.py -v
+          python -m unittest discover -s tests -p test_brand64_history_store.py -v
           python -m unittest discover -s tests -p test_brand64_daily_pipeline_binding.py -v
           python -m unittest discover -s tests -p test_brand64_retrospective_unification.py -v
           python -m unittest discover -s tests -p test_brand64_retrospective_month_evidence.py -v

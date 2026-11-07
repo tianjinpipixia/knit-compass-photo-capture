@@ -13,6 +13,7 @@ from brand64_canonical_store import CANONICAL, normalize_identities, read_pool, 
 from brand64_flash_pipeline import STATE_FILES
 from merge_brand64_retrospective_sources import merge_retrospective_sources
 from brand64_identity_guard import persist_reconciled
+from brand64_history_store import history_files, write_history, read_history, DIRECTORY as HISTORY_DIRECTORY
 
 BRANCH = 'brand64/flash-feed'
 PREFIX = 'data/brand-md-monitoring/direct-scans/'
@@ -266,12 +267,17 @@ def publish(root):
     active = json.loads((repo_root/'config/brand64-active-brands.json').read_text())['active_brands']
     cumulative_generated = build_cumulative_product_shards(root, active)
     generated = [*current_generated, *cumulative_generated, 'cumulative-products/review-queue.json']
-    names = [*STATE_FILES, 'feed.json', 'latest.json', 'flash-latest.json', 'summary.md', 'retrospective-merge-summary.json', *generated]
+    write_history(root, read_history(root))
+    names = list(dict.fromkeys([*STATE_FILES, *history_files(root), 'feed.json', 'latest.json', 'flash-latest.json', 'summary.md', 'retrospective-merge-summary.json', *generated]))
     for name in names:
         if not (root/name).is_file(): raise ValueError('Missing checkpoint: '+name)
     with tempfile.TemporaryDirectory() as directory:
         env = {**os.environ, 'GIT_INDEX_FILE': str(Path(directory)/'index')}
         git('read-tree', parent if parent else '--empty', env=env)
+        if parent:
+            old_parts = git('ls-tree', '-r', '--name-only', parent, '--', PREFIX+HISTORY_DIRECTORY+'/').stdout.splitlines()
+            for path in old_parts:
+                git('update-index', '--force-remove', path, env=env)
         for name in names:
             blob = git('hash-object', '-w', str(root/name)).stdout.strip()
             git('update-index', '--add', '--cacheinfo', '100644', blob, PREFIX+name, env=env)
