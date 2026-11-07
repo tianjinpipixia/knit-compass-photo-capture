@@ -144,5 +144,18 @@ class RecoveryPreparationTests(unittest.TestCase):
             self.assertEqual(recovery.read(out/'cumulative-products/manifest.json')['identity_resolved_product_count'],1)
             self.assertEqual(result['product_count'],3)
 
+    def test_private_local_paths_are_redacted_only_in_review_metadata(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);plan=self.fixture(root);p=recovery.read(plan);source=root/'seven'
+            latest=recovery.read(source/'latest.json');latest['artifact_path']='/Users/private-user/cache/scan.json';recovery.write(source/'latest.json',latest)
+            recovery.write(source/'feed.json',{'summary':latest,'candidates':[]})
+            build_cumulative_product_shards(source)
+            for name in p['sources'][-1]['files_sha256']:p['sources'][-1]['files_sha256'][name]=recovery.digest(source/name)
+            recovery.write(plan,p);out=root/'out';r=recovery.prepare(plan,out)
+            self.assertEqual(recovery.read(out/'latest.json')['artifact_path'],'local-review:scan.json')
+            self.assertTrue(r['metadata_path_redactions'])
+            self.assertEqual(recovery.read(source/'latest.json')['artifact_path'],'/Users/private-user/cache/scan.json')
+            self.assertFalse(any('/Users/private-user/' in f.read_text() for f in out.rglob('*.json')))
+
 
 if __name__=='__main__':unittest.main()

@@ -34,6 +34,19 @@ def write(path, value):
     path.write_text(json.dumps(value, ensure_ascii=False, separators=(',', ':'))+'\n', encoding='utf-8')
 
 
+def review_metadata(value, redactions, field=''):
+    """Keep private laptop/cache paths out of a public review branch."""
+    if isinstance(value,dict):
+        return {k:review_metadata(v,redactions,field+'.'+k) for k,v in value.items()}
+    if isinstance(value,list):
+        return [review_metadata(v,redactions,field+'[]') for v in value]
+    if (isinstance(value,str) and field.endswith('_path') and
+            value.startswith(('/Users/','/private/var/','/var/folders/'))):
+        redactions.append({'field':field,'original_value_sha256':hashlib.sha256(value.encode()).hexdigest()})
+        return 'local-review:'+Path(value).name
+    return value
+
+
 def pinned_files(root, expected):
     for relative, expected_sha in expected.items():
         path = Path(relative)
@@ -142,16 +155,19 @@ def prepare(plan_path, output):
                 if row not in identity_review: identity_review.append(row)
     # No mutations to an input generation or external service are made.
     output.mkdir(parents=True)
+    metadata_redactions=[]
     for source in sources:
         evidence = output/'recovery-evidence'/source['spec']['label']
         write(evidence/'original-products.json', source['products'])
         for name in ['latest.json','feed.json','known-products.json','coverage-state.json','detail-results.json','deep-dive-queue.json','cumulative-products/review-queue.json']:
             if (source['root']/name).is_file():
                 (evidence/name).parent.mkdir(parents=True,exist_ok=True)
-                shutil.copy2(source['root']/name,evidence/name)
+                write(evidence/name,review_metadata(read(source['root']/name),metadata_redactions,source['spec']['label']+'.'+name))
     for name in ['latest.json','feed.json','flash-latest.json','coverage-state.json','summary.md']:
         source = latest['root']/name
-        if source.is_file(): shutil.copy2(source,output/name)
+        if source.is_file():
+            if source.suffix=='.json':write(output/name,review_metadata(read(source),metadata_redactions,name))
+            else:shutil.copy2(source,output/name)
     write(output/'known-products.json',products)
     write(output/'detail-results.json',details)
     write(output/'deep-dive-queue.json',queue)
@@ -184,6 +200,7 @@ def prepare(plan_path, output):
         'daily_observation_source':latest['spec']['label'],'scope_id':scope['scope_id'],
         'expected_canonical_head':plan['expected_canonical_head'],'manifest_sha256':manifest_sha,
         'product_count':len(exported),'history_event_count':len(history),
+        'metadata_path_redactions':metadata_redactions,
         'source_provenance':[{'label':s['spec']['label'],'product_count':len(s['products']),
             'history_event_count':len(s['history']),'observed_date':s['latest']['observed_date'],
             'evidence':{k:v for k,v in s['spec'].items() if k not in ['root','archive']}} for s in sources],
