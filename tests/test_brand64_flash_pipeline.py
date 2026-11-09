@@ -157,7 +157,10 @@ class FlashPipelineTests(unittest.TestCase):
         for brand in ['VIS','AMERICAN HOLIC','23区','組曲']:
             meta={'brand_name':brand,'max_retry_pages':8}
             self.assertEqual(pipeline.page_budget(meta,2,'flash'),2)
-            self.assertEqual(pipeline.page_budget(meta,4,'retry'),8)
+            self.assertEqual(pipeline.page_budget(meta,4,'retry'),8,
+                'loaded='+str(pipeline.page_budget.__code__.co_filename)+
+                ':line='+str(pipeline.page_budget.__code__.co_firstlineno)+
+                ';githubsha='+str(os.environ.get('GITHUB_SHA')))
             self.assertEqual(pipeline.page_budget(meta,4),4)
         self.assertEqual(pipeline.page_budget({'retry_max_pages':999},4,'retry'),16)
         self.assertEqual(pipeline.page_budget({'retry_max_pages':999},2,'flash'),2)
