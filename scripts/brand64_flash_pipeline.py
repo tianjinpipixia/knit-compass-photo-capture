@@ -275,13 +275,13 @@ class Pipeline:
 def page_budget(meta, default, stage=None):
     """Keep the flash stage unchanged; bounded extra pages only in retry.
 
-    Brand-specific retry_max_pages is not a new crawl. It is used by the
+    Brand-specific max_retry_pages is not a new crawl. It is used by the
     existing same-run retry stage for already-discovered official listing URLs.
     Existing max_pages_per_stage (e.g. DoCLASSE) stays effective as before.
     """
     configured = int(meta.get('max_pages_per_stage', default))
     if stage == 'retry':
-        configured = max(configured, int(meta.get('retry_max_pages', default)))
+        configured = max(configured, int(meta.get('max_retry_pages', default)))
     return min(16, max(default, configured))
 
 

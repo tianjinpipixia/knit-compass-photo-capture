@@ -151,25 +151,24 @@ class FlashPipelineTests(unittest.TestCase):
         self.assertEqual(row['pending_page_urls'], [])
         self.assertEqual(pipeline.page_budget({'max_pages_per_stage': 99}, 2), 16)
 
-    def test_retry_page_budget_is_bounded_without_expanding_flash_or_retrying_403(self):
-        # Isolated behaviour test. Exact source-config key changes are reviewed
-        # in the PR diff, not derived from mutable recovered worktree fixtures.
-        for brand in ['VIS','AMERICAN HOLIC','23区','組曲']:
-            meta={'brand_name':brand,'max_retry_pages':8}
+    def test_four_configured_pending_brands_expand_retry_only_and_preserve_fail_closed(self):
+        sources=json.loads((scan.ROOT/'config/brand64-free-direct-sources.json').read_text())['brands']
+        affected={'BR-00005':'VIS','BR-00035':'AMERICAN HOLIC',
+                  'BR-00039':'23区','BR-00042':'組曲'}
+        configured={k for k,v in sources.items() if 'max_retry_pages' in v}
+        self.assertEqual(configured,set(affected))
+        for bid,brand in affected.items():
+            meta=sources[bid]
+            self.assertEqual(meta['brand_name'],brand)
+            self.assertEqual(meta['max_retry_pages'],8)
             self.assertEqual(pipeline.page_budget(meta,2,'flash'),2)
-            self.assertEqual(pipeline.page_budget(meta,4,'retry'),8,
-                'loaded='+str(pipeline.page_budget.__code__.co_filename)+
-                ':line='+str(pipeline.page_budget.__code__.co_firstlineno)+
-                ';githubsha='+str(os.environ.get('GITHUB_SHA'))+
-                ';argcount='+str(pipeline.page_budget.__code__.co_argcount)+
-                ';constants='+repr(pipeline.page_budget.__code__.co_consts)[:350])
+            self.assertEqual(pipeline.page_budget(meta,4,'retry'),8)
             self.assertEqual(pipeline.page_budget(meta,4),4)
-        self.assertEqual(pipeline.page_budget({'retry_max_pages':999},4,'retry'),16)
-        self.assertEqual(pipeline.page_budget({'retry_max_pages':999},2,'flash'),2)
+        self.assertEqual(pipeline.page_budget({'max_retry_pages':999},4,'retry'),16)
+        self.assertEqual(pipeline.page_budget({'max_retry_pages':999},2,'flash'),2)
         self.assertEqual(pipeline.page_budget({'max_pages_per_stage':16,
                                                'max_retry_pages':8},4,'retry'),16)
-        # A six-page official same-host fixture is finished in retry.
-        # No external request, new schedule, access bypass or backfill.
+        # Pending URLs stay confined to the same allowed first-party host.
         short=scan.scan_brand('B',META,fetch,max_pages=4)
         self.assertEqual(short['pending_page_urls'],[URL+'?page=5'])
         long=scan.scan_brand('B',META,fetch,
