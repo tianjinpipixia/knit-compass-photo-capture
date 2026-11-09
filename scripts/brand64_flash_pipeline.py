@@ -272,9 +272,16 @@ class Pipeline:
         self.checkpoint()
 
 
-def page_budget(meta, default):
-    """Allow audited JSON catalog sources to finish pagination in one stage."""
+def page_budget(meta, default, stage=None):
+    """Keep the flash stage unchanged; bounded extra pages only in retry.
+
+    Brand-specific max_retry_pages is not a new crawl. It is used by the
+    existing same-run retry stage for already-discovered official listing URLs.
+    Existing max_pages_per_stage (e.g. DoCLASSE) stays effective as before.
+    """
     configured = int(meta.get('max_pages_per_stage', default))
+    if stage == 'retry':
+        configured = max(configured, int(meta.get('max_retry_pages', default)))
     return min(16, max(default, configured))
 
 
@@ -326,7 +333,7 @@ def run(argv=None):
             old = pipe.rows.get(bid, {})
             urls = list(dict.fromkeys(meta.get('entry_urls', [])+recovery_urls(old))) if args.stage == 'flash' else retryable_urls(old)
             try:
-                return scan.scan_brand(bid, meta, fetch, page_urls=urls, max_pages=page_budget(meta, args.max_pages))
+                return scan.scan_brand(bid, meta, fetch, page_urls=urls, max_pages=page_budget(meta, args.max_pages, args.stage))
             except Exception as exc:
                 # Preserve this brand as failed without losing other brands' results.
                 return {'brand_id': bid, 'brand_name': active[bid], 'scan_status': 'UNRESOLVED',

@@ -151,6 +151,35 @@ class FlashPipelineTests(unittest.TestCase):
         self.assertEqual(row['pending_page_urls'], [])
         self.assertEqual(pipeline.page_budget({'max_pages_per_stage': 99}, 2), 16)
 
+    def test_four_configured_pending_brands_expand_retry_only_and_preserve_fail_closed(self):
+        sources=json.loads((scan.ROOT/'config/brand64-free-direct-sources.json').read_text())['brands']
+        affected={'BR-00005':'VIS','BR-00035':'AMERICAN HOLIC',
+                  'BR-00039':'23区','BR-00042':'組曲'}
+        configured={k for k,v in sources.items() if 'max_retry_pages' in v}
+        self.assertEqual(configured,set(affected))
+        for bid,brand in affected.items():
+            meta=sources[bid]
+            self.assertEqual(meta['brand_name'],brand)
+            self.assertEqual(meta['max_retry_pages'],8)
+            self.assertEqual(pipeline.page_budget(meta,2,'flash'),2)
+            self.assertEqual(pipeline.page_budget(meta,4,'retry'),8)
+            self.assertEqual(pipeline.page_budget(meta,4),4)
+        self.assertEqual(pipeline.page_budget({'max_retry_pages':999},4,'retry'),16)
+        self.assertEqual(pipeline.page_budget({'max_retry_pages':999},2,'flash'),2)
+        self.assertEqual(pipeline.page_budget({'max_pages_per_stage':16,
+                                               'max_retry_pages':8},4,'retry'),16)
+        # Pending URLs stay confined to the same allowed first-party host.
+        short=scan.scan_brand('B',META,fetch,max_pages=4)
+        self.assertEqual(short['pending_page_urls'],[URL+'?page=5'])
+        long=scan.scan_brand('B',META,fetch,
+                             page_urls=pipeline.retryable_urls(short),
+                             max_pages=pipeline.page_budget({'max_retry_pages':8},4,'retry'))
+        self.assertEqual(long['pending_page_urls'],[])
+        self.assertEqual(len(long['attempted_page_urls']),2)
+        denied={'pending_page_urls':[URL+'?page=2'],'errors':[
+            {'url':URL+'?page=2','reason':'HTTPError: HTTP Error 403: Forbidden'}]}
+        self.assertEqual(pipeline.retryable_urls(denied),[])
+
     def test_resume_survives_new_process_and_new_day(self):
         first = pipeline.merge_row(None, scan.scan_brand('B', META, fetch), DATE)
         old_date = (scan.dt.date.fromisoformat(DATE)-scan.dt.timedelta(days=1)).isoformat()
