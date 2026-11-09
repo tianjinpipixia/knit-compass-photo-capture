@@ -155,8 +155,11 @@ class FlashPipelineTests(unittest.TestCase):
         # Other recovery tests can replace local restored fixtures: verify the
         # exact committed source configuration, not a restored worktree copy.
         checkout=pathlib.Path(__file__).resolve().parents[1]
+        # Other tests may move HEAD to an accepted recovery state. CI's
+        # GITHUB_SHA remains the immutable PR merge commit being reviewed.
+        reviewed_commit=os.environ.get('GITHUB_SHA') or 'HEAD'
         source=subprocess.run(
-            ['git','show','HEAD:config/brand64-free-direct-sources.json'],
+            ['git','show',reviewed_commit+':config/brand64-free-direct-sources.json'],
             cwd=checkout,capture_output=True,text=True,check=True).stdout
         sources=json.loads(source)['brands']
         affected={'BR-00005':'VIS','BR-00035':'AMERICAN HOLIC',
