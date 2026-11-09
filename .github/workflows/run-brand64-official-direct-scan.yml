@@ -14,6 +14,7 @@ on:
       - scripts/restore_brand64_valid_state.py
       - scripts/brand64_canonical_store.py
       - scripts/brand64_daily_pipeline_binding.py
+      - scripts/publish_brand64_md_baseline_index.py
       - scripts/publish_brand64_flash_feed.py
       - scripts/merge_brand64_retrospective_sources.py
       - scripts/restore_brand64_valid_state.py
@@ -25,6 +26,7 @@ on:
       - tests/test_brand64_history_store.py
       - tests/test_brand64_recovery_preparation.py
       - tests/test_brand64_daily_pipeline_binding.py
+      - tests/test_brand64_md_baseline_index.py
       - tests/test_brand64_retrospective_unification.py
       - tests/test_brand64_retrospective_month_evidence.py
       - data/brand-md-monitoring/retrospective/**/*.json
@@ -66,6 +68,7 @@ jobs:
           python -m unittest discover -s tests -p test_brand64_history_store.py -v
           python -m unittest discover -s tests -p test_brand64_recovery_preparation.py -v
           python -m unittest discover -s tests -p test_brand64_daily_pipeline_binding.py -v
+          python -m unittest discover -s tests -p test_brand64_md_baseline_index.py -v
           python -m unittest discover -s tests -p test_brand64_retrospective_unification.py -v
           python -m unittest discover -s tests -p test_brand64_retrospective_month_evidence.py -v
           python -m unittest discover -s tests -p test_brand64_canonical_store.py -v
@@ -157,6 +160,18 @@ jobs:
             --collection-run-id "$GITHUB_RUN_ID" \
             --collection-run-attempt "$GITHUB_RUN_ATTEMPT" \
             --collector-source-sha "$GITHUB_SHA"
+
+      - name: Index the existing bound daily MD source for future seven-day review
+        id: md_baseline_index
+        if: always() && steps.bind_snapshot.outcome == 'success'
+        continue-on-error: true
+        run: python scripts/publish_brand64_md_baseline_index.py --expected-run-id "$GITHUB_RUN_ID"
+
+      - name: Report incomplete MD history indexing without hiding official collection
+        if: always() && steps.bind_snapshot.outcome == 'success' && steps.md_baseline_index.outcome != 'success'
+        run: |
+          echo "::warning title=Owner MD history index incomplete::Official collection is separately verified; weekly baseline index did not update and must not be treated as a verified comparison."
+          echo "- Owner MD baseline index: FAILED / separate from canonical product collection" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload final observations and recovery state
         id: artifact_final
