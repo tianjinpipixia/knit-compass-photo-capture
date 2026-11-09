@@ -100,17 +100,17 @@ class MdHistoryIndexTests(unittest.TestCase):
                 def fake_git(*args, **kwargs):
                     command = args[0]
                     if command == "rev-parse":
-                        return subprocess.CompletedProcess(args, 0, (RUN_SHA + "\\n").encode(), b"")
+                        return subprocess.CompletedProcess(args, 0, (RUN_SHA + "\n").encode(), b"")
                     if command == "show":
                         if str(args[1]).endswith("snapshot-binding.json"):
                             return subprocess.CompletedProcess(args, 0, json.dumps(binding()).encode(), b"")
                         return subprocess.CompletedProcess(args, 128, b"", b"fatal: path does not exist in source")
                     if command == "hash-object":
-                        return subprocess.CompletedProcess(args, 0, (DIGEST[:40] + "\\n").encode(), b"")
+                        return subprocess.CompletedProcess(args, 0, (DIGEST[:40] + "\n").encode(), b"")
                     if command == "write-tree":
-                        return subprocess.CompletedProcess(args, 0, (OLD_SHA + "\\n").encode(), b"")
+                        return subprocess.CompletedProcess(args, 0, (OLD_SHA + "\n").encode(), b"")
                     if command == "commit-tree":
-                        return subprocess.CompletedProcess(args, 0, (RUN_SHA + "\\n").encode(), b"")
+                        return subprocess.CompletedProcess(args, 0, (RUN_SHA + "\n").encode(), b"")
                     if command == "push":
                         self.assertEqual(index_file.read_bytes(), original)
                         push_seen.append(True)
