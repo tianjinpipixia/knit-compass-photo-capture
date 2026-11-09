@@ -115,7 +115,9 @@ def publish_index(binding: dict, *, expected_run_id: str) -> dict:
     encoded = (json.dumps(result, ensure_ascii=False, sort_keys=True,
                           separators=(",", ":"))+"\n").encode("utf-8")
     index_file = DIRECT / INDEX
-    index_file.write_bytes(encoded)
+    # Do not put an unpushed index into the final recovery artifacts.
+    # Commit the blob directly, then materialize the local index only
+    # after the remote fast-forward push has actually succeeded.
     with tempfile.TemporaryDirectory() as folder:
         env = {**os.environ, "GIT_INDEX_FILE": str(Path(folder) / "index")}
         git("read-tree", parent, env=env)
@@ -125,6 +127,7 @@ def publish_index(binding: dict, *, expected_run_id: str) -> dict:
         commit = git("commit-tree", tree, "-p", parent,
                      input_bytes=b"Index bound Brand64 MD source generations [skip ci]\n").stdout.decode().strip()
         git("push", "origin", f"{commit}:refs/heads/{BRANCH}")
+    index_file.write_bytes(encoded)
     return {
         "index_commit": commit, "bound_source_commit": parent,
         "entry_count": len(result["entries"]),
