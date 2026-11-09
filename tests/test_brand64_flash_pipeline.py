@@ -160,7 +160,9 @@ class FlashPipelineTests(unittest.TestCase):
             self.assertEqual(pipeline.page_budget(meta,4,'retry'),8,
                 'loaded='+str(pipeline.page_budget.__code__.co_filename)+
                 ':line='+str(pipeline.page_budget.__code__.co_firstlineno)+
-                ';githubsha='+str(os.environ.get('GITHUB_SHA')))
+                ';githubsha='+str(os.environ.get('GITHUB_SHA'))+
+                ';argcount='+str(pipeline.page_budget.__code__.co_argcount)+
+                ';constants='+repr(pipeline.page_budget.__code__.co_consts)[:350])
             self.assertEqual(pipeline.page_budget(meta,4),4)
         self.assertEqual(pipeline.page_budget({'retry_max_pages':999},4,'retry'),16)
         self.assertEqual(pipeline.page_budget({'retry_max_pages':999},2,'flash'),2)
