@@ -1,6 +1,10 @@
 import importlib.util
+import json
 from pathlib import Path
+import subprocess
+import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location(
@@ -81,6 +85,50 @@ class MdHistoryIndexTests(unittest.TestCase):
                 mod.build_index(None, RUN_SHA, test)
         with self.assertRaisesRegex(ValueError, "MD_BASELINE_SOURCE_COMMIT_INVALID"):
             mod.build_index(None, "not-a-git-commit", binding())
+
+    def test_remote_push_failure_does_not_put_uncommitted_index_in_recovery_artifacts(self):
+        # The actual workflow preserves the direct-scans folder after this step.
+        # A failed push must not leave a falsely published local index there.
+        for fail_push in (True, False):
+            with self.subTest(fail_push=fail_push), tempfile.TemporaryDirectory() as folder:
+                direct = Path(folder)
+                index_file = direct / mod.INDEX
+                original = b"previously saved contents"
+                index_file.write_bytes(original)
+                push_seen = []
+
+                def fake_git(*args, **kwargs):
+                    command = args[0]
+                    if command == "rev-parse":
+                        return subprocess.CompletedProcess(args, 0, (RUN_SHA + "\\n").encode(), b"")
+                    if command == "show":
+                        if str(args[1]).endswith("snapshot-binding.json"):
+                            return subprocess.CompletedProcess(args, 0, json.dumps(binding()).encode(), b"")
+                        return subprocess.CompletedProcess(args, 128, b"", b"fatal: path does not exist in source")
+                    if command == "hash-object":
+                        return subprocess.CompletedProcess(args, 0, (DIGEST[:40] + "\\n").encode(), b"")
+                    if command == "write-tree":
+                        return subprocess.CompletedProcess(args, 0, (OLD_SHA + "\\n").encode(), b"")
+                    if command == "commit-tree":
+                        return subprocess.CompletedProcess(args, 0, (RUN_SHA + "\\n").encode(), b"")
+                    if command == "push":
+                        self.assertEqual(index_file.read_bytes(), original)
+                        push_seen.append(True)
+                        if fail_push:
+                            raise subprocess.CalledProcessError(1, ["git", *args])
+                    return subprocess.CompletedProcess(args, 0, b"", b"")
+
+                with patch.object(mod, "DIRECT", direct), patch.object(mod, "git", side_effect=fake_git):
+                    if fail_push:
+                        with self.assertRaises(subprocess.CalledProcessError):
+                            mod.publish_index(binding(), expected_run_id="42537080702")
+                        self.assertEqual(index_file.read_bytes(), original)
+                    else:
+                        result = mod.publish_index(binding(), expected_run_id="42537080702")
+                        saved = json.loads(index_file.read_text())
+                        self.assertEqual(saved["anchor_observation_date"], "2026-11-09")
+                        self.assertEqual(result["bound_source_commit"], RUN_SHA)
+                    self.assertTrue(push_seen)
 
     def test_invalid_prior_index_never_silently_replaced(self):
         broken = {"format": mod.FORMAT, "branch": mod.BRANCH, "entries": [record("wrong-date")]}
