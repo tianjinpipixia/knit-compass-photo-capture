@@ -152,7 +152,8 @@ class FlashPipelineTests(unittest.TestCase):
         self.assertEqual(pipeline.page_budget({'max_pages_per_stage': 99}, 2), 16)
 
     def test_only_four_pending_brands_get_bounded_extra_pages_in_existing_retry(self):
-        sources=json.loads((scan.ROOT/'config/brand64-free-direct-sources.json').read_text())['brands']
+        # Locate the checked-out source tree, not mutable scan.ROOT used by other fixture tests.
+        sources=json.loads((pathlib.Path(__file__).resolve().parents[1]/'config/brand64-free-direct-sources.json').read_text())['brands']
         affected={'BR-00005':'VIS','BR-00035':'AMERICAN HOLIC',
                   'BR-00039':'23区','BR-00042':'組曲'}
         configured={k for k,v in sources.items() if 'retry_max_pages' in v}
