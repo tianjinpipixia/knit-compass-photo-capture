@@ -4,11 +4,11 @@
   "collector": "CHATGPT_OFFICIAL_DIRECT",
   "collection_method": "DIRECT_HTTP_NO_AI_API",
   "observed_date": "2026-11-11",
-  "generated_at_utc": "2026-11-11T00:46:56.713987+00:00",
+  "generated_at_utc": "2026-11-11T00:48:25.680818+00:00",
   "active_brand_count": 65,
   "attempted_brand_count": 65,
   "product_observed_brand_count": 42,
-  "product_count": 1477,
+  "product_count": 1840,
   "complete_brand_count": 0,
   "unresolved_brand_ids": [
     "BR-00001",
@@ -78,7 +78,7 @@
     "BR-00077"
   ],
   "not_attempted_brand_ids": [],
-  "pending_page_count": 27,
+  "pending_page_count": 15,
   "scan_status": "PARTIAL_COVERAGE",
   "ai_api_request_count": 0,
   "billing_enabled_by_this_job": false,
@@ -158,16 +158,12 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
-          "PAGES_PENDING",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 23,
-      "last_attempt_at_utc": "2026-11-11T00:45:29.922052+00:00",
-      "pending_page_urls": [
-        "https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/?page=2",
-        "https://www.junonline.jp/rope-picnic/product/tops/cardigan/?page=2"
-      ],
+      "product_count": 49,
+      "last_attempt_at_utc": "2026-11-11T00:47:36.608584+00:00",
+      "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
     },
@@ -177,18 +173,19 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
-          "PAGES_PENDING",
+          "FETCH_OR_EXTRACTION_FAILED",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 38,
-      "last_attempt_at_utc": "2026-11-11T00:45:53.291760+00:00",
-      "pending_page_urls": [
-        "https://www.junonline.jp/vis/product/tops/cardigan/?page=4",
-        "https://www.junonline.jp/vis/product/tops/knit-sweater/?page=2",
-        "https://www.junonline.jp/vis/product/tops/cardigan/?page=2"
+      "product_count": 116,
+      "last_attempt_at_utc": "2026-11-11T00:47:47.257580+00:00",
+      "pending_page_urls": [],
+      "errors": [
+        {
+          "url": "https://www.junonline.jp/vis/product/tops/cardigan/?page=4",
+          "reason": "NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE"
+        }
       ],
-      "errors": [],
       "unverified_link_candidate_count": 0
     },
     {
@@ -197,16 +194,12 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
-          "ENTRY_NOT_VERIFIED",
-          "PAGES_PENDING",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 14,
-      "last_attempt_at_utc": "2026-11-11T00:45:34.232325+00:00",
-      "pending_page_urls": [
-        "https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01"
-      ],
+      "product_count": 42,
+      "last_attempt_at_utc": "2026-11-11T00:47:33.192080+00:00",
+      "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
     },
@@ -638,12 +631,12 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 13,
-      "last_attempt_at_utc": "2026-11-11T00:46:09.797472+00:00",
+      "product_count": 64,
+      "last_attempt_at_utc": "2026-11-11T00:47:44.668975+00:00",
       "pending_page_urls": [
-        "https://stripe-club.com/brand/american-holic/search?so=NEW&page=12",
-        "https://stripe-club.com/brand/american-holic/search?so=NEW&page=8",
-        "https://stripe-club.com/brand/american-holic/search?so=NEW&page=2"
+        "https://stripe-club.com/brand/american-holic/search?so=NEW&page=4",
+        "https://stripe-club.com/brand/american-holic/search?so=NEW&page=15",
+        "https://stripe-club.com/brand/american-holic/search?so=NEW&page=11"
       ],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -673,15 +666,15 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 8,
-      "last_attempt_at_utc": "2026-11-11T00:46:07.892416+00:00",
+      "product_count": 37,
+      "last_attempt_at_utc": "2026-11-11T00:47:59.234058+00:00",
       "pending_page_urls": [
-        "https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1004",
-        "https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1005",
-        "https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=002&du=2&scc=1004",
-        "https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=002&du=2&scc=1005",
-        "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1004",
-        "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1005"
+        "https://crosset.onward.co.jp/items?cp=8&pp=10&gc=2&bc=002&du=2&scc=1004",
+        "https://crosset.onward.co.jp/items?cp=8&pp=10&gc=2&bc=002&du=2&scc=1005",
+        "https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=002&du=2&scc=1004",
+        "https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=002&du=2&scc=1005",
+        "https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=002&du=2&scc=1004",
+        "https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=002&du=2&scc=1005"
       ],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -740,15 +733,15 @@
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 7,
-      "last_attempt_at_utc": "2026-11-11T00:46:33.978914+00:00",
+      "product_count": 34,
+      "last_attempt_at_utc": "2026-11-11T00:48:03.233519+00:00",
       "pending_page_urls": [
-        "https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1004",
-        "https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1005",
-        "https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=003&du=2&scc=1004",
-        "https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=003&du=2&scc=1005",
-        "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1004",
-        "https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1005"
+        "https://crosset.onward.co.jp/items?cp=8&pp=10&gc=2&bc=003&du=2&scc=1004",
+        "https://crosset.onward.co.jp/items?cp=8&pp=10&gc=2&bc=003&du=2&scc=1005",
+        "https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=003&du=2&scc=1004",
+        "https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=003&du=2&scc=1005",
+        "https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1004",
+        "https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1005"
       ],
       "errors": [],
       "unverified_link_candidate_count": 0
@@ -885,15 +878,12 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
-          "PAGES_PENDING",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 58,
-      "last_attempt_at_utc": "2026-11-11T00:45:32.524611+00:00",
-      "pending_page_urls": [
-        "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1"
-      ],
+      "product_count": 89,
+      "last_attempt_at_utc": "2026-11-11T00:47:31.526055+00:00",
+      "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
     },
@@ -1058,16 +1048,12 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
-          "PAGES_PENDING",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 30,
-      "last_attempt_at_utc": "2026-11-11T00:46:21.388895+00:00",
-      "pending_page_urls": [
-        "https://www.junonline.jp/rope/product/tops/knit-sweater/?page=2",
-        "https://www.junonline.jp/rope/product/tops/cardigan/?page=2"
-      ],
+      "product_count": 55,
+      "last_attempt_at_utc": "2026-11-11T00:47:55.080964+00:00",
+      "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
     },
@@ -1077,16 +1063,12 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
-          "PAGES_PENDING",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 42,
-      "last_attempt_at_utc": "2026-11-11T00:46:18.467702+00:00",
-      "pending_page_urls": [
-        "https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/?page=2",
-        "https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/?page=2"
-      ],
+      "product_count": 96,
+      "last_attempt_at_utc": "2026-11-11T00:47:56.763045+00:00",
+      "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
     },
@@ -1294,22 +1276,19 @@
       "coverage": {
         "status": "INCOMPLETE",
         "reasons": [
-          "PAGES_PENDING",
           "SOURCE_SCOPE_AUDIT_REQUIRED"
         ]
       },
-      "product_count": 52,
-      "last_attempt_at_utc": "2026-11-11T00:45:57.311291+00:00",
-      "pending_page_urls": [
-        "https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1"
-      ],
+      "product_count": 66,
+      "last_attempt_at_utc": "2026-11-11T00:47:38.599360+00:00",
+      "pending_page_urls": [],
       "errors": [],
       "unverified_link_candidate_count": 0
     }
   ],
-  "stage": "flash",
-  "artifact_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-11-11/20261111T004521266430Z-flash/scan.json",
-  "first_observed_candidate_count": 14,
-  "candidate_delta_count": 671,
+  "stage": "check",
+  "artifact_path": "/home/runner/work/knit-compass-photo-capture/knit-compass-photo-capture/data/brand-md-monitoring/direct-scans/2026-11-11/20261111T004825680249Z-check/scan.json",
+  "first_observed_candidate_count": 15,
+  "candidate_delta_count": 880,
   "baseline_initialization_count": 0
 }
