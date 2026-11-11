@@ -1,34 +1,31 @@
 # 新商品速報・巡回確認
-観測日：2026-11-10
+観測日：2026-11-11
 
 登録範囲の確認完了：0/65ブランド。
-本日観測した商品：1839件。MD用の蓄積として保持します。
+本日観測した商品：1477件。MD用の蓄積として保持します。
 初回発見と発売日は区別します。未確認・未取得を「新商品なし」と判定しません。
 
 ## 本日初めて見つけた商品（発売日未確認）
 
 |ブランド|商品|掲載価格|取得元|
 |---|---|---|---|
-|VIS|スターモチーフビーズ刺繍カーディガン|¥6,919|[公式商品](https://www.junonline.jp/vis/product/tops/cardigan/BVK46150)|
-|VIS|ダブル釦ニットジャケット|¥7,689|[公式商品](https://www.junonline.jp/vis/product/tops/cardigan/BVK46200)|
-|VIS|レースボウタイニットトップス|¥6,919|[公式商品](https://www.junonline.jp/vis/product/tops/knit-sweater/BVM46320)|
-|GLOBAL WORK|フワフワHugme刺繍カーディガン/759461|¥5,490|[公式商品](https://www.dot-st.com/globalwork/disp/item/759461/)|
-|LOWRYS FARM|【LFM(U)】ブークレＶネックニットプルオーバー|¥8,800|[公式商品](https://www.dot-st.com/lowrysfarm/disp/item/1084715/)|
-|JEANASIS|【先行予約】7GナポレオンカーディガンLS|¥7,700|[公式商品](https://www.dot-st.com/jeanasis/disp/item/1106665/)|
-|BAYFLOW|[毛玉になりにくい]ルーズＶネックニットプルオーバー|¥5,990|[公式商品](https://www.dot-st.com/bayflow/disp/item/1097887/)|
-|AMERICAN HOLIC|AMERICAN HOLIC 【ミッキー&フレンズ】ニットプルオーバー|¥ 6,990|[公式商品](https://stripe-club.com/brand/american-holic/item/100HX26H0002)|
-|AMERICAN HOLIC|AMERICAN HOLIC 【ミッキー&フレンズ】ニットフーディ|¥ 4,990|[公式商品](https://stripe-club.com/brand/american-holic/item/100HX26H0003)|
-|Te chichi|ヘンリーネック配色ニットプルオーバー|¥5940.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A5LN)|
-|Te chichi|ぽこぽこヤーンMIXカーディガン|¥7700.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A5N2)|
-|Te chichi|【マシンウォッシャブル】カールヤーンVネックミドルカーディガン|¥6930.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A5NB)|
-|Te chichi|【静電気防止/マシンウォッシャブル】ミックスラメ2WAYカーディガン|¥6600.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A5NC)|
-|Te chichi|【マシンウォッシャブル】ブークレーロゴニット|¥6600.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A5O0)|
+|studio CLIP|お花ニット編みブローチ|¥1,490|[公式商品](https://www.dot-st.com/studioclip/disp/item/1093012/)|
+|AMERICAN HOLIC|AMERICAN HOLIC フェアリーニット|¥ 3,990|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA26H0108)|
+|NATURAL BEAUTY BASIC|レースアップニット|¥9,493|[公式商品](https://mix.tokyo/products/0176270154)|
+|ADAM ET ROPÉ|【FACON JACMIN（ファソン ジャックマン）】TRESSY cardigan|¥68,200|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/EUK56000)|
+|LOUNGEDRESS|シアーチンツニット|¥15,400|[公式商品](https://www.palcloset.jp/display/item/LDZ1062405A0004/)|
+|LOUNGEDRESS|ドッキングペプラムニット|¥22,000|[公式商品](https://www.palcloset.jp/display/item/LDZ1062505A0001/)|
+|LOUNGEDRESS|シャギーニット Zipカーディガン|¥20,900|[公式商品](https://www.palcloset.jp/display/item/LDZ1062505A0002/)|
+|LOUNGEDRESS|《前後2WAY可》【JAPAN MADE】2WAY畦ニット|¥19,800|[公式商品](https://www.palcloset.jp/display/item/LDZ1062505A0003/)|
+|LOUNGEDRESS|ロゴリブニット|¥15,400|[公式商品](https://www.palcloset.jp/display/item/LDZ1062505A0004/)|
+|LOUNGEDRESS|BASICタートルニット|¥13,200|[公式商品](https://www.palcloset.jp/display/item/LDZ1062505A0005/)|
+|DOUDOU|【WEB限定】サイドラメラインタートルニット|¥12,100|[公式商品](https://www.palcloset.jp/display/item/DDZ1062405A0036/)|
+|DISCOAT|【WEB限定】メランジニットプルオーバー|¥7,150|[公式商品](https://www.palcloset.jp/display/item/DCZ1062405A0038/)|
+|DISCOAT|【WEB限定】配色ラグランショートニット|¥7,920|[公式商品](https://www.palcloset.jp/display/item/DCZ1062405A0046/)|
+|DISCOAT|【WEB限定】ボーダースキッパーニット|¥7,700|[公式商品](https://www.palcloset.jp/display/item/DCZ1062405A0047/)|
 
 ## ブランド・婦人対象の判定待ちリンク
 
-- AMERICAN HOLIC：[候補商品](https://stripe-club.com/brand/american-holic/item/100HA26G0031?areaid=eb0H100&clr_id=101) AMERICAN HOLIC 【予約】シャギーニットフラットパンプス
-- AMERICAN HOLIC：[候補商品](https://stripe-club.com/brand/american-holic/item/100HA26G0031?areaid=eb0H100&clr_id=102) AMERICAN HOLIC 【予約】シャギーニットフラットパンプス
-- AMERICAN HOLIC：[候補商品](https://stripe-club.com/brand/american-holic/item/100HA26G0031?areaid=eb0H100&clr_id=103) AMERICAN HOLIC 【予約】シャギーニットフラットパンプス
 
 ## ブランド別の確認状況
 
@@ -37,13 +34,13 @@
 |UNIQLO|未完了|0|0|
 |GU|未完了|0|0|
 |MUJI|未完了|0|0|
-|ROPÉ PICNIC|未完了|56|0|
-|VIS|未完了|116|0|
-|GLOBAL WORK|未完了|44|0|
-|LOWRYS FARM|未完了|51|0|
-|studio CLIP|未完了|52|0|
-|niko and ...|未完了|34|0|
-|earth music&ecology|未完了|4|0|
+|ROPÉ PICNIC|未完了|23|2|
+|VIS|未完了|38|3|
+|GLOBAL WORK|未完了|14|1|
+|LOWRYS FARM|未完了|49|0|
+|studio CLIP|未完了|49|0|
+|niko and ...|未完了|35|0|
+|earth music&ecology|未完了|5|0|
 |Green Parks|未完了|8|0|
 |OPAQUE.CLIP|未完了|0|0|
 |index|未完了|0|0|
@@ -53,30 +50,30 @@
 |coen|未完了|0|0|
 |DoCLASSE|未完了|236|0|
 |any SiS|未完了|0|0|
-|LEPSIM|未完了|57|0|
+|LEPSIM|未完了|58|0|
 |LAKOLE|未完了|44|0|
 |JEANASIS|未完了|34|0|
 |BAYFLOW|未完了|49|0|
-|HARE|未完了|52|0|
+|HARE|未完了|51|0|
 |Heather|未完了|49|0|
-|PAGEBOY|未完了|37|0|
+|PAGEBOY|未完了|39|0|
 |A part by|未完了|41|0|
-|Elura|未完了|34|0|
+|Elura|未完了|33|0|
 |mysty woman|未完了|30|0|
-|Andemiu|未完了|52|0|
-|AMERICAN HOLIC|未完了|55|2|
+|Andemiu|未完了|51|0|
+|AMERICAN HOLIC|未完了|13|3|
 |YECCA VECCA|未完了|2|0|
-|23区|未完了|33|4|
+|23区|未完了|8|6|
 |ICB|未完了|0|0|
 |自由区|未完了|0|0|
-|組曲|未完了|32|4|
+|組曲|未完了|7|6|
 |UNFILO|未完了|0|0|
 |INDIVI|未完了|0|0|
 |UNTITLED|未完了|0|0|
-|NATURAL BEAUTY BASIC|未完了|15|0|
-|SENSE OF PLACE|未完了|9|0|
+|NATURAL BEAUTY BASIC|未完了|16|0|
+|SENSE OF PLACE|未完了|5|0|
 |B.C STOCK|未完了|0|0|
-|SLOBE IENA|未完了|93|0|
+|SLOBE IENA|未完了|58|1|
 |green label relaxing|未完了|0|0|
 |Spick & Span|未完了|0|0|
 |IÉNA|未完了|0|0|
@@ -84,21 +81,21 @@
 |ANY|未完了|0|0|
 |MUJI Labo|未完了|0|0|
 |Mila Owen|未完了|0|0|
-|ROPÉ|未完了|55|0|
-|ADAM ET ROPÉ|未完了|95|0|
-|GALLARDAGALANTE|未完了|25|0|
+|ROPÉ|未完了|30|2|
+|ADAM ET ROPÉ|未完了|42|2|
+|GALLARDAGALANTE|未完了|24|0|
 |Whim Gazette|未完了|24|0|
-|LOUNGEDRESS|未完了|19|0|
+|LOUNGEDRESS|未完了|25|0|
 |RIVE DROITE|未完了|30|0|
-|DOUDOU|未完了|30|0|
+|DOUDOU|未完了|31|0|
 |SHENERY|未完了|12|0|
 |un dix cors|未完了|8|0|
-|La boutique BonBon|未完了|40|0|
+|La boutique BonBon|未完了|39|0|
 |natural couture|未完了|23|0|
-|DISCOAT|未完了|13|0|
+|DISCOAT|未完了|14|0|
 |ZARA|未完了|0|0|
 |SNIDEL|未完了|0|0|
-|JOURNAL STANDARD relume|未完了|68|0|
+|JOURNAL STANDARD relume|未完了|52|1|
 
 ## 未確認箇所・再取得対象
 
@@ -115,14 +112,19 @@
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10031
 
 ### ROPÉ PICNIC
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/?page=2
+- https://www.junonline.jp/rope-picnic/product/tops/cardigan/?page=2
 
 ### VIS
-取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.junonline.jp/vis/product/tops/cardigan/?page=4
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.junonline.jp/vis/product/tops/cardigan/?page=4
+- https://www.junonline.jp/vis/product/tops/knit-sweater/?page=2
+- https://www.junonline.jp/vis/product/tops/cardigan/?page=2
 
 ### GLOBAL WORK
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
 
 ### LOWRYS FARM
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -207,9 +209,10 @@
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### AMERICAN HOLIC
-未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち／ブランド・婦人対象の判定待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=12
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=8
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=2
 
 ### YECCA VECCA
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -220,6 +223,8 @@
 - https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=002&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=002&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1005
 
 ### ICB
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -235,6 +240,8 @@
 - https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=003&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=003&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1005
 
 ### UNFILO
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -261,7 +268,8 @@
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://baycrews.jp/brand/detail/bcstock
 
 ### SLOBE IENA
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1
 
 ### green label relaxing
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -293,10 +301,14 @@
 - HTTPError: HTTP Error 403: Forbidden：https://usagi-online.com/brand/milaowen/category/AB/AB05/
 
 ### ROPÉ
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.junonline.jp/rope/product/tops/knit-sweater/?page=2
+- https://www.junonline.jp/rope/product/tops/cardigan/?page=2
 
 ### ADAM ET ROPÉ
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/?page=2
+- https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/?page=2
 
 ### GALLARDAGALANTE
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -338,7 +350,8 @@
 - HTTPError: HTTP Error 403: Forbidden：https://usagi-online.com/brand/snidel/category/AB/AB05/
 
 ### JOURNAL STANDARD relume
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1
 
-深掘り待ち：745件。速報は詳細調査の完了を待たず保存します。
+深掘り待ち：750件。速報は詳細調査の完了を待たず保存します。
 詳細・混率・発売日等の不明点は未確認。正式マスター・顧客公開は確認後。
