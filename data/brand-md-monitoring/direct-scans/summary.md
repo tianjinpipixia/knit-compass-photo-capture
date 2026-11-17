@@ -2,7 +2,7 @@
 観測日：2026-11-17
 
 登録範囲の確認完了：0/65ブランド。
-本日観測した商品：1481件。MD用の蓄積として保持します。
+本日観測した商品：1838件。MD用の蓄積として保持します。
 初回発見と発売日は区別します。未確認・未取得を「新商品なし」と判定しません。
 
 ## 本日初めて見つけた商品（発売日未確認）
@@ -10,6 +10,7 @@
 |ブランド|商品|掲載価格|取得元|
 |---|---|---|---|
 |ROPÉ PICNIC|ラメプチハイネックニット|¥5,995|[公式商品](https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/GDM56360)|
+|GLOBAL WORK|やわらかリッチモールカーディガン/1067691|¥5,990|[公式商品](https://www.dot-st.com/globalwork/disp/item/1067691/)|
 |LOWRYS FARM|【星のカービィ】フワフワニットカーディガン|¥7,700|[公式商品](https://www.dot-st.com/lowrysfarm/disp/item/1054604/)|
 |studio CLIP|【先行予約】3.5ゲージフリンジニットベスト|¥4,390|[公式商品](https://www.dot-st.com/studioclip/disp/item/1112962/)|
 |ikka|ヤクタッチ配色切り替えニットプルオーバー|¥ 4,389|[公式商品](https://tokyodesignchannel.com/c/ikka/ikkaladies/ikkalknit/12120717)|
@@ -28,6 +29,8 @@
 |23区|【先行予約】ウールカシミヤ クルーネック ニット|¥17,930|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0650)|
 |23区|【先行予約】ウールカシミヤ スキッパー チュニック ニット|¥20,900|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0651)|
 |23区|【先行予約】ウールカシミヤ ボートネック ニット|¥17,930|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0652)|
+|23区|【先行予約】ウールカシミヤ カラーブロック ニット|¥17,930|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0653)|
+|23区|【先行予約】ウールカシミヤ タートルネック ニット|¥18,920|[公式商品](https://crosset.onward.co.jp/items/KRWOLW0654)|
 |NATURAL BEAUTY BASIC|フェザーラメ混ニット|¥9,999|[公式商品](https://mix.tokyo/products/0177170042)|
 |Te chichi|フェザーヤーンプルオーバーニット|¥6600.0|[公式商品](https://www.canshop.jp/ap/item/i/A1CAN000A5SB)|
 |ADAM ET ROPÉ|フリルヘムカーディガン|¥16,500|[公式商品](https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/GAK26270)|
@@ -44,9 +47,9 @@
 |UNIQLO|未完了|0|0|
 |GU|未完了|0|0|
 |MUJI|未完了|0|0|
-|ROPÉ PICNIC|未完了|25|2|
-|VIS|未完了|38|2|
-|GLOBAL WORK|未完了|11|1|
+|ROPÉ PICNIC|未完了|52|0|
+|VIS|未完了|120|0|
+|GLOBAL WORK|未完了|38|0|
 |LOWRYS FARM|未完了|51|0|
 |studio CLIP|未完了|54|0|
 |niko and ...|未完了|32|0|
@@ -71,19 +74,19 @@
 |Elura|未完了|33|0|
 |mysty woman|未完了|30|0|
 |Andemiu|未完了|54|0|
-|AMERICAN HOLIC|未完了|13|6|
+|AMERICAN HOLIC|未完了|63|5|
 |YECCA VECCA|未完了|2|0|
-|23区|未完了|7|8|
+|23区|未完了|34|8|
 |ICB|未完了|0|0|
 |自由区|未完了|0|0|
-|組曲|未完了|7|8|
+|組曲|未完了|39|8|
 |UNFILO|未完了|0|0|
 |INDIVI|未完了|0|0|
 |UNTITLED|未完了|0|0|
 |NATURAL BEAUTY BASIC|未完了|15|0|
 |SENSE OF PLACE|未完了|11|0|
 |B.C STOCK|未完了|0|0|
-|SLOBE IENA|未完了|58|1|
+|SLOBE IENA|未完了|91|0|
 |green label relaxing|未完了|0|0|
 |Spick & Span|未完了|0|0|
 |IÉNA|未完了|0|0|
@@ -91,8 +94,8 @@
 |ANY|未完了|0|0|
 |MUJI Labo|未完了|0|0|
 |Mila Owen|未完了|0|0|
-|ROPÉ|未完了|30|2|
-|ADAM ET ROPÉ|未完了|43|3|
+|ROPÉ|未完了|55|0|
+|ADAM ET ROPÉ|未完了|83|1|
 |GALLARDAGALANTE|未完了|25|0|
 |Whim Gazette|未完了|23|0|
 |LOUNGEDRESS|未完了|25|0|
@@ -105,7 +108,7 @@
 |DISCOAT|未完了|15|0|
 |ZARA|未完了|0|0|
 |SNIDEL|未完了|0|0|
-|JOURNAL STANDARD relume|未完了|48|1|
+|JOURNAL STANDARD relume|未完了|62|0|
 
 ## 未確認箇所・再取得対象
 
@@ -122,18 +125,13 @@
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10031
 
 ### ROPÉ PICNIC
-未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/?page=2
-- https://www.junonline.jp/rope-picnic/product/tops/cardigan/?page=2
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### VIS
-未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.junonline.jp/vis/product/tops/knit-sweater/?page=2
-- https://www.junonline.jp/vis/product/tops/cardigan/?page=2
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### GLOBAL WORK
-入口の取得・解析未完了／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### LOWRYS FARM
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -219,26 +217,25 @@
 
 ### AMERICAN HOLIC
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://stripe-club.com/brand/american-holic/search?so=NEW&page=8
-- https://stripe-club.com/brand/american-holic/search?so=NEW&page=3
-- https://stripe-club.com/brand/american-holic/search?so=NEW&page=13
-- https://stripe-club.com/brand/american-holic/search?so=NEW&page=24
-- https://stripe-club.com/brand/american-holic/search?so=NEW&page=20
-- https://stripe-club.com/brand/american-holic/search?so=NEW&page=2
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=14
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=25
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=21
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=10
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=5
 
 ### YECCA VECCA
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### 23区
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1005
-- https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=002&du=2&scc=1005
-- https://crosset.onward.co.jp/items?cp=13&pp=10&gc=2&bc=002&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=8&pp=10&gc=2&bc=002&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=11&pp=10&gc=2&bc=002&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=002&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=002&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=002&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=5&pp=10&gc=2&bc=002&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=5&pp=10&gc=2&bc=002&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=14&pp=10&gc=2&bc=002&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=002&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=12&pp=10&gc=2&bc=002&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=002&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=002&du=2&scc=1004
 
 ### ICB
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -250,14 +247,14 @@
 
 ### 組曲
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1005
-- https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1005
-- https://crosset.onward.co.jp/items?cp=8&pp=10&gc=2&bc=003&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=11&pp=10&gc=2&bc=003&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1004
-- https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1005
-- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=003&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=5&pp=10&gc=2&bc=003&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=5&pp=10&gc=2&bc=003&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=9&pp=10&gc=2&bc=003&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=12&pp=10&gc=2&bc=003&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=003&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=7&pp=10&gc=2&bc=003&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=003&du=2&scc=1004
 
 ### UNFILO
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -284,8 +281,7 @@
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://baycrews.jp/brand/detail/bcstock
 
 ### SLOBE IENA
-未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### green label relaxing
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -317,15 +313,11 @@
 - HTTPError: HTTP Error 403: Forbidden：https://usagi-online.com/brand/milaowen/category/AB/AB05/
 
 ### ROPÉ
-未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.junonline.jp/rope/product/tops/knit-sweater/?page=2
-- https://www.junonline.jp/rope/product/tops/cardigan/?page=2
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### ADAM ET ROPÉ
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/?page=4
-- https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/?page=2
-- https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/?page=2
+- https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/?page=3
 
 ### GALLARDAGALANTE
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -367,8 +359,7 @@
 - HTTPError: HTTP Error 403: Forbidden：https://usagi-online.com/brand/snidel/category/AB/AB05/
 
 ### JOURNAL STANDARD relume
-未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
-- https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1
+新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
-深掘り待ち：758件。速報は詳細調査の完了を待たず保存します。
+深掘り待ち：751件。速報は詳細調査の完了を待たず保存します。
 詳細・混率・発売日等の不明点は未確認。正式マスター・顧客公開は確認後。
