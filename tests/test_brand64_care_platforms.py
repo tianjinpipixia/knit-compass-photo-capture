@@ -6,7 +6,9 @@ import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 
 from jun_care_labels import care_observation
-from official_care_text import dot_detail, dot_detail_request, pal_care_text, title_features
+from brand64_canonical_store import attach_details
+from brand64_flash_pipeline import needs_watched_care
+from official_care_text import dot_care_text, dot_detail, dot_detail_request, pal_care_text, title_features
 from run_brand64_free_direct_scan import product_detail
 
 
@@ -56,3 +58,22 @@ class CarePlatformTests(unittest.TestCase):
         self.assertEqual(title_features('ニット〖洗濯機OK／接触冷感／毛玉軽減〗'), {
             '洗濯機洗い可': '洗濯機OK', '接触冷感': '接触冷感', '抗ピリング': '毛玉軽減'})
         self.assertEqual(title_features('ニット【洗える／毛玉に注意】'), {})
+
+    def test_legacy_watch_is_revisited_until_care_is_verified(self):
+        task = {'brand_id': 'BR-00004', 'reasons': ['OWNER_WATCH'], 'status': 'COMPLETE'}
+        sources = {'BR-00004': {'adapter': 'jun'}}
+        self.assertTrue(needs_watched_care(task, {}, sources))
+        self.assertFalse(needs_watched_care(task, {'care_label': {'status': 'verified'}}, sources))
+
+    def test_cumulative_care_maintains_identity_across_trailing_slash(self):
+        url = 'https://www.dot-st.com/globalwork/disp/item/1046363'
+        key = 'BR-00006|' + url
+        known = {key: {'product_url': url}}
+        care = dot_care_text('洗濯記号 132,611')
+        detail = {'product_url': url+'/', 'source_url': url+'/', 'care_label': care, 'publication_status': 'PUBLISH_HOLD',
+                  'human_review_required': True, 'evidence_level': 'OFFICIAL_PRODUCT_CARE_TEXT',
+                  'retrieved_at_utc': '2026-11-21T23:00:00Z', 'source_sha256': 'a'*64}
+        attach_details(known, {key+'/': detail})
+        stored = known[key]['care_label']
+        self.assertEqual(stored['source_url'], url)
+        self.assertEqual(stored['source_fetched_url'], url+'/')
