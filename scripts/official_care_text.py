@@ -2,9 +2,10 @@
 import json
 import re
 import unicodedata
-from urllib.parse import urlsplit
+from urllib.parse import parse_qs, urlencode, urlsplit
+from brand_direct_adapters import matches
 
-CARE_TEXT_ADAPTERS = frozenset(('fr', 'doclasse', 'canshop'))
+CARE_TEXT_ADAPTERS = frozenset(('fr', 'doclasse', 'canshop', 'pal', 'dot'))
 CARE_TEXT_SOURCE = 'OFFICIAL_PRODUCT_CARE_TEXT'
 TOKENS = {
     'home_wash': {
@@ -24,6 +25,105 @@ DOCLASSE_FUNCTION_LABELS = {
     '吸水速乾': ('吸水速乾',), '帯電防止': ('帯電防止',), '抗ピリング': ('抗ピリング',),
     '洗濯機OK': ('洗濯機洗い可',), 'UVカット': ('UVカット',),
 }
+FUNCTION_LABELS = {
+    **DOCLASSE_FUNCTION_LABELS,
+    'マシンウォッシャブル': ('洗濯機洗い可',), '洗濯機可': ('洗濯機洗い可',),
+    '洗濯機洗い可': ('洗濯機洗い可',), '洗濯機可能': ('洗濯機洗い可',),
+    '手洗い可': ('手洗い可',), '手洗い可能': ('手洗い可',),
+    '抗ピル': ('抗ピリング',), '毛玉軽減': ('抗ピリング',),
+    '毛玉になりにくい': ('抗ピリング',), 'アンチピリング': ('抗ピリング',),
+    '静電気防止': ('帯電防止',), '制電': ('帯電防止',), 'UVケア': ('UVカット',),
+    '保温': ('保温',), '防臭': ('防臭',),
+}
+
+
+def named_features(labels):
+    return {claim: label for label in labels
+            for claim in FUNCTION_LABELS.get(unicodedata.normalize('NFKC', label.strip()), ())}
+
+
+def title_features(title):
+    blocks = re.findall(r'【([^】]+)】|〖([^〗]+)〗|《([^》]+)》', title)
+    return named_features(label for block in blocks
+                          for label in re.split(r'[/／・、]', next(x for x in block if x)))
+
+
+# and ST's official product icons, matched against its published care guide.
+DOT_HOME = {
+    '100': ('prohibited', None, None), '110': ('hand', 40, None), '111': ('hand', 30, None),
+    '130': ('machine', 30, None), '131': ('machine', 30, 'gentle'), '132': ('machine', 30, 'very_gentle'),
+    '140': ('machine', 40, None), '141': ('machine', 40, 'gentle'), '142': ('machine', 40, 'very_gentle'),
+    '150': ('machine', 50, None), '151': ('machine', 50, 'gentle'),
+    '160': ('machine', 60, None), '161': ('machine', 60, 'gentle'), '170': ('machine', 70, None),
+}
+DOT_DRY = {
+    '600': ('prohibited', None, None), '610': ('allowed', 'F', None), '611': ('allowed', 'F', 'gentle'),
+    '620': ('allowed', 'P', None), '621': ('allowed', 'P', 'gentle'),
+}
+
+
+def dot_care_text(value):
+    if not isinstance(value, str):
+        return None
+    match = re.fullmatch(r'洗濯記号 ([1-7][0-9]{2}(?:,[1-7][0-9]{2}){0,19})', value)
+    if not match:
+        return None
+    parts = match[1].split(',')
+    home_codes = [code for code in parts if code.startswith('1')]
+    dry_codes = [code for code in parts if code.startswith('6')]
+    home = DOT_HOME.get(home_codes[0]) if len(home_codes) == 1 else None
+    dry = DOT_DRY.get(dry_codes[0]) if len(dry_codes) == 1 else None
+    return {'status': 'verified' if home or dry else 'unresolved', 'evidence_kind': 'official_text',
+            'text_format': 'dot_symbols', 'source_text': value,
+            'home_wash': home[0] if home else 'unknown', 'dry_clean': dry[0] if dry else 'unknown',
+            **({k: v for k, v in zip(('max_water_c', 'home_cycle'), home[1:]) if v} if home else {}),
+            **({k: v for k, v in zip(('dry_solvent', 'dry_cycle'), dry[1:]) if v} if dry else {})}
+
+
+def dot_detail_request(html, url, meta):
+    source = urlsplit(url)
+    slug = meta.get('slug', '')
+    path = source.path.rstrip('/') + '/'
+    code = re.fullmatch(r'/' + re.escape(slug) + r'/disp/item/([0-9]{5,12})/', path)
+    if source.scheme != 'https' or source.netloc != 'www.dot-st.com' or source.query or not code:
+        return None
+    raw = re.search(r'function getItemDetailData\(timing\).*?let sendData\s*=\s*({[^}]{1,1200}})', html, re.S)
+    if not raw:
+        return None
+    try:
+        params = json.loads(re.sub(r'("eafgrnl"\s*:)\s*eafgrnl', r'\1""', raw[1]))
+    except ValueError:
+        return None
+    if (params.get('itemCd') != code[1] or params.get('shopDir') != slug or params.get('ga_url') != path
+            or not re.fullmatch(r'[0-9]{10}', str(params.get('shopNo')))
+            or not re.fullmatch(r'[A-Z0-9]{2}', str(params.get('colorCd')))
+            or not re.fullmatch(r'[0-9]{14}', str(params.get('lm')))):
+        return None
+    request = {key: params[key] for key in ('itemCd', 'shopDir', 'shopNo', 'colorCd', 'ga_url', 'lm')}
+    request.update(dict.fromkeys(('dispNo', 'enmlcd', 'enemtp', 'eafgrnl'), ''))
+    return 'https://www.dot-st.com/async/cb/item/sub/?' + urlencode(request)
+
+
+def dot_detail(body, product_url, request_url, meta):
+    params = parse_qs(urlsplit(request_url).query)
+    try:
+        data = json.loads(body)
+        items = data['resultDtl']['item']
+    except (ValueError, KeyError, TypeError):
+        return None
+    if data.get('result') != 'true' or not isinstance(items, list) or len(items) != 1:
+        return None
+    item = items[0]
+    if (not isinstance(item, dict) or [item.get('itemCd')] != params.get('itemCd')
+            or [item.get('manShopNo')] != params.get('shopNo')
+            or not isinstance(item.get('brandNm'), str) or not matches(item['brandNm'], meta)
+            or not isinstance(item.get('itemNm'), str) or not item['itemNm'].strip()):
+        return None
+    care = dot_care_text('洗濯記号 ' + str(item.get('washIcon', '')))
+    tags = item.get('tagFunctionList')
+    claims = named_features(tag['tagName'] for tag in tags
+                            if isinstance(tag, dict) and isinstance(tag.get('tagName'), str)) if isinstance(tags, list) else {}
+    return assemble_detail(item['itemNm'], product_url, care, claims)
 
 
 def doclasse_features(doc):
@@ -105,17 +205,85 @@ def get_fr_care(doc, sku, color):
     return None, None, {}
 
 
+def pal_care_text(original):
+    if not isinstance(original, str) or not 0 < len(original) <= 250:
+        return None
+    parsed = set()
+    lines = original.split(' ／ ')
+    for line in lines:
+        value = unicodedata.normalize('NFKC', line)
+        value = re.sub(r'^(?:本体|製品):\s*', '', value)
+        value = re.sub(r'洗濯機洗い\((?:弱|非常に弱い)\)', '洗濯機洗い', value)
+        for piece in re.split(r'[/・、()]+', value):
+            token = piece.strip()
+            parsed.add({'洗濯機洗濯': '洗濯機洗い', 'ドライクリーニング': 'ドライクリーニング可'}.get(token, token))
+    # A product may explicitly permit hand washing in addition to an official
+    # machine-wash classification in the product's item table.
+    if (re.match(r'^本体:洗濯機洗い(?:\(|可能|可|$)', unicodedata.normalize('NFKC', lines[0]))
+            and not parsed.intersection({'手洗い', '手洗いのみ'})):
+        parsed.difference_update({'手洗い可', '手洗い可能'})
+    care = care_from_text(' '.join(sorted(parsed)))
+    return {**care, 'source_text': original, 'text_format': 'pal_care'} if care else None
+
+
+def pal_groups(doc, code):
+    for node in doc.root.walk():
+        if node.tag != 'script' or node.attrs.get('type') != 'application/ld+json':
+            continue
+        try:
+            data = json.loads(''.join(x for x in node.children if isinstance(x, str)))
+        except ValueError:
+            continue
+        for item in data if isinstance(data, list) else [data]:
+            if isinstance(item, dict) and item.get('@type') == 'ProductGroup' and item.get('productGroupID') == code:
+                yield item
+
+
+def pal_detail(doc, code, meta):
+    for group in pal_groups(doc, code):
+        brand = group.get('brand')
+        if (not isinstance(brand, dict) or not isinstance(brand.get('name'), str)
+                or not matches(re.split(r'[（(]', brand['name'], maxsplit=1)[0], meta)):
+            continue
+        name = group.get('name')
+        if not isinstance(name, str):
+            continue
+        values = []
+        for table in doc.root.walk():
+            if table.tag != 'table':
+                continue
+            rows = {}
+            for row in table.walk():
+                if row.tag != 'tr':
+                    continue
+                cells = [n for n in row.children if getattr(n, 'tag', None) in ('th', 'td')]
+                if len(cells) == 2 and cells[0].tag == 'th' and cells[1].tag == 'td':
+                    rows[' '.join(cells[0].text().split())] = ' '.join(cells[1].text().split())
+            if rows.get('品番') == code and rows.get('取り扱い') not in (None, '-'):
+                values.append(rows['取り扱い'])
+        description = group.get('description')
+        if isinstance(description, str):
+            values.extend(re.findall(r'^洗濯(?:方法|表示)?[：:]([^\r\n]+)', description, re.M))
+        material = group.get('material')
+        if isinstance(material, str):
+            values.extend(re.findall(r'^(?:手洗い可|家庭洗濯不可|洗濯機洗い可)[（(][^\r\n]+[）)]\s*$', material, re.M))
+        originals = list(dict.fromkeys(value.strip() for value in values if value.strip() and len(value.strip()) <= 120))
+        return name, pal_care_text(' ／ '.join(originals)), title_features(name)
+    return None, None, {}
+
+
 def read_care_detail(doc, url, meta):
     """Only use known official product paths and page-level identity evidence."""
     adapter = meta.get('adapter')
     hosts = {'fr': {'www.uniqlo.com': 'UNIQLO', 'www.gu-global.com': 'GU'},
-             'doclasse': {'www.doclasse.com': 'DoCLASSE'}, 'canshop': {'www.canshop.jp': 'Te chichi'}}
+             'doclasse': {'www.doclasse.com': 'DoCLASSE'}, 'canshop': {'www.canshop.jp': 'Te chichi'},
+             'pal': {'www.palcloset.jp': meta.get('brand_name')}}
     host_map = hosts.get(adapter)
     if not host_map:
         return None
     p = urlsplit(url)
     brand = host_map.get(p.hostname)
-    if p.scheme != 'https' or p.username or p.password or p.port or p.query or brand != meta.get('brand_name'):
+    if p.scheme != 'https' or p.username or p.password or p.port or p.query or not brand or brand != meta.get('brand_name'):
         return None
     canonical = {urlsplit(n.attrs.get('href', '')) for n in doc.root.walk()
                  if n.tag == 'link' and n.attrs.get('rel') == 'canonical'}
@@ -126,6 +294,8 @@ def read_care_detail(doc, url, meta):
         return None
     path = p.path.rstrip('/')
     claims = {}
+    care = None
+    text = None
     title = next((n.attrs.get('content', '') for n in doc.root.walk()
                   if n.tag == 'meta' and n.attrs.get('property') == 'og:title'), '')
     if adapter == 'fr' and canonical.path.rstrip('/') == path:
@@ -145,9 +315,17 @@ def read_care_detail(doc, url, meta):
             return None
         vals = texts_from_pair(doc, '洗濯表記', 'dt', 'dd', 'dl')
         name, text = title.split('/', 1)[1].split(' | ', 1)[0], next(iter(vals)) if len(vals) == 1 else None
+    elif adapter == 'pal' and canonical.path.rstrip('/') == path:
+        token = re.fullmatch(r'/display/item/([A-Z0-9]{10,24})', path)
+        if not token:
+            return None
+        name, care, claims = pal_detail(doc, token[1], meta)
     else:
         return None
-    care = care_from_text(text)
+    return assemble_detail(name, url, care or care_from_text(text), claims)
+
+
+def assemble_detail(name, url, care, claims):
     if not isinstance(name, str) or not name.strip() or (not care and not claims):
         return None
     detail = {'product_name': name.strip(), 'product_url': url, 'source_url': url,

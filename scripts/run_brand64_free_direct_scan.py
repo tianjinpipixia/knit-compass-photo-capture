@@ -7,7 +7,7 @@ pages stay in the unresolved queue; old products are never deleted on absence.
 import argparse
 import brand_direct_adapters as adapters
 from jun_care_labels import ASSET_ORIGIN, REVIEWED_PATHS, care_from_strip
-from official_care_text import read_care_detail
+from official_care_text import dot_detail, dot_detail_request, read_care_detail, title_features
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import datetime as dt
 import gzip
@@ -141,7 +141,17 @@ class Fetcher:
                 raise TimeoutError('BUDGET_EXHAUSTED: resume from saved queue')
             self.last[host] = time.monotonic()
             with self.guard: self.count += 1
-            req = urllib.request.Request(url,headers={'User-Agent':UA,'Accept':'text/html'})
+            headers = {'User-Agent': UA, 'Accept': 'text/html'}
+            parts = urlsplit(url)
+            if parts.hostname == 'www.dot-st.com' and parts.path == '/async/cb/item/sub/':
+                params = parse_qs(parts.query)
+                referer = params.get('ga_url', [])
+                if len(referer) != 1 or not re.fullmatch(r'/[\w-]+/disp/item/[0-9]+/', referer[0]):
+                    raise ValueError('Unexpected and ST product detail parameters')
+                headers.update(Accept='application/json')
+                headers['X-Requested-With'] = 'XMLHttpRequest'
+                headers['Referer'] = 'https://www.dot-st.com' + referer[0]
+            req = urllib.request.Request(url, headers=headers)
             timeout = self.request_timeout
             if self.deadline is not None:
                 timeout = min(timeout, self.deadline-time.monotonic())
@@ -329,6 +339,22 @@ def product_detail(html, url, meta, *, read_care_image_sha=None):
     raise ValueError('No matching official product detail found')
 
 
+def fetch_product_detail(fetch, url, meta):
+    html, evidence = fetch(url)
+    if meta.get('adapter') == 'dot':
+        endpoint = dot_detail_request(html, evidence['url'].rstrip('/'), meta)
+        if not endpoint:
+            raise ValueError('Product-bound and ST detail request unavailable')
+        payload, evidence = fetch(endpoint)
+        if evidence['url'] != endpoint:
+            raise ValueError('Unexpected redirect for and ST detail')
+        detail = dot_detail(payload, url, endpoint, meta)
+        if not detail:
+            raise ValueError('and ST product identity or care evidence unavailable')
+        return detail, evidence
+    return product_detail(html, url, meta, read_care_image_sha=getattr(fetch, 'care_image_sha', None)), evidence
+
+
 def jun_next_url(node, source, meta):
     """Translate the official pager's data-page without running JavaScript."""
     p = urlsplit(source)
@@ -419,6 +445,10 @@ def scan_brand(bid,meta,fetch, *, page_urls=None, max_pages=4, include_details=F
             if items:row['successful_page_urls'].append(url)
             for item in items:
                 item['source_sha256']=evidence['sha256']
+                if meta.get('adapter') == 'world':
+                    claims = title_features(item['product_name'])
+                    if claims:
+                        item['function_claims'] = list(claims)
                 identity=product_identity(item)
                 unique[identity]=merge_product(unique.get(identity),item)
             if not items:row['errors'].append({'url':url,'reason':'NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE'})

@@ -155,24 +155,31 @@ def queue_deep(changes, queue, tier, sources, date):
     for bid, meta in sources.items():
         for url in meta.get('watch_product_urls', []):
             key = bid+'|'+url
-            queue.setdefault(key, {'brand_id': bid, 'product_url': url,
-                                  'queued_date': date, 'reasons': ['OWNER_WATCH'],
-                                  'status': 'PENDING', 'attempts': 0})
+            task = queue.setdefault(key, {'brand_id': bid, 'product_url': url,
+                                         'queued_date': date, 'reasons': [], 'status': 'PENDING', 'attempts': 0})
+            if 'OWNER_WATCH' not in task['reasons']:
+                task['reasons'].append('OWNER_WATCH')
     return queue
 
 
-def care_gap_keys(rows, details, queue, selected, sources, date, limit=4):
+def care_gap_keys(rows, details, queue, selected, sources, date, limit=8, history=()):
     """Give existing listings a bounded turn on supported storefronts."""
     candidates = {}
     last_brand_attempt = {}
+    current_keys = set()
     for task in queue.values():
         brand_id, attempt = task.get('brand_id'), task.get('care_attempt_date') or ''
         last_brand_attempt[brand_id] = max(last_brand_attempt.get(brand_id, ''), attempt)
+    preserved = {}
+    for item in history:
+        preserved.setdefault(item.get('brand_id'), []).append(item)
     for brand_id in selected:
         row = rows.get(brand_id, {})
-        if sources.get(brand_id, {}).get('adapter') not in SUPPORTED_CARE or row.get('observed_date') != date:
+        if sources.get(brand_id, {}).get('adapter') not in SUPPORTED_CARE:
             continue
-        for item in row.get('surface_items', []):
+        current = row.get('surface_items', []) if row.get('observed_date') == date else []
+        current_keys.update(brand_id+'|'+item['product_url'] for item in current if item.get('product_url'))
+        for item in [*current, *preserved.get(brand_id, [])]:
             url = item.get('product_url')
             if not url or item.get('scope_status') != 'BRAND_AND_KNIT_PATH_MATCHED':
                 continue
@@ -184,9 +191,16 @@ def care_gap_keys(rows, details, queue, selected, sources, date, limit=4):
 
     keys = []
     brands = sorted(candidates, key=lambda brand: (last_brand_attempt.get(brand, ''), brand))
-    buckets = deque(deque(sorted(candidates[brand],
-                         key=lambda row: (queue.get(row[0], {}).get('last_attempt_date', ''), row[0])))
-                    for brand in brands)
+    storefronts = {}
+    for brand in brands:
+        storefronts.setdefault(sources[brand]['adapter'], deque()).append(brand)
+    buckets = deque()
+    while any(storefronts.values()):
+        for storefront in storefronts.values():
+            if storefront:
+                brand = storefront.popleft()
+                buckets.append(deque(sorted(candidates[brand], key=lambda row: (
+                    queue.get(row[0], {}).get('last_attempt_date', ''), row[0] not in current_keys, row[0]))))
     while buckets and len(keys) < limit:
         bucket = buckets.popleft()
         key, brand_id, url = bucket.popleft()
@@ -386,24 +400,23 @@ def run(argv=None):
             for future in as_completed(futures): pipe.accept(future.result())
     else:
         queue_deep(list(pipe.history.values()), pipe.queue, tier, sources, args.date)
-        gap_keys = care_gap_keys(pipe.rows, pipe.details, pipe.queue, selected, sources, args.date)
+        gap_keys = care_gap_keys(pipe.rows, pipe.details, pipe.queue, selected, sources, args.date,
+                                 history=pipe.known.values())
         priority = {key: index for index, key in enumerate(gap_keys)}
-        ordered = sorted(pipe.queue.items(), key=lambda kv: (priority.get(kv[0], len(priority)),
-                         kv[1].get('last_attempt_date', ''), 'OWNER_WATCH' not in kv[1]['reasons'],
+        ordered = sorted(pipe.queue.items(), key=lambda kv: ('OWNER_WATCH' not in kv[1]['reasons'],
+                         priority.get(kv[0], len(priority)), kv[1].get('last_attempt_date', ''),
                          kv[1]['queued_date'], kv[0]))
         count = 0
         for key, task in ordered:
             if (task['brand_id'] not in selected or (task['status'] == 'COMPLETE' and key not in priority)
                     or task.get('last_attempt_date') == args.date):
                 continue
-            if time.monotonic() >= deadline or count >= 8: break
+            if time.monotonic() >= deadline or count >= 16: break
             count += 1; task['attempts'] += 1; task['last_attempt_date'] = args.date
             if sources[task['brand_id']].get('adapter') in SUPPORTED_CARE:
                 task['care_attempt_date'] = args.date
             try:
-                body, evidence = fetch(task['product_url'])
-                detail = scan.product_detail(body, task['product_url'], sources[task['brand_id']],
-                                             read_care_image_sha=getattr(fetch, 'care_image_sha', None))
+                detail, evidence = scan.fetch_product_detail(fetch, task['product_url'], sources[task['brand_id']])
                 detail.update({'source_sha256': evidence['sha256'], 'retrieved_at_utc': evidence['retrieved_at_utc'],
                                'publication_status': 'PUBLISH_HOLD', 'human_review_required': True})
                 if sources[task['brand_id']].get('adapter') in SUPPORTED_CARE:
