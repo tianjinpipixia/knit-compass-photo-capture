@@ -124,6 +124,10 @@ def build_observed_product_shards(root):
                 continue
             if at.tzinfo is None or at.astimezone(timezone(timedelta(hours=9))).date().isoformat() != observed_date:
                 continue
+            if (not record['material_composition'] and detail.get('composition_evidence') == 'OFFICIAL_MATCHING_PRODUCT_TABLE'
+                    and isinstance(detail.get('composition'), str) and detail['composition'].strip()):
+                record['material_composition'] = detail['composition']
+                record['composition_detail_evidence'] = {'source_url': url, 'source_sha256': sha, 'retrieved_at_utc': retrieved}
             care = care_observation(detail)
             if care:
                 record['care_label'] = care

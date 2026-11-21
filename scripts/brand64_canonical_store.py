@@ -124,7 +124,10 @@ def attach_details(known, details):
 
     for key, detail in details.items():
         row = known.get(key.rstrip('/'))
-        if (not row or detail.get('product_url') not in [row['product_url'], *row.get('source_url_aliases', [])]
+        product_url = detail.get('product_url')
+        if (not row or not isinstance(product_url, str)
+            or (product_url.rstrip('/') != row['product_url'].rstrip('/')
+                and product_url not in row.get('source_url_aliases', []))
             or detail.get('source_url') != detail.get('product_url')
             or detail.get('publication_status') != 'PUBLISH_HOLD'
             or detail.get('human_review_required') is not True
@@ -141,6 +144,8 @@ def attach_details(known, details):
                 row['function_claims'] = list(dict.fromkeys([*(row.get('function_claims') or []), *claims]))
         care = care_observation(detail)
         if care and care['retrieved_at_utc'] >= (row.get('care_label') or {}).get('retrieved_at_utc', ''):
+            if care['source_url'] != row['product_url'] and care['source_url'].rstrip('/') == row['product_url'].rstrip('/'):
+                care = {**care, 'source_url': row['product_url'], 'source_fetched_url': care['source_url']}
             row['care_label'] = care
         if not row.get('material_composition') and detail.get('composition'):
             row['material_composition'] = detail['composition']

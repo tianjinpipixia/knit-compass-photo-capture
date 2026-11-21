@@ -318,21 +318,29 @@ def product_detail(html, url, meta, *, read_care_image_sha=None):
             if claims:
                 result['function_claims'] = claims
             images = set()
+            composition = set()
             for table in jun_product_tables(doc, url):
                 cell = table.get('洗濯表示')
                 if cell:
                     images.update(node.attrs.get('data-src') or node.attrs.get('src') for node in cell.walk()
                                   if node.tag == 'img' and node.has_class('laundryicon'))
+                if table.get('素材') and clean(table['素材'].text()):
+                    composition.add(clean(table['素材'].text()))
             if len(images) == 1:
                 care = care_from_strip(next(iter(images)), read_care_image_sha)
                 if care:
                     result['care_label'] = care
             elif len(images) > 1:
                 result['care_label'] = {'status': 'unresolved'}
-            for row in doc.root.walk():
-                if row.tag!='tr':continue
-                th=next((x for x in row.walk() if x.tag=='th'),None);td=next((x for x in row.walk() if x.tag=='td'),None)
-                if th and td and clean(th.text())=='素材':result['composition']=clean(td.text())
+            if urlsplit(url).hostname == ASSET_ORIGIN.removeprefix('https://'):
+                if len(composition) == 1:
+                    result['composition'] = composition.pop()
+                    result['composition_evidence'] = 'OFFICIAL_MATCHING_PRODUCT_TABLE'
+            else:
+                for row in doc.root.walk():
+                    if row.tag!='tr':continue
+                    th=next((x for x in row.walk() if x.tag=='th'),None);td=next((x for x in row.walk() if x.tag=='td'),None)
+                    if th and td and clean(th.text())=='素材':result['composition']=clean(td.text())
             return result
     if care_detail:
         return care_detail

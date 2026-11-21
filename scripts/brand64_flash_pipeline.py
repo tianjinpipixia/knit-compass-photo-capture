@@ -212,6 +212,12 @@ def care_gap_keys(rows, details, queue, selected, sources, date, limit=8, histor
     return keys
 
 
+def needs_watched_care(task, detail, sources):
+    return ('OWNER_WATCH' in task['reasons']
+            and sources[task['brand_id']].get('adapter') in SUPPORTED_CARE
+            and (detail.get('care_label') or {}).get('status') != 'verified')
+
+
 def markdown(summary, events, deep_queue):
     lines = ['# 新商品速報・巡回確認', f"観測日：{summary['observed_date']}", '',
              f"登録範囲の確認完了：{summary['complete_brand_count']}/{summary['active_brand_count']}ブランド。",
@@ -408,7 +414,9 @@ def run(argv=None):
                          kv[1]['queued_date'], kv[0]))
         count = 0
         for key, task in ordered:
-            if (task['brand_id'] not in selected or (task['status'] == 'COMPLETE' and key not in priority)
+            if (task['brand_id'] not in selected
+                    or (task['status'] == 'COMPLETE' and key not in priority
+                        and not needs_watched_care(task, pipe.details.get(key, {}), sources))
                     or task.get('last_attempt_date') == args.date):
                 continue
             if time.monotonic() >= deadline or count >= 16: break

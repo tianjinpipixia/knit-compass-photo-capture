@@ -39,6 +39,13 @@ class CumulativeObservedProductExportTests(unittest.TestCase):
             self.assertEqual(valid['function_detail_evidence']['source_sha256'], 'a'*64)
             self.assertEqual(valid['material_composition'], '')
             self.assertEqual(valid['care_label']['home_wash'], 'hand')
+            composition = {**detail, 'composition': 'レーヨン 50% ポリエステル 30% ナイロン 20%',
+                           'composition_evidence': 'OFFICIAL_MATCHING_PRODUCT_TABLE'}
+            saved = exported_function(composition)
+            self.assertEqual(saved['material_composition'], composition['composition'])
+            self.assertEqual(saved['composition_detail_evidence']['source_sha256'], 'a'*64)
+            self.assertEqual(exported_function({**composition, 'retrieved_at_utc': '2026-11-20T14:59:59Z'})
+                             ['material_composition'], '')
             self.assertEqual(exported_function({**detail,'function_claims':[]})['care_label']['dry_clean'],
                              'prohibited')
             text_only = {**detail, 'evidence_level': CARE_TEXT_SOURCE, 'function_claims': [],
