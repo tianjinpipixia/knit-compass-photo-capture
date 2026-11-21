@@ -1,7 +1,8 @@
 """JUN product care strips reviewed against its guide and JIS L0001:2024."""
 
 import re
-from official_care_text import care_from_text
+from official_care_text import care_from_text, dot_care_text, pal_care_text
+from urllib.parse import urlsplit
 
 ASSET_ORIGIN = 'https://www.junonline.jp'
 ASSET_ROOT = '/common/img/sentaku/'
@@ -58,7 +59,16 @@ def care_observation(detail):
             or not detail.get('retrieved_at_utc')):
         return None
     if label.get('evidence_kind') == 'official_text':
-        if care_from_text(label.get('source_text')) != label:
+        text = label.get('source_text')
+        text_format = label.get('text_format')
+        host = urlsplit(detail['source_url']).hostname
+        if text_format == 'pal_care' and host == 'www.palcloset.jp':
+            verified = pal_care_text(text)
+        elif text_format == 'dot_symbols' and host == 'www.dot-st.com':
+            verified = dot_care_text(text)
+        else:
+            verified = care_from_text(text)
+        if verified != label:
             return None
     elif label['status'] == 'verified':
         reviewed = REVIEWED_STRIPS.get(label.get('image_sha256'))
