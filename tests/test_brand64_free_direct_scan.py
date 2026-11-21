@@ -89,12 +89,15 @@ class Tests(unittest.TestCase):
         self.assertEqual(detail(codes=('MMJ-01', 'MFC-900', 'MMJ-01')), ['洗濯機洗い可', '抗ピリング'])
         self.assertEqual(detail('・洗濯機OK：ご自宅でマシンウォッシュが可能。'), ['洗濯機洗い可'])
         self.assertEqual(detail('・アンチピリング：毛羽立ちや毛玉になりにくいアンチピリング加工素材。'), ['抗ピリング'])
+        self.assertEqual(detail(codes=('MFC-904',)), ['帯電防止'])
+        self.assertEqual(detail('・帯電防止：静電気の発生を抑え、着脱時のストレスを軽減。'), ['帯電防止'])
         self.assertEqual(detail('・洗濯機OK：ご自宅でマシンウォッシュが可能。'
                                 ' ・アンチピリング：毛羽立ちや毛玉になりにくいアンチピリング加工素材。',
                                 ('MMJ-02',)), ['手洗い可', '抗ピリング'])
         self.assertEqual(detail('ピリングが生じることがあります。手洗い可能ではありません。'
-                                '自宅で洗えるかは不明です。アンチピリングではありません。',
-                                ('MMJ-01', 'MFC-900'), 'OTHER'), [])
+                                '自宅で洗えるかは不明です。アンチピリングではありません。'
+                                '静電気が発生する場合があり、帯電防止加工はありません。',
+                                ('MMJ-01', 'MFC-900', 'MFC-904'), 'OTHER'), [])
 
     def test_product_group_detail_collects_variant_offers(self):
         html = '''<script type="application/ld+json">{

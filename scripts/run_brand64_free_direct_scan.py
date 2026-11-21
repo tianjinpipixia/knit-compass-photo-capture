@@ -181,11 +181,13 @@ JUN_FUNCTION_ICONS = {
     '/common/img/sustainable/MMJ-02.png': '手洗い可',
     '/common/img/sustainable/MMJ-01.png': '洗濯機洗い可',
     '/common/img/sustainable/MFC-900.png': '抗ピリング',
+    '/common/img/sustainable/MFC-904.png': '帯電防止',
 }
 JUN_DESCRIPTION_CLAIMS = (
     (r'(?:^|[・。])\s*手洗い可能\s*(?:。|$)', '手洗い可'),
     (r'(?:^|・)\s*洗濯機OK[:：]\s*ご自宅でマシンウォッシュが可能\s*(?:。|$)', '洗濯機洗い可'),
     (r'(?:^|・)\s*アンチピリング[:：]\s*毛羽立ちや毛玉になりにくいアンチピリング加工素材\s*(?:。|$)', '抗ピリング'),
+    (r'(?:^|・)\s*帯電防止[:：]\s*静電気の発生を抑え、着脱時のストレスを軽減\s*(?:。|$)', '帯電防止'),
 )
 
 
