@@ -121,6 +121,45 @@ class Tests(unittest.TestCase):
         self.assertIsNone(read('/common/img/sentaku/SC-191.gif',machine,'ANOTHER'))
         self.assertIsNone(read('//another.example/SC-191.gif',machine))
 
+    def test_non_jun_uses_only_product_bound_care_and_keeps_omitted_dry_unknown(self):
+        import json
+        from official_care_text import care_from_text
+        source='https://www.uniqlo.com/jp/ja/products/E488191-000/00'
+        payload={'entity':{'pdpEntity':{'E488191-000-00':{'product':{
+            'productId':'E488191-000','name':'ニット','washingInformation':'手洗い可, ドライクリーニング可',
+        }}}}}
+        meta={'adapter':'fr','brand_name':'UNIQLO'}
+        markup=f'<link rel="canonical" href="{source}">'
+        markup+='<script>window.__PRELOADED_STATE__ = '+json.dumps(payload,ensure_ascii=False)+';</script>'
+        markup+='<section id="productMaterialDescription-content"><p>手洗い可, ドライクリーニング可</p></section>'
+        care=scan.product_detail(markup,source,meta)['care_label']
+        self.assertEqual((care['home_wash'],care['dry_clean']),('hand','allowed'))
+        with self.assertRaises(ValueError):
+            scan.product_detail(markup,source.replace('488191','488192'),meta)
+        self.assertEqual(care_from_text('手洗い')['dry_clean'],'unknown')
+        self.assertEqual(care_from_text('家庭洗濯不可、ドライクリーニング不可')['dry_clean'],'prohibited')
+        self.assertEqual(care_from_text('洗濯機OK、手洗いのみ')['home_wash'],'unknown')
+        self.assertEqual(care_from_text('手洗いかドライクリーニング可かは不明です。')['status'],'unresolved')
+
+        detail='https://www.doclasse.com/item/detail/1_1_32669/008'
+        markup='<link rel="canonical" href="https://www.doclasse.com/item/detail/1_1_32669">'
+        markup+='<meta property="og:title" content="ニット/DoCLASSE">'
+        markup+='<table><tr><th>洗濯表示</th><td>洗濯機可</td></tr></table>'
+        markup+='<div class="detailArea__txt__explain"><p>95％以上UVカット</p><p>接触冷感</p></div>'
+        markup+='<div class="review"><p>抗菌防臭</p></div>'
+        product=scan.product_detail(markup,detail,{'adapter':'doclasse','brand_name':'DoCLASSE'})
+        self.assertEqual(product['function_claims'],['UVカット','接触冷感'])
+        self.assertEqual(product['care_label']['home_wash'],'machine')
+
+        path='https://www.canshop.jp/ap/item/i/A1CAN000A5QL'
+        markup=f'<link rel="canonical" href="{path}"><meta property="og:title" content="Te chichi/ニット">'
+        markup+='<dl><dt>洗濯表記</dt><dd>手洗い可 石油系ドライクリーニング</dd></dl>'
+        product=scan.product_detail(markup,path,{'adapter':'canshop','brand_name':'Te chichi'})
+        self.assertEqual(product['care_label']['dry_clean'],'allowed')
+        with self.assertRaises(ValueError):
+            scan.product_detail(markup.replace('Te chichi/','別ブランド/'),path,
+                                {'adapter':'canshop','brand_name':'Te chichi'})
+
     def test_product_group_detail_collects_variant_offers(self):
         html = '''<script type="application/ld+json">{
           "@type":"ProductGroup","name":"ウールミンクショートボレロ",

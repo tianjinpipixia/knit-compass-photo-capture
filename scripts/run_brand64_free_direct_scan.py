@@ -7,6 +7,7 @@ pages stay in the unresolved queue; old products are never deleted on absence.
 import argparse
 import brand_direct_adapters as adapters
 from jun_care_labels import ASSET_ORIGIN, REVIEWED_PATHS, care_from_strip
+from official_care_text import read_care_detail
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import datetime as dt
 import gzip
@@ -261,6 +262,7 @@ def jun_function_icons(doc, url):
 
 def product_detail(html, url, meta, *, read_care_image_sha=None):
     doc = Document(html)
+    care_detail = read_care_detail(doc, url, meta)
     def objects(obj):
         if isinstance(obj,dict):
             yield obj
@@ -293,12 +295,16 @@ def product_detail(html, url, meta, *, read_care_image_sha=None):
             result={'product_name':clean(obj.get('name')), 'product_url':canonical(url),
                     'description':clean(obj.get('description')), 'offers':offers,
                     'evidence_level':'OFFICIAL_PRODUCT_JSONLD','source_url':url}
+            if care_detail:
+                for field in ('care_label','function_source_text'):
+                    if field in care_detail:
+                        result[field] = care_detail[field]
             icon_claims = jun_function_icons(doc, url)
             text_claims = jun_description_function_claims(url, result['description'])
             care_claims = {'手洗い可', '洗濯機洗い可'}
             if care_claims.intersection(icon_claims):
                 text_claims = [claim for claim in text_claims if claim not in care_claims]
-            claims = list(dict.fromkeys([*icon_claims, *text_claims]))
+            claims = list(dict.fromkeys([*icon_claims, *text_claims, *(care_detail or {}).get('function_claims', [])]))
             if claims:
                 result['function_claims'] = claims
             images = set()
@@ -318,7 +324,9 @@ def product_detail(html, url, meta, *, read_care_image_sha=None):
                 th=next((x for x in row.walk() if x.tag=='th'),None);td=next((x for x in row.walk() if x.tag=='td'),None)
                 if th and td and clean(th.text())=='素材':result['composition']=clean(td.text())
             return result
-    raise ValueError('No matching official product JSON-LD found')
+    if care_detail:
+        return care_detail
+    raise ValueError('No matching official product detail found')
 
 
 def jun_next_url(node, source, meta):

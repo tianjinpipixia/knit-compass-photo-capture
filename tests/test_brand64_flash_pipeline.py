@@ -47,6 +47,16 @@ class FlashPipelineTests(unittest.TestCase):
         self.assertEqual(queue[legacy]['status'],'COMPLETE')
         self.assertEqual(queue[key('BR-00005','F')]['reasons'],['CARE_LABEL_GAP'])
 
+    def test_care_gap_moves_to_brand_that_has_waited_longest(self):
+        ids = ['BR-00004', 'BR-00018']
+        urls = [URL+'A', 'https://www.doclasse.com/item/detail/1_1_33200']
+        sources = {ids[0]: META, ids[1]: {'adapter':'doclasse'}}
+        rows = {b:{'observed_date': DATE,'surface_items':[{'product_url':u,
+                  'scope_status':'BRAND_AND_KNIT_PATH_MATCHED'}]} for b,u in zip(ids,urls)}
+        queue = {ids[0]+'|'+urls[0]:{'brand_id':ids[0],'care_attempt_date':'2026-01-01'}}
+        self.assertEqual(pipeline.care_gap_keys(rows,{},queue,ids,sources,DATE,limit=1),
+                         [ids[1]+'|'+urls[1]])
+
     def test_slow_source_recovers_once_in_scheduled_retry_with_longer_timeout(self):
         from unittest.mock import MagicMock
         from email.message import Message

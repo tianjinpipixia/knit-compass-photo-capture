@@ -7,6 +7,7 @@ import unittest
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]/'scripts'))
 import publish_brand64_flash_feed as publisher
 from jun_care_labels import care_from_strip
+from official_care_text import CARE_TEXT_SOURCE, care_from_text
 
 
 class CumulativeObservedProductExportTests(unittest.TestCase):
@@ -40,6 +41,12 @@ class CumulativeObservedProductExportTests(unittest.TestCase):
             self.assertEqual(valid['care_label']['home_wash'], 'hand')
             self.assertEqual(exported_function({**detail,'function_claims':[]})['care_label']['dry_clean'],
                              'prohibited')
+            text_only = {**detail, 'evidence_level': CARE_TEXT_SOURCE, 'function_claims': [],
+                         'care_label':care_from_text('手洗い')}
+            saved_text = exported_function(text_only)['care_label']
+            self.assertEqual((saved_text['source_text'], saved_text['dry_clean']), ('手洗い','unknown'))
+            tampered = {**text_only,'care_label':{**text_only['care_label'],'dry_clean':'allowed'}}
+            self.assertNotIn('care_label', exported_function(tampered))
             for invalid in ({'retrieved_at_utc': '2026-11-20T14:59:59Z'},
                             {'retrieved_at_utc': '2026-11-21T09:00:00'},
                             {'source_url': url+'0'}, {'source_sha256': 'x'*64}):

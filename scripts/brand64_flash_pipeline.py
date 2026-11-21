@@ -15,10 +15,12 @@ import time
 
 import run_brand64_free_direct_scan as scan
 from jun_care_labels import CARE_REVIEW_VERSION
+from official_care_text import CARE_TEXT_ADAPTERS
 
 REQUIRED_SURFACES = {'NEW', 'PREORDER', 'KNIT', 'CARDIGAN'}
 COVERAGE_INCOMPLETE_EXIT = 3  # Saved result is valid, but registered-scope coverage remains incomplete.
 FUNCTION = re.compile(r'冷感|遮熱|調温|吸水|速乾|抗菌|防臭|制電|帯電防止|抗ピル|抗起球|アンチピリング|洗濯機|マシンウォッシャブル|UV|UPF|PCM', re.I)
+SUPPORTED_CARE = CARE_TEXT_ADAPTERS | {'jun'}
 STATE_FILES = ('known-products.json', 'coverage-state.json', 'deep-dive-queue.json',
                'flash-history.json', 'detail-results.json')
 
@@ -160,11 +162,15 @@ def queue_deep(changes, queue, tier, sources, date):
 
 
 def care_gap_keys(rows, details, queue, selected, sources, date, limit=4):
-    """Give existing JUN listings a bounded turn in the current detail budget."""
+    """Give existing listings a bounded turn on supported storefronts."""
     candidates = {}
+    last_brand_attempt = {}
+    for task in queue.values():
+        brand_id, attempt = task.get('brand_id'), task.get('care_attempt_date') or ''
+        last_brand_attempt[brand_id] = max(last_brand_attempt.get(brand_id, ''), attempt)
     for brand_id in selected:
         row = rows.get(brand_id, {})
-        if sources.get(brand_id, {}).get('adapter') != 'jun' or row.get('observed_date') != date:
+        if sources.get(brand_id, {}).get('adapter') not in SUPPORTED_CARE or row.get('observed_date') != date:
             continue
         for item in row.get('surface_items', []):
             url = item.get('product_url')
@@ -177,10 +183,12 @@ def care_gap_keys(rows, details, queue, selected, sources, date, limit=4):
             candidates.setdefault(brand_id, set()).add((key, brand_id, url))
 
     keys = []
-    buckets = [deque(sorted(rows, key=lambda row: (queue.get(row[0], {}).get('last_attempt_date', ''), row[0])))
-               for rows in candidates.values()]
+    brands = sorted(candidates, key=lambda brand: (last_brand_attempt.get(brand, ''), brand))
+    buckets = deque(deque(sorted(candidates[brand],
+                         key=lambda row: (queue.get(row[0], {}).get('last_attempt_date', ''), row[0])))
+                    for brand in brands)
     while buckets and len(keys) < limit:
-        bucket = buckets.pop(0)
+        bucket = buckets.popleft()
         key, brand_id, url = bucket.popleft()
         queue.setdefault(key, {'brand_id': brand_id, 'product_url': url, 'queued_date': date,
                                'reasons': ['CARE_LABEL_GAP'], 'status': 'PENDING', 'attempts': 0})
@@ -390,13 +398,15 @@ def run(argv=None):
                 continue
             if time.monotonic() >= deadline or count >= 8: break
             count += 1; task['attempts'] += 1; task['last_attempt_date'] = args.date
+            if sources[task['brand_id']].get('adapter') in SUPPORTED_CARE:
+                task['care_attempt_date'] = args.date
             try:
                 body, evidence = fetch(task['product_url'])
                 detail = scan.product_detail(body, task['product_url'], sources[task['brand_id']],
                                              read_care_image_sha=getattr(fetch, 'care_image_sha', None))
                 detail.update({'source_sha256': evidence['sha256'], 'retrieved_at_utc': evidence['retrieved_at_utc'],
                                'publication_status': 'PUBLISH_HOLD', 'human_review_required': True})
-                if sources[task['brand_id']].get('adapter') == 'jun':
+                if sources[task['brand_id']].get('adapter') in SUPPORTED_CARE:
                     detail['care_review_version'] = CARE_REVIEW_VERSION
                 pipe.details[key] = detail
                 task['status'] = 'COMPLETE'; task.pop('error', None)

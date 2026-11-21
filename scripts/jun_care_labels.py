@@ -1,6 +1,7 @@
 """JUN product care strips reviewed against its guide and JIS L0001:2024."""
 
 import re
+from official_care_text import care_from_text
 
 ASSET_ORIGIN = 'https://www.junonline.jp'
 ASSET_ROOT = '/common/img/sentaku/'
@@ -56,7 +57,10 @@ def care_observation(detail):
             or not isinstance(sha, str) or not re.fullmatch('[a-f0-9]{64}', sha)
             or not detail.get('retrieved_at_utc')):
         return None
-    if label['status'] == 'verified':
+    if label.get('evidence_kind') == 'official_text':
+        if care_from_text(label.get('source_text')) != label:
+            return None
+    elif label['status'] == 'verified':
         reviewed = REVIEWED_STRIPS.get(label.get('image_sha256'))
         if (not reviewed or label.get('image_url') not in {ASSET_ORIGIN+path for path in REVIEWED_PATHS}
                 or tuple(label.get(field) for field in CARE_FIELDS) != reviewed):

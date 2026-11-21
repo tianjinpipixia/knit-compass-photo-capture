@@ -15,6 +15,7 @@ from brand64_flash_pipeline import STATE_FILES
 from merge_brand64_retrospective_sources import merge_retrospective_sources
 from brand64_identity_guard import persist_reconciled
 from jun_care_labels import care_observation
+from official_care_text import CARE_TEXT_SOURCE
 from brand64_history_store import history_files, write_history, read_history, DIRECTORY as HISTORY_DIRECTORY
 
 BRANCH = 'brand64/flash-feed'
@@ -108,7 +109,7 @@ def build_observed_product_shards(root):
             if (not isinstance(detail, dict) or detail.get('product_url') != url
                     or detail.get('source_url') != url or detail.get('publication_status') != 'PUBLISH_HOLD'
                     or detail.get('human_review_required') is not True
-                    or detail.get('evidence_level') != 'OFFICIAL_PRODUCT_JSONLD'):
+                    or detail.get('evidence_level') not in ('OFFICIAL_PRODUCT_JSONLD', CARE_TEXT_SOURCE)):
                 continue
             retrieved = detail.get('retrieved_at_utc')
             sha = detail.get('source_sha256')
