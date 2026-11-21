@@ -119,6 +119,7 @@ def seed_working_state(root):
 
 def attach_details(known, details):
     from run_brand64_free_direct_scan import jun_description_function_claims
+    from jun_care_labels import care_observation
 
     for key, detail in details.items():
         row = known.get(key.rstrip('/'))
@@ -136,6 +137,9 @@ def attach_details(known, details):
             row['official_detail'] = {**detail, 'function_claims': claims} if claims else detail
             if claims:
                 row['function_claims'] = list(dict.fromkeys([*(row.get('function_claims') or []), *claims]))
+            care = care_observation(detail)
+            if care:
+                row['care_label'] = care
         if not row.get('material_composition') and detail.get('composition'):
             row['material_composition'] = detail['composition']
         for field in ('confirmed_design', 'colors'):

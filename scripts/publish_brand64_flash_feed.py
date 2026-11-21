@@ -14,6 +14,7 @@ from brand64_canonical_store import CANONICAL, normalize_identities, read_pool, 
 from brand64_flash_pipeline import STATE_FILES
 from merge_brand64_retrospective_sources import merge_retrospective_sources
 from brand64_identity_guard import persist_reconciled
+from jun_care_labels import care_observation
 from brand64_history_store import history_files, write_history, read_history, DIRECTORY as HISTORY_DIRECTORY
 
 BRANCH = 'brand64/flash-feed'
@@ -122,6 +123,9 @@ def build_observed_product_shards(root):
                 continue
             if at.tzinfo is None or at.astimezone(timezone(timedelta(hours=9))).date().isoformat() != observed_date:
                 continue
+            care = care_observation(detail)
+            if care:
+                record['care_label'] = care
             if not isinstance(claims, list) or not claims or not all(isinstance(claim, str) and claim.strip() for claim in claims):
                 continue
             record['function_claims'] = list(dict.fromkeys([*record['function_claims'], *claims]))

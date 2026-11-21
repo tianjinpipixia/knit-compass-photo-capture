@@ -14,10 +14,11 @@ import re
 import time
 
 import run_brand64_free_direct_scan as scan
+from jun_care_labels import CARE_REVIEW_VERSION
 
 REQUIRED_SURFACES = {'NEW', 'PREORDER', 'KNIT', 'CARDIGAN'}
 COVERAGE_INCOMPLETE_EXIT = 3  # Saved result is valid, but registered-scope coverage remains incomplete.
-FUNCTION = re.compile(r'冷感|遮熱|調温|吸水|速乾|抗菌|防臭|制電|抗ピル|抗起球|UV|UPF|PCM', re.I)
+FUNCTION = re.compile(r'冷感|遮熱|調温|吸水|速乾|抗菌|防臭|制電|帯電防止|抗ピル|抗起球|アンチピリング|洗濯機|マシンウォッシャブル|UV|UPF|PCM', re.I)
 STATE_FILES = ('known-products.json', 'coverage-state.json', 'deep-dive-queue.json',
                'flash-history.json', 'detail-results.json')
 
@@ -156,6 +157,37 @@ def queue_deep(changes, queue, tier, sources, date):
                                   'queued_date': date, 'reasons': ['OWNER_WATCH'],
                                   'status': 'PENDING', 'attempts': 0})
     return queue
+
+
+def care_gap_keys(rows, details, queue, selected, sources, date, limit=4):
+    """Give existing JUN listings a bounded turn in the current detail budget."""
+    candidates = {}
+    for brand_id in selected:
+        row = rows.get(brand_id, {})
+        if sources.get(brand_id, {}).get('adapter') != 'jun' or row.get('observed_date') != date:
+            continue
+        for item in row.get('surface_items', []):
+            url = item.get('product_url')
+            if not url or item.get('scope_status') != 'BRAND_AND_KNIT_PATH_MATCHED':
+                continue
+            key = brand_id+'|'+url
+            if (details.get(key, {}).get('care_review_version') == CARE_REVIEW_VERSION
+                    or queue.get(key, {}).get('last_attempt_date') == date):
+                continue
+            candidates.setdefault(brand_id, set()).add((key, brand_id, url))
+
+    keys = []
+    buckets = [deque(sorted(rows, key=lambda row: (queue.get(row[0], {}).get('last_attempt_date', ''), row[0])))
+               for rows in candidates.values()]
+    while buckets and len(keys) < limit:
+        bucket = buckets.pop(0)
+        key, brand_id, url = bucket.popleft()
+        queue.setdefault(key, {'brand_id': brand_id, 'product_url': url, 'queued_date': date,
+                               'reasons': ['CARE_LABEL_GAP'], 'status': 'PENDING', 'attempts': 0})
+        keys.append(key)
+        if bucket:
+            buckets.append(bucket)
+    return keys
 
 
 def markdown(summary, events, deep_queue):
@@ -346,17 +378,26 @@ def run(argv=None):
             for future in as_completed(futures): pipe.accept(future.result())
     else:
         queue_deep(list(pipe.history.values()), pipe.queue, tier, sources, args.date)
-        ordered = sorted(pipe.queue.items(), key=lambda kv: (kv[1].get('last_attempt_date', ''), 'OWNER_WATCH' not in kv[1]['reasons'], kv[1]['queued_date'], kv[0]))
+        gap_keys = care_gap_keys(pipe.rows, pipe.details, pipe.queue, selected, sources, args.date)
+        priority = {key: index for index, key in enumerate(gap_keys)}
+        ordered = sorted(pipe.queue.items(), key=lambda kv: (priority.get(kv[0], len(priority)),
+                         kv[1].get('last_attempt_date', ''), 'OWNER_WATCH' not in kv[1]['reasons'],
+                         kv[1]['queued_date'], kv[0]))
         count = 0
         for key, task in ordered:
-            if task['brand_id'] not in selected or task['status'] == 'COMPLETE' or task.get('last_attempt_date') == args.date: continue
+            if (task['brand_id'] not in selected or (task['status'] == 'COMPLETE' and key not in priority)
+                    or task.get('last_attempt_date') == args.date):
+                continue
             if time.monotonic() >= deadline or count >= 8: break
             count += 1; task['attempts'] += 1; task['last_attempt_date'] = args.date
             try:
                 body, evidence = fetch(task['product_url'])
-                detail = scan.product_detail(body, task['product_url'], sources[task['brand_id']])
+                detail = scan.product_detail(body, task['product_url'], sources[task['brand_id']],
+                                             read_care_image_sha=getattr(fetch, 'care_image_sha', None))
                 detail.update({'source_sha256': evidence['sha256'], 'retrieved_at_utc': evidence['retrieved_at_utc'],
                                'publication_status': 'PUBLISH_HOLD', 'human_review_required': True})
+                if sources[task['brand_id']].get('adapter') == 'jun':
+                    detail['care_review_version'] = CARE_REVIEW_VERSION
                 pipe.details[key] = detail
                 task['status'] = 'COMPLETE'; task.pop('error', None)
             except (OSError, ValueError, TimeoutError) as exc:

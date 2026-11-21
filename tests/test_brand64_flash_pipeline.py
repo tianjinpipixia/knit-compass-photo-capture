@@ -30,6 +30,23 @@ def fetch(url):
 
 
 class FlashPipelineTests(unittest.TestCase):
+    def test_care_gap_selection_rotates_brands_reopens_legacy_and_skips_reviewed(self):
+        def item(code):
+            return {'product_url':URL+code,'scope_status':'BRAND_AND_KNIT_PATH_MATCHED'}
+        def key(brand,code):
+            return brand+'|'+URL+code
+        cases = {'BR-00004':['A','B','C','D','E'], 'BR-00005':['F','G'], 'BR-OTHER':['H']}
+        rows = {b:{'observed_date':DATE,'surface_items':[item(c) for c in codes]} for b,codes in cases.items()}
+        sources = {'BR-00004':META,'BR-00005':META,'BR-OTHER':{'adapter':'generic'}}
+        legacy = key('BR-00004','B')
+        queue = {legacy:{'status':'COMPLETE','reasons':['OWNER_WATCH']},
+                 key('BR-00004','C'):{'last_attempt_date':DATE}}
+        detail = {key('BR-00004','A'):{'care_review_version':pipeline.CARE_REVIEW_VERSION}}
+        chosen = pipeline.care_gap_keys(rows, detail, queue, list(cases), sources, DATE, limit=3)
+        self.assertEqual(chosen,[legacy,key('BR-00005','F'),key('BR-00004','D')])
+        self.assertEqual(queue[legacy]['status'],'COMPLETE')
+        self.assertEqual(queue[key('BR-00005','F')]['reasons'],['CARE_LABEL_GAP'])
+
     def test_slow_source_recovers_once_in_scheduled_retry_with_longer_timeout(self):
         from unittest.mock import MagicMock
         from email.message import Message

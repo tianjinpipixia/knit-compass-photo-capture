@@ -6,6 +6,7 @@ pages stay in the unresolved queue; old products are never deleted on absence.
 """
 import argparse
 import brand_direct_adapters as adapters
+from jun_care_labels import ASSET_ORIGIN, REVIEWED_PATHS, care_from_strip
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import datetime as dt
 import gzip
@@ -108,6 +109,25 @@ class Fetcher:
         self.deadline = deadline
         self.request_timeout = request_timeout
         self.guard = threading.Lock(); self.locks = {}; self.last = {}; self.count = 0
+        self.care_image_hashes = {}
+    def care_image_sha(self, url):
+        if url in self.care_image_hashes:
+            return self.care_image_hashes[url]
+        if not any(url == ASSET_ORIGIN + path for path in REVIEWED_PATHS):
+            raise ValueError('Unreviewed JUN care image URL')
+        remaining = self.request_timeout if self.deadline is None else self.deadline-time.monotonic()
+        if remaining <= 0:
+            raise TimeoutError('Care image request exceeds run budget')
+        request = urllib.request.Request(url, headers={'User-Agent': UA, 'Accept': 'image/gif'})
+        with urllib.request.build_opener(SafeRedirect()).open(request, timeout=min(remaining, 5)) as response:
+            data = response.read(32769)
+            if response.url != url or len(data) > 32768 or not data.startswith((b'GIF87a', b'GIF89a')):
+                raise ValueError('Unexpected JUN care image')
+        digest = hashlib.sha256(data).hexdigest()
+        self.root.mkdir(parents=True, exist_ok=True)
+        (self.root / (digest+'.gif')).write_bytes(data)
+        self.care_image_hashes[url] = digest
+        return digest
     def __call__(self, url):
         public_url(url)
         if self.deadline is not None and time.monotonic() >= self.deadline:
@@ -182,6 +202,18 @@ JUN_FUNCTION_ICONS = {
     '/common/img/sustainable/MMJ-01.png': '洗濯機洗い可',
     '/common/img/sustainable/MFC-900.png': '抗ピリング',
     '/common/img/sustainable/MFC-904.png': '帯電防止',
+    '/common/img/sustainable/MFC-300.png': 'UVカット',
+    '/common/img/sustainable/MFC-301.png': 'UVカット',
+    '/common/img/sustainable/MFC-302.png': 'UVカット',
+    '/common/img/sustainable/MFC-303.png': '遮熱',
+    '/common/img/sustainable/MFC-400.png': '吸水速乾',
+    '/common/img/sustainable/MFC-401.png': '吸水',
+    '/common/img/sustainable/MFC-402.png': '速乾',
+    '/common/img/sustainable/MFC-504.png': '接触冷感',
+    '/common/img/sustainable/MFC-601.png': '抗菌',
+    '/common/img/sustainable/MFC-602.png': '消臭',
+    '/common/img/sustainable/MFC-700.png': '防シワ',
+    '/common/img/sustainable/MFC-902.png': 'はっ水',
 }
 JUN_DESCRIPTION_CLAIMS = (
     (r'(?:^|[・。])\s*手洗い可能\s*(?:。|$)', '手洗い可'),
@@ -197,11 +229,10 @@ def jun_description_function_claims(url, description):
     return [claim for pattern, claim in JUN_DESCRIPTION_CLAIMS if re.search(pattern, description)]
 
 
-def jun_function_icons(doc, url):
+def jun_product_tables(doc, url):
     if urlsplit(url).hostname != 'www.junonline.jp':
-        return []
+        return
     code = urlsplit(url).path.rstrip('/').rsplit('/', 1)[-1]
-    claims = []
     for table in (node for node in doc.root.walk() if node.tag == 'table'):
         rows = {}
         for row in (node for node in table.walk() if node.tag == 'tr'):
@@ -209,8 +240,13 @@ def jun_function_icons(doc, url):
                      if isinstance(node, Node) and node.tag in ('th', 'td')}
             if 'th' in cells and 'td' in cells:
                 rows[re.sub(r'\s+', '', cells['th'].text())] = cells['td']
-        if not rows.get('品番') or clean(rows['品番'].text()) != code:
-            continue
+        if rows.get('品番') and clean(rows['品番'].text()) == code:
+            yield rows
+
+
+def jun_function_icons(doc, url):
+    claims = []
+    for rows in jun_product_tables(doc, url):
         functions = rows.get('サステナブル・機能')
         if functions:
             for icon in functions.walk():
@@ -223,7 +259,7 @@ def jun_function_icons(doc, url):
     return claims
 
 
-def product_detail(html, url, meta):
+def product_detail(html, url, meta, *, read_care_image_sha=None):
     doc = Document(html)
     def objects(obj):
         if isinstance(obj,dict):
@@ -265,6 +301,18 @@ def product_detail(html, url, meta):
             claims = list(dict.fromkeys([*icon_claims, *text_claims]))
             if claims:
                 result['function_claims'] = claims
+            images = set()
+            for table in jun_product_tables(doc, url):
+                cell = table.get('洗濯表示')
+                if cell:
+                    images.update(node.attrs.get('data-src') or node.attrs.get('src') for node in cell.walk()
+                                  if node.tag == 'img' and node.has_class('laundryicon'))
+            if len(images) == 1:
+                care = care_from_strip(next(iter(images)), read_care_image_sha)
+                if care:
+                    result['care_label'] = care
+            elif len(images) > 1:
+                result['care_label'] = {'status': 'unresolved'}
             for row in doc.root.walk():
                 if row.tag!='tr':continue
                 th=next((x for x in row.walk() if x.tag=='th'),None);td=next((x for x in row.walk() if x.tag=='td'),None)
@@ -375,7 +423,9 @@ def scan_brand(bid,meta,fetch, *, page_urls=None, max_pages=4, include_details=F
     for url in (meta.get('watch_product_urls',[])[:2] if include_details else []):
         try:
             html,evidence=fetch(url);row['sources'].append(evidence)
-            detail=product_detail(html,evidence['url'],meta);detail['source_sha256']=evidence['sha256']
+            detail=product_detail(html,evidence['url'],meta,
+                                  read_care_image_sha=getattr(fetch,'care_image_sha',None))
+            detail['source_sha256']=evidence['sha256']
             detail['discovered_in_listing']=product_identity({'product_url':url}) in unique
             row['product_details'].append(detail)
         except (OSError,ValueError,TimeoutError) as exc:
