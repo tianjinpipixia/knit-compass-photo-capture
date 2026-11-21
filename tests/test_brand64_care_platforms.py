@@ -8,8 +8,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from jun_care_labels import care_observation
 from brand64_canonical_store import attach_details
 from brand64_flash_pipeline import needs_watched_care
-from official_care_text import dot_care_text, dot_detail, dot_detail_request, pal_care_text, title_features
-from run_brand64_free_direct_scan import product_detail
+from official_care_text import add_world_listing_features, dot_care_text, dot_detail, dot_detail_request, pal_care_text, title_features
+from run_brand64_free_direct_scan import product_detail, source_error
 
 
 class CarePlatformTests(unittest.TestCase):
@@ -58,6 +58,25 @@ class CarePlatformTests(unittest.TestCase):
         self.assertEqual(title_features('ニット〖洗濯機OK／接触冷感／毛玉軽減〗'), {
             '洗濯機洗い可': '洗濯機OK', '接触冷感': '接触冷感', '抗ピリング': '毛玉軽減'})
         self.assertEqual(title_features('ニット【洗える／毛玉に注意】'), {})
+        meta = {'adapter': 'world', 'slug': 'grove', 'women_category_entry': True}
+        item = {'product_name': 'ニット【毛玉軽減】', 'evidence_level': 'OFFICIAL_LISTING_CARD',
+                'scope_status': 'BRAND_AND_KNIT_PATH_MATCHED', 'source_sha256': 'a'*64,
+                'product_url': 'https://store.world.co.jp/brand/grove/item/BR76825F0054',
+                'source_url': 'https://store.world.co.jp/s/brand/grove/category/WB/WB01/',
+                'function_claims': ['接触冷感']}
+        wrong = {**item, 'source_url': item['source_url'].replace('/grove/', '/index/')}
+        add_world_listing_features(wrong, meta)
+        self.assertNotIn('function_listing_evidence', wrong)
+        add_world_listing_features(item, meta)
+        self.assertEqual(item['function_claims'], ['接触冷感', '抗ピリング'])
+        self.assertEqual(item['function_listing_evidence']['claim_text'], {'抗ピリング': '毛玉軽減'})
+        self.assertNotIn('care_label', item)
+
+    def test_access_response_records_confirmed_edge_provider(self):
+        from urllib.error import HTTPError
+        url = 'https://store.world.co.jp/brand/grove/item/BR76825F0054'
+        result = source_error(url, HTTPError(url, 403, 'Forbidden', {'Server': 'AkamaiGHost'}, None))
+        self.assertEqual((result['http_status'], result['access_provider']), (403, 'AKAMAI'))
 
     def test_legacy_watch_is_revisited_until_care_is_verified(self):
         task = {'brand_id': 'BR-00004', 'reasons': ['OWNER_WATCH'], 'status': 'COMPLETE'}

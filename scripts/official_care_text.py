@@ -48,6 +48,27 @@ def title_features(title):
                           for label in re.split(r'[/／・、]', next(x for x in block if x)))
 
 
+def add_world_listing_features(record, meta):
+    if (meta.get('adapter') != 'world' or record.get('evidence_level') != 'OFFICIAL_LISTING_CARD'
+            or record.get('scope_status') != 'BRAND_AND_KNIT_PATH_MATCHED'
+            or not re.fullmatch(r'[a-f0-9]{64}', str(record.get('source_sha256', '')))):
+        return
+    product = urlsplit(record['product_url'])
+    source = urlsplit(record['source_url'])
+    if any(u.scheme != 'https' or u.netloc != 'store.world.co.jp' for u in (product, source)):
+        return
+    slug = re.escape(meta['slug'])
+    if (not re.fullmatch(r'/brand/'+slug+r'/item/[0-9A-Za-z]+/?', product.path)
+            or not re.fullmatch(r'/s/brand/'+slug+r'/category/WB/WB\d+/+', source.path)
+            or not meta.get('women_category_entry')):
+        return
+    claims = title_features(record['product_name'])
+    if claims:
+        record['function_claims'] = list(dict.fromkeys([*(record.get('function_claims') or []), *claims]))
+        record['function_listing_evidence'] = {'source_url': record['source_url'],
+            'source_sha256': record['source_sha256'], 'title': record['product_name'], 'claim_text': claims}
+
+
 # and ST's official product icons, matched against its published care guide.
 DOT_HOME = {
     '100': ('prohibited', None, None), '110': ('hand', 40, None), '111': ('hand', 30, None),

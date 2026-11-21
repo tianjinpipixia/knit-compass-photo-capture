@@ -15,7 +15,7 @@ from brand64_flash_pipeline import STATE_FILES
 from merge_brand64_retrospective_sources import merge_retrospective_sources
 from brand64_identity_guard import persist_reconciled
 from jun_care_labels import care_observation
-from official_care_text import CARE_TEXT_SOURCE
+from official_care_text import CARE_TEXT_SOURCE, add_world_listing_features
 from brand64_history_store import history_files, write_history, read_history, DIRECTORY as HISTORY_DIRECTORY
 
 BRANCH = 'brand64/flash-feed'
@@ -170,6 +170,10 @@ def build_cumulative_product_shards(root, active=None):
         known, review = persist_reconciled(root, known, active)
     details_path = root/'detail-results.json'
     attach_details(known, json.loads(details_path.read_text()) if details_path.exists() else {})
+    sources = json.loads((Path(__file__).resolve().parents[1]/'config/brand64-free-direct-sources.json').read_text())['brands']
+    for row in known.values():
+        if isinstance(row, dict):
+            add_world_listing_features(row, sources.get(row.get('brand_id'), {}))
     latest_path = root/'latest.json'
     feed_path = root/'feed.json'
     if not latest_path.is_file() or not feed_path.is_file():
