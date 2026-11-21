@@ -52,7 +52,7 @@ concurrency:
 jobs:
   direct-scan:
     runs-on: ubuntu-26.04
-    timeout-minutes: 15
+    timeout-minutes: 18
     env:
       TZ: Asia/Tokyo
       GH_TOKEN: ${{ github.token }}
@@ -124,7 +124,7 @@ jobs:
         id: deep
         if: always() && steps.flash.outcome == 'success'
         continue-on-error: true
-        run: python scripts/run_brand64_free_direct_scan.py --stage deep --budget-seconds 90
+        run: python scripts/run_brand64_free_direct_scan.py --stage deep --budget-seconds 180 --detail-limit 64
 
       - name: Check every brand for unresolved coverage
         id: coverage

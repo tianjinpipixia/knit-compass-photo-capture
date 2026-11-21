@@ -7,7 +7,7 @@ pages stay in the unresolved queue; old products are never deleted on absence.
 import argparse
 import brand_direct_adapters as adapters
 from jun_care_labels import ASSET_ORIGIN, REVIEWED_PATHS, care_from_strip
-from official_care_text import dot_detail, dot_detail_request, read_care_detail, title_features
+from official_care_text import add_world_listing_features, dot_detail, dot_detail_request, read_care_detail
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import datetime as dt
 import gzip
@@ -363,6 +363,17 @@ def fetch_product_detail(fetch, url, meta):
     return product_detail(html, url, meta, read_care_image_sha=getattr(fetch, 'care_image_sha', None)), evidence
 
 
+def source_error(url, exc):
+    record = {'url': url, 'reason': type(exc).__name__+': '+str(exc)[:300]}
+    if isinstance(exc, urllib.error.HTTPError):
+        record['http_status'] = exc.code
+        edge = (exc.headers.get('Server') or '').casefold() if exc.headers else ''
+        if edge == 'akamaighost' and exc.code in (403, 429):
+            record['access_provider'] = 'AKAMAI'
+            record['reason'] += ' (Akamai)'
+    return record
+
+
 def jun_next_url(node, source, meta):
     """Translate the official pager's data-page without running JavaScript."""
     p = urlsplit(source)
@@ -453,15 +464,12 @@ def scan_brand(bid,meta,fetch, *, page_urls=None, max_pages=4, include_details=F
             if items:row['successful_page_urls'].append(url)
             for item in items:
                 item['source_sha256']=evidence['sha256']
-                if meta.get('adapter') == 'world':
-                    claims = title_features(item['product_name'])
-                    if claims:
-                        item['function_claims'] = list(claims)
+                add_world_listing_features(item, meta)
                 identity=product_identity(item)
                 unique[identity]=merge_product(unique.get(identity),item)
             if not items:row['errors'].append({'url':url,'reason':'NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE'})
         except (OSError,ValueError,TimeoutError) as exc:
-            row['errors'].append({'url':url,'reason':type(exc).__name__+': '+str(exc)[:300]})
+            row['errors'].append(source_error(url, exc))
     row['pending_page_urls']=[u for u in queue if u not in seen]
     verified=[i for i in unique.values() if i.get('scope_status')=='BRAND_AND_KNIT_PATH_MATCHED']
     row['unverified_link_candidates']=[i for i in unique.values() if i.get('scope_status')!='BRAND_AND_KNIT_PATH_MATCHED']

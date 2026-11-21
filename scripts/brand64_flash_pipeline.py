@@ -181,7 +181,8 @@ def care_gap_keys(rows, details, queue, selected, sources, date, limit=8, histor
         current_keys.update(brand_id+'|'+item['product_url'] for item in current if item.get('product_url'))
         for item in [*current, *preserved.get(brand_id, [])]:
             url = item.get('product_url')
-            if not url or item.get('scope_status') != 'BRAND_AND_KNIT_PATH_MATCHED':
+            if not url or item.get('scope_status') not in {
+                    'BRAND_AND_KNIT_PATH_MATCHED', 'OFFICIAL_REGULAR_LINE_WOMENS_KNIT_CONFIRMED'}:
                 continue
             key = brand_id+'|'+url
             if (details.get(key, {}).get('care_review_version') == CARE_REVIEW_VERSION
@@ -359,6 +360,24 @@ def interleave_hosts(selected, sources):
     return order
 
 
+def detail_batches(tasks, limit, workers=4):
+    """Keep at most one product in flight per official host."""
+    by_host = {}
+    for task in tasks:
+        hostname = scan.urlsplit(task[1]['product_url']).hostname
+        by_host.setdefault(hostname, deque()).append(task)
+    ready = deque(by_host.values())
+    while ready and limit > 0:
+        batch = []
+        for _ in range(min(workers, limit, len(ready))):
+            queue = ready.popleft()
+            batch.append(queue.popleft())
+            if queue:
+                ready.append(queue)
+        limit -= len(batch)
+        yield batch
+
+
 def run(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument('--brand', action='append')
@@ -367,9 +386,11 @@ def run(argv=None):
     parser.add_argument('--stage', choices=['flash', 'retry', 'deep', 'check'], default='flash')
     parser.add_argument('--budget-seconds', type=int, default=180)
     parser.add_argument('--max-pages', type=int, default=4)
+    parser.add_argument('--detail-limit', type=int, default=16)
     args = parser.parse_args(argv)
     if args.date != scan.today(): parser.error('Live observations cannot be backdated')
     if not 1 <= args.max_pages <= 16 or not 1 <= args.budget_seconds <= 300: parser.error('Bounded execution limits required')
+    if not 1 <= args.detail_limit <= 96: parser.error('Detail limit must be between 1 and 96')
     active = read(scan.ROOT/'config/brand64-active-brands.json', {})['active_brands']
     sources = read(scan.ROOT/'config/brand64-free-direct-sources.json', {})['brands']
     tier = read(scan.ROOT/'config/brand64-md-monitoring.json', {})['tiered_analysis']['tier_a_deep_dive_brand_ids']
@@ -407,33 +428,56 @@ def run(argv=None):
     else:
         queue_deep(list(pipe.history.values()), pipe.queue, tier, sources, args.date)
         gap_keys = care_gap_keys(pipe.rows, pipe.details, pipe.queue, selected, sources, args.date,
-                                 history=pipe.known.values())
+                                 limit=max(8, args.detail_limit*3//4), history=pipe.known.values())
         priority = {key: index for index, key in enumerate(gap_keys)}
         ordered = sorted(pipe.queue.items(), key=lambda kv: ('OWNER_WATCH' not in kv[1]['reasons'],
                          priority.get(kv[0], len(priority)), kv[1].get('last_attempt_date', ''),
                          kv[1]['queued_date'], kv[0]))
-        count = 0
+        eligible = []
         for key, task in ordered:
             if (task['brand_id'] not in selected
                     or (task['status'] == 'COMPLETE' and key not in priority
                         and not needs_watched_care(task, pipe.details.get(key, {}), sources))
                     or task.get('last_attempt_date') == args.date):
                 continue
-            if time.monotonic() >= deadline or count >= 16: break
-            count += 1; task['attempts'] += 1; task['last_attempt_date'] = args.date
-            if sources[task['brand_id']].get('adapter') in SUPPORTED_CARE:
-                task['care_attempt_date'] = args.date
+            eligible.append((key, task))
+
+        def collect_detail(entry):
+            key, task = entry
             try:
                 detail, evidence = scan.fetch_product_detail(fetch, task['product_url'], sources[task['brand_id']])
-                detail.update({'source_sha256': evidence['sha256'], 'retrieved_at_utc': evidence['retrieved_at_utc'],
-                               'publication_status': 'PUBLISH_HOLD', 'human_review_required': True})
-                if sources[task['brand_id']].get('adapter') in SUPPORTED_CARE:
-                    detail['care_review_version'] = CARE_REVIEW_VERSION
-                pipe.details[key] = detail
-                task['status'] = 'COMPLETE'; task.pop('error', None)
+                return key, task, detail, evidence, None
             except (OSError, ValueError, TimeoutError) as exc:
-                task['status'] = 'REVIEW_REQUIRED'; task['error'] = str(exc)[:300]
-            pipe.checkpoint()
+                return key, task, None, None, scan.source_error(task['product_url'], exc)
+
+        pending_checkpoint = 0
+        with ThreadPoolExecutor(max_workers=4) as pool:
+            for batch in detail_batches(eligible, args.detail_limit):
+                if time.monotonic() >= deadline:
+                    break
+                for key, task, detail, evidence, error in pool.map(collect_detail, batch):
+                    if error and 'BUDGET_EXHAUSTED' in error['reason']:
+                        continue
+                    task['attempts'] += 1
+                    task['last_attempt_date'] = args.date
+                    supported = sources[task['brand_id']].get('adapter') in SUPPORTED_CARE
+                    if supported:
+                        task['care_attempt_date'] = args.date
+                    if error:
+                        task['status'] = 'REVIEW_REQUIRED'
+                        task['error'] = error['reason']
+                    else:
+                        detail.update({'source_sha256': evidence['sha256'], 'retrieved_at_utc': evidence['retrieved_at_utc'],
+                                       'publication_status': 'PUBLISH_HOLD', 'human_review_required': True})
+                        if supported:
+                            detail['care_review_version'] = CARE_REVIEW_VERSION
+                        pipe.details[key] = detail
+                        task['status'] = 'COMPLETE'
+                        task.pop('error', None)
+                    pending_checkpoint += 1
+                if pending_checkpoint >= 8:
+                    pipe.checkpoint()
+                    pending_checkpoint = 0
     summary = pipe.checkpoint()
     print(json.dumps({k: summary[k] for k in ('stage', 'product_count', 'complete_brand_count', 'pending_page_count')}, ensure_ascii=False))
     # Transport/extraction gaps are recorded; coverage is a separate, strict gate.

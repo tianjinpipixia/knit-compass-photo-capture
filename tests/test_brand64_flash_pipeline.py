@@ -30,6 +30,13 @@ def fetch(url):
 
 
 class FlashPipelineTests(unittest.TestCase):
+    def test_detail_batches_obey_limit_and_one_per_host(self):
+        urls = [URL+'A', URL+'B', 'https://www.dot-st.com/item/1',
+                'https://www.palcloset.jp/display/item/A', 'https://www.dot-st.com/item/2']
+        tasks = [(n, {'product_url': url}) for n, url in enumerate(urls)]
+        result = list(pipeline.detail_batches(tasks, 4))
+        self.assertEqual([[n for n, _ in group] for group in result], [[0, 2, 3], [1]])
+
     def test_care_gap_selection_rotates_brands_reopens_legacy_and_skips_reviewed(self):
         def item(code):
             return {'product_url':URL+code,'scope_status':'BRAND_AND_KNIT_PATH_MATCHED'}
