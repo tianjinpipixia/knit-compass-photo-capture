@@ -6,9 +6,56 @@ import unittest
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]/'scripts'))
 import publish_brand64_flash_feed as publisher
+from jun_care_labels import care_from_strip
+from official_care_text import CARE_TEXT_SOURCE, care_from_text
 
 
 class CumulativeObservedProductExportTests(unittest.TestCase):
+    def test_daily_functions_use_exact_product_and_same_japan_date(self):
+        url = 'https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/GDM56370'
+        date = '2026-11-21'
+        listing = {'product_url': url, 'product_code': 'GDM56370',
+                   'scope_status': 'BRAND_AND_KNIT_PATH_MATCHED'}
+        detail = {'product_url': url, 'source_url': url, 'function_claims': ['手洗い可'],
+                  'source_sha256': 'a'*64, 'retrieved_at_utc': '2026-11-20T15:00:00Z',
+                  'publication_status': 'PUBLISH_HOLD', 'human_review_required': True,
+                  'evidence_level': 'OFFICIAL_PRODUCT_JSONLD',
+                  'care_label': care_from_strip('/common/img/sentaku/SE-151.gif',
+                                              lambda url:'543efe09e8128d530f27bbdc0e649005d0998926d8205d3cdc63f70a216f1806')}
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            (root/'latest.json').write_text(json.dumps({'observed_date': date, 'product_count': 1,
+                                                      'product_observed_brand_count': 1}))
+            (root/'coverage-state.json').write_text(json.dumps({
+                'BR-00004': {'observed_date': date, 'surface_items': [listing]}}))
+
+            def exported_function(saved_detail):
+                (root/'detail-results.json').write_text(json.dumps({'BR-00004|'+url: saved_detail}))
+                publisher.build_observed_product_shards(root)
+                return json.loads((root/'observed-products/BR-00004.json').read_text())['records'][0]
+
+            valid = exported_function(detail)
+            self.assertEqual(valid['function_claims'], ['手洗い可'])
+            self.assertEqual(valid['function_detail_evidence']['source_sha256'], 'a'*64)
+            self.assertEqual(valid['material_composition'], '')
+            self.assertEqual(valid['care_label']['home_wash'], 'hand')
+            self.assertEqual(exported_function({**detail,'function_claims':[]})['care_label']['dry_clean'],
+                             'prohibited')
+            text_only = {**detail, 'evidence_level': CARE_TEXT_SOURCE, 'function_claims': [],
+                         'care_label':care_from_text('手洗い')}
+            saved_text = exported_function(text_only)['care_label']
+            self.assertEqual((saved_text['source_text'], saved_text['dry_clean']), ('手洗い','unknown'))
+            tampered = {**text_only,'care_label':{**text_only['care_label'],'dry_clean':'allowed'}}
+            self.assertNotIn('care_label', exported_function(tampered))
+            for invalid in ({'retrieved_at_utc': '2026-11-20T14:59:59Z'},
+                            {'retrieved_at_utc': '2026-11-21T09:00:00'},
+                            {'source_url': url+'0'}, {'source_sha256': 'x'*64}):
+                with self.subTest(invalid=invalid):
+                    record = exported_function({**detail, **invalid})
+                    self.assertEqual(record['function_claims'], [])
+                    self.assertNotIn('function_detail_evidence', record)
+                    self.assertNotIn('care_label', record)
+
     def test_cumulative_pool_keeps_prior_days_and_dedupes_by_brand_and_url(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = pathlib.Path(tmp)

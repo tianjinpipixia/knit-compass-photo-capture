@@ -72,6 +72,94 @@ class Tests(unittest.TestCase):
                     source.replace('/rope-picnic/','/vis/'),source+'&page=2',source.replace('page=2','page=x')]:
             self.assertIsNone(scan.jun_next_url(node(),url,META))
 
+    def test_jun_functions_require_matching_product_and_explicit_official_evidence(self):
+        import json
+        product = {'@type': 'Product', 'name': '対象ニット',
+                   'url': URL, 'brand': {'name': META['brand_name']},
+                   'offers': {'@type': 'Offer', 'price': 5490}}
+
+        def detail(description='', codes=(), table_sku='GDM66000'):
+            icons = ''.join(f'<img data-src="/common/img/sustainable/{code}.png">' for code in codes)
+            html = '<script type="application/ld+json">'+json.dumps({**product, 'description': description})+'</script>'
+            html += (f'<table><tr><th>品番</th><td>{table_sku}</td></tr>'
+                     f'<tr><th>サステナブル・<br>機能</th><td>{icons}</td></tr></table>')
+            return scan.product_detail(html, URL, META).get('function_claims', [])
+
+        self.assertEqual(detail('・手洗い可能。', ('MMJ-02', 'UNKNOWN')), ['手洗い可'])
+        self.assertEqual(detail(codes=('MMJ-01', 'MFC-900', 'MMJ-01')), ['洗濯機洗い可', '抗ピリング'])
+        self.assertEqual(detail('・洗濯機OK：ご自宅でマシンウォッシュが可能。'), ['洗濯機洗い可'])
+        self.assertEqual(detail('・アンチピリング：毛羽立ちや毛玉になりにくいアンチピリング加工素材。'), ['抗ピリング'])
+        self.assertEqual(detail(codes=('MFC-904',)), ['帯電防止'])
+        self.assertEqual(detail('・帯電防止：静電気の発生を抑え、着脱時のストレスを軽減。'), ['帯電防止'])
+        self.assertEqual(detail('・洗濯機OK：ご自宅でマシンウォッシュが可能。'
+                                ' ・アンチピリング：毛羽立ちや毛玉になりにくいアンチピリング加工素材。',
+                                ('MMJ-02',)), ['手洗い可', '抗ピリング'])
+        self.assertEqual(detail('ピリングが生じることがあります。手洗い可能ではありません。'
+                                '自宅で洗えるかは不明です。アンチピリングではありません。'
+                                '静電気が発生する場合があり、帯電防止加工はありません。',
+                                ('MMJ-01', 'MFC-900', 'MFC-904'), 'OTHER'), [])
+
+    def test_jun_care_strip_requires_matching_sku_and_reviewed_bytes(self):
+        import json
+        machine = 'f7b5d20f0ddea2cfc4428dcc8c4ec96f76b8446131a6bb77748fe4789f8ea1b7'
+        hand = '543efe09e8128d530f27bbdc0e649005d0998926d8205d3cdc63f70a216f1806'
+        product = {'@type':'Product','name':'対象','url':URL,'brand':{'name':META['brand_name']},
+                   'offers':{'@type':'Offer','price':5490}}
+        def read(asset, digest, sku='GDM66000'):
+            markup = '<script type="application/ld+json">'+json.dumps(product)+'</script>'
+            markup += (f'<table><tr><th>品番</th><td>{sku}</td></tr><tr><th>洗濯表示</th>'
+                       f'<td><img class="laundryicon" src="{asset}"></td></tr></table>')
+            return scan.product_detail(markup, URL, META, read_care_image_sha=lambda url:digest).get('care_label')
+        a=read('/common/img/sentaku/SC-191.gif', machine)
+        self.assertEqual((a['home_wash'],a['dry_clean'],a['dry_solvent']),('machine','allowed','F'))
+        b=read('/common/img/sentaku/SE-151.gif', hand)
+        self.assertEqual((b['home_wash'],b['dry_clean']),('hand','prohibited'))
+        c=read('/common/img/sentaku/SF-202.gif', '3db9b4ae91b0fb088ec598f85fa060521847cbbb770de4fa6d46d2838a90ba35')
+        self.assertEqual((c['home_wash'],c['dry_clean'],c['wet_clean']),('prohibited','allowed','prohibited'))
+        self.assertEqual(read('/common/img/sentaku/SC-191.gif','0'*64)['status'],'unresolved')
+        self.assertEqual(read('/common/img/sentaku/UNKNOWN.gif',machine)['status'],'unresolved')
+        self.assertIsNone(read('/common/img/sentaku/SC-191.gif',machine,'ANOTHER'))
+        self.assertIsNone(read('//another.example/SC-191.gif',machine))
+
+    def test_non_jun_uses_only_product_bound_care_and_keeps_omitted_dry_unknown(self):
+        import json
+        from official_care_text import care_from_text
+        source='https://www.uniqlo.com/jp/ja/products/E488191-000/00'
+        payload={'entity':{'pdpEntity':{'E488191-000-00':{'product':{
+            'productId':'E488191-000','name':'ニット','washingInformation':'手洗い可, ドライクリーニング可',
+        }}}}}
+        meta={'adapter':'fr','brand_name':'UNIQLO'}
+        markup=f'<link rel="canonical" href="{source}">'
+        markup+='<script>window.__PRELOADED_STATE__ = '+json.dumps(payload,ensure_ascii=False)+';</script>'
+        markup+='<section id="productMaterialDescription-content"><p>手洗い可, ドライクリーニング可</p></section>'
+        care=scan.product_detail(markup,source,meta)['care_label']
+        self.assertEqual((care['home_wash'],care['dry_clean']),('hand','allowed'))
+        with self.assertRaises(ValueError):
+            scan.product_detail(markup,source.replace('488191','488192'),meta)
+        self.assertEqual(care_from_text('手洗い')['dry_clean'],'unknown')
+        self.assertEqual(care_from_text('家庭洗濯不可、ドライクリーニング不可')['dry_clean'],'prohibited')
+        self.assertEqual(care_from_text('洗濯機OK、手洗いのみ')['home_wash'],'unknown')
+        self.assertEqual(care_from_text('手洗いかドライクリーニング可かは不明です。')['status'],'unresolved')
+
+        detail='https://www.doclasse.com/item/detail/1_1_32669/008'
+        markup='<link rel="canonical" href="https://www.doclasse.com/item/detail/1_1_32669">'
+        markup+='<meta property="og:title" content="ニット/DoCLASSE">'
+        markup+='<table><tr><th>洗濯表示</th><td>洗濯機可</td></tr></table>'
+        markup+='<div class="detailArea__txt__explain"><p>95％以上UVカット</p><p>接触冷感</p></div>'
+        markup+='<div class="review"><p>抗菌防臭</p></div>'
+        product=scan.product_detail(markup,detail,{'adapter':'doclasse','brand_name':'DoCLASSE'})
+        self.assertEqual(product['function_claims'],['UVカット','接触冷感'])
+        self.assertEqual(product['care_label']['home_wash'],'machine')
+
+        path='https://www.canshop.jp/ap/item/i/A1CAN000A5QL'
+        markup=f'<link rel="canonical" href="{path}"><meta property="og:title" content="Te chichi/ニット">'
+        markup+='<dl><dt>洗濯表記</dt><dd>手洗い可 石油系ドライクリーニング</dd></dl>'
+        product=scan.product_detail(markup,path,{'adapter':'canshop','brand_name':'Te chichi'})
+        self.assertEqual(product['care_label']['dry_clean'],'allowed')
+        with self.assertRaises(ValueError):
+            scan.product_detail(markup.replace('Te chichi/','別ブランド/'),path,
+                                {'adapter':'canshop','brand_name':'Te chichi'})
+
     def test_product_group_detail_collects_variant_offers(self):
         html = '''<script type="application/ld+json">{
           "@type":"ProductGroup","name":"ウールミンクショートボレロ",

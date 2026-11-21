@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Atomically publish the read-only owner feed and restart state to one Git branch."""
 import argparse
+from datetime import datetime, timedelta, timezone
 import hashlib
 import json
 import os
@@ -13,6 +14,8 @@ from brand64_canonical_store import CANONICAL, normalize_identities, read_pool, 
 from brand64_flash_pipeline import STATE_FILES
 from merge_brand64_retrospective_sources import merge_retrospective_sources
 from brand64_identity_guard import persist_reconciled
+from jun_care_labels import care_observation
+from official_care_text import CARE_TEXT_SOURCE
 from brand64_history_store import history_files, write_history, read_history, DIRECTORY as HISTORY_DIRECTORY
 
 BRANCH = 'brand64/flash-feed'
@@ -84,6 +87,8 @@ def build_observed_product_shards(root):
     observed_date = latest.get('observed_date') or latest.get('observation_date')
     if not observed_date:
         raise ValueError('latest.json has no observation date')
+    details_path = root/'detail-results.json'
+    saved_details = json.loads(details_path.read_text()) if details_path.exists() else {}
     output = root/OBSERVED_DIR
     output.mkdir(parents=True, exist_ok=True)
     manifest_brands = []
@@ -98,6 +103,34 @@ def build_observed_product_shards(root):
             continue
         brand_name = state.get('brand_name') or brand_id
         records = [compact_record(brand_id, brand_name, item, observed_date) for item in items]
+        for record in records:
+            url = record['product_url']
+            detail = saved_details.get(brand_id+'|'+url)
+            if (not isinstance(detail, dict) or detail.get('product_url') != url
+                    or detail.get('source_url') != url or detail.get('publication_status') != 'PUBLISH_HOLD'
+                    or detail.get('human_review_required') is not True
+                    or detail.get('evidence_level') not in ('OFFICIAL_PRODUCT_JSONLD', CARE_TEXT_SOURCE)):
+                continue
+            retrieved = detail.get('retrieved_at_utc')
+            sha = detail.get('source_sha256')
+            claims = detail.get('function_claims')
+            if not isinstance(retrieved, str) or not isinstance(sha, str) or len(sha) != 64:
+                continue
+            if any(char not in '0123456789abcdef' for char in sha):
+                continue
+            try:
+                at = datetime.fromisoformat(retrieved.replace('Z', '+00:00'))
+            except ValueError:
+                continue
+            if at.tzinfo is None or at.astimezone(timezone(timedelta(hours=9))).date().isoformat() != observed_date:
+                continue
+            care = care_observation(detail)
+            if care:
+                record['care_label'] = care
+            if not isinstance(claims, list) or not claims or not all(isinstance(claim, str) and claim.strip() for claim in claims):
+                continue
+            record['function_claims'] = list(dict.fromkeys([*record['function_claims'], *claims]))
+            record['function_detail_evidence'] = {'source_url': url, 'source_sha256': sha, 'retrieved_at_utc': retrieved}
         relative = write_brand_shard(output, OBSERVED_DIR, brand_id, brand_name, records, observed_date)
         generated.append(relative)
         manifest_brands.append({'brand_id': brand_id, 'brand_name': brand_name, 'product_count': len(records), 'path': relative})
