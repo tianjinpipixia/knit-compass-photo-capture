@@ -9,6 +9,39 @@ import publish_brand64_flash_feed as publisher
 
 
 class CumulativeObservedProductExportTests(unittest.TestCase):
+    def test_daily_functions_use_exact_product_and_same_japan_date(self):
+        url = 'https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/GDM56370'
+        date = '2026-11-21'
+        listing = {'product_url': url, 'product_code': 'GDM56370',
+                   'scope_status': 'BRAND_AND_KNIT_PATH_MATCHED'}
+        detail = {'product_url': url, 'source_url': url, 'function_claims': ['手洗い可'],
+                  'source_sha256': 'a'*64, 'retrieved_at_utc': '2026-11-20T15:00:00Z',
+                  'publication_status': 'PUBLISH_HOLD', 'human_review_required': True,
+                  'evidence_level': 'OFFICIAL_PRODUCT_JSONLD'}
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            (root/'latest.json').write_text(json.dumps({'observed_date': date, 'product_count': 1,
+                                                      'product_observed_brand_count': 1}))
+            (root/'coverage-state.json').write_text(json.dumps({
+                'BR-00004': {'observed_date': date, 'surface_items': [listing]}}))
+
+            def exported_function(saved_detail):
+                (root/'detail-results.json').write_text(json.dumps({'BR-00004|'+url: saved_detail}))
+                publisher.build_observed_product_shards(root)
+                return json.loads((root/'observed-products/BR-00004.json').read_text())['records'][0]
+
+            valid = exported_function(detail)
+            self.assertEqual(valid['function_claims'], ['手洗い可'])
+            self.assertEqual(valid['function_detail_evidence']['source_sha256'], 'a'*64)
+            self.assertEqual(valid['material_composition'], '')
+            for invalid in ({'retrieved_at_utc': '2026-11-20T14:59:59Z'},
+                            {'retrieved_at_utc': '2026-11-21T09:00:00'},
+                            {'source_url': url+'0'}, {'source_sha256': 'x'*64}):
+                with self.subTest(invalid=invalid):
+                    record = exported_function({**detail, **invalid})
+                    self.assertEqual(record['function_claims'], [])
+                    self.assertNotIn('function_detail_evidence', record)
+
     def test_cumulative_pool_keeps_prior_days_and_dedupes_by_brand_and_url(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = pathlib.Path(tmp)

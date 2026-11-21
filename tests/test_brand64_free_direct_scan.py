@@ -72,6 +72,30 @@ class Tests(unittest.TestCase):
                     source.replace('/rope-picnic/','/vis/'),source+'&page=2',source.replace('page=2','page=x')]:
             self.assertIsNone(scan.jun_next_url(node(),url,META))
 
+    def test_jun_functions_require_matching_product_and_explicit_official_evidence(self):
+        import json
+        product = {'@type': 'Product', 'name': '対象ニット',
+                   'url': URL, 'brand': {'name': META['brand_name']},
+                   'offers': {'@type': 'Offer', 'price': 5490}}
+
+        def detail(description='', codes=(), table_sku='GDM66000'):
+            icons = ''.join(f'<img data-src="/common/img/sustainable/{code}.png">' for code in codes)
+            html = '<script type="application/ld+json">'+json.dumps({**product, 'description': description})+'</script>'
+            html += (f'<table><tr><th>品番</th><td>{table_sku}</td></tr>'
+                     f'<tr><th>サステナブル・<br>機能</th><td>{icons}</td></tr></table>')
+            return scan.product_detail(html, URL, META).get('function_claims', [])
+
+        self.assertEqual(detail('・手洗い可能。', ('MMJ-02', 'UNKNOWN')), ['手洗い可'])
+        self.assertEqual(detail(codes=('MMJ-01', 'MFC-900', 'MMJ-01')), ['洗濯機洗い可', '抗ピリング'])
+        self.assertEqual(detail('・洗濯機OK：ご自宅でマシンウォッシュが可能。'), ['洗濯機洗い可'])
+        self.assertEqual(detail('・アンチピリング：毛羽立ちや毛玉になりにくいアンチピリング加工素材。'), ['抗ピリング'])
+        self.assertEqual(detail('・洗濯機OK：ご自宅でマシンウォッシュが可能。'
+                                ' ・アンチピリング：毛羽立ちや毛玉になりにくいアンチピリング加工素材。',
+                                ('MMJ-02',)), ['手洗い可', '抗ピリング'])
+        self.assertEqual(detail('ピリングが生じることがあります。手洗い可能ではありません。'
+                                '自宅で洗えるかは不明です。アンチピリングではありません。',
+                                ('MMJ-01', 'MFC-900'), 'OTHER'), [])
+
     def test_product_group_detail_collects_variant_offers(self):
         html = '''<script type="application/ld+json">{
           "@type":"ProductGroup","name":"ウールミンクショートボレロ",

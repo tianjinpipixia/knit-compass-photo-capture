@@ -176,6 +176,51 @@ def generic_items(doc, source, meta):
     return list(items.values())
 
 
+# J'aDoRe JUN ONLINE's product icon legend: /help/detail05-7.html#anker3
+JUN_FUNCTION_ICONS = {
+    '/common/img/sustainable/MMJ-02.png': '手洗い可',
+    '/common/img/sustainable/MMJ-01.png': '洗濯機洗い可',
+    '/common/img/sustainable/MFC-900.png': '抗ピリング',
+}
+JUN_DESCRIPTION_CLAIMS = (
+    (r'(?:^|[・。])\s*手洗い可能\s*(?:。|$)', '手洗い可'),
+    (r'(?:^|・)\s*洗濯機OK[:：]\s*ご自宅でマシンウォッシュが可能\s*(?:。|$)', '洗濯機洗い可'),
+    (r'(?:^|・)\s*アンチピリング[:：]\s*毛羽立ちや毛玉になりにくいアンチピリング加工素材\s*(?:。|$)', '抗ピリング'),
+)
+
+
+def jun_description_function_claims(url, description):
+    if urlsplit(url).hostname != 'www.junonline.jp' or not isinstance(description, str):
+        return []
+    return [claim for pattern, claim in JUN_DESCRIPTION_CLAIMS if re.search(pattern, description)]
+
+
+def jun_function_icons(doc, url):
+    if urlsplit(url).hostname != 'www.junonline.jp':
+        return []
+    code = urlsplit(url).path.rstrip('/').rsplit('/', 1)[-1]
+    claims = []
+    for table in (node for node in doc.root.walk() if node.tag == 'table'):
+        rows = {}
+        for row in (node for node in table.walk() if node.tag == 'tr'):
+            cells = {node.tag: node for node in row.children
+                     if isinstance(node, Node) and node.tag in ('th', 'td')}
+            if 'th' in cells and 'td' in cells:
+                rows[re.sub(r'\s+', '', cells['th'].text())] = cells['td']
+        if not rows.get('品番') or clean(rows['品番'].text()) != code:
+            continue
+        functions = rows.get('サステナブル・機能')
+        if functions:
+            for icon in functions.walk():
+                if icon.tag != 'img':
+                    continue
+                path = icon.attrs.get('data-src') or icon.attrs.get('src')
+                claim = JUN_FUNCTION_ICONS.get(path)
+                if claim and claim not in claims:
+                    claims.append(claim)
+    return claims
+
+
 def product_detail(html, url, meta):
     doc = Document(html)
     def objects(obj):
@@ -210,6 +255,14 @@ def product_detail(html, url, meta):
             result={'product_name':clean(obj.get('name')), 'product_url':canonical(url),
                     'description':clean(obj.get('description')), 'offers':offers,
                     'evidence_level':'OFFICIAL_PRODUCT_JSONLD','source_url':url}
+            icon_claims = jun_function_icons(doc, url)
+            text_claims = jun_description_function_claims(url, result['description'])
+            care_claims = {'手洗い可', '洗濯機洗い可'}
+            if care_claims.intersection(icon_claims):
+                text_claims = [claim for claim in text_claims if claim not in care_claims]
+            claims = list(dict.fromkeys([*icon_claims, *text_claims]))
+            if claims:
+                result['function_claims'] = claims
             for row in doc.root.walk():
                 if row.tag!='tr':continue
                 th=next((x for x in row.walk() if x.tag=='th'),None);td=next((x for x in row.walk() if x.tag=='td'),None)

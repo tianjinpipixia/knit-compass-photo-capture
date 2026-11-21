@@ -118,6 +118,8 @@ def seed_working_state(root):
 
 
 def attach_details(known, details):
+    from run_brand64_free_direct_scan import jun_description_function_claims
+
     for key, detail in details.items():
         row = known.get(key.rstrip('/'))
         if (not row or detail.get('product_url') not in [row['product_url'], *row.get('source_url_aliases', [])]
@@ -128,10 +130,15 @@ def attach_details(known, details):
             continue
         previous = row.get('official_detail') or {}
         if str(detail.get('retrieved_at_utc', '')) >= str(previous.get('retrieved_at_utc', '')):
-            row['official_detail'] = detail
+            claims = detail.get('function_claims')
+            if not claims and re.fullmatch(r'[a-f0-9]{64}', str(detail.get('source_sha256', ''))):
+                claims = jun_description_function_claims(detail['product_url'], detail.get('description'))
+            row['official_detail'] = {**detail, 'function_claims': claims} if claims else detail
+            if claims:
+                row['function_claims'] = list(dict.fromkeys([*(row.get('function_claims') or []), *claims]))
         if not row.get('material_composition') and detail.get('composition'):
             row['material_composition'] = detail['composition']
-        for field in ('function_claims', 'confirmed_design', 'colors'):
+        for field in ('confirmed_design', 'colors'):
             if not row.get(field) and detail.get(field):
                 row[field] = detail[field]
         # JSON-LD Offer.price is the price observed now; it is not necessarily
