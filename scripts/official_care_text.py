@@ -95,7 +95,7 @@ def get_fr_care(doc, sku, color):
             product = state['entity']['pdpEntity'][sku+'-'+color]['product']
         except (KeyError, TypeError, ValueError):
             continue
-        if product.get('productId') != sku:
+        if not isinstance(product, dict) or product.get('productId') != sku:
             continue
         text = product.get('washingInformation')
         material_section = next((n for n in doc.root.walk()
