@@ -6,8 +6,9 @@ import unicodedata
 from urllib.parse import parse_qs, urlencode, urlsplit
 from brand_direct_adapters import matches
 
-CARE_TEXT_ADAPTERS = frozenset(('fr', 'doclasse', 'canshop', 'pal', 'dot', 'stripe', 'baycrews', 'urbanresearch'))
+CARE_TEXT_ADAPTERS = frozenset(('fr', 'doclasse', 'canshop', 'pal', 'dot', 'stripe', 'baycrews', 'urbanresearch', 'onward'))
 CARE_TEXT_SOURCE = 'OFFICIAL_PRODUCT_CARE_TEXT'
+ONWARD_HOST = 'crosset.onward.co.jp'
 TOKENS = {
     'home_wash': {
         'hand': {'手洗い', '手洗い可', '手洗い可能', '手洗いOK', '手洗いのみ'},
@@ -70,21 +71,21 @@ def add_world_listing_features(record, meta):
             'source_sha256': record['source_sha256'], 'title': record['product_name'], 'claim_text': claims}
 
 
-# and ST's official product icons, matched against its published care guide.
-DOT_HOME = {
+# JIS L0001 codes from the storefronts' official product care declarations.
+JIS_HOME = {
     '100': ('prohibited', None, None), '110': ('hand', 40, None), '111': ('hand', 30, None),
     '130': ('machine', 30, None), '131': ('machine', 30, 'gentle'), '132': ('machine', 30, 'very_gentle'),
     '140': ('machine', 40, None), '141': ('machine', 40, 'gentle'), '142': ('machine', 40, 'very_gentle'),
     '150': ('machine', 50, None), '151': ('machine', 50, 'gentle'),
     '160': ('machine', 60, None), '161': ('machine', 60, 'gentle'), '170': ('machine', 70, None),
 }
-DOT_DRY = {
+JIS_DRY = {
     '600': ('prohibited', None, None), '610': ('allowed', 'F', None), '611': ('allowed', 'F', 'gentle'),
     '620': ('allowed', 'P', None), '621': ('allowed', 'P', 'gentle'),
 }
 
 
-def dot_care_text(value):
+def jis_care_text(value, text_format):
     if not isinstance(value, str):
         return None
     match = re.fullmatch(r'洗濯記号 ([1-7][0-9]{2}(?:,[1-7][0-9]{2}){0,19})', value)
@@ -93,10 +94,10 @@ def dot_care_text(value):
     parts = match[1].split(',')
     home_codes = [code for code in parts if code.startswith('1')]
     dry_codes = [code for code in parts if code.startswith('6')]
-    home = DOT_HOME.get(home_codes[0]) if len(home_codes) == 1 else None
-    dry = DOT_DRY.get(dry_codes[0]) if len(dry_codes) == 1 else None
+    home = JIS_HOME.get(home_codes[0]) if len(home_codes) == 1 else None
+    dry = JIS_DRY.get(dry_codes[0]) if len(dry_codes) == 1 else None
     return {'status': 'verified' if home or dry else 'unresolved', 'evidence_kind': 'official_text',
-            'text_format': 'dot_symbols', 'source_text': value,
+            'text_format': text_format, 'source_text': value,
             'home_wash': home[0] if home else 'unknown', 'dry_clean': dry[0] if dry else 'unknown',
             **({k: v for k, v in zip(('max_water_c', 'home_cycle'), home[1:]) if v} if home else {}),
             **({k: v for k, v in zip(('dry_solvent', 'dry_cycle'), dry[1:]) if v} if dry else {})}
@@ -141,7 +142,7 @@ def dot_detail(body, product_url, request_url, meta):
             or not isinstance(item.get('brandNm'), str) or not matches(item['brandNm'], meta)
             or not isinstance(item.get('itemNm'), str) or not item['itemNm'].strip()):
         return None
-    care = dot_care_text('洗濯記号 ' + str(item.get('washIcon', '')))
+    care = jis_care_text('洗濯記号 ' + str(item.get('washIcon', '')), 'dot_symbols')
     tags = item.get('tagFunctionList')
     claims = named_features(tag['tagName'] for tag in tags
                             if isinstance(tag, dict) and isinstance(tag.get('tagName'), str)) if isinstance(tags, list) else {}
@@ -378,8 +379,44 @@ def urban_detail(doc, url, meta):
     return None
 
 
+def onward_detail(doc, url, meta, title):
+    code = re.fullmatch(r'/items/([A-Z0-9]{8,24})/?', urlsplit(url).path)
+    if not code:
+        return None
+    for item in product_jsonld(doc, 'Product'):
+        brand = item.get('brand')
+        if (item.get('mpn') == code[1] and isinstance(brand, dict)
+                and isinstance(brand.get('name'), str) and matches(brand['name'], meta)
+                and (not meta.get('brand_code') or brand.get('brandCode') == meta['brand_code'])):
+            break
+    else:
+        return None
+    specs = [node for node in doc.root.walk() if node.has_class('c-item-description-tab__item-detail-info')]
+    if len(specs) != 1:
+        return None
+    variants = [node for node in specs[0].walk() if node.has_class('c-item-detail-expand-colors-detail__body')]
+    declarations = set()
+    for variant in variants:
+        icons = [re.fullmatch(r'https://crosset\.onward\.co\.jp/images/washIcons/([1-7][0-9]{2})\.svg',
+                              node.attrs.get('src', ''))
+                 for node in variant.walk() if node.tag == 'img'
+                 and node.has_class('c-item-detail-expand-colors-detail__wash-icon')]
+        if not icons or not all(icons):
+            return None
+        declarations.add(tuple(sorted(icon[1] for icon in icons if icon[1][0] in '16')))
+    if len(declarations) != 1:
+        return None
+    codes = next(iter(declarations))
+    care = jis_care_text('洗濯記号 '+','.join(codes), 'onward_symbols')
+    name = title.partition(' | ')[0].rpartition(' / ')[0]
+    return assemble_detail(name, url, care, title_features(name)) if name and care else None
+
+
 def detail_adapter(meta):
     adapter = meta.get('adapter')
+    if adapter in {'onward-listing', 'onward'} or (not adapter and any(
+            urlsplit(url).netloc == ONWARD_HOST for url in meta.get('entry_urls', []))):
+        return 'onward'
     if not adapter and meta.get('brand_name') == 'SENSE OF PLACE':
         return 'urbanresearch'
     return adapter
@@ -393,7 +430,8 @@ def read_care_detail(doc, url, meta):
              'pal': {'www.palcloset.jp': meta.get('brand_name')},
              'stripe': {'stripe-club.com': meta.get('brand_name')},
              'baycrews': {'baycrews.jp': meta.get('brand_name')},
-             'urbanresearch': {'www.urban-research.jp': meta.get('brand_name')}}
+             'urbanresearch': {'www.urban-research.jp': meta.get('brand_name')},
+             'onward': {ONWARD_HOST: meta.get('brand_name')}}
     host_map = hosts.get(adapter)
     if not host_map:
         return None
@@ -445,6 +483,8 @@ def read_care_detail(doc, url, meta):
         name, care = baycrews_detail(doc, code, meta['slug'], path, title, meta)
     elif adapter == 'urbanresearch' and canonical.path.rstrip('/') == path:
         return urban_detail(doc, url, meta)
+    elif adapter == 'onward' and canonical.path.rstrip('/') == path:
+        return onward_detail(doc, url, meta, title)
     else:
         return None
     return assemble_detail(name, url, care or care_from_text(text), claims)
