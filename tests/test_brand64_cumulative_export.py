@@ -71,6 +71,27 @@ class CumulativeObservedProductExportTests(unittest.TestCase):
         publisher.attach_world_review(item, reviews, '2026-11-22', same_day=True)
         self.assertIs(item['care_label'], newer)
 
+    def test_world_browser_review_attaches_material_to_the_matching_product(self):
+        brand = 'BR-00015'
+        code = 'BR76825F0067'
+        url = 'https://store.world.co.jp/brand/grove/item/' + code
+        sources = json.loads((publisher.COLLECTOR_CONFIG/'brand64-free-direct-sources.json').read_text())['brands']
+        reviews = publisher.world_care_reviews(sources)
+        item = {'brand_id': brand, 'product_code': code, 'product_url': url}
+        stale = item.copy()
+        publisher.attach_world_review(stale, reviews, '2026-11-22', same_day=False)
+        self.assertNotIn('material_composition', stale)
+        different = {**item, 'product_url': url[:-1]+'8'}
+        publisher.attach_world_review(different, reviews, '2026-11-23', same_day=True)
+        self.assertNotIn('material_composition', different)
+        publisher.attach_world_review(item, reviews, '2026-11-23', same_day=True)
+        self.assertEqual(item['material_composition'], 'アクリル87％ ポリエステル13％')
+        self.assertEqual(item['composition_detail_evidence']['source_sha256'], item['care_label']['source_sha256'])
+        self.assertEqual((item['care_label']['max_water_c'], item['care_label']['dry_clean']), (30, 'prohibited'))
+        item['material_composition'] = 'アクリル87% / ポリエステル13%'
+        publisher.attach_world_review(item, reviews, '2026-11-23', same_day=True)
+        self.assertEqual(item['material_composition'], 'アクリル87% / ポリエステル13%')
+
     def test_daily_functions_use_exact_product_and_same_japan_date(self):
         url = 'https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/GDM56370'
         date = '2026-11-21'

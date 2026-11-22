@@ -73,6 +73,7 @@ def world_care_reviews(sources):
         url = item['product_url']
         key = (item['brand_id'], code, url)
         image_url = item['image_url']
+        material = item.get('material_composition')
         at = datetime.fromisoformat(item['retrieved_at_utc'].replace('Z', '+00:00'))
         care = jis_care_text(item['jis_symbols'], 'world_browser_symbols')
         if (brand.get('adapter') != 'world' or not re.fullmatch(r'[A-Z0-9]{10,22}', code)
@@ -82,6 +83,7 @@ def world_care_reviews(sources):
                 or at.utcoffset() != timedelta(0) or key in reviewed
                 or not all(re.fullmatch(r'[0-9a-f]{64}', item[field])
                            for field in ('source_sha256', 'image_sha256', 'snapshot_sha256'))
+                or ('material_composition' in item and (not isinstance(material, str) or not material.strip()))
                 or not care or 'unknown' in (care['home_wash'], care['dry_clean'])):
             raise ValueError(f'Invalid reviewed WORLD care record for {code}')
         care.pop('source_text')
@@ -89,7 +91,7 @@ def world_care_reviews(sources):
                     retrieved_at_utc=at.isoformat(), source_sha256=item['source_sha256'],
                     image_sha256=item['image_sha256'], snapshot_sha256=item['snapshot_sha256'],
                     image_media_type=item['image_media_type'])
-        reviewed[key] = (at, care)
+        reviewed[key] = (at, care, material)
     return reviewed
 
 
@@ -97,10 +99,15 @@ def attach_world_review(record, reviews, observation_date, *, same_day):
     reviewed = reviews.get((record.get('brand_id'), record.get('product_code'), record.get('product_url')))
     if reviewed is None:
         return
-    at, care = reviewed
+    at, care, material = reviewed
     day = at.astimezone(timezone(timedelta(hours=9))).date().isoformat()
     if day > observation_date or (same_day and day != observation_date):
         return
+    if material and not record.get('material_composition'):
+        record['material_composition'] = material
+        record['composition_detail_evidence'] = {
+            key: care[key] for key in ('source_url', 'source_sha256', 'retrieved_at_utc')
+        }
     previous = record.get('care_label')
     if (isinstance(previous, dict) and previous.get('status') == 'verified'
             and previous.get('source_url') == record['product_url']):
