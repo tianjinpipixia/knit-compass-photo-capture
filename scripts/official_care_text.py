@@ -1,11 +1,12 @@
 """Product-bound care declarations on supported non-JUN storefronts."""
 import json
+import html
 import re
 import unicodedata
 from urllib.parse import parse_qs, urlencode, urlsplit
 from brand_direct_adapters import matches
 
-CARE_TEXT_ADAPTERS = frozenset(('fr', 'doclasse', 'canshop', 'pal', 'dot'))
+CARE_TEXT_ADAPTERS = frozenset(('fr', 'doclasse', 'canshop', 'pal', 'dot', 'stripe', 'baycrews', 'urbanresearch'))
 CARE_TEXT_SOURCE = 'OFFICIAL_PRODUCT_CARE_TEXT'
 TOKENS = {
     'home_wash': {
@@ -226,7 +227,7 @@ def get_fr_care(doc, sku, color):
     return None, None, {}
 
 
-def pal_care_text(original):
+def pal_care_text(original, text_format='pal_care'):
     if not isinstance(original, str) or not 0 < len(original) <= 250:
         return None
     parsed = set()
@@ -235,7 +236,7 @@ def pal_care_text(original):
         value = unicodedata.normalize('NFKC', line)
         value = re.sub(r'^(?:本体|製品):\s*', '', value)
         value = re.sub(r'洗濯機洗い\((?:弱|非常に弱い)\)', '洗濯機洗い', value)
-        for piece in re.split(r'[/・、()]+', value):
+        for piece in re.split(r'[/,・、()]+', value):
             token = piece.strip()
             parsed.add({'洗濯機洗濯': '洗濯機洗い', 'ドライクリーニング': 'ドライクリーニング可'}.get(token, token))
     # A product may explicitly permit hand washing in addition to an official
@@ -244,10 +245,10 @@ def pal_care_text(original):
             and not parsed.intersection({'手洗い', '手洗いのみ'})):
         parsed.difference_update({'手洗い可', '手洗い可能'})
     care = care_from_text(' '.join(sorted(parsed)))
-    return {**care, 'source_text': original, 'text_format': 'pal_care'} if care else None
+    return {**care, 'source_text': original, 'text_format': text_format} if care else None
 
 
-def pal_groups(doc, code):
+def product_jsonld(doc, kind):
     for node in doc.root.walk():
         if node.tag != 'script' or node.attrs.get('type') != 'application/ld+json':
             continue
@@ -256,12 +257,14 @@ def pal_groups(doc, code):
         except ValueError:
             continue
         for item in data if isinstance(data, list) else [data]:
-            if isinstance(item, dict) and item.get('@type') == 'ProductGroup' and item.get('productGroupID') == code:
+            if isinstance(item, dict) and item.get('@type') == kind:
                 yield item
 
 
 def pal_detail(doc, code, meta):
-    for group in pal_groups(doc, code):
+    for group in product_jsonld(doc, 'ProductGroup'):
+        if group.get('productGroupID') != code:
+            continue
         brand = group.get('brand')
         if (not isinstance(brand, dict) or not isinstance(brand.get('name'), str)
                 or not matches(re.split(r'[（(]', brand['name'], maxsplit=1)[0], meta)):
@@ -284,7 +287,7 @@ def pal_detail(doc, code, meta):
                 values.append(rows['取り扱い'])
         description = group.get('description')
         if isinstance(description, str):
-            values.extend(re.findall(r'^洗濯(?:方法|表示)?[：:]([^\r\n]+)', description, re.M))
+            values.extend(re.findall(r'^[ \t]*(?:[■●][ \t]*)?洗濯(?:方法|表示|表記)?[：:]([^\r\n]+)', description, re.M))
         material = group.get('material')
         if isinstance(material, str):
             values.extend(re.findall(r'^(?:手洗い可|家庭洗濯不可|洗濯機洗い可)[（(][^\r\n]+[）)]\s*$', material, re.M))
@@ -293,12 +296,104 @@ def pal_detail(doc, code, meta):
     return None, None, {}
 
 
+def stripe_detail(doc, url, slug):
+    expected = urlsplit(url).path.rstrip('/')
+    if not re.fullmatch('/brand/'+re.escape(slug)+r'/item/[0-9A-Za-z]+', expected):
+        return None
+    for listing in product_jsonld(doc, 'Product'):
+        if listing.get('url') not in (url, url.rstrip('/')+'/'):
+            continue
+        name = listing.get('name')
+        if not isinstance(name, str) or not name.strip():
+            continue
+        claims = title_features(name)
+        description = listing.get('description')
+        if isinstance(description, str):
+            prose = html.unescape(re.sub(r'<[^>]+>', ' ', description))
+            for cue, claim in {
+                'マシンウォッシャブル：ご家庭の洗濯機でお洗濯して頂けます': '洗濯機洗い可',
+                'ご家庭の洗濯機で洗える仕様': '洗濯機洗い可',
+                '静電気防止機能付き': '帯電防止',
+            }.items():
+                if cue in prose:
+                    claims.setdefault(claim, cue)
+        return assemble_detail(name, url, None, claims)
+    return None
+
+
+def baycrews_detail(doc, code, slug, path, title, meta):
+    match = re.fullmatch(r'/item/detail/'+re.escape(slug)+r'/[a-z0-9-]+/'+code, path)
+    parts = title.split('｜')
+    if (not match or len(parts) < 3 or not parts[-1].startswith('BAYCREW')
+            or not matches(re.split(r'[（(]', parts[-2], maxsplit=1)[0], meta)):
+        return None, None
+    detail = [node for node in doc.root.walk() if node.tag == 'dl' and node.has_class('dataDetail')
+              and any(n.attrs.get('id') == 'itemid' and n.text().strip() == code for n in node.children
+                      if getattr(n, 'tag', None) == 'dd')]
+    if len(detail) != 1:
+        return None, None
+    cells = [n for n in detail[0].children if getattr(n, 'tag', None) in ('dt', 'dd')]
+    values = {' '.join(b.text().split()) for a, b in zip(cells, cells[1:])
+              if a.tag == 'dt' and b.tag == 'dd' and a.text().strip() == '取扱い'}
+    value = next(iter(values)) if len(values) == 1 else None
+    return parts[0], pal_care_text(value, 'official_store_care')
+
+
+def urban_detail(doc, url, meta):
+    path = urlsplit(url).path.rstrip('/')
+    code = re.fullmatch(r'/shop/g/g([A-Z0-9-]{8,32})', path)
+    if not code:
+        return None
+    for item in product_jsonld(doc, 'Product'):
+        brand = item.get('brand')
+        if not isinstance(brand, dict) or not isinstance(brand.get('name'), str) or not matches(brand['name'], meta):
+            continue
+        name = item.get('name')
+        if not isinstance(name, str) or not name.strip():
+            continue
+        values = set()
+        for section in doc.root.walk():
+            if not section.has_class('block-goods-desc_detail'):
+                continue
+            rows = {}
+            for row in section.walk():
+                if row.tag != 'tr':
+                    continue
+                th, td = (next((n for n in row.children if getattr(n, 'tag', None) == tag), None)
+                          for tag in ('th', 'td'))
+                if th and td:
+                    rows[th.text().strip()] = td
+            if not rows.get('品番') or rows['品番'].text().strip() != code[1] or not rows.get('洗濯表記'):
+                continue
+            method = next((n for n in rows['洗濯表記'].walk() if n.tag == 'span'), None)
+            if method:
+                values.add(' '.join(method.text().split()))
+        value = next(iter(values)) if len(values) == 1 else None
+        care = pal_care_text(value, 'official_store_care')
+        claims = title_features(name)
+        phrase = re.match(r'^(?:『洗濯可』[ \t]*)?(抗ピル|UVケア)', name)
+        if phrase:
+            claims.update(named_features([phrase[1]]))
+        return assemble_detail(name, url, care, claims) if care else None
+    return None
+
+
+def detail_adapter(meta):
+    adapter = meta.get('adapter')
+    if not adapter and meta.get('brand_name') == 'SENSE OF PLACE':
+        return 'urbanresearch'
+    return adapter
+
+
 def read_care_detail(doc, url, meta):
     """Only use known official product paths and page-level identity evidence."""
-    adapter = meta.get('adapter')
+    adapter = detail_adapter(meta)
     hosts = {'fr': {'www.uniqlo.com': 'UNIQLO', 'www.gu-global.com': 'GU'},
              'doclasse': {'www.doclasse.com': 'DoCLASSE'}, 'canshop': {'www.canshop.jp': 'Te chichi'},
-             'pal': {'www.palcloset.jp': meta.get('brand_name')}}
+             'pal': {'www.palcloset.jp': meta.get('brand_name')},
+             'stripe': {'stripe-club.com': meta.get('brand_name')},
+             'baycrews': {'baycrews.jp': meta.get('brand_name')},
+             'urbanresearch': {'www.urban-research.jp': meta.get('brand_name')}}
     host_map = hosts.get(adapter)
     if not host_map:
         return None
@@ -341,6 +436,15 @@ def read_care_detail(doc, url, meta):
         if not token:
             return None
         name, care, claims = pal_detail(doc, token[1], meta)
+    elif adapter == 'stripe' and canonical.path.rstrip('/') == path:
+        return stripe_detail(doc, url, meta['slug'])
+    elif adapter == 'baycrews' and canonical.path.rstrip('/') == path:
+        code = path.rsplit('/', 1)[-1]
+        if not re.fullmatch(r'[0-9]{14}', code):
+            return None
+        name, care = baycrews_detail(doc, code, meta['slug'], path, title, meta)
+    elif adapter == 'urbanresearch' and canonical.path.rstrip('/') == path:
+        return urban_detail(doc, url, meta)
     else:
         return None
     return assemble_detail(name, url, care or care_from_text(text), claims)

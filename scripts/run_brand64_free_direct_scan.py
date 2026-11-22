@@ -286,7 +286,7 @@ def product_detail(html, url, meta, *, read_care_image_sha=None):
         for obj in objects(data):
             if obj.get('@type') not in {'Product', 'ProductGroup'}: continue
             brand=obj.get('brand') or {}; brand=brand.get('name','') if isinstance(brand,dict) else str(brand)
-            if norm(brand)!=norm(meta['brand_name']): continue
+            if not adapters.matches(brand, meta): continue
             # ProductGroup pages (used by USAGI/SNIDEL) keep colour variants and
             # their Offers below hasVariant rather than at the group root.  Do
             # not recurse through the whole product object: related/accessory

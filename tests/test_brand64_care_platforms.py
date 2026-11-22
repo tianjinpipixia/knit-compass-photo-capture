@@ -7,16 +7,59 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 
 from jun_care_labels import care_observation
 from brand64_canonical_store import attach_details
-from brand64_flash_pipeline import needs_watched_care
+from brand64_flash_pipeline import needs_watched_care, retry_expanded_detail
 from official_care_text import add_world_listing_features, dot_care_text, dot_detail, dot_detail_request, pal_care_text, title_features
 from run_brand64_free_direct_scan import product_detail, source_error
 
 
 class CarePlatformTests(unittest.TestCase):
+    def test_baycrews_uses_care_only_from_the_matching_detail_list(self):
+        url = 'https://baycrews.jp/item/detail/slobe/cutsew/26070912306010'
+        header = (f'<link rel="canonical" href="{url}">'
+                  '<meta property="og:title" content="カーディガン｜SLOBE IENA（スローブ イエナ）の通販｜BAYCREW’S STORE">')
+        other = '<dl class="dataDetail"><dt>取扱い</dt><dd>洗濯不可</dd><dt>商品番号</dt><dd id="itemid">25080912215030</dd></dl>'
+        detail = ('<dl class="dataDetail"><dt>取扱い</dt><dd>本体:洗濯機洗い（弱）、色あせ</dd>'
+                  '<dt>商品番号</dt><dd id="itemid">26070912306010</dd></dl>')
+        meta = {'adapter': 'baycrews', 'brand_name': 'SLOBE IENA', 'slug': 'slobe'}
+        result = product_detail(header + other + detail, url, meta)
+        result.update(source_sha256='a'*64, retrieved_at_utc='2026-11-21T23:00:00Z')
+        care = care_observation(result)
+        self.assertEqual((care['home_wash'], care['dry_clean']), ('machine', 'unknown'))
+
+    def test_urban_research_uses_the_specification_and_exact_brand_and_code(self):
+        url = 'https://www.urban-research.jp/shop/g/gAA26430-2021108/'
+        item = {'@type': 'Product', 'name': '『洗濯可』抗ピルキーネックカーディガン',
+                'brand': {'name': 'SENSE OF PLACE'}}
+        header = f'<link rel="canonical" href="{url}"><script type="application/ld+json">{json.dumps(item)}</script>'
+        rows = ('<div class="block-goods-desc_detail"><table><tr><th>品番</th><td>AA26430-2021108</td></tr>'
+                '<tr><th>洗濯表記</th><td><span>洗濯機洗い可, ドライクリーニング</span>'
+                '<span>商品タグをご覧ください</span></td></tr></table></div>')
+        meta = {'brand_name': 'SENSE OF PLACE'}
+        result = product_detail(header+rows, url, meta)
+        result.update(source_sha256='a'*64, retrieved_at_utc='2026-11-21T23:00:00Z')
+        care = care_observation(result)
+        self.assertEqual((care['home_wash'], care['dry_clean']), ('machine', 'allowed'))
+        self.assertEqual(result['function_claims'], ['抗ピリング'])
+        with self.assertRaises(ValueError):
+            product_detail(header+rows.replace('AA26430-2021108', 'AA26430-2021105'), url, meta)
+
+    def test_stripe_machine_wash_description_is_a_function_not_a_care_label(self):
+        url = 'https://stripe-club.com/brand/american-holic/item/100HA26D0181'
+        header = f'<link rel="canonical" href="{url}">'
+        item = {'@type': 'Product', 'url': url, 'name': '【接触冷感】ニット',
+                'description': '<p>・マシンウォッシャブル：ご家庭の洗濯機でお洗濯して頂けます</p>'}
+        doc = header + f'<script type="application/ld+json">{json.dumps(item)}</script>'
+        meta = {'adapter': 'stripe', 'brand_name': 'AMERICAN HOLIC', 'slug': 'american-holic'}
+        result = product_detail(doc, url, meta)
+        self.assertEqual(result['function_claims'], ['接触冷感', '洗濯機洗い可'])
+        self.assertNotIn('care_label', result)
+        with self.assertRaises(ValueError):
+            product_detail(doc, url, {**meta, 'slug': 'earth1999'})
+
     def test_pal_checks_same_product_table_and_brand(self):
         url = 'https://www.palcloset.jp/display/item/DCZ1062205A0129'
         group = {'@type': 'ProductGroup', 'name': '長袖ニット', 'productGroupID': 'DCZ1062205A0129',
-                 'brand': {'name': 'DISCOAT(ディスコート)'}, 'description': '洗濯：手洗い可能'}
+                 'brand': {'name': 'DISCOAT(ディスコート)'}, 'description': '洗濯表記：手洗い可能'}
         html = (f'<link rel="canonical" href="{url}/"><script type="application/ld+json">{json.dumps([group])}</script>'
                 '<table><tr><th>品番</th><td>UNRELATED</td></tr><tr><th>取り扱い</th><td>洗濯不可</td></tr></table>'
                 '<table><tr><th>品番</th><td>DCZ1062205A0129</td></tr>'
@@ -83,6 +126,14 @@ class CarePlatformTests(unittest.TestCase):
         sources = {'BR-00004': {'adapter': 'jun'}}
         self.assertTrue(needs_watched_care(task, {}, sources))
         self.assertFalse(needs_watched_care(task, {'care_label': {'status': 'verified'}}, sources))
+
+    def test_parser_upgrade_retries_a_detail_error_once(self):
+        task = {'status': 'REVIEW_REQUIRED', 'error': 'ValueError: No matching official product detail found'}
+        self.assertTrue(retry_expanded_detail(task, {'adapter': 'baycrews'}))
+        self.assertTrue(retry_expanded_detail(task, {'brand_name': 'SENSE OF PLACE'}))
+        self.assertFalse(retry_expanded_detail({**task, 'detail_parse_version': 2}, {'adapter': 'baycrews'}))
+        self.assertFalse(retry_expanded_detail({**task, 'error': 'HTTPError: HTTP Error 403: Forbidden'},
+                                               {'adapter': 'baycrews'}))
 
     def test_cumulative_care_maintains_identity_across_trailing_slash(self):
         url = 'https://www.dot-st.com/globalwork/disp/item/1046363'
