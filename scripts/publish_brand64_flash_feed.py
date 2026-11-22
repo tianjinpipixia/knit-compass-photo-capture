@@ -16,7 +16,7 @@ from brand64_flash_pipeline import STATE_FILES
 from merge_brand64_retrospective_sources import merge_retrospective_sources
 from brand64_identity_guard import persist_reconciled
 from jun_care_labels import care_observation
-from official_care_text import CARE_TEXT_SOURCE, add_world_listing_features, jis_care_text
+from official_care_text import CARE_TEXT_SOURCE, add_world_listing_features, jis_care_text, named_features
 from brand64_history_store import history_files, write_history, read_history, DIRECTORY as HISTORY_DIRECTORY
 
 BRANCH = 'brand64/flash-feed'
@@ -74,6 +74,7 @@ def world_care_reviews(sources):
         key = (item['brand_id'], code, url)
         image_url = item['image_url']
         material = item.get('material_composition')
+        tags = item.get('related_function_tags', {})
         at = datetime.fromisoformat(item['retrieved_at_utc'].replace('Z', '+00:00'))
         care = jis_care_text(item['jis_symbols'], 'world_browser_symbols')
         if (brand.get('adapter') != 'world' or not re.fullmatch(r'[A-Z0-9]{10,22}', code)
@@ -86,12 +87,18 @@ def world_care_reviews(sources):
                 or ('material_composition' in item and (not isinstance(material, str) or not material.strip()))
                 or not care or 'unknown' in (care['home_wash'], care['dry_clean'])):
             raise ValueError(f'Invalid reviewed WORLD care record for {code}')
+        if not isinstance(tags, dict) or any(
+            not named_features([label]) or not isinstance(link, str)
+            or not re.fullmatch(r'https://store\.world\.co\.jp/search\?ta=[A-Z0-9]{2,12}', link)
+            for label, link in tags.items()
+        ):
+            raise ValueError(f'Invalid reviewed WORLD function tags for {code}')
         care.pop('source_text')
         care.update(evidence_kind='official_browser_image', source_url=url, image_url=image_url,
                     retrieved_at_utc=at.isoformat(), source_sha256=item['source_sha256'],
                     image_sha256=item['image_sha256'], snapshot_sha256=item['snapshot_sha256'],
                     image_media_type=item['image_media_type'])
-        reviewed[key] = (at, care, material)
+        reviewed[key] = (at, care, material, tags)
     return reviewed
 
 
@@ -99,7 +106,7 @@ def attach_world_review(record, reviews, observation_date, *, same_day):
     reviewed = reviews.get((record.get('brand_id'), record.get('product_code'), record.get('product_url')))
     if reviewed is None:
         return
-    at, care, material = reviewed
+    at, care, material, tags = reviewed
     day = at.astimezone(timezone(timedelta(hours=9))).date().isoformat()
     if day > observation_date or (same_day and day != observation_date):
         return
@@ -107,6 +114,14 @@ def attach_world_review(record, reviews, observation_date, *, same_day):
         record['material_composition'] = material
         record['composition_detail_evidence'] = {
             key: care[key] for key in ('source_url', 'source_sha256', 'retrieved_at_utc')
+        }
+    if tags:
+        claims = named_features(tags)
+        record['function_claims'] = list(dict.fromkeys([*(record.get('function_claims') or []), *claims]))
+        record['function_browser_evidence'] = {
+            **{key: care[key] for key in ('source_url', 'source_sha256', 'retrieved_at_utc')},
+            'claim_text': claims,
+            'tag_urls': tags,
         }
     previous = record.get('care_label')
     if (isinstance(previous, dict) and previous.get('status') == 'verified'

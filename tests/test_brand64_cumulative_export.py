@@ -3,6 +3,7 @@ import pathlib
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]/'scripts'))
 import publish_brand64_flash_feed as publisher
@@ -91,6 +92,29 @@ class CumulativeObservedProductExportTests(unittest.TestCase):
         item['material_composition'] = 'アクリル87% / ポリエステル13%'
         publisher.attach_world_review(item, reviews, '2026-11-23', same_day=True)
         self.assertEqual(item['material_composition'], 'アクリル87% / ポリエステル13%')
+
+    def test_world_browser_review_preserves_the_official_feature_tag_evidence(self):
+        conf = publisher.COLLECTOR_CONFIG
+        sources = json.loads((conf/'brand64-free-direct-sources.json').read_text())['brands']
+        registry = json.loads((conf/'brand64-world-care-reviews.json').read_text())
+        item = next(row for row in registry if row['product_code']=='BR63726F0228')
+        tags = {'マシンウォッシャブル': 'https://store.world.co.jp/search?ta=DE09'}
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            path = root/'brand64-world-care-reviews.json'
+            path.write_text(json.dumps([{**item,'related_function_tags':tags}]))
+            with patch.object(publisher,'COLLECTOR_CONFIG',root):
+                reviews = publisher.world_care_reviews(sources)
+                row = {key:item[key] for key in ('brand_id','product_code','product_url')}
+                row['function_claims'] = ['抗ピリング']
+                publisher.attach_world_review(row,reviews,'2026-11-23',same_day=True)
+                self.assertEqual(row['function_claims'], ['抗ピリング','洗濯機洗い可'])
+                self.assertEqual(row['function_browser_evidence']['tag_urls'], tags)
+                self.assertEqual(row['function_browser_evidence']['source_sha256'], item['source_sha256'])
+                url = 'https://example.com/search?ta=DE09'
+                path.write_text(json.dumps([{**item,'related_function_tags':{'マシンウォッシャブル':url}}]))
+                with self.assertRaises(ValueError):
+                    publisher.world_care_reviews(sources)
 
     def test_daily_functions_use_exact_product_and_same_japan_date(self):
         url = 'https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/GDM56370'
