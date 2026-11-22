@@ -45,7 +45,7 @@ def named_features(labels):
 
 
 def title_features(title):
-    blocks = re.findall(r'【([^】]+)】|〖([^〗]+)〗|《([^》]+)》', title)
+    blocks = re.findall(r'【([^】]+)】|〖([^〗]+)〗|《([^》]+)》|≪([^≫]+)≫', title)
     return named_features(label for block in blocks
                           for label in re.split(r'[/／・、]', next(x for x in block if x)))
 

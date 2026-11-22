@@ -128,6 +128,8 @@ class CarePlatformTests(unittest.TestCase):
     def test_world_explicit_title_features_are_distinct_from_care_labels(self):
         self.assertEqual(title_features('ニット〖洗濯機OK／接触冷感／毛玉軽減〗'), {
             '洗濯機洗い可': '洗濯機OK', '接触冷感': '接触冷感', '抗ピリング': '毛玉軽減'})
+        self.assertEqual(title_features('【辻元舞さん着用】ふんわりVネックニット≪洗濯機OK≫'),
+                         {'洗濯機洗い可': '洗濯機OK'})
         self.assertEqual(title_features('ニット【洗える／毛玉に注意】'), {})
         meta = {'adapter': 'world', 'slug': 'grove', 'women_category_entry': True}
         item = {'product_name': 'ニット【毛玉軽減】', 'evidence_level': 'OFFICIAL_LISTING_CARD',
