@@ -1,7 +1,7 @@
 """JUN product care strips reviewed against its guide and JIS L0001:2024."""
 
 import re
-from official_care_text import care_from_text, dot_care_text, pal_care_text
+from official_care_text import ONWARD_HOST, care_from_text, jis_care_text, pal_care_text
 from urllib.parse import urlsplit
 
 ASSET_ORIGIN = 'https://www.junonline.jp'
@@ -67,7 +67,9 @@ def care_observation(detail):
         elif text_format == 'official_store_care' and host in ('baycrews.jp', 'www.urban-research.jp'):
             verified = pal_care_text(text, text_format)
         elif text_format == 'dot_symbols' and host == 'www.dot-st.com':
-            verified = dot_care_text(text)
+            verified = jis_care_text(text, text_format)
+        elif text_format == 'onward_symbols' and host == ONWARD_HOST:
+            verified = jis_care_text(text, text_format)
         else:
             verified = care_from_text(text)
         if verified != label:

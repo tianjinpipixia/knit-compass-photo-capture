@@ -8,11 +8,39 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from jun_care_labels import care_observation
 from brand64_canonical_store import attach_details
 from brand64_flash_pipeline import needs_watched_care, retry_expanded_detail
-from official_care_text import add_world_listing_features, dot_care_text, dot_detail, dot_detail_request, pal_care_text, title_features
+from official_care_text import add_world_listing_features, dot_detail, dot_detail_request, jis_care_text, pal_care_text, title_features
 from run_brand64_free_direct_scan import product_detail, source_error
 
 
 class CarePlatformTests(unittest.TestCase):
+    def test_onward_keeps_only_care_confirmed_for_every_colour_group(self):
+        url = 'https://crosset.onward.co.jp/items/KRWXLW0556'
+        product = {'@type': 'Product', 'mpn': 'KRWXLW0556', 'name': '組曲ニット',
+                   'brand': {'name': '組曲', 'brandCode': '003'}}
+        header = (f'<link rel="canonical" href="{url}">'
+                  '<meta property="og:title" content="組曲ニット / 組曲 | ファッション通販">'
+                  f'<script type="application/ld+json">{json.dumps(product)}</script>')
+
+        def variant(*codes):
+            icons = ''.join('<img class="c-item-detail-expand-colors-detail__wash-icon" '
+                            f'src="https://crosset.onward.co.jp/images/washIcons/{code}.svg">' for code in codes)
+            return '<div class="c-item-detail-expand-colors-detail__body">'+icons+'</div>'
+
+        def doc(*variants):
+            return header+'<div class="c-item-description-tab__item-detail-info">'+''.join(variants)+'</div>'
+
+        meta = {'adapter': 'onward-listing', 'brand_name': '組曲', 'brand_code': '003'}
+        wash = variant('111','611')
+        detail = product_detail(doc(wash, variant('111','210','611')), url, meta)
+        detail.update(source_sha256='a'*64, retrieved_at_utc='2026-11-21T23:00:00Z')
+        care = care_observation(detail)
+        self.assertEqual((care['home_wash'], care['max_water_c'], care['dry_clean'], care['dry_solvent']),
+                         ('hand',30,'allowed','F'))
+        for wrong in (doc(wash, variant('111','600')), doc(wash, variant()),
+                      doc(wash).replace(url, url[:-1]+'7'), doc(wash).replace('003', '702')):
+            with self.assertRaises(ValueError):
+                product_detail(wrong, url, meta)
+
     def test_baycrews_uses_care_only_from_the_matching_detail_list(self):
         url = 'https://baycrews.jp/item/detail/slobe/cutsew/26070912306010'
         header = (f'<link rel="canonical" href="{url}">'
@@ -139,7 +167,7 @@ class CarePlatformTests(unittest.TestCase):
         url = 'https://www.dot-st.com/globalwork/disp/item/1046363'
         key = 'BR-00006|' + url
         known = {key: {'product_url': url}}
-        care = dot_care_text('洗濯記号 132,611')
+        care = jis_care_text('洗濯記号 132,611', 'dot_symbols')
         detail = {'product_url': url+'/', 'source_url': url+'/', 'care_label': care, 'publication_status': 'PUBLISH_HOLD',
                   'human_review_required': True, 'evidence_level': 'OFFICIAL_PRODUCT_CARE_TEXT',
                   'retrieved_at_utc': '2026-11-21T23:00:00Z', 'source_sha256': 'a'*64}
