@@ -11,6 +11,66 @@ from official_care_text import CARE_TEXT_SOURCE, care_from_text
 
 
 class CumulativeObservedProductExportTests(unittest.TestCase):
+    def test_world_browser_reviews_attach_to_the_exact_item_and_keep_the_capture_date(self):
+        brand = 'BR-00015'
+        root_url = 'https://store.world.co.jp/brand/grove/item/'
+        date = '2026-11-22'
+        codes = ['BR76825F0054', 'BR76826S0125']
+        products = [
+            {'brand_id': brand, 'brand_name': 'grove', 'product_name': 'ニット',
+             'product_url': root_url+code, 'product_code': code,
+             'scope_status': 'BRAND_AND_KNIT_PATH_MATCHED'}
+            for code in codes
+        ]
+        products.append({**products[0], 'product_url': root_url+'BR76825F0055'})
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            (root/'known-products.json').write_text(json.dumps({
+                brand+'|'+product['product_url']: product for product in products
+            }))
+
+            def export(on):
+                (root/'latest.json').write_text(json.dumps({
+                    'observed_date': on, 'product_count': len(products), 'product_observed_brand_count': 1,
+                }))
+                (root/'coverage-state.json').write_text(json.dumps({
+                    brand: {'brand_name': 'grove', 'observed_date': on, 'surface_items': products},
+                }))
+                (root/'feed.json').write_text(json.dumps({'summary': {'observed_date': on}}))
+                publisher.build_observed_product_shards(root)
+                publisher.build_cumulative_product_shards(root)
+                return [
+                    {row['product_url']: row.get('care_label') for row in
+                     json.loads((root/f'{directory}/{brand}.json').read_text())['records']}
+                    for directory in ('observed-products', 'cumulative-products')
+                ]
+
+            for rows in export(date):
+                self.assertIsNone(rows[products[-1]['product_url']])
+                hand, machine = [rows[root_url+code] for code in codes]
+                self.assertEqual((hand['home_wash'], hand['max_water_c'], hand['dry_clean'], hand['dry_solvent']),
+                                 ('hand', 40, 'allowed', 'F'))
+                self.assertEqual((machine['home_wash'], machine['max_water_c'], machine['home_cycle'], machine['dry_clean']),
+                                 ('machine', 40, 'very_gentle', 'prohibited'))
+                self.assertEqual(machine['source_url'], root_url+codes[1])
+                self.assertEqual(machine['evidence_kind'], 'official_browser_image')
+
+            day, cumulative = export('2026-11-23')
+            self.assertTrue(all(care is None for care in day.values()))
+            self.assertTrue(cumulative[root_url+codes[0]]['retrieved_at_utc'].startswith(date))
+
+    def test_world_browser_review_preserves_the_newer_verified_label(self):
+        brand = 'BR-00015'
+        code = 'BR76825F0054'
+        url = 'https://store.world.co.jp/brand/grove/item/'+code
+        sources = json.loads((publisher.COLLECTOR_CONFIG/'brand64-free-direct-sources.json').read_text())['brands']
+        reviews = publisher.world_care_reviews(sources)
+        item = {'brand_id': brand, 'product_code': code, 'product_url': url}
+        newer = {'source_url': url, 'status': 'verified', 'retrieved_at_utc': '2026-11-22T01:59:00Z'}
+        item['care_label'] = newer
+        publisher.attach_world_review(item, reviews, '2026-11-22', same_day=True)
+        self.assertIs(item['care_label'], newer)
+
     def test_daily_functions_use_exact_product_and_same_japan_date(self):
         url = 'https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/GDM56370'
         date = '2026-11-21'
