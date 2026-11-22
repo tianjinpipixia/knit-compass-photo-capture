@@ -1,62 +1,15 @@
 # 新商品速報・巡回確認
-観測日：2026-11-22
+観測日：2026-11-23
 
 登録範囲の確認完了：0/65ブランド。
-本日観測した商品：2110件。MD用の蓄積として保持します。
+本日観測した商品：1491件。MD用の蓄積として保持します。
 初回発見と発売日は区別します。未確認・未取得を「新商品なし」と判定しません。
 
 ## 本日初めて見つけた商品（発売日未確認）
 
 |ブランド|商品|掲載価格|取得元|
 |---|---|---|---|
-|AMERICAN HOLIC|AMERICAN HOLIC 衿付きメッシュ編み半袖ニットプルオーバー|¥ 2,990 / ¥ 2,490|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25D0131)|
-|AMERICAN HOLIC|AMERICAN HOLIC 2WAYレース編みニットカーディガン|¥ 3,490 / ¥ 1,980|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25D0133)|
-|AMERICAN HOLIC|AMERICAN HOLIC 袖口バイカラー半袖ニットプルオーバー|¥ 2,790 / ¥ 1,490|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25D0134)|
-|AMERICAN HOLIC|AMERICAN HOLIC プリントロゴシアーニットプルオーバー|¥ 2,790 / ¥ 1,490|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25D0135)|
-|AMERICAN HOLIC|AMERICAN HOLIC メッシュニットリンガーTシャツ|¥ 2,290 / ¥ 1,290|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25F0032)|
-|AMERICAN HOLIC|AMERICAN HOLIC ソフトコットンクルーネックカーディガン|¥ 2,790 / ¥ 1,115|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25G0025)|
-|AMERICAN HOLIC|AMERICAN HOLIC ソフトコットンスウェットライクニットトップス|¥ 2,790 / ¥ 1,115|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25G0026)|
-|AMERICAN HOLIC|AMERICAN HOLIC 【前後2WAY】Vネックニットベスト|¥ 2,990 / ¥ 1,195|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25G0055)|
-|AMERICAN HOLIC|AMERICAN HOLIC 【選べる丈】甘編みニットベスト|¥ 3,290 / ¥ 1,315|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25G0056)|
-|AMERICAN HOLIC|AMERICAN HOLIC シャギーニットプルオーバー|¥ 2,990 / ¥ 1,195|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25G0061)|
-|AMERICAN HOLIC|AMERICAN HOLIC Vネックシャギーニットプルオーバー|¥ 2,990 / ¥ 1,195|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25G0062)|
-|AMERICAN HOLIC|AMERICAN HOLIC バイパチルーズニットプルオーバー＜静電気軽減＞|¥ 2,790 / ¥ 1,115|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25G0064)|
-|AMERICAN HOLIC|AMERICAN HOLIC バイパチルーズニットポロシャツ＜静電気軽減＞|¥ 2,990 / ¥ 1,195|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25G0065)|
-|AMERICAN HOLIC|AMERICAN HOLIC バイパチ片畦衿付きニットプルオーバー＜静電気軽減＞|¥ 3,290 / ¥ 1,315|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25G0066)|
-|AMERICAN HOLIC|AMERICAN HOLIC モヘヤ風シアー半袖ニットトップス|¥ 3,490 / ¥ 1,395|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25G0081)|
-|AMERICAN HOLIC|AMERICAN HOLIC 【2WAY】モヘヤ風甘編みカーディガン|¥ 3,990 / ¥ 1,596|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25G0082)|
-|AMERICAN HOLIC|AMERICAN HOLIC 【選べる丈】シャギーニットベスト|¥ 3,490 / ¥ 1,395|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25G0084)|
-|AMERICAN HOLIC|AMERICAN HOLIC メッシュカーディガン|¥ 3,290 / ¥ 1,315|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25G0089)|
-|AMERICAN HOLIC|AMERICAN HOLIC ケーブル5分袖ニットプルオーバー|¥ 2,990 / ¥ 1,195|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25G0094)|
-|AMERICAN HOLIC|AMERICAN HOLIC バイパチVネックルーズカーディガン＜静電気軽減＞|¥ 2,990 / ¥ 2,093|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25G0096)|
-|AMERICAN HOLIC|AMERICAN HOLIC ワンポイントロゴクルーカーディガン|¥ 2,990 / ¥ 1,195|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25G0098)|
-|AMERICAN HOLIC|AMERICAN HOLIC ZIPハイネックカーディガン|¥ 3,990 / ¥ 1,596|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25G0099)|
-|AMERICAN HOLIC|AMERICAN HOLIC 【配色】バイパチクルーネックニットプルオーバー＜静電気軽減＞|¥ 2,790 / ¥ 1,115|[公式商品](https://stripe-club.com/brand/american-holic/item/100HA25G0120)|
-|AMERICAN HOLIC|AMERICAN HOLIC ブークレ半袖ニットトップス|¥ 2,790 / ¥ 1,980|[公式商品](https://stripe-club.com/brand/american-holic/item/100HD25F0001)|
-|AMERICAN HOLIC|AMERICAN HOLIC ジャガードニットベスト|¥ 2,490 / ¥ 1,245|[公式商品](https://stripe-club.com/brand/american-holic/item/100HD25F0003)|
-|AMERICAN HOLIC|AMERICAN HOLIC モヘアライク配色ニットプルオーバー|¥ 3,290 / ¥ 1,315|[公式商品](https://stripe-club.com/brand/american-holic/item/100HD25G0001)|
-|AMERICAN HOLIC|AMERICAN HOLIC チェック半袖ニットプルオーバー|¥ 2,990 / ¥ 1,195|[公式商品](https://stripe-club.com/brand/american-holic/item/100HD25G0012)|
-|AMERICAN HOLIC|AMERICAN HOLIC 【2WAY】ニットチューブトップ|¥ 3,290 / ¥ 1,315|[公式商品](https://stripe-club.com/brand/american-holic/item/100HD25G0013)|
-|AMERICAN HOLIC|AMERICAN HOLIC 【2WAY】シャギーニットチューブトップ|¥ 3,290 / ¥ 1,315|[公式商品](https://stripe-club.com/brand/american-holic/item/100HD25G0014)|
-|AMERICAN HOLIC|AMERICAN HOLIC レースカーディガン|¥ 3,290 / ¥ 1,315|[公式商品](https://stripe-club.com/brand/american-holic/item/100HD25G0025)|
-|AMERICAN HOLIC|AMERICAN HOLIC フェザー半袖ニットプルオーバー|¥ 2,990 / ¥ 1,195|[公式商品](https://stripe-club.com/brand/american-holic/item/100HD25G0029)|
-|23区|ヴィスコースストレッチ ドルマンスリーブ ニット|¥16,940|[公式商品](https://crosset.onward.co.jp/items/KR23LA0354)|
-|23区|【エステータ】ツイードニット ファンシーヤーントップス|¥43,890|[公式商品](https://crosset.onward.co.jp/items/KRH6LW0920)|
-|23区|【エステータ】ファーニット ドルマンスリーブ トップス|¥43,890|[公式商品](https://crosset.onward.co.jp/items/KRH6LW0921)|
-|23区|【エステータ】ハイネックシアー ロールデザイン ニット|¥32,890|[公式商品](https://crosset.onward.co.jp/items/KRH6LW0922)|
-|23区|【GOLD LABEL】シアーウール ワイドリブ ニット|¥32,890|[公式商品](https://crosset.onward.co.jp/items/KRV8LA0928)|
-|23区|【GOLD LABEL】シアー パフディテール ニット|¥20,900|[公式商品](https://crosset.onward.co.jp/items/KRV8LA0929)|
-|23区|【洗える】レイヤードデザイン ニット|¥18,920 / ¥11,330|[公式商品](https://crosset.onward.co.jp/items/KRWOGA0153)|
-|23区|【洗える/吊り干しOK】ヴィスコースストレッチ ノースリーブ ニット|¥14,960 / ¥7,480|[公式商品](https://crosset.onward.co.jp/items/KRWOGA0254)|
-|23区|【洗える】スパンコールシアー ニットT|¥17,930 / ¥8,910|[公式商品](https://crosset.onward.co.jp/items/KRWOGA0256)|
-|23区|【洗える】コンパクトウール マルチウェイ ニットポンチョ|¥18,920 / ¥9,460|[公式商品](https://crosset.onward.co.jp/items/KRWOGA0359)|
-|23区|【洗える】ピュアリネン パフスリーブ ニット|¥18,920 / ¥9,460|[公式商品](https://crosset.onward.co.jp/items/KRWOGM0455)|
-|23区|【洗える】ピュアリネン ワイド ニット|¥19,910 / ¥9,900|[公式商品](https://crosset.onward.co.jp/items/KRWOGM0456)|
-|23区|【洗える】シャイニーシアー ボートネック ニット|¥15,950 / ¥7,920|[公式商品](https://crosset.onward.co.jp/items/KRWOGM0460)|
-|23区|【洗える】コットンルレックスリリー カラーニット|¥25,300 / ¥12,650|[公式商品](https://crosset.onward.co.jp/items/KRWOGS0258)|
-|23区|【洗える】シルキーレーヨンワイドリブ ニット|¥17,930 / ¥8,910|[公式商品](https://crosset.onward.co.jp/items/KRWOGS0260)|
-|23区|エンブロイダリーレース ポロ ニット|¥18,920 / ¥9,460|[公式商品](https://crosset.onward.co.jp/items/KRWOLM0453)|
-|JOURNAL STANDARD relume|《追加》ウォッシャブルクロップドカーディガン|¥8,800|[公式商品](https://baycrews.jp/item/detail/js-relume/cutsew/25080462851020)|
+|Green Parks|Green Parks natural clean 裾レイヤードレースニットプルオーバー|未確認|[公式商品](https://stripe-club.com/brand/greenparks/item/1006F26H0010)|
 
 ## ブランド・婦人対象の判定待ちリンク
 
@@ -68,13 +21,13 @@
 |UNIQLO|未完了|0|0|
 |GU|未完了|0|0|
 |MUJI|未完了|0|0|
-|ROPÉ PICNIC|未完了|51|0|
-|VIS|未完了|117|0|
-|GLOBAL WORK|未完了|41|0|
-|LOWRYS FARM|未完了|53|0|
-|studio CLIP|未完了|57|0|
-|niko and ...|未完了|32|0|
-|earth music&ecology|未完了|4|0|
+|ROPÉ PICNIC|未完了|25|2|
+|VIS|未完了|38|2|
+|GLOBAL WORK|未完了|14|1|
+|LOWRYS FARM|未完了|54|0|
+|studio CLIP|未完了|56|0|
+|niko and ...|未完了|30|0|
+|earth music&ecology|未完了|3|0|
 |Green Parks|未完了|8|0|
 |OPAQUE.CLIP|未完了|0|2|
 |index|未完了|0|2|
@@ -82,32 +35,32 @@
 |grove|未完了|0|1|
 |ikka|未完了|20|0|
 |coen|未完了|0|0|
-|DoCLASSE|未完了|228|0|
+|DoCLASSE|未完了|226|0|
 |any SiS|未完了|0|0|
-|LEPSIM|未完了|60|0|
-|LAKOLE|未完了|48|0|
+|LEPSIM|未完了|59|0|
+|LAKOLE|未完了|46|0|
 |JEANASIS|未完了|36|0|
 |BAYFLOW|未完了|51|0|
 |HARE|未完了|54|0|
-|Heather|未完了|53|0|
-|PAGEBOY|未完了|39|0|
+|Heather|未完了|52|0|
+|PAGEBOY|未完了|38|0|
 |A part by|未完了|45|0|
 |Elura|未完了|32|0|
 |mysty woman|未完了|32|0|
 |Andemiu|未完了|31|0|
-|AMERICAN HOLIC|未完了|215|11|
+|AMERICAN HOLIC|未完了|15|12|
 |YECCA VECCA|未完了|2|0|
-|23区|未完了|86|11|
+|23区|未完了|5|11|
 |ICB|未完了|0|0|
 |自由区|未完了|0|0|
-|組曲|未完了|62|7|
+|組曲|未完了|8|9|
 |UNFILO|未完了|0|0|
 |INDIVI|未完了|0|0|
 |UNTITLED|未完了|0|1|
 |NATURAL BEAUTY BASIC|未完了|13|0|
 |SENSE OF PLACE|未完了|11|0|
 |B.C STOCK|未完了|0|0|
-|SLOBE IENA|未完了|91|0|
+|SLOBE IENA|未完了|58|1|
 |green label relaxing|未完了|0|0|
 |Spick & Span|未完了|0|0|
 |IÉNA|未完了|0|0|
@@ -115,21 +68,21 @@
 |ANY|未完了|0|0|
 |MUJI Labo|未完了|0|0|
 |Mila Owen|未完了|0|0|
-|ROPÉ|未完了|55|0|
-|ADAM ET ROPÉ|未完了|112|1|
+|ROPÉ|未完了|30|2|
+|ADAM ET ROPÉ|未完了|46|3|
 |GALLARDAGALANTE|未完了|25|0|
-|Whim Gazette|未完了|24|0|
+|Whim Gazette|未完了|23|0|
 |LOUNGEDRESS|未完了|24|0|
 |RIVE DROITE|未完了|31|0|
 |DOUDOU|未完了|26|0|
 |SHENERY|未完了|14|0|
 |un dix cors|未完了|9|0|
 |La boutique BonBon|未完了|39|0|
-|natural couture|未完了|27|0|
+|natural couture|未完了|24|0|
 |DISCOAT|未完了|25|0|
 |ZARA|未完了|0|0|
 |SNIDEL|未完了|0|0|
-|JOURNAL STANDARD relume|未完了|66|0|
+|JOURNAL STANDARD relume|未完了|52|1|
 
 ## 未確認箇所・再取得対象
 
@@ -146,13 +99,18 @@
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://www.muji.com/jp/ja/store/cmdty/section/T10031
 
 ### ROPÉ PICNIC
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.junonline.jp/rope-picnic/product/tops/knit-sweater/?page=2
+- https://www.junonline.jp/rope-picnic/product/tops/cardigan/?page=2
 
 ### VIS
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.junonline.jp/vis/product/tops/knit-sweater/?page=2
+- https://www.junonline.jp/vis/product/tops/cardigan/?page=2
 
 ### GLOBAL WORK
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+入口の取得・解析未完了／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.dot-st.com/globalwork/disp/itemlist/?dispNo=001001&q=%E3%82%AB%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AC%E3%83%B3&sort=01
 
 ### LOWRYS FARM
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -173,8 +131,6 @@
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2
 - https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/?page=2
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/?page=2
 - HTTPError: HTTP Error 403: Forbidden (Akamai)：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden (Akamai)：https://store.world.co.jp/s/brand/opaque-clip/category/WB/WB02/
 
@@ -182,8 +138,6 @@
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2
 - https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/index/category/WB/WB01/?page=2
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/index/category/WB/WB02/?page=2
 - HTTPError: HTTP Error 403: Forbidden (Akamai)：https://store.world.co.jp/s/brand/index/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden (Akamai)：https://store.world.co.jp/s/brand/index/category/WB/WB02/
 
@@ -191,15 +145,12 @@
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2
 - https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/?page=2
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/?page=2
 - HTTPError: HTTP Error 403: Forbidden (Akamai)：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden (Akamai)：https://store.world.co.jp/s/brand/shoo-la-rue/category/WB/WB02/
 
 ### grove
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/grove/category/WB/WB01/?page=2
 - HTTPError: HTTP Error 403: Forbidden (Akamai)：https://store.world.co.jp/s/brand/grove/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden (Akamai)：https://store.world.co.jp/s/brand/grove/category/WB/WB06/
 
@@ -251,7 +202,7 @@
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 
 ### AMERICAN HOLIC
-取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=36
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=16
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=27
@@ -263,7 +214,7 @@
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=8
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=5
 - https://stripe-club.com/brand/american-holic/search?so=NEW&page=32
-- NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://stripe-club.com/brand/american-holic/search?so=NEW&page=36
+- https://stripe-club.com/brand/american-holic/search?so=NEW&page=2
 
 ### YECCA VECCA
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -299,6 +250,8 @@
 - https://crosset.onward.co.jp/items?cp=6&pp=10&gc=2&bc=003&du=2&scc=1005
 - https://crosset.onward.co.jp/items?cp=3&pp=10&gc=2&bc=003&du=2&scc=1004
 - https://crosset.onward.co.jp/items?cp=4&pp=10&gc=2&bc=003&du=2&scc=1005
+- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1004
+- https://crosset.onward.co.jp/items?cp=2&pp=10&gc=2&bc=003&du=2&scc=1005
 
 ### UNFILO
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -312,7 +265,6 @@
 ### UNTITLED
 入口の取得・解析未完了／取得または解析失敗／未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2
-- HTTPError: HTTP Error 403: Forbidden：https://store.world.co.jp/s/brand/untitled/category/WB/WB01/?page=2
 - HTTPError: HTTP Error 403: Forbidden (Akamai)：https://store.world.co.jp/s/brand/untitled/category/WB/WB01/
 - HTTPError: HTTP Error 403: Forbidden (Akamai)：https://store.world.co.jp/s/brand/untitled/category/WB/WB02/
 
@@ -327,7 +279,8 @@
 - NO_SUPPORTED_PRODUCT_CARDS_OR_DYNAMIC_PAGE：https://baycrews.jp/brand/detail/bcstock
 
 ### SLOBE IENA
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0999&qPage=1
 
 ### green label relaxing
 入口の取得・解析未完了／取得または解析失敗／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -359,11 +312,15 @@
 - HTTPError: HTTP Error 403: Forbidden (Akamai)：https://usagi-online.com/brand/milaowen/category/AB/AB05/
 
 ### ROPÉ
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://www.junonline.jp/rope/product/tops/knit-sweater/?page=2
+- https://www.junonline.jp/rope/product/tops/cardigan/?page=2
 
 ### ADAM ET ROPÉ
 未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
 - https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/?page=3
+- https://www.junonline.jp/adam-et-rope-femme/product/tops/knit-sweater/?page=2
+- https://www.junonline.jp/adam-et-rope-femme/product/tops/cardigan/?page=2
 
 ### GALLARDAGALANTE
 新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
@@ -405,7 +362,8 @@
 - HTTPError: HTTP Error 403: Forbidden (Akamai)：https://usagi-online.com/brand/snidel/category/AB/AB05/
 
 ### JOURNAL STANDARD relume
-新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+未取得ページあり／新着・予約・ニット・カーディガンとページ送りの範囲検証待ち
+- https://baycrews.jp/item/list?q_mtype=1&q_mccate=231&q_mshop=0498&qPage=1
 
 深掘り待ち：722件。速報は詳細調査の完了を待たず保存します。
 詳細・混率・発売日等の不明点は未確認。正式マスター・顧客公開は確認後。
