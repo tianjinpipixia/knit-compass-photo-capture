@@ -30,6 +30,26 @@ def fetch(url):
 
 
 class FlashPipelineTests(unittest.TestCase):
+    def test_feed_omits_duplicate_identity_archive_and_preserves_full_history(self):
+        from brand64_history_store import read_history
+
+        brand = 'BR-00004'
+        url = URL+'GDM66000'
+        event = {'delta_type': 'OBSERVED_FIELD_CHANGE', 'brand_id': brand,
+                 'brand_name': META['brand_name'], 'product_url': url, 'product_name': '冷感ニット',
+                 'observed_date': DATE, 'previous_values': {'display_price': '4990'},
+                 'source_sha256': 'a'*64, 'legacy_identity_records': [{'product_url': url+'?old=1'}]}
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            pipe = pipeline.Pipeline(root, {brand: META['brand_name']}, {brand: META}, set(), DATE, 'flash')
+            pipe.history['event'] = event
+            pipe.checkpoint()
+            self.assertEqual(read_history(root)['event'], event)
+            expected = {k: v for k, v in event.items() if k != 'legacy_identity_records'}
+            for file, key in ((root/'feed.json', 'candidates'), (root/'flash-latest.json', 'candidates'),
+                              (pipe.run_dir/'scan.json', 'candidate_deltas')):
+                self.assertEqual(json.loads(file.read_text())[key], [expected])
+
     def test_detail_batches_obey_limit_and_one_per_host(self):
         urls = [URL+'A', URL+'B', 'https://www.dot-st.com/item/1',
                 'https://www.palcloset.jp/display/item/A', 'https://www.dot-st.com/item/2']
