@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import tempfile
@@ -15,13 +16,14 @@ from brand64_flash_pipeline import STATE_FILES
 from merge_brand64_retrospective_sources import merge_retrospective_sources
 from brand64_identity_guard import persist_reconciled
 from jun_care_labels import care_observation
-from official_care_text import CARE_TEXT_SOURCE, add_world_listing_features
+from official_care_text import CARE_TEXT_SOURCE, add_world_listing_features, jis_care_text
 from brand64_history_store import history_files, write_history, read_history, DIRECTORY as HISTORY_DIRECTORY
 
 BRANCH = 'brand64/flash-feed'
 PREFIX = 'data/brand-md-monitoring/direct-scans/'
 OBSERVED_DIR = 'observed-products'
 CUMULATIVE_DIR = 'cumulative-products'
+COLLECTOR_CONFIG = Path(__file__).resolve().parents[1]/'config'
 OBSERVED_COUNTED_SCOPE_STATUS = 'BRAND_AND_KNIT_PATH_MATCHED'
 CUMULATIVE_COUNTED_SCOPE_STATUSES = {
     OBSERVED_COUNTED_SCOPE_STATUS,
@@ -62,6 +64,55 @@ def compact_record(brand_id, brand_name, item, observed_date=None):
     }
 
 
+def world_care_reviews(sources):
+    """Load item-level results reviewed from saved first-party browser snapshots."""
+    reviewed = {}
+    for item in json.loads((COLLECTOR_CONFIG/'brand64-world-care-reviews.json').read_text()):
+        brand = sources.get(item['brand_id'], {})
+        code = item['product_code']
+        url = item['product_url']
+        key = (item['brand_id'], code, url)
+        image_url = item['image_url']
+        at = datetime.fromisoformat(item['retrieved_at_utc'].replace('Z', '+00:00'))
+        care = jis_care_text(item['jis_symbols'], 'world_browser_symbols')
+        if (brand.get('adapter') != 'world' or not re.fullmatch(r'[A-Z0-9]{10,22}', code)
+                or url != f"https://store.world.co.jp/brand/{brand['slug']}/item/{code}"
+                or not re.fullmatch(r'https://store\.world\.co\.jp/res/c/wash/sp/wash[0-9]{1,5}\.png\?ver=2', image_url)
+                or item['image_media_type'] not in {'image/avif', 'image/png', 'image/webp'}
+                or at.utcoffset() != timedelta(0) or key in reviewed
+                or not all(re.fullmatch(r'[0-9a-f]{64}', item[field])
+                           for field in ('source_sha256', 'image_sha256', 'snapshot_sha256'))
+                or not care or 'unknown' in (care['home_wash'], care['dry_clean'])):
+            raise ValueError(f'Invalid reviewed WORLD care record for {code}')
+        care.pop('source_text')
+        care.update(evidence_kind='official_browser_image', source_url=url, image_url=image_url,
+                    retrieved_at_utc=at.isoformat(), source_sha256=item['source_sha256'],
+                    image_sha256=item['image_sha256'], snapshot_sha256=item['snapshot_sha256'],
+                    image_media_type=item['image_media_type'])
+        reviewed[key] = (at, care)
+    return reviewed
+
+
+def attach_world_review(record, reviews, observation_date, *, same_day):
+    reviewed = reviews.get((record.get('brand_id'), record.get('product_code'), record.get('product_url')))
+    if reviewed is None:
+        return
+    at, care = reviewed
+    day = at.astimezone(timezone(timedelta(hours=9))).date().isoformat()
+    if day > observation_date or (same_day and day != observation_date):
+        return
+    previous = record.get('care_label')
+    if (isinstance(previous, dict) and previous.get('status') == 'verified'
+            and previous.get('source_url') == record['product_url']):
+        try:
+            last = datetime.fromisoformat(str(previous.get('retrieved_at_utc') or '').replace('Z', '+00:00'))
+            if last.tzinfo is not None and last >= at:
+                return
+        except ValueError:
+            pass
+    record['care_label'] = care
+
+
 def write_brand_shard(output, directory, brand_id, brand_name, records, observation_date, cumulative=False):
     file_name = f'{brand_id}.json'
     relative = f'{directory}/{file_name}'
@@ -87,6 +138,8 @@ def build_observed_product_shards(root):
     observed_date = latest.get('observed_date') or latest.get('observation_date')
     if not observed_date:
         raise ValueError('latest.json has no observation date')
+    sources = json.loads((COLLECTOR_CONFIG/'brand64-free-direct-sources.json').read_text())['brands']
+    world_reviews = world_care_reviews(sources)
     details_path = root/'detail-results.json'
     saved_details = json.loads(details_path.read_text()) if details_path.exists() else {}
     output = root/OBSERVED_DIR
@@ -135,6 +188,8 @@ def build_observed_product_shards(root):
                 continue
             record['function_claims'] = list(dict.fromkeys([*record['function_claims'], *claims]))
             record['function_detail_evidence'] = {'source_url': url, 'source_sha256': sha, 'retrieved_at_utc': retrieved}
+        for record in records:
+            attach_world_review(record, world_reviews, observed_date, same_day=True)
         relative = write_brand_shard(output, OBSERVED_DIR, brand_id, brand_name, records, observed_date)
         generated.append(relative)
         manifest_brands.append({'brand_id': brand_id, 'brand_name': brand_name, 'product_count': len(records), 'path': relative})
@@ -170,7 +225,8 @@ def build_cumulative_product_shards(root, active=None):
         known, review = persist_reconciled(root, known, active)
     details_path = root/'detail-results.json'
     attach_details(known, json.loads(details_path.read_text()) if details_path.exists() else {})
-    sources = json.loads((Path(__file__).resolve().parents[1]/'config/brand64-free-direct-sources.json').read_text())['brands']
+    sources = json.loads((COLLECTOR_CONFIG/'brand64-free-direct-sources.json').read_text())['brands']
+    world_reviews = world_care_reviews(sources)
     for row in known.values():
         if isinstance(row, dict):
             add_world_listing_features(row, sources.get(row.get('brand_id'), {}))
@@ -208,6 +264,7 @@ def build_cumulative_product_shards(root, active=None):
         brand_name = brand_id
         for product_url in sorted(by_url):
             item = by_url[product_url]
+            attach_world_review(item, world_reviews, observation_date, same_day=False)
             brand_name = item.get('brand_name') or brand_name
             first_seen = item.get('first_seen_date')
             if first_seen and (earliest_first_seen is None or first_seen < earliest_first_seen):
