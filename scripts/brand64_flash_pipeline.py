@@ -15,12 +15,14 @@ import time
 
 import run_brand64_free_direct_scan as scan
 from jun_care_labels import CARE_REVIEW_VERSION
-from official_care_text import CARE_TEXT_ADAPTERS
+from official_care_text import CARE_TEXT_ADAPTERS, detail_adapter
 
 REQUIRED_SURFACES = {'NEW', 'PREORDER', 'KNIT', 'CARDIGAN'}
 COVERAGE_INCOMPLETE_EXIT = 3  # Saved result is valid, but registered-scope coverage remains incomplete.
 FUNCTION = re.compile(r'冷感|遮熱|調温|吸水|速乾|抗菌|防臭|制電|帯電防止|抗ピル|抗起球|アンチピリング|洗濯機|マシンウォッシャブル|UV|UPF|PCM', re.I)
 SUPPORTED_CARE = CARE_TEXT_ADAPTERS | {'jun'}
+EXPANDED_DETAIL_ADAPTERS = {'baycrews', 'urbanresearch', 'stripe', 'pal', 'jun'}
+DETAIL_PARSE_VERSION = 2
 STATE_FILES = ('known-products.json', 'coverage-state.json', 'deep-dive-queue.json',
                'flash-history.json', 'detail-results.json')
 
@@ -162,6 +164,13 @@ def queue_deep(changes, queue, tier, sources, date):
     return queue
 
 
+def retry_expanded_detail(task, meta):
+    return (detail_adapter(meta) in EXPANDED_DETAIL_ADAPTERS
+            and task.get('status') == 'REVIEW_REQUIRED'
+            and task.get('error') == 'ValueError: No matching official product detail found'
+            and task.get('detail_parse_version', 1) < DETAIL_PARSE_VERSION)
+
+
 def care_gap_keys(rows, details, queue, selected, sources, date, limit=8, history=()):
     """Give existing listings a bounded turn on supported storefronts."""
     candidates = {}
@@ -175,7 +184,7 @@ def care_gap_keys(rows, details, queue, selected, sources, date, limit=8, histor
         preserved.setdefault(item.get('brand_id'), []).append(item)
     for brand_id in selected:
         row = rows.get(brand_id, {})
-        if sources.get(brand_id, {}).get('adapter') not in SUPPORTED_CARE:
+        if detail_adapter(sources.get(brand_id, {})) not in SUPPORTED_CARE:
             continue
         current = row.get('surface_items', []) if row.get('observed_date') == date else []
         current_keys.update(brand_id+'|'+item['product_url'] for item in current if item.get('product_url'))
@@ -185,8 +194,9 @@ def care_gap_keys(rows, details, queue, selected, sources, date, limit=8, histor
                     'BRAND_AND_KNIT_PATH_MATCHED', 'OFFICIAL_REGULAR_LINE_WOMENS_KNIT_CONFIRMED'}:
                 continue
             key = brand_id+'|'+url
+            task = queue.get(key, {})
             if (details.get(key, {}).get('care_review_version') == CARE_REVIEW_VERSION
-                    or queue.get(key, {}).get('last_attempt_date') == date):
+                    or (task.get('last_attempt_date') == date and not retry_expanded_detail(task, sources[brand_id]))):
                 continue
             candidates.setdefault(brand_id, set()).add((key, brand_id, url))
 
@@ -194,7 +204,7 @@ def care_gap_keys(rows, details, queue, selected, sources, date, limit=8, histor
     brands = sorted(candidates, key=lambda brand: (last_brand_attempt.get(brand, ''), brand))
     storefronts = {}
     for brand in brands:
-        storefronts.setdefault(sources[brand]['adapter'], deque()).append(brand)
+        storefronts.setdefault(detail_adapter(sources[brand]), deque()).append(brand)
     buckets = deque()
     while any(storefronts.values()):
         for storefront in storefronts.values():
@@ -215,7 +225,7 @@ def care_gap_keys(rows, details, queue, selected, sources, date, limit=8, histor
 
 def needs_watched_care(task, detail, sources):
     return ('OWNER_WATCH' in task['reasons']
-            and sources[task['brand_id']].get('adapter') in SUPPORTED_CARE
+            and detail_adapter(sources[task['brand_id']]) in SUPPORTED_CARE
             and (detail.get('care_label') or {}).get('status') != 'verified')
 
 
@@ -431,6 +441,7 @@ def run(argv=None):
                                  limit=max(8, args.detail_limit*3//4), history=pipe.known.values())
         priority = {key: index for index, key in enumerate(gap_keys)}
         ordered = sorted(pipe.queue.items(), key=lambda kv: ('OWNER_WATCH' not in kv[1]['reasons'],
+                         not retry_expanded_detail(kv[1], sources.get(kv[1]['brand_id'], {})),
                          priority.get(kv[0], len(priority)), kv[1].get('last_attempt_date', ''),
                          kv[1]['queued_date'], kv[0]))
         eligible = []
@@ -438,7 +449,8 @@ def run(argv=None):
             if (task['brand_id'] not in selected
                     or (task['status'] == 'COMPLETE' and key not in priority
                         and not needs_watched_care(task, pipe.details.get(key, {}), sources))
-                    or task.get('last_attempt_date') == args.date):
+                    or (task.get('last_attempt_date') == args.date
+                        and not retry_expanded_detail(task, sources[task['brand_id']]))):
                 continue
             eligible.append((key, task))
 
@@ -452,7 +464,7 @@ def run(argv=None):
 
         pending_checkpoint = 0
         with ThreadPoolExecutor(max_workers=4) as pool:
-            for batch in detail_batches(eligible, args.detail_limit):
+            for batch in detail_batches(eligible[:args.detail_limit], args.detail_limit):
                 if time.monotonic() >= deadline:
                     break
                 for key, task, detail, evidence, error in pool.map(collect_detail, batch):
@@ -460,7 +472,8 @@ def run(argv=None):
                         continue
                     task['attempts'] += 1
                     task['last_attempt_date'] = args.date
-                    supported = sources[task['brand_id']].get('adapter') in SUPPORTED_CARE
+                    task['detail_parse_version'] = DETAIL_PARSE_VERSION
+                    supported = detail_adapter(sources[task['brand_id']]) in SUPPORTED_CARE
                     if supported:
                         task['care_attempt_date'] = args.date
                     if error:

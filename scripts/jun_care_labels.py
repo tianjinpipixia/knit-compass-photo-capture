@@ -64,6 +64,8 @@ def care_observation(detail):
         host = urlsplit(detail['source_url']).hostname
         if text_format == 'pal_care' and host == 'www.palcloset.jp':
             verified = pal_care_text(text)
+        elif text_format == 'official_store_care' and host in ('baycrews.jp', 'www.urban-research.jp'):
+            verified = pal_care_text(text, text_format)
         elif text_format == 'dot_symbols' and host == 'www.dot-st.com':
             verified = dot_care_text(text)
         else:
