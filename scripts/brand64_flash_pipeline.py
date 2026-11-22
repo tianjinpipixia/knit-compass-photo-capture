@@ -300,11 +300,15 @@ class Pipeline:
                             ('detail-results.json', self.details)]:
             scan.save(self.out/name, value)
         events = [self.history[key] for key in sorted(self.history) if self.history[key]['observed_date'] == self.date]
-        candidates = [e for e in events if e['delta_type'] != 'BASELINE_INITIALIZATION']
+        # Full legacy identity records are already in the checksummed history and
+        # canonical records. Repeating them in each exported event can exceed
+        # Git's file size limit even when each saved history shard is valid.
+        exported_events = [{k: v for k, v in e.items() if k != 'legacy_identity_records'} for e in events]
+        candidates = [e for e in exported_events if e['delta_type'] != 'BASELINE_INITIALIZATION']
         summary['first_observed_candidate_count'] = sum(e['delta_type'] == 'FIRST_OBSERVED_CANDIDATE' for e in events)
         summary['candidate_delta_count'] = len(candidates)
         summary['baseline_initialization_count'] = sum(e['delta_type'] == 'BASELINE_INITIALIZATION' for e in events)
-        scan.save(self.run_dir/'scan.json', {**summary, 'observations': self.rows, 'candidate_deltas': events})
+        scan.save(self.run_dir/'scan.json', {**summary, 'observations': self.rows, 'candidate_deltas': exported_events})
         scan.save(self.out/'feed.json', {'format': 'KC_BRAND64_OWNER_FLASH', 'schema_version': '1.0',
                   'summary': summary, 'candidates': candidates,
                   'deep_dive_pending_count': sum(v['status'] != 'COMPLETE' for v in self.queue.values())})

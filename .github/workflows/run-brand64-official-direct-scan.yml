@@ -54,7 +54,7 @@ concurrency:
 jobs:
   direct-scan:
     runs-on: ubuntu-26.04
-    timeout-minutes: 18
+    timeout-minutes: 25
     env:
       TZ: Asia/Tokyo
       GH_TOKEN: ${{ github.token }}
