@@ -337,7 +337,7 @@ def product_detail(html, url, meta, *, read_care_image_sha=None):
                 if len(composition) == 1:
                     result['composition'] = composition.pop()
                     result['composition_evidence'] = 'OFFICIAL_MATCHING_PRODUCT_TABLE'
-            elif urlsplit(url).hostname != ONWARD_HOST:
+            elif urlsplit(url).hostname != ONWARD_HOST and not result.get('composition_evidence'):
                 for row in doc.root.walk():
                     if row.tag!='tr':continue
                     th=next((x for x in row.walk() if x.tag=='th'),None);td=next((x for x in row.walk() if x.tag=='td'),None)

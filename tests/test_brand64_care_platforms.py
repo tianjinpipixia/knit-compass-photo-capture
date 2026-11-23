@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 import sys
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 
@@ -13,6 +14,50 @@ from run_brand64_free_direct_scan import product_detail, source_error
 
 
 class CarePlatformTests(unittest.TestCase):
+    def test_mix_care_binds_code_to_brand_product_and_official_data_version(self):
+        path = '/products/0176270040'
+        url = 'https://mix.tokyo'+path
+        map_url = 'https://cdn.example.invalid/official-map.json?v=1'
+        group = {'@type':'ProductGroup', '@id':path+'#product', 'category':'knit_sweater',
+                 'name':'ニット','brand':{'name':'NATURAL BEAUTY BASIC'}}
+        fields = f'''<div class="c_detail__item"><h3 class="c_detail__title">商品番号</h3>
+          <div class="c_detail__content">0176270040 グレー (020)</div></div>
+          <div class="c_detail__item"><h3 class="c_detail__title">洗濯表示</h3>
+          <div class="c_detail__content"><div id="wash_images">2141I</div>
+          <script>fetch('{map_url}')</script></div></div>'''
+        html = (f'<link rel="canonical" href="{url}">'
+                f'<script type="application/ld+json">{json.dumps(group)}</script>'+fields)
+        meta = {'brand_name':'NATURAL BEAUTY BASIC','adapter':'shopify'}
+        mapping = {'codes':{'2141I':['111','600']},'sha256':'b'*64,'url':map_url}
+        with patch('official_care_text.mix_symbol_map',return_value=mapping):
+            detail = product_detail(html,url,meta)
+            detail.update(source_sha256='a'*64,retrieved_at_utc='2026-11-23T03:07:11+00:00')
+            care = care_observation(detail)
+            self.assertEqual((care['home_wash'], care['max_water_c'], care['dry_clean']),
+                             ('hand', 30, 'prohibited'))
+            self.assertEqual(care['symbol_map_sha256'],'b'*64)
+            for wrong in (html.replace('0040 グレー','0041 グレー'),
+                          html.replace('v=1','v=2'), html.replace('NATURAL BEAUTY BASIC','Other')):
+                with self.assertRaises(ValueError):
+                    product_detail(wrong,url,meta)
+
+    def test_ikka_does_not_equate_wet_and_dry_cleaning(self):
+        url = 'https://tokyodesignchannel.com/c/ikka/ikkaladies/ikkalknit/12110102'
+        canonical = 'https://tokyodesignchannel.com/c/ikka/12110102'
+        html = (f'<link rel="canonical" href="{canonical}">'
+                '<meta property="og:title" content="ニット,ikka| TOKYO DESIGN CHANNEL">'
+                '<dl><dt>商品コード</dt><dd>12110102</dd></dl>'
+                '<dl><dt>クリーニング方法</dt><dd>洗濯機洗い可（弱く） ウェットクリーニング（W）</dd></dl>'
+                '<dl><dt>素材</dt><dd>綿50% ポリエステル50%</dd></dl>')
+        meta = {'brand_name':'ikka','adapter':'ikka'}
+        detail = product_detail(html,url,meta)
+        detail.update(source_sha256='a'*64,retrieved_at_utc='2026-11-23T03:07:11+00:00')
+        care = care_observation(detail)
+        self.assertEqual((care['home_wash'],care['dry_clean']),('machine','unknown'))
+        self.assertEqual(detail['composition'],'綿50% ポリエステル50%')
+        with self.assertRaises(ValueError):
+            product_detail(html.replace('<dd>12110102','<dd>12110103'),url,meta)
+
     def test_onward_keeps_only_care_confirmed_for_every_colour_group(self):
         url = 'https://crosset.onward.co.jp/items/KRWXLW0556'
         product = {'@type': 'Product', 'mpn': 'KRWXLW0556', 'name': '組曲ニット',
@@ -96,6 +141,20 @@ class CarePlatformTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             product_detail(doc, url, {**meta, 'slug': 'earth1999'})
 
+    def test_stripe_reads_explicit_washing_instructions_for_the_exact_product(self):
+        url = 'https://stripe-club.com/brand/american-holic/item/100HA25G0124'
+        instructions = ('【お洗濯について】<br>・液温は40℃を限度とし、手洗いが可能です。<br>'
+                        '・ドライクリーニングは可能です。（溶剤は石油系を使用してください）')
+        item = {'@type':'Product','url':url,'name':'ニット','description':instructions}
+        doc = (f'<link rel="canonical" href="{url}">'
+               f'<script type="application/ld+json">{json.dumps(item)}</script>')
+        meta = {'adapter':'stripe','brand_name':'AMERICAN HOLIC','slug':'american-holic'}
+        detail = product_detail(doc,url,meta)
+        detail.update(source_sha256='a'*64,retrieved_at_utc='2026-11-23T03:07:11+00:00')
+        care = care_observation(detail)
+        self.assertEqual((care['home_wash'],care['max_water_c'],care['dry_clean'],care['dry_solvent']),
+                         ('hand',40,'allowed','F'))
+
     def test_pal_checks_same_product_table_and_brand(self):
         url = 'https://www.palcloset.jp/display/item/DCZ1062205A0129'
         group = {'@type': 'ProductGroup', 'name': '長袖ニット', 'productGroupID': 'DCZ1062205A0129',
@@ -127,6 +186,7 @@ class CarePlatformTests(unittest.TestCase):
         self.assertIsNone(dot_detail_request(script, url.replace('1106207', '1067691'), meta))
         item = {'itemCd': '1106207', 'manShopNo': '0000100002', 'brandNm': 'GLOBAL WORK',
                 'itemNm': 'ニット', 'washIcon': '132,200,611',
+                'ingredient': '【ブラック】綿100%<br>【グレー】アクリル100％',
                 'tagFunctionList': [{'tagName': '抗ピリング'}, {'tagName': '帯電防止'}]}
         data = {'result': 'true', 'resultDtl': {'item': [item]}}
         detail = dot_detail(json.dumps(data), url, request, meta)
@@ -134,6 +194,11 @@ class CarePlatformTests(unittest.TestCase):
         care = care_observation(detail)
         self.assertEqual((care['home_wash'], care['max_water_c'], care['dry_clean']), ('machine', 30, 'allowed'))
         self.assertEqual(detail['function_claims'], ['抗ピリング', '帯電防止'])
+        self.assertEqual(detail['composition'], '【ブラック】綿100% 【グレー】アクリル100％')
+        item.update(washIcon=None, tagFunctionList=[])
+        material_only = dot_detail(json.dumps(data),url,request,meta)
+        self.assertNotIn('care_label',material_only)
+        self.assertEqual(material_only['composition_evidence'],'OFFICIAL_MATCHING_PRODUCT_TABLE')
         item['itemCd'] = '1067691'
         self.assertIsNone(dot_detail(json.dumps(data), url, request, meta))
 
