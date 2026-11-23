@@ -9,13 +9,14 @@ from pathlib import Path
 import re
 import subprocess
 import tempfile
+from urllib.parse import urlsplit
 
 from publish_brand64_flash_feed import (
     COLLECTOR_CONFIG, PREFIX, add_world_listing_features, attach_world_review,
     git, world_care_reviews,
 )
 from jun_care_labels import ASSET_ORIGIN, ASSET_ROOT, CARE_FIELDS, REVIEWED_PATHS, REVIEWED_STRIPS, care_observation
-from official_care_text import care_from_text, doclasse_feature_labels
+from official_care_text import care_from_text, doclasse_feature_labels, named_features
 
 
 REVIEW_PREFIX = PREFIX + 'owner-reviewed/'
@@ -23,6 +24,7 @@ MANIFEST_PATH = 'cumulative-products/manifest.json'
 REVIEW_CONFIG = 'config/brand64-world-care-reviews.json'
 JUN_REVIEW_CONFIG = 'config/brand64-jun-care-reviews.json'
 DOCLASSE_REVIEW_CONFIG = 'config/brand64-doclasse-detail-reviews.json'
+DETAIL_SAMPLE_CONFIG = 'config/brand64-reviewed-detail-samples.json'
 DOCLASSE_BRAND = 'BR-00018'
 # The Owner cumulative browser reader rejects larger responses.
 OWNER_SHARD_BYTE_LIMIT = 16_000_000
@@ -165,7 +167,42 @@ def read_doclasse_reviews(sources, reviewed_on):
     return reviews
 
 
-def apply_doclasse_review(record, review):
+def read_detail_samples(sources, reviewed_on):
+    samples = {}
+    for item in json.loads((COLLECTOR_CONFIG.parent/DETAIL_SAMPLE_CONFIG).read_bytes()):
+        brand_id, code, url = item['brand_id'], item['product_code'], item['product_url']
+        key = (brand_id, code, url)
+        brand = sources.get(brand_id, {})
+        official_hosts = {urlsplit(entry).hostname for entry in
+                          brand.get('entry_urls', []) + brand.get('watch_product_urls', [])}
+        product = urlsplit(url)
+        timestamp, digest = item['retrieved_at_utc'], item['source_sha256']
+        at = datetime.fromisoformat(timestamp)
+        claims = item.get('function_source_text', {})
+        composition = item.get('composition')
+        if (product.scheme != 'https' or product.netloc not in official_hosts or product.fragment
+                or not re.fullmatch(r'[A-Za-z0-9-]{3,32}', code) or key in samples
+                or at.utcoffset() != timedelta(0) or not re.fullmatch(r'[a-f0-9]{64}', digest)
+                or not isinstance(claims, dict)
+                or any(not isinstance(label, str) or claim not in named_features([label])
+                       for claim, label in claims.items())
+                or (composition is not None and (brand.get('adapter') != 'jun'
+                    or not isinstance(composition, str) or not re.search(r'\d\s*%', composition)))):
+            raise ValueError(f'Invalid reviewed product detail for {code}')
+        evidence = {'source_url': url, 'source_sha256': digest, 'retrieved_at_utc': timestamp}
+        care = None
+        if 'care_label' in item:
+            care = care_observation({**evidence, 'care_label': item['care_label']})
+            if not care or care['status'] != 'verified':
+                raise ValueError(f'Unverified product care for {code}')
+        if not care and not claims and not composition:
+            raise ValueError(f'No confirmed product detail for {code}')
+        if at.astimezone(timezone(timedelta(hours=9))).date().isoformat() <= reviewed_on:
+            samples[key] = (care, claims, evidence, composition)
+    return samples
+
+
+def apply_reviewed_detail(record, review):
     care, claims, evidence = review
     saved_care = record.get('care_label') or {}
     fields = ('home_wash', 'dry_clean')
@@ -179,12 +216,21 @@ def apply_doclasse_review(record, review):
         record['function_review_evidence'] = {**evidence, 'claim_text': new_claims}
 
 
+def apply_detail_sample(record, sample):
+    care, claims, evidence, composition = sample
+    apply_reviewed_detail(record, (care, claims, evidence))
+    if composition and not (record.get('material_composition') or '').strip():
+        record['material_composition'] = composition
+        record['composition_detail_evidence'] = evidence
+
+
 def prepare(base_ref, reviewed_on, previous_ref):
     collector = checked_commit('HEAD')
     top = Path(git('rev-parse', '--show-toplevel').stdout.strip())
     if top != COLLECTOR_CONFIG.parent:
         raise ValueError('Run this command from the collector checkout')
-    for file in (REVIEW_CONFIG, JUN_REVIEW_CONFIG, DOCLASSE_REVIEW_CONFIG, 'config/brand64-free-direct-sources.json'):
+    for file in (REVIEW_CONFIG, JUN_REVIEW_CONFIG, DOCLASSE_REVIEW_CONFIG, DETAIL_SAMPLE_CONFIG,
+                 'config/brand64-free-direct-sources.json'):
         if (top/file).read_bytes() != source_file(collector, file):
             raise ValueError(f'{file} must match the committed review source')
     base_commit, digest, day, run_id, brands = read_base(checked_commit(base_ref))
@@ -194,7 +240,8 @@ def prepare(base_ref, reviewed_on, previous_ref):
     reviews = world_care_reviews(sources)
     jun_reviews = read_jun_reviews(sources, reviewed_on)
     doclasse_reviews = read_doclasse_reviews(sources, reviewed_on)
-    review_brands = {brand_id for brand_id, _, _ in (*reviews, *jun_reviews, *doclasse_reviews)}
+    detail_samples = read_detail_samples(sources, reviewed_on)
+    review_brands = {brand_id for brand_id, _, _ in (*reviews, *jun_reviews, *doclasse_reviews, *detail_samples)}
     files, descriptors, report = {}, {}, {}
     for brand in brands:
         brand_id = brand['brand_id']
@@ -227,7 +274,9 @@ def prepare(base_ref, reviewed_on, previous_ref):
             if care and (row.get('care_label') or {}).get('status') != 'verified':
                 row['care_label'] = care
             if key in doclasse_reviews:
-                apply_doclasse_review(row, doclasse_reviews[key])
+                apply_reviewed_detail(row, doclasse_reviews[key])
+            if key in detail_samples:
+                apply_detail_sample(row, detail_samples[key])
             changed += before != row
             care = row.get('care_label') or {}
             missing += (care.get('status') != 'verified' or any(

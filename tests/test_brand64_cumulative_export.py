@@ -28,14 +28,33 @@ class CumulativeObservedProductExportTests(unittest.TestCase):
         evidence = {'source_url':url,'source_sha256':'b'*64,'retrieved_at_utc':'2026-11-23T02:40:40+00:00'}
         dry_only = {**care_from_text('ドライクリーニング（石油系）'),**evidence}
         row = {'product_url':url,'function_claims':['接触冷感']}
-        owner_review.apply_doclasse_review(row,(dry_only,{'UVカット':'95%以上UVカット'},evidence))
+        owner_review.apply_reviewed_detail(row,(dry_only,{'UVカット':'95%以上UVカット'},evidence))
         self.assertEqual(row['care_label']['home_wash'],'unknown')
         self.assertEqual(row['care_label']['dry_clean'],'allowed')
         self.assertEqual(row['function_claims'],['接触冷感','UVカット'])
         saved = {**care_from_text('手洗い可'),**evidence}
         row['care_label'] = saved
-        owner_review.apply_doclasse_review(row,(dry_only,{},evidence))
+        owner_review.apply_reviewed_detail(row,(dry_only,{},evidence))
         self.assertEqual(row['care_label'],saved)
+
+    def test_reviewed_detail_fills_missing_fields_and_preserves_saved_composition(self):
+        url = 'https://www.junonline.jp/rope-picnic/product/tops/cardigan/GDK56040'
+        evidence = {'source_url': url, 'source_sha256': 'b'*64,
+                    'retrieved_at_utc': '2026-11-23T03:00:00+00:00'}
+        care = {**care_from_text('洗濯機洗い可,ドライクリーニング不可'), **evidence}
+        fields = (care, {'抗ピリング': '毛玉軽減'}, evidence, '綿100%')
+        existing = {'product_url': url, 'material_composition': '麻100%', 'function_claims': ['接触冷感']}
+        owner_review.apply_detail_sample(existing, fields)
+        self.assertEqual(existing['material_composition'], '麻100%')
+        self.assertNotIn('composition_detail_evidence', existing)
+        self.assertEqual(existing['function_claims'], ['接触冷感', '抗ピリング'])
+        self.assertEqual(existing['care_label'], care)
+
+        empty = {'product_url': url, 'material_composition': ''}
+        owner_review.apply_detail_sample(empty, fields)
+        self.assertEqual(empty['material_composition'], '綿100%')
+        self.assertEqual(empty['composition_detail_evidence'], evidence)
+        self.assertEqual(empty['function_review_evidence']['claim_text'], {'抗ピリング': '毛玉軽減'})
 
     def test_world_browser_reviews_attach_to_the_exact_item_and_keep_the_capture_date(self):
         brand = 'BR-00015'

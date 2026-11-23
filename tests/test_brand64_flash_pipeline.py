@@ -205,10 +205,10 @@ class FlashPipelineTests(unittest.TestCase):
         self.assertEqual(row['pending_page_urls'], [])
         self.assertEqual(pipeline.page_budget({'max_pages_per_stage': 99}, 2), 16)
 
-    def test_four_configured_pending_brands_expand_retry_only_and_preserve_fail_closed(self):
+    def test_configured_pending_brands_expand_retry_only_and_preserve_fail_closed(self):
         sources=json.loads((scan.ROOT/'config/brand64-free-direct-sources.json').read_text())['brands']
-        affected={'BR-00005':'VIS','BR-00035':'AMERICAN HOLIC',
-                  'BR-00039':'23区','BR-00042':'組曲'}
+        affected={'BR-00005':'VIS','BR-00019':'any SiS','BR-00035':'AMERICAN HOLIC',
+                  'BR-00039':'23区','BR-00040':'ICB','BR-00042':'組曲'}
         configured={k for k,v in sources.items() if 'max_retry_pages' in v}
         self.assertEqual(configured,set(affected))
         for bid,brand in affected.items():

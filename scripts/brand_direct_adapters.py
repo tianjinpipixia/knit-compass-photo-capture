@@ -11,6 +11,8 @@ import unicodedata
 KNIT = re.compile(r'ニット|セーター|カーディガン|編み|knit|cardigan|sweater', re.I)
 OTHER = re.compile(r'キッズ|メンズ|ユニセックス|\bKIDS\b|\bMEN\b|\bUNISEX\b|ニット帽|ビーニー|ワッチ|シュシュ|キャップ|ストール|バッグ|スカート|ワンピース|パンツ|靴|シューズ|パンプス|ブーツ|ローファー|スニーカー|サンダル', re.I)
 
+ONWARD_LISTING_BRAND_CODES = {'002', '003', '004', '007'}
+
 def text(n): return re.sub(r'\s+', ' ', n.text()).strip() if n else ''
 def norm(t): return re.sub(r'[^\w]', '', unicodedata.normalize('NFKD',t).casefold())
 def matches(t, meta): return norm(t) in {norm(x) for x in [meta['brand_name']]+meta.get('brand_aliases',[])}
@@ -117,7 +119,7 @@ def onward_listing_items(doc, source, meta):
     p = urlsplit(source); q = parse_qs(p.query)
     if (p.scheme != 'https' or p.hostname != 'crosset.onward.co.jp' or
             p.path != '/items' or q.get('bc') != [meta.get('brand_code')] or
-            meta.get('brand_code') not in {'002', '003'} or
+            meta.get('brand_code') not in ONWARD_LISTING_BRAND_CODES or
             q.get('gc') != ['2'] or q.get('du') != ['2'] or
             q.get('scc') not in (['1004'], ['1005'])):
         return []

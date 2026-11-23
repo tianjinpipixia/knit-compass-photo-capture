@@ -34,8 +34,9 @@ def source_byte_limit(url):
     # Current Onward category HTML is ~7.5 MB even with ten cards. Give only
     # verified women/brand/category listings a bounded exception, not all hosts.
     p = urlsplit(url); q = parse_qs(p.query)
-    if (p.hostname == 'crosset.onward.co.jp' and p.path == '/items' and
-            q.get('bc') in (['002'], ['003']) and q.get('gc') == ['2'] and
+    brand = q.get('bc', [])
+    if (p.scheme == 'https' and p.hostname == 'crosset.onward.co.jp' and p.path == '/items' and
+            len(brand) == 1 and brand[0] in adapters.ONWARD_LISTING_BRAND_CODES and q.get('gc') == ['2'] and
             q.get('du') == ['2'] and q.get('pp') == ['10'] and
             q.get('scc') in (['1004'], ['1005'])):
         return ONWARD_LISTING_BYTES
