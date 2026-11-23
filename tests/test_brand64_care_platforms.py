@@ -172,6 +172,7 @@ class CarePlatformTests(unittest.TestCase):
         self.assertIsNone(dot_detail_request(script, url.replace('1106207', '1067691'), meta))
         item = {'itemCd': '1106207', 'manShopNo': '0000100002', 'brandNm': 'GLOBAL WORK',
                 'itemNm': 'ニット', 'washIcon': '132,200,611',
+                'ingredient': '【ブラック】綿100%<br>【グレー】アクリル100％',
                 'tagFunctionList': [{'tagName': '抗ピリング'}, {'tagName': '帯電防止'}]}
         data = {'result': 'true', 'resultDtl': {'item': [item]}}
         detail = dot_detail(json.dumps(data), url, request, meta)
@@ -179,6 +180,11 @@ class CarePlatformTests(unittest.TestCase):
         care = care_observation(detail)
         self.assertEqual((care['home_wash'], care['max_water_c'], care['dry_clean']), ('machine', 30, 'allowed'))
         self.assertEqual(detail['function_claims'], ['抗ピリング', '帯電防止'])
+        self.assertEqual(detail['composition'], '【ブラック】綿100% 【グレー】アクリル100％')
+        item.update(washIcon=None, tagFunctionList=[])
+        material_only = dot_detail(json.dumps(data),url,request,meta)
+        self.assertNotIn('care_label',material_only)
+        self.assertEqual(material_only['composition_evidence'],'OFFICIAL_MATCHING_PRODUCT_TABLE')
         item['itemCd'] = '1067691'
         self.assertIsNone(dot_detail(json.dumps(data), url, request, meta))
 

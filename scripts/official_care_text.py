@@ -151,7 +151,16 @@ def dot_detail(body, product_url, request_url, meta):
     tags = item.get('tagFunctionList')
     claims = named_features(tag['tagName'] for tag in tags
                             if isinstance(tag, dict) and isinstance(tag.get('tagName'), str)) if isinstance(tags, list) else {}
-    return assemble_detail(item['itemNm'], product_url, care, claims)
+    detail = assemble_detail(item['itemNm'], product_url, care, claims)
+    material = item.get('ingredient')
+    if isinstance(material, str):
+        material = ' '.join(html.unescape(re.sub(r'<br\s*/?>', ' ', material, flags=re.I)).split())
+        if re.search(r'\d\s*[%％]', material) and '<' not in material:
+            if detail is None:
+                detail = {'product_name':item['itemNm'].strip(), 'product_url':product_url,
+                          'source_url':product_url, 'evidence_level':CARE_TEXT_SOURCE}
+            detail = with_composition(detail, {material})
+    return detail
 
 
 def doclasse_feature_labels(label):

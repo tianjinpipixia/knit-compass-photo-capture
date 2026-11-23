@@ -186,7 +186,7 @@ def read_detail_samples(sources, reviewed_on):
                 or not isinstance(claims, dict)
                 or any(not isinstance(label, str) or claim not in named_features([label])
                        for claim, label in claims.items())
-                or (composition is not None and (detail_adapter(brand) not in {'jun', 'onward', 'mix_care', 'ikka'}
+                or (composition is not None and (detail_adapter(brand) not in {'jun', 'onward', 'mix_care', 'ikka', 'dot'}
                     or not isinstance(composition, str) or not re.search(r'\d\s*[%％]', composition)))):
             raise ValueError(f'Invalid reviewed product detail for {code}')
         evidence = {'source_url': url, 'source_sha256': digest, 'retrieved_at_utc': timestamp}
