@@ -113,6 +113,19 @@ class OnwardListingTests(unittest.TestCase):
         items = scan.adapters.extract(scan.Document(card(brand='23区', brand_code='002')), URL.replace('bc=003', 'bc=002'), {**META, 'brand_name': '23区', 'brand_code': '002'})
         self.assertEqual(len(items), 1)
 
+    def test_anysis_and_icb_categories_use_their_registered_brand_only(self):
+        sources = json.loads((scan.ROOT/'config/brand64-free-direct-sources.json').read_bytes())['brands']
+        for brand_id, brand_code, name, family in (
+            ('BR-00019', '007', 'ANY SIS', '707'), ('BR-00040', '004', 'ICB', '703')
+        ):
+            for url, category in zip(sources[brand_id]['entry_urls'], ('1004', '1005'), strict=True):
+                with self.subTest(brand_id=brand_id, category=category):
+                    html = card(brand=name, brand_code=brand_code, category=category)
+                    other = card(brand=name, brand_code=family, category=category, code='OTHER')
+                    items = scan.adapters.extract(scan.Document(html+other), url, sources[brand_id])
+                    self.assertEqual([item['product_code'] for item in items], ['KRWXLW0556'])
+                    self.assertEqual(scan.source_byte_limit(url), 8_000_000)
+
     def test_next_widget_preserves_filters_and_one_page_increment(self):
         def fetch(url):
             return card()+f'''<a class="c-pagination__next" href="{URL}&cp=2">次へ進む</a>
@@ -124,7 +137,7 @@ class OnwardListingTests(unittest.TestCase):
 
     def test_size_exception_is_narrow_and_still_bounded(self):
         self.assertEqual(scan.source_byte_limit(URL), 8_000_000)
-        for url in [URL.replace('bc=003', 'bc=004'), URL.replace('gc=2', 'gc=1'),
+        for url in [URL.replace('bc=003', 'bc=999'), URL.replace('gc=2', 'gc=1'),
                     URL.replace('pp=10', 'pp=30'), URL.replace('scc=1004', 'scc=1205'),
                     URL.replace('crosset.onward.co.jp', 'www.doclasse.com')]:
             self.assertEqual(scan.source_byte_limit(url), 4_000_000)
