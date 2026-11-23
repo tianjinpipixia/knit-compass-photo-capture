@@ -15,12 +15,17 @@ from publish_brand64_flash_feed import (
     git, world_care_reviews,
 )
 from jun_care_labels import ASSET_ORIGIN, ASSET_ROOT, CARE_FIELDS, REVIEWED_PATHS, REVIEWED_STRIPS, care_observation
+from official_care_text import care_from_text, doclasse_feature_labels
 
 
 REVIEW_PREFIX = PREFIX + 'owner-reviewed/'
 MANIFEST_PATH = 'cumulative-products/manifest.json'
 REVIEW_CONFIG = 'config/brand64-world-care-reviews.json'
 JUN_REVIEW_CONFIG = 'config/brand64-jun-care-reviews.json'
+DOCLASSE_REVIEW_CONFIG = 'config/brand64-doclasse-detail-reviews.json'
+DOCLASSE_BRAND = 'BR-00018'
+# The Owner cumulative browser reader rejects larger responses.
+OWNER_SHARD_BYTE_LIMIT = 16_000_000
 
 
 def checksum(data):
@@ -33,6 +38,18 @@ def source_file(commit, path):
 
 def encode(data):
     return (json.dumps(data, ensure_ascii=False, separators=(',', ':')) + '\n').encode()
+
+
+def encode_owner_shard(data):
+    payload = encode(data)
+    if len(payload) > OWNER_SHARD_BYTE_LIMIT:
+        # Identity history stays in the canonical shard. The Owner card uses the current record.
+        rows = [{name: value for name, value in row.items() if name != 'legacy_identity_records'}
+                for row in data['records']]
+        payload = encode({**data, 'records': rows})
+        if len(payload) > OWNER_SHARD_BYTE_LIMIT:
+            raise ValueError(f"Owner shard exceeds the browser limit: {data['brand_id']}")
+    return payload
 
 
 def checked_commit(ref):
@@ -119,12 +136,55 @@ def read_jun_reviews(sources, reviewed_on):
     return reviews
 
 
+def read_doclasse_reviews(sources, reviewed_on):
+    reviews = {}
+    if sources.get(DOCLASSE_BRAND, {}).get('adapter') != 'doclasse':
+        raise ValueError('DoCLASSE review source does not match the brand registry')
+    for item in json.loads((COLLECTOR_CONFIG.parent/DOCLASSE_REVIEW_CONFIG).read_bytes()):
+        code, url = item['product_code'], item['product_url']
+        key = (DOCLASSE_BRAND, code, url)
+        timestamp, digest = item['retrieved_at_utc'], item['source_sha256']
+        at = datetime.fromisoformat(timestamp)
+        path = r'https://www\.doclasse\.com/item/detail/1_1_'+re.escape(code)+r'(?:/[0-9]+)?'
+        claims = item.get('function_source_text', {})
+        if (not re.fullmatch(r'[0-9]{5,8}', code) or not re.fullmatch(path, url)
+                or key in reviews or at.utcoffset() != timedelta(0)
+                or not re.fullmatch(r'[a-f0-9]{64}', digest)
+                or not isinstance(claims, dict)
+                or any(not isinstance(text, str) or claim not in doclasse_feature_labels(text)
+                       for claim, text in claims.items())):
+            raise ValueError(f'Invalid reviewed DoCLASSE detail for {code}')
+        care = care_from_text(item.get('care_text'))
+        if not care or care['status'] != 'verified':
+            care = None
+        if not care and not claims:
+            raise ValueError(f'No confirmed care or function evidence for {code}')
+        if at.astimezone(timezone(timedelta(hours=9))).date().isoformat() <= reviewed_on:
+            evidence = {'source_url': url, 'source_sha256': digest, 'retrieved_at_utc': timestamp}
+            reviews[key] = (care and {**care, **evidence}, claims, evidence)
+    return reviews
+
+
+def apply_doclasse_review(record, review):
+    care, claims, evidence = review
+    saved_care = record.get('care_label') or {}
+    fields = ('home_wash', 'dry_clean')
+    if (care and all(saved_care.get(field) in (None, 'unknown', care.get(field)) for field in fields)
+            and any(saved_care.get(field) in (None, 'unknown') and care[field] != 'unknown' for field in fields)):
+        record['care_label'] = care
+    saved_claims = record.get('function_claims') or []
+    new_claims = {claim: label for claim, label in claims.items() if claim not in saved_claims}
+    if new_claims:
+        record['function_claims'] = [*saved_claims, *new_claims]
+        record['function_review_evidence'] = {**evidence, 'claim_text': new_claims}
+
+
 def prepare(base_ref, reviewed_on, previous_ref):
     collector = checked_commit('HEAD')
     top = Path(git('rev-parse', '--show-toplevel').stdout.strip())
     if top != COLLECTOR_CONFIG.parent:
         raise ValueError('Run this command from the collector checkout')
-    for file in (REVIEW_CONFIG, JUN_REVIEW_CONFIG, 'config/brand64-free-direct-sources.json'):
+    for file in (REVIEW_CONFIG, JUN_REVIEW_CONFIG, DOCLASSE_REVIEW_CONFIG, 'config/brand64-free-direct-sources.json'):
         if (top/file).read_bytes() != source_file(collector, file):
             raise ValueError(f'{file} must match the committed review source')
     base_commit, digest, day, run_id, brands = read_base(checked_commit(base_ref))
@@ -133,7 +193,8 @@ def prepare(base_ref, reviewed_on, previous_ref):
     sources = json.loads((COLLECTOR_CONFIG/'brand64-free-direct-sources.json').read_bytes())['brands']
     reviews = world_care_reviews(sources)
     jun_reviews = read_jun_reviews(sources, reviewed_on)
-    review_brands = {brand_id for brand_id, _, _ in (*reviews, *jun_reviews)}
+    doclasse_reviews = read_doclasse_reviews(sources, reviewed_on)
+    review_brands = {brand_id for brand_id, _, _ in (*reviews, *jun_reviews, *doclasse_reviews)}
     files, descriptors, report = {}, {}, {}
     for brand in brands:
         brand_id = brand['brand_id']
@@ -161,16 +222,19 @@ def prepare(base_ref, reviewed_on, previous_ref):
             before = row.copy()
             add_world_listing_features(row, sources[brand_id])
             attach_world_review(row, reviews, reviewed_on, same_day=False)
-            care = jun_reviews.get((brand_id, row.get('product_code'), row['product_url']))
+            key = (brand_id, row.get('product_code'), row['product_url'])
+            care = jun_reviews.get(key)
             if care and (row.get('care_label') or {}).get('status') != 'verified':
                 row['care_label'] = care
+            if key in doclasse_reviews:
+                apply_doclasse_review(row, doclasse_reviews[key])
             changed += before != row
             care = row.get('care_label') or {}
             missing += (care.get('status') != 'verified' or any(
                 care.get(key) in (None, 'unknown') for key in ('home_wash', 'dry_clean')))
         report[brand_id] = {'products': len(records), 'changed': changed, 'care_unconfirmed': missing}
-        if changed:
-            files[name] = encode(data)
+        if changed or len(raw) > OWNER_SHARD_BYTE_LIMIT:
+            files[name] = encode_owner_shard(data)
             descriptors[brand_id] = {'sha256': checksum(files[name]), 'base_sha256': brand['sha256']}
     previous = checked_commit(previous_ref) if previous_ref else None
     data_commit = create_commit(files, 'Save locally reviewed Brand64 cumulative shards [skip ci]', previous)

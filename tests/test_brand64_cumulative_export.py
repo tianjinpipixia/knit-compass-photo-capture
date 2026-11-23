@@ -9,9 +9,34 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]/'scripts'))
 import publish_brand64_flash_feed as publisher
 from jun_care_labels import care_from_strip
 from official_care_text import CARE_TEXT_SOURCE, care_from_text
+import prepare_brand64_owner_review as owner_review
 
 
 class CumulativeObservedProductExportTests(unittest.TestCase):
+    def test_owner_payload_omits_identity_history_only_when_exceeding_the_browser_limit(self):
+        row = {'product_code':'33288','product_name':'ニット',
+               'legacy_identity_records':[{'product_name':'過去の記録'*250}]}
+        shard = {'brand_id':'BR-00018','records':[row]}
+        self.assertEqual(json.loads(owner_review.encode_owner_shard(shard)),shard)
+        with patch.object(owner_review,'OWNER_SHARD_BYTE_LIMIT',150):
+            payload = json.loads(owner_review.encode_owner_shard(shard))
+            self.assertEqual(payload['records'],[{'product_code':'33288','product_name':'ニット'}])
+        self.assertIn('legacy_identity_records',row)
+
+    def test_doclasse_supplement_preserves_previously_confirmed_care(self):
+        url = 'https://www.doclasse.com/item/detail/1_1_33288/090'
+        evidence = {'source_url':url,'source_sha256':'b'*64,'retrieved_at_utc':'2026-11-23T02:40:40+00:00'}
+        dry_only = {**care_from_text('ドライクリーニング（石油系）'),**evidence}
+        row = {'product_url':url,'function_claims':['接触冷感']}
+        owner_review.apply_doclasse_review(row,(dry_only,{'UVカット':'95%以上UVカット'},evidence))
+        self.assertEqual(row['care_label']['home_wash'],'unknown')
+        self.assertEqual(row['care_label']['dry_clean'],'allowed')
+        self.assertEqual(row['function_claims'],['接触冷感','UVカット'])
+        saved = {**care_from_text('手洗い可'),**evidence}
+        row['care_label'] = saved
+        owner_review.apply_doclasse_review(row,(dry_only,{},evidence))
+        self.assertEqual(row['care_label'],saved)
+
     def test_world_browser_reviews_attach_to_the_exact_item_and_keep_the_capture_date(self):
         brand = 'BR-00015'
         root_url = 'https://store.world.co.jp/brand/grove/item/'

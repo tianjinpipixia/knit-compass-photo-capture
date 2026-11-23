@@ -143,6 +143,11 @@ class Tests(unittest.TestCase):
         with self.assertRaises(ValueError):
             scan.product_detail(markup,source.replace('488191','488192'),meta)
         self.assertEqual(care_from_text('手洗い')['dry_clean'],'unknown')
+        petroleum = care_from_text('ドライクリーニング（石油系）')
+        self.assertEqual((petroleum['home_wash'],petroleum['dry_clean'],petroleum['dry_solvent']),
+                         ('unknown','allowed','F'))
+        self.assertEqual(care_from_text('ドライ石油系')['dry_solvent'],'F')
+        self.assertEqual(care_from_text('ドライクリーニング（石油系）不可')['dry_clean'],'unknown')
         self.assertEqual(care_from_text('家庭洗濯不可、ドライクリーニング不可')['dry_clean'],'prohibited')
         self.assertEqual(care_from_text('洗濯機OK、手洗いのみ')['home_wash'],'unknown')
         self.assertEqual(care_from_text('手洗いかドライクリーニング可かは不明です。')['status'],'unresolved')

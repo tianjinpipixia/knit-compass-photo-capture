@@ -9,6 +9,7 @@ from brand_direct_adapters import matches
 CARE_TEXT_ADAPTERS = frozenset(('fr', 'doclasse', 'canshop', 'pal', 'dot', 'stripe', 'baycrews', 'urbanresearch', 'onward'))
 CARE_TEXT_SOURCE = 'OFFICIAL_PRODUCT_CARE_TEXT'
 ONWARD_HOST = 'crosset.onward.co.jp'
+PETROLEUM_DRY_LABELS = {'ドライクリーニング(石油系)', 'ドライ石油系'}
 TOKENS = {
     'home_wash': {
         'hand': {'手洗い', '手洗い可', '手洗い可能', '手洗いOK', '手洗いのみ'},
@@ -18,7 +19,7 @@ TOKENS = {
     },
     'dry_clean': {
         'allowed': {'ドライクリーニング可', 'ドライクリーニング可能', '石油系ドライクリーニング',
-                    '石油系ドライクリーニング可'},
+                    '石油系ドライクリーニング可'} | PETROLEUM_DRY_LABELS,
         'prohibited': {'ドライクリーニング不可', 'ドライクリーニング禁止', 'ドライ不可'},
     },
 }
@@ -149,6 +150,13 @@ def dot_detail(body, product_url, request_url, meta):
     return assemble_detail(item['itemNm'], product_url, care, claims)
 
 
+def doclasse_feature_labels(label):
+    normalized = unicodedata.normalize('NFKC', label)
+    if re.fullmatch(r'[0-9]{2,3}%以上UVカット', normalized):
+        normalized = 'UVカット'
+    return DOCLASSE_FUNCTION_LABELS.get(normalized, ())
+
+
 def doclasse_features(doc):
     claims = {}
     for node in doc.root.walk():
@@ -156,10 +164,7 @@ def doclasse_features(doc):
                 or not node.parent.has_class('detailArea__txt__explain')):
             continue
         label = ' '.join(node.text().split())
-        normalized = unicodedata.normalize('NFKC', label)
-        if re.fullmatch(r'[0-9]{2,3}%以上UVカット', normalized):
-            normalized = 'UVカット'
-        for claim in DOCLASSE_FUNCTION_LABELS.get(normalized, ()):
+        for claim in doclasse_feature_labels(label):
             claims.setdefault(claim, label)
     return claims
 
@@ -188,6 +193,8 @@ def care_from_text(value):
     for field, dictionary in TOKENS.items():
         states = [state for state, labels in dictionary.items() if tokens.intersection(labels)]
         care[field] = states[0] if len(states) == 1 else 'unknown'
+    if care['dry_clean'] == 'allowed' and tokens.intersection(PETROLEUM_DRY_LABELS):
+        care['dry_solvent'] = 'F'
     if care['home_wash'] == care['dry_clean'] == 'unknown':
         care['status'] = 'unresolved'
     return care
