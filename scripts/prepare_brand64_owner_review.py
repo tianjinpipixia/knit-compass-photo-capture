@@ -16,7 +16,7 @@ from publish_brand64_flash_feed import (
     git, world_care_reviews,
 )
 from jun_care_labels import ASSET_ORIGIN, ASSET_ROOT, CARE_FIELDS, REVIEWED_PATHS, REVIEWED_STRIPS, care_observation
-from official_care_text import care_from_text, detail_adapter, doclasse_feature_labels, named_features
+from official_care_text import MIX_CARE_CONFIG, care_from_text, detail_adapter, doclasse_feature_labels, named_features
 
 
 REVIEW_PREFIX = PREFIX + 'owner-reviewed/'
@@ -186,7 +186,7 @@ def read_detail_samples(sources, reviewed_on):
                 or not isinstance(claims, dict)
                 or any(not isinstance(label, str) or claim not in named_features([label])
                        for claim, label in claims.items())
-                or (composition is not None and (detail_adapter(brand) not in {'jun', 'onward'}
+                or (composition is not None and (detail_adapter(brand) not in {'jun', 'onward', 'mix_care', 'ikka'}
                     or not isinstance(composition, str) or not re.search(r'\d\s*[%％]', composition)))):
             raise ValueError(f'Invalid reviewed product detail for {code}')
         evidence = {'source_url': url, 'source_sha256': digest, 'retrieved_at_utc': timestamp}
@@ -229,7 +229,7 @@ def prepare(base_ref, reviewed_on, previous_ref):
     top = Path(git('rev-parse', '--show-toplevel').stdout.strip())
     if top != COLLECTOR_CONFIG.parent:
         raise ValueError('Run this command from the collector checkout')
-    for file in (REVIEW_CONFIG, JUN_REVIEW_CONFIG, DOCLASSE_REVIEW_CONFIG, DETAIL_SAMPLE_CONFIG,
+    for file in (REVIEW_CONFIG, JUN_REVIEW_CONFIG, DOCLASSE_REVIEW_CONFIG, DETAIL_SAMPLE_CONFIG, MIX_CARE_CONFIG,
                  'config/brand64-free-direct-sources.json'):
         if (top/file).read_bytes() != source_file(collector, file):
             raise ValueError(f'{file} must match the committed review source')

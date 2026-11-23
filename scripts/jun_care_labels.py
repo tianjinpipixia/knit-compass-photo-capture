@@ -1,7 +1,7 @@
 """JUN product care strips reviewed against its guide and JIS L0001:2024."""
 
 import re
-from official_care_text import ONWARD_HOST, care_from_text, jis_care_text, pal_care_text
+from official_care_text import ONWARD_HOST, care_from_text, jis_care_text, mix_label, pal_care_text
 from urllib.parse import urlsplit
 
 ASSET_ORIGIN = 'https://www.junonline.jp'
@@ -60,6 +60,30 @@ REVIEWED_STRIPS = {
         ('hand', 30, None, 'allowed', 'F', 'gentle', 'very_gentle'),  # SH-191
     '257e4b8aaf9fa9602d74eefe12773c1052bb72436cd5a566e189f2f50bc29316':
         ('hand', 30, None, 'allowed', 'F', 'gentle', 'very_gentle'),  # SH-195
+    'd35017cf50bf0920e0c58bc4d47ea9b0ca75f9f6f1376e86df8cd2ead3b60b79':
+        ('machine', 30, 'very_gentle', 'allowed', 'F', 'gentle', 'gentle'),  # SB-111
+    '4c3c928bad71b90d273d50b1eabfe17b6d424e1330d32aaf681cd3997ed41b80':
+        ('machine', 30, 'very_gentle', 'allowed', 'F', 'gentle', 'gentle'),  # SB-113/SC-113
+    'da5ee2ba3e256dca2c90c1507c4b9b4e85795a91ee3055e8f466846c0aebae08':
+        ('machine', 30, 'very_gentle', 'prohibited', None, None, 'gentle'),  # SB-150
+    'e3569470b76b93782bcb12a13fa205098346e9f4df5555400ddea096c47b9d1b':
+        ('hand', 40, None, 'allowed', 'F', 'gentle', 'very_gentle'),  # SE-190
+    '7135b2587e5c53b8075c4332f8bfc97f9ecc2eaf25374e003074b194a9889959':
+        ('hand', 40, None, 'allowed', 'F', 'gentle', 'very_gentle'),  # SE-194
+    'd3526e36783607e96ea03792a7588a4ad32dfc50b2e8eeed213ae8072618047d':
+        ('hand', 40, None, 'prohibited', None, None, 'very_gentle'),  # SD-131
+    '2336b77fbde81ac959e27643e547f5afb7c7e9c0d1846e67dab4f0122ae23e42':
+        ('hand', 40, None, 'prohibited', None, None, 'very_gentle'),  # SE-132
+    'afdbe803fe0ca30e2bfa39c56a79bb68ffb67e74351837a9ab5c3d1af55a6fac':
+        ('prohibited', None, None, 'allowed', 'F', 'gentle', 'gentle'),  # SF-207
+    '5fbf643f85ba689f16fc48e07f3844c3a9500a8ef552325f19dc81b06d2194e7':
+        ('prohibited', None, None, 'allowed', 'F', 'gentle', 'gentle'),  # SF-211
+    '41866ca80ebcaa1f41e0fab7b75b1d2cbf55b3af9c30fb95a91c1ceeb952df04':
+        ('hand', 30, None, 'allowed', 'F', 'gentle', 'very_gentle'),  # SG-113/SH-113
+    '084ee4f51b60962a83062960b2ea8d74312bcb60698d5a9fbc4bde24a9e15362':
+        ('hand', 30, None, 'prohibited', None, None, 'very_gentle'),  # SH-133
+    'd6e15a642ede0a0b5f26cdbe5adb29e935e7882267d46f7d65caf41e416d0e30':
+        ('hand', 30, None, 'prohibited', None, None, 'very_gentle'),  # SH-150
 }
 REVIEWED_PATHS = frozenset(ASSET_ROOT + name for name in (
     'SB-191.gif', 'SC-191.gif', 'SC-195.gif', 'SC-155.gif', 'SE-151.gif',
@@ -70,6 +94,10 @@ REVIEWED_PATHS = frozenset(ASSET_ROOT + name for name in (
     'SE-191.gif', 'SE-195.gif', 'SF-203.gif', 'SF-210.gif',
     'SH-111.gif', 'SH-151.gif', 'SH-155.gif', 'SH-191.gif',
     'SH-195.gif',
+    'SB-111.gif', 'SB-113.gif', 'SC-113.gif', 'SB-150.gif', 'SB-151.gif',
+    'SD-113.gif', 'SE-190.gif', 'SE-194.gif', 'SD-131.gif', 'SD-151.gif',
+    'SD-155.gif', 'SE-132.gif', 'SF-207.gif', 'SF-211.gif', 'SG-113.gif',
+    'SG-191.gif', 'SH-113.gif', 'SH-133.gif', 'SH-150.gif',
 ))
 CARE_FIELDS = ('home_wash', 'max_water_c', 'home_cycle', 'dry_clean',
                'dry_solvent', 'dry_cycle', 'wet_clean')
@@ -104,12 +132,14 @@ def care_observation(detail):
         host = urlsplit(detail['source_url']).hostname
         if text_format == 'pal_care' and host == 'www.palcloset.jp':
             verified = pal_care_text(text)
-        elif text_format == 'official_store_care' and host in ('baycrews.jp', 'www.urban-research.jp'):
+        elif text_format == 'official_store_care' and host in ('baycrews.jp', 'www.urban-research.jp', 'tokyodesignchannel.com'):
             verified = pal_care_text(text, text_format)
         elif text_format == 'dot_symbols' and host == 'www.dot-st.com':
             verified = jis_care_text(text, text_format)
         elif text_format == 'onward_symbols' and host == ONWARD_HOST:
             verified = jis_care_text(text, text_format)
+        elif text_format == 'mix_symbols' and host == 'mix.tokyo':
+            verified = mix_label(label.get('wash_code'))
         else:
             verified = care_from_text(text)
         if verified != label:
