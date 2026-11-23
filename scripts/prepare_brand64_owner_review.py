@@ -26,6 +26,7 @@ JUN_REVIEW_CONFIG = 'config/brand64-jun-care-reviews.json'
 DOCLASSE_REVIEW_CONFIG = 'config/brand64-doclasse-detail-reviews.json'
 DETAIL_SAMPLE_CONFIG = 'config/brand64-reviewed-detail-samples.json'
 DOCLASSE_BRAND = 'BR-00018'
+FR_PRODUCT_PATH = re.compile(r'/jp/ja/products/(E[0-9]{6}-[0-9]{3})/[0-9]{2}/?')
 # The Owner cumulative browser reader rejects larger responses.
 OWNER_SHARD_BYTE_LIMIT = 16_000_000
 
@@ -202,6 +203,18 @@ def read_detail_samples(sources, reviewed_on):
     return samples
 
 
+def reviewed_detail_key(row, brand):
+    url = row['product_url']
+    code = row.get('product_code')
+    if not code and detail_adapter(brand) == 'fr':
+        product = urlsplit(url)
+        match = FR_PRODUCT_PATH.fullmatch(product.path)
+        if (match and product.scheme == 'https' and not product.query and not product.fragment
+                and product.netloc in {'www.uniqlo.com', 'www.gu-global.com'}):
+            code = match[1]
+    return row['brand_id'], code, url
+
+
 def apply_reviewed_detail(record, review):
     care, claims, evidence = review
     saved_care = record.get('care_label') or {}
@@ -275,8 +288,9 @@ def prepare(base_ref, reviewed_on, previous_ref):
                 row['care_label'] = care
             if key in doclasse_reviews:
                 apply_reviewed_detail(row, doclasse_reviews[key])
-            if key in detail_samples:
-                apply_detail_sample(row, detail_samples[key])
+            detail = detail_samples.get(reviewed_detail_key(row, sources[brand_id]))
+            if detail:
+                apply_detail_sample(row, detail)
             changed += before != row
             care = row.get('care_label') or {}
             missing += (care.get('status') != 'verified' or any(

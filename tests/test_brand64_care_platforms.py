@@ -9,11 +9,65 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from jun_care_labels import care_observation
 from brand64_canonical_store import attach_details
 from brand64_flash_pipeline import needs_watched_care, retry_expanded_detail
-from official_care_text import add_world_listing_features, dot_detail, dot_detail_request, jis_care_text, pal_care_text, title_features
+from official_care_text import (
+    USAGI_ICONS, add_world_listing_features, dot_detail, dot_detail_request, jis_care_text, pal_care_text,
+    title_features, usagi_icon_url,
+)
+from prepare_brand64_owner_review import reviewed_detail_key
 from run_brand64_free_direct_scan import product_detail, source_error
 
 
 class CarePlatformTests(unittest.TestCase):
+    def test_fr_uses_official_washing_field_and_keeps_dry_unknown(self):
+        url = 'https://www.gu-global.com/jp/ja/products/E357431-000/00'
+        sku = 'E357431-000'
+        machine = 'ご家庭の洗濯機でそのまま洗えるマシンウォッシャブル機能付きです。'
+        pilling = '毛玉になりにくいアンチピリング素材を使用しています。'
+        product = {'productId': sku, 'name': 'ニット', 'washingInformation': '洗濯機',
+                   'longDescription': f'【機能と素材について】<br>- {machine}<br>- {pilling}<br>【注意】'}
+        payload = {'entity': {'pdpEntity': {sku+'-00': {'product': product}}}}
+        html = (f'<link rel="canonical" href="{url}">'
+                f'<script>window.__PRELOADED_STATE__ = {json.dumps(payload)}</script>'
+                '<section id="productMaterialDescription-content"><p>洗濯機</p></section>')
+        brand = {'adapter': 'fr', 'brand_name': 'GU'}
+        detail = product_detail(html, url, brand)
+        detail.update(source_sha256='a'*64, retrieved_at_utc='2026-11-23T10:00:00Z')
+        care = care_observation(detail)
+        self.assertEqual((care['home_wash'], care['dry_clean']), ('machine', 'unknown'))
+        self.assertEqual(detail['function_source_text'], {'洗濯機洗い可': machine, '抗ピリング': pilling})
+        forged = {**detail, 'source_url': url.replace('www.gu-global.com', 'example.invalid')}
+        self.assertIsNone(care_observation(forged))
+        row = {'brand_id': 'BR-00002', 'product_url': url, 'product_code': ''}
+        self.assertEqual(reviewed_detail_key(row, brand), ('BR-00002', sku, url))
+        self.assertEqual(reviewed_detail_key(row, {'adapter': 'pal'})[1], '')
+        self.assertEqual(reviewed_detail_key({**row, 'product_code': 'PRESERVED'}, brand)[1], 'PRESERVED')
+
+    def test_usagi_binds_washing_symbols_to_exact_product_and_all_colours(self):
+        url = 'https://usagi-online.com/brand/snidel/item/SND0126F0036'
+        brand = {'adapter': 'usagi', 'slug': 'snidel', 'brand_name': 'SNIDEL'}
+        assets = {usagi_icon_url(name): entry[1] for name, entry in USAGI_ICONS.items()}
+
+        def group(color, *names):
+            icons = ''.join(f'<img src="{usagi_icon_url(name).removeprefix("https://usagi-online.com")}">'
+                            for name in names)
+            return f'<div class="washing-sku-group" data-sku-color="{color}"><div class="washing-icons">{icons}</div></div>'
+
+        common = (f'<link rel="canonical" href="{url}"><title>ニット｜SNIDEL（スナイデル）</title><h1>ニット</h1>'
+                  '<section class="info-washing">')
+        same = common + group('OWHT', 'ua', 'e', 'i') + group('BLK', 'ua', 'e', 'i') + '</section>'
+        detail = product_detail(same, url, brand, read_care_image_sha=assets.__getitem__)
+        detail.update(source_sha256='a'*64, retrieved_at_utc='2026-11-23T10:00:00Z')
+        care = care_observation(detail)
+        self.assertEqual((care['home_wash'], care['max_water_c'], care['dry_clean'], care['dry_solvent']),
+                         ('hand', 40, 'allowed', 'F'))
+        different = common + group('OWHT', 'ua', 'e', 'i') + group('BRW', 'ub', 'e', 'f') + '</section>'
+        care = product_detail(different, url, brand, read_care_image_sha=assets.__getitem__)['care_label']
+        self.assertEqual((care['home_wash'], care['dry_clean']), ('unknown', 'allowed'))
+        with self.assertRaises(ValueError):
+            product_detail(same, url.replace('0036', '0035'), brand, read_care_image_sha=assets.__getitem__)
+        with self.assertRaises(ValueError):
+            product_detail(same, url, brand, read_care_image_sha=lambda _: '0'*64)
+
     def test_mix_care_binds_code_to_brand_product_and_official_data_version(self):
         path = '/products/0176270040'
         url = 'https://mix.tokyo'+path
@@ -140,6 +194,16 @@ class CarePlatformTests(unittest.TestCase):
         self.assertNotIn('care_label', result)
         with self.assertRaises(ValueError):
             product_detail(doc, url, {**meta, 'slug': 'earth1999'})
+
+    def test_stripe_reads_independent_function_declarations(self):
+        url = 'https://stripe-club.com/brand/american-holic/item/100HA26G0063'
+        product = {'@type': 'Product', 'url': url, 'name': 'ニット',
+                   'description': '・静電気防止（バイパチニット）<br>・毛玉防止<br>帯電防止加工ではありません。'}
+        doc = (f'<link rel="canonical" href="{url}">'
+               f'<script type="application/ld+json">{json.dumps(product)}</script>')
+        detail = product_detail(doc, url, {'adapter':'stripe','brand_name':'AMERICAN HOLIC','slug':'american-holic'})
+        self.assertEqual(detail['function_source_text'], {'帯電防止':'静電気防止（バイパチニット）','抗ピリング':'毛玉防止'})
+        self.assertNotIn('care_label', detail)
 
     def test_stripe_reads_explicit_washing_instructions_for_the_exact_product(self):
         url = 'https://stripe-club.com/brand/american-holic/item/100HA25G0124'

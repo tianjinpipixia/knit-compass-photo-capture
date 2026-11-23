@@ -9,9 +9,12 @@ from urllib.parse import parse_qs, urlencode, urlsplit
 from brand_direct_adapters import matches
 
 CARE_TEXT_ADAPTERS = frozenset(('fr', 'doclasse', 'canshop', 'pal', 'dot', 'stripe', 'baycrews',
-                               'urbanresearch', 'onward', 'mix_care', 'ikka'))
+                               'urbanresearch', 'onward', 'mix_care', 'ikka', 'usagi'))
 CARE_TEXT_SOURCE = 'OFFICIAL_PRODUCT_CARE_TEXT'
 ONWARD_HOST = 'crosset.onward.co.jp'
+USAGI_HOST = 'usagi-online.com'
+USAGI_ASSET_ROOT = '/res/p/img/item/washing/'
+USAGI_ASSET_VERSION = '20241212'
 MIX_CARE_CONFIG = 'config/brand64-mix-care-codes.json'
 PETROLEUM_DRY_LABELS = {'ドライクリーニング(石油系)', 'ドライ石油系'}
 TOKENS = {
@@ -32,8 +35,23 @@ DOCLASSE_FUNCTION_LABELS = {
     '吸水速乾': ('吸水速乾',), '帯電防止': ('帯電防止',), '抗ピリング': ('抗ピリング',),
     '洗濯機OK': ('洗濯機洗い可',), 'UVカット': ('UVカット',),
 }
+FR_FEATURE_LINES = {
+    '熱を外に逃がしにくい保温機能付きなので、寒い時期も温かく着用できます。': ('保温',),
+    'ご家庭の洗濯機でそのまま洗えるマシンウォッシャブル機能付きです。': ('洗濯機洗い可',),
+    '毛玉になりにくいアンチピリング素材を使用しています。': ('抗ピリング',),
+}
+STRIPE_FEATURE_LINES = {
+    '静電気防止(バイパチニット)': ('帯電防止',),
+    '毛玉防止': ('抗ピリング',),
+    '毛玉ができにくいアンチピリング素材です。': ('抗ピリング',),
+    'ご家庭の洗濯機でお洗濯して頂けるニットです。': ('洗濯機洗い可',),
+    'ご家庭の洗濯機でお洗濯して頂けます。': ('洗濯機洗い可',),
+    'マシンウォッシャブル:ご家庭の洗濯機でお洗濯して頂けます。': ('洗濯機洗い可',),
+}
 FUNCTION_LABELS = {
     **DOCLASSE_FUNCTION_LABELS,
+    **FR_FEATURE_LINES,
+    **STRIPE_FEATURE_LINES,
     'マシンウォッシャブル': ('洗濯機洗い可',), '洗濯機可': ('洗濯機洗い可',),
     '洗濯機洗い可': ('洗濯機洗い可',), '洗濯機可能': ('洗濯機洗い可',),
     '手洗い可': ('手洗い可',), '手洗い可能': ('手洗い可',),
@@ -106,6 +124,82 @@ def jis_care_text(value, text_format):
             'home_wash': home[0] if home else 'unknown', 'dry_clean': dry[0] if dry else 'unknown',
             **({k: v for k, v in zip(('max_water_c', 'home_cycle'), home[1:]) if v} if home else {}),
             **({k: v for k, v in zip(('dry_solvent', 'dry_cycle'), dry[1:]) if v} if dry else {})}
+
+
+# The exact SVG bytes were checked against the USAGI ONLINE laundry guide.
+# Only the home washing and dry cleaning assets supply a code.
+USAGI_ICONS = {
+    'ua': ('110', '66165572147221fdd68c2b34fd5d3f16ebe85522ce711c97335975a16cc473d8'),
+    'ub': ('100', 'ae121a65dd179926d5021b364a213494af22c456f33849748188a324b2beb91b'),
+    'a': ('600', '3c2686e9c91dfbb33dae91ea6ebd631821eb543d9c54c8a8aacd015759b6d04c'),
+    'e': ('611', '157f1166cf8923d65f4b521f8c93197fcc7bf12f253ad9644cfe24567d51883f'),
+    'ui': (None, '5aca1f94d1451603ef3258d54d41eab6bb1df75531c8d801c8f021a77a5ee4f6'),
+    'ul': (None, '2d06f2b5e9ae1f04aab41331085542628b8fe88c7bfe120a95c90f5ecf5c0199'),
+    'up': (None, 'c217ffc44d2c0ebdf35ea7511856207f3eda18ddf239e104bc4533ed45f722ea'),
+    'ut': (None, 'a5bc3873efb850e61471fd427f807ba5b84b0345235de5ee0a514c0aecd5297e'),
+    'ux': (None, '10391baf11a819f831fa65513478f9c663d330544731ce5e34e19077c589b236'),
+    'uy': (None, '534dd760e2c7a2ac92b13fb7c9de0ee8bde14296a345c817e70dff9c8a6ad568'),
+    'f': (None, '85dfbfa55fa8b5b5d21464f4e4b0b97286167c28fe9ad9167426d41e457727f5'),
+    'i': (None, 'ee2862fd9d4960580e1d645ab1e4ddaecfbe9e57d02d52706c0cdc46d5bf1c0b'),
+}
+
+
+def usagi_icon_url(name):
+    return f'https://{USAGI_HOST}{USAGI_ASSET_ROOT}{name}.svg?{USAGI_ASSET_VERSION}'
+
+
+def usagi_symbol_care(groups):
+    if not isinstance(groups, list) or not groups or len(groups) > 24:
+        return None
+    codes = set()
+    for group in groups:
+        if not isinstance(group, str):
+            return None
+        names = group.split(',')
+        if len(names) > 12 or len(set(names)) != len(names) or not set(names) <= USAGI_ICONS.keys():
+            return None
+        parsed = {code for name in names if (code := USAGI_ICONS[name][0])}
+        if sum(code.startswith('1') for code in parsed) != 1 or sum(code.startswith('6') for code in parsed) != 1:
+            return None
+        codes.update(parsed)
+    care = jis_care_text('洗濯記号 '+','.join(sorted(codes)), 'usagi_symbols')
+    if not care or care['status'] != 'verified':
+        return None
+    return {**care, 'icon_groups': sorted(set(groups))}
+
+
+def usagi_detail(doc, url, meta, path, title, read_care_image_sha):
+    prefix = {'snidel': 'SND', 'milaowen': 'MOW'}.get(meta.get('slug'))
+    title_parts = title.split('｜')
+    if (not prefix or not re.fullmatch(r'/brand/'+meta['slug']+r'/item/'+prefix+r'[0-9]{4}[A-Z][0-9]{4}', path)
+            or len(title_parts) < 2 or not matches(title_parts[1].split('（')[0], meta)):
+        return None
+    sections = [node for node in doc.root.walk() if node.has_class('info-washing')]
+    headings = {node.text().strip() for node in doc.root.walk() if node.tag == 'h1' and node.text().strip()}
+    if len(sections) != 1 or len(headings) != 1 or not read_care_image_sha:
+        return None
+    groups = []
+    file_pattern = re.compile(re.escape(USAGI_ASSET_ROOT)+r'([a-z0-9]{1,4})\.svg\?'+USAGI_ASSET_VERSION)
+    for node in sections[0].walk():
+        if not node.has_class('washing-sku-group'):
+            continue
+        imgs = [child for box in node.walk() if box.has_class('washing-icons')
+                for child in box.walk() if child.tag == 'img']
+        icons = [file_pattern.fullmatch(image.attrs.get('src') or '') for image in imgs]
+        if not node.attrs.get('data-sku-color') or not icons or not all(icons):
+            return None
+        groups.append(','.join(icon[1] for icon in icons))
+    care = usagi_symbol_care(groups)
+    if not care:
+        return None
+    used = {name for group in groups for name in group.split(',')}
+    try:
+        if any(read_care_image_sha(usagi_icon_url(name)) != USAGI_ICONS[name][1] for name in sorted(used)):
+            return None
+    except (OSError, ValueError):
+        return None
+    name = headings.pop()
+    return assemble_detail(name, url, care, title_features(name))
 
 
 def dot_detail_request(html, url, meta):
@@ -188,11 +282,16 @@ def fr_features(text):
     section = re.search(r'【機能と素材について】([^【]*)', text)
     if not section:
         return {}
-    for line in re.split(r'<br\s*/?>', section.group(1), flags=re.I):
-        line = line.strip().removeprefix('-').strip()
-        if line == '熱を外に逃がしにくい保温機能付きなので、寒い時期も温かく着用できます。':
-            return {'保温': line}
-    return {}
+    lines = re.split(r'<br\s*/?>|[\r\n]+', section.group(1), flags=re.I)
+    phrases = (line.strip().removeprefix('-').strip() for line in lines)
+    return {claim: phrase for phrase in phrases for claim in FR_FEATURE_LINES.get(phrase, ())}
+
+
+def fr_washing_field(value):
+    if value == '洗濯機':
+        return {'status': 'verified', 'evidence_kind': 'official_text', 'text_format': 'fr_washing_field',
+                'source_text': value, 'home_wash': 'machine', 'dry_clean': 'unknown'}
+    return care_from_text(value)
 
 
 def care_from_text(value):
@@ -380,6 +479,11 @@ def stripe_detail(doc, url, slug):
         care = None
         description = listing.get('description')
         if isinstance(description, str):
+            instructions = html.unescape(re.sub(r'<[^>]+>', '\n', description))
+            for line in instructions.splitlines():
+                statement = line.strip().removeprefix('・').strip()
+                for claim in STRIPE_FEATURE_LINES.get(unicodedata.normalize('NFKC', statement), ()):
+                    claims.setdefault(claim, statement)
             prose = html.unescape(re.sub(r'<[^>]+>', ' ', description))
             for cue, claim in {
                 'マシンウォッシャブル：ご家庭の洗濯機でお洗濯して頂けます': '洗濯機洗い可',
@@ -388,7 +492,6 @@ def stripe_detail(doc, url, slug):
             }.items():
                 if cue in prose:
                     claims.setdefault(claim, cue)
-            instructions = html.unescape(re.sub(r'<[^>]+>', '\n', description))
             heading = re.search(r'(?m)^\s*(?:■|【)お洗濯について】?\s*$', instructions)
             if heading:
                 text = instructions[heading.end():]
@@ -597,7 +700,7 @@ def detail_adapter(meta):
     return adapter
 
 
-def read_care_detail(doc, url, meta):
+def read_care_detail(doc, url, meta, *, read_care_image_sha=None):
     """Only use known official product paths and page-level identity evidence."""
     adapter = detail_adapter(meta)
     hosts = {'fr': {'www.uniqlo.com': 'UNIQLO', 'www.gu-global.com': 'GU'},
@@ -608,6 +711,7 @@ def read_care_detail(doc, url, meta):
              'urbanresearch': {'www.urban-research.jp': meta.get('brand_name')},
              'mix_care': {'mix.tokyo': 'NATURAL BEAUTY BASIC'},
              'ikka': {'tokyodesignchannel.com': 'ikka'},
+             'usagi': {USAGI_HOST: meta.get('brand_name')},
              'onward': {ONWARD_HOST: meta.get('brand_name')}}
     host_map = hosts.get(adapter)
     if not host_map:
@@ -629,11 +733,15 @@ def read_care_detail(doc, url, meta):
     text = None
     title = next((n.attrs.get('content', '') for n in doc.root.walk()
                   if n.tag == 'meta' and n.attrs.get('property') == 'og:title'), '')
+    if adapter == 'usagi' and canonical.path.rstrip('/') == path:
+        title = next((n.text().strip() for n in doc.root.walk() if n.tag == 'title'), title)
+        return usagi_detail(doc, url, meta, path, title, read_care_image_sha)
     if adapter == 'fr' and canonical.path.rstrip('/') == path:
         token = re.fullmatch(r'/jp/ja/products/(E[0-9]{6}-[0-9]{3})/([0-9]{2})', path)
         if not token:
             return None
         name, text, claims = get_fr_care(doc, *token.groups())
+        care = fr_washing_field(text)
     elif adapter == 'doclasse':
         token = re.fullmatch(r'(/item/detail/1_1_[0-9]+)(?:/[0-9]+)?', path)
         if not token or canonical.path.rstrip('/') != token[1] or not title.endswith('/DoCLASSE'):

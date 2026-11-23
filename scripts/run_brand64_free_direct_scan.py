@@ -7,7 +7,10 @@ pages stay in the unresolved queue; old products are never deleted on absence.
 import argparse
 import brand_direct_adapters as adapters
 from jun_care_labels import ASSET_ORIGIN, REVIEWED_PATHS, care_from_strip, shared_strip_care
-from official_care_text import ONWARD_HOST, add_world_listing_features, dot_detail, dot_detail_request, read_care_detail
+from official_care_text import (
+    ONWARD_HOST, USAGI_ICONS, add_world_listing_features, dot_detail, dot_detail_request,
+    read_care_detail, usagi_icon_url,
+)
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import datetime as dt
 import gzip
@@ -115,19 +118,25 @@ class Fetcher:
     def care_image_sha(self, url):
         if url in self.care_image_hashes:
             return self.care_image_hashes[url]
-        if not any(url == ASSET_ORIGIN + path for path in REVIEWED_PATHS):
-            raise ValueError('Unreviewed JUN care image URL')
+        if any(url == ASSET_ORIGIN + path for path in REVIEWED_PATHS):
+            media_type, extension = 'image/gif', '.gif'
+        elif any(url == usagi_icon_url(name) for name in USAGI_ICONS):
+            media_type, extension = 'image/svg+xml', '.svg'
+        else:
+            raise ValueError('Unreviewed care image URL')
         remaining = self.request_timeout if self.deadline is None else self.deadline-time.monotonic()
         if remaining <= 0:
             raise TimeoutError('Care image request exceeds run budget')
-        request = urllib.request.Request(url, headers={'User-Agent': UA, 'Accept': 'image/gif'})
+        request = urllib.request.Request(url, headers={'User-Agent': UA, 'Accept': media_type})
         with urllib.request.build_opener(SafeRedirect()).open(request, timeout=min(remaining, 5)) as response:
             data = response.read(32769)
-            if response.url != url or len(data) > 32768 or not data.startswith((b'GIF87a', b'GIF89a')):
-                raise ValueError('Unexpected JUN care image')
+            if (response.url != url or len(data) > 32768
+                    or extension == '.gif' and not data.startswith((b'GIF87a', b'GIF89a'))
+                    or extension == '.svg' and response.headers.get_content_type() != media_type):
+                raise ValueError('Unexpected care image')
         digest = hashlib.sha256(data).hexdigest()
         self.root.mkdir(parents=True, exist_ok=True)
-        (self.root / (digest+'.gif')).write_bytes(data)
+        (self.root / (digest+extension)).write_bytes(data)
         self.care_image_hashes[url] = digest
         return digest
     def __call__(self, url):
@@ -273,7 +282,7 @@ def jun_function_icons(doc, url):
 
 def product_detail(html, url, meta, *, read_care_image_sha=None):
     doc = Document(html)
-    care_detail = read_care_detail(doc, url, meta)
+    care_detail = read_care_detail(doc, url, meta, read_care_image_sha=read_care_image_sha)
     def objects(obj):
         if isinstance(obj,dict):
             yield obj

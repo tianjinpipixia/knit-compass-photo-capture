@@ -1,7 +1,10 @@
 """JUN product care strips reviewed against its guide and JIS L0001:2024."""
 
 import re
-from official_care_text import ONWARD_HOST, care_from_text, jis_care_text, mix_label, pal_care_text, stripe_care_text
+from official_care_text import (
+    ONWARD_HOST, USAGI_HOST, care_from_text, fr_washing_field, jis_care_text, mix_label, pal_care_text,
+    stripe_care_text, usagi_symbol_care,
+)
 from urllib.parse import urlsplit
 
 ASSET_ORIGIN = 'https://www.junonline.jp'
@@ -167,6 +170,10 @@ def care_observation(detail):
         host = urlsplit(detail['source_url']).hostname
         if text_format in ('pal_care', 'pal_care_v2') and host == 'www.palcloset.jp':
             verified = pal_care_text(text, text_format)
+        elif text_format == 'fr_washing_field' and host in ('www.gu-global.com', 'www.uniqlo.com'):
+            verified = fr_washing_field(text)
+        elif text_format == 'usagi_symbols' and host == USAGI_HOST:
+            verified = usagi_symbol_care(label.get('icon_groups'))
         elif text_format == 'official_store_care' and host in ('baycrews.jp', 'www.urban-research.jp', 'tokyodesignchannel.com'):
             verified = pal_care_text(text, text_format)
         elif text_format == 'dot_symbols' and host == 'www.dot-st.com':
