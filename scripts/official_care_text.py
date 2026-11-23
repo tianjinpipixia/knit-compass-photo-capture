@@ -9,10 +9,12 @@ from urllib.parse import parse_qs, urlencode, urlsplit
 from brand_direct_adapters import matches
 
 CARE_TEXT_ADAPTERS = frozenset(('fr', 'doclasse', 'canshop', 'pal', 'dot', 'stripe', 'baycrews',
-                               'urbanresearch', 'onward', 'mix_care', 'ikka', 'usagi'))
+                               'urbanresearch', 'onward', 'mix_care', 'ikka', 'usagi', 'unitedarrows'))
 CARE_TEXT_SOURCE = 'OFFICIAL_PRODUCT_CARE_TEXT'
 ONWARD_HOST = 'crosset.onward.co.jp'
 USAGI_HOST = 'usagi-online.com'
+UNITED_ARROWS_HOST = 'store.united-arrows.co.jp'
+UNITED_ARROWS_VARIANT_QUERY = {'areaid': r'ebGL[0-9]+', 'clr_id': r'[0-9]{3}'}
 USAGI_ASSET_ROOT = '/res/p/img/item/washing/'
 USAGI_ASSET_VERSION = '20241212'
 MIX_CARE_CONFIG = 'config/brand64-mix-care-codes.json'
@@ -675,11 +677,24 @@ def with_composition(detail, materials):
     return detail
 
 
+def mix_knit_group(group):
+    category = group.get('category')
+    if category in ('knit_sweater', 'cardigan'):
+        return True
+    name = group.get('name')
+    if not isinstance(name, str):
+        return False
+    name = unicodedata.normalize('NFKC', name)
+    if category == 'jacket':
+        return 'ニットジャケット' in name
+    return category in ('knit_onepiece', 'other_onepiece') and 'ニットセットアップ' in name
+
+
 def mix_detail(doc, url, meta, path):
     if not re.fullmatch(r'/products/017[0-9]{7}', path):
         return None
     groups = [row for row in product_jsonld(doc,'ProductGroup') if row.get('@id') == path+'#product'
-              and row.get('category') in ('knit_sweater','cardigan') and isinstance(row.get('brand'),dict)
+              and mix_knit_group(row) and isinstance(row.get('brand'),dict)
               and isinstance(row['brand'].get('name'),str) and matches(row['brand']['name'],meta)]
     if len(groups) != 1:
         return None
@@ -707,6 +722,51 @@ def mix_detail(doc, url, meta, path):
     name = groups[0].get('name')
     detail = assemble_detail(name,url,care,title_features(name)) if isinstance(name,str) else None
     return with_composition(detail, {' '.join(node.text().split()) for node in fields.get('素材',[])})
+
+
+def united_arrows_care(value):
+    if not isinstance(value, str):
+        return None
+    match = re.fullmatch(r'ケア方法[:：]\s*(.+)', value.strip())
+    if not match:
+        return None
+    original = match[1]
+    tokens = re.split(r'\s*[/／・、]\s*', original)
+    known = {label for states in TOKENS.values() for labels in states.values() for label in labels}
+    if any(unicodedata.normalize('NFKC', token) not in known for token in tokens):
+        return None
+    care = care_from_text(original)
+    return {**care, 'source_text': value, 'text_format': 'united_arrows_care'}
+
+
+def united_arrows_detail(doc, url, canonical, path, meta):
+    if not re.fullmatch(r'/brand/glr/item/[A-Z0-9]{12}', path):
+        return None
+    groups = [group for group in product_jsonld(doc, 'ProductGroup')
+              if group.get('url') == canonical.geturl() and isinstance(group.get('brand'), dict)
+              and group['brand'].get('name') == meta['brand_name']]
+    if len(groups) != 1:
+        return None
+    product_codes = {match[1] for node in doc.root.walk() if node.tag == 'span'
+                     and (match := re.fullmatch(r'商品番号\s+([0-9]{4}-[0-9]-[0-9]{6})', node.text()))}
+    if len(product_codes) != 1:
+        return None
+    sections = []
+    for node in doc.root.walk():
+        if node.tag != 'div' or not node.has_class('text-sm') or not node.has_class('leading-normal'):
+            continue
+        lines = [part.strip() for part in node.children if isinstance(part, str) and part.strip()]
+        delimiters = [index for index, line in enumerate(lines) if re.fullmatch(r'={8,}', line)]
+        if len(delimiters) == 2:
+            sections.append(lines[delimiters[0]+1:delimiters[1]])
+    if len(sections) != 1:
+        return None
+    section = sections[0]
+    declarations = [line for line in section if re.match(r'ケア方法[:：]', line)]
+    features = [line for line in section if re.match(r'機能性[:：]', line)]
+    care = united_arrows_care(declarations[0]) if len(declarations) == 1 else None
+    claims = named_features(re.split(r'[/／・、]', features[0][4:])) if len(features) == 1 else {}
+    return assemble_detail(groups[0].get('name'), url, care, claims)
 
 
 def ikka_detail(doc, url, brand, path, canonical, title):
@@ -744,6 +804,7 @@ def read_care_detail(doc, url, meta, *, read_care_image_sha=None):
              'baycrews': {'baycrews.jp': meta.get('brand_name')},
              'urbanresearch': {'www.urban-research.jp': meta.get('brand_name')},
              'mix_care': {'mix.tokyo': 'NATURAL BEAUTY BASIC'},
+             'unitedarrows': {UNITED_ARROWS_HOST: 'green label relaxing'},
              'ikka': {'tokyodesignchannel.com': 'ikka'},
              'usagi': {USAGI_HOST: meta.get('brand_name')},
              'onward': {ONWARD_HOST: meta.get('brand_name')}}
@@ -752,7 +813,12 @@ def read_care_detail(doc, url, meta, *, read_care_image_sha=None):
         return None
     p = urlsplit(url)
     brand = host_map.get(p.hostname)
-    if p.scheme != 'https' or p.username or p.password or p.port or p.query or not brand or brand != meta.get('brand_name'):
+    if p.scheme != 'https' or p.username or p.password or p.port or not brand or brand != meta.get('brand_name'):
+        return None
+    if p.query and (adapter != 'unitedarrows' or any(
+            len(values) != 1 or key not in UNITED_ARROWS_VARIANT_QUERY
+            or not re.fullmatch(UNITED_ARROWS_VARIANT_QUERY[key], values[0])
+            for key, values in parse_qs(p.query, keep_blank_values=True).items())):
         return None
     canonical = {urlsplit(n.attrs.get('href', '')) for n in doc.root.walk()
                  if n.tag == 'link' and n.attrs.get('rel') == 'canonical'}
@@ -806,6 +872,8 @@ def read_care_detail(doc, url, meta, *, read_care_image_sha=None):
         return onward_detail(doc, url, meta, title)
     elif adapter == 'mix_care' and canonical.path.rstrip('/') == path:
         return mix_detail(doc, url, meta, path)
+    elif adapter == 'unitedarrows' and canonical.path == path:
+        return united_arrows_detail(doc, url, canonical, path, meta)
     elif adapter == 'ikka':
         return ikka_detail(doc, url, brand, path, canonical, title)
     else:

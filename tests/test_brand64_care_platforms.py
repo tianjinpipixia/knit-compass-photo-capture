@@ -99,6 +99,48 @@ class CarePlatformTests(unittest.TestCase):
                           html.replace('v=1','v=2'), html.replace('NATURAL BEAUTY BASIC','Other')):
                 with self.assertRaises(ValueError):
                     product_detail(wrong,url,meta)
+            for category, name in (('jacket', '接結ニットジャケット'),
+                                   ('knit_onepiece', 'ダブルフェイスニットセットアップ'),
+                                   ('other_onepiece', 'スパンコールラメニットセットアップ')):
+                def page(name):
+                    data = {**group, 'category': category, 'name': name}
+                    return html.replace(json.dumps(group), json.dumps(data))
+
+                with self.subTest(category=category):
+                    self.assertEqual(product_detail(page(name), url, meta)['care_label']['wash_code'], '2141I')
+                    with self.assertRaises(ValueError):
+                        product_detail(page('ジャカード'), url, meta)
+
+    def test_united_arrows_reads_only_the_exact_products_care_section(self):
+        url = 'https://store.united-arrows.co.jp/brand/glr/item/3500026F0275'
+        color_url = url+'?areaid=ebGL000&clr_id=101'
+        brand = {'adapter': 'unitedarrows', 'slug': 'glr', 'brand_name': 'green label relaxing'}
+        group = {'@type': 'ProductGroup', 'url': url, 'name': 'Vネック ニット',
+                 'brand': {'name': 'green label relaxing'}}
+        html = (f'<link rel="canonical" href="{url}">'
+                f'<script type="application/ld+json">{json.dumps(group)}</script>'
+                '<span>商品番号 3518-1-000037</span>'
+                '<div class="text-sm leading-normal"><p>商品説明</p>'
+                '============================<br>機能性：接触冷感・UVカット<br>'
+                'ケア方法：手洗い可<br>============================<br>ドライクリーニング不可</div>')
+        detail = product_detail(html, color_url, brand)
+        detail.update(source_sha256='a'*64, retrieved_at_utc='2026-11-23T21:13:00Z')
+        care = care_observation(detail)
+        self.assertEqual((care['home_wash'], care['dry_clean']), ('hand', 'unknown'))
+        self.assertEqual(detail['function_source_text'], {'接触冷感': '接触冷感', 'UVカット': 'UVカット'})
+        different = html.replace('ケア方法：手洗い可', 'ケア方法：洗濯機洗い可・ドライクリーニング可')
+        label = product_detail(different, url, brand)['care_label']
+        self.assertEqual((label['home_wash'], label['dry_clean']), ('machine', 'allowed'))
+        self.assertIsNone(care_observation({**detail, 'source_url': url.replace('store.united-arrows.co.jp', 'example.com')}))
+        self.assertNotIn('care_label', product_detail(html.replace('手洗い可', '手洗い可否は表示を確認'), url, brand))
+        for bad_html, bad_url in (
+            (html, url+'?product=unrelated'),
+            (html.replace('green label relaxing', 'Other'), url),
+            (html.replace('3518-1-000037', 'missing'), url),
+            (html, url.replace('F0275', 'F0276')),
+        ):
+            with self.assertRaises(ValueError):
+                product_detail(bad_html, bad_url, brand)
 
     def test_ikka_does_not_equate_wet_and_dry_cleaning(self):
         url = 'https://tokyodesignchannel.com/c/ikka/ikkaladies/ikkalknit/12110102'

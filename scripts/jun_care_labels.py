@@ -2,8 +2,9 @@
 
 import re
 from official_care_text import (
-    ONWARD_HOST, USAGI_HOST, care_from_text, fr_washing_field, jis_care_text, mix_label, pal_care_text,
-    stripe_care_text, stripe_wash_feature_care, usagi_symbol_care,
+    ONWARD_HOST, UNITED_ARROWS_HOST, USAGI_HOST, care_from_text, fr_washing_field, jis_care_text,
+    mix_label, pal_care_text, stripe_care_text, stripe_wash_feature_care, united_arrows_care,
+    usagi_symbol_care,
 )
 from urllib.parse import urlsplit
 
@@ -182,6 +183,8 @@ def care_observation(detail):
             verified = jis_care_text(text, text_format)
         elif text_format == 'mix_symbols' and host == 'mix.tokyo':
             verified = mix_label(label.get('wash_code'))
+        elif text_format == 'united_arrows_care' and host == UNITED_ARROWS_HOST:
+            verified = united_arrows_care(text)
         elif text_format == 'stripe_instructions' and host == 'stripe-club.com':
             verified = stripe_care_text(text)
         elif text_format == 'stripe_wash_feature' and host == 'stripe-club.com':
