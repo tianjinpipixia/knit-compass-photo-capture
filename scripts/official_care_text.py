@@ -248,14 +248,40 @@ def get_fr_care(doc, sku, color):
     return None, None, {}
 
 
+PAL_DRY = re.compile(r'ドライクリーニング(?:[、,](?:ウエット|ウェット)クリーニング)?'
+                     r'\s*:?[ \t]*(可能|可|不可)(?:\(弱い処理\))?')
+PAL_PETROLEUM = re.compile(r'ドライクリーニング:\s*石油系溶剤\s+弱い処理')
+PAL_HAND_LIMIT = re.compile(r'手洗い(?:可能|可):\s*(30|40)°C\s*限度')
+PAL_DRY_ONLY = re.compile(r'(?:家庭洗濯機[×✕]|家庭洗濯不可)\s*\(ドライクリーニングのみ可能\)')
+
+
 def pal_care_text(original, text_format='pal_care'):
     if not isinstance(original, str) or not 0 < len(original) <= 250:
         return None
     parsed = set()
+    temperatures = set()
     lines = original.split(' ／ ')
     for line in lines:
         value = unicodedata.normalize('NFKC', line)
+        if text_format == 'pal_care_v2':
+            value = value.strip().lstrip('・■●').strip()
         value = re.sub(r'^(?:本体|製品):\s*', '', value)
+        if text_format == 'pal_care_v2':
+            dry = PAL_DRY.fullmatch(value)
+            if dry:
+                parsed.add('ドライクリーニング不可' if dry[1] == '不可' else 'ドライクリーニング可')
+                continue
+            if PAL_PETROLEUM.fullmatch(value):
+                parsed.add('石油系ドライクリーニング可')
+                continue
+            if PAL_DRY_ONLY.fullmatch(value):
+                parsed.update(('家庭洗濯不可', 'ドライクリーニング可'))
+                continue
+            hand = PAL_HAND_LIMIT.fullmatch(value)
+            if hand:
+                parsed.add('手洗い可')
+                temperatures.add(int(hand[1]))
+                continue
         value = re.sub(r'洗濯機洗い\((?:弱|非常に弱い)\)', '洗濯機洗い', value)
         for piece in re.split(r'[/,・、()]+', value):
             token = piece.strip()
@@ -266,6 +292,8 @@ def pal_care_text(original, text_format='pal_care'):
             and not parsed.intersection({'手洗い', '手洗いのみ'})):
         parsed.difference_update({'手洗い可', '手洗い可能'})
     care = care_from_text(' '.join(sorted(parsed)))
+    if care and care['home_wash'] == 'hand' and len(temperatures) == 1:
+        care['max_water_c']=temperatures.pop()
     return {**care, 'source_text': original, 'text_format': text_format} if care else None
 
 
@@ -308,12 +336,20 @@ def pal_detail(doc, code, meta):
                 values.append(rows['取り扱い'])
         description = group.get('description')
         if isinstance(description, str):
-            values.extend(re.findall(r'^[ \t]*(?:[■●][ \t]*)?洗濯(?:方法|表示|表記)?[：:]([^\r\n]+)', description, re.M))
+            values.extend(re.findall(r'^[ \t]*(?:[■●][ \t]*)?(?:洗濯(?:方法|表示|表記)?|'
+                                     r'お手入れ方法|取り扱い)[：:]([^\r\n]+)', description, re.M))
+            instructions = html.unescape(re.sub(r'<br\s*/?>', '\n', description, flags=re.I)).splitlines()
+            for line in instructions:
+                bullet = re.fullmatch(r'[・■●]\s*(.+)', unicodedata.normalize('NFKC', line).strip())
+                if bullet and (bullet[1] == '家庭洗濯不可' or any(
+                        pattern.fullmatch(bullet[1]) for pattern in (PAL_DRY, PAL_PETROLEUM, PAL_HAND_LIMIT))):
+                    values.append(line.strip())
         material = group.get('material')
         if isinstance(material, str):
-            values.extend(re.findall(r'^(?:手洗い可|家庭洗濯不可|洗濯機洗い可)[（(][^\r\n]+[）)]\s*$', material, re.M))
+            values.extend(re.findall(r'^[ \t]*(?:手洗い(?:可能|可)?|家庭洗濯不可|洗濯機洗い(?:可能|可)?|'
+                                     r'ドライクリーニング)[ \t\u3000]*[（(][^\r\n]+[）)]\s*$', material, re.M))
         originals = list(dict.fromkeys(value.strip() for value in values if value.strip() and len(value.strip()) <= 120))
-        return name, pal_care_text(' ／ '.join(originals)), title_features(name)
+        return name, pal_care_text(' ／ '.join(originals), 'pal_care_v2'), title_features(name)
     return None, None, {}
 
 

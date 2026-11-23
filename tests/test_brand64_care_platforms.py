@@ -174,6 +174,37 @@ class CarePlatformTests(unittest.TestCase):
         self.assertEqual(conflict['home_wash'], 'unknown')
         self.assertEqual(pal_care_text('手洗い可/ドライクリーニング 不可')['dry_clean'], 'unknown')
 
+    def test_pal_reads_independent_product_care_bullets(self):
+        url = 'https://www.palcloset.jp/display/item/DCE2062205A0002'
+        group = {'@type': 'ProductGroup', 'name': '長袖ニット', 'productGroupID': 'DCE2062205A0002',
+                 'brand': {'name': 'DISCOAT'},
+                 'description': '・手洗い可能：40℃限度<br>・ドライクリーニング：可能<br>'
+                                '・通常はドライクリーニング不可の場合もあります。'}
+        meta = {'adapter': 'pal', 'brand_name': 'DISCOAT'}
+
+        def read():
+            html = (f'<link rel="canonical" href="{url}/">'
+                    f'<script type="application/ld+json">{json.dumps(group)}</script>')
+            detail = product_detail(html, url, meta)
+            detail.update(source_sha256='a'*64, retrieved_at_utc='2026-11-23T02:00:00Z')
+            return care_observation(detail)
+
+        care = read()
+        self.assertEqual((care['home_wash'], care['max_water_c'], care['dry_clean']), ('hand', 40, 'allowed'))
+        group['description'] = '・ドライクリーニング、ウェットクリーニング：可能'
+        group['material'] = 'ドライクリーニング（家庭洗濯不可・漂白剤不可・タンブル乾燥不可）'
+        care = read()
+        self.assertEqual((care['home_wash'], care['dry_clean']), ('prohibited', 'allowed'))
+        group['description'] = '・ドライクリーニング：不可'
+        self.assertEqual(read()['dry_clean'], 'unknown')
+        group.pop('material')
+        group['description'] = '洗濯方法：家庭洗濯機×（ドライクリーニングのみ可能）'
+        care = read()
+        self.assertEqual((care['home_wash'], care['dry_clean']), ('prohibited', 'allowed'))
+        group['productGroupID'] = 'WRONG-PRODUCT'
+        with self.assertRaises(ValueError):
+            read()
+
     def test_dot_reads_only_exact_payload_product(self):
         url = 'https://www.dot-st.com/globalwork/disp/item/1106207'
         meta = {'adapter': 'dot', 'brand_name': 'GLOBAL WORK', 'slug': 'globalwork'}

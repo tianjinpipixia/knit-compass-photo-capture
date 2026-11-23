@@ -6,7 +6,7 @@ pages stay in the unresolved queue; old products are never deleted on absence.
 """
 import argparse
 import brand_direct_adapters as adapters
-from jun_care_labels import ASSET_ORIGIN, REVIEWED_PATHS, care_from_strip
+from jun_care_labels import ASSET_ORIGIN, REVIEWED_PATHS, care_from_strip, shared_strip_care
 from official_care_text import ONWARD_HOST, add_world_listing_features, dot_detail, dot_detail_request, read_care_detail
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import datetime as dt
@@ -332,7 +332,11 @@ def product_detail(html, url, meta, *, read_care_image_sha=None):
                 if care:
                     result['care_label'] = care
             elif len(images) > 1:
-                result['care_label'] = {'status': 'unresolved'}
+                labels = [care_from_strip(path, read_care_image_sha) for path in sorted(images, key=str)]
+                evidence = [{key: label[key] for key in ('image_url', 'image_sha256')} for label in labels
+                            if label and label['status'] == 'verified']
+                common = shared_strip_care(evidence) if len(evidence) == len(images) else None
+                result['care_label'] = common or {'status': 'unresolved'}
             if urlsplit(url).hostname == ASSET_ORIGIN.removeprefix('https://'):
                 if len(composition) == 1:
                     result['composition'] = composition.pop()

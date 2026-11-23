@@ -127,6 +127,32 @@ class Tests(unittest.TestCase):
         self.assertIsNone(read('/common/img/sentaku/SC-191.gif',machine,'ANOTHER'))
         self.assertIsNone(read('//another.example/SC-191.gif',machine))
 
+    def test_jun_multiple_strips_preserve_only_shared_care(self):
+        import json
+        from jun_care_labels import care_observation
+
+        product = {'@type': 'Product', 'name': '対象', 'url': URL, 'brand': {'name': META['brand_name']},
+                   'offers': {'@type': 'Offer', 'price': 5490}}
+        assets = {
+            '/common/img/sentaku/SC-194.gif': '7e863b0667c6b387a7e4597c40ae0c9637c14fd6f8575cde123e080318f20ff7',
+            '/common/img/sentaku/SH-194.gif': 'f66d460b1ba99e9d833684dc4457a7f9932fabf8c2c3b9c47d0874fc0ccede23',
+        }
+        images = ''.join(f'<img class="laundryicon" src="{path}">' for path in assets)
+        markup = (f'<script type="application/ld+json">{json.dumps(product)}</script>'
+                  '<table><tr><th>品番</th><td>GDM66000</td></tr>'
+                  f'<tr><th>洗濯表示</th><td>{images}</td></tr></table>')
+        read = lambda url: assets[url.removeprefix('https://www.junonline.jp')]
+        detail = scan.product_detail(markup, URL, META, read_care_image_sha=read)
+        detail.update(source_sha256='1'*64, retrieved_at_utc='2026-11-23T03:00:00Z')
+        care = care_observation(detail)
+        self.assertEqual((care['home_wash'], care['max_water_c'], care['dry_clean'], care['dry_solvent']),
+                         ('unknown', None, 'allowed', 'F'))
+        self.assertEqual(care['image_sha256'], care['images'][0]['image_sha256'])
+        self.assertNotIn('image_url', care)
+        assets['/common/img/sentaku/SH-194.gif'] = '0'*64
+        unresolved = scan.product_detail(markup, URL, META, read_care_image_sha=read)
+        self.assertEqual(unresolved['care_label']['status'], 'unresolved')
+
     def test_non_jun_uses_only_product_bound_care_and_keeps_omitted_dry_unknown(self):
         import json
         from official_care_text import care_from_text

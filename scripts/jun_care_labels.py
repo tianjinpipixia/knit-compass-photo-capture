@@ -84,6 +84,12 @@ REVIEWED_STRIPS = {
         ('hand', 30, None, 'prohibited', None, None, 'very_gentle'),  # SH-133
     'd6e15a642ede0a0b5f26cdbe5adb29e935e7882267d46f7d65caf41e416d0e30':
         ('hand', 30, None, 'prohibited', None, None, 'very_gentle'),  # SH-150
+    '60b590cab87f34c2cbdce8a144d56ff8387fb8788e713947af000b7175f4f193':
+        ('machine', 30, 'very_gentle', 'prohibited', None, None, 'gentle'),  # SC-132
+    '1290f417d964f0dcff74b35e86ae3d4be5558fef45ee4f735739ee7d4207795a':
+        ('machine', 30, 'very_gentle', 'prohibited', None, None, 'gentle'),  # SC-133
+    'f66d460b1ba99e9d833684dc4457a7f9932fabf8c2c3b9c47d0874fc0ccede23':
+        ('hand', 30, None, 'allowed', 'F', 'gentle', 'very_gentle'),  # SH-194
 }
 REVIEWED_PATHS = frozenset(ASSET_ROOT + name for name in (
     'SB-191.gif', 'SC-191.gif', 'SC-195.gif', 'SC-155.gif', 'SE-151.gif',
@@ -98,6 +104,7 @@ REVIEWED_PATHS = frozenset(ASSET_ROOT + name for name in (
     'SD-113.gif', 'SE-190.gif', 'SE-194.gif', 'SD-131.gif', 'SD-151.gif',
     'SD-155.gif', 'SE-132.gif', 'SF-207.gif', 'SF-211.gif', 'SG-113.gif',
     'SG-191.gif', 'SH-113.gif', 'SH-133.gif', 'SH-150.gif',
+    'SC-132.gif', 'SC-133.gif', 'SH-194.gif',
 ))
 CARE_FIELDS = ('home_wash', 'max_water_c', 'home_cycle', 'dry_clean',
                'dry_solvent', 'dry_cycle', 'wet_clean')
@@ -119,6 +126,34 @@ def care_from_strip(path, read_image_sha):
     return result
 
 
+def shared_strip_care(images):
+    if (not isinstance(images, list) or len(images) < 2 or any(
+            not isinstance(item, dict) or not isinstance(item.get('image_url'), str)
+            or not isinstance(item.get('image_sha256'), str) for item in images)):
+        return None
+    urls = {item['image_url'] for item in images}
+    if len(urls) != len(images) or any(
+            not url.startswith(ASSET_ORIGIN) or url[len(ASSET_ORIGIN):] not in REVIEWED_PATHS for url in urls):
+        return None
+    reviewed = [REVIEWED_STRIPS.get(item['image_sha256']) for item in images]
+    if not all(reviewed):
+        return None
+    common = {key: values[0] if len(set(values)) == 1 else None
+              for key, values in zip(CARE_FIELDS, zip(*reviewed))}
+    common['home_wash'] = common['home_wash'] or 'unknown'
+    common['dry_clean'] = common['dry_clean'] or 'unknown'
+    if common['home_wash'] == 'unknown':
+        common.update(max_water_c=None, home_cycle=None)
+    if common['dry_clean'] == 'unknown':
+        common.update(dry_solvent=None, dry_cycle=None)
+    if common['home_wash'] == common['dry_clean'] == 'unknown':
+        return None
+    # Existing Owner clients require an image digest. Keep the digest of an
+    # actual supporting image, while the full set supplies the evidence.
+    return {'status': 'verified', 'evidence_kind': 'official_image_set',
+            'image_sha256': images[0]['image_sha256'], 'images': images, **common}
+
+
 def care_observation(detail):
     label = detail.get('care_label')
     sha = detail.get('source_sha256')
@@ -130,8 +165,8 @@ def care_observation(detail):
         text = label.get('source_text')
         text_format = label.get('text_format')
         host = urlsplit(detail['source_url']).hostname
-        if text_format == 'pal_care' and host == 'www.palcloset.jp':
-            verified = pal_care_text(text)
+        if text_format in ('pal_care', 'pal_care_v2') and host == 'www.palcloset.jp':
+            verified = pal_care_text(text, text_format)
         elif text_format == 'official_store_care' and host in ('baycrews.jp', 'www.urban-research.jp', 'tokyodesignchannel.com'):
             verified = pal_care_text(text, text_format)
         elif text_format == 'dot_symbols' and host == 'www.dot-st.com':
@@ -145,6 +180,10 @@ def care_observation(detail):
         else:
             verified = care_from_text(text)
         if verified != label:
+            return None
+    elif label.get('evidence_kind') == 'official_image_set':
+        if (urlsplit(detail['source_url']).hostname != 'www.junonline.jp'
+                or shared_strip_care(label.get('images')) != label):
             return None
     elif label['status'] == 'verified':
         reviewed = REVIEWED_STRIPS.get(label.get('image_sha256'))
