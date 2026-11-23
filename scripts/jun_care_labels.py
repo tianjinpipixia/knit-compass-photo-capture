@@ -3,7 +3,7 @@
 import re
 from official_care_text import (
     ONWARD_HOST, USAGI_HOST, care_from_text, fr_washing_field, jis_care_text, mix_label, pal_care_text,
-    stripe_care_text, usagi_symbol_care,
+    stripe_care_text, stripe_wash_feature_care, usagi_symbol_care,
 )
 from urllib.parse import urlsplit
 
@@ -184,6 +184,8 @@ def care_observation(detail):
             verified = mix_label(label.get('wash_code'))
         elif text_format == 'stripe_instructions' and host == 'stripe-club.com':
             verified = stripe_care_text(text)
+        elif text_format == 'stripe_wash_feature' and host == 'stripe-club.com':
+            verified = stripe_wash_feature_care(text)
         else:
             verified = care_from_text(text)
         if verified != label:

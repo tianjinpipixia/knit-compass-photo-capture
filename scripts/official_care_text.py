@@ -48,6 +48,9 @@ STRIPE_FEATURE_LINES = {
     'ご家庭の洗濯機でお洗濯して頂けます。': ('洗濯機洗い可',),
     'マシンウォッシャブル:ご家庭の洗濯機でお洗濯して頂けます。': ('洗濯機洗い可',),
 }
+STRIPE_WASH_FEATURE_HEADER = '・ウォッシャブルニット'
+STRIPE_WASH_FEATURE_SENTENCE = 'ご家庭の洗濯機でお洗濯して頂けるニットです。'
+STRIPE_WASH_NET_NOTE = '洗濯ネットをご使用頂き、形を整えて陰平干しして頂くのがおすすめです。'
 FUNCTION_LABELS = {
     **DOCLASSE_FUNCTION_LABELS,
     **FR_FEATURE_LINES,
@@ -465,6 +468,30 @@ def stripe_care_text(original):
             'dry_clean':'allowed','dry_solvent':'F'}
 
 
+def stripe_wash_feature_care(original):
+    if original not in (STRIPE_WASH_FEATURE_HEADER+' ／ '+STRIPE_WASH_FEATURE_SENTENCE,
+                         STRIPE_WASH_FEATURE_HEADER+' ／ '+STRIPE_WASH_FEATURE_SENTENCE+STRIPE_WASH_NET_NOTE):
+        return None
+    return {'status': 'verified', 'evidence_kind': 'official_text', 'text_format': 'stripe_wash_feature',
+            'source_text': original, 'home_wash': 'machine', 'dry_clean': 'unknown'}
+
+
+def stripe_wash_feature(instructions):
+    if re.search(r'家庭洗濯不可|水洗い不可|手洗いのみ|洗濯機(?:洗い|の使用)(?:は)?(?:不可|禁止)|'
+                 r'洗濯機で(?:は)?(?:洗えません|洗えない)', instructions):
+        return None
+    section = re.search(r'(?m)^[ \t]*■機能[ \t]*$', instructions)
+    if not section:
+        return None
+    lines = [line.strip() for line in instructions[section.end():].splitlines() if line.strip()]
+    for label, declaration in zip(lines, lines[1:]):
+        if label.startswith(('■', '【', '※', '透け感')):
+            break
+        if label == STRIPE_WASH_FEATURE_HEADER:
+            return stripe_wash_feature_care(label+' ／ '+declaration)
+    return None
+
+
 def stripe_detail(doc, url, slug):
     expected = urlsplit(url).path.rstrip('/')
     if not re.fullmatch('/brand/'+re.escape(slug)+r'/item/[0-9A-Za-z]+', expected):
@@ -499,6 +526,10 @@ def stripe_detail(doc, url, slug):
                 dry = re.findall(r'(?m)^\s*・(ドライクリーニングは可能です。[^\n]+)\s*$', text)
                 if len(wash) == len(dry) == 1:
                     care = stripe_care_text(wash[0].strip()+' ／ '+dry[0].strip())
+            elif not re.search(r'【(?:先行)?予約[^】]*】|〖(?:先行)?予約[^〗]*〗', name):
+                care = stripe_wash_feature(instructions)
+                if care:
+                    claims.setdefault('洗濯機洗い可', STRIPE_WASH_FEATURE_SENTENCE)
         return assemble_detail(name, url, care, claims)
     return None
 

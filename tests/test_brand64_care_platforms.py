@@ -205,6 +205,34 @@ class CarePlatformTests(unittest.TestCase):
         self.assertEqual(detail['function_source_text'], {'帯電防止':'静電気防止（バイパチニット）','抗ピリング':'毛玉防止'})
         self.assertNotIn('care_label', detail)
 
+    def test_stripe_reads_explicit_machine_washing_from_released_product_features(self):
+        url = 'https://stripe-club.com/brand/american-holic/item/100HA25G0120'
+        meta = {'adapter': 'stripe', 'brand_name': 'AMERICAN HOLIC', 'slug': 'american-holic'}
+        feature = ('■機能<br>・ウォッシャブルニット<br>ご家庭の洗濯機でお洗濯して頂けるニットです。'
+                   '洗濯ネットをご使用頂き、形を整えて陰平干しして頂くのがおすすめです。')
+
+        def read(description, name='ニット'):
+            product = {'@type': 'Product', 'url': url, 'name': name, 'description': description}
+            html = (f'<link rel="canonical" href="{url}">'
+                    f'<script type="application/ld+json">{json.dumps(product)}</script>')
+            detail = product_detail(html, url, meta)
+            detail.update(source_sha256='a'*64, retrieved_at_utc='2026-11-23T10:00:00Z')
+            return detail
+
+        detail = read(feature)
+        care = care_observation(detail)
+        self.assertEqual((care['home_wash'], care['dry_clean']), ('machine', 'unknown'))
+        self.assertNotIn('max_water_c', care)
+        self.assertEqual(detail['function_claims'], ['洗濯機洗い可'])
+        for description, name in (
+            (feature, '【予約】ニット'),
+            (feature+'<br>※家庭洗濯不可', 'ニット'),
+            (feature.replace('■機能', '■関連商品'), 'ニット'),
+        ):
+            with self.subTest(description=description, name=name):
+                labelled_description = description + '<br>・静電気防止（バイパチニット）'
+                self.assertNotIn('care_label', read(labelled_description, name))
+
     def test_stripe_reads_explicit_washing_instructions_for_the_exact_product(self):
         url = 'https://stripe-club.com/brand/american-holic/item/100HA25G0124'
         instructions = ('【お洗濯について】<br>・液温は40℃を限度とし、手洗いが可能です。<br>'
