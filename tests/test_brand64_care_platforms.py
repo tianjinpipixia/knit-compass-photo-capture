@@ -63,6 +63,11 @@ class CarePlatformTests(unittest.TestCase):
         different = common + group('OWHT', 'ua', 'e', 'i') + group('BRW', 'ub', 'e', 'f') + '</section>'
         care = product_detail(different, url, brand, read_care_image_sha=assets.__getitem__)['care_label']
         self.assertEqual((care['home_wash'], care['dry_clean']), ('unknown', 'allowed'))
+        delicate = common + group('NVY', 'ue', 'uw', 'c', 'i') + '</section>'
+        care = product_detail(delicate, url, brand, read_care_image_sha=assets.__getitem__)['care_label']
+        self.assertEqual((care['home_wash'], care['max_water_c'], care['home_cycle'],
+                          care['dry_clean'], care['dry_solvent'], care['dry_cycle']),
+                         ('machine', 30, 'very_gentle', 'allowed', 'P', 'gentle'))
         with self.assertRaises(ValueError):
             product_detail(same, url.replace('0036', '0035'), brand, read_care_image_sha=assets.__getitem__)
         with self.assertRaises(ValueError):
