@@ -1,7 +1,7 @@
 """JUN product care strips reviewed against its guide and JIS L0001:2024."""
 
 import re
-from official_care_text import ONWARD_HOST, care_from_text, jis_care_text, mix_label, pal_care_text
+from official_care_text import ONWARD_HOST, care_from_text, jis_care_text, mix_label, pal_care_text, stripe_care_text
 from urllib.parse import urlsplit
 
 ASSET_ORIGIN = 'https://www.junonline.jp'
@@ -140,6 +140,8 @@ def care_observation(detail):
             verified = jis_care_text(text, text_format)
         elif text_format == 'mix_symbols' and host == 'mix.tokyo':
             verified = mix_label(label.get('wash_code'))
+        elif text_format == 'stripe_instructions' and host == 'stripe-club.com':
+            verified = stripe_care_text(text)
         else:
             verified = care_from_text(text)
         if verified != label:

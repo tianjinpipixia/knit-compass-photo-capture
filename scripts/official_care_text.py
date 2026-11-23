@@ -317,6 +317,19 @@ def pal_detail(doc, code, meta):
     return None, None, {}
 
 
+def stripe_care_text(original):
+    if not isinstance(original, str):
+        return None
+    matched = re.fullmatch(r'液温は(30|40)°Cを限度とし、手洗いが可能です。 / '
+                           r'ドライクリーニングは可能です。\(溶剤は石油系を使用してください\)',
+                           unicodedata.normalize('NFKC', original))
+    if not matched:
+        return None
+    return {'status':'verified','evidence_kind':'official_text','text_format':'stripe_instructions',
+            'source_text':original,'home_wash':'hand','max_water_c':int(matched[1]),
+            'dry_clean':'allowed','dry_solvent':'F'}
+
+
 def stripe_detail(doc, url, slug):
     expected = urlsplit(url).path.rstrip('/')
     if not re.fullmatch('/brand/'+re.escape(slug)+r'/item/[0-9A-Za-z]+', expected):
@@ -328,6 +341,7 @@ def stripe_detail(doc, url, slug):
         if not isinstance(name, str) or not name.strip():
             continue
         claims = title_features(name)
+        care = None
         description = listing.get('description')
         if isinstance(description, str):
             prose = html.unescape(re.sub(r'<[^>]+>', ' ', description))
@@ -338,7 +352,15 @@ def stripe_detail(doc, url, slug):
             }.items():
                 if cue in prose:
                     claims.setdefault(claim, cue)
-        return assemble_detail(name, url, None, claims)
+            instructions = html.unescape(re.sub(r'<[^>]+>', '\n', description))
+            heading = re.search(r'(?m)^\s*(?:■|【)お洗濯について】?\s*$', instructions)
+            if heading:
+                text = instructions[heading.end():]
+                wash = re.findall(r'(?m)^\s*・(液温[^\n]+手洗いが可能です。)\s*$', text)
+                dry = re.findall(r'(?m)^\s*・(ドライクリーニングは可能です。[^\n]+)\s*$', text)
+                if len(wash) == len(dry) == 1:
+                    care = stripe_care_text(wash[0].strip()+' ／ '+dry[0].strip())
+        return assemble_detail(name, url, care, claims)
     return None
 
 

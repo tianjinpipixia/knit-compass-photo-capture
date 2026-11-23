@@ -141,6 +141,20 @@ class CarePlatformTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             product_detail(doc, url, {**meta, 'slug': 'earth1999'})
 
+    def test_stripe_reads_explicit_washing_instructions_for_the_exact_product(self):
+        url = 'https://stripe-club.com/brand/american-holic/item/100HA25G0124'
+        instructions = ('【お洗濯について】<br>・液温は40℃を限度とし、手洗いが可能です。<br>'
+                        '・ドライクリーニングは可能です。（溶剤は石油系を使用してください）')
+        item = {'@type':'Product','url':url,'name':'ニット','description':instructions}
+        doc = (f'<link rel="canonical" href="{url}">'
+               f'<script type="application/ld+json">{json.dumps(item)}</script>')
+        meta = {'adapter':'stripe','brand_name':'AMERICAN HOLIC','slug':'american-holic'}
+        detail = product_detail(doc,url,meta)
+        detail.update(source_sha256='a'*64,retrieved_at_utc='2026-11-23T03:07:11+00:00')
+        care = care_observation(detail)
+        self.assertEqual((care['home_wash'],care['max_water_c'],care['dry_clean'],care['dry_solvent']),
+                         ('hand',40,'allowed','F'))
+
     def test_pal_checks_same_product_table_and_brand(self):
         url = 'https://www.palcloset.jp/display/item/DCZ1062205A0129'
         group = {'@type': 'ProductGroup', 'name': '長袖ニット', 'productGroupID': 'DCZ1062205A0129',
