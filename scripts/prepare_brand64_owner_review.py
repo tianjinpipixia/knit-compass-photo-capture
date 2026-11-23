@@ -16,7 +16,10 @@ from publish_brand64_flash_feed import (
     git, world_care_reviews,
 )
 from jun_care_labels import ASSET_ORIGIN, ASSET_ROOT, CARE_FIELDS, REVIEWED_PATHS, REVIEWED_STRIPS, care_observation
-from official_care_text import MIX_CARE_CONFIG, care_from_text, detail_adapter, doclasse_feature_labels, named_features
+from official_care_text import (
+    MIX_CARE_CONFIG, STRIPE_GALLERY_CONFIG, care_from_text, detail_adapter, doclasse_feature_labels, named_features,
+    stripe_product_code,
+)
 
 
 REVIEW_PREFIX = PREFIX + 'owner-reviewed/'
@@ -187,8 +190,10 @@ def read_detail_samples(sources, reviewed_on):
                 or not isinstance(claims, dict)
                 or any(not isinstance(label, str) or claim not in named_features([label])
                        for claim, label in claims.items())
-                or (composition is not None and (detail_adapter(brand) not in {'jun', 'onward', 'mix_care', 'ikka', 'dot', 'baycrews'}
-                    or not isinstance(composition, str) or not re.search(r'\d\s*[%％]', composition)))):
+                or (composition is not None and (detail_adapter(brand) not in {
+                        'jun', 'onward', 'mix_care', 'ikka', 'dot', 'baycrews', 'stripe'}
+                    or not isinstance(composition, str) or not re.search(r'\d\s*[%％]', composition)
+                    or (detail_adapter(brand) == 'stripe' and stripe_product_code(url, brand.get('slug')) != code)))):
             raise ValueError(f'Invalid reviewed product detail for {code}')
         evidence = {'source_url': url, 'source_sha256': digest, 'retrieved_at_utc': timestamp}
         care = None
@@ -196,6 +201,7 @@ def read_detail_samples(sources, reviewed_on):
             care = care_observation({**evidence, 'care_label': item['care_label']})
             if not care or care['status'] != 'verified':
                 raise ValueError(f'Unverified product care for {code}')
+            at = max(at, datetime.fromisoformat(care['retrieved_at_utc']))
         if not care and not claims and not composition:
             raise ValueError(f'No confirmed product detail for {code}')
         if at.astimezone(timezone(timedelta(hours=9))).date().isoformat() <= reviewed_on:
@@ -212,6 +218,8 @@ def reviewed_detail_key(row, brand):
         if (match and product.scheme == 'https' and not product.query and not product.fragment
                 and product.netloc in {'www.uniqlo.com', 'www.gu-global.com'}):
             code = match[1]
+    elif not code and detail_adapter(brand) == 'stripe':
+        code = stripe_product_code(url, brand.get('slug')) or code
     return row['brand_id'], code, url
 
 
@@ -243,7 +251,7 @@ def prepare(base_ref, reviewed_on, previous_ref):
     if top != COLLECTOR_CONFIG.parent:
         raise ValueError('Run this command from the collector checkout')
     for file in (REVIEW_CONFIG, JUN_REVIEW_CONFIG, DOCLASSE_REVIEW_CONFIG, DETAIL_SAMPLE_CONFIG, MIX_CARE_CONFIG,
-                 'config/brand64-free-direct-sources.json'):
+                 STRIPE_GALLERY_CONFIG, 'config/brand64-free-direct-sources.json'):
         if (top/file).read_bytes() != source_file(collector, file):
             raise ValueError(f'{file} must match the committed review source')
     base_commit, digest, day, run_id, brands = read_base(checked_commit(base_ref))

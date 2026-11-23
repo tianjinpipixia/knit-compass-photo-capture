@@ -3,7 +3,7 @@
 import re
 from official_care_text import (
     ONWARD_HOST, UNITED_ARROWS_HOST, USAGI_HOST, care_from_text, fr_washing_field, jis_care_text,
-    mix_label, pal_care_text, stripe_care_text, stripe_wash_feature_care, united_arrows_care,
+    mix_label, pal_care_text, stripe_care_text, stripe_gallery_care, stripe_wash_feature_care, united_arrows_care,
     usagi_symbol_care,
 )
 from urllib.parse import urlsplit
@@ -197,6 +197,11 @@ def care_observation(detail):
         if (urlsplit(detail['source_url']).hostname != 'www.junonline.jp'
                 or shared_strip_care(label.get('images')) != label):
             return None
+    elif label.get('evidence_kind') == 'official_gallery_photo':
+        if stripe_gallery_care(detail['source_url'], label.get('image_url'), label.get('image_sha256')) != label:
+            return None
+        return {**label, 'source_url': detail['source_url'], 'source_sha256': sha,
+                'retrieved_at_utc': label['image_retrieved_at_utc']}
     elif label['status'] == 'verified':
         reviewed = REVIEWED_STRIPS.get(label.get('image_sha256'))
         if (not reviewed or label.get('image_url') not in {ASSET_ORIGIN+path for path in REVIEWED_PATHS}

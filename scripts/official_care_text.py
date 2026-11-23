@@ -3,6 +3,7 @@ import json
 import html
 import re
 import unicodedata
+from datetime import datetime, timedelta
 from functools import lru_cache
 from pathlib import Path
 from urllib.parse import parse_qs, urlencode, urlsplit
@@ -18,6 +19,7 @@ UNITED_ARROWS_VARIANT_QUERY = {'areaid': r'ebGL[0-9]+', 'clr_id': r'[0-9]{3}'}
 USAGI_ASSET_ROOT = '/res/p/img/item/washing/'
 USAGI_ASSET_VERSION = '20241212'
 MIX_CARE_CONFIG = 'config/brand64-mix-care-codes.json'
+STRIPE_GALLERY_CONFIG = 'config/brand64-stripe-gallery-care.json'
 PETROLEUM_DRY_LABELS = {'ドライクリーニング(石油系)', 'ドライ石油系'}
 TOKENS = {
     'home_wash': {
@@ -53,10 +55,21 @@ STRIPE_FEATURE_LINES = {
 STRIPE_WASH_FEATURE_HEADER = '・ウォッシャブルニット'
 STRIPE_WASH_FEATURE_SENTENCE = 'ご家庭の洗濯機でお洗濯して頂けるニットです。'
 STRIPE_WASH_NET_NOTE = '洗濯ネットをご使用頂き、形を整えて陰平干しして頂くのがおすすめです。'
+STRIPE_ANTISTATIC_SENTENCE = '静電気防止やご家庭の洗濯機で洗える素材なのもポイント。'
+STRIPE_MACHINE_WASH_SENTENCES = (
+    'ご家庭の洗濯機で洗える仕様。',
+    'ご家庭の洗濯機で洗える素材でデイリーシーンに活躍。',
+    '静電気の発生を抑える滑らかな素材で仕立てたストレスフリーな着用感と、洗濯機で洗えるのも嬉しいポイント。',
+)
+STRIPE_MACHINE_WASH_CONFLICT = re.compile(
+    r'家庭洗濯不可|水洗い不可|手洗いのみ|洗濯機(?:洗い|の使用)(?:は)?(?:不可|禁止)|'
+    r'洗濯機で(?:は)?(?:洗えません|洗えない)')
 FUNCTION_LABELS = {
     **DOCLASSE_FUNCTION_LABELS,
     **FR_FEATURE_LINES,
     **STRIPE_FEATURE_LINES,
+    **dict.fromkeys(STRIPE_MACHINE_WASH_SENTENCES, ('洗濯機洗い可',)),
+    STRIPE_ANTISTATIC_SENTENCE: ('帯電防止',),
     'マシンウォッシャブル': ('洗濯機洗い可',), '洗濯機可': ('洗濯機洗い可',),
     '洗濯機洗い可': ('洗濯機洗い可',), '洗濯機可能': ('洗濯機洗い可',),
     '手洗い可': ('手洗い可',), '手洗い可能': ('手洗い可',),
@@ -479,15 +492,15 @@ def stripe_care_text(original):
 
 def stripe_wash_feature_care(original):
     if original not in (STRIPE_WASH_FEATURE_HEADER+' ／ '+STRIPE_WASH_FEATURE_SENTENCE,
-                         STRIPE_WASH_FEATURE_HEADER+' ／ '+STRIPE_WASH_FEATURE_SENTENCE+STRIPE_WASH_NET_NOTE):
+                         STRIPE_WASH_FEATURE_HEADER+' ／ '+STRIPE_WASH_FEATURE_SENTENCE+STRIPE_WASH_NET_NOTE,
+                         *STRIPE_MACHINE_WASH_SENTENCES):
         return None
     return {'status': 'verified', 'evidence_kind': 'official_text', 'text_format': 'stripe_wash_feature',
             'source_text': original, 'home_wash': 'machine', 'dry_clean': 'unknown'}
 
 
 def stripe_wash_feature(instructions):
-    if re.search(r'家庭洗濯不可|水洗い不可|手洗いのみ|洗濯機(?:洗い|の使用)(?:は)?(?:不可|禁止)|'
-                 r'洗濯機で(?:は)?(?:洗えません|洗えない)', instructions):
+    if STRIPE_MACHINE_WASH_CONFLICT.search(instructions):
         return None
     section = re.search(r'(?m)^[ \t]*■機能[ \t]*$', instructions)
     if not section:
@@ -501,21 +514,91 @@ def stripe_wash_feature(instructions):
     return None
 
 
-def stripe_detail(doc, url, slug):
-    expected = urlsplit(url).path.rstrip('/')
-    if not re.fullmatch('/brand/'+re.escape(slug)+r'/item/[0-9A-Za-z]+', expected):
+def stripe_product_code(url, slug):
+    product = urlsplit(url)
+    if (product.scheme != 'https' or product.netloc != 'stripe-club.com'
+            or product.fragment or not isinstance(slug, str)):
         return None
+    path = re.fullmatch(r'/brand/'+re.escape(slug)+r'/item/([0-9A-Za-z]{3,32})/?', product.path)
+    if path and (not product.query or supported_detail_query(product.query, 'stripe', {})):
+        return path[1]
+    return None
+
+
+@lru_cache(maxsize=1)
+def stripe_gallery_reviews():
+    return json.loads((Path(__file__).resolve().parents[1]/STRIPE_GALLERY_CONFIG).read_bytes())
+
+
+def stripe_gallery_care(product_url, image_url, digest):
+    product = urlsplit(product_url)
+    slug = product.path.split('/')[2] if product.path.startswith('/brand/') else None
+    if not stripe_product_code(product_url, slug):
+        return None
+    review = stripe_gallery_reviews().get(product._replace(query='').geturl().rstrip('/'))
+    if not review or image_url != review['image_url'] or digest != review['image_sha256']:
+        return None
+    try:
+        timestamp = datetime.fromisoformat(review['image_retrieved_at_utc'])
+    except (TypeError, ValueError):
+        return None
+    if timestamp.utcoffset() != timedelta(0) or not re.fullmatch(r'[a-f0-9]{64}', digest):
+        return None
+    care = jis_care_text('洗濯記号 '+review['symbols'], 'stripe_gallery_symbols')
+    if not care or any(care[field] == 'unknown' for field in ('home_wash', 'dry_clean')):
+        return None
+    return {**care, 'evidence_kind': 'official_gallery_photo', 'image_url': image_url, 'image_sha256': digest,
+            'image_retrieved_at_utc': review['image_retrieved_at_utc']}
+
+
+def stripe_materials(doc, name):
+    materials = set()
+    for section in doc.root.walk():
+        if section.attrs.get('data-design-block-name') != '枠+行タイトル付テーブル（2×2）':
+            continue
+        fields = {}
+        categories = set()
+        for row in section.children:
+            if getattr(row, 'tag', None) != 'div':
+                continue
+            cells = [cell for cell in row.children if getattr(cell, 'tag', None) == 'div']
+            if len(cells) != 2:
+                continue
+            label = cells[0].text()
+            if label == 'カテゴリ':
+                categories.update(node.attrs.get('href') for node in cells[1].walk() if node.tag == 'a')
+            values = [node.text() for node in cells[1].children if getattr(node, 'tag', None) == 'p'
+                      and node.has_class('dblc-normal-text-m')]
+            if len(values) == 1:
+                fields.setdefault(label, set()).add(' '.join(values[0].split()))
+        codes = fields.get('メーカー品番', ())
+        knit_category = categories.intersection({'/category/01/0104/', '/category/01/0107/'})
+        knit_vest = '/category/01/0109/' in categories and 'ニット' in name
+        if ((knit_category or knit_vest) and len(codes) == 1
+                and re.fullmatch(r'[0-9A-Z]{11}', next(iter(codes)))):
+            materials.update(fields.get('素材', ()))
+    return materials
+
+
+def stripe_detail(doc, url, slug):
+    if not stripe_product_code(url, slug):
+        return None
+    expected = urlsplit(url)._replace(query='').geturl().rstrip('/')
     for listing in product_jsonld(doc, 'Product'):
-        if listing.get('url') not in (url, url.rstrip('/')+'/'):
+        if listing.get('url') not in (expected, expected+'/'):
             continue
         name = listing.get('name')
         if not isinstance(name, str) or not name.strip():
             continue
         claims = title_features(name)
         care = None
+        reserved = re.search(r'【(?:先行)?予約[^】]*】|〖(?:先行)?予約[^〗]*〗', name)
         description = listing.get('description')
         if isinstance(description, str):
             instructions = html.unescape(re.sub(r'<[^>]+>', '\n', description))
+            sentences = {line.strip()+'。' for line in re.split(r'[。\r\n]', instructions) if line.strip()}
+            if STRIPE_ANTISTATIC_SENTENCE in sentences:
+                claims['帯電防止'] = STRIPE_ANTISTATIC_SENTENCE
             for line in instructions.splitlines():
                 statement = line.strip().removeprefix('・').strip()
                 for claim in STRIPE_FEATURE_LINES.get(unicodedata.normalize('NFKC', statement), ()):
@@ -535,11 +618,16 @@ def stripe_detail(doc, url, slug):
                 dry = re.findall(r'(?m)^\s*・(ドライクリーニングは可能です。[^\n]+)\s*$', text)
                 if len(wash) == len(dry) == 1:
                     care = stripe_care_text(wash[0].strip()+' ／ '+dry[0].strip())
-            elif not re.search(r'【(?:先行)?予約[^】]*】|〖(?:先行)?予約[^〗]*〗', name):
+            elif not reserved:
                 care = stripe_wash_feature(instructions)
                 if care:
                     claims.setdefault('洗濯機洗い可', STRIPE_WASH_FEATURE_SENTENCE)
-        return assemble_detail(name, url, care, claims)
+                elif not STRIPE_MACHINE_WASH_CONFLICT.search(instructions):
+                    statement = next((line for line in STRIPE_MACHINE_WASH_SENTENCES if line in sentences), None)
+                    if statement:
+                        care = stripe_wash_feature_care(statement)
+                        claims['洗濯機洗い可'] = statement
+        return assemble_detail(name, url, care, claims, materials=stripe_materials(doc, name) if not reserved else ())
     return None
 
 
@@ -811,6 +899,9 @@ def supported_detail_query(query, adapter, meta):
         return all(len(values) == 1 and key in UNITED_ARROWS_VARIANT_QUERY
                    and re.fullmatch(UNITED_ARROWS_VARIANT_QUERY[key], values[0])
                    for key, values in params.items())
+    if adapter == 'stripe':
+        area = params.get('areaid', ())
+        return set(params) == {'areaid'} and len(area) == 1 and re.fullmatch(r'eb[0-9]{5}', area[0])
     return False
 
 
@@ -898,8 +989,8 @@ def read_care_detail(doc, url, meta, *, read_care_image_sha=None):
     return assemble_detail(name, url, care or care_from_text(text), claims)
 
 
-def assemble_detail(name, url, care, claims):
-    if not isinstance(name, str) or not name.strip() or (not care and not claims):
+def assemble_detail(name, url, care, claims, *, materials=()):
+    if not isinstance(name, str) or not name.strip():
         return None
     detail = {'product_name': name.strip(), 'product_url': url, 'source_url': url,
               'evidence_level': CARE_TEXT_SOURCE}
@@ -908,4 +999,5 @@ def assemble_detail(name, url, care, claims):
     if claims:
         detail['function_claims'] = list(claims)
         detail['function_source_text'] = claims
-    return detail
+    with_composition(detail, materials)
+    return detail if care or claims or 'composition' in detail else None

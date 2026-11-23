@@ -11,7 +11,7 @@ from brand64_canonical_store import attach_details
 from brand64_flash_pipeline import needs_watched_care, retry_expanded_detail
 from official_care_text import (
     USAGI_ICONS, add_world_listing_features, dot_detail, dot_detail_request, jis_care_text, pal_care_text,
-    title_features, usagi_icon_url,
+    stripe_gallery_care, title_features, usagi_icon_url,
 )
 from prepare_brand64_owner_review import reviewed_detail_key
 from run_brand64_free_direct_scan import product_detail, source_error
@@ -275,14 +275,65 @@ class CarePlatformTests(unittest.TestCase):
         self.assertEqual((care['home_wash'], care['dry_clean']), ('machine', 'unknown'))
         self.assertNotIn('max_water_c', care)
         self.assertEqual(detail['function_claims'], ['洗濯機洗い可'])
+        declaration = 'ご家庭の洗濯機で洗える仕様。'
+        prose = read('綿混のニットです。'+declaration)
+        self.assertEqual(care_observation(prose)['source_text'], declaration)
+        self.assertEqual(prose['function_source_text'], {'洗濯機洗い可': declaration})
         for description, name in (
             (feature, '【予約】ニット'),
             (feature+'<br>※家庭洗濯不可', 'ニット'),
             (feature.replace('■機能', '■関連商品'), 'ニット'),
+            (declaration, '【予約】ニット'),
+            (declaration+'<br>洗濯機で洗えません。', 'ニット'),
         ):
             with self.subTest(description=description, name=name):
                 labelled_description = description + '<br>・静電気防止（バイパチニット）'
                 self.assertNotIn('care_label', read(labelled_description, name))
+
+    def test_stripe_reads_composition_only_from_exact_knit_product_specification(self):
+        url = 'https://stripe-club.com/brand/yeccavecca/item/1007A26F0009'
+        alias = url+'?areaid=eb07100'
+        brand = {'adapter': 'stripe', 'slug': 'yeccavecca', 'brand_name': 'YECCA VECCA'}
+        item = {'@type': 'Product', 'url': url, 'name': 'ニットセット'}
+        material = '【ニット】綿100% 【キャミソール】ナイロン100%'
+        body = ('<div data-design-block-name="枠+行タイトル付テーブル（2×2）">'
+                '<div><div>メーカー品番</div><div><p class="dblc-normal-text-m">07002044500</p></div></div>'
+                '<div><div>カテゴリ</div><div><a href="/category/01/0104/">ニット・セーター</a></div></div>'
+                f'<div><div>素材</div><div><p class="dblc-normal-text-m">{material}</p>'
+                '<p>洗濯表示について</p></div></div></div>')
+        html = (f'<link rel="canonical" href="{url}">'
+                f'<script type="application/ld+json">{json.dumps(item)}</script>'+body)
+        detail = product_detail(html, alias, brand)
+        self.assertEqual(detail['composition'], material)
+        self.assertNotIn('care_label', detail)
+        saved = {'brand_id': 'BR-00036', 'product_url': alias, 'product_code': ''}
+        self.assertEqual(reviewed_detail_key(saved, brand), ('BR-00036', '1007A26F0009', alias))
+        for bad_source, bad_url in (
+            (html.replace('/category/01/0104/', '/category/11/1105/'), alias),
+            (html.replace('07002044500', '不明'), alias),
+            (html.replace(body, body+body.replace('綿100%', '毛100%')), alias),
+            (html, url+'?other=1'),
+        ):
+            with self.assertRaises(ValueError):
+                product_detail(bad_source, bad_url, brand)
+
+    def test_stripe_gallery_uses_only_reviewed_photo_and_records_its_own_date(self):
+        url = 'https://stripe-club.com/brand/american-holic/item/100HS26H0008'
+        photo = 'https://img.stripe-club.com/img/item/100HS/100HS26H0008/100HS26H0008_l_a145.jpg'
+        stamp = '2026-11-23T21:52:00+00:00'
+        registry = {url: {'image_url': photo, 'image_sha256': 'a'*64, 'symbols': '131,610',
+                          'image_retrieved_at_utc': stamp}}
+        with patch('official_care_text.stripe_gallery_reviews', return_value=registry):
+            label = stripe_gallery_care(url, photo, 'a'*64)
+            record = {'source_url': url, 'source_sha256': 'b'*64, 'retrieved_at_utc': '2026-11-23T05:00:00Z',
+                      'care_label': label}
+            proof = care_observation(record)
+            self.assertEqual((proof['home_wash'], proof['home_cycle'], proof['max_water_c'],
+                              proof['dry_clean'], proof['dry_solvent'], proof['retrieved_at_utc']),
+                             ('machine', 'gentle', 30, 'allowed', 'F', stamp))
+            self.assertIsNone(care_observation({**record, 'source_url': url[:-1]+'7'}))
+            self.assertIsNone(care_observation({**record, 'care_label': {**label, 'image_sha256': 'c'*64}}))
+            self.assertIsNone(care_observation({**record, 'care_label': {**label, 'dry_clean': 'prohibited'}}))
 
     def test_stripe_reads_explicit_washing_instructions_for_the_exact_product(self):
         url = 'https://stripe-club.com/brand/american-holic/item/100HA25G0124'
