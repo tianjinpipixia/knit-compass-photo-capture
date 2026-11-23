@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Prepare a Git commit for Owner's reviewed cumulative data on this Mac."""
 import argparse
-from datetime import date
+from datetime import date, datetime, timedelta, timezone
 import hashlib
 import json
 import os
@@ -14,11 +14,13 @@ from publish_brand64_flash_feed import (
     COLLECTOR_CONFIG, PREFIX, add_world_listing_features, attach_world_review,
     git, world_care_reviews,
 )
+from jun_care_labels import ASSET_ORIGIN, ASSET_ROOT, CARE_FIELDS, REVIEWED_PATHS, REVIEWED_STRIPS, care_observation
 
 
 REVIEW_PREFIX = PREFIX + 'owner-reviewed/'
 MANIFEST_PATH = 'cumulative-products/manifest.json'
 REVIEW_CONFIG = 'config/brand64-world-care-reviews.json'
+JUN_REVIEW_CONFIG = 'config/brand64-jun-care-reviews.json'
 
 
 def checksum(data):
@@ -86,12 +88,43 @@ def create_commit(files, message, parent=None):
         return git('commit-tree', tree, *parents, input=message+'\n', env=env).stdout.strip()
 
 
+def read_jun_reviews(sources, reviewed_on):
+    reviews = {}
+    for item in json.loads((COLLECTOR_CONFIG.parent/JUN_REVIEW_CONFIG).read_bytes()):
+        brand_id, code, url = item['brand_id'], item['product_code'], item['product_url']
+        image_url, image_hash = item['image_url'], item['image_sha256']
+        brand = sources.get(brand_id, {})
+        timestamp = item['retrieved_at_utc']
+        at = datetime.fromisoformat(timestamp)
+        key = (brand_id, code, url)
+        slug = re.escape(brand.get('slug', ''))
+        path = rf'/{slug}/product/tops/(?:knit-sweater|cardigan)/{re.escape(code)}'
+        if (brand.get('adapter') != 'jun' or not re.fullmatch(r'[A-Z0-9]{6,15}', code)
+                or not re.fullmatch(re.escape(ASSET_ORIGIN) + path, url)
+                or key in reviews or at.utcoffset() != timedelta(0)
+                or not image_url.startswith(ASSET_ORIGIN + ASSET_ROOT)
+                or image_url[len(ASSET_ORIGIN):] not in REVIEWED_PATHS
+                or image_hash not in REVIEWED_STRIPS):
+            raise ValueError(f'Invalid reviewed JUN care record for {code}')
+        label = {
+            **dict(zip(CARE_FIELDS, REVIEWED_STRIPS[image_hash])),
+            'status': 'verified', 'image_url': image_url, 'image_sha256': image_hash,
+        }
+        care = care_observation({'care_label': label, 'source_url': url,
+                                 'source_sha256': item['source_sha256'], 'retrieved_at_utc': timestamp})
+        if care is None:
+            raise ValueError(f'Unverified JUN care record for {code}')
+        if at.astimezone(timezone(timedelta(hours=9))).date().isoformat() <= reviewed_on:
+            reviews[key] = care
+    return reviews
+
+
 def prepare(base_ref, reviewed_on, previous_ref):
     collector = checked_commit('HEAD')
     top = Path(git('rev-parse', '--show-toplevel').stdout.strip())
     if top != COLLECTOR_CONFIG.parent:
         raise ValueError('Run this command from the collector checkout')
-    for file in (REVIEW_CONFIG, 'config/brand64-free-direct-sources.json'):
+    for file in (REVIEW_CONFIG, JUN_REVIEW_CONFIG, 'config/brand64-free-direct-sources.json'):
         if (top/file).read_bytes() != source_file(collector, file):
             raise ValueError(f'{file} must match the committed review source')
     base_commit, digest, day, run_id, brands = read_base(checked_commit(base_ref))
@@ -99,7 +132,8 @@ def prepare(base_ref, reviewed_on, previous_ref):
         raise ValueError('The review date must be on or after the canonical observation date')
     sources = json.loads((COLLECTOR_CONFIG/'brand64-free-direct-sources.json').read_bytes())['brands']
     reviews = world_care_reviews(sources)
-    review_brands = {brand_id for brand_id, _, _ in reviews}
+    jun_reviews = read_jun_reviews(sources, reviewed_on)
+    review_brands = {brand_id for brand_id, _, _ in (*reviews, *jun_reviews)}
     files, descriptors, report = {}, {}, {}
     for brand in brands:
         brand_id = brand['brand_id']
@@ -127,6 +161,9 @@ def prepare(base_ref, reviewed_on, previous_ref):
             before = row.copy()
             add_world_listing_features(row, sources[brand_id])
             attach_world_review(row, reviews, reviewed_on, same_day=False)
+            care = jun_reviews.get((brand_id, row.get('product_code'), row['product_url']))
+            if care and (row.get('care_label') or {}).get('status') != 'verified':
+                row['care_label'] = care
             changed += before != row
             care = row.get('care_label') or {}
             missing += (care.get('status') != 'verified' or any(

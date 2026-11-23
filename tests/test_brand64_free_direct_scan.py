@@ -116,6 +116,12 @@ class Tests(unittest.TestCase):
         self.assertEqual((b['home_wash'],b['dry_clean']),('hand','prohibited'))
         c=read('/common/img/sentaku/SF-202.gif', '3db9b4ae91b0fb088ec598f85fa060521847cbbb770de4fa6d46d2838a90ba35')
         self.assertEqual((c['home_wash'],c['dry_clean'],c['wet_clean']),('prohibited','allowed','prohibited'))
+        d=read('/common/img/sentaku/SC-194.gif', '7e863b0667c6b387a7e4597c40ae0c9637c14fd6f8575cde123e080318f20ff7')
+        self.assertEqual((d['home_wash'],d['max_water_c'],d['home_cycle'],d['dry_clean'],d['dry_solvent']),
+                         ('machine',30,'very_gentle','allowed','F'))
+        e=read('/common/img/sentaku/SH-155.gif', '0676efae586ce3447776498fad12f4ab9463dd120cdde153eceb94473ecab6bf')
+        self.assertEqual((e['home_wash'],e['max_water_c'],e['dry_clean']),('hand',30,'prohibited'))
+        self.assertEqual(read('/common/img/sentaku/SC-194.gif','0'*64)['status'],'unresolved')
         self.assertEqual(read('/common/img/sentaku/SC-191.gif','0'*64)['status'],'unresolved')
         self.assertEqual(read('/common/img/sentaku/UNKNOWN.gif',machine)['status'],'unresolved')
         self.assertIsNone(read('/common/img/sentaku/SC-191.gif',machine,'ANOTHER'))
