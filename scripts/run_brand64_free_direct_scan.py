@@ -7,7 +7,7 @@ pages stay in the unresolved queue; old products are never deleted on absence.
 import argparse
 import brand_direct_adapters as adapters
 from jun_care_labels import ASSET_ORIGIN, REVIEWED_PATHS, care_from_strip
-from official_care_text import add_world_listing_features, dot_detail, dot_detail_request, read_care_detail
+from official_care_text import ONWARD_HOST, add_world_listing_features, dot_detail, dot_detail_request, read_care_detail
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import datetime as dt
 import gzip
@@ -307,7 +307,7 @@ def product_detail(html, url, meta, *, read_care_image_sha=None):
                     'description':clean(obj.get('description')), 'offers':offers,
                     'evidence_level':'OFFICIAL_PRODUCT_JSONLD','source_url':url}
             if care_detail:
-                for field in ('care_label','function_source_text'):
+                for field in ('care_label','function_source_text','composition','composition_evidence'):
                     if field in care_detail:
                         result[field] = care_detail[field]
             icon_claims = jun_function_icons(doc, url)
@@ -337,7 +337,7 @@ def product_detail(html, url, meta, *, read_care_image_sha=None):
                 if len(composition) == 1:
                     result['composition'] = composition.pop()
                     result['composition_evidence'] = 'OFFICIAL_MATCHING_PRODUCT_TABLE'
-            else:
+            elif urlsplit(url).hostname != ONWARD_HOST:
                 for row in doc.root.walk():
                     if row.tag!='tr':continue
                     th=next((x for x in row.walk() if x.tag=='th'),None);td=next((x for x in row.walk() if x.tag=='td'),None)

@@ -386,6 +386,27 @@ def urban_detail(doc, url, meta):
     return None
 
 
+def onward_composition(variants):
+    values = set()
+    for variant in variants:
+        materials = set()
+        for row in variant.walk():
+            if not row.has_class('c-item-detail-expand-colors-detail__info'):
+                continue
+            labels = [' '.join(node.text().split()) for node in row.walk()
+                      if node.has_class('c-item-detail-expand-colors-detail__info-material')]
+            if labels == ['素材']:
+                materials.update(' '.join(node.text().split()) for node in row.walk()
+                                 if node.has_class('c-item-detail-expand-colors-detail__info-detail'))
+        if len(materials) != 1:
+            return None
+        material = materials.pop()
+        if not re.search(r'\d\s*[%％]', material):
+            return None
+        values.add(material)
+    return values.pop() if len(values) == 1 else None
+
+
 def onward_detail(doc, url, meta, title):
     code = re.fullmatch(r'/items/([A-Z0-9]{8,24})/?', urlsplit(url).path)
     if not code:
@@ -410,13 +431,16 @@ def onward_detail(doc, url, meta, title):
                  and node.has_class('c-item-detail-expand-colors-detail__wash-icon')]
         if not icons or not all(icons):
             return None
-        declarations.add(tuple(sorted(icon[1] for icon in icons if icon[1][0] in '16')))
+        declarations.add(tuple(sorted({icon[1] for icon in icons if icon[1][0] in '16'})))
     if len(declarations) != 1:
         return None
     codes = next(iter(declarations))
     care = jis_care_text('洗濯記号 '+','.join(codes), 'onward_symbols')
     name = title.partition(' | ')[0].rpartition(' / ')[0]
-    return assemble_detail(name, url, care, title_features(name)) if name and care else None
+    detail = assemble_detail(name, url, care, title_features(name)) if name and care else None
+    if detail and (composition := onward_composition(variants)):
+        detail.update(composition=composition, composition_evidence='OFFICIAL_MATCHING_PRODUCT_TABLE')
+    return detail
 
 
 def detail_adapter(meta):

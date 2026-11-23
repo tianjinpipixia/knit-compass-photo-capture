@@ -16,7 +16,7 @@ from publish_brand64_flash_feed import (
     git, world_care_reviews,
 )
 from jun_care_labels import ASSET_ORIGIN, ASSET_ROOT, CARE_FIELDS, REVIEWED_PATHS, REVIEWED_STRIPS, care_observation
-from official_care_text import care_from_text, doclasse_feature_labels, named_features
+from official_care_text import care_from_text, detail_adapter, doclasse_feature_labels, named_features
 
 
 REVIEW_PREFIX = PREFIX + 'owner-reviewed/'
@@ -186,8 +186,8 @@ def read_detail_samples(sources, reviewed_on):
                 or not isinstance(claims, dict)
                 or any(not isinstance(label, str) or claim not in named_features([label])
                        for claim, label in claims.items())
-                or (composition is not None and (brand.get('adapter') != 'jun'
-                    or not isinstance(composition, str) or not re.search(r'\d\s*%', composition)))):
+                or (composition is not None and (detail_adapter(brand) not in {'jun', 'onward'}
+                    or not isinstance(composition, str) or not re.search(r'\d\s*[%％]', composition)))):
             raise ValueError(f'Invalid reviewed product detail for {code}')
         evidence = {'source_url': url, 'source_sha256': digest, 'retrieved_at_utc': timestamp}
         care = None
