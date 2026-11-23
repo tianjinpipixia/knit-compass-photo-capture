@@ -203,14 +203,18 @@ class CarePlatformTests(unittest.TestCase):
         url = 'https://baycrews.jp/item/detail/slobe/cutsew/26070912306010'
         header = (f'<link rel="canonical" href="{url}">'
                   '<meta property="og:title" content="カーディガン｜SLOBE IENA（スローブ イエナ）の通販｜BAYCREW’S STORE">')
-        other = '<dl class="dataDetail"><dt>取扱い</dt><dd>洗濯不可</dd><dt>商品番号</dt><dd id="itemid">25080912215030</dd></dl>'
+        other = ('<dl class="dataDetail"><dt>取扱い</dt><dd>洗濯不可</dd><dt>素材</dt><dd>毛100%</dd>'
+                 '<dt>商品番号</dt><dd id="itemid">25080912215030</dd></dl>')
         detail = ('<dl class="dataDetail"><dt>取扱い</dt><dd>本体:洗濯機洗い（弱）、色あせ</dd>'
+                  '<dt>素材</dt><dd>本体:綿90%、ポリエステル10%</dd>'
                   '<dt>商品番号</dt><dd id="itemid">26070912306010</dd></dl>')
         meta = {'adapter': 'baycrews', 'brand_name': 'SLOBE IENA', 'slug': 'slobe'}
         result = product_detail(header + other + detail, url, meta)
         result.update(source_sha256='a'*64, retrieved_at_utc='2026-11-21T23:00:00Z')
         care = care_observation(result)
         self.assertEqual((care['home_wash'], care['dry_clean']), ('machine', 'unknown'))
+        self.assertEqual(result['composition'], '本体:綿90%、ポリエステル10%')
+        self.assertNotIn('composition', product_detail(header + other + detail.replace('本体:綿90%、ポリエステル10%', '不明'), url, meta))
 
     def test_urban_research_uses_the_specification_and_exact_brand_and_code(self):
         url = 'https://www.urban-research.jp/shop/g/gAA26430-2021108/'
@@ -309,6 +313,12 @@ class CarePlatformTests(unittest.TestCase):
         self.assertEqual((care['home_wash'], care['dry_clean']), ('machine', 'unknown'))
         with self.assertRaises(ValueError):
             product_detail(html, url, {**meta, 'brand_name': 'Another brand'})
+        tagged = {**meta, 'slug': 'discoat'}
+        colored = url + '?b=discoat&cl=0110'
+        self.assertEqual(product_detail(html, colored, tagged)['care_label'], detail['care_label'])
+        for query in ('b=whimgazette&cl=0110', 'b=discoat&item=another', 'b=discoat&cl=0110&cl=9999'):
+            with self.assertRaises(ValueError):
+                product_detail(html, url + '?' + query, tagged)
         conflict = pal_care_text('本体:洗濯機洗い可能 ／ 手洗いのみ')
         self.assertEqual(conflict['home_wash'], 'unknown')
         self.assertEqual(pal_care_text('手洗い可/ドライクリーニング 不可')['dry_clean'], 'unknown')
@@ -337,7 +347,12 @@ class CarePlatformTests(unittest.TestCase):
         group['description'] = '・ドライクリーニング：不可'
         self.assertEqual(read()['dry_clean'], 'unknown')
         group.pop('material')
-        group['description'] = '洗濯方法：家庭洗濯機×（ドライクリーニングのみ可能）'
+        group['description'] = '■洗濯：手洗い可<br>●ドライクリーニングは避けてください。'
+        care = read()
+        self.assertEqual((care['home_wash'], care['dry_clean']), ('hand', 'prohibited'))
+        group['description'] = '■洗濯：手洗い可<br>●ドライクリーニングの際は、単独で洗って下さい。'
+        self.assertEqual(read()['dry_clean'], 'unknown')
+        group['description'] = '商品説明<br>洗濯方法：家庭洗濯機&times;（ドライクリーニングのみ可能）'
         care = read()
         self.assertEqual((care['home_wash'], care['dry_clean']), ('prohibited', 'allowed'))
         group['productGroupID'] = 'WRONG-PRODUCT'

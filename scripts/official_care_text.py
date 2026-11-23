@@ -360,6 +360,7 @@ PAL_DRY = re.compile(r'ドライクリーニング(?:[、,](?:ウエット|ウ�
 PAL_PETROLEUM = re.compile(r'ドライクリーニング:\s*石油系溶剤\s+弱い処理')
 PAL_HAND_LIMIT = re.compile(r'手洗い(?:可能|可):\s*(30|40)°C\s*限度')
 PAL_DRY_ONLY = re.compile(r'(?:家庭洗濯機[×✕]|家庭洗濯不可)\s*\(ドライクリーニングのみ可能\)')
+PAL_DRY_AVOID = 'ドライクリーニングは避けてください'
 
 
 def pal_care_text(original, text_format='pal_care'):
@@ -374,6 +375,9 @@ def pal_care_text(original, text_format='pal_care'):
             value = value.strip().lstrip('・■●').strip()
         value = re.sub(r'^(?:本体|製品):\s*', '', value)
         if text_format == 'pal_care_v2':
+            if value.rstrip('。') == PAL_DRY_AVOID:
+                parsed.add('ドライクリーニング不可')
+                continue
             dry = PAL_DRY.fullmatch(value)
             if dry:
                 parsed.add('ドライクリーニング不可' if dry[1] == '不可' else 'ドライクリーニング可')
@@ -443,12 +447,12 @@ def pal_detail(doc, code, meta):
                 values.append(rows['取り扱い'])
         description = group.get('description')
         if isinstance(description, str):
+            description = re.sub(r'<br\s*/?>', '\n', html.unescape(description), flags=re.I)
             values.extend(re.findall(r'^[ \t]*(?:[■●][ \t]*)?(?:洗濯(?:方法|表示|表記)?|'
                                      r'お手入れ方法|取り扱い)[：:]([^\r\n]+)', description, re.M))
-            instructions = html.unescape(re.sub(r'<br\s*/?>', '\n', description, flags=re.I)).splitlines()
-            for line in instructions:
+            for line in description.splitlines():
                 bullet = re.fullmatch(r'[・■●]\s*(.+)', unicodedata.normalize('NFKC', line).strip())
-                if bullet and (bullet[1] == '家庭洗濯不可' or any(
+                if bullet and (bullet[1].rstrip('。') in {'家庭洗濯不可', PAL_DRY_AVOID} or any(
                         pattern.fullmatch(bullet[1]) for pattern in (PAL_DRY, PAL_PETROLEUM, PAL_HAND_LIMIT))):
                     values.append(line.strip())
         material = group.get('material')
@@ -539,22 +543,26 @@ def stripe_detail(doc, url, slug):
     return None
 
 
-def baycrews_detail(doc, code, slug, path, title, meta):
-    match = re.fullmatch(r'/item/detail/'+re.escape(slug)+r'/[a-z0-9-]+/'+code, path)
+def baycrews_detail(doc, url, code, path, title, meta):
+    match = re.fullmatch(r'/item/detail/'+re.escape(meta['slug'])+r'/[a-z0-9-]+/'+code, path)
     parts = title.split('｜')
     if (not match or len(parts) < 3 or not parts[-1].startswith('BAYCREW')
             or not matches(re.split(r'[（(]', parts[-2], maxsplit=1)[0], meta)):
-        return None, None
+        return None
     detail = [node for node in doc.root.walk() if node.tag == 'dl' and node.has_class('dataDetail')
               and any(n.attrs.get('id') == 'itemid' and n.text().strip() == code for n in node.children
                       if getattr(n, 'tag', None) == 'dd')]
     if len(detail) != 1:
-        return None, None
+        return None
     cells = [n for n in detail[0].children if getattr(n, 'tag', None) in ('dt', 'dd')]
-    values = {' '.join(b.text().split()) for a, b in zip(cells, cells[1:])
-              if a.tag == 'dt' and b.tag == 'dd' and a.text().strip() == '取扱い'}
+    fields = {}
+    for label, value in zip(cells, cells[1:]):
+        if label.tag == 'dt' and value.tag == 'dd':
+            fields.setdefault(label.text().strip(), set()).add(' '.join(value.text().split()))
+    values = fields.get('取扱い', ())
     value = next(iter(values)) if len(values) == 1 else None
-    return parts[0], pal_care_text(value, 'official_store_care')
+    result = assemble_detail(parts[0], url, pal_care_text(value, 'official_store_care'), {})
+    return with_composition(result, fields.get('素材', ()))
 
 
 def urban_detail(doc, url, meta):
@@ -794,6 +802,18 @@ def detail_adapter(meta):
     return adapter
 
 
+def supported_detail_query(query, adapter, meta):
+    params = parse_qs(query, keep_blank_values=True)
+    if adapter == 'pal':
+        return (set(params) <= {'b', 'cl'} and params.get('b') == [meta.get('slug')] and
+                ('cl' not in params or len(params['cl']) == 1 and re.fullmatch(r'[0-9]{4}', params['cl'][0])))
+    if adapter == 'unitedarrows':
+        return all(len(values) == 1 and key in UNITED_ARROWS_VARIANT_QUERY
+                   and re.fullmatch(UNITED_ARROWS_VARIANT_QUERY[key], values[0])
+                   for key, values in params.items())
+    return False
+
+
 def read_care_detail(doc, url, meta, *, read_care_image_sha=None):
     """Only use known official product paths and page-level identity evidence."""
     adapter = detail_adapter(meta)
@@ -815,10 +835,7 @@ def read_care_detail(doc, url, meta, *, read_care_image_sha=None):
     brand = host_map.get(p.hostname)
     if p.scheme != 'https' or p.username or p.password or p.port or not brand or brand != meta.get('brand_name'):
         return None
-    if p.query and (adapter != 'unitedarrows' or any(
-            len(values) != 1 or key not in UNITED_ARROWS_VARIANT_QUERY
-            or not re.fullmatch(UNITED_ARROWS_VARIANT_QUERY[key], values[0])
-            for key, values in parse_qs(p.query, keep_blank_values=True).items())):
+    if p.query and not supported_detail_query(p.query, adapter, meta):
         return None
     canonical = {urlsplit(n.attrs.get('href', '')) for n in doc.root.walk()
                  if n.tag == 'link' and n.attrs.get('rel') == 'canonical'}
@@ -865,7 +882,7 @@ def read_care_detail(doc, url, meta, *, read_care_image_sha=None):
         code = path.rsplit('/', 1)[-1]
         if not re.fullmatch(r'[0-9]{14}', code):
             return None
-        name, care = baycrews_detail(doc, code, meta['slug'], path, title, meta)
+        return baycrews_detail(doc, url, code, path, title, meta)
     elif adapter == 'urbanresearch' and canonical.path.rstrip('/') == path:
         return urban_detail(doc, url, meta)
     elif adapter == 'onward' and canonical.path.rstrip('/') == path:
