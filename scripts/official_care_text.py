@@ -3,12 +3,16 @@ import json
 import html
 import re
 import unicodedata
+from functools import lru_cache
+from pathlib import Path
 from urllib.parse import parse_qs, urlencode, urlsplit
 from brand_direct_adapters import matches
 
-CARE_TEXT_ADAPTERS = frozenset(('fr', 'doclasse', 'canshop', 'pal', 'dot', 'stripe', 'baycrews', 'urbanresearch', 'onward'))
+CARE_TEXT_ADAPTERS = frozenset(('fr', 'doclasse', 'canshop', 'pal', 'dot', 'stripe', 'baycrews',
+                               'urbanresearch', 'onward', 'mix_care', 'ikka'))
 CARE_TEXT_SOURCE = 'OFFICIAL_PRODUCT_CARE_TEXT'
 ONWARD_HOST = 'crosset.onward.co.jp'
+MIX_CARE_CONFIG = 'config/brand64-mix-care-codes.json'
 TOKENS = {
     'home_wash': {
         'hand': {'手洗い', '手洗い可', '手洗い可能', '手洗いOK', '手洗いのみ'},
@@ -146,7 +150,16 @@ def dot_detail(body, product_url, request_url, meta):
     tags = item.get('tagFunctionList')
     claims = named_features(tag['tagName'] for tag in tags
                             if isinstance(tag, dict) and isinstance(tag.get('tagName'), str)) if isinstance(tags, list) else {}
-    return assemble_detail(item['itemNm'], product_url, care, claims)
+    detail = assemble_detail(item['itemNm'], product_url, care, claims)
+    material = item.get('ingredient')
+    if isinstance(material, str):
+        material = ' '.join(html.unescape(re.sub(r'<br\s*/?>', ' ', material, flags=re.I)).split())
+        if re.search(r'\d\s*[%％]', material) and '<' not in material:
+            if detail is None:
+                detail = {'product_name':item['itemNm'].strip(), 'product_url':product_url,
+                          'source_url':product_url, 'evidence_level':CARE_TEXT_SOURCE}
+            detail = with_composition(detail, {material})
+    return detail
 
 
 def doclasse_features(doc):
@@ -436,6 +449,77 @@ def onward_detail(doc, url, meta, title):
     return detail
 
 
+@lru_cache(maxsize=1)
+def mix_symbol_map():
+    return json.loads((Path(__file__).resolve().parents[1]/MIX_CARE_CONFIG).read_bytes())
+
+
+def mix_label(code):
+    if not isinstance(code, str):
+        return None
+    mapping = mix_symbol_map()
+    symbols = mapping['codes'].get(code)
+    if not symbols:
+        return None
+    parsed = jis_care_text('洗濯記号 '+','.join(symbols), 'mix_symbols')
+    return {**parsed, 'wash_code':code, 'symbol_map_sha256':mapping['sha256']} if parsed else None
+
+
+def with_composition(detail, materials):
+    if detail and len(materials) == 1:
+        material = next(iter(materials))
+        if re.search(r'\d\s*[%％]', material):
+            detail.update(composition=material, composition_evidence='OFFICIAL_MATCHING_PRODUCT_TABLE')
+    return detail
+
+
+def mix_detail(doc, url, meta, path):
+    if not re.fullmatch(r'/products/017[0-9]{7}', path):
+        return None
+    groups = [row for row in product_jsonld(doc,'ProductGroup') if row.get('@id') == path+'#product'
+              and row.get('category') in ('knit_sweater','cardigan') and isinstance(row.get('brand'),dict)
+              and isinstance(row['brand'].get('name'),str) and matches(row['brand']['name'],meta)]
+    if len(groups) != 1:
+        return None
+    fields = {}
+    for node in doc.root.walk():
+        if not node.has_class('c_detail__item'):
+            continue
+        title, value = (next((child for child in node.children if getattr(child,'tag',None)
+                              and child.has_class(cls)), None) for cls in ('c_detail__title','c_detail__content'))
+        if title and value:
+            fields.setdefault(title.text().strip(), []).append(value)
+    codes, washes = fields.get('商品番号', []), fields.get('洗濯表示', [])
+    if len(codes) != 1 or codes[0].text().split()[:1] != [path.rsplit('/',1)[-1]] or len(washes) != 1:
+        return None
+    wash = washes[0]
+    nodes = [node for node in wash.walk() if node.attrs.get('id') == 'wash_images']
+    if len(nodes) != 1:
+        return None
+    references = {match for node in wash.walk() if node.tag=='script'
+                  for match in re.findall(r"fetch\(\s*['\"]([^'\"]+)['\"]", ''.join(
+                      child for child in node.children if isinstance(child,str)))}
+    if references != {mix_symbol_map()['url']}:
+        return None
+    care = mix_label(nodes[0].text().strip())
+    name = groups[0].get('name')
+    detail = assemble_detail(name,url,care,title_features(name)) if isinstance(name,str) else None
+    return with_composition(detail, {' '.join(node.text().split()) for node in fields.get('素材',[])})
+
+
+def ikka_detail(doc, url, brand, path, canonical, title):
+    code = re.fullmatch(r'/c/ikka/(?:ikkaladies/ikkalknit/)?([0-9]{8})', path)
+    if (not code or canonical.path.rstrip('/') != '/c/ikka/'+code[1]
+            or ',ikka| TOKYO DESIGN CHANNEL' not in title or brand != 'ikka'
+            or texts_from_pair(doc,'商品コード','dt','dd','dl') != {code[1]}):
+        return None
+    labels = texts_from_pair(doc,'クリーニング方法','dt','dd','dl')
+    care = pal_care_text(next(iter(labels)), 'official_store_care') if len(labels)==1 else None
+    name = title.split(',ikka|',1)[0]
+    detail = assemble_detail(name,url,care,title_features(name)) if care else None
+    return with_composition(detail, texts_from_pair(doc,'素材','dt','dd','dl'))
+
+
 def detail_adapter(meta):
     adapter = meta.get('adapter')
     if adapter in {'onward-listing', 'onward'} or (not adapter and any(
@@ -443,6 +527,8 @@ def detail_adapter(meta):
         return 'onward'
     if not adapter and meta.get('brand_name') == 'SENSE OF PLACE':
         return 'urbanresearch'
+    if adapter == 'shopify' and meta.get('brand_name') == 'NATURAL BEAUTY BASIC':
+        return 'mix_care'
     return adapter
 
 
@@ -455,6 +541,8 @@ def read_care_detail(doc, url, meta):
              'stripe': {'stripe-club.com': meta.get('brand_name')},
              'baycrews': {'baycrews.jp': meta.get('brand_name')},
              'urbanresearch': {'www.urban-research.jp': meta.get('brand_name')},
+             'mix_care': {'mix.tokyo': 'NATURAL BEAUTY BASIC'},
+             'ikka': {'tokyodesignchannel.com': 'ikka'},
              'onward': {ONWARD_HOST: meta.get('brand_name')}}
     host_map = hosts.get(adapter)
     if not host_map:
@@ -509,6 +597,10 @@ def read_care_detail(doc, url, meta):
         return urban_detail(doc, url, meta)
     elif adapter == 'onward' and canonical.path.rstrip('/') == path:
         return onward_detail(doc, url, meta, title)
+    elif adapter == 'mix_care' and canonical.path.rstrip('/') == path:
+        return mix_detail(doc, url, meta, path)
+    elif adapter == 'ikka':
+        return ikka_detail(doc, url, brand, path, canonical, title)
     else:
         return None
     return assemble_detail(name, url, care or care_from_text(text), claims)
