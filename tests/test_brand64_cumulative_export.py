@@ -3,14 +3,39 @@ import pathlib
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]/'scripts'))
 import publish_brand64_flash_feed as publisher
+import brand64_canonical_chunks
+from brand64_canonical_store import read_pool
 from jun_care_labels import care_from_strip
 from official_care_text import CARE_TEXT_SOURCE, care_from_text
 
 
 class CumulativeObservedProductExportTests(unittest.TestCase):
+    def test_cumulative_export_registers_fragments_without_changing_legacy_records(self):
+        brand = 'BR-00018'
+        row = {'brand_id': brand, 'brand_name': 'DoCLASSE', 'product_name': '糸ニット',
+               'product_url': 'https://www.doclasse.com/item/1',
+               'scope_status': 'BRAND_AND_KNIT_PATH_MATCHED'}
+        with tempfile.TemporaryDirectory() as directory:
+            root = pathlib.Path(directory)
+            (root/'known-products.json').write_text(json.dumps({brand+'|'+row['product_url']: row}))
+            (root/'latest.json').write_text(json.dumps({'observed_date': '2026-11-23'}))
+            (root/'feed.json').write_text(json.dumps({'summary': {'observed_date': '2026-11-23'}}))
+            with patch.object(brand64_canonical_chunks, 'READER_LIMIT_BYTES', 100), \
+                 patch.object(brand64_canonical_chunks, 'CHUNK_BYTES', 80):
+                generated = publisher.build_cumulative_product_shards(root)
+            manifest = json.loads((root/'cumulative-products/manifest.json').read_text())
+            entry = manifest['brands'][0]
+            self.assertTrue(entry['chunks'])
+            for chunk in entry['chunks']:
+                self.assertIn(chunk['path'], generated)
+            self.assertEqual(b''.join((root/part['path']).read_bytes() for part in entry['chunks']),
+                             (root/entry['path']).read_bytes())
+            self.assertEqual(read_pool(root)[brand+'|'+row['product_url']]['product_name'], row['product_name'])
+
     def test_world_browser_reviews_attach_to_the_exact_item_and_keep_the_capture_date(self):
         brand = 'BR-00015'
         root_url = 'https://store.world.co.jp/brand/grove/item/'

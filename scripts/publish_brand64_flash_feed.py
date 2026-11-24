@@ -18,6 +18,7 @@ from brand64_identity_guard import persist_reconciled
 from jun_care_labels import care_observation
 from official_care_text import CARE_TEXT_SOURCE, add_world_listing_features, jis_care_text
 from brand64_history_store import history_files, write_history, read_history, DIRECTORY as HISTORY_DIRECTORY
+from brand64_canonical_chunks import add_canonical_chunks
 
 BRANCH = 'brand64/flash-feed'
 PREFIX = 'data/brand-md-monitoring/direct-scans/'
@@ -278,7 +279,9 @@ def build_cumulative_product_shards(root, active=None):
             records.append(compact_record(brand_id, brand_name, item))
         relative = write_brand_shard(output, CUMULATIVE_DIR, brand_id, brand_name, records, observation_date, cumulative=True)
         generated.append(relative)
-        manifest_brands.append({'brand_id': brand_id, 'brand_name': brand_name, 'product_count': len(records), 'path': relative, 'sha256': hashlib.sha256((root/relative).read_bytes()).hexdigest()})
+        brand = {'brand_id': brand_id, 'brand_name': brand_name, 'product_count': len(records), 'path': relative, 'sha256': hashlib.sha256((root/relative).read_bytes()).hexdigest()}
+        generated.extend(add_canonical_chunks(root, brand))
+        manifest_brands.append(brand)
         cumulative_count += len(records)
     manifest = {
         'format': 'KC_BRAND64_CUMULATIVE_PRODUCTS_INDEX', 'schema_version': '1.3',
@@ -374,6 +377,8 @@ def publish(root):
         git('read-tree', parent if parent else '--empty', env=env)
         if parent:
             old_parts = git('ls-tree', '-r', '--name-only', parent, '--', PREFIX+HISTORY_DIRECTORY+'/').stdout.splitlines()
+            old_parts += [path for path in git('ls-tree', '-r', '--name-only', parent, '--', PREFIX+CUMULATIVE_DIR+'/').stdout.splitlines()
+                          if re.fullmatch(re.escape(PREFIX+CUMULATIVE_DIR)+r'/BR-\d{5}\.json\.part-\d{4}', path)]
             for path in old_parts:
                 git('update-index', '--force-remove', path, env=env)
         for name in names:
