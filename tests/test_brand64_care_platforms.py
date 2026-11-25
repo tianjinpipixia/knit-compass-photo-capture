@@ -21,21 +21,33 @@ class CarePlatformTests(unittest.TestCase):
                   '<meta property="og:title" content="組曲ニット / 組曲 | ファッション通販">'
                   f'<script type="application/ld+json">{json.dumps(product)}</script>')
 
-        def variant(*codes):
+        def variant(*codes, composition=''):
             icons = ''.join('<img class="c-item-detail-expand-colors-detail__wash-icon" '
                             f'src="https://crosset.onward.co.jp/images/washIcons/{code}.svg">' for code in codes)
-            return '<div class="c-item-detail-expand-colors-detail__body">'+icons+'</div>'
+            materials = ('<div class="c-item-detail-expand-colors-detail__info">'
+                         '<span class="c-item-detail-expand-colors-detail__info-material">素材</span>'
+                         '<div class="c-item-detail-expand-colors-detail__info-detail">'
+                         +composition+'</div></div>') if composition else ''
+            return '<div class="c-item-detail-expand-colors-detail__body">'+icons+materials+'</div>'
 
         def doc(*variants):
             return header+'<div class="c-item-description-tab__item-detail-info">'+''.join(variants)+'</div>'
 
         meta = {'adapter': 'onward-listing', 'brand_name': '組曲', 'brand_code': '003'}
         wash = variant('111','611')
-        detail = product_detail(doc(wash, variant('111','210','611')), url, meta)
+        detail = product_detail(doc(wash, variant('111','210','611','111','611')), url, meta)
         detail.update(source_sha256='a'*64, retrieved_at_utc='2026-11-21T23:00:00Z')
         care = care_observation(detail)
         self.assertEqual((care['home_wash'], care['max_water_c'], care['dry_clean'], care['dry_solvent']),
                          ('hand',30,'allowed','F'))
+        common = variant('111', '611', composition='綿:100%')
+        other = variant('111', '611', composition='毛:100%')
+        unrelated = '<table><tr><th>素材</th><td>ナイロン:100%</td></tr></table>'
+        matching = product_detail(doc(common, common)+unrelated, url, meta)
+        self.assertEqual(matching['composition'], '綿:100%')
+        self.assertEqual(matching['composition_evidence'], 'OFFICIAL_MATCHING_PRODUCT_TABLE')
+        self.assertNotIn('composition', product_detail(doc(common, other)+unrelated, url, meta))
+        self.assertNotIn('composition', product_detail(doc(common, wash)+unrelated, url, meta))
         for wrong in (doc(wash, variant('111','600')), doc(wash, variant()),
                       doc(wash).replace(url, url[:-1]+'7'), doc(wash).replace('003', '702')):
             with self.assertRaises(ValueError):
